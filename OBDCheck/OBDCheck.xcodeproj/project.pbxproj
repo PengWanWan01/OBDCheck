@@ -20,6 +20,14 @@
 		CBF1E2561F302A0500EEC755 /* SpecialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2541F302A0500EEC755 /* SpecialViewController.m */; };
 		CBF1E2571F302A0500EEC755 /* SpecialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBF1E2551F302A0500EEC755 /* SpecialViewController.xib */; };
 		CBF1E25B1F305CF800EEC755 /* setDistanceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E25A1F305CF800EEC755 /* setDistanceUtil.m */; };
+		CBF1E2641F30680F00EEC755 /* DashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2631F30680F00EEC755 /* DashboardController.m */; };
+		CBF1E2701F30688200EEC755 /* PerformController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E26F1F30688200EEC755 /* PerformController.m */; };
+		CBF1E2731F30689B00EEC755 /* DiagController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2721F30689B00EEC755 /* DiagController.m */; };
+		CBF1E2761F3068C500EEC755 /* MonController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2751F3068C500EEC755 /* MonController.m */; };
+		CBF1E2791F3068E000EEC755 /* LogsController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2781F3068E000EEC755 /* LogsController.m */; };
+		CBF1E27C1F3068ED00EEC755 /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E27B1F3068ED00EEC755 /* SetViewController.m */; };
+		CBF1E2861F306C6200EEC755 /* UIViewController+NavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2851F306C6200EEC755 /* UIViewController+NavBar.m */; };
+		CBF1E2891F30796400EEC755 /* ColorTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2881F30796400EEC755 /* ColorTools.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +55,22 @@
 		CBF1E2551F302A0500EEC755 /* SpecialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpecialViewController.xib; sourceTree = "<group>"; };
 		CBF1E2591F305CF800EEC755 /* setDistanceUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setDistanceUtil.h; sourceTree = "<group>"; };
 		CBF1E25A1F305CF800EEC755 /* setDistanceUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setDistanceUtil.m; sourceTree = "<group>"; };
+		CBF1E2621F30680F00EEC755 /* DashboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardController.h; sourceTree = "<group>"; };
+		CBF1E2631F30680F00EEC755 /* DashboardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardController.m; sourceTree = "<group>"; };
+		CBF1E26E1F30688200EEC755 /* PerformController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerformController.h; sourceTree = "<group>"; };
+		CBF1E26F1F30688200EEC755 /* PerformController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerformController.m; sourceTree = "<group>"; };
+		CBF1E2711F30689B00EEC755 /* DiagController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagController.h; sourceTree = "<group>"; };
+		CBF1E2721F30689B00EEC755 /* DiagController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagController.m; sourceTree = "<group>"; };
+		CBF1E2741F3068C500EEC755 /* MonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonController.h; sourceTree = "<group>"; };
+		CBF1E2751F3068C500EEC755 /* MonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonController.m; sourceTree = "<group>"; };
+		CBF1E2771F3068E000EEC755 /* LogsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogsController.h; sourceTree = "<group>"; };
+		CBF1E2781F3068E000EEC755 /* LogsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogsController.m; sourceTree = "<group>"; };
+		CBF1E27A1F3068ED00EEC755 /* SetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetViewController.h; sourceTree = "<group>"; };
+		CBF1E27B1F3068ED00EEC755 /* SetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetViewController.m; sourceTree = "<group>"; };
+		CBF1E2841F306C6200EEC755 /* UIViewController+NavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavBar.h"; sourceTree = "<group>"; };
+		CBF1E2851F306C6200EEC755 /* UIViewController+NavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavBar.m"; sourceTree = "<group>"; };
+		CBF1E2871F30796400EEC755 /* ColorTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorTools.h; sourceTree = "<group>"; };
+		CBF1E2881F30796400EEC755 /* ColorTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorTools.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,12 +123,13 @@
 		CBF1E2251F2ED49200EEC755 /* OBDCheck */ = {
 			isa = PBXGroup;
 			children = (
-				CBF1E23F1F30177500EEC755 /* Personal */,
-				CBF1E23E1F30176900EEC755 /* Special */,
+				CBF1E2831F306C4900EEC755 /* Category */,
+				CBF1E2581F305CD800EEC755 /* Utils */,
 				CBF1E23D1F30175B00EEC755 /* OBD */,
+				CBF1E23E1F30176900EEC755 /* Special */,
+				CBF1E23F1F30177500EEC755 /* Personal */,
 				CBF1E2401F3017B700EEC755 /* Main */,
 				CBF1E2261F2ED49200EEC755 /* Supporting Files */,
-				CBF1E2581F305CD800EEC755 /* Utils */,
 			);
 			path = OBDCheck;
 			sourceTree = "<group>";
@@ -123,6 +148,12 @@
 				CBF1E22C1F2ED49200EEC755 /* ViewController.h */,
 				CBF1E22D1F2ED49200EEC755 /* ViewController.m */,
 				CBF1E22F1F2ED49200EEC755 /* Main.storyboard */,
+				CBF1E25C1F30674500EEC755 /* Dashboards */,
+				CBF1E25D1F30675800EEC755 /* Diagnostics */,
+				CBF1E25E1F30675F00EEC755 /* Montiors */,
+				CBF1E25F1F30676600EEC755 /* Logs */,
+				CBF1E2601F30676B00EEC755 /* Performance */,
+				CBF1E2611F30678F00EEC755 /* Settings */,
 			);
 			name = OBD;
 			sourceTree = "<group>";
@@ -167,8 +198,73 @@
 			children = (
 				CBF1E2591F305CF800EEC755 /* setDistanceUtil.h */,
 				CBF1E25A1F305CF800EEC755 /* setDistanceUtil.m */,
+				CBF1E2871F30796400EEC755 /* ColorTools.h */,
+				CBF1E2881F30796400EEC755 /* ColorTools.m */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		CBF1E25C1F30674500EEC755 /* Dashboards */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E2621F30680F00EEC755 /* DashboardController.h */,
+				CBF1E2631F30680F00EEC755 /* DashboardController.m */,
+			);
+			name = Dashboards;
+			sourceTree = "<group>";
+		};
+		CBF1E25D1F30675800EEC755 /* Diagnostics */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E2711F30689B00EEC755 /* DiagController.h */,
+				CBF1E2721F30689B00EEC755 /* DiagController.m */,
+			);
+			name = Diagnostics;
+			sourceTree = "<group>";
+		};
+		CBF1E25E1F30675F00EEC755 /* Montiors */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E2741F3068C500EEC755 /* MonController.h */,
+				CBF1E2751F3068C500EEC755 /* MonController.m */,
+			);
+			name = Montiors;
+			sourceTree = "<group>";
+		};
+		CBF1E25F1F30676600EEC755 /* Logs */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E2771F3068E000EEC755 /* LogsController.h */,
+				CBF1E2781F3068E000EEC755 /* LogsController.m */,
+			);
+			name = Logs;
+			sourceTree = "<group>";
+		};
+		CBF1E2601F30676B00EEC755 /* Performance */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E26E1F30688200EEC755 /* PerformController.h */,
+				CBF1E26F1F30688200EEC755 /* PerformController.m */,
+			);
+			name = Performance;
+			sourceTree = "<group>";
+		};
+		CBF1E2611F30678F00EEC755 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E27A1F3068ED00EEC755 /* SetViewController.h */,
+				CBF1E27B1F3068ED00EEC755 /* SetViewController.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		CBF1E2831F306C4900EEC755 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E2841F306C6200EEC755 /* UIViewController+NavBar.h */,
+				CBF1E2851F306C6200EEC755 /* UIViewController+NavBar.m */,
+			);
+			name = Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,12 +393,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBF1E2561F302A0500EEC755 /* SpecialViewController.m in Sources */,
+				CBF1E2701F30688200EEC755 /* PerformController.m in Sources */,
 				CBF1E25B1F305CF800EEC755 /* setDistanceUtil.m in Sources */,
+				CBF1E2861F306C6200EEC755 /* UIViewController+NavBar.m in Sources */,
 				CBF1E22E1F2ED49200EEC755 /* ViewController.m in Sources */,
+				CBF1E2761F3068C500EEC755 /* MonController.m in Sources */,
 				CBF1E24C1F30262E00EEC755 /* MyTabBarController.m in Sources */,
+				CBF1E2891F30796400EEC755 /* ColorTools.m in Sources */,
+				CBF1E2641F30680F00EEC755 /* DashboardController.m in Sources */,
 				CBF1E22B1F2ED49200EEC755 /* AppDelegate.m in Sources */,
+				CBF1E2791F3068E000EEC755 /* LogsController.m in Sources */,
+				CBF1E2731F30689B00EEC755 /* DiagController.m in Sources */,
 				CBF1E2511F30293100EEC755 /* PersonalViewController.m in Sources */,
 				CBF1E2281F2ED49200EEC755 /* main.m in Sources */,
+				CBF1E27C1F3068ED00EEC755 /* SetViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

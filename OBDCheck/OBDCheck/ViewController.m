@@ -15,19 +15,24 @@
     UIImageView  *statusImageView;
 
 }
+
+@property (nonatomic,strong) NSMutableArray *btnTitleArray;
+@property (nonatomic,strong) NSMutableArray *btnImageArray;
+
 @end
 
 @implementation ViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
+    self.tabBarController.tabBar.hidden = NO;
     self.navigationItem.title = @"Connect";
-    self.view.backgroundColor = [UIColor grayColor];
-    
+     self.view.backgroundColor = [ColorTools colorWithHexString:@"#EDEDED"];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initWithData];
     [self initWithUI];
+
 }
 
 - (void)initWithUI{
@@ -48,11 +53,71 @@
     backView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:backView];
     
+    for (int i = 0; i<_btnTitleArray.count; i++) {
+     
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], Button_Width, Button_Height)];
+        btn.backgroundColor = [UIColor redColor];
+        btn.titleLabel.font = [UIFont systemFontOfSize:15.f];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [btn setTitle:_btnTitleArray[i] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:_btnImageArray[i]] forState:UIControlStateNormal];
+
+        CGFloat totalHeight = (btn.imageView.frame.size.height + btn.titleLabel.frame.size.height);
+        // 设置按钮图片偏移
+        [btn setImageEdgeInsets:UIEdgeInsetsMake(-(totalHeight - btn.imageView.frame.size.height), 0.0, 0.0, -btn.titleLabel.frame.size.width)];
+        // 设置按钮标题偏移
+        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0.0, -btn.imageView.frame.size.width, -(totalHeight - btn.titleLabel.frame.size.height),0.0)];
+        [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
+        btn.tag = i;
+        [backView addSubview:btn];
+        NSLog(@"%f",btn.frame.size.width);
+    }
 
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)initWithData{
+    self.btnTitleArray = [[NSMutableArray alloc]initWithObjects:@"Dashboards",@"Diagnostics",@"Montiors",@"Logs",@"Performance",@"Settings", nil];
+    self.btnImageArray = [[NSMutableArray alloc]initWithObjects:@"Dashboards",@"Diagnostics",@"Montiors",@"Logs",@"Performance",@"Settings", nil];
+    NSLog(@"%f",4*MSWidth/15 );
+    
+}
+
+- (void)btn:(UIButton *)btn{
+ self.tabBarController.tabBar.hidden = YES;
+    switch (btn.tag) {
+        case 0:{
+            DashboardController *vc = [[DashboardController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+        }
+            break;
+        case 1:{
+            DiagController *vc = [[DiagController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+        }
+            break;
+        case 2:{
+            MonController *vc = [[MonController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+        }
+            break;
+        case 3:{
+            LogsController *vc = [[LogsController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+        }
+            break;
+        case 4:{
+            PerformController *vc = [[PerformController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+        }
+            break;
+        case 5:{
+            SetViewController *vc = [[SetViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+        }
+            break;
+        default:
+            break;
+    }
+
 }
 
 

@@ -12,7 +12,17 @@
 
 #define  MSWidth [UIScreen mainScreen].bounds.size.width
 #define  MSHeight [UIScreen mainScreen].bounds.size.height
-
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
+#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
+#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
+#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
 #
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
@@ -20,5 +30,14 @@
 #import "PersonalViewController.h"
 #import "SpecialViewController.h"
 #import "MyTabBarController.h"
+#import "setDistanceUtil.h"
+#import "DashboardController.h"
+#import "DiagController.h"
+#import "MonController.h"
+#import "LogsController.h"
+#import "PerformController.h"
+#import "SetViewController.h"
+#import "UIViewController+NavBar.h"
+#import "ColorTools.h"
 
 #endif /* OBDCheckPrefixHeader_pch */
