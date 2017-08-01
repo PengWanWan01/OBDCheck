@@ -13,20 +13,21 @@
     UIView *statusView;
     UILabel  *statusLabel;
     UIImageView  *statusImageView;
-
+    BOOL isSelect;
 }
 
 @property (nonatomic,strong) NSMutableArray *btnTitleArray;
 @property (nonatomic,strong) NSMutableArray *btnImageArray;
-
+@property (nonatomic,strong) bluetoothView *blueView;
 @end
 
 @implementation ViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
-    self.navigationItem.title = @"Connect";
+   
      self.view.backgroundColor = [ColorTools colorWithHexString:@"#EDEDED"];
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,6 +37,13 @@
 }
 
 - (void)initWithUI{
+    UIButton * titleBtn= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    [titleBtn setTitle:@"Connect" forState:UIControlStateNormal];
+    [titleBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [titleBtn addTarget:self action:@selector(titleBtn) forControlEvents:UIControlEventTouchUpInside];
+    isSelect = YES;
+    self.navigationItem.titleView = titleBtn;
+    
     statusView = [[UIView alloc]initWithFrame:CGRectMake(23, 75, MSWidth - 46, 40)];
     statusView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:statusView];
@@ -80,7 +88,7 @@
     NSLog(@"%f",4*MSWidth/15 );
     
 }
-
+#pragma mark 六个按钮的点击
 - (void)btn:(UIButton *)btn{
  self.tabBarController.tabBar.hidden = YES;
     switch (btn.tag) {
@@ -119,6 +127,19 @@
     }
 
 }
+#pragma mark 导航栏的点击
 
+- (void)titleBtn{
+    if (isSelect) {
+        NSLog(@"12");
+         self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
+     [ self.blueView show];
+        isSelect = NO;
+    }else{
+        NSLog(@"13");
+        [ self.blueView hide];
+        isSelect = YES;
+    }
+}
 
 @end

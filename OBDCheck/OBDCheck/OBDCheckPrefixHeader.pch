@@ -39,5 +39,6 @@
 #import "SetViewController.h"
 #import "UIViewController+NavBar.h"
 #import "ColorTools.h"
+#import "bluetoothView.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

@@ -28,6 +28,7 @@
 		CBF1E27C1F3068ED00EEC755 /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E27B1F3068ED00EEC755 /* SetViewController.m */; };
 		CBF1E2861F306C6200EEC755 /* UIViewController+NavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2851F306C6200EEC755 /* UIViewController+NavBar.m */; };
 		CBF1E2891F30796400EEC755 /* ColorTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2881F30796400EEC755 /* ColorTools.m */; };
+		CBF1E28D1F30A06500EEC755 /* bluetoothView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E28C1F30A06500EEC755 /* bluetoothView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,8 @@
 		CBF1E2851F306C6200EEC755 /* UIViewController+NavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavBar.m"; sourceTree = "<group>"; };
 		CBF1E2871F30796400EEC755 /* ColorTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorTools.h; sourceTree = "<group>"; };
 		CBF1E2881F30796400EEC755 /* ColorTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorTools.m; sourceTree = "<group>"; };
+		CBF1E28B1F30A06500EEC755 /* bluetoothView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bluetoothView.h; sourceTree = "<group>"; };
+		CBF1E28C1F30A06500EEC755 /* bluetoothView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bluetoothView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +128,7 @@
 			children = (
 				CBF1E2831F306C4900EEC755 /* Category */,
 				CBF1E2581F305CD800EEC755 /* Utils */,
+				CBF1E28E1F30A14200EEC755 /* Bluetooth */,
 				CBF1E23D1F30175B00EEC755 /* OBD */,
 				CBF1E23E1F30176900EEC755 /* Special */,
 				CBF1E23F1F30177500EEC755 /* Personal */,
@@ -145,6 +149,7 @@
 		CBF1E23D1F30175B00EEC755 /* OBD */ = {
 			isa = PBXGroup;
 			children = (
+				CBF1E28A1F30A02100EEC755 /* View */,
 				CBF1E22C1F2ED49200EEC755 /* ViewController.h */,
 				CBF1E22D1F2ED49200EEC755 /* ViewController.m */,
 				CBF1E22F1F2ED49200EEC755 /* Main.storyboard */,
@@ -265,6 +270,22 @@
 				CBF1E2851F306C6200EEC755 /* UIViewController+NavBar.m */,
 			);
 			name = Category;
+			sourceTree = "<group>";
+		};
+		CBF1E28A1F30A02100EEC755 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E28B1F30A06500EEC755 /* bluetoothView.h */,
+				CBF1E28C1F30A06500EEC755 /* bluetoothView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		CBF1E28E1F30A14200EEC755 /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Bluetooth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -403,6 +424,7 @@
 				CBF1E2641F30680F00EEC755 /* DashboardController.m in Sources */,
 				CBF1E22B1F2ED49200EEC755 /* AppDelegate.m in Sources */,
 				CBF1E2791F3068E000EEC755 /* LogsController.m in Sources */,
+				CBF1E28D1F30A06500EEC755 /* bluetoothView.m in Sources */,
 				CBF1E2731F30689B00EEC755 /* DiagController.m in Sources */,
 				CBF1E2511F30293100EEC755 /* PersonalViewController.m in Sources */,
 				CBF1E2281F2ED49200EEC755 /* main.m in Sources */,

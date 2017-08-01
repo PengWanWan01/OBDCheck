@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface UIViewController (NavBar)
+
+
 
 - (void)initNavBarTitle:(NSString *)titleName andLeftItemImageName:(NSString *)leftItemImageName andRightItemImageName:(NSString *)rightItemImageName;
 
@@ -18,6 +21,7 @@
 - (void)rightBarButtonClick;
 
 - (void)back;
+
 
 - (UIViewController *)getCurrentVC;
 
