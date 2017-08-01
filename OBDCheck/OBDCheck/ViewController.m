@@ -13,13 +13,22 @@
 @end
 
 @implementation ViewController
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
 
+    self.navigationItem.title = @"Connect";
+
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [self initWithUI];
 }
 
+- (void)initWithUI{
 
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -14,6 +14,11 @@
 		CBF1E2311F2ED49200EEC755 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBF1E22F1F2ED49200EEC755 /* Main.storyboard */; };
 		CBF1E2331F2ED49200EEC755 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBF1E2321F2ED49200EEC755 /* Assets.xcassets */; };
 		CBF1E2361F2ED49200EEC755 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBF1E2341F2ED49200EEC755 /* LaunchScreen.storyboard */; };
+		CBF1E24C1F30262E00EEC755 /* MyTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E24B1F30262E00EEC755 /* MyTabBarController.m */; };
+		CBF1E2511F30293100EEC755 /* PersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E24F1F30293100EEC755 /* PersonalViewController.m */; };
+		CBF1E2521F30293100EEC755 /* PersonalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBF1E2501F30293100EEC755 /* PersonalViewController.xib */; };
+		CBF1E2561F302A0500EEC755 /* SpecialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2541F302A0500EEC755 /* SpecialViewController.m */; };
+		CBF1E2571F302A0500EEC755 /* SpecialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBF1E2551F302A0500EEC755 /* SpecialViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +35,15 @@
 		CBF1E2321F2ED49200EEC755 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBF1E2351F2ED49200EEC755 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CBF1E2371F2ED49200EEC755 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBF1E24A1F30262E00EEC755 /* MyTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTabBarController.h; sourceTree = "<group>"; };
+		CBF1E24B1F30262E00EEC755 /* MyTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTabBarController.m; sourceTree = "<group>"; };
+		CBF1E24D1F3027C100EEC755 /* OBDCheckPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OBDCheckPrefixHeader.pch; sourceTree = "<group>"; };
+		CBF1E24E1F30293100EEC755 /* PersonalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalViewController.h; sourceTree = "<group>"; };
+		CBF1E24F1F30293100EEC755 /* PersonalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalViewController.m; sourceTree = "<group>"; };
+		CBF1E2501F30293100EEC755 /* PersonalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalViewController.xib; sourceTree = "<group>"; };
+		CBF1E2531F302A0500EEC755 /* SpecialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialViewController.h; sourceTree = "<group>"; };
+		CBF1E2541F302A0500EEC755 /* SpecialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialViewController.m; sourceTree = "<group>"; };
+		CBF1E2551F302A0500EEC755 /* SpecialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpecialViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,14 +96,10 @@
 		CBF1E2251F2ED49200EEC755 /* OBDCheck */ = {
 			isa = PBXGroup;
 			children = (
-				CBF1E2291F2ED49200EEC755 /* AppDelegate.h */,
-				CBF1E22A1F2ED49200EEC755 /* AppDelegate.m */,
-				CBF1E22C1F2ED49200EEC755 /* ViewController.h */,
-				CBF1E22D1F2ED49200EEC755 /* ViewController.m */,
-				CBF1E22F1F2ED49200EEC755 /* Main.storyboard */,
-				CBF1E2321F2ED49200EEC755 /* Assets.xcassets */,
-				CBF1E2341F2ED49200EEC755 /* LaunchScreen.storyboard */,
-				CBF1E2371F2ED49200EEC755 /* Info.plist */,
+				CBF1E23F1F30177500EEC755 /* Personal */,
+				CBF1E23E1F30176900EEC755 /* Special */,
+				CBF1E23D1F30175B00EEC755 /* OBD */,
+				CBF1E2401F3017B700EEC755 /* Main */,
 				CBF1E2261F2ED49200EEC755 /* Supporting Files */,
 			);
 			path = OBDCheck;
@@ -101,6 +111,51 @@
 				CBF1E2271F2ED49200EEC755 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CBF1E23D1F30175B00EEC755 /* OBD */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E22C1F2ED49200EEC755 /* ViewController.h */,
+				CBF1E22D1F2ED49200EEC755 /* ViewController.m */,
+				CBF1E22F1F2ED49200EEC755 /* Main.storyboard */,
+			);
+			name = OBD;
+			sourceTree = "<group>";
+		};
+		CBF1E23E1F30176900EEC755 /* Special */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E2531F302A0500EEC755 /* SpecialViewController.h */,
+				CBF1E2541F302A0500EEC755 /* SpecialViewController.m */,
+				CBF1E2551F302A0500EEC755 /* SpecialViewController.xib */,
+			);
+			name = Special;
+			sourceTree = "<group>";
+		};
+		CBF1E23F1F30177500EEC755 /* Personal */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E24E1F30293100EEC755 /* PersonalViewController.h */,
+				CBF1E24F1F30293100EEC755 /* PersonalViewController.m */,
+				CBF1E2501F30293100EEC755 /* PersonalViewController.xib */,
+			);
+			name = Personal;
+			sourceTree = "<group>";
+		};
+		CBF1E2401F3017B700EEC755 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E24A1F30262E00EEC755 /* MyTabBarController.h */,
+				CBF1E24B1F30262E00EEC755 /* MyTabBarController.m */,
+				CBF1E24D1F3027C100EEC755 /* OBDCheckPrefixHeader.pch */,
+				CBF1E2291F2ED49200EEC755 /* AppDelegate.h */,
+				CBF1E22A1F2ED49200EEC755 /* AppDelegate.m */,
+				CBF1E2321F2ED49200EEC755 /* Assets.xcassets */,
+				CBF1E2341F2ED49200EEC755 /* LaunchScreen.storyboard */,
+				CBF1E2371F2ED49200EEC755 /* Info.plist */,
+			);
+			name = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,6 +222,8 @@
 			files = (
 				CBF1E2361F2ED49200EEC755 /* LaunchScreen.storyboard in Resources */,
 				CBF1E2331F2ED49200EEC755 /* Assets.xcassets in Resources */,
+				CBF1E2521F30293100EEC755 /* PersonalViewController.xib in Resources */,
+				CBF1E2571F302A0500EEC755 /* SpecialViewController.xib in Resources */,
 				CBF1E2311F2ED49200EEC755 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,8 +283,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBF1E2561F302A0500EEC755 /* SpecialViewController.m in Sources */,
 				CBF1E22E1F2ED49200EEC755 /* ViewController.m in Sources */,
+				CBF1E24C1F30262E00EEC755 /* MyTabBarController.m in Sources */,
 				CBF1E22B1F2ED49200EEC755 /* AppDelegate.m in Sources */,
+				CBF1E2511F30293100EEC755 /* PersonalViewController.m in Sources */,
 				CBF1E2281F2ED49200EEC755 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,6 +410,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = E54SCXFP9M;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
 				INFOPLIST_FILE = OBDCheck/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Auptophix.OBDCheck;
@@ -363,6 +425,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = E54SCXFP9M;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
 				INFOPLIST_FILE = OBDCheck/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Auptophix.OBDCheck;
@@ -389,6 +453,7 @@
 				CBF1E23C1F2ED49200EEC755 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,0 +1,19 @@
+//
+//  OBDCheckPrefixHeader.pch
+//  OBDCheck
+//
+//  Created by yutaozhao on 2017/8/1.
+//  Copyright © 2017年 Auptophix. All rights reserved.
+//
+
+#ifndef OBDCheckPrefixHeader_pch
+#define OBDCheckPrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import "ViewController.h"
+#import "PersonalViewController.h"
+#import "SpecialViewController.h"
+#import "MyTabBarController.h"
+
+#endif /* OBDCheckPrefixHeader_pch */
