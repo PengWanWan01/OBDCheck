@@ -7,8 +7,13 @@
 //
 
 #ifndef OBDCheckPrefixHeader_pch
+ #pragma clang diagnostic ignored "-Wmissing-selector-name"
 #define OBDCheckPrefixHeader_pch
 
+#define  MSWidth [UIScreen mainScreen].bounds.size.width
+#define  MSHeight [UIScreen mainScreen].bounds.size.height
+
+#
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 #import "ViewController.h"

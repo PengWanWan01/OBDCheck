@@ -19,6 +19,7 @@
 		CBF1E2521F30293100EEC755 /* PersonalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBF1E2501F30293100EEC755 /* PersonalViewController.xib */; };
 		CBF1E2561F302A0500EEC755 /* SpecialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2541F302A0500EEC755 /* SpecialViewController.m */; };
 		CBF1E2571F302A0500EEC755 /* SpecialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBF1E2551F302A0500EEC755 /* SpecialViewController.xib */; };
+		CBF1E25B1F305CF800EEC755 /* setDistanceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E25A1F305CF800EEC755 /* setDistanceUtil.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,8 @@
 		CBF1E2531F302A0500EEC755 /* SpecialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialViewController.h; sourceTree = "<group>"; };
 		CBF1E2541F302A0500EEC755 /* SpecialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialViewController.m; sourceTree = "<group>"; };
 		CBF1E2551F302A0500EEC755 /* SpecialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpecialViewController.xib; sourceTree = "<group>"; };
+		CBF1E2591F305CF800EEC755 /* setDistanceUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setDistanceUtil.h; sourceTree = "<group>"; };
+		CBF1E25A1F305CF800EEC755 /* setDistanceUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setDistanceUtil.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,7 @@
 				CBF1E23D1F30175B00EEC755 /* OBD */,
 				CBF1E2401F3017B700EEC755 /* Main */,
 				CBF1E2261F2ED49200EEC755 /* Supporting Files */,
+				CBF1E2581F305CD800EEC755 /* Utils */,
 			);
 			path = OBDCheck;
 			sourceTree = "<group>";
@@ -156,6 +160,15 @@
 				CBF1E2371F2ED49200EEC755 /* Info.plist */,
 			);
 			name = Main;
+			sourceTree = "<group>";
+		};
+		CBF1E2581F305CD800EEC755 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E2591F305CF800EEC755 /* setDistanceUtil.h */,
+				CBF1E25A1F305CF800EEC755 /* setDistanceUtil.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBF1E2561F302A0500EEC755 /* SpecialViewController.m in Sources */,
+				CBF1E25B1F305CF800EEC755 /* setDistanceUtil.m in Sources */,
 				CBF1E22E1F2ED49200EEC755 /* ViewController.m in Sources */,
 				CBF1E24C1F30262E00EEC755 /* MyTabBarController.m in Sources */,
 				CBF1E22B1F2ED49200EEC755 /* AppDelegate.m in Sources */,
