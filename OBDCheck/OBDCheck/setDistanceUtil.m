@@ -16,7 +16,7 @@
     CGFloat resultX;
    NSInteger index = i % 2;
     CGFloat Space = (CGFloat)(twoWidth_Space) ;
-        resultX = index * (Button_Width + Space) + Space;
+        resultX = index * (Button_Width + Space) + 63*MSWidth/375;
    
     return resultX;
 
@@ -25,7 +25,8 @@
    
     CGFloat resultY = 0.0;
    NSInteger page = i / 2;
-   resultY =  page  * (Button_Height + Height_Space)+Start_Y;
+     CGFloat Space = (CGFloat)(Height_Space) ;
+   resultY =  page  * (Button_Height + Space)+Start_Y;
         
       return resultY;
 }

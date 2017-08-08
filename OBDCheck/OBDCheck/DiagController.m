@@ -15,8 +15,8 @@
 @implementation DiagController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initNavBarTitle:@"Diagnostics" andLeftItemImageName:@"" andRightItemImageName:@""];
-     self.view.backgroundColor = [ColorTools colorWithHexString:@"#EDEDED"];
+    [self initNavBarTitle:@"Diagnostics" andLeftItemImageName:@"back" andRightItemImageName:@""];
+    self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

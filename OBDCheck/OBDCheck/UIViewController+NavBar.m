@@ -44,8 +44,10 @@
     }
     
     self.navigationItem.title=titleName;
-    [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:18.0f],NSFontAttributeName, nil]];
+    
+    [self.navigationController.navigationBar setBarTintColor:[ColorTools colorWithHexString:@"#212329"]];
+   
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[ColorTools colorWithHexString:@"#FE9002"],NSForegroundColorAttributeName,[UIFont systemFontOfSize:18.0f],NSFontAttributeName, nil]];
     
     [self backGesture];
 }

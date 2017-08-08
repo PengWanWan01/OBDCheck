@@ -15,8 +15,8 @@
 @implementation MonController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initNavBarTitle:@"Montiors" andLeftItemImageName:@"" andRightItemImageName:@""];
-     self.view.backgroundColor = [ColorTools colorWithHexString:@"#EDEDED"];
+    [self initNavBarTitle:@"Montiors" andLeftItemImageName:@"back" andRightItemImageName:@""];
+    self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

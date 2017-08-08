@@ -15,8 +15,8 @@
 @implementation LogsController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initNavBarTitle:@"Logs" andLeftItemImageName:@"" andRightItemImageName:@""];
-     self.view.backgroundColor = [ColorTools colorWithHexString:@"#EDEDED"];
+    [self initNavBarTitle:@"Logs" andLeftItemImageName:@"back" andRightItemImageName:@""];
+    self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

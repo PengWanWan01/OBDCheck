@@ -15,8 +15,8 @@
 @implementation PerformController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initNavBarTitle:@"Performance" andLeftItemImageName:@"" andRightItemImageName:@""];
-     self.view.backgroundColor = [ColorTools colorWithHexString:@"#EDEDED"];
+    [self initNavBarTitle:@"Performance" andLeftItemImageName:@"back" andRightItemImageName:@""];
+    self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

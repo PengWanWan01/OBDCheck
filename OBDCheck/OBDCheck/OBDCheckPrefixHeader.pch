@@ -20,9 +20,10 @@
 #define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
 #define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
 #define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
-#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
+#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH <= 568.0)
 #define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
 #define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
+#define  LabelFontSize  15
 #
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
@@ -40,5 +41,9 @@
 #import "UIViewController+NavBar.h"
 #import "ColorTools.h"
 #import "bluetoothView.h"
+#import "SetTableViewCell.h"
+#import "OBDBtn.h"
+#import "RLBtn.h"
+#import "DashboardViewStyleA.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

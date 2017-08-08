@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		68B0FEE83EC9AFD3217B8679 /* Pods_OBDCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0824B23CC3081482DB8C30D3 /* Pods_OBDCheck.framework */; };
+		CB21DA461F343F880080648E /* DashboardViewStyleA.m in Sources */ = {isa = PBXBuildFile; fileRef = CB21DA451F343F880080648E /* DashboardViewStyleA.m */; };
+		CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5AA4101F31A377002B3006 /* SetTableViewCell.m */; };
+		CB5AA4131F31A377002B3006 /* SetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */; };
+		CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB97176E1F32C110009C47FD /* OBDBtn.m */; };
+		CB9717721F32D595009C47FD /* UILabel+Dxfont.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9717711F32D595009C47FD /* UILabel+Dxfont.m */; };
+		CB9717751F332515009C47FD /* RLBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9717741F332515009C47FD /* RLBtn.m */; };
 		CBF1E2281F2ED49200EEC755 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2271F2ED49200EEC755 /* main.m */; };
 		CBF1E22B1F2ED49200EEC755 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E22A1F2ED49200EEC755 /* AppDelegate.m */; };
 		CBF1E22E1F2ED49200EEC755 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E22D1F2ED49200EEC755 /* ViewController.m */; };
@@ -35,6 +41,17 @@
 		0824B23CC3081482DB8C30D3 /* Pods_OBDCheck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OBDCheck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55CB35FC369774CFA593A246 /* Pods-OBDCheck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OBDCheck.release.xcconfig"; path = "Pods/Target Support Files/Pods-OBDCheck/Pods-OBDCheck.release.xcconfig"; sourceTree = "<group>"; };
 		A0A3B296909ECC67725252F9 /* Pods-OBDCheck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OBDCheck.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OBDCheck/Pods-OBDCheck.debug.xcconfig"; sourceTree = "<group>"; };
+		CB21DA441F343F880080648E /* DashboardViewStyleA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewStyleA.h; sourceTree = "<group>"; };
+		CB21DA451F343F880080648E /* DashboardViewStyleA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewStyleA.m; sourceTree = "<group>"; };
+		CB5AA40F1F31A377002B3006 /* SetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTableViewCell.h; sourceTree = "<group>"; };
+		CB5AA4101F31A377002B3006 /* SetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTableViewCell.m; sourceTree = "<group>"; };
+		CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetTableViewCell.xib; sourceTree = "<group>"; };
+		CB97176D1F32C110009C47FD /* OBDBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDBtn.h; sourceTree = "<group>"; };
+		CB97176E1F32C110009C47FD /* OBDBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBDBtn.m; sourceTree = "<group>"; };
+		CB9717701F32D595009C47FD /* UILabel+Dxfont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Dxfont.h"; sourceTree = "<group>"; };
+		CB9717711F32D595009C47FD /* UILabel+Dxfont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Dxfont.m"; sourceTree = "<group>"; };
+		CB9717731F332515009C47FD /* RLBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLBtn.h; sourceTree = "<group>"; };
+		CB9717741F332515009C47FD /* RLBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RLBtn.m; sourceTree = "<group>"; };
 		CBF1E2231F2ED49200EEC755 /* OBDCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OBDCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBF1E2271F2ED49200EEC755 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CBF1E2291F2ED49200EEC755 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -103,6 +120,25 @@
 				0824B23CC3081482DB8C30D3 /* Pods_OBDCheck.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CB5AA40E1F31A321002B3006 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CB5AA40F1F31A377002B3006 /* SetTableViewCell.h */,
+				CB5AA4101F31A377002B3006 /* SetTableViewCell.m */,
+				CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		CB9B28611F3416BB00CD8C84 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CB21DA441F343F880080648E /* DashboardViewStyleA.h */,
+				CB21DA451F343F880080648E /* DashboardViewStyleA.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		CBF1E21A1F2ED49200EEC755 = {
@@ -212,6 +248,7 @@
 		CBF1E25C1F30674500EEC755 /* Dashboards */ = {
 			isa = PBXGroup;
 			children = (
+				CB9B28611F3416BB00CD8C84 /* View */,
 				CBF1E2621F30680F00EEC755 /* DashboardController.h */,
 				CBF1E2631F30680F00EEC755 /* DashboardController.m */,
 			);
@@ -257,6 +294,7 @@
 		CBF1E2611F30678F00EEC755 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				CB5AA40E1F31A321002B3006 /* View */,
 				CBF1E27A1F3068ED00EEC755 /* SetViewController.h */,
 				CBF1E27B1F3068ED00EEC755 /* SetViewController.m */,
 			);
@@ -266,6 +304,8 @@
 		CBF1E2831F306C4900EEC755 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				CB9717701F32D595009C47FD /* UILabel+Dxfont.h */,
+				CB9717711F32D595009C47FD /* UILabel+Dxfont.m */,
 				CBF1E2841F306C6200EEC755 /* UIViewController+NavBar.h */,
 				CBF1E2851F306C6200EEC755 /* UIViewController+NavBar.m */,
 			);
@@ -277,6 +317,10 @@
 			children = (
 				CBF1E28B1F30A06500EEC755 /* bluetoothView.h */,
 				CBF1E28C1F30A06500EEC755 /* bluetoothView.m */,
+				CB97176D1F32C110009C47FD /* OBDBtn.h */,
+				CB97176E1F32C110009C47FD /* OBDBtn.m */,
+				CB9717731F332515009C47FD /* RLBtn.h */,
+				CB9717741F332515009C47FD /* RLBtn.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -350,6 +394,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB5AA4131F31A377002B3006 /* SetTableViewCell.xib in Resources */,
 				CBF1E2361F2ED49200EEC755 /* LaunchScreen.storyboard in Resources */,
 				CBF1E2331F2ED49200EEC755 /* Assets.xcassets in Resources */,
 				CBF1E2521F30293100EEC755 /* PersonalViewController.xib in Resources */,
@@ -413,13 +458,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB9717751F332515009C47FD /* RLBtn.m in Sources */,
 				CBF1E2561F302A0500EEC755 /* SpecialViewController.m in Sources */,
+				CB21DA461F343F880080648E /* DashboardViewStyleA.m in Sources */,
 				CBF1E2701F30688200EEC755 /* PerformController.m in Sources */,
 				CBF1E25B1F305CF800EEC755 /* setDistanceUtil.m in Sources */,
 				CBF1E2861F306C6200EEC755 /* UIViewController+NavBar.m in Sources */,
 				CBF1E22E1F2ED49200EEC755 /* ViewController.m in Sources */,
 				CBF1E2761F3068C500EEC755 /* MonController.m in Sources */,
 				CBF1E24C1F30262E00EEC755 /* MyTabBarController.m in Sources */,
+				CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */,
+				CB9717721F32D595009C47FD /* UILabel+Dxfont.m in Sources */,
+				CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */,
 				CBF1E2891F30796400EEC755 /* ColorTools.m in Sources */,
 				CBF1E2641F30680F00EEC755 /* DashboardController.m in Sources */,
 				CBF1E22B1F2ED49200EEC755 /* AppDelegate.m in Sources */,

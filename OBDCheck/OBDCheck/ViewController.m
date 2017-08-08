@@ -10,7 +10,7 @@
 
 @interface ViewController ()
 {
-    UIView *statusView;
+    UIImageView *statusView;
     UILabel  *statusLabel;
     UIImageView  *statusImageView;
     BOOL isSelect;
@@ -19,15 +19,27 @@
 @property (nonatomic,strong) NSMutableArray *btnTitleArray;
 @property (nonatomic,strong) NSMutableArray *btnImageArray;
 @property (nonatomic,strong) bluetoothView *blueView;
+@property (nonatomic,strong) NSMutableArray *normalImage;
+@property (nonatomic,strong) NSMutableArray *selectImage;
+
 @end
 
 @implementation ViewController
+//设置状态栏颜色
+- (void)setStatusBarBackgroundColor:(UIColor *)color {
+    
+    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+        statusBar.backgroundColor = color;
+    }
+}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
-   
-     self.view.backgroundColor = [ColorTools colorWithHexString:@"#EDEDED"];
-    
+    [self setStatusBarBackgroundColor:[UIColor blackColor]];
+     [UIApplication sharedApplication].statusBarStyle=UIStatusBarStyleLightContent;
+     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    [self initNavBarTitle:@"" andLeftItemImageName:@"Upload" andRightItemImageName:@"help"];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,61 +49,73 @@
 }
 
 - (void)initWithUI{
-    UIButton * titleBtn= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    RLBtn * titleBtn= [[RLBtn alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     [titleBtn setTitle:@"Connect" forState:UIControlStateNormal];
-    [titleBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    titleBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    [titleBtn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
+    [titleBtn setImage:[UIImage imageNamed:@"xiala"] forState:UIControlStateNormal];
     [titleBtn addTarget:self action:@selector(titleBtn) forControlEvents:UIControlEventTouchUpInside];
     isSelect = YES;
     self.navigationItem.titleView = titleBtn;
-    
-    statusView = [[UIView alloc]initWithFrame:CGRectMake(23, 75, MSWidth - 46, 40)];
-    statusView.backgroundColor = [UIColor whiteColor];
+//    [ColorTools colorWithHexString:@"#212329"];
+    statusView = [[UIImageView alloc]initWithFrame:CGRectMake(22, 75, MSWidth - 44, 41)];
+    statusView.image = [UIImage imageNamed:@"information"];
+    statusView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:statusView];
     //CGRectGetMaxX(statusView.frame)
-    statusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(statusView.frame) - 63, 0, 45, 40)];
-    statusImageView.backgroundColor = [UIColor redColor];
+    statusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(statusView.frame) - 50, 10, 24, 20)];
+    statusImageView.image = [UIImage imageNamed:@"signal"];
+    statusImageView.contentMode = UIViewContentModeScaleAspectFill;
     [statusView addSubview:statusImageView];
     
-    statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, MSWidth - 86, 40)];
+    statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, MSWidth - 86, 40)];
     statusLabel.text = @"Connect to the device successfully";
     statusLabel.font = [UIFont systemFontOfSize:16.f];
+    [statusLabel setTextColor:[ColorTools colorWithHexString:@"#FE9002"]];
     [statusView addSubview:statusLabel];
     
-    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(statusView.frame) + 20, MSWidth, MSHeight - 49 - 150)];
-    backView.backgroundColor = [UIColor whiteColor];
+    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(statusView.frame), MSWidth, MSHeight - 165)];
     [self.view addSubview:backView];
     
     for (int i = 0; i<_btnTitleArray.count; i++) {
-     
-        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], Button_Width, Button_Height)];
-        btn.backgroundColor = [UIColor redColor];
-        btn.titleLabel.font = [UIFont systemFontOfSize:15.f];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [btn setTitle:_btnTitleArray[i] forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:_btnImageArray[i]] forState:UIControlStateNormal];
-
-        CGFloat totalHeight = (btn.imageView.frame.size.height + btn.titleLabel.frame.size.height);
-        // 设置按钮图片偏移
-        [btn setImageEdgeInsets:UIEdgeInsetsMake(-(totalHeight - btn.imageView.frame.size.height), 0.0, 0.0, -btn.titleLabel.frame.size.width)];
-        // 设置按钮标题偏移
-        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0.0, -btn.imageView.frame.size.width, -(totalHeight - btn.titleLabel.frame.size.height),0.0)];
-        [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
-        btn.tag = i;
+    
+        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], 100*MSWidth/375, 100*MSWidth/375 + 30)];
+        btn.Label.text = _btnTitleArray[i];
+        btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
+//        btn.backgroundColor= [UIColor redColor];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+        [btn addGestureRecognizer:tap];
+      UIView *singleTapView  = [tap view];
+        singleTapView.tag = i;
         [backView addSubview:btn];
         NSLog(@"%f",btn.frame.size.width);
     }
-
+//设置底部的按钮
+    for (NSInteger i = 0; i < 3; i++) {
+        UIButton *tabbarBtn = [[UIButton alloc]initWithFrame:CGRectMake(i*MSWidth/3, MSHeight - 49, MSWidth/3, 49)];
+        [tabbarBtn setImage:[UIImage imageNamed:_normalImage[i]] forState:UIControlStateNormal];
+        [tabbarBtn setImage:[UIImage imageNamed:_selectImage[i]] forState:UIControlStateHighlighted];
+//        tabbarBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        
+//        [[tabbarBtn imageView] setContentMode:UIViewContentModeScaleAspectFill];
+        tabbarBtn.tag = 100+i;
+        [tabbarBtn addTarget:self action:@selector(tabbarBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:tabbarBtn];
+    }
 }
 -(void)initWithData{
+    self.btnImageArray = [[NSMutableArray alloc]initWithObjects:@"dashboards",@"diagnostics",@"montiors",@"logs",@"performance",@"settings", nil];
     self.btnTitleArray = [[NSMutableArray alloc]initWithObjects:@"Dashboards",@"Diagnostics",@"Montiors",@"Logs",@"Performance",@"Settings", nil];
-    self.btnImageArray = [[NSMutableArray alloc]initWithObjects:@"Dashboards",@"Diagnostics",@"Montiors",@"Logs",@"Performance",@"Settings", nil];
+    self.normalImage = [[NSMutableArray alloc]initWithObjects:@"obd_normal",@"special_normal",@"personal_normal", nil];
+    self.selectImage = [[NSMutableArray alloc]initWithObjects:@"obd_highlight",@"special_highlight",@"personal_highlight", nil];
+    
     NSLog(@"%f",4*MSWidth/15 );
     
 }
 #pragma mark 六个按钮的点击
-- (void)btn:(UIButton *)btn{
+- (void)tap:(UITapGestureRecognizer *)sender{
  self.tabBarController.tabBar.hidden = YES;
-    switch (btn.tag) {
+    switch ([sender view].tag) {
         case 0:{
             DashboardController *vc = [[DashboardController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
@@ -127,6 +151,32 @@
     }
 
 }
+#pragma mark 底部tabbar的点击
+- (void)tabbarBtn:(UIButton *)btn{
+    switch (btn.tag - 100) {
+        case 0:
+        {
+            ViewController *VC  = [[ViewController alloc]init];
+            [self.navigationController pushViewController:VC animated:NO];
+            
+        }
+            break;
+        case 1:
+        {
+            SpecialViewController *VC  = [[SpecialViewController alloc]init];
+            [self.navigationController pushViewController:VC animated:NO];
+        }
+            break;
+        case 2:
+        {
+            SpecialViewController *VC  = [[SpecialViewController alloc]init];
+            [self.navigationController pushViewController:VC animated:NO];
+        }
+            break;
+        default:
+            break;
+    }
+}
 #pragma mark 导航栏的点击
 
 - (void)titleBtn{
@@ -141,5 +191,27 @@
         isSelect = YES;
     }
 }
-
+- (UIImage*)imageCompressWithSimple:(UIImage*)image{
+    CGSize size = image.size;
+    CGFloat scale = 1.0;
+    //TODO:KScreenWidth屏幕宽
+    if (size.width > 100 || size.height > 100) {
+        if (size.width > size.height) {
+            scale = 100 / size.width;
+        }else {
+            scale = 100 / size.height;
+        }
+    }
+    CGFloat width = size.width;
+    CGFloat height = size.height;
+    CGFloat scaledWidth = width * scale;
+    CGFloat scaledHeight = height * scale;
+    CGSize secSize =CGSizeMake(scaledWidth, scaledHeight);
+    //TODO:设置新图片的宽高
+    UIGraphicsBeginImageContext(secSize); // this will crop
+    [image drawInRect:CGRectMake(0,0,scaledWidth,scaledHeight)];
+    UIImage* newImage= UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
 @end

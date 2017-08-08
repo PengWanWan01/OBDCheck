@@ -7,14 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#define Start_Y 20.0f           // 第一个按钮的Y坐标
+#define Start_Y 20*MSHeight/667           // 第一个按钮的Y坐标
 
-#define Button_Width  100.f
-#define Button_Height 100.f
+#define Button_Width 100*MSWidth/375
+#define Button_Height 100*MSWidth/375 + 30
 
-#define twoWidth_Space (MSWidth- 2*Button_Width)/3        // 两个按钮布局2个按钮之间的横间距
+#define twoWidth_Space MSWidth-2*Button_Width - 126*MSWidth/375       // 两个按钮布局2个按钮之间的横间距
 
-#define Height_Space (MSHeight - 199 - 3*Button_Width) /3       // 竖间距
+#define Height_Space    IS_IPHONE_5?20:33   // 竖间距
 
 @interface setDistanceUtil : NSObject
 

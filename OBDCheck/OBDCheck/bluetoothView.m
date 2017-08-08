@@ -14,16 +14,14 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 44)];
-        btn.backgroundColor = [UIColor grayColor];
+        RLBtn *btn = [[RLBtn alloc]initWithFrame:CGRectMake(MSWidth- 110, 0, 90, 44)];
         [btn setTitle:@"Rescan" forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"矢量智能对象"] forState:UIControlStateNormal];
         btn.alpha = 1;
-        btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [self addSubview:btn];
-        
-        
-        self.backgroundColor = [ColorTools colorWithHexString:@"#888888"];
-        self.alpha = 0.5;
+   
+        self.backgroundColor = [ColorTools colorWithHexString:@"#1A1B1E"];
+        self.alpha = 0.9;
     }
     return self;
 }
