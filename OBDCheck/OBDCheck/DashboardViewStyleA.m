@@ -9,7 +9,7 @@
 #import "DashboardViewStyleA.h"
 
 static CGFloat kDefaultRingWidth = 10;
-static CGFloat kDefaultDialLength = 10;
+static CGFloat kDefaultDialLength = 5;
 static CGFloat kDefaultDialPieceCount = 5;
 
 @interface DashboardView()
@@ -39,8 +39,8 @@ static CGFloat kDefaultDialPieceCount = 5;
     if (!self) {
         return nil;
     }
-    
-    _center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
+    self.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    _center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.width / 2);
     _radius = self.bounds.size.width / 2 - self.ringWidth / 2;
     _dialCount = 8 * self.dialPieceCount;
     
@@ -48,13 +48,13 @@ static CGFloat kDefaultDialPieceCount = 5;
     [self addCircleLayer];
     [self addSubview:self.pointerView];
     [self addSubview:self.infoLabel];
-    
+    [self addSubview:self.numberLabel];
     return self;
 }
 
 - (void)addCircleLayer {
     CGFloat startAngle = 0; // 开始角度
-    CGFloat endAngle = 0; // 结束角度
+    CGFloat endAngle = 2*M_PI; // 结束角度
     BOOL clockwise = YES; // 顺时针
     
     CALayer *containerLayer = [CALayer layer];
@@ -64,40 +64,14 @@ static CGFloat kDefaultDialPieceCount = 5;
     circleLayer.lineWidth = self.ringWidth;
     circleLayer.lineCap = kCALineCapRound;
     circleLayer.lineJoin = kCALineJoinRound;
-    circleLayer.fillColor = [UIColor clearColor].CGColor;
-//    circleLayer.strokeColor = [UIColor whiteColor].CGColor;
-//    circleLayer.shadowColor = [UIColor yellowColor].CGColor; // 阴影颜色
-//    circleLayer.shadowOffset = CGSizeMake(1, 1); // 阴影偏移量
-//    circleLayer.shadowOpacity = 0.5; // 阴影透明度
-//    circleLayer.shadowRadius = 5;
-    // path
+    circleLayer.strokeColor = [UIColor blackColor].CGColor;
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
-  
-//    
     circleLayer.path = circlePath.CGPath;
-    
     [containerLayer addSublayer:circleLayer];
-    
     for (int i = 0; i <= _dialCount; i++) {
         [self containerLayer:containerLayer addDialWithIndex:i]; // 添加刻度
     }
     [self.layer addSublayer:containerLayer];
-    
-//    // 渐变层
-//    CALayer *gradientLayer = [CALayer new];// 渐变层的组合
-//    // 生成左边渐变色
-//    CAGradientLayer *leftLayer = [CAGradientLayer layer];
-//    leftLayer.frame = CGRectMake(0, 0, self.bounds.size.width/2, self.bounds.size.height);
-//    leftLayer.colors = @[(id)[UIColor yellowColor].CGColor, (id)[UIColor greenColor].CGColor];
-//    [gradientLayer addSublayer:leftLayer];
-//    // 生成右边渐变色
-//    CAGradientLayer *rightLayer = [CAGradientLayer layer];
-//    rightLayer.frame = CGRectMake(self.bounds.size.width / 2, 0, self.bounds.size.width / 2, self.bounds.size.height);
-//    rightLayer.colors = @[(id)[UIColor yellowColor].CGColor, (id)[UIColor redColor].CGColor];
-//    [gradientLayer addSublayer:rightLayer];
-//    // 添加遮罩层
-//    [gradientLayer setMask:containerLayer];
-//    [self.layer addSublayer:gradientLayer];
 }
 
 - (void)containerLayer:(CALayer *)containerLayer addDialWithIndex:(NSInteger)index {
@@ -142,11 +116,11 @@ static CGFloat kDefaultDialPieceCount = 5;
     CGFloat insideRadius = outsideRadius - self.dialLength; // 刻度内点半径
     
     // 需要显示的文字数组
-    NSArray *textArr = @[@"0", @"20", @"60", @"80", @"100", @"120", @"140"];
+    NSArray *textArr = @[@"0", @"20", @"40",@"60", @"80", @"100", @"120", @"140"];
     
     // 计算所得各个文字显示的位置相对于其insidePoint的偏移量,
-    NSArray *xOffsetArr = @[@(5), @(7), @(5), @(-16), @(-40), @(-46), @(-30)];
-    NSArray *yOffsetArr = @[@(-20), @(-10), @(0), @(5), @(0), @(-10), @(-20)];
+    NSArray *xOffsetArr = @[@(0),@(30), @(7), @(5), @(-16), @(-40), @(-46), @(-30)];
+    NSArray *yOffsetArr = @[@(0),@(40), @(-10), @(0), @(5), @(0), @(-10), @(-20)];
     
     for (int i = 0; i < textArr.count; i++) {
         CGFloat angle =  M_PI_2 + M_PI / 4 - 5 * i * (M_PI_2 + M_PI/2) *2 / _dialCount;
@@ -175,13 +149,22 @@ static CGFloat kDefaultDialPieceCount = 5;
 #pragma mark - InfoLabe;
 - (UILabel *)infoLabel {
     if (!_infoLabel) {
-        _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 50, _center.y + 53, 100, 30)];
+        _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60, _center.y- 40, 120, 30)];
         _infoLabel.font = [UIFont boldSystemFontOfSize:17];
-        _infoLabel.textColor = [UIColor whiteColor];
+        _infoLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
         _infoLabel.textAlignment = NSTextAlignmentCenter;
         _infoLabel.text = @"0";
     }
     return _infoLabel;
 }
-
+-(UILabel *)numberLabel{
+    if (!_numberLabel) {
+        _numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60, _center.y +100, 120, 30)];
+        _numberLabel.font = [UIFont boldSystemFontOfSize:17];
+        _numberLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
+        _numberLabel.textAlignment = NSTextAlignmentCenter;
+        _numberLabel.text = @"N/A";
+    }
+    return _numberLabel;
+}
 @end

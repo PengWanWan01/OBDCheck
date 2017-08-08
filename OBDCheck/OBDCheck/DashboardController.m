@@ -9,7 +9,7 @@
 #import "DashboardController.h"
 
 @interface DashboardController ()<UIScrollViewDelegate>
-
+@property (nonatomic,strong) NSMutableArray *LabelNameArray;
 @end
 
 @implementation DashboardController
@@ -20,7 +20,12 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initWithData];
     [self initWithUI];
+}
+- (void)initWithData{
+    _LabelNameArray = [[NSMutableArray alloc]initWithObjects:@"MPH",@"RPM",@"Engine Temp",@"MAF",@"Fuel rate",@"Battery", nil];
+    
 }
 - (void)initWithUI{
     //创建
@@ -53,13 +58,15 @@
     for (NSInteger i = 0; i< 6; i++) {
         NSInteger index = i % 2;
          NSInteger page = i / 2;
-        DashboardView *dashboardView = [[DashboardView alloc] initWithFrame:CGRectMake(index * (baseViewWidth ),  page  * (baseViewHeight + 10), baseViewWidth, baseViewHeight)];
+        DashboardView *dashboardView = [[DashboardView alloc] initWithFrame:CGRectMake(index * (baseViewWidth ),  page  * (baseViewHeight + 40), baseViewWidth, baseViewHeight + 30)];
+        NSLog(@"%@",_LabelNameArray[i]);
+        dashboardView.infoLabel.text = _LabelNameArray[i];
         [scrollView addSubview:dashboardView];
     }
 //第二页的仪表盘
     for (NSInteger i = 0; i< 2; i++) {
       
-        DashboardView *dashboardView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth,  i  * (baseViewHeight *4/3), baseViewWidth*4/3, baseViewHeight*4/3)];
+        DashboardView *dashboardView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth,  i  * (baseViewHeight *4/3+ 30), baseViewWidth*4/3, baseViewHeight*4/3+ 30)];
         [scrollView addSubview:dashboardView];
     }
 
