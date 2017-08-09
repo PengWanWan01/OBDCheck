@@ -8,12 +8,13 @@
 
 #import "DashboardController.h"
 
-@interface DashboardController ()<UIScrollViewDelegate>
+@interface DashboardController ()<UIScrollViewDelegate,selectStyleDelegete>
 {
     /*
      * 显示数字信息的label
      */
     UILabel *numberLabel;
+    editDashboardsView *editview;
 }
 @property (nonatomic,strong) NSMutableArray *LabelNameArray;
 @property (nonatomic,strong) NSMutableArray *numberArray;
@@ -68,9 +69,9 @@
         NSInteger index = i % 2;
          NSInteger page = i / 2;
         DashboardView *dashboardView = [[DashboardView alloc] initWithFrame:CGRectMake(index * (baseViewWidth ),  page  * (baseViewHeight + 40), baseViewWidth, baseViewHeight )];
+         dashboardView.infoLabel.text = _LabelNameArray[i];
+        [dashboardView addGestureRecognizer:[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)]];
         
-        NSLog(@"%@",_LabelNameArray[i]);
-        dashboardView.infoLabel.text = _LabelNameArray[i];
         numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(index * (baseViewWidth ), CGRectGetMaxY(dashboardView.frame) + 8, baseViewWidth, 20)];
         numberLabel.font = [UIFont boldSystemFontOfSize:17];
         numberLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
@@ -104,6 +105,36 @@
     pageControl.currentPage = index;
 }
 - (void)rightBarButtonClick{
+   editview = [[editDashboardsView alloc]initWithFrame:CGRectMake(85*MSWidth/375, 50, MSWidth -85*MSWidth/375 , 376)];
+    editview.delegate = self;
+    [editview show];
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [editview hide];
    
 }
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+   
+}
+#pragma mark 点击选择风格按钮
+- (void)selectStyleBtnBetouched:(id)sender{
+    [editview hide];
+    SelectStyleViewController *vc = [[SelectStyleViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+- (void)tap:(UILongPressGestureRecognizer *)sender{
+    switch (sender.state) {
+        case UIGestureRecognizerStateBegan:{
+            EditDisplayViewController *vc = [[EditDisplayViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case UIGestureRecognizerStateEnded:{
+                 }
+            break;
+        default:
+            break;
+    }
+    }
 @end

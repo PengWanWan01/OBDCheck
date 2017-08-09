@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+//图片在上 文字在下的按钮
 @interface OBDBtn : UIView
 
 @property(nonatomic,strong)UIImageView *imageView;

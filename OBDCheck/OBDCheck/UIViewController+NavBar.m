@@ -46,8 +46,8 @@
     self.navigationItem.title=titleName;
     self.navigationController.navigationBar.translucent = NO; //导航栏颜色不会发生变化
     [self.navigationController.navigationBar setBarTintColor:[ColorTools colorWithHexString:@"#212329"]];
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height-0.5, self.navigationController.navigationBar.frame.size.width, 0.5)];
-    line.backgroundColor = [UIColor whiteColor];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height-1, self.navigationController.navigationBar.frame.size.width, 1)];
+    line.backgroundColor = [ColorTools colorWithHexString:@"#36373d"];
     [self.navigationController.navigationBar addSubview:line];
     [self.navigationController.navigationBar bringSubviewToFront:line];
     

@@ -45,5 +45,10 @@
 #import "OBDBtn.h"
 #import "RLBtn.h"
 #import "DashboardViewStyleA.h"
+#import "editDashboardsView.h"
+#import "SelectStyleViewController.h"
+#import "EditDisplayViewController.h"
+#import "SizeAndLocationViewController.h"
+#import "DisplaySetViewController.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

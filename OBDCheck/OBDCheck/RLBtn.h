@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+// 图片在左  文字在右的按钮
 @interface RLBtn : UIButton
 
 @end
