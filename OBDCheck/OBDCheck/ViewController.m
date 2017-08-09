@@ -39,7 +39,10 @@
     [self setStatusBarBackgroundColor:[UIColor blackColor]];
      [UIApplication sharedApplication].statusBarStyle=UIStatusBarStyleLightContent;
      self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    //ColorTools colorWithHexString:@"#212329"
     [self initNavBarTitle:@"" andLeftItemImageName:@"Upload" andRightItemImageName:@"help"];
+   
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -49,6 +52,7 @@
 }
 
 - (void)initWithUI{
+    
     RLBtn * titleBtn= [[RLBtn alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     [titleBtn setTitle:@"Connect" forState:UIControlStateNormal];
     titleBtn.titleLabel.font = [UIFont systemFontOfSize:18];
@@ -58,7 +62,7 @@
     isSelect = YES;
     self.navigationItem.titleView = titleBtn;
 //    [ColorTools colorWithHexString:@"#212329"];
-    statusView = [[UIImageView alloc]initWithFrame:CGRectMake(22, 75, MSWidth - 44, 41)];
+    statusView = [[UIImageView alloc]initWithFrame:CGRectMake(22, 11, MSWidth - 44, 41)];
     statusView.image = [UIImage imageNamed:@"information"];
     statusView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:statusView];
@@ -92,7 +96,7 @@
     }
 //设置底部的按钮
     for (NSInteger i = 0; i < 3; i++) {
-        UIButton *tabbarBtn = [[UIButton alloc]initWithFrame:CGRectMake(i*MSWidth/3, MSHeight - 49, MSWidth/3, 49)];
+        UIButton *tabbarBtn = [[UIButton alloc]initWithFrame:CGRectMake(i*MSWidth/3, MSHeight - 49-64, MSWidth/3, 49)];
         [tabbarBtn setImage:[UIImage imageNamed:_normalImage[i]] forState:UIControlStateNormal];
         [tabbarBtn setImage:[UIImage imageNamed:_selectImage[i]] forState:UIControlStateHighlighted];
 //        tabbarBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);

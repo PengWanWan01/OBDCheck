@@ -44,12 +44,15 @@
     }
     
     self.navigationItem.title=titleName;
-    
+    self.navigationController.navigationBar.translucent = NO; //导航栏颜色不会发生变化
     [self.navigationController.navigationBar setBarTintColor:[ColorTools colorWithHexString:@"#212329"]];
-   
-    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[ColorTools colorWithHexString:@"#FE9002"],NSForegroundColorAttributeName,[UIFont systemFontOfSize:18.0f],NSFontAttributeName, nil]];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height-0.5, self.navigationController.navigationBar.frame.size.width, 0.5)];
+    line.backgroundColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar addSubview:line];
+    [self.navigationController.navigationBar bringSubviewToFront:line];
     
-    [self backGesture];
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[ColorTools colorWithHexString:@"#FE9002"],NSForegroundColorAttributeName,[UIFont systemFontOfSize:18.0f],NSFontAttributeName, nil]];
+        [self backGesture];
 }
 
 - (void)back

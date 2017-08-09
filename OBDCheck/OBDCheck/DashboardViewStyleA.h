@@ -35,8 +35,7 @@
  */
 @property (nonatomic, strong) UILabel *infoLabel;
 
-/*
- * 显示数字信息的label
- */
-@property (nonatomic, strong) UILabel *numberLabel;
+@property (nonatomic,assign) NSInteger maxNumber;
+@property (nonatomic,assign) NSInteger minNumber;
+
 @end

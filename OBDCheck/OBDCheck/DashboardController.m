@@ -9,7 +9,15 @@
 #import "DashboardController.h"
 
 @interface DashboardController ()<UIScrollViewDelegate>
+{
+    /*
+     * 显示数字信息的label
+     */
+    UILabel *numberLabel;
+}
 @property (nonatomic,strong) NSMutableArray *LabelNameArray;
+@property (nonatomic,strong) NSMutableArray *numberArray;
+
 @end
 
 @implementation DashboardController
@@ -25,11 +33,12 @@
 }
 - (void)initWithData{
     _LabelNameArray = [[NSMutableArray alloc]initWithObjects:@"MPH",@"RPM",@"Engine Temp",@"MAF",@"Fuel rate",@"Battery", nil];
+    _numberArray = [[NSMutableArray alloc]init];
     
 }
 - (void)initWithUI{
     //创建
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, MSWidth, MSHeight - 74)];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 10, MSWidth, MSHeight)];
     scrollView.contentSize = CGSizeMake(MSWidth*3,0);
      scrollView.pagingEnabled = YES;
     [scrollView setShowsHorizontalScrollIndicator:NO];
@@ -40,7 +49,7 @@
     //不要加到滚动视图中， 会随着滚动消失掉
     [self.view addSubview:pageControl];
     //    设置常用属性,距离屏幕下方60像素。
-    pageControl.frame = CGRectMake(0, self.view.frame.size.height - 40, MSWidth, 30);
+    pageControl.frame = CGRectMake(0, MSHeight- 100, MSWidth, 30);
     //    设置圆点的个数
     pageControl.numberOfPages = 3;
     //    设置没有被选中时圆点的颜色
@@ -58,17 +67,29 @@
     for (NSInteger i = 0; i< 6; i++) {
         NSInteger index = i % 2;
          NSInteger page = i / 2;
-        DashboardView *dashboardView = [[DashboardView alloc] initWithFrame:CGRectMake(index * (baseViewWidth ),  page  * (baseViewHeight + 40), baseViewWidth, baseViewHeight + 30)];
+        DashboardView *dashboardView = [[DashboardView alloc] initWithFrame:CGRectMake(index * (baseViewWidth ),  page  * (baseViewHeight + 40), baseViewWidth, baseViewHeight )];
+        
         NSLog(@"%@",_LabelNameArray[i]);
         dashboardView.infoLabel.text = _LabelNameArray[i];
+        numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(index * (baseViewWidth ), CGRectGetMaxY(dashboardView.frame) + 8, baseViewWidth, 20)];
+        numberLabel.font = [UIFont boldSystemFontOfSize:17];
+        numberLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
+        numberLabel.textAlignment = NSTextAlignmentCenter;
+        numberLabel.text = @"N/A";
         [scrollView addSubview:dashboardView];
+        [scrollView addSubview:numberLabel];
     }
 //第二页的仪表盘
     for (NSInteger i = 0; i< 2; i++) {
       
-        DashboardView *dashboardView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth,  i  * (baseViewHeight *4/3+ 30), baseViewWidth*4/3, baseViewHeight*4/3+ 30)];
+        DashboardView *dashboardView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth,  i  * (baseViewHeight *4/3+ 30), baseViewWidth*4/3, baseViewHeight*4/3)];
+        numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(MSWidth, CGRectGetMaxY(dashboardView.frame) + 8, baseViewWidth*4/3, 20)];
+        numberLabel.font = [UIFont boldSystemFontOfSize:17];
+        numberLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
+        numberLabel.textAlignment = NSTextAlignmentCenter;
+        numberLabel.text = @"N/A";
         [scrollView addSubview:dashboardView];
-    }
+        [scrollView addSubview:numberLabel];    }
 
 }
 //当滚动视图发生位移，就会进入下方代理方法
@@ -81,5 +102,8 @@
     NSInteger index = round(point.x/scrollView.frame.size.width);
     //设置分页控制器的当前页面
     pageControl.currentPage = index;
+}
+- (void)rightBarButtonClick{
+   
 }
 @end

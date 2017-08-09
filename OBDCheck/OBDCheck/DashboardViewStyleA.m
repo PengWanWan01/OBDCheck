@@ -39,7 +39,9 @@ static CGFloat kDefaultDialPieceCount = 5;
     if (!self) {
         return nil;
     }
-    self.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    self.backgroundColor = [UIColor blackColor];
+    self.layer.cornerRadius = self.bounds.size.width / 2;
+    self.layer.masksToBounds = YES;
     _center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.width / 2);
     _radius = self.bounds.size.width / 2 - self.ringWidth / 2;
     _dialCount = 8 * self.dialPieceCount;
@@ -48,7 +50,7 @@ static CGFloat kDefaultDialPieceCount = 5;
     [self addCircleLayer];
     [self addSubview:self.pointerView];
     [self addSubview:self.infoLabel];
-    [self addSubview:self.numberLabel];
+
     return self;
 }
 
@@ -64,7 +66,11 @@ static CGFloat kDefaultDialPieceCount = 5;
     circleLayer.lineWidth = self.ringWidth;
     circleLayer.lineCap = kCALineCapRound;
     circleLayer.lineJoin = kCALineJoinRound;
-    circleLayer.strokeColor = [UIColor blackColor].CGColor;
+    circleLayer.fillColor = [UIColor clearColor].CGColor;
+//    circleLayer.strokeColor = [UIColor blackColor].CGColor;
+//    circleLayer.shadowColor = [UIColor blackColor].CGColor; // 阴影颜色
+//    circleLayer.shadowOffset = CGSizeMake(1, 1); // 阴影偏移量
+//    circleLayer.shadowOpacity = 0.5;
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
     circleLayer.path = circlePath.CGPath;
     [containerLayer addSublayer:circleLayer];
@@ -72,6 +78,7 @@ static CGFloat kDefaultDialPieceCount = 5;
         [self containerLayer:containerLayer addDialWithIndex:i]; // 添加刻度
     }
     [self.layer addSublayer:containerLayer];
+   
 }
 
 - (void)containerLayer:(CALayer *)containerLayer addDialWithIndex:(NSInteger)index {
@@ -119,11 +126,11 @@ static CGFloat kDefaultDialPieceCount = 5;
     NSArray *textArr = @[@"0", @"20", @"40",@"60", @"80", @"100", @"120", @"140"];
     
     // 计算所得各个文字显示的位置相对于其insidePoint的偏移量,
-    NSArray *xOffsetArr = @[@(0),@(30), @(7), @(5), @(-16), @(-40), @(-46), @(-30)];
-    NSArray *yOffsetArr = @[@(0),@(40), @(-10), @(0), @(5), @(0), @(-10), @(-20)];
+    NSArray *xOffsetArr = @[@(-5),@(10), @(7), @(5), @(-10), @(-30), @(-35), @(-30)];
+    NSArray *yOffsetArr = @[@(-25),@(-20), @(-10), @(0), @(5), @(0), @(-10), @(-20)];
     
     for (int i = 0; i < textArr.count; i++) {
-        CGFloat angle =  M_PI_2 + M_PI / 4 - 5 * i * (M_PI_2 + M_PI/2) *2 / _dialCount;
+        CGFloat angle =  M_PI_2 + M_PI / 2 - 5 * i * (M_PI_2 + M_PI/2) *2 / _dialCount;
         CGPoint insidePoint = CGPointMake(_center.x - (insideRadius * sin(angle)), _center.y - (insideRadius * cos(angle)));
         CGFloat xOffset = [xOffsetArr[i] floatValue];
         CGFloat yOffset = [yOffsetArr[i] floatValue];
@@ -157,14 +164,5 @@ static CGFloat kDefaultDialPieceCount = 5;
     }
     return _infoLabel;
 }
--(UILabel *)numberLabel{
-    if (!_numberLabel) {
-        _numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60, _center.y +100, 120, 30)];
-        _numberLabel.font = [UIFont boldSystemFontOfSize:17];
-        _numberLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
-        _numberLabel.textAlignment = NSTextAlignmentCenter;
-        _numberLabel.text = @"N/A";
-    }
-    return _numberLabel;
-}
+
 @end
