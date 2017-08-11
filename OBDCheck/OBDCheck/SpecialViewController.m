@@ -13,7 +13,11 @@
 @end
 
 @implementation SpecialViewController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self initNavBarTitle:@"Special" andLeftItemImageName:@"" andRightItemImageName:@""];
+    self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.

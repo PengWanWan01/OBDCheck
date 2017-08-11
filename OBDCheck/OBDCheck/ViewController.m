@@ -94,18 +94,7 @@
         [backView addSubview:btn];
         NSLog(@"%f",btn.frame.size.width);
     }
-//设置底部的按钮
-    for (NSInteger i = 0; i < 3; i++) {
-        UIButton *tabbarBtn = [[UIButton alloc]initWithFrame:CGRectMake(i*MSWidth/3, MSHeight - 49-64, MSWidth/3, 49)];
-        [tabbarBtn setImage:[UIImage imageNamed:_normalImage[i]] forState:UIControlStateNormal];
-        [tabbarBtn setImage:[UIImage imageNamed:_selectImage[i]] forState:UIControlStateHighlighted];
-//        tabbarBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-        
-//        [[tabbarBtn imageView] setContentMode:UIViewContentModeScaleAspectFill];
-        tabbarBtn.tag = 100+i;
-        [tabbarBtn addTarget:self action:@selector(tabbarBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:tabbarBtn];
-    }
+
 }
 -(void)initWithData{
     self.btnImageArray = [[NSMutableArray alloc]initWithObjects:@"dashboards",@"diagnostics",@"montiors",@"logs",@"performance",@"settings", nil];
@@ -155,32 +144,8 @@
     }
 
 }
-#pragma mark 底部tabbar的点击
-- (void)tabbarBtn:(UIButton *)btn{
-    switch (btn.tag - 100) {
-        case 0:
-        {
-            ViewController *VC  = [[ViewController alloc]init];
-            [self.navigationController pushViewController:VC animated:NO];
-            
-        }
-            break;
-        case 1:
-        {
-            SpecialViewController *VC  = [[SpecialViewController alloc]init];
-            [self.navigationController pushViewController:VC animated:NO];
-        }
-            break;
-        case 2:
-        {
-            SpecialViewController *VC  = [[SpecialViewController alloc]init];
-            [self.navigationController pushViewController:VC animated:NO];
-        }
-            break;
-        default:
-            break;
-    }
-}
+
+
 #pragma mark 导航栏的点击
 
 - (void)titleBtn{
