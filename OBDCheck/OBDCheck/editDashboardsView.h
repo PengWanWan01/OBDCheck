@@ -11,7 +11,7 @@
 @protocol selectStyleDelegete <NSObject>
 
 @optional
-- (void)selectStyleBtnBetouched:(id)sender;
+- (void)selectStyleBtnBetouched:(NSInteger)index;
 
 @end
 @interface editDashboardsView : UIView

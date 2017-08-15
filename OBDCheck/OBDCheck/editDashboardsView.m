@@ -24,7 +24,7 @@
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:view];
         [view addSubview:imageView];
-        _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Style",@"Add Display",@"Add Dashboard",@"Remove Dashboard",@"Load Default Dashboards",@"Toggle HUD Mode",@"Calibrate Device Sensors", nil];
+        _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Mode",@"Dashboards Style",@"Add Display",@"Add Dashboard",@"Remove Dashboard",@"Load Default Dashboards",@"Toggle HUD Mode",@"Calibrate Device Sensors", nil];
         
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 8, self.bounds.size.width, self.bounds.size.height - 8)];
         tableView.backgroundColor = [UIColor clearColor];
@@ -67,21 +67,33 @@
     if (indexPath.row == 0) {
         [cell.textLabel setTextColor:[ColorTools colorWithHexString:@"#FE9002"]];
         cell.textLabel.font = [UIFont systemFontOfSize:18.f];
-    }else if (indexPath.row == 1){
+    }else if (indexPath.row == 2 ||  indexPath.row == 1){
         [cell.textLabel setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
-        UIButton *selectBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.bounds.size.width - 60, 0, 50, 44)];
+        UIButton *selectBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.bounds.size.width - 80, 0, 50, 44)];
 //        selectBtn.backgroundColor = [UIColor redColor];
         selectBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [selectBtn setTitleColor:[ColorTools colorWithHexString:@"#FE9002"] forState:UIControlStateNormal];
         [selectBtn setTitle:@"One" forState:UIControlStateNormal];
-        [selectBtn addTarget:self action:@selector(selectBtn) forControlEvents:UIControlEventTouchUpInside];
+        if (indexPath.row == 1) {
+            [selectBtn setTitle:@"Classic" forState:UIControlStateNormal];
+        }
+        selectBtn.tag = indexPath.row;
+        [selectBtn addTarget:self action:@selector(selectBtn:) forControlEvents:UIControlEventTouchUpInside];
         
         [cell addSubview:selectBtn];
+        cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
+        
     }
     else{
     [cell.textLabel setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
     }
     return cell;
+
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if ([self.delegate respondsToSelector:@selector(selectStyleBtnBetouched:)]) {
+//        [self.delegate selectStyleBtnBetouched:indexPath.row];
+//    }
 
 }
 - (void)show{
@@ -108,9 +120,9 @@
         [self removeFromSuperview];
     }];
 }
-- (void)selectBtn{
+- (void)selectBtn:(UIButton *)btn{
     if ([self.delegate respondsToSelector:@selector(selectStyleBtnBetouched:)]) {
-        [self.delegate selectStyleBtnBetouched:self];
+        [self.delegate selectStyleBtnBetouched:btn.tag];
     }
 }
 @end

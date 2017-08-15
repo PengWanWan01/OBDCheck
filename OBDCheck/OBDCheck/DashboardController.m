@@ -108,7 +108,7 @@
     pageControl.currentPage = index;
 }
 - (void)rightBarButtonClick{
-   editview = [[editDashboardsView alloc]initWithFrame:CGRectMake(85*MSWidth/375, 50, MSWidth -85*MSWidth/375 , 376)];
+   editview = [[editDashboardsView alloc]initWithFrame:CGRectMake(85*MSWidth/375, 50, MSWidth -85*MSWidth/375 , 376+44)];
     editview.delegate = self;
     [editview show];
 }
@@ -120,12 +120,27 @@
    
 }
 #pragma mark 点击选择风格按钮
-- (void)selectStyleBtnBetouched:(id)sender{
-    [editview hide];
-    SelectStyleViewController *vc = [[SelectStyleViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+- (void)selectStyleBtnBetouched:(NSInteger)index{
+    NSLog(@"tettet==%ld",(long)index);
     
-}
+    [editview hide];
+    switch (index) {
+        case 1:
+        {
+            SelectModeViewController *vc = [[SelectModeViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 2:
+        {
+            SelectStyleViewController *vc = [[SelectStyleViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
+   }
 - (void)tap:(UILongPressGestureRecognizer *)sender{
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
