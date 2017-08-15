@@ -91,7 +91,10 @@
         numberLabel.text = @"N/A";
         [scrollView addSubview:dashboardView];
         [scrollView addSubview:numberLabel];    }
-
+//第三页的仪表盘
+    DashboardViewStyleB *view = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth*2, 30, self.view.frame.size.width/2, self.view.frame.size.width/2)];
+    [scrollView addSubview:view];
+    
 }
 //当滚动视图发生位移，就会进入下方代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

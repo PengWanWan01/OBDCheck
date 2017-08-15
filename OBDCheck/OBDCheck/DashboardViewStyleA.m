@@ -67,10 +67,6 @@ static CGFloat kDefaultDialPieceCount = 5;
     circleLayer.lineCap = kCALineCapRound;
     circleLayer.lineJoin = kCALineJoinRound;
     circleLayer.fillColor = [UIColor clearColor].CGColor;
-//    circleLayer.strokeColor = [UIColor blackColor].CGColor;
-//    circleLayer.shadowColor = [UIColor blackColor].CGColor; // 阴影颜色
-//    circleLayer.shadowOffset = CGSizeMake(1, 1); // 阴影偏移量
-//    circleLayer.shadowOpacity = 0.5;
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
     circleLayer.path = circlePath.CGPath;
     [containerLayer addSublayer:circleLayer];

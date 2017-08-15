@@ -50,5 +50,9 @@
 #import "EditDisplayViewController.h"
 #import "SizeAndLocationViewController.h"
 #import "DisplaySetViewController.h"
+#import "UIColor+Separate.h"
+#import "UIColor+Wonderful.h"
+#import "gradientView.h"
+#import "DashboardViewStyleB.h"
 
 #endif /* OBDCheckPrefixHeader_pch */
