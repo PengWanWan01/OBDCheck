@@ -69,7 +69,7 @@
         cell.textLabel.font = [UIFont systemFontOfSize:18.f];
     }else if (indexPath.row == 2 ||  indexPath.row == 1){
         [cell.textLabel setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
-        UIButton *selectBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.bounds.size.width - 80, 0, 50, 44)];
+        UIButton *selectBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.bounds.size.width - 120, 0, 80, 44)];
 //        selectBtn.backgroundColor = [UIColor redColor];
         selectBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [selectBtn setTitleColor:[ColorTools colorWithHexString:@"#FE9002"] forState:UIControlStateNormal];

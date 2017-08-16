@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface DashboardView : UIView
-
+{
+    CGPoint startPoint;
+}
 /*
  * 环形宽度
  */

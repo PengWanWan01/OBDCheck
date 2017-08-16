@@ -95,6 +95,9 @@
     DashboardViewStyleB *view = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth*2, 30, self.view.frame.size.width/2, self.view.frame.size.width/2)];
     [scrollView addSubview:view];
     
+    DashboardViewStyleC *viewB = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth*2,self.view.frame.size.width/2+40 , 160, 160)];
+    [scrollView addSubview:viewB];
+    
 }
 //当滚动视图发生位移，就会进入下方代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

@@ -9,7 +9,7 @@
 #import "SelectStyleViewController.h"
 
 @interface SelectStyleViewController ()<UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic,strong) NSMutableArray *titleNameArray;
+@property (nonatomic,strong) NSMutableArray *styleDataArray;
 @end
 
 @implementation SelectStyleViewController
@@ -24,8 +24,9 @@
     [self initWithUI];
 }
 - (void)initWithUI{
-    _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"One",@"Two",@"Three",@"Four",@"PIDs", nil];
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, 220) style:UITableViewStylePlain];
+    _styleDataArray = [[NSMutableArray alloc]initWithObjects:@"One",@"Two",@"1212",nil];
+    
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, _styleDataArray.count*44) style:UITableViewStylePlain];
     tableView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     tableView.separatorInset = UIEdgeInsetsZero;
     tableView.scrollEnabled = NO;
@@ -41,7 +42,7 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _titleNameArray.count;
+    return _styleDataArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44.f;
@@ -56,7 +57,7 @@
         cell.layoutMargins = UIEdgeInsetsZero;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.text =  _titleNameArray[indexPath.row];
+    cell.textLabel.text =  _styleDataArray[indexPath.row];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
     cell.backgroundColor = [UIColor clearColor];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
@@ -65,12 +66,30 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    for (NSInteger i = 0; i<_titleNameArray.count; i++) {
+    for (NSInteger i = 0; i<_styleDataArray.count; i++) {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
        if (i == indexPath.row) {
             cell.accessoryView.hidden = NO;
+           switch (indexPath.row) {
+               case 0:{
+                  [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleOne;
+               }
+                   break;
+               case 1:{
+                     [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleTwo;
+               }
+                   break;
+               case 2:{
+                     [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleThree;
+               }
+                   break;
+               default:
+                   break;
+           }
+          
         }else{
             cell.accessoryView.hidden = YES;
+            
         }
     }
 }

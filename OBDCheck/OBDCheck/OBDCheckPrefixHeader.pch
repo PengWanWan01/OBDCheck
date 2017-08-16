@@ -54,6 +54,10 @@
 #import "UIColor+Wonderful.h"
 #import "gradientView.h"
 #import "DashboardViewStyleB.h"
+#import "DashboardViewStyleC.h"
 #import "SelectModeViewController.h"
+#import "DashboardSetting.h"
+#import "BasicViewController.h"
+#import "PIDSelectViewController.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

@@ -16,7 +16,7 @@
 @implementation SelectModeViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initNavBarTitle:@"Dashboards Style" andLeftItemImageName:@"back" andRightItemImageName:@""];
+    [self initNavBarTitle:@"Dashboards Mode" andLeftItemImageName:@"back" andRightItemImageName:@""];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
 }
 - (void)viewDidLoad {
@@ -70,6 +70,20 @@
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
         if (i == indexPath.row) {
             cell.accessoryView.hidden = NO;
+            switch (indexPath.row) {
+                case 0:{
+                    [DashboardSetting sharedInstance].dashboardMode = DashboardClassicMode;
+                }
+                    break;
+                case 1:{
+                    [DashboardSetting sharedInstance].dashboardMode = DashboardClassicMode;
+                }
+                    break;
+                default:
+                    break;
+        }
+            NSLog(@"122,%ld",(long)[DashboardSetting sharedInstance].dashboardStyle);
+
         }else{
             cell.accessoryView.hidden = YES;
         }

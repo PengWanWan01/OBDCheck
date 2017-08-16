@@ -25,7 +25,15 @@
 }
 
 - (void)initWithUI{
-    _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Size and Location",@"Dispaly Configuration",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];
+//    NSString *ModeStr = [NSString stringWithFormat:@"%ld",(long)[DashboardSetting sharedInstance].dashboardStyle];
+    NSLog(@"121,%ld",(long)[DashboardSetting sharedInstance].dashboardStyle);
+    
+    if ([DashboardSetting sharedInstance].dashboardStyle == DashboardCustomMode) {
+      _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Size and Location",@"Dispaly Configuration",@"Style",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];
+    }else{
+     _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Size and Location",@"Dispaly Configuration",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];
+    }
+  
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, 220) style:UITableViewStylePlain];
     tableView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     tableView.separatorInset = UIEdgeInsetsZero;
