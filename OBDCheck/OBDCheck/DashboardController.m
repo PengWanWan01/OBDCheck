@@ -147,8 +147,21 @@
 - (void)tap:(UILongPressGestureRecognizer *)sender{
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
-            EditDisplayViewController *vc = [[EditDisplayViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
+            switch ([DashboardSetting sharedInstance].dashboardMode) {
+                case DashboardClassicMode:{
+                    DisplaySetViewController *vc = [[DisplaySetViewController alloc]init ];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                case DashboardCustomMode:{
+                    EditDisplayViewController *vc = [[EditDisplayViewController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                default:
+                    break;
+            }
+           
         }
             break;
         case UIGestureRecognizerStateEnded:{

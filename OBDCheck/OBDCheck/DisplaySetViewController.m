@@ -169,11 +169,14 @@
             break;
         case 3:
         {
-            
+            DecimalViewController *vc = [[DecimalViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 4:
         {
+            MultiplierViewController *vc = [[MultiplierViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
             
         }
             break;

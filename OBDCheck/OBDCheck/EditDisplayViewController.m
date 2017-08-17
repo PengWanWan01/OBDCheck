@@ -26,9 +26,9 @@
 
 - (void)initWithUI{
 //    NSString *ModeStr = [NSString stringWithFormat:@"%ld",(long)[DashboardSetting sharedInstance].dashboardStyle];
-    NSLog(@"121,%ld",(long)[DashboardSetting sharedInstance].dashboardStyle);
+    NSLog(@"121,%ld",(long)[DashboardSetting sharedInstance].dashboardMode);
     
-    if ([DashboardSetting sharedInstance].dashboardStyle == DashboardCustomMode) {
+    if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
       _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Size and Location",@"Dispaly Configuration",@"Style",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];
     }else{
      _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Size and Location",@"Dispaly Configuration",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];

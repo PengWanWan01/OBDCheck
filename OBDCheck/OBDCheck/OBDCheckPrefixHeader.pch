@@ -59,5 +59,7 @@
 #import "DashboardSetting.h"
 #import "BasicViewController.h"
 #import "PIDSelectViewController.h"
+#import "DecimalViewController.h"
+#import "MultiplierViewController.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

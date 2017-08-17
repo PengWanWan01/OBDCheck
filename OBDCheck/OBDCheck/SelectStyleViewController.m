@@ -71,15 +71,15 @@
        if (i == indexPath.row) {
             cell.accessoryView.hidden = NO;
            switch (indexPath.row) {
-               case 0:{
+               case 0:{     //第一种仪表盘
                   [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleOne;
                }
                    break;
-               case 1:{
+               case 1:{     //第二种仪表盘
                      [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleTwo;
                }
                    break;
-               case 2:{
+               case 2:{         //第三种仪表盘
                      [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleThree;
                }
                    break;

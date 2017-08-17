@@ -68,23 +68,54 @@
         [cell.textLabel setTextColor:[ColorTools colorWithHexString:@"#FE9002"]];
         cell.textLabel.font = [UIFont systemFontOfSize:18.f];
     }else if (indexPath.row == 2 ||  indexPath.row == 1){
+        //设置Mode 与Style的内容显示；
         [cell.textLabel setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
         UIButton *selectBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.bounds.size.width - 120, 0, 80, 44)];
-//        selectBtn.backgroundColor = [UIColor redColor];
         selectBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [selectBtn setTitleColor:[ColorTools colorWithHexString:@"#FE9002"] forState:UIControlStateNormal];
         [selectBtn setTitle:@"One" forState:UIControlStateNormal];
+        
         if (indexPath.row == 1) {
-            [selectBtn setTitle:@"Classic" forState:UIControlStateNormal];
+            switch ([DashboardSetting sharedInstance].dashboardMode) {
+                case DashboardClassicMode:{
+                    [selectBtn setTitle:@"Classic" forState:UIControlStateNormal];
+                }
+                    break;
+                case DashboardCustomMode:{
+                    [selectBtn setTitle:@"Custom" forState:UIControlStateNormal];
+                }
+                    break;
+                default:
+                    break;
+            }
+            
         }
+        if (indexPath.row == 2) {
+            switch ([DashboardSetting sharedInstance].dashboardStyle) {
+                case DashboardStyleOne:{
+                    [selectBtn setTitle:@"One" forState:UIControlStateNormal];
+                }
+                    break;
+                case DashboardStyleTwo:{
+                    [selectBtn setTitle:@"Two" forState:UIControlStateNormal];
+                }
+                    break;
+                case DashboardStyleThree:{
+                    [selectBtn setTitle:@"Three" forState:UIControlStateNormal];
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+        //选择Mode 与Style的设置
         selectBtn.tag = indexPath.row;
         [selectBtn addTarget:self action:@selector(selectBtn:) forControlEvents:UIControlEventTouchUpInside];
         
         [cell addSubview:selectBtn];
         cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
         
-    }
-    else{
+    }else{
     [cell.textLabel setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
     }
     return cell;

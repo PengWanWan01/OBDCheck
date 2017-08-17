@@ -71,18 +71,18 @@
         if (i == indexPath.row) {
             cell.accessoryView.hidden = NO;
             switch (indexPath.row) {
-                case 0:{
+                case 0:{  //经典模式
                     [DashboardSetting sharedInstance].dashboardMode = DashboardClassicMode;
                 }
                     break;
-                case 1:{
-                    [DashboardSetting sharedInstance].dashboardMode = DashboardClassicMode;
+                case 1:{  //自定义模式
+                    [DashboardSetting sharedInstance].dashboardMode = DashboardCustomMode;
                 }
                     break;
                 default:
                     break;
         }
-            NSLog(@"122,%ld",(long)[DashboardSetting sharedInstance].dashboardStyle);
+            NSLog(@"122,%ld",(long)[DashboardSetting sharedInstance].dashboardMode);
 
         }else{
             cell.accessoryView.hidden = YES;

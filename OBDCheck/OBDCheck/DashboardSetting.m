@@ -15,8 +15,21 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedClient = [[DashboardSetting alloc] init];
+        
     });
     return _sharedClient;
+}
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.dashboardMode = DashboardClassicMode;
+        self.dashboardStyle = DashboardStyleOne;
+        self.numberDecimals = NumberDecimalZero;
+        self.multiplierType = MultiplierType1;
+        
+    }
+    return self;
 }
 -(void)SetDefultAttribute
 {
