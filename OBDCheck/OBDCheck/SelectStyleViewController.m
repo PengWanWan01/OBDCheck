@@ -24,7 +24,7 @@
     [self initWithUI];
 }
 - (void)initWithUI{
-    _styleDataArray = [[NSMutableArray alloc]initWithObjects:@"One",@"Two",@"1212",nil];
+    _styleDataArray = [[NSMutableArray alloc]initWithObjects:@"One",@"Two",@"Three",nil];
     
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, _styleDataArray.count*44) style:UITableViewStylePlain];
     tableView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
@@ -63,6 +63,28 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
     cell.accessoryView = imageView;
     cell.accessoryView.hidden = YES;
+    switch ([DashboardSetting sharedInstance].dashboardStyle ) {
+        case DashboardStyleOne:{
+            if (indexPath.row == 0) {
+                cell.accessoryView.hidden = NO;
+            }
+        }
+            break;
+        case DashboardStyleTwo:{
+            if (indexPath.row == 1) {
+                cell.accessoryView.hidden = NO;
+            }
+        }
+            break;
+        case DashboardStyleThree:{
+                if (indexPath.row == 2) {
+                    cell.accessoryView.hidden = NO;
+                }
+            }
+            break;
+        default:
+            break;
+    }
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

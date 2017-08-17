@@ -14,7 +14,7 @@
 
 @implementation PIDSelectViewController
 - (void)viewWillAppear:(BOOL)animated{
-    [self initNavBarTitle:@"PID" andLeftItemImageName:@"back" andRightItemName:@""];
+    [self initNavBarTitle:@"PID" andLeftItemImageName:@"back" andRightItemName:@"Cancel"];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

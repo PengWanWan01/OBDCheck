@@ -17,6 +17,7 @@
 		CB5AA4131F31A377002B3006 /* SetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */; };
 		CB848F151F4542F700C1A718 /* DecimalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB848F141F4542F700C1A718 /* DecimalViewController.m */; };
 		CB848F181F45434E00C1A718 /* MultiplierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB848F171F45434E00C1A718 /* MultiplierViewController.m */; };
+		CB848F3E1F45A0DB00C1A718 /* MoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB848F3D1F45A0DB00C1A718 /* MoveView.m */; };
 		CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB97176E1F32C110009C47FD /* OBDBtn.m */; };
 		CB9717721F32D595009C47FD /* UILabel+Dxfont.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9717711F32D595009C47FD /* UILabel+Dxfont.m */; };
 		CB9717751F332515009C47FD /* RLBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9717741F332515009C47FD /* RLBtn.m */; };
@@ -74,6 +75,8 @@
 		CB848F141F4542F700C1A718 /* DecimalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecimalViewController.m; sourceTree = "<group>"; };
 		CB848F161F45434E00C1A718 /* MultiplierViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiplierViewController.h; sourceTree = "<group>"; };
 		CB848F171F45434E00C1A718 /* MultiplierViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiplierViewController.m; sourceTree = "<group>"; };
+		CB848F3C1F45A0DB00C1A718 /* MoveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveView.h; sourceTree = "<group>"; };
+		CB848F3D1F45A0DB00C1A718 /* MoveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveView.m; sourceTree = "<group>"; };
 		CB97176D1F32C110009C47FD /* OBDBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDBtn.h; sourceTree = "<group>"; };
 		CB97176E1F32C110009C47FD /* OBDBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBDBtn.m; sourceTree = "<group>"; };
 		CB9717701F32D595009C47FD /* UILabel+Dxfont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Dxfont.h"; sourceTree = "<group>"; };
@@ -225,6 +228,8 @@
 				CBCFDF701F42A4E6008329CF /* gradientView.m */,
 				CBEBF1C71F3AF343006CCA8B /* editDashboardsView.h */,
 				CBEBF1C81F3AF343006CCA8B /* editDashboardsView.m */,
+				CB848F3C1F45A0DB00C1A718 /* MoveView.h */,
+				CB848F3D1F45A0DB00C1A718 /* MoveView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -593,6 +598,7 @@
 				CB9717721F32D595009C47FD /* UILabel+Dxfont.m in Sources */,
 				CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */,
 				CB0220891F43E9CC008773ED /* DashboardSetting.m in Sources */,
+				CB848F3E1F45A0DB00C1A718 /* MoveView.m in Sources */,
 				CBF1E2891F30796400EEC755 /* ColorTools.m in Sources */,
 				CBEBF1C91F3AF343006CCA8B /* editDashboardsView.m in Sources */,
 				CBF1E2641F30680F00EEC755 /* DashboardController.m in Sources */,

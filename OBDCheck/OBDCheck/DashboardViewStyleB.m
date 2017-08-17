@@ -7,7 +7,7 @@
 //
 
 #import "DashboardViewStyleB.h"
-
+#define KMultipleB  ViewWidth/300
 @implementation DashboardViewStyleB
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -25,33 +25,33 @@
         //添加仪表盘中间的内容
         [self addmiddle ];
         //添加仪表盘 底部的内容
-        UIImageView *image2 = [[UIImageView alloc]initWithFrame:CGRectMake(self.bounds.size.width/2 - (100.0/300)*self.frame.size.width, self.bounds.size.width -(73.0/300)*self.frame.size.width , (200.0/300)*self.frame.size.width,  (70.0/300)*self.frame.size.width)];
+        UIImageView *image2 = [[UIImageView alloc]initWithFrame:CGRectMake(self.bounds.size.width/2 - 100*KMultipleB, self.bounds.size.width -73.0*KMultipleB , 200.0*KMultipleB,  70.0*KMultipleB)];
         image2.image = [UIImage imageNamed:@"yuanhu"];
         image2.contentMode = UIViewContentModeScaleAspectFill;
         
         [self addSubview:image2];
         //添加进度条
-        [self draw:self.bounds.size.width/2 - (23.0/300)*self.frame.size.width lineWidth:(12.0/300)*self.frame.size.width lineColor:[ColorTools colorWithHexString:@"1d2027"] startAngle:(M_PI / 4) +(M_PI/18) endAngle: M_PI *3/4-M_PI/18];
-        [self draw:self.bounds.size.width/2 - (23.0/300)*self.frame.size.width lineWidth:(12.0/300)*self.frame.size.width lineColor:[ColorTools colorWithHexString:@"00a6ff"] startAngle:(M_PI / 2) endAngle: M_PI *3/4-M_PI/18];
+        [self draw:self.bounds.size.width/2 - 23.0*KMultipleB lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:@"1d2027"] startAngle:(M_PI / 4) +(M_PI/18) endAngle: M_PI *3/4-M_PI/18];
+        [self draw:self.bounds.size.width/2 - (23.0/300)*self.frame.size.width lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:@"00a6ff"] startAngle:(M_PI / 2) endAngle: M_PI *3/4-M_PI/18];
         
     }
     return self;
 }
 - (void)addmiddle{
-    UIImageView *innerimage = [[UIImageView alloc]initWithFrame:CGRectMake((43.0/300)*self.frame.size.width, (43.0/300)*self.frame.size.width, self.bounds.size.width - (86.0/300)*self.frame.size.width,  self.bounds.size.width - (86.0/300)*self.frame.size.width)];
+    UIImageView *innerimage = [[UIImageView alloc]initWithFrame:CGRectMake(43.0*KMultipleB, 43.0*KMultipleB, self.bounds.size.width - 86.0*KMultipleB,  self.bounds.size.width - 86.0*KMultipleB)];
     innerimage.image = [UIImage imageNamed:@"circle-top"];
     innerimage.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:innerimage];
     
-    _NumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,innerimage.bounds.size.width/2 - (25.0/300)*self.frame.size.width , innerimage.bounds.size.width, (50.0/300)*self.frame.size.width)];
-    _NumberLabel.font = [UIFont boldSystemFontOfSize:(56.0/300)*self.frame.size.width];
+    _NumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,innerimage.bounds.size.width/2 - 25.0*KMultipleB , innerimage.bounds.size.width, 60.0*KMultipleB)];
+     _NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:56.0*KMultipleB];
     _NumberLabel.textColor = [ColorTools colorWithHexString:@"#FFFFFF"];
     _NumberLabel.textAlignment = NSTextAlignmentCenter;
     _NumberLabel.text = @"2500";
     [innerimage addSubview:_NumberLabel];
     
-    _PIDLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, innerimage.bounds.size.width, 30)];
-    _PIDLabel.font = [UIFont boldSystemFontOfSize:(24.0/300)*self.frame.size.width];
+    _PIDLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 25*KMultipleB, innerimage.bounds.size.width, 30.0*KMultipleB)];
+    _PIDLabel.font = [UIFont boldSystemFontOfSize:24.0*KMultipleB];
     _PIDLabel.textColor = [ColorTools colorWithHexString:@"#757476"];
     _PIDLabel.textAlignment = NSTextAlignmentCenter;
     _PIDLabel.text = @"MPH";

@@ -12,6 +12,7 @@
 
 @optional
 - (void)selectStyleBtnBetouched:(NSInteger)index;
+- (void)AlertBetouched:(NSInteger)index;
 
 @end
 @interface editDashboardsView : UIView

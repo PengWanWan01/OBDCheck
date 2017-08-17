@@ -7,7 +7,7 @@
 //
 
 #import "DashboardViewStyleA.h"
-
+#define KMultipleA   ViewWidth/150
 static CGFloat kDefaultRingWidth = 10;
 static CGFloat kDefaultDialLength = 5;
 static CGFloat kDefaultDialPieceCount = 5;
@@ -39,13 +39,13 @@ static CGFloat kDefaultDialPieceCount = 5;
     if (!self) {
         return nil;
     }
-    self.backgroundColor = [UIColor blackColor];
-    self.layer.cornerRadius = self.bounds.size.width / 2;
+    self.backgroundColor = [ColorTools colorWithHexString:@"18191C"];
+    self.layer.cornerRadius = ViewWidth / 2;
     self.layer.masksToBounds = YES;
-    _center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.width / 2);
-    _radius = self.bounds.size.width / 2 - self.ringWidth / 2;
-    _dialCount = 8 * self.dialPieceCount;
     
+    _center = CGPointMake(ViewWidth / 2, ViewWidth / 2);
+    _radius = ViewWidth/ 2 - self.ringWidth / 2;
+    _dialCount = 8 * self.dialPieceCount;
     // 添加外环
     [self addCircleLayer];
     [self addSubview:self.pointerView];
@@ -67,6 +67,7 @@ static CGFloat kDefaultDialPieceCount = 5;
     circleLayer.lineCap = kCALineCapRound;
     circleLayer.lineJoin = kCALineJoinRound;
     circleLayer.fillColor = [UIColor clearColor].CGColor;
+//    circleLayer.strokeColor = [UIColor redColor].CGColor;
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
     circleLayer.path = circlePath.CGPath;
     [containerLayer addSublayer:circleLayer];
@@ -153,7 +154,7 @@ static CGFloat kDefaultDialPieceCount = 5;
 - (UILabel *)infoLabel {
     if (!_infoLabel) {
         _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60, _center.y- 40, 120, 30)];
-        _infoLabel.font = [UIFont boldSystemFontOfSize:17];
+        _infoLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleA];
         _infoLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
         _infoLabel.textAlignment = NSTextAlignmentCenter;
         _infoLabel.text = @"0";

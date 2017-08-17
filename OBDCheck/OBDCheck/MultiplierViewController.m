@@ -15,7 +15,7 @@
 @implementation MultiplierViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initNavBarTitle:@"Multiplier" andLeftItemImageName:@"back" andRightItemName:@""];
+    [self initNavBarTitle:@"Multiplier" andLeftItemImageName:@"back" andRightItemName:@"Cancel"];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,6 +48,22 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
     cell.accessoryView = imageView;
     cell.accessoryView.hidden = YES;
+    switch ([DashboardSetting sharedInstance].multiplierType ) {
+        case MultiplierType1:{
+            if (indexPath.row == 0) {
+                cell.accessoryView.hidden = NO;
+            }
+        }
+            break;
+        case MultiplierType1000:{
+            if (indexPath.row == 1) {
+                cell.accessoryView.hidden = NO;
+            }
+        }
+            break;
+        default:
+            break;
+    }
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -9,14 +9,20 @@
 #import "DisplaySetViewController.h"
 
 @interface DisplaySetViewController ()<UITableViewDelegate,UITableViewDataSource>
+{
+    UITableView *MyTableView;
+}
 @property (nonatomic,strong) NSMutableArray *titleNameArray;
 @property (nonatomic,strong) NSMutableArray *detailArray;
+
 
 @end
 
 @implementation DisplaySetViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    NSLog(@"1212");
+    [MyTableView reloadData];
     [self initNavBarTitle:@"Display Configuration" andLeftItemImageName:@"back" andRightItemName:@"Cancel"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
 }
@@ -30,15 +36,15 @@
     _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Instant fuel economy",@"Min",@"Max",@"PID",@"Number of Decimals",@"Multiplier", nil];
     _detailArray = [[NSMutableArray alloc]initWithObjects:@"Instant fuel economy",@"Zero",@"X1", nil];
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, MSHeight) style:UITableViewStylePlain];
-    tableView.backgroundColor = [UIColor clearColor];
-    tableView.separatorInset = UIEdgeInsetsZero;
-    tableView.scrollEnabled = NO;
-    tableView.separatorColor = [ColorTools colorWithHexString:@"#212329"];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
-    [self.view addSubview:tableView];
+    MyTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, MSHeight) style:UITableViewStylePlain];
+    MyTableView.backgroundColor = [UIColor clearColor];
+    MyTableView.separatorInset = UIEdgeInsetsZero;
+    MyTableView.scrollEnabled = NO;
+    MyTableView.separatorColor = [ColorTools colorWithHexString:@"#212329"];
+    MyTableView.delegate = self;
+    MyTableView.dataSource = self;
+    [MyTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
+    [self.view addSubview:MyTableView];
     
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
@@ -125,6 +131,50 @@
         selectBtn.tag = indexPath.section;
         [cell addSubview:selectBtn];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        switch (indexPath.section) {
+            case 3:{
+                switch ([DashboardSetting sharedInstance].numberDecimals) {
+                    case NumberDecimalZero:
+                    {
+                        [selectBtn setTitle:@"Zero" forState:UIControlStateNormal];
+                    }
+                        break;
+                    case NumberDecimalOne:
+                    {
+                        [selectBtn setTitle:@"One" forState:UIControlStateNormal];
+                    }
+                        break;
+                    case NumberDecimalTwo:
+                    {
+                        [selectBtn setTitle:@"Two" forState:UIControlStateNormal];
+                    }
+                        break;
+                    default:
+                        break;
+                }
+            }
+                break;
+            case 4:{
+                switch ([DashboardSetting sharedInstance].multiplierType) {
+                    case MultiplierType1:
+                    {
+                        [selectBtn setTitle:@"X1" forState:UIControlStateNormal];
+                    }
+                        break;
+                    case MultiplierType1000:
+                    {
+                        [selectBtn setTitle:@"X1000" forState:UIControlStateNormal];
+                    }
+                        break;
+                  
+                    default:
+                        break;
+                }
+            }
+                break;
+            default:
+                break;
+        }
     }
     
     return cell;

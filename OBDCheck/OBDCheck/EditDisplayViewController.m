@@ -21,21 +21,13 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Size and Location",@"Dispaly Configuration",@"Style",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];
     [self initWithUI];
 }
 
 - (void)initWithUI{
-//    NSString *ModeStr = [NSString stringWithFormat:@"%ld",(long)[DashboardSetting sharedInstance].dashboardStyle];
-    NSLog(@"121,%ld",(long)[DashboardSetting sharedInstance].dashboardMode);
-    
-    if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
-      _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Size and Location",@"Dispaly Configuration",@"Style",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];
-    }else{
-     _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Size and Location",@"Dispaly Configuration",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];
-    }
-  
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, 220) style:UITableViewStylePlain];
-    tableView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, MSHeight) style:UITableViewStylePlain];
+    tableView.backgroundColor = [UIColor clearColor];
     tableView.separatorInset = UIEdgeInsetsZero;
     tableView.scrollEnabled = NO;
     tableView.separatorColor = [ColorTools colorWithHexString:@"#212329"];
@@ -58,8 +50,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CEll"];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];
-        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];        
     }
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
         cell.layoutMargins = UIEdgeInsetsZero;
@@ -67,8 +58,8 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.text =  _titleNameArray[indexPath.row];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
-    cell.backgroundColor = [UIColor clearColor];
-    if (indexPath.row==0 || indexPath.row ==1) {
+    cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    if (indexPath.row==0 || indexPath.row ==1 || indexPath.row ==2) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return cell;

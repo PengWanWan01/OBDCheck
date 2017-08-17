@@ -63,6 +63,22 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
     cell.accessoryView = imageView;
     cell.accessoryView.hidden = YES;
+    switch ([DashboardSetting sharedInstance].dashboardMode ) {
+        case DashboardClassicMode:{
+            if (indexPath.row == 0) {
+                cell.accessoryView.hidden = NO;
+            }
+        }
+            break;
+        case DashboardCustomMode:{
+            if (indexPath.row == 1) {
+                cell.accessoryView.hidden = NO;
+            }
+        }
+            break;
+        default:
+            break;
+    }
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

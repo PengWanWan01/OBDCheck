@@ -26,6 +26,7 @@
     [super viewWillAppear:animated];
     [self initNavBarTitle:@"Dashboards" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+  
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -63,12 +64,12 @@
     scrollView.delegate = self;
     pageControl.tag = 1000;
 //第一页的仪表盘
-    CGFloat baseViewWidth = (MSWidth)/2;
+    CGFloat baseViewWidth = (MSWidth)/2 - 30;
     CGFloat baseViewHeight = baseViewWidth;
     for (NSInteger i = 0; i< 6; i++) {
         NSInteger index = i % 2;
          NSInteger page = i / 2;
-        DashboardView *dashboardView = [[DashboardView alloc] initWithFrame:CGRectMake(index * (baseViewWidth ),  page  * (baseViewHeight + 40), baseViewWidth, baseViewHeight )];
+        DashboardView *dashboardView = [[DashboardView alloc] initWithFrame:CGRectMake(index * (baseViewWidth+15 )+15,  page  * (baseViewHeight + 40), baseViewWidth, baseViewHeight )];
          dashboardView.infoLabel.text = _LabelNameArray[i];
         [dashboardView addGestureRecognizer:[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)]];
         
@@ -95,7 +96,7 @@
     DashboardViewStyleB *view = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth*2, 30, self.view.frame.size.width/2, self.view.frame.size.width/2)];
     [scrollView addSubview:view];
     
-    DashboardViewStyleC *viewB = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth*2,self.view.frame.size.width/2+40 , 160, 160)];
+    DashboardViewStyleC *viewB = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth*2,self.view.frame.size.width/2+40 , self.view.frame.size.width/2, self.view.frame.size.width/2)];
     [scrollView addSubview:viewB];
     
 }
@@ -122,7 +123,7 @@
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
    
 }
-#pragma mark 点击选择风格按钮
+#pragma mark 点击选择仪表盘模式和风格按钮
 - (void)selectStyleBtnBetouched:(NSInteger)index{
     NSLog(@"tettet==%ld",(long)index);
     
@@ -144,6 +145,44 @@
             break;
     }
    }
+#pragma mark 点击啊弹框
+-(void)AlertBetouched:(NSInteger)index{
+   
+    switch (index) {
+        case 5:{   
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Remove Dashboard" message:@"Are you sure you want to remove this item?" preferredStyle:  UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //点击按钮的响应事件；
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self removeDashboard];
+            }]];
+            
+            //弹出提示框；
+            [self presentViewController:alert animated:true completion:nil];
+            
+        }
+            break;
+        case 6:{
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Load Default Dashboards" message:@"This will delete all of the existing dashboards and load the default set of dashboards. Do you want to continue?" preferredStyle:  UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self LoadDefaultDashboards];
+            }]];
+            
+            
+            //弹出提示框；
+            [self presentViewController:alert animated:true completion:nil];
+        }
+            break;
+  
+        default:
+            break;
+    }
+}
+#pragma mark 长按仪表盘的手势
 - (void)tap:(UILongPressGestureRecognizer *)sender{
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
@@ -170,5 +209,15 @@
         default:
             break;
     }
-    }
+}
+#pragma mark 移除仪表盘
+- (void)removeDashboard{
+
+
+}
+#pragma mark 全部恢复默认仪表盘
+- (void)LoadDefaultDashboards{
+
+
+}
 @end

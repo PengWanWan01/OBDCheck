@@ -15,7 +15,7 @@
 @implementation DecimalViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initNavBarTitle:@"Number of Decimals" andLeftItemImageName:@"back" andRightItemName:@""];
+    [self initNavBarTitle:@"Number of Decimals" andLeftItemImageName:@"back" andRightItemName:@"Cancel"];
 }
 
 - (void)viewDidLoad {
@@ -49,7 +49,27 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
     cell.accessoryView = imageView;
     cell.accessoryView.hidden = YES;
-
+    switch ([DashboardSetting sharedInstance].numberDecimals ) {
+        case NumberDecimalZero:{
+            if (indexPath.row == 0) {
+                cell.accessoryView.hidden = NO;
+            }
+        }
+            break;
+        case NumberDecimalOne:{
+            if (indexPath.row == 1) {
+                cell.accessoryView.hidden = NO;
+            }
+        }
+            break;case NumberDecimalTwo:{
+                if (indexPath.row == 2) {
+                    cell.accessoryView.hidden = NO;
+                }
+            }
+            break;
+        default:
+            break;
+    }
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -12,4 +12,8 @@
 {
     CGPoint startPoint;
 }
+@property (nonatomic,strong) UILabel *PIDLabel;
+@property (nonatomic,strong) UILabel *NumberLabel;
+@property (nonatomic,strong) UILabel *UnitLabel;
+
 @end
