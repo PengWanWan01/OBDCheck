@@ -64,5 +64,6 @@
 #import "PIDSelectViewController.h"
 #import "DecimalViewController.h"
 #import "MultiplierViewController.h"
+#import "MoveView.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

@@ -59,8 +59,8 @@
     
     
     
-    _UnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_NumberLabel.frame) + 10, innerimage.bounds.size.width, (24.0/300)*self.frame.size.width)];
-    _UnitLabel.font = [UIFont boldSystemFontOfSize:17];
+    _UnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_NumberLabel.frame) + 10*KMultipleB, innerimage.bounds.size.width, 24.0*KMultipleB)];
+    _UnitLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleB];
     _UnitLabel.textColor =  [ColorTools colorWithHexString:@"#757476"];
     _UnitLabel.textAlignment = NSTextAlignmentCenter;
     _UnitLabel.text = @"R/MIN";

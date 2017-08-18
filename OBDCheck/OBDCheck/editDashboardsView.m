@@ -123,7 +123,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self hide];
-    if (indexPath.row == 5 || indexPath.row == 6) {
+    if (indexPath.row == 4||indexPath.row == 5 || indexPath.row == 6) {
             if ([self.delegate respondsToSelector:@selector(AlertBetouched:)]) {
                 [self.delegate AlertBetouched:indexPath.row];
             }

@@ -33,8 +33,23 @@
 }
 
 - (void)initWithUI{
-    _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Instant fuel economy",@"Min",@"Max",@"PID",@"Number of Decimals",@"Multiplier", nil];
-    _detailArray = [[NSMutableArray alloc]initWithObjects:@"Instant fuel economy",@"Zero",@"X1", nil];
+   
+    
+    switch ([DashboardSetting sharedInstance].dashboardMode) {
+        case DashboardClassicMode:
+        {
+         _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Instant fuel economy",@"Min",@"Max",@"PID",@"Number of Decimals",@"Multiplier",@"Remove Display", nil];
+        }
+            break;
+        case DashboardCustomMode:
+        {
+             _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Instant fuel economy",@"Min",@"Max",@"PID",@"Number of Decimals",@"Multiplier", nil];
+        }
+            break;
+        default:
+            break;
+    }
+    
     
     MyTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, MSHeight) style:UITableViewStylePlain];
     MyTableView.backgroundColor = [UIColor clearColor];
@@ -49,8 +64,18 @@
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
-    return 5;
+    switch ([DashboardSetting sharedInstance].dashboardMode) {
+        case DashboardClassicMode:{
+            return 6;
+        }
+            break;
+        case DashboardCustomMode:{
+            return 5;
+        }
+            break;
+        default:
+            break;
+    }
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 1) {

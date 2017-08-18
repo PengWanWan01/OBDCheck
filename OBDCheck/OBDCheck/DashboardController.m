@@ -7,6 +7,8 @@
 //
 
 #import "DashboardController.h"
+#define baseViewWidth  (MSWidth)/2 - 30
+#define baseViewHeight  baseViewWidth
 
 @interface DashboardController ()<UIScrollViewDelegate,selectStyleDelegete>
 {
@@ -15,6 +17,12 @@
      */
     UILabel *numberLabel;
     editDashboardsView *editview;
+    UIScrollView *scrollView;
+    UIPageControl *pageControl ;
+    DashboardView *dashboardStyleAView;
+    DashboardViewStyleB *dashboardStyleBView;
+    DashboardViewStyleC *dashboardStyleCView;
+
 }
 @property (nonatomic,strong) NSMutableArray *LabelNameArray;
 @property (nonatomic,strong) NSMutableArray *numberArray;
@@ -26,27 +34,26 @@
     [super viewWillAppear:animated];
     [self initNavBarTitle:@"Dashboards" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
-  
+    [self initWithUI];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initWithData];
-    [self initWithUI];
-}
+   }
 - (void)initWithData{
     _LabelNameArray = [[NSMutableArray alloc]initWithObjects:@"MPH",@"RPM",@"Engine Temp",@"MAF",@"Fuel rate",@"Battery", nil];
     _numberArray = [[NSMutableArray alloc]init];
     
 }
 - (void)initWithUI{
-    //创建
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 10, MSWidth, MSHeight)];
+    //创建滚动视图
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 10, MSWidth, MSHeight)];
     scrollView.contentSize = CGSizeMake(MSWidth*3,0);
      scrollView.pagingEnabled = YES;
     [scrollView setShowsHorizontalScrollIndicator:NO];
     [self.view addSubview:scrollView];
     //  添加页数控制视图 new = alloc + init
-    UIPageControl *pageControl = [UIPageControl new
+    pageControl = [UIPageControl new
                                   ];
     //不要加到滚动视图中， 会随着滚动消失掉
     [self.view addSubview:pageControl];
@@ -64,41 +71,108 @@
     scrollView.delegate = self;
     pageControl.tag = 1000;
 //第一页的仪表盘
-    CGFloat baseViewWidth = (MSWidth)/2 - 30;
-    CGFloat baseViewHeight = baseViewWidth;
-    for (NSInteger i = 0; i< 6; i++) {
+   
+        switch ([DashboardSetting sharedInstance].dashboardStyle) {
+            case DashboardStyleOne:
+            {
+                [self initWithStyleA];
+            }
+                break;
+            case DashboardStyleTwo:
+            {
+              [self initWithStyleB];
+            }
+                break;
+            case DashboardStyleThree:
+            {
+                [self initWithStyleC];
+                          }
+                break;
+            default:
+                break;
+}
+}
+#pragma mark 初始化仪表盘风格
+- (void)initWithStyleA{
+        for (NSInteger i = 0; i< 6; i++) {
         NSInteger index = i % 2;
-         NSInteger page = i / 2;
-        DashboardView *dashboardView = [[DashboardView alloc] initWithFrame:CGRectMake(index * (baseViewWidth+15 )+15,  page  * (baseViewHeight + 40), baseViewWidth, baseViewHeight )];
-         dashboardView.infoLabel.text = _LabelNameArray[i];
-        [dashboardView addGestureRecognizer:[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)]];
+        NSInteger page = i / 2;
+        dashboardStyleAView  = [[DashboardView alloc] initWithFrame:CGRectMake(index * (baseViewWidth+15 )+15,  page  * (baseViewHeight + 40), baseViewWidth, baseViewHeight )];
+        dashboardStyleAView.infoLabel.text = _LabelNameArray[i];
+        [dashboardStyleAView addGestureRecognizer:[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)]];
         
-        numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(index * (baseViewWidth ), CGRectGetMaxY(dashboardView.frame) + 8, baseViewWidth, 20)];
+        numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(index * (baseViewWidth+15 )+15, CGRectGetMaxY(dashboardStyleAView.frame) + 8, baseViewWidth, 20)];
         numberLabel.font = [UIFont boldSystemFontOfSize:17];
         numberLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
         numberLabel.textAlignment = NSTextAlignmentCenter;
         numberLabel.text = @"N/A";
-        [scrollView addSubview:dashboardView];
+        [scrollView addSubview:dashboardStyleAView];
         [scrollView addSubview:numberLabel];
     }
-//第二页的仪表盘
+    //第二页的仪表盘
     for (NSInteger i = 0; i< 2; i++) {
-      
-        DashboardView *dashboardView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth,  i  * (baseViewHeight *4/3+ 30), baseViewWidth*4/3, baseViewHeight*4/3)];
-        numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(MSWidth, CGRectGetMaxY(dashboardView.frame) + 8, baseViewWidth*4/3, 20)];
+        
+        dashboardStyleAView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth,  i  * (220+ 30), 220, 220)];
+        numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(MSWidth, CGRectGetMaxY(dashboardStyleAView.frame) + 8, 220, 20)];
         numberLabel.font = [UIFont boldSystemFontOfSize:17];
         numberLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
         numberLabel.textAlignment = NSTextAlignmentCenter;
         numberLabel.text = @"N/A";
-        [scrollView addSubview:dashboardView];
-        [scrollView addSubview:numberLabel];    }
-//第三页的仪表盘
-    DashboardViewStyleB *view = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth*2, 30, self.view.frame.size.width/2, self.view.frame.size.width/2)];
-    [scrollView addSubview:view];
+        [scrollView addSubview:dashboardStyleAView];
+        [scrollView addSubview:numberLabel];
+    }
     
-    DashboardViewStyleC *viewB = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth*2,self.view.frame.size.width/2+40 , self.view.frame.size.width/2, self.view.frame.size.width/2)];
-    [scrollView addSubview:viewB];
+    dashboardStyleAView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth*2+37,  88,300, 300)];
+    numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(MSWidth, CGRectGetMaxY(dashboardStyleAView.frame) + 8, 300, 20)];
+    numberLabel.font = [UIFont boldSystemFontOfSize:17];
+    numberLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
+    numberLabel.textAlignment = NSTextAlignmentCenter;
+    numberLabel.text = @"N/A";
+    [scrollView addSubview:dashboardStyleAView];
+    [scrollView addSubview:numberLabel];
+
+}
+
+- (void)initWithStyleB{
     
+    for (NSInteger i = 0; i< 6; i++) {
+        NSInteger index = i % 2;
+        NSInteger page = i / 2;
+      dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(index * (baseViewWidth+15 )+15, page  * (baseViewHeight + 40), baseViewWidth, baseViewHeight)];
+
+        [scrollView addSubview:dashboardStyleBView];
+
+    }
+    //第二页的仪表盘
+    for (NSInteger i = 0; i< 2; i++) {
+        
+        dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth,  i  * (220+ 30), 220, 220)];
+        [scrollView addSubview:dashboardStyleBView];
+    }
+    
+    dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth*2+37,  88,300, 300)];
+    [scrollView addSubview:dashboardStyleBView];
+
+}
+- (void)initWithStyleC{
+    for (NSInteger i = 0; i< 6; i++) {
+        NSInteger index = i % 2;
+        NSInteger page = i / 2;
+        dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(index * (baseViewWidth+15 )+15, page  * (baseViewHeight + 40), baseViewWidth, baseViewHeight)];
+        
+        [scrollView addSubview:dashboardStyleCView];
+        
+    }
+    //第二页的仪表盘
+    for (NSInteger i = 0; i< 2; i++) {
+        
+        dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth,  i  * (220+ 30), 220, 220)];
+        [scrollView addSubview:dashboardStyleCView];
+    }
+    
+    dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth*2+37,  88,300, 300)];
+    [scrollView addSubview:dashboardStyleCView];
+
 }
 //当滚动视图发生位移，就会进入下方代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -111,6 +185,7 @@
     //设置分页控制器的当前页面
     pageControl.currentPage = index;
 }
+
 - (void)rightBarButtonClick{
    editview = [[editDashboardsView alloc]initWithFrame:CGRectMake(85*MSWidth/375, 50, MSWidth -85*MSWidth/375 , 376+44)];
     editview.delegate = self;
@@ -149,7 +224,12 @@
 -(void)AlertBetouched:(NSInteger)index{
    
     switch (index) {
-        case 5:{   
+        case 4:{
+            scrollView.contentSize = CGSizeMake(scrollView.contentSize.width + MSWidth,0);
+            ++pageControl.numberOfPages ;
+        }
+            break;
+        case 5:{
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Remove Dashboard" message:@"Are you sure you want to remove this item?" preferredStyle:  UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 //点击按钮的响应事件；

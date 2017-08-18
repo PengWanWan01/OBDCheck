@@ -28,8 +28,7 @@
         [[view layer] setShadowRadius:16.f*KMultipleC];
         [[view layer] setShadowOpacity:0.1f]; //阴影的透明度
         [[view layer] setShadowColor:[ColorTools colorWithHexString:@"FFFFFF"].CGColor];
-        
-        self.NumberLabel =  [[UILabel alloc]initWithFrame:CGRectMake(0, view.bounds.size.height/2 - 35.0*KMultipleC , view.bounds.size.width, 80.f*KMultipleC)];
+    self.NumberLabel =  [[UILabel alloc]initWithFrame:CGRectMake(0, view.bounds.size.height/2 - 35.0*KMultipleC , view.bounds.size.width, 80.f*KMultipleC)];
     self.NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:74.f*KMultipleC];
         self.NumberLabel.text = @"0.00";
         self.NumberLabel.textAlignment = NSTextAlignmentCenter;
