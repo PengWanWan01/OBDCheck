@@ -42,7 +42,7 @@ static CGFloat kDefaultDialPieceCount = 5;
     self.backgroundColor = [ColorTools colorWithHexString:@"18191C"];
     self.layer.cornerRadius = ViewWidth / 2;
     self.layer.masksToBounds = YES;
-    
+    self.userInteractionEnabled = YES;
     _center = CGPointMake(ViewWidth / 2, ViewWidth / 2);
     _radius = ViewWidth/ 2 - self.ringWidth / 2;
     _dialCount = 8 * self.dialPieceCount;

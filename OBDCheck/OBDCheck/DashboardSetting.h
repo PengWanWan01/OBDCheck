@@ -38,6 +38,7 @@ typedef NS_ENUM(NSInteger ,MultiplierType)
 @property(nonatomic)   DashboardStyle dashboardStyle;
 @property (nonatomic) NumberDecimals numberDecimals;
 @property (nonatomic) MultiplierType multiplierType;
+@property (nonatomic,assign)  NSInteger KPageNumer; //仪表盘的椰树页数
 //单例模式，实例化对象
 +(instancetype )sharedInstance;
 

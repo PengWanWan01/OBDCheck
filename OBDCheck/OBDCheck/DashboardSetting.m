@@ -27,7 +27,7 @@
         self.dashboardStyle = DashboardStyleOne;
         self.numberDecimals = NumberDecimalZero;
         self.multiplierType = MultiplierType1;
-        
+        self.KPageNumer = 3;
     }
     return self;
 }

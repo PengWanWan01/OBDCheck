@@ -14,6 +14,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.userInteractionEnabled = YES;
         //添加仪表盘的底盘
         self.image = [UIImage imageNamed:@"Dashboard"];
         self.contentMode = UIViewContentModeScaleAspectFill;

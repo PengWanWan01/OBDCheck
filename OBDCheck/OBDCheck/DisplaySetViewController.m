@@ -205,6 +205,23 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([DashboardSetting sharedInstance].dashboardMode == DashboardClassicMode) {
+        if (indexPath.section == 5) {
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Remove Display" message:@"Are you sure you want to remove this item?" preferredStyle:  UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //点击按钮的响应事件；
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self RemoveDisplay];
+            }]];
+            
+            //弹出提示框；
+            [self presentViewController:alert animated:true completion:nil];
+            
+        }
+    }
+
     switch (indexPath.section) {
         case 1:
         {
@@ -225,9 +242,9 @@
         case 4:
         {
             
+        
         }
             break;
-   
         default:
             break;
     }
@@ -258,5 +275,10 @@
         default:
             break;
     }
+}
+#pragma mark 删除仪表盘
+- (void)RemoveDisplay{
+
+
 }
 @end

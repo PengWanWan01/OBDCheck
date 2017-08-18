@@ -107,6 +107,7 @@
 }
 #pragma mark 六个按钮的点击
 - (void)tap:(UITapGestureRecognizer *)sender{
+    NSLog(@"1212");
  self.tabBarController.tabBar.hidden = YES;
     switch ([sender view].tag) {
         case 0:{
