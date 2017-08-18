@@ -32,6 +32,24 @@
     [super viewWillAppear:animated];
     [self initNavBarTitle:@"Dashboards" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    if([[UIDevice currentDevice]respondsToSelector:@selector(setOrientation:)]) {
+        
+        SEL selector = NSSelectorFromString(@"setOrientation:");
+        
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+        
+        [invocation setSelector:selector];
+        
+        [invocation setTarget:[UIDevice currentDevice]];
+        
+        int val = UIInterfaceOrientationPortrait;//竖屏
+        
+        [invocation setArgument:&val atIndex:2];
+        
+        [invocation invoke];
+        
+    }
+
     [self updateView];
 }
 - (void)viewDidLoad {
@@ -136,7 +154,7 @@
     for (NSInteger i = 0; i< 6; i++) {
         NSInteger index = i % 2;
         NSInteger page = i / 2;
-      dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(index * (baseViewWidth+15 )+15, page  * (baseViewHeight + 40), baseViewWidth, baseViewHeight)];
+    dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(index * (baseViewWidth+15 )+15, page  * (baseViewHeight + 40), baseViewWidth, baseViewHeight)];
         [scrollView addSubview:dashboardStyleBView];
     [dashboardStyleBView addGestureRecognizer:[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)]];
 
@@ -218,7 +236,7 @@
             break;
     }
    }
-#pragma mark 点击啊弹框
+#pragma mark 点击设置列表的某一行3、4、5、6、7、8弹框
 -(void)AlertBetouched:(NSInteger)index{
    
     switch (index) {
@@ -258,7 +276,12 @@
             [self presentViewController:alert animated:true completion:nil];
         }
             break;
-  
+        case 7:{
+            HUDViewController *vc = [[HUDViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        }
+            break;
         default:
             break;
     }
