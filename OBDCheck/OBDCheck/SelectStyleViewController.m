@@ -23,10 +23,7 @@
     
     [self initWithUI];
 }
-//- (void)back{
-//    DashboardController  *vc = [[DashboardController alloc]init];
-//    [self.navigationController pushViewController:vc animated:YES];
-//}
+
 - (void)initWithUI{
     _styleDataArray = [[NSMutableArray alloc]initWithObjects:@"One",@"Two",@"Three",nil];
     

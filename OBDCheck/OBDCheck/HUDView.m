@@ -21,21 +21,25 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.PIDLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 20)];
-        self.PIDLabel.textColor = [UIColor greenColor];
+        self.PIDLabel = [[UILabel alloc]initWithFrame:CGRectMake(3, 0, 200, 20)];
+        self.PIDLabel.textColor = [ColorTools colorWithHexString:@"#44FF00"];
         self.PIDLabel.text = @"avergr fuel consumption";
-        self.PIDLabel.font = [UIFont systemFontOfSize:15.f];
+        self.PIDLabel.font = [UIFont ToAdapFont:14.f];
         
-        self.NumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, ViewHeight/2 - 20, ViewWidth, 40)];
-        self.NumberLabel.textColor = [UIColor greenColor];
+        self.PIDLabel.textAlignment = NSTextAlignmentLeft;
+        
+        self.NumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, ViewHeight/2 - 30, ViewWidth, 60)];
+        self.NumberLabel.textColor = [ColorTools colorWithHexString:@"#44FF00"];
         self.NumberLabel.text = @"7.6";
-        self.NumberLabel.font = [UIFont systemFontOfSize:25.f];
+        self.NumberLabel.textAlignment = NSTextAlignmentCenter;
+        self.NumberLabel.font = [UIFont ToAdapFont:70.f];
         
-        self.UnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(ViewWidth - 100, ViewHeight - 20, 100, 20)];
-        self.UnitLabel.textColor = [UIColor greenColor];
+        self.UnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(ViewWidth - 105, ViewHeight - 20, 100, 20)];
+        self.UnitLabel.textColor = [ColorTools colorWithHexString:@"#44FF00"];
         self.UnitLabel.text = @"/MIN";
-        self.UnitLabel.font = [UIFont systemFontOfSize:15.f];
-        
+        self.UnitLabel.font = [UIFont ToAdapFont:14.f];
+        self.UnitLabel.textAlignment = NSTextAlignmentRight;
+
         [self addSubview:self.PIDLabel];
         [self addSubview:self.NumberLabel];
         [self addSubview:self.UnitLabel];

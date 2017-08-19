@@ -13,6 +13,9 @@
 		CB07EA271F41A370002894F9 /* UIColor+Separate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB07EA241F41A370002894F9 /* UIColor+Separate.m */; };
 		CB07EA281F41A370002894F9 /* UIColor+Wonderful.m in Sources */ = {isa = PBXBuildFile; fileRef = CB07EA261F41A370002894F9 /* UIColor+Wonderful.m */; };
 		CB21DA461F343F880080648E /* DashboardViewStyleA.m in Sources */ = {isa = PBXBuildFile; fileRef = CB21DA451F343F880080648E /* DashboardViewStyleA.m */; };
+		CB47E2EC1F480C7000B23D8E /* UIFont+AdapFont.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */; };
+		CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EE1F4819C200B23D8E /* StyleViewController.m */; };
+		CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2F11F481B3200B23D8E /* StyleHeadView.m */; };
 		CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5AA4101F31A377002B3006 /* SetTableViewCell.m */; };
 		CB5AA4131F31A377002B3006 /* SetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */; };
 		CB82247C1F46EEC400E1E4BA /* HUDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB82247B1F46EEC400E1E4BA /* HUDViewController.m */; };
@@ -70,6 +73,12 @@
 		CB07EA261F41A370002894F9 /* UIColor+Wonderful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Wonderful.m"; sourceTree = "<group>"; };
 		CB21DA441F343F880080648E /* DashboardViewStyleA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewStyleA.h; sourceTree = "<group>"; };
 		CB21DA451F343F880080648E /* DashboardViewStyleA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewStyleA.m; sourceTree = "<group>"; };
+		CB47E2EA1F480C7000B23D8E /* UIFont+AdapFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+AdapFont.h"; sourceTree = "<group>"; };
+		CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+AdapFont.m"; sourceTree = "<group>"; };
+		CB47E2ED1F4819C200B23D8E /* StyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewController.h; sourceTree = "<group>"; };
+		CB47E2EE1F4819C200B23D8E /* StyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleViewController.m; sourceTree = "<group>"; };
+		CB47E2F01F481B3200B23D8E /* StyleHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleHeadView.h; sourceTree = "<group>"; };
+		CB47E2F11F481B3200B23D8E /* StyleHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleHeadView.m; sourceTree = "<group>"; };
 		CB5AA40F1F31A377002B3006 /* SetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTableViewCell.h; sourceTree = "<group>"; };
 		CB5AA4101F31A377002B3006 /* SetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTableViewCell.m; sourceTree = "<group>"; };
 		CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetTableViewCell.xib; sourceTree = "<group>"; };
@@ -213,6 +222,8 @@
 				CBEBF1D11F3B27E1006CCA8B /* SizeAndLocationViewController.m */,
 				CBEBF1D31F3B2804006CCA8B /* DisplaySetViewController.h */,
 				CBEBF1D41F3B2804006CCA8B /* DisplaySetViewController.m */,
+				CB47E2ED1F4819C200B23D8E /* StyleViewController.h */,
+				CB47E2EE1F4819C200B23D8E /* StyleViewController.m */,
 				CBE4AC011F442674003714A4 /* PIDSelectViewController.h */,
 				CBE4AC021F442674003714A4 /* PIDSelectViewController.m */,
 				CB848F131F4542F700C1A718 /* DecimalViewController.h */,
@@ -240,6 +251,9 @@
 				CB848F3D1F45A0DB00C1A718 /* MoveView.m */,
 				CB82247D1F46F30000E1E4BA /* HUDView.h */,
 				CB82247E1F46F30000E1E4BA /* HUDView.m */,
+				CB47E2F01F481B3200B23D8E /* StyleHeadView.h */,
+				CB47E2F11F481B3200B23D8E /* StyleHeadView.m */,
+				CBF1E2601F30676B00EEC755 /* Performance */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -318,7 +332,6 @@
 				CBF1E25D1F30675800EEC755 /* Diagnostics */,
 				CBF1E25E1F30675F00EEC755 /* Montiors */,
 				CBF1E25F1F30676600EEC755 /* Logs */,
-				CBF1E2601F30676B00EEC755 /* Performance */,
 				CBF1E2611F30678F00EEC755 /* Settings */,
 			);
 			name = OBD;
@@ -439,6 +452,8 @@
 				CB9717711F32D595009C47FD /* UILabel+Dxfont.m */,
 				CBF1E2841F306C6200EEC755 /* UIViewController+NavBar.h */,
 				CBF1E2851F306C6200EEC755 /* UIViewController+NavBar.m */,
+				CB47E2EA1F480C7000B23D8E /* UIFont+AdapFont.h */,
+				CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -598,6 +613,8 @@
 				CB07EA281F41A370002894F9 /* UIColor+Wonderful.m in Sources */,
 				CBF1E22E1F2ED49200EEC755 /* ViewController.m in Sources */,
 				CBE4AC0A1F443432003714A4 /* DashboardViewStyleC.m in Sources */,
+				CB47E2EC1F480C7000B23D8E /* UIFont+AdapFont.m in Sources */,
+				CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */,
 				CBF1E2761F3068C500EEC755 /* MonController.m in Sources */,
 				CB07EA271F41A370002894F9 /* UIColor+Separate.m in Sources */,
 				CBE4AC061F4426BC003714A4 /* BasicViewController.m in Sources */,
@@ -611,6 +628,7 @@
 				CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */,
 				CB0220891F43E9CC008773ED /* DashboardSetting.m in Sources */,
 				CB848F3E1F45A0DB00C1A718 /* MoveView.m in Sources */,
+				CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */,
 				CBF1E2891F30796400EEC755 /* ColorTools.m in Sources */,
 				CBEBF1C91F3AF343006CCA8B /* editDashboardsView.m in Sources */,
 				CBF1E2641F30680F00EEC755 /* DashboardController.m in Sources */,

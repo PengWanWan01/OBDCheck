@@ -33,11 +33,18 @@ typedef NS_ENUM(NSInteger ,MultiplierType)
     MultiplierType1=0,   // 单位1倍
     MultiplierType1000    //单位1000倍
 };
+typedef NS_ENUM(NSInteger ,HUDModeType)
+{
+    HUDModeTypeToHUD,   // 变成HUD类型
+    HUDModeTypeToNormal    //变成正常类型
+};
+
 @interface DashboardSetting : NSObject
 @property(nonatomic)   DashboardMode dashboardMode;
 @property(nonatomic)   DashboardStyle dashboardStyle;
 @property (nonatomic) NumberDecimals numberDecimals;
 @property (nonatomic) MultiplierType multiplierType;
+@property (nonatomic) HUDModeType hudModeType;
 @property (nonatomic,assign)  NSInteger KPageNumer; //仪表盘的椰树页数
 //单例模式，实例化对象
 +(instancetype )sharedInstance;

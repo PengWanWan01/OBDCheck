@@ -79,6 +79,30 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
+        case 2:
+        {
+            StyleViewController *vc = [[StyleViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 3:
+        {
+//            StyleViewController *vc = [[StyleViewController alloc]init];
+//            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 4:
+        {
+//            StyleViewController *vc = [[StyleViewController alloc]init];
+//            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 5:
+        {
+//            DisplaySetViewController *vc = [[DisplaySetViewController alloc]init];
+//            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
         default:
             break;
     }

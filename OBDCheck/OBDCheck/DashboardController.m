@@ -32,6 +32,9 @@
     [super viewWillAppear:animated];
     [self initNavBarTitle:@"Dashboards" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    self.navigationController.navigationBar.hidden = NO;
+    [UIApplication sharedApplication].statusBarHidden = NO;
+
     if([[UIDevice currentDevice]respondsToSelector:@selector(setOrientation:)]) {
         
         SEL selector = NSSelectorFromString(@"setOrientation:");
@@ -56,13 +59,20 @@
     [super viewDidLoad];
     [self initWithData];
      [self initWithUI];
-   }
+ }
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [UIApplication sharedApplication].statusBarHidden = NO;
+
+}
 - (void)initWithData{
     _LabelNameArray = [[NSMutableArray alloc]initWithObjects:@"MPH",@"RPM",@"Engine Temp",@"MAF",@"Fuel rate",@"Battery", nil];
     _numberArray = [[NSMutableArray alloc]init];
     
 }
 - (void)initWithUI{
+    
+    
     //创建滚动视图
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 10, MSWidth, MSHeight)];
     scrollView.contentSize = CGSizeMake(MSWidth*[DashboardSetting sharedInstance].KPageNumer,0);
@@ -108,7 +118,10 @@
             default:
                 break;
 }
+    
+
 }
+
 #pragma mark 初始化仪表盘风格
 - (void)initWithStyleA{
         for (NSInteger i = 0; i< 6; i++) {

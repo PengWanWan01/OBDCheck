@@ -112,7 +112,7 @@ static CGFloat kDefaultDialPieceCount = 5;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 1.0);
     CGContextSetRGBFillColor(context, 0.5, 0.5, 0.5, 0.5);
-    UIFont *font = [UIFont boldSystemFontOfSize:15.0];
+    UIFont *font = [UIFont ToAdapFont:15.0];
     UIColor *foregroundColor = [UIColor whiteColor];
     NSDictionary *attributes = @{NSFontAttributeName: font, NSForegroundColorAttributeName: foregroundColor};
     
@@ -123,15 +123,15 @@ static CGFloat kDefaultDialPieceCount = 5;
     NSArray *textArr = @[@"0", @"20", @"40",@"60", @"80", @"100", @"120", @"140"];
     
     // 计算所得各个文字显示的位置相对于其insidePoint的偏移量,
-    NSArray *xOffsetArr = @[@(-5),@(10), @(7), @(5), @(-10), @(-30), @(-35), @(-30)];
-    NSArray *yOffsetArr = @[@(-25),@(-20), @(-10), @(0), @(5), @(0), @(-10), @(-20)];
+    NSArray *xOffsetArr = @[@(-5*KFontmultiple),@(10*KFontmultiple), @(7*KFontmultiple), @(5*KFontmultiple), @(-10*KFontmultiple), @(-30*KFontmultiple), @(-35*KFontmultiple), @(-30*KFontmultiple)];
+    NSArray *yOffsetArr = @[@(-25*KFontmultiple),@(-20*KFontmultiple), @(-10*KFontmultiple), @(0*KFontmultiple), @(5*KFontmultiple), @(0*KFontmultiple), @(-10*KFontmultiple), @(-20*KFontmultiple)];
     
     for (int i = 0; i < textArr.count; i++) {
         CGFloat angle =  M_PI_2 + M_PI / 2 - 5 * i * (M_PI_2 + M_PI/2) *2 / _dialCount;
         CGPoint insidePoint = CGPointMake(_center.x - (insideRadius * sin(angle)), _center.y - (insideRadius * cos(angle)));
         CGFloat xOffset = [xOffsetArr[i] floatValue];
         CGFloat yOffset = [yOffsetArr[i] floatValue];
-        CGRect rect = CGRectMake(insidePoint.x + xOffset, insidePoint.y + yOffset, 60, 20);
+        CGRect rect = CGRectMake(insidePoint.x + xOffset, insidePoint.y + yOffset, 60*KFontmultiple, 20*KFontmultiple);
         NSString *text = textArr[i];
         [text drawInRect:rect withAttributes:attributes];
     }
@@ -153,11 +153,11 @@ static CGFloat kDefaultDialPieceCount = 5;
 #pragma mark - InfoLabe;
 - (UILabel *)infoLabel {
     if (!_infoLabel) {
-        _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60, _center.y- 40, 120, 30)];
-        _infoLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleA];
+        _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KFontmultiple, _center.y- 40*KFontmultiple, 120*KFontmultiple, 30*KFontmultiple)];
         _infoLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
         _infoLabel.textAlignment = NSTextAlignmentCenter;
         _infoLabel.text = @"0";
+        _infoLabel.font = [UIFont ToAdapFont:16.f];
     }
     return _infoLabel;
 }

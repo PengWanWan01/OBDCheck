@@ -26,17 +26,17 @@
 
 @implementation ViewController
 //设置状态栏颜色
-- (void)setStatusBarBackgroundColor:(UIColor *)color {
-    
-    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
-    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
-        statusBar.backgroundColor = color;
-    }
-}
+//- (void)setStatusBarBackgroundColor:(UIColor *)color {
+//    
+//    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+//    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+//        statusBar.backgroundColor = color;
+//    }
+//}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
-    [self setStatusBarBackgroundColor:[UIColor blackColor]];
+//    [self setStatusBarBackgroundColor:[UIColor blackColor]];
      [UIApplication sharedApplication].statusBarStyle=UIStatusBarStyleLightContent;
      self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     //ColorTools colorWithHexString:@"#212329"
