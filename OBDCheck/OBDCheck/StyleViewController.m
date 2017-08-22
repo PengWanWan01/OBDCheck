@@ -24,45 +24,77 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    StyleHeadView *HeadView = [[StyleHeadView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 237)];
-    self.tableView.tableHeaderView = HeadView;
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    [self.tableView registerNib:[UINib nibWithNibName:@"StyleOneTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleOneTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"StyleTwoTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleTwoTableViewCell"];
+      [self.tableView registerNib:[UINib nibWithNibName:@"StyleThreeTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleThreeTableViewCell"];
+    
+  
+//    self.tableView.scrollEnabled = NO;
+//    self.tableView.UITableViewStyle = UITableViewStylePlain;
+    
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return 4;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return 3;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 44.f;
+    if (indexPath.section == 0) {
+        return 65.f;
+    }else{
+        return 44.f;
+    }
 }
-
-
+- ( UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    StyleHeadView *HeadView = [[StyleHeadView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 237)];
+    if (section == 0) {
+        return HeadView;
+    }else{
+    return nil;
+    }
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        return 237;
+    }else{
+        return 0;
+    }
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
  
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CEll"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];
-        
+    UITableViewCell *resultCell = [[UITableViewCell alloc]init];
+    resultCell.backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
+    switch (indexPath.section) {
+        case 0:{
+            StyleOneTableViewCell *StyleOneCell = [tableView dequeueReusableCellWithIdentifier:@"StyleOneTableViewCell"];
+    StyleOneCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            resultCell = StyleOneCell;
+        }
+            break;
+        case 1:{
+             StyleTwoTableViewCell *StyleTwoCell = [tableView dequeueReusableCellWithIdentifier:@"StyleTwoTableViewCell"];
+         StyleTwoCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            resultCell = StyleTwoCell;
+        }
+            break;
+        case 2:{
+            
+            StyleThreeTableViewCell *StyleThreeCell = [tableView dequeueReusableCellWithIdentifier:@"StyleThreeTableViewCell"];
+     StyleThreeCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            resultCell = StyleThreeCell;
+            
+        }
+            break;
+        default:
+            break;
     }
-    return cell;
+    return resultCell;
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

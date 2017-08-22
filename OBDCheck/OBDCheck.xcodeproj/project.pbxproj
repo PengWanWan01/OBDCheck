@@ -13,6 +13,12 @@
 		CB07EA271F41A370002894F9 /* UIColor+Separate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB07EA241F41A370002894F9 /* UIColor+Separate.m */; };
 		CB07EA281F41A370002894F9 /* UIColor+Wonderful.m in Sources */ = {isa = PBXBuildFile; fileRef = CB07EA261F41A370002894F9 /* UIColor+Wonderful.m */; };
 		CB21DA461F343F880080648E /* DashboardViewStyleA.m in Sources */ = {isa = PBXBuildFile; fileRef = CB21DA451F343F880080648E /* DashboardViewStyleA.m */; };
+		CB44DB2C1F4A822200A24629 /* StyleOneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB44DB2A1F4A822200A24629 /* StyleOneTableViewCell.m */; };
+		CB44DB2D1F4A822200A24629 /* StyleOneTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB44DB2B1F4A822200A24629 /* StyleOneTableViewCell.xib */; };
+		CB44DB311F4A823F00A24629 /* StyleTwoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB44DB2F1F4A823F00A24629 /* StyleTwoTableViewCell.m */; };
+		CB44DB321F4A823F00A24629 /* StyleTwoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB44DB301F4A823F00A24629 /* StyleTwoTableViewCell.xib */; };
+		CB44DB361F4A825900A24629 /* StyleThreeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB44DB341F4A825900A24629 /* StyleThreeTableViewCell.m */; };
+		CB44DB371F4A825900A24629 /* StyleThreeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB44DB351F4A825900A24629 /* StyleThreeTableViewCell.xib */; };
 		CB47E2EC1F480C7000B23D8E /* UIFont+AdapFont.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */; };
 		CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EE1F4819C200B23D8E /* StyleViewController.m */; };
 		CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2F11F481B3200B23D8E /* StyleHeadView.m */; };
@@ -57,6 +63,10 @@
 		CBF1E2861F306C6200EEC755 /* UIViewController+NavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2851F306C6200EEC755 /* UIViewController+NavBar.m */; };
 		CBF1E2891F30796400EEC755 /* ColorTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2881F30796400EEC755 /* ColorTools.m */; };
 		CBF1E28D1F30A06500EEC755 /* bluetoothView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E28C1F30A06500EEC755 /* bluetoothView.m */; };
+		CBF334621F4B0FE6003C0548 /* ILHuePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF3345D1F4B0FE6003C0548 /* ILHuePickerView.m */; };
+		CBF334631F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF3345F1F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.m */; };
+		CBF334641F4B0FE6003C0548 /* ILColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF334611F4B0FE6003C0548 /* ILColorPickerView.m */; };
+		CBF334671F4B0FFC003C0548 /* UIColor+GetHSB.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF334661F4B0FFC003C0548 /* UIColor+GetHSB.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +83,15 @@
 		CB07EA261F41A370002894F9 /* UIColor+Wonderful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Wonderful.m"; sourceTree = "<group>"; };
 		CB21DA441F343F880080648E /* DashboardViewStyleA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewStyleA.h; sourceTree = "<group>"; };
 		CB21DA451F343F880080648E /* DashboardViewStyleA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewStyleA.m; sourceTree = "<group>"; };
+		CB44DB291F4A822200A24629 /* StyleOneTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleOneTableViewCell.h; sourceTree = "<group>"; };
+		CB44DB2A1F4A822200A24629 /* StyleOneTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleOneTableViewCell.m; sourceTree = "<group>"; };
+		CB44DB2B1F4A822200A24629 /* StyleOneTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StyleOneTableViewCell.xib; sourceTree = "<group>"; };
+		CB44DB2E1F4A823F00A24629 /* StyleTwoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleTwoTableViewCell.h; sourceTree = "<group>"; };
+		CB44DB2F1F4A823F00A24629 /* StyleTwoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleTwoTableViewCell.m; sourceTree = "<group>"; };
+		CB44DB301F4A823F00A24629 /* StyleTwoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StyleTwoTableViewCell.xib; sourceTree = "<group>"; };
+		CB44DB331F4A825900A24629 /* StyleThreeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleThreeTableViewCell.h; sourceTree = "<group>"; };
+		CB44DB341F4A825900A24629 /* StyleThreeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleThreeTableViewCell.m; sourceTree = "<group>"; };
+		CB44DB351F4A825900A24629 /* StyleThreeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StyleThreeTableViewCell.xib; sourceTree = "<group>"; };
 		CB47E2EA1F480C7000B23D8E /* UIFont+AdapFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+AdapFont.h"; sourceTree = "<group>"; };
 		CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+AdapFont.m"; sourceTree = "<group>"; };
 		CB47E2ED1F4819C200B23D8E /* StyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewController.h; sourceTree = "<group>"; };
@@ -157,6 +176,14 @@
 		CBF1E2881F30796400EEC755 /* ColorTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorTools.m; sourceTree = "<group>"; };
 		CBF1E28B1F30A06500EEC755 /* bluetoothView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bluetoothView.h; sourceTree = "<group>"; };
 		CBF1E28C1F30A06500EEC755 /* bluetoothView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bluetoothView.m; sourceTree = "<group>"; };
+		CBF3345C1F4B0FE6003C0548 /* ILHuePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILHuePickerView.h; sourceTree = "<group>"; };
+		CBF3345D1F4B0FE6003C0548 /* ILHuePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILHuePickerView.m; sourceTree = "<group>"; };
+		CBF3345E1F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILSaturationBrightnessPickerView.h; sourceTree = "<group>"; };
+		CBF3345F1F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILSaturationBrightnessPickerView.m; sourceTree = "<group>"; };
+		CBF334601F4B0FE6003C0548 /* ILColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILColorPickerView.h; sourceTree = "<group>"; };
+		CBF334611F4B0FE6003C0548 /* ILColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILColorPickerView.m; sourceTree = "<group>"; };
+		CBF334651F4B0FFC003C0548 /* UIColor+GetHSB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+GetHSB.h"; sourceTree = "<group>"; };
+		CBF334661F4B0FFC003C0548 /* UIColor+GetHSB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GetHSB.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,22 +264,8 @@
 		CB9B28611F3416BB00CD8C84 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CB21DA441F343F880080648E /* DashboardViewStyleA.h */,
-				CB21DA451F343F880080648E /* DashboardViewStyleA.m */,
-				CBCFDF6C1F42A4C5008329CF /* DashboardViewStyleB.h */,
-				CBCFDF6D1F42A4C5008329CF /* DashboardViewStyleB.m */,
-				CBE4AC081F443432003714A4 /* DashboardViewStyleC.h */,
-				CBE4AC091F443432003714A4 /* DashboardViewStyleC.m */,
-				CBCFDF6F1F42A4E6008329CF /* gradientView.h */,
-				CBCFDF701F42A4E6008329CF /* gradientView.m */,
-				CBEBF1C71F3AF343006CCA8B /* editDashboardsView.h */,
-				CBEBF1C81F3AF343006CCA8B /* editDashboardsView.m */,
-				CB848F3C1F45A0DB00C1A718 /* MoveView.h */,
-				CB848F3D1F45A0DB00C1A718 /* MoveView.m */,
-				CB82247D1F46F30000E1E4BA /* HUDView.h */,
-				CB82247E1F46F30000E1E4BA /* HUDView.m */,
-				CB47E2F01F481B3200B23D8E /* StyleHeadView.h */,
-				CB47E2F11F481B3200B23D8E /* StyleHeadView.m */,
+				CBF334691F4B106F003C0548 /* OtherView */,
+				CBF3345B1F4B0FC6003C0548 /* StyleView */,
 				CBF1E2601F30676B00EEC755 /* Performance */,
 			);
 			name = View;
@@ -448,6 +461,8 @@
 		CBF1E2831F306C4900EEC755 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				CBF334651F4B0FFC003C0548 /* UIColor+GetHSB.h */,
+				CBF334661F4B0FFC003C0548 /* UIColor+GetHSB.m */,
 				CB9717701F32D595009C47FD /* UILabel+Dxfont.h */,
 				CB9717711F32D595009C47FD /* UILabel+Dxfont.m */,
 				CBF1E2841F306C6200EEC755 /* UIViewController+NavBar.h */,
@@ -472,6 +487,51 @@
 			children = (
 			);
 			name = Bluetooth;
+			sourceTree = "<group>";
+		};
+		CBF3345B1F4B0FC6003C0548 /* StyleView */ = {
+			isa = PBXGroup;
+			children = (
+				CB44DB291F4A822200A24629 /* StyleOneTableViewCell.h */,
+				CB44DB2A1F4A822200A24629 /* StyleOneTableViewCell.m */,
+				CB44DB2B1F4A822200A24629 /* StyleOneTableViewCell.xib */,
+				CB44DB2E1F4A823F00A24629 /* StyleTwoTableViewCell.h */,
+				CB44DB2F1F4A823F00A24629 /* StyleTwoTableViewCell.m */,
+				CB44DB301F4A823F00A24629 /* StyleTwoTableViewCell.xib */,
+				CB44DB331F4A825900A24629 /* StyleThreeTableViewCell.h */,
+				CB44DB341F4A825900A24629 /* StyleThreeTableViewCell.m */,
+				CB44DB351F4A825900A24629 /* StyleThreeTableViewCell.xib */,
+				CB47E2F01F481B3200B23D8E /* StyleHeadView.h */,
+				CB47E2F11F481B3200B23D8E /* StyleHeadView.m */,
+				CBF3345C1F4B0FE6003C0548 /* ILHuePickerView.h */,
+				CBF3345D1F4B0FE6003C0548 /* ILHuePickerView.m */,
+				CBF3345E1F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.h */,
+				CBF3345F1F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.m */,
+				CBF334601F4B0FE6003C0548 /* ILColorPickerView.h */,
+				CBF334611F4B0FE6003C0548 /* ILColorPickerView.m */,
+			);
+			name = StyleView;
+			sourceTree = "<group>";
+		};
+		CBF334691F4B106F003C0548 /* OtherView */ = {
+			isa = PBXGroup;
+			children = (
+				CB21DA441F343F880080648E /* DashboardViewStyleA.h */,
+				CB21DA451F343F880080648E /* DashboardViewStyleA.m */,
+				CBCFDF6C1F42A4C5008329CF /* DashboardViewStyleB.h */,
+				CBCFDF6D1F42A4C5008329CF /* DashboardViewStyleB.m */,
+				CBE4AC081F443432003714A4 /* DashboardViewStyleC.h */,
+				CBE4AC091F443432003714A4 /* DashboardViewStyleC.m */,
+				CBCFDF6F1F42A4E6008329CF /* gradientView.h */,
+				CBCFDF701F42A4E6008329CF /* gradientView.m */,
+				CBEBF1C71F3AF343006CCA8B /* editDashboardsView.h */,
+				CBEBF1C81F3AF343006CCA8B /* editDashboardsView.m */,
+				CB848F3C1F45A0DB00C1A718 /* MoveView.h */,
+				CB848F3D1F45A0DB00C1A718 /* MoveView.m */,
+				CB82247D1F46F30000E1E4BA /* HUDView.h */,
+				CB82247E1F46F30000E1E4BA /* HUDView.m */,
+			);
+			name = OtherView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -536,12 +596,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB44DB321F4A823F00A24629 /* StyleTwoTableViewCell.xib in Resources */,
 				CB5AA4131F31A377002B3006 /* SetTableViewCell.xib in Resources */,
 				CBF1E2361F2ED49200EEC755 /* LaunchScreen.storyboard in Resources */,
 				CBF1E2331F2ED49200EEC755 /* Assets.xcassets in Resources */,
 				CBF1E2521F30293100EEC755 /* PersonalViewController.xib in Resources */,
 				CBF1E2571F302A0500EEC755 /* SpecialViewController.xib in Resources */,
 				CBF1E2311F2ED49200EEC755 /* Main.storyboard in Resources */,
+				CB44DB371F4A825900A24629 /* StyleThreeTableViewCell.xib in Resources */,
+				CB44DB2D1F4A822200A24629 /* StyleOneTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,6 +670,8 @@
 				CBF1E2561F302A0500EEC755 /* SpecialViewController.m in Sources */,
 				CB21DA461F343F880080648E /* DashboardViewStyleA.m in Sources */,
 				CBF1E2701F30688200EEC755 /* PerformController.m in Sources */,
+				CB44DB311F4A823F00A24629 /* StyleTwoTableViewCell.m in Sources */,
+				CB44DB361F4A825900A24629 /* StyleThreeTableViewCell.m in Sources */,
 				CBF1E25B1F305CF800EEC755 /* setDistanceUtil.m in Sources */,
 				CBEBF1D21F3B27E1006CCA8B /* SizeAndLocationViewController.m in Sources */,
 				CBF1E2861F306C6200EEC755 /* UIViewController+NavBar.m in Sources */,
@@ -616,14 +681,17 @@
 				CB47E2EC1F480C7000B23D8E /* UIFont+AdapFont.m in Sources */,
 				CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */,
 				CBF1E2761F3068C500EEC755 /* MonController.m in Sources */,
+				CB44DB2C1F4A822200A24629 /* StyleOneTableViewCell.m in Sources */,
 				CB07EA271F41A370002894F9 /* UIColor+Separate.m in Sources */,
 				CBE4AC061F4426BC003714A4 /* BasicViewController.m in Sources */,
 				CBEBF1CC1F3B0E3F006CCA8B /* SelectStyleViewController.m in Sources */,
+				CBF334641F4B0FE6003C0548 /* ILColorPickerView.m in Sources */,
 				CBF1E24C1F30262E00EEC755 /* MyTabBarController.m in Sources */,
 				CBEBF1D51F3B2804006CCA8B /* DisplaySetViewController.m in Sources */,
 				CB82247C1F46EEC400E1E4BA /* HUDViewController.m in Sources */,
 				CB848F181F45434E00C1A718 /* MultiplierViewController.m in Sources */,
 				CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */,
+				CBF334671F4B0FFC003C0548 /* UIColor+GetHSB.m in Sources */,
 				CB9717721F32D595009C47FD /* UILabel+Dxfont.m in Sources */,
 				CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */,
 				CB0220891F43E9CC008773ED /* DashboardSetting.m in Sources */,
@@ -631,9 +699,11 @@
 				CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */,
 				CBF1E2891F30796400EEC755 /* ColorTools.m in Sources */,
 				CBEBF1C91F3AF343006CCA8B /* editDashboardsView.m in Sources */,
+				CBF334621F4B0FE6003C0548 /* ILHuePickerView.m in Sources */,
 				CBF1E2641F30680F00EEC755 /* DashboardController.m in Sources */,
 				CBF1E22B1F2ED49200EEC755 /* AppDelegate.m in Sources */,
 				CBE4AC031F442674003714A4 /* PIDSelectViewController.m in Sources */,
+				CBF334631F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.m in Sources */,
 				CBF1E2791F3068E000EEC755 /* LogsController.m in Sources */,
 				CBCFDF6E1F42A4C5008329CF /* DashboardViewStyleB.m in Sources */,
 				CBF1E28D1F30A06500EEC755 /* bluetoothView.m in Sources */,

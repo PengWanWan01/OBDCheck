@@ -51,17 +51,30 @@
         label.font = [UIFont ToAdapFont:14.f];
         
         self.slider = [[UISlider alloc]initWithFrame:CGRectMake(260, CGRectGetMaxY(label.frame )+10, 150, 20)];
-        
+        self.slider.minimumTrackTintColor = [ColorTools colorWithHexString:@"FE9002"];
         
         UIView *btnView = [[UIView alloc]initWithFrame:CGRectMake(29, CGRectGetMaxY(self.NumberLabel.frame) + 10, MSWidth - 58, 24)];
-        btnView.backgroundColor = [UIColor redColor];
-        for (int i = 0; i< 4; i++) {
+               _datasource = [[NSMutableArray alloc]initWithObjects:@"Frame",@"Axis",@"Needle",@"Range", nil];
+        
+        for (NSInteger i = 0; i< 4; i++) {
             UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(btnView.frame.size.width/4), 0, btnView.frame.size.width/4, 24)];
-            [btn setTitle:@"12" forState:UIControlStateNormal];
+            [btn setTitle:_datasource[i] forState:UIControlStateNormal];
             btn.titleLabel.font = [UIFont ToAdapFont:13];
             [btn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
+            [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
             
             [btnView addSubview:btn];
+        }
+//        CGFloat distance = (CGFloat)(btnView.bounds.size.width)/4;
+        for (NSInteger i = 0; i< 5; i++) {
+         UIView *LineView = [[UIView alloc]initWithFrame:CGRectMake(i*(btnView.bounds.size.width)/4, 0, 1, btnView.bounds.size.height)];
+            LineView.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+            [btnView addSubview:LineView];
+        }
+        for (NSInteger i = 0; i< 2; i++) {
+            UIView *LineView = [[UIView alloc]initWithFrame:CGRectMake(0, i*(btnView.bounds.size.height), btnView.bounds.size.width,1)];
+            LineView.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+            [btnView addSubview:LineView];
         }
         [self addSubview:self.DashboardView];
         [self addSubview:label];
@@ -72,5 +85,25 @@
         
     }
     return self;
+}
+- (void)btn:(UIButton *)btn{
+    if(selectBtn == btn ) {
+        //上次点击过的按钮，不做处理
+    } else{
+        //本次点击的按钮设为黑色
+        [btn setTitleColor:[ColorTools colorWithHexString:@"#212329"] forState:UIControlStateNormal];
+        btn.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+  
+        
+        //将上次点击过的按钮设为白色
+        [selectBtn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
+        selectBtn.backgroundColor = [UIColor clearColor];
+      
+        
+    }
+    selectBtn= btn;
+
+    
+
 }
 @end

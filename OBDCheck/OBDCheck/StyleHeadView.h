@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface StyleHeadView : UIView
+{
+    UIButton *selectBtn;
+}
 @property (nonatomic,strong) UIView *DashboardView;
 @property (nonatomic,strong) UISlider *slider;
 @property (nonatomic,strong) UILabel *NumberLabel;
-
+@property (nonatomic,strong) NSMutableArray *datasource;
 @end

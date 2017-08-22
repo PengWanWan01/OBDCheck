@@ -71,5 +71,12 @@
 #import "UIFont+AdapFont.h"
 #import "StyleViewController.h"
 #import "StyleHeadView.h"
+#import "StyleOneTableViewCell.h"
+#import "StyleTwoTableViewCell.h"
+#import "StyleThreeTableViewCell.h"
+#import "UIColor+GetHSB.h"
+#import "ILHuePickerView.h"
+#import "ILColorPickerView.h"
+#import "ILSaturationBrightnessPickerView.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

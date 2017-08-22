@@ -23,7 +23,7 @@
 {
     self = [super init];
     if (self) {
-        self.dashboardMode = DashboardClassicMode;
+        self.dashboardMode = DashboardCustomMode;
         self.dashboardStyle = DashboardStyleOne;
         self.numberDecimals = NumberDecimalZero;
         self.multiplierType = MultiplierType1;
