@@ -94,6 +94,7 @@
         [backView addSubview:btn];
         NSLog(@"%f",btn.frame.size.width);
     }
+      
 
 }
 -(void)initWithData{

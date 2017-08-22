@@ -62,7 +62,7 @@
             btn.titleLabel.font = [UIFont ToAdapFont:13];
             [btn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
-            
+            btn.tag = i;
             [btnView addSubview:btn];
         }
 //        CGFloat distance = (CGFloat)(btnView.bounds.size.width)/4;
@@ -87,6 +87,7 @@
     return self;
 }
 - (void)btn:(UIButton *)btn{
+    NSLog(@"anniuanniu");
     if(selectBtn == btn ) {
         //上次点击过的按钮，不做处理
     } else{
@@ -103,7 +104,9 @@
     }
     selectBtn= btn;
 
-    
+    if ([self.delegate respondsToSelector:@selector(switchWithIndex:)]) {
+        [self.delegate switchWithIndex:btn.tag];
+    }
 
 }
 @end

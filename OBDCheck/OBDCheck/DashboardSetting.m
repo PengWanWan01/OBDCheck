@@ -29,6 +29,9 @@
         self.multiplierType = MultiplierType1;
         self.hudModeType = HUDModeTypeToNormal;
         self.KPageNumer = 3;
+        self.isDashboardFont = NO;
+        self.isDashboardMove = NO;
+        
     }
     return self;
 }

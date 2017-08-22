@@ -67,6 +67,7 @@
 		CBF334631F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF3345F1F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.m */; };
 		CBF334641F4B0FE6003C0548 /* ILColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF334611F4B0FE6003C0548 /* ILColorPickerView.m */; };
 		CBF334671F4B0FFC003C0548 /* UIColor+GetHSB.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF334661F4B0FFC003C0548 /* UIColor+GetHSB.m */; };
+		CBF3346C1F4BC51E003C0548 /* TabbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF3346B1F4BC51E003C0548 /* TabbarView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -184,6 +185,8 @@
 		CBF334611F4B0FE6003C0548 /* ILColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILColorPickerView.m; sourceTree = "<group>"; };
 		CBF334651F4B0FFC003C0548 /* UIColor+GetHSB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+GetHSB.h"; sourceTree = "<group>"; };
 		CBF334661F4B0FFC003C0548 /* UIColor+GetHSB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GetHSB.m"; sourceTree = "<group>"; };
+		CBF3346A1F4BC51E003C0548 /* TabbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarView.h; sourceTree = "<group>"; };
+		CBF3346B1F4BC51E003C0548 /* TabbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabbarView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -478,6 +481,8 @@
 			children = (
 				CBF1E28B1F30A06500EEC755 /* bluetoothView.h */,
 				CBF1E28C1F30A06500EEC755 /* bluetoothView.m */,
+				CBF3346A1F4BC51E003C0548 /* TabbarView.h */,
+				CBF3346B1F4BC51E003C0548 /* TabbarView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -705,6 +710,7 @@
 				CBE4AC031F442674003714A4 /* PIDSelectViewController.m in Sources */,
 				CBF334631F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.m in Sources */,
 				CBF1E2791F3068E000EEC755 /* LogsController.m in Sources */,
+				CBF3346C1F4BC51E003C0548 /* TabbarView.m in Sources */,
 				CBCFDF6E1F42A4C5008329CF /* DashboardViewStyleB.m in Sources */,
 				CBF1E28D1F30A06500EEC755 /* bluetoothView.m in Sources */,
 				CBF1E2731F30689B00EEC755 /* DiagController.m in Sources */,

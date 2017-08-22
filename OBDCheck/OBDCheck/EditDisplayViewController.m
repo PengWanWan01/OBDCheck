@@ -93,14 +93,20 @@
             break;
         case 4:
         {
-//            StyleViewController *vc = [[StyleViewController alloc]init];
-//            [self.navigationController pushViewController:vc animated:YES];
+            [DashboardSetting sharedInstance].isDashboardMove = YES;
+//            DashboardController *VC = [[DashboardController alloc]init];
+//            [self.navigationController pushViewController:VC animated:YES];
+
+            [self back];
         }
             break;
         case 5:
         {
-//            DisplaySetViewController *vc = [[DisplaySetViewController alloc]init];
-//            [self.navigationController pushViewController:vc animated:YES];
+            [DashboardSetting sharedInstance].isDashboardFont = YES;
+            [self back];
+
+//            DashboardController *VC = [[DashboardController alloc]init];
+//            [self.navigationController pushViewController:VC animated:YES];
         }
             break;
         default:

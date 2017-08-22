@@ -28,6 +28,8 @@
 #define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
 #define  LabelFontSize  15
 #define KFontmultiple MSWidth/375
+#define KHeightmultiple MSHeight/667
+
 #
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
@@ -78,5 +80,6 @@
 #import "ILHuePickerView.h"
 #import "ILColorPickerView.h"
 #import "ILSaturationBrightnessPickerView.h"
+#import "TabbarView.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

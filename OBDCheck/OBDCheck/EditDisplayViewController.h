@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface EditDisplayViewController : UIViewController
-
+@property (nonatomic,assign) NSInteger Viewindex;
 @end

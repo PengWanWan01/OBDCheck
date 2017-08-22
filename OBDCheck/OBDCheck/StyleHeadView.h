@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol switchCommonDelegate <NSObject>
+@optional
+- (void)switchWithIndex:(NSInteger)index;
+
+
+@end
 @interface StyleHeadView : UIView
 {
     UIButton *selectBtn;
@@ -16,4 +22,6 @@
 @property (nonatomic,strong) UISlider *slider;
 @property (nonatomic,strong) UILabel *NumberLabel;
 @property (nonatomic,strong) NSMutableArray *datasource;
+@property (nonatomic,weak) id<switchCommonDelegate> delegate;
+
 @end

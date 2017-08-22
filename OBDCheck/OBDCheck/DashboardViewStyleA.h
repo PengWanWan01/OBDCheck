@@ -10,7 +10,7 @@
 
 @interface DashboardView : UIView
 {
-    CGPoint startPoint;
+    CGPoint startPoint;    
 }
 /*
  * 环形宽度

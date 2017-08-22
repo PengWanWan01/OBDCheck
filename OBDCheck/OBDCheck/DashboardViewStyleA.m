@@ -161,6 +161,7 @@ static CGFloat kDefaultDialPieceCount = 5;
     }
     return _infoLabel;
 }
+/*
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     //保存触摸起始点位置
@@ -183,6 +184,7 @@ static CGFloat kDefaultDialPieceCount = 5;
     
     
     /* 限制用户不可将视图托出屏幕 */
+/*
     float halfx = CGRectGetMidX(self.bounds);
     //x坐标左边界
     newcenter.x = MAX(halfx, newcenter.x);
@@ -197,4 +199,5 @@ static CGFloat kDefaultDialPieceCount = 5;
     //移动view
     self.center = newcenter;
 }
+*/
 @end

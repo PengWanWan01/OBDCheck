@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+typedef NS_ENUM(NSInteger ,SelectStyleElement )
+{
+    SelectFrame=0,   //Frame
+    SelectAxis,         //Axis
+    SelectNeedle,       //Needle
+    SelectRange     //Range
+    
+};
 
-@interface StyleViewController : BasicViewController
-
+@interface StyleViewController : UIViewController
+@property (nonatomic,assign) SelectStyleElement selectStyleElement;
 @end

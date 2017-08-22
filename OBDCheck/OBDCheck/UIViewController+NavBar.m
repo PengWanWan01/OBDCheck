@@ -52,7 +52,7 @@
     [self.navigationController.navigationBar bringSubviewToFront:line];
     
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[ColorTools colorWithHexString:@"#FE9002"],NSForegroundColorAttributeName,[UIFont systemFontOfSize:18.0f],NSFontAttributeName, nil]];
-        [self backGesture];
+    
 }
 
 - (void)back

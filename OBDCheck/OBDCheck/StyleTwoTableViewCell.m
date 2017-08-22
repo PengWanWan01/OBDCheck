@@ -38,14 +38,8 @@
 
 -(void)colorPicked:(UIColor *)newColor forPicker:(ILSaturationBrightnessPickerView *)picker
 {
-    //    self.view.backgroundColor=newColor;
-    NSLog(@"%@",newColor);
-    NSLog(@"%@",[self hexFromUIColor:newColor]);
-    
-    self.ColorView.backgroundColor = newColor;
+   self.ColorView.backgroundColor = newColor;
     self.ColorLabel.text = [self hexFromUIColor:newColor];
-//    [ColorTools colorWithHexString:[self hexFromUIColor:newColor]];
-    
     [self setNeedsLayout];
     [self setNeedsDisplay];
 
