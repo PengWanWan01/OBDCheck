@@ -40,7 +40,7 @@ static CGFloat kDefaultDialPieceCount = 5;
         return nil;
     }
     self.backgroundColor = [ColorTools colorWithHexString:@"18191C"];
-    self.layer.cornerRadius = ViewWidth / 2;
+    self.layer.cornerRadius = self.frame.size.width / 2;
     self.layer.masksToBounds = YES;
     self.userInteractionEnabled = YES;
     _center = CGPointMake(ViewWidth / 2, ViewWidth / 2);
@@ -50,7 +50,7 @@ static CGFloat kDefaultDialPieceCount = 5;
     [self addCircleLayer];
     [self addSubview:self.pointerView];
     [self addSubview:self.infoLabel];
-
+    
     return self;
 }
 

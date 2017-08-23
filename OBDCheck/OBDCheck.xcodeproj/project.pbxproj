@@ -22,6 +22,7 @@
 		CB47E2EC1F480C7000B23D8E /* UIFont+AdapFont.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */; };
 		CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EE1F4819C200B23D8E /* StyleViewController.m */; };
 		CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2F11F481B3200B23D8E /* StyleHeadView.m */; };
+		CB53444C1F4D19480064EFE1 /* DashboardViewA.m in Sources */ = {isa = PBXBuildFile; fileRef = CB53444B1F4D19480064EFE1 /* DashboardViewA.m */; };
 		CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5AA4101F31A377002B3006 /* SetTableViewCell.m */; };
 		CB5AA4131F31A377002B3006 /* SetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */; };
 		CB82247C1F46EEC400E1E4BA /* HUDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB82247B1F46EEC400E1E4BA /* HUDViewController.m */; };
@@ -99,6 +100,8 @@
 		CB47E2EE1F4819C200B23D8E /* StyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleViewController.m; sourceTree = "<group>"; };
 		CB47E2F01F481B3200B23D8E /* StyleHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleHeadView.h; sourceTree = "<group>"; };
 		CB47E2F11F481B3200B23D8E /* StyleHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleHeadView.m; sourceTree = "<group>"; };
+		CB53444A1F4D19480064EFE1 /* DashboardViewA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewA.h; sourceTree = "<group>"; };
+		CB53444B1F4D19480064EFE1 /* DashboardViewA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewA.m; sourceTree = "<group>"; };
 		CB5AA40F1F31A377002B3006 /* SetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTableViewCell.h; sourceTree = "<group>"; };
 		CB5AA4101F31A377002B3006 /* SetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTableViewCell.m; sourceTree = "<group>"; };
 		CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetTableViewCell.xib; sourceTree = "<group>"; };
@@ -523,6 +526,8 @@
 			children = (
 				CB21DA441F343F880080648E /* DashboardViewStyleA.h */,
 				CB21DA451F343F880080648E /* DashboardViewStyleA.m */,
+				CB53444A1F4D19480064EFE1 /* DashboardViewA.h */,
+				CB53444B1F4D19480064EFE1 /* DashboardViewA.m */,
 				CBCFDF6C1F42A4C5008329CF /* DashboardViewStyleB.h */,
 				CBCFDF6D1F42A4C5008329CF /* DashboardViewStyleB.m */,
 				CBE4AC081F443432003714A4 /* DashboardViewStyleC.h */,
@@ -698,6 +703,7 @@
 				CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */,
 				CBF334671F4B0FFC003C0548 /* UIColor+GetHSB.m in Sources */,
 				CB9717721F32D595009C47FD /* UILabel+Dxfont.m in Sources */,
+				CB53444C1F4D19480064EFE1 /* DashboardViewA.m in Sources */,
 				CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */,
 				CB0220891F43E9CC008773ED /* DashboardSetting.m in Sources */,
 				CB848F3E1F45A0DB00C1A718 /* MoveView.m in Sources */,

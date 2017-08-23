@@ -8,7 +8,7 @@
 
 #import "SizeAndLocationViewController.h"
 
-@interface SizeAndLocationViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
+@interface SizeAndLocationViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 @property (nonatomic,strong) NSMutableArray *titleNameArray;
 @property (nonatomic,strong) NSMutableArray *fieldViewDatasurce;
 
@@ -29,7 +29,13 @@
     
   
     _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Diameter(10-100)",@"Left(0-100)",@"Top(0-100)", nil];
-    _fieldViewDatasurce = [[NSMutableArray alloc]initWithObjects:[DashboardSetting sharedInstance].diameter ,[DashboardSetting sharedInstance].Left,[DashboardSetting sharedInstance].Top, nil];
+   
+    NSString *diameterPercentStr = [NSString stringWithFormat:@"%@",[[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"diameterPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]]];
+    
+    NSString *LeftPercentStr = [NSString stringWithFormat:@"%@",[[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"LeftPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]]];
+    
+     NSString *TopPercentStr = [NSString stringWithFormat:@"%@",[[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"TopPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]]];
+    _fieldViewDatasurce = [[NSMutableArray alloc]initWithObjects:diameterPercentStr,LeftPercentStr,TopPercentStr, nil];
     
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, 44*_titleNameArray.count) style:UITableViewStylePlain];
     tableView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
@@ -71,26 +77,30 @@
     fieldView.textColor  = [ColorTools colorWithHexString:@"#C8C6C6"];
     fieldView.tag = indexPath.row;
     fieldView.text = _fieldViewDatasurce[indexPath.row];
-    
-    switch (indexPath.row) {
-        case 0:
-        {
-            [DashboardSetting sharedInstance].diameter = fieldView.text;
-        }
-            break;
-        case 1:
-        {
-            [DashboardSetting sharedInstance].Left = fieldView.text;
-        }
-            break;
-        case 2:
-        {
-            [DashboardSetting sharedInstance].Top = fieldView.text;
-        }
-            break;
-        default:
-            break;
-    }
+    fieldView.delegate = self;
+    fieldView.keyboardType = UIKeyboardTypeNumberPad;
+    [fieldView addTarget:self action:@selector(textFieldEditChanged:) forControlEvents:UIControlEventEditingChanged];
+//    switch (indexPath.row) {
+//        case 0:
+//        {
+//            [DashboardSetting sharedInstance].diameter = fieldView.text;
+//            NSLog(@"%@", fieldView.text);
+//            
+//        }
+//            break;
+//        case 1:
+//        {
+//            [DashboardSetting sharedInstance].Left = fieldView.text;
+//        }
+//            break;
+//        case 2:
+//        {
+//            [DashboardSetting sharedInstance].Top = fieldView.text;
+//        }
+//            break;
+//        default:
+//            break;
+//    }
 //    fieldView.delegate = self;
     [cell addSubview:fieldView];
 //    cell.accessoryView.
@@ -100,6 +110,32 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
 
 
+}
+- (void)textFieldEditChanged:(UITextField *)textField
+{
+    NSLog(@"textfield text %@",textField.text);
+    if ([textField.text integerValue] > 100) {
+        textField.text = @"100";
+    }
+    switch (textField.tag) {
+        case 0:
+        {
+             [[DashboardSetting sharedInstance].defaults setObject:textField.text  forKey:[NSString stringWithFormat:@"diameterPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+        }
+            break;
+        case 1:
+        {
+            [[DashboardSetting sharedInstance].defaults setObject:textField.text   forKey:[NSString stringWithFormat:@"LeftPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+        }
+            break;
+        case 2:
+        {
+            [[DashboardSetting sharedInstance].defaults setObject:textField.text  forKey:[NSString stringWithFormat:@"TopPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+        }
+            break;
+        default:
+            break;
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {

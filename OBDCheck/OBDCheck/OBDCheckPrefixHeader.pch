@@ -12,8 +12,8 @@
 
 #define  MSWidth [UIScreen mainScreen].bounds.size.width
 #define  MSHeight [UIScreen mainScreen].bounds.size.height
-#define    ViewWidth    self.bounds.size.width
-#define    ViewHeight self.bounds.size.height
+#define    ViewWidth    self.frame.size.width
+#define    ViewHeight self.frame.size.height
 
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -81,5 +81,6 @@
 #import "ILColorPickerView.h"
 #import "ILSaturationBrightnessPickerView.h"
 #import "TabbarView.h"
+#import "DashboardViewA.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

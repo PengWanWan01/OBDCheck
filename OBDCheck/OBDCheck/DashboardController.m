@@ -18,13 +18,14 @@
     editDashboardsView *editview;
     UIScrollView *scrollView;
     UIPageControl *pageControl ;
-    DashboardView *dashboardStyleAView;
+    DashboardViewA *dashboardStyleAView;
     DashboardViewStyleB *dashboardStyleBView;
     DashboardViewStyleC *dashboardStyleCView;
-    CGFloat diameterPercent;
-    CGFloat LeftPercent;
-    CGFloat TopPercent;
-
+    NSString *diameterPercent;
+    NSString * LeftPercent;
+    NSString * TopPercent;
+    DashboardSetting *dashboardSet;
+    
 }
 @property (nonatomic,strong) NSMutableArray *LabelNameArray;
 @property (nonatomic,strong) NSMutableArray *numberArray;
@@ -62,8 +63,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initWithData];
-     [self initWithUI];
- }
+     }
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [UIApplication sharedApplication].statusBarHidden = NO;
@@ -131,59 +131,58 @@
         for (NSInteger i = 0; i< 6; i++) {
         NSInteger index = i % 2;
         NSInteger page = i / 2;
-        dashboardStyleAView  = [[DashboardView alloc] initWithFrame:CGRectMake(index * (baseViewWidth+15 )+15,  page  * (baseViewHeight + 40), baseViewWidth, baseViewHeight )];
-        dashboardStyleAView.infoLabel.text = _LabelNameArray[i];
-            NSLog(@"DashboardSetting sharedInstance].Dashboardindex %ld",(long)[DashboardSetting sharedInstance].Dashboardindex);
             
-            if ([DashboardSetting sharedInstance].Dashboardindex == i) {
-                dashboardStyleAView.frame  = CGRectMake([[DashboardSetting sharedInstance].Left integerValue] *MSWidth, [[DashboardSetting sharedInstance].Top integerValue]*MSWidth, [[DashboardSetting sharedInstance].diameter integerValue]*MSWidth, [[DashboardSetting sharedInstance].diameter integerValue]*MSWidth);
-                NSLog(@"11%@",dashboardStyleAView);
-                
-            }
-            if ([DashboardSetting sharedInstance].Dashboardindex == i &&  [DashboardSetting sharedInstance].isDashboardFont == YES ) {
-                NSLog(@"dddd");
-                [[dashboardStyleAView superview] bringSubviewToFront:dashboardStyleAView];
-                [DashboardSetting sharedInstance].isDashboardFont = NO;
-            }
-            if ([DashboardSetting sharedInstance].Dashboardindex == i &&  [DashboardSetting sharedInstance].isDashboardMove == YES ) {
-                NSLog(@"CCC");
-
-                dashboardStyleAView.backgroundColor = [UIColor goldColor];
-                [DashboardSetting sharedInstance].isDashboardMove = NO;
-
-            }
-        numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(index * (baseViewWidth+15 )+15, CGRectGetMaxY(dashboardStyleAView.frame) + 8, baseViewWidth, 20)];
-        numberLabel.font = [UIFont boldSystemFontOfSize:17];
-        numberLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
-        numberLabel.textAlignment = NSTextAlignmentCenter;
-        numberLabel.text = @"N/A";
-        [scrollView addSubview:dashboardStyleAView];
-        [scrollView addSubview:numberLabel];
-            UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+        dashboardStyleAView  = [[DashboardViewA alloc] initWithFrame:CGRectMake(index * (baseViewWidth+15 )+15,  page  * (baseViewHeight + 40), 150*KFontmultiple, 150*KFontmultiple )];
             dashboardStyleAView.tag = i;
+            dashboardStyleAView.infoLabel.text = _LabelNameArray[i];
             
+            NSString *diameterResult =   [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"diameterPercent%ld",dashboardStyleAView.tag]];
+            
+            NSString *LeftResult =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"LeftPercent%ld",dashboardStyleAView.tag]];
+       
+             NSString * TopResult =   [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"TopPercent%ld",dashboardStyleAView.tag]];
+            
+                NSLog(@"result1==%@ %@ %@",diameterResult,LeftResult,TopResult);
+            
+      
+            NSLog(@"Move == %@",[[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"test%ld",dashboardStyleAView.tag]]);
+            
+            if ([[[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"test%ld",dashboardStyleAView.tag]] isEqualToString:@"YES"]) {
+                
+                NSLog(@"noonon");
+                [dashboardStyleAView removeFromSuperview];
+                dashboardStyleAView  = [[DashboardViewA alloc]initWithFrame: CGRectMake(([LeftResult floatValue]/100)*MSWidth, ([TopResult floatValue]/100)*MSHeight,([diameterResult floatValue]/100)*MSWidth,([diameterResult floatValue]/100)*MSWidth)];
+                
+//            }
+//            if ([DashboardSetting sharedInstance].Dashboardindex == i &&  [DashboardSetting sharedInstance].isDashboardFont == YES ) {
+//                NSLog(@"dddd");
+//                [[dashboardStyleAView superview] bringSubviewToFront:dashboardStyleAView];
+//                [DashboardSetting sharedInstance].isDashboardFont = NO;
+//            }
+//            if ([DashboardSetting sharedInstance].Dashboardindex == i &&  [DashboardSetting sharedInstance].isDashboardMove == YES ) {
+//                NSLog(@"CCC");
+//
+//                dashboardStyleAView.backgroundColor = [UIColor goldColor];
+//                [DashboardSetting sharedInstance].isDashboardMove = NO;
+//
+            }
+              [scrollView addSubview:dashboardStyleAView];
+            UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+            
+         
+
         [dashboardStyleAView addGestureRecognizer:LongPress];
     }
     //第二页的仪表盘
     for (NSInteger i = 0; i< 2; i++) {
         
-        dashboardStyleAView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30), 220, 220)];
-        numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100, CGRectGetMaxY(dashboardStyleAView.frame) + 8, 220, 20)];
-        numberLabel.font = [UIFont boldSystemFontOfSize:17];
-        numberLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
-        numberLabel.textAlignment = NSTextAlignmentCenter;
-        numberLabel.text = @"N/A";
-          [dashboardStyleAView addGestureRecognizer:[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)]];
+        dashboardStyleAView = [[DashboardViewA alloc] initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30), 220, 220)];
+        [dashboardStyleAView addGestureRecognizer:[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)]];
         [scrollView addSubview:dashboardStyleAView];
         [scrollView addSubview:numberLabel];
     }
     
-    dashboardStyleAView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth*2+37,  88,300, 300)];
-    numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(MSWidth*2+37, CGRectGetMaxY(dashboardStyleAView.frame) + 8, 300, 20)];
-    numberLabel.font = [UIFont boldSystemFontOfSize:17];
-    numberLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
-    numberLabel.textAlignment = NSTextAlignmentCenter;
-    numberLabel.text = @"N/A";
+    dashboardStyleAView = [[DashboardViewA alloc] initWithFrame:CGRectMake(MSWidth*2+37, 88,300, 300)];
     [scrollView addSubview:dashboardStyleAView];
     [scrollView addSubview:numberLabel];
     [dashboardStyleAView addGestureRecognizer:[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)]];
@@ -327,18 +326,25 @@
 }
 #pragma mark 长按仪表盘的手势
 - (void)tap:(UILongPressGestureRecognizer *)sender{
-    NSLog(@" [sender view].tag %ld", sender.view.tag);
-    NSLog(@"%@",sender.view);
-//    sender.view.frame.size.width/375
-    diameterPercent = (CGFloat)sender.view.frame.size.width/375;
-    LeftPercent = (CGFloat)sender.view.frame.origin.x /375;
-    TopPercent  = (CGFloat)sender.view.frame.origin.y /667;
- [DashboardSetting sharedInstance].diameter = [NSString stringWithFormat:@"%f",diameterPercent];
-    [DashboardSetting sharedInstance].Left =  [NSString stringWithFormat:@"%f",LeftPercent];
-    [DashboardSetting sharedInstance].Top =  [NSString stringWithFormat:@"%f",TopPercent];
-
-
+    NSLog(@" [sender view].tag %f", [[NSString stringWithFormat:@"%.2f",(CGFloat)sender.view.frame.size.width/MSWidth] floatValue] );
+    NSLog(@" [sender view].tag %@", sender.view);
+    [DashboardSetting sharedInstance].Dashboardindex = sender.view.tag;
     
+    diameterPercent = [NSString stringWithFormat:@"%.f",((CGFloat)sender.view.frame.size.width/MSWidth)*100];
+    
+    LeftPercent =[NSString stringWithFormat:@"%.f",(CGFloat)(sender.view.frame.origin.x /MSWidth)*100 ];
+    
+    TopPercent  = [NSString stringWithFormat:@"%.f",(CGFloat)((sender.view.frame.origin.y +10)/MSHeight)*100];
+
+    NSLog(@"123==%f,%f,%f",sender.view.frame.size.width,sender.view.frame.origin.x ,sender.view.frame.origin.y+10);
+    NSLog(@"124 = %@,%@,%@",diameterPercent,LeftPercent,TopPercent);
+    
+    [[DashboardSetting sharedInstance].defaults setObject:diameterPercent forKey:[NSString stringWithFormat:@"diameterPercent%ld",sender.view.tag]];
+     [[DashboardSetting sharedInstance].defaults setObject:LeftPercent forKey:[NSString stringWithFormat:@"LeftPercent%ld",sender.view.tag]];
+      [[DashboardSetting sharedInstance].defaults setObject:TopPercent forKey:[NSString stringWithFormat:@"TopPercent%ld",sender.view.tag]];
+    [[DashboardSetting sharedInstance].defaults setObject:@"YES" forKey:[NSString stringWithFormat:@"test%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+    
+    NSLog(@"%f",[[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"TopPercent%ld",sender.view.tag]]);
     
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
@@ -380,6 +386,7 @@
 #pragma mark 全部恢复默认仪表盘
 - (void)LoadDefaultDashboards{
     [DashboardSetting sharedInstance].KPageNumer = 3;
+    [self clearAllUserDefaultsData];
     [self  updateView];
         
 }
@@ -389,5 +396,11 @@
     [pageControl removeFromSuperview];
     [scrollView removeFromSuperview];
     [self initWithUI];
+}
+- (void)clearAllUserDefaultsData
+{
+    
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
 }
 @end
