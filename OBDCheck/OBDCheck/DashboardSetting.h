@@ -55,7 +55,6 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 @property (nonatomic,copy) NSString *Top;          //居上
 @property (nonatomic,strong)   NSUserDefaults* defaults;
 
-
 //单例模式，实例化对象
 +(instancetype )sharedInstance;
 //设置一个属性
