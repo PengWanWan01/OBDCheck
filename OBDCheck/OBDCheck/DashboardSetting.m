@@ -31,8 +31,11 @@
         self.multiplierType = MultiplierType1;
         self.hudModeType = HUDModeTypeToNormal;
         self.KPageNumer = 3;
+        self.AddDashboardNumber = 0;
         self.isDashboardFont = NO;
         self.isDashboardMove = NO;
+        self.isDashboardRemove = NO;
+        self.RemoveDashboardNumber = 0;
 //         [self.defaults setObject:@"11" forKey:[NSString stringWithFormat:@"test%ld",[DashboardSetting sharedInstance].Dashboardindex]];
     
     }

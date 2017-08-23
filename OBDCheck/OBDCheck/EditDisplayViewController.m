@@ -89,6 +89,9 @@
         {
 //            StyleViewController *vc = [[StyleViewController alloc]init];
 //            [self.navigationController pushViewController:vc animated:YES];
+            [DashboardSetting sharedInstance].isDashboardRemove = YES;
+            [self back];
+            
         }
             break;
         case 4:

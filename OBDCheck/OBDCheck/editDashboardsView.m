@@ -123,7 +123,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self hide];
-    if (!(indexPath.row == 1||indexPath.row == 2 || indexPath.row == 3) ) {
+    if (!(indexPath.row == 1||indexPath.row == 2 ) ) {
             if ([self.delegate respondsToSelector:@selector(AlertBetouched:)]) {
                 [self.delegate AlertBetouched:indexPath.row];
             }

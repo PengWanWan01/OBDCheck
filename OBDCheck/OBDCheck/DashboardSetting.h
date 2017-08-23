@@ -47,12 +47,14 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 @property (nonatomic) HUDModeType hudModeType;
 @property (nonatomic,assign)  NSInteger KPageNumer; //仪表盘的原始页数
 @property (nonatomic,assign) NSInteger Dashboardindex;   //被选中可以移动的仪表盘
+@property (nonatomic,assign) NSInteger AddDashboardNumber;   //添加的仪表盘个数
+@property (nonatomic,assign) NSInteger RemoveDashboardNumber;   //移除的仪表盘
 @property (nonatomic,assign) BOOL isDashboardFont;          //是否跳到最前面
 @property (nonatomic,assign) BOOL isDashboardMove;          //是否可以移动
-@property (nonatomic,strong) NSMutableArray *DashboardViewFrame;          //是否可以移动
-@property (nonatomic,copy) NSString *diameter;          //直径
-@property (nonatomic,copy) NSString *Left;          //居左
-@property (nonatomic,copy) NSString *Top;          //居上
+@property (nonatomic,assign) BOOL isDashboardRemove;          //是否可以删除
+@property (nonatomic,strong) NSMutableArray *DashboardViewFrame;    //是否可以移动
+
+
 @property (nonatomic,strong)   NSUserDefaults* defaults;
 
 //单例模式，实例化对象
