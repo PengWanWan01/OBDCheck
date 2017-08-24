@@ -40,4 +40,12 @@
 @property (nonatomic,assign) NSInteger maxNumber;
 @property (nonatomic,assign) NSInteger minNumber;
 
+@property (nonatomic,assign) CGFloat StartAngle; //开始角度
+@property (nonatomic,assign) CGFloat endAngle;  //结束角度
+@property (nonatomic) UIColor *innerColor;  //内径的颜色
+@property (nonatomic) UIColor *outerColor;  //外径的颜色
+@property (nonatomic,assign) CGFloat LongscaleWidth; //长刻度宽度
+@property (nonatomic,assign) CGFloat ShortscaleWidth; //短刻度宽度
+
+
 @end

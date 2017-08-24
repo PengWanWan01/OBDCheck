@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FLB-tn-Kcv">
@@ -35,16 +35,30 @@
                             <constraint firstAttribute="height" constant="31" id="Eit-7P-Z8Q"/>
                         </constraints>
                     </switch>
+                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xkH-sV-fPT">
+                        <rect key="frame" x="0.0" y="43" width="320" height="0.5"/>
+                        <color key="backgroundColor" red="0.12941176470588234" green="0.13725490196078433" blue="0.16078431372549018" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="S5b-mC-Xjf"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" red="0.23137254900000001" green="0.2470588235" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="QRP-Jg-zWT" secondAttribute="trailing" constant="14" id="Ee4-Oe-cx6"/>
                     <constraint firstItem="QRP-Jg-zWT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="amN-Wx-cGn"/>
+                    <constraint firstItem="xkH-sV-fPT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="bNl-Cm-2uu"/>
                     <constraint firstItem="FLB-tn-Kcv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="cbD-Jy-g7W"/>
+                    <constraint firstAttribute="bottom" secondItem="xkH-sV-fPT" secondAttribute="bottom" constant="0.5" id="oA9-j5-Lv2"/>
                     <constraint firstItem="FLB-tn-Kcv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="v4u-JM-jrq"/>
+                    <constraint firstAttribute="trailing" secondItem="xkH-sV-fPT" secondAttribute="trailing" id="zdZ-sv-Wq1"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="281" y="81"/>
+            <connections>
+                <outlet property="SwitchBtn" destination="QRP-Jg-zWT" id="g1D-yy-ZwS"/>
+                <outlet property="titleName" destination="FLB-tn-Kcv" id="BG8-dT-gy9"/>
+            </connections>
+            <point key="canvasLocation" x="449" y="68"/>
         </tableViewCell>
     </objects>
 </document>

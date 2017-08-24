@@ -17,5 +17,13 @@ typedef NS_ENUM(NSInteger ,SelectStyleElement )
 };
 
 @interface StyleViewController : UIViewController
+{
+    UIButton *selectBtn;
+}
+
 @property (nonatomic,assign) SelectStyleElement selectStyleElement;
+@property (nonatomic,strong) UIView *DashboardView;
+@property (nonatomic,strong) UISlider *slider;
+@property (nonatomic,strong) UILabel *NumberLabel;
+@property (nonatomic,strong) NSMutableArray *datasource;
 @end

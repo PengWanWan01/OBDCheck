@@ -9,6 +9,13 @@
 
 #import "StyleHeadView.h"
 
+@interface StyleHeadView()
+{
+    NSInteger selectTag;
+    UIButton *Fristbtn;
+}
+@end
+
 @implementation StyleHeadView
 
 /*
@@ -25,7 +32,8 @@
         
         switch ([DashboardSetting sharedInstance].dashboardStyle ) {
             case DashboardStyleOne:{
-              self.DashboardView = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+              self.DashboardView = [[DashboardViewA alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+                
             }
                 break;
             case DashboardStyleTwo:{
@@ -50,22 +58,31 @@
         label.textColor = [ColorTools colorWithHexString:@"#FE9002"];
         label.font = [UIFont ToAdapFont:14.f];
         
-        self.slider = [[UISlider alloc]initWithFrame:CGRectMake(260, CGRectGetMaxY(label.frame )+10, 150, 20)];
+        self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashboardView.frame) + 10, CGRectGetMaxY(label.frame )+10, 150, 20)];
         self.slider.minimumTrackTintColor = [ColorTools colorWithHexString:@"FE9002"];
         
         UIView *btnView = [[UIView alloc]initWithFrame:CGRectMake(29, CGRectGetMaxY(self.NumberLabel.frame) + 10, MSWidth - 58, 24)];
                _datasource = [[NSMutableArray alloc]initWithObjects:@"Frame",@"Axis",@"Needle",@"Range", nil];
         
         for (NSInteger i = 0; i< 4; i++) {
+            selectTag = 0;
             UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(btnView.frame.size.width/4), 0, btnView.frame.size.width/4, 24)];
             [btn setTitle:_datasource[i] forState:UIControlStateNormal];
             btn.titleLabel.font = [UIFont ToAdapFont:13];
-            [btn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
+            if (i == 0) {
+                Fristbtn = btn;
+                [Fristbtn setTitleColor:[ColorTools colorWithHexString:@"#212329"] forState:UIControlStateNormal];
+                Fristbtn.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+            }else{
+                [btn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
+                btn.backgroundColor = [UIColor clearColor];
+            }
+
+    
             [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
             btn.tag = i;
             [btnView addSubview:btn];
         }
-//        CGFloat distance = (CGFloat)(btnView.bounds.size.width)/4;
         for (NSInteger i = 0; i< 5; i++) {
          UIView *LineView = [[UIView alloc]initWithFrame:CGRectMake(i*(btnView.bounds.size.width)/4, 0, 1, btnView.bounds.size.height)];
             LineView.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
@@ -86,8 +103,17 @@
     }
     return self;
 }
+
 - (void)btn:(UIButton *)btn{
-    NSLog(@"anniuanniu");
+    if (btn.tag != 0 && selectTag == 0) {
+        NSLog(@"yyyyy");
+        [Fristbtn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
+        Fristbtn.backgroundColor = [UIColor clearColor];
+       
+    }
+    if (btn.tag==0) {
+        selectTag=1;
+    }
     if(selectBtn == btn ) {
         //上次点击过的按钮，不做处理
     } else{
@@ -103,7 +129,7 @@
         
     }
     selectBtn= btn;
-
+    
     if ([self.delegate respondsToSelector:@selector(switchWithIndex:)]) {
         [self.delegate switchWithIndex:btn.tag];
     }

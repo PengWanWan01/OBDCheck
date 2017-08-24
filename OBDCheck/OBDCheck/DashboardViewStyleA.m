@@ -8,9 +8,7 @@
 
 #import "DashboardViewStyleA.h"
 #define KMultipleA   ViewWidth/150
-static CGFloat kDefaultRingWidth = 10;
-static CGFloat kDefaultDialLength = 5;
-static CGFloat kDefaultDialPieceCount = 5;
+
 
 @interface DashboardView()
 {
@@ -22,17 +20,6 @@ static CGFloat kDefaultDialPieceCount = 5;
 
 @implementation DashboardView
 
-- (CGFloat)ringWidth {
-    return _ringWidth ? _ringWidth : kDefaultRingWidth;
-}
-
-- (CGFloat)dialLength {
-    return _dialLength ? _dialLength : kDefaultDialLength;
-}
-
-- (NSInteger)dialPieceCount {
-    return _dialPieceCount ? _dialPieceCount : kDefaultDialPieceCount;
-}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -44,7 +31,11 @@ static CGFloat kDefaultDialPieceCount = 5;
     self.layer.masksToBounds = YES;
     self.userInteractionEnabled = YES;
     _center = CGPointMake(ViewWidth / 2, ViewWidth / 2);
-    _radius = ViewWidth/ 2 - self.ringWidth / 2;
+    _ringWidth = 10;
+    _radius = ViewWidth/ 2 ;
+    _dialPieceCount  =5;
+    _LongscaleWidth = 15.f;
+    _ShortscaleWidth = 5.f;
     _dialCount = 8 * self.dialPieceCount;
     // 添加外环
     [self addCircleLayer];
@@ -55,8 +46,8 @@ static CGFloat kDefaultDialPieceCount = 5;
 }
 
 - (void)addCircleLayer {
-    CGFloat startAngle = 0; // 开始角度
-    CGFloat endAngle = 2*M_PI; // 结束角度
+    CGFloat startAngle = self.StartAngle; // 开始角度
+    CGFloat endAngle = self.endAngle; // 结束角度
     BOOL clockwise = YES; // 顺时针
     
     CALayer *containerLayer = [CALayer layer];
@@ -67,74 +58,74 @@ static CGFloat kDefaultDialPieceCount = 5;
     circleLayer.lineCap = kCALineCapRound;
     circleLayer.lineJoin = kCALineJoinRound;
     circleLayer.fillColor = [UIColor clearColor].CGColor;
-//    circleLayer.strokeColor = [UIColor redColor].CGColor;
+    circleLayer.strokeColor = [UIColor redColor].CGColor;
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
     circleLayer.path = circlePath.CGPath;
     [containerLayer addSublayer:circleLayer];
     for (int i = 0; i <= _dialCount; i++) {
-        [self containerLayer:containerLayer addDialWithIndex:i]; // 添加刻度
+        [self containerLayer:self.layer addDialWithIndex:i]; // 添加刻度
     }
     [self.layer addSublayer:containerLayer];
    
 }
 
 - (void)containerLayer:(CALayer *)containerLayer addDialWithIndex:(NSInteger)index {
-    CAShapeLayer *dialItemLayer = [CAShapeLayer layer]; // 刻度层
-    dialItemLayer.lineWidth = 1;
-    dialItemLayer.lineCap = kCALineCapSquare;
-    dialItemLayer.lineJoin = kCALineJoinRound;
-    dialItemLayer.strokeColor = [UIColor whiteColor].CGColor;
-    dialItemLayer.fillColor = [UIColor whiteColor].CGColor;
+    self.StartAngle  = 0; // 开始角度
+    self.endAngle = M_PI ; // 结束角度
     
-    // path
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    CGFloat outsideRadius = _radius - self.ringWidth / 2; // 刻度 外点半径
-    CGFloat insideRadius = outsideRadius - self.dialLength; // 刻度 内点半径
     
-    if (index % self.dialPieceCount == 0) {
-        dialItemLayer.strokeColor = [UIColor whiteColor].CGColor;
-        insideRadius -= 5;
+    CGFloat perAngle = (self.endAngle - self.StartAngle)  / _dialCount;
+    CGFloat startAngel = (- M_PI + perAngle * index);
+    CGFloat endAngel = startAngel + perAngle/10;
+    UIBezierPath *tickPath = [[UIBezierPath alloc]init];
+    
+    CAShapeLayer *perLayer = [CAShapeLayer layer];
+    
+    
+    if (index % 5 == 0) {
+        tickPath =   [UIBezierPath bezierPathWithArcCenter:self.center radius:_radius-self.LongscaleWidth startAngle:startAngel endAngle:endAngel clockwise:YES];
+        perLayer = [CAShapeLayer layer];
+        
+        perLayer.strokeColor = [UIColor whiteColor].CGColor;
+        perLayer.lineWidth = self.LongscaleWidth;
+        //添加刻度
+        CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel];
+        NSString *tickText = [NSString stringWithFormat:@"%ld",index * 2];
+        
+        //默认label的大小14 * 14
+        UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(point.x - 5, point.y - 5, 10, 10)];
+        text.text = tickText;
+        text.backgroundColor = [UIColor redColor];
+        text.font = [UIFont systemFontOfSize:15];
+        text.textColor = [UIColor whiteColor];
+        text.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:text];
+        
+    }else{
+        tickPath = [UIBezierPath bezierPathWithArcCenter:self.center radius:_radius-self.ShortscaleWidth startAngle:startAngel endAngle:endAngel clockwise:YES];
+        perLayer = [CAShapeLayer layer];
+        
+        perLayer.strokeColor = [UIColor whiteColor].CGColor;
+        perLayer.lineWidth = _ShortscaleWidth;
     }
     
-    CGFloat angle = M_PI_2 + M_PI / 4 - index * (M_PI_2 + M_PI/2) *2 / _dialCount;// 角度
-    CGPoint insidePoint = CGPointMake(_center.x - (insideRadius * sin(angle)), _center.y - (insideRadius * cos(angle)));// 刻度内点
-    CGPoint outsidePoint = CGPointMake(_center.x - (outsideRadius * sin(angle)), _center.y - (outsideRadius * cos(angle)));// 刻度外点
+    perLayer.path = tickPath.CGPath;
+    [containerLayer addSublayer:perLayer];
+
+
+}
+// 计算label的坐标
+- (CGPoint)calculateTextPositonWithArcCenter:(CGPoint)center
+                                       Angle:(CGFloat)angel {
+    NSLog(@"%f",_radius);
     
-    [path moveToPoint:insidePoint];
-    [path addLineToPoint:outsidePoint];
-    
-    dialItemLayer.path = path.CGPath;
-    [containerLayer addSublayer:dialItemLayer];
+    CGFloat x = _radius-_LongscaleWidth-self.LongscaleWidth * cosf(angel);
+    CGFloat y = _radius-_LongscaleWidth-self.LongscaleWidth * sinf(angel);
+    return CGPointMake(center.x + x, center.y - y);
 }
 
-// 绘制文字
 - (void)drawRect:(CGRect)rect {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(context, 1.0);
-    CGContextSetRGBFillColor(context, 0.5, 0.5, 0.5, 0.5);
-    UIFont *font = [UIFont ToAdapFont:15.0];
-    UIColor *foregroundColor = [UIColor whiteColor];
-    NSDictionary *attributes = @{NSFontAttributeName: font, NSForegroundColorAttributeName: foregroundColor};
-    
-    CGFloat outsideRadius = _radius - self.ringWidth/2;// 刻度外点半径
-    CGFloat insideRadius = outsideRadius - self.dialLength; // 刻度内点半径
-    
-    // 需要显示的文字数组
-    NSArray *textArr = @[@"0", @"20", @"40",@"60", @"80", @"100", @"120", @"140"];
-    
-    // 计算所得各个文字显示的位置相对于其insidePoint的偏移量,
-    NSArray *xOffsetArr = @[@(-5*KFontmultiple),@(10*KFontmultiple), @(7*KFontmultiple), @(5*KFontmultiple), @(-10*KFontmultiple), @(-30*KFontmultiple), @(-35*KFontmultiple), @(-30*KFontmultiple)];
-    NSArray *yOffsetArr = @[@(-25*KFontmultiple),@(-20*KFontmultiple), @(-10*KFontmultiple), @(0*KFontmultiple), @(5*KFontmultiple), @(0*KFontmultiple), @(-10*KFontmultiple), @(-20*KFontmultiple)];
-    
-    for (int i = 0; i < textArr.count; i++) {
-        CGFloat angle =  M_PI_2 + M_PI / 2 - 5 * i * (M_PI_2 + M_PI/2) *2 / _dialCount;
-        CGPoint insidePoint = CGPointMake(_center.x - (insideRadius * sin(angle)), _center.y - (insideRadius * cos(angle)));
-        CGFloat xOffset = [xOffsetArr[i] floatValue];
-        CGFloat yOffset = [yOffsetArr[i] floatValue];
-        CGRect rect = CGRectMake(insidePoint.x + xOffset, insidePoint.y + yOffset, 60*KFontmultiple, 20*KFontmultiple);
-        NSString *text = textArr[i];
-        [text drawInRect:rect withAttributes:attributes];
-    }
+   
 }
 
 

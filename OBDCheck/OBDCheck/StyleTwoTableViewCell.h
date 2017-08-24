@@ -19,6 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *ColorView;
 @property (weak, nonatomic) IBOutlet UILabel *ColorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *titleName;
 
 @property (nonatomic,weak) id<selectColorDelegete> delegate;
 @end

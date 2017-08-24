@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface StyleThreeTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *titleName;
+@property (weak, nonatomic) IBOutlet UISwitch *SwitchBtn;
 
 @end

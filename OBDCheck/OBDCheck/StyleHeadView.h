@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+
+
 @protocol switchCommonDelegate <NSObject>
 @optional
 - (void)switchWithIndex:(NSInteger)index;

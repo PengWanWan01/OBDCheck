@@ -45,10 +45,20 @@
                         </constraints>
                         <color key="minimumTrackTintColor" red="0.99607843137254903" green="0.56470588235294117" blue="0.0078431372549019607" alpha="0.73999999999999999" colorSpace="calibratedRGB"/>
                     </slider>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NkT-ST-nEb">
+                        <rect key="frame" x="0.0" y="64" width="320" height="0.5"/>
+                        <color key="backgroundColor" red="0.12941176470588234" green="0.13725490196078433" blue="0.16078431372549018" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="bll-ZI-gZe"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="NkT-ST-nEb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="39w-Lf-Rs1"/>
                     <constraint firstItem="DcP-Kh-Hm0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="86f-5e-H4d"/>
+                    <constraint firstAttribute="bottom" secondItem="NkT-ST-nEb" secondAttribute="bottom" id="IjX-7V-az9"/>
                     <constraint firstAttribute="bottom" secondItem="DX5-U2-3qk" secondAttribute="bottom" constant="0.5" id="Sv7-VC-rzy"/>
+                    <constraint firstAttribute="trailing" secondItem="NkT-ST-nEb" secondAttribute="trailing" id="WMj-QE-NS2"/>
                     <constraint firstItem="Al0-a4-dcq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Zg1-Ta-Xpa"/>
                     <constraint firstItem="Al0-a4-dcq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="mwa-Zv-GAp"/>
                     <constraint firstItem="DX5-U2-3qk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="rUW-dU-QUU"/>
@@ -57,7 +67,12 @@
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.23137254901960785" green="0.24705882352941178" blue="0.28627450980392155" alpha="1" colorSpace="calibratedRGB"/>
-            <point key="canvasLocation" x="-260" y="-154"/>
+            <connections>
+                <outlet property="NumberLabel" destination="DcP-Kh-Hm0" id="52y-Sg-aVI"/>
+                <outlet property="NumberSider" destination="DX5-U2-3qk" id="wB3-YD-qmj"/>
+                <outlet property="titleName" destination="Al0-a4-dcq" id="Ypm-3J-x0j"/>
+            </connections>
+            <point key="canvasLocation" x="-27" y="-188.5"/>
         </tableViewCell>
     </objects>
 </document>

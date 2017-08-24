@@ -29,7 +29,6 @@
 		CB82247F1F46F30000E1E4BA /* HUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB82247E1F46F30000E1E4BA /* HUDView.m */; };
 		CB848F151F4542F700C1A718 /* DecimalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB848F141F4542F700C1A718 /* DecimalViewController.m */; };
 		CB848F181F45434E00C1A718 /* MultiplierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB848F171F45434E00C1A718 /* MultiplierViewController.m */; };
-		CB848F3E1F45A0DB00C1A718 /* MoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB848F3D1F45A0DB00C1A718 /* MoveView.m */; };
 		CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB97176E1F32C110009C47FD /* OBDBtn.m */; };
 		CB9717721F32D595009C47FD /* UILabel+Dxfont.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9717711F32D595009C47FD /* UILabel+Dxfont.m */; };
 		CB9717751F332515009C47FD /* RLBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9717741F332515009C47FD /* RLBtn.m */; };
@@ -113,8 +112,6 @@
 		CB848F141F4542F700C1A718 /* DecimalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecimalViewController.m; sourceTree = "<group>"; };
 		CB848F161F45434E00C1A718 /* MultiplierViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiplierViewController.h; sourceTree = "<group>"; };
 		CB848F171F45434E00C1A718 /* MultiplierViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiplierViewController.m; sourceTree = "<group>"; };
-		CB848F3C1F45A0DB00C1A718 /* MoveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveView.h; sourceTree = "<group>"; };
-		CB848F3D1F45A0DB00C1A718 /* MoveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveView.m; sourceTree = "<group>"; };
 		CB97176D1F32C110009C47FD /* OBDBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDBtn.h; sourceTree = "<group>"; };
 		CB97176E1F32C110009C47FD /* OBDBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBDBtn.m; sourceTree = "<group>"; };
 		CB9717701F32D595009C47FD /* UILabel+Dxfont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Dxfont.h"; sourceTree = "<group>"; };
@@ -228,6 +225,54 @@
 				CB0220881F43E9CC008773ED /* DashboardSetting.m */,
 			);
 			name = common;
+			sourceTree = "<group>";
+		};
+		CB538A1E1F4E62B10095B4FE /* DashboardView */ = {
+			isa = PBXGroup;
+			children = (
+				CB21DA441F343F880080648E /* DashboardViewStyleA.h */,
+				CB21DA451F343F880080648E /* DashboardViewStyleA.m */,
+				CB53444A1F4D19480064EFE1 /* DashboardViewA.h */,
+				CB53444B1F4D19480064EFE1 /* DashboardViewA.m */,
+				CBCFDF6C1F42A4C5008329CF /* DashboardViewStyleB.h */,
+				CBCFDF6D1F42A4C5008329CF /* DashboardViewStyleB.m */,
+				CBE4AC081F443432003714A4 /* DashboardViewStyleC.h */,
+				CBE4AC091F443432003714A4 /* DashboardViewStyleC.m */,
+				CBCFDF6F1F42A4E6008329CF /* gradientView.h */,
+				CBCFDF701F42A4E6008329CF /* gradientView.m */,
+			);
+			name = DashboardView;
+			sourceTree = "<group>";
+		};
+		CB538A201F4E62E70095B4FE /* Editview */ = {
+			isa = PBXGroup;
+			children = (
+				CBEBF1C71F3AF343006CCA8B /* editDashboardsView.h */,
+				CBEBF1C81F3AF343006CCA8B /* editDashboardsView.m */,
+			);
+			name = Editview;
+			sourceTree = "<group>";
+		};
+		CB538A211F4E62F80095B4FE /* HUDView */ = {
+			isa = PBXGroup;
+			children = (
+				CB82247D1F46F30000E1E4BA /* HUDView.h */,
+				CB82247E1F46F30000E1E4BA /* HUDView.m */,
+			);
+			name = HUDView;
+			sourceTree = "<group>";
+		};
+		CB538A221F4E631D0095B4FE /* ColorPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				CBF3345C1F4B0FE6003C0548 /* ILHuePickerView.h */,
+				CBF3345D1F4B0FE6003C0548 /* ILHuePickerView.m */,
+				CBF3345E1F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.h */,
+				CBF3345F1F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.m */,
+				CBF334601F4B0FE6003C0548 /* ILColorPickerView.h */,
+				CBF334611F4B0FE6003C0548 /* ILColorPickerView.m */,
+			);
+			name = ColorPickerView;
 			sourceTree = "<group>";
 		};
 		CB5AA40E1F31A321002B3006 /* View */ = {
@@ -511,12 +556,6 @@
 				CB44DB351F4A825900A24629 /* StyleThreeTableViewCell.xib */,
 				CB47E2F01F481B3200B23D8E /* StyleHeadView.h */,
 				CB47E2F11F481B3200B23D8E /* StyleHeadView.m */,
-				CBF3345C1F4B0FE6003C0548 /* ILHuePickerView.h */,
-				CBF3345D1F4B0FE6003C0548 /* ILHuePickerView.m */,
-				CBF3345E1F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.h */,
-				CBF3345F1F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.m */,
-				CBF334601F4B0FE6003C0548 /* ILColorPickerView.h */,
-				CBF334611F4B0FE6003C0548 /* ILColorPickerView.m */,
 			);
 			name = StyleView;
 			sourceTree = "<group>";
@@ -524,22 +563,10 @@
 		CBF334691F4B106F003C0548 /* OtherView */ = {
 			isa = PBXGroup;
 			children = (
-				CB21DA441F343F880080648E /* DashboardViewStyleA.h */,
-				CB21DA451F343F880080648E /* DashboardViewStyleA.m */,
-				CB53444A1F4D19480064EFE1 /* DashboardViewA.h */,
-				CB53444B1F4D19480064EFE1 /* DashboardViewA.m */,
-				CBCFDF6C1F42A4C5008329CF /* DashboardViewStyleB.h */,
-				CBCFDF6D1F42A4C5008329CF /* DashboardViewStyleB.m */,
-				CBE4AC081F443432003714A4 /* DashboardViewStyleC.h */,
-				CBE4AC091F443432003714A4 /* DashboardViewStyleC.m */,
-				CBCFDF6F1F42A4E6008329CF /* gradientView.h */,
-				CBCFDF701F42A4E6008329CF /* gradientView.m */,
-				CBEBF1C71F3AF343006CCA8B /* editDashboardsView.h */,
-				CBEBF1C81F3AF343006CCA8B /* editDashboardsView.m */,
-				CB848F3C1F45A0DB00C1A718 /* MoveView.h */,
-				CB848F3D1F45A0DB00C1A718 /* MoveView.m */,
-				CB82247D1F46F30000E1E4BA /* HUDView.h */,
-				CB82247E1F46F30000E1E4BA /* HUDView.m */,
+				CB538A221F4E631D0095B4FE /* ColorPickerView */,
+				CB538A211F4E62F80095B4FE /* HUDView */,
+				CB538A201F4E62E70095B4FE /* Editview */,
+				CB538A1E1F4E62B10095B4FE /* DashboardView */,
 			);
 			name = OtherView;
 			sourceTree = "<group>";
@@ -706,7 +733,6 @@
 				CB53444C1F4D19480064EFE1 /* DashboardViewA.m in Sources */,
 				CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */,
 				CB0220891F43E9CC008773ED /* DashboardSetting.m in Sources */,
-				CB848F3E1F45A0DB00C1A718 /* MoveView.m in Sources */,
 				CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */,
 				CBF1E2891F30796400EEC755 /* ColorTools.m in Sources */,
 				CBEBF1C91F3AF343006CCA8B /* editDashboardsView.m in Sources */,

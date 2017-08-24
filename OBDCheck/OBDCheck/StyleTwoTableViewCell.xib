@@ -47,6 +47,13 @@
                             <constraint firstAttribute="width" constant="30" id="S1R-6M-vnf"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QdV-1t-rtQ">
+                        <rect key="frame" x="0.0" y="43" width="320" height="0.5"/>
+                        <color key="backgroundColor" red="0.12941176470588234" green="0.13725490196078433" blue="0.16078431372549018" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="3bH-Wx-VMA"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" red="0.23137254900000001" green="0.2470588235" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
@@ -54,13 +61,17 @@
                     <constraint firstItem="zHO-1P-VrF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="K0B-jl-Hx4"/>
                     <constraint firstItem="Tqx-ve-F7x" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="S44-qG-vwh"/>
                     <constraint firstItem="zHO-1P-VrF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="UIE-q1-3Tc"/>
+                    <constraint firstAttribute="trailing" secondItem="QdV-1t-rtQ" secondAttribute="trailing" id="Ywc-vA-Cce"/>
+                    <constraint firstItem="QdV-1t-rtQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="c7y-pB-szi"/>
                     <constraint firstItem="6rW-yh-73l" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-2" id="j4M-48-4TM"/>
+                    <constraint firstAttribute="bottom" secondItem="QdV-1t-rtQ" secondAttribute="bottom" id="lHk-sg-KbK"/>
                     <constraint firstItem="6rW-yh-73l" firstAttribute="leading" secondItem="Tqx-ve-F7x" secondAttribute="trailing" constant="18" id="xNc-rP-5ua"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="ColorLabel" destination="Tqx-ve-F7x" id="amv-Da-Y6e"/>
                 <outlet property="ColorView" destination="6rW-yh-73l" id="rlr-JX-yiz"/>
+                <outlet property="titleName" destination="zHO-1P-VrF" id="Nsr-4r-H7k"/>
             </connections>
             <point key="canvasLocation" x="291" y="81"/>
         </tableViewCell>

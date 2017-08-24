@@ -14,6 +14,7 @@
 @interface StyleViewController ()<switchCommonDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     UIScrollView *scrollView;
+    StyleHeadView *HeadView ;
 }
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) UITableView *tableViewFrame;
@@ -24,6 +25,11 @@
 @property (nonatomic,strong) NSMutableArray *AxisSectionSource;
 @property (nonatomic,strong) NSMutableArray *NeedleSectionSource;
 @property (nonatomic,strong) NSMutableArray *RangeSectionSource;
+
+@property (nonatomic,strong) NSMutableArray *FrameRowTitleSource;
+@property (nonatomic,strong) NSMutableArray *AxisRowTitleSource;
+@property (nonatomic,strong) NSMutableArray *NeedleRowTitleSource;
+@property (nonatomic,strong) NSMutableArray *RangeRowTitleSource;
 
 @end
 
@@ -36,23 +42,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initWithData];
-    StyleHeadView *HeadView = [[StyleHeadView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 237)];
-    HeadView.delegate = self;
-    [self.view addSubview:HeadView];
-    //创建滚动视图
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 237, MSWidth, MSHeight)];
-    scrollView.contentSize = CGSizeMake(MSWidth*4,0);
-    scrollView.scrollEnabled = NO;
-    scrollView.delegate = self;
-    scrollView.backgroundColor = [UIColor clearColor];
-    [scrollView setShowsHorizontalScrollIndicator:NO];
-    [self.view addSubview:scrollView];
+    [self initWithData];  
     [self initWithUI];
 
-  
-
-    
 }
 - (void)initWithData{
     _FrameSectionSource = [[NSMutableArray alloc]initWithObjects:@"ANGLES",@"BACKGROUND COLOR",@"TITLE LABEL",@"VALUE LABEL",@"UNITS LABEL", nil];
@@ -62,13 +54,32 @@
     
     _RangeSectionSource = [[NSMutableArray alloc]initWithObjects:@"FILL", nil];
 
+    _FrameRowTitleSource = [[NSMutableArray alloc]initWithObjects:@"Start Angle",@"End Angle",@"Inner Color",@"Outer Color",@"Title Color",@"Font Scale",@"Position",@"Value Visible",@"Value Color",@"Font Scale",@"Position",@"Units Color",@"Font Scale",@"Vertical Position",@"Horizontal Position", nil];
+    _AxisRowTitleSource = [[NSMutableArray alloc]initWithObjects:@"Width",@"Length",@"Color",@"Visible",@"Rotate",@"Fonts Scale",@"Offest From Tickline", nil];
+    _NeedleRowTitleSource = [[NSMutableArray alloc]initWithObjects:@"Visible",@"Width",@"Length",@"Color",@"Radius",@"Color", nil];
+    _RangeRowTitleSource = [[NSMutableArray alloc]initWithObjects:@"Enabled",@"Inner Position",@"Outer Position",@"Color", nil];
+    
+    
+    
 }
 - (void)initWithUI{
+    HeadView = [[StyleHeadView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 237)];
+    HeadView.delegate = self;
+    [self.view addSubview:HeadView];
+    //创建滚动视图
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 237, MSWidth, MSHeight)];
+    scrollView.contentSize = CGSizeMake(MSWidth*4,MSHeight *2);
+    scrollView.delegate = self;
+    scrollView.pagingEnabled=YES;
+    scrollView.backgroundColor = [UIColor clearColor];
+    scrollView.showsHorizontalScrollIndicator=NO;
+    [self.view addSubview:scrollView];
+    
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight*10) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorStyle = NO;
     [self.tableView registerNib:[UINib nibWithNibName:@"StyleOneTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleOneTableViewCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"StyleTwoTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleTwoTableViewCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"StyleThreeTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleThreeTableViewCell"];
@@ -79,7 +90,7 @@
     self.tableViewAxis.dataSource = self;
     self.tableViewAxis.delegate = self;
     self.tableViewAxis.backgroundColor = [UIColor clearColor];
-    self.tableViewAxis.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableViewAxis.separatorStyle = NO;
     [self.tableViewAxis registerNib:[UINib nibWithNibName:@"StyleOneTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleOneTableViewCell"];
     [self.tableViewAxis registerNib:[UINib nibWithNibName:@"StyleTwoTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleTwoTableViewCell"];
     [self.tableViewAxis registerNib:[UINib nibWithNibName:@"StyleThreeTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleThreeTableViewCell"];
@@ -90,21 +101,21 @@
     self.tableViewNeedle.dataSource = self;
     self.tableViewNeedle.delegate = self;
     self.tableViewNeedle.backgroundColor = [UIColor clearColor];
-    self.tableViewNeedle.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableViewNeedle.separatorStyle = NO;
     [self.tableViewNeedle registerNib:[UINib nibWithNibName:@"StyleOneTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleOneTableViewCell"];
     [self.tableViewNeedle registerNib:[UINib nibWithNibName:@"StyleTwoTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleTwoTableViewCell"];
     [self.tableViewNeedle registerNib:[UINib nibWithNibName:@"StyleThreeTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleThreeTableViewCell"];
     [scrollView addSubview:self.tableViewNeedle];
     
-    self.tableViewFrame = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth*3, 0, MSWidth, MSHeight*10) style:UITableViewStylePlain];
-    self.tableViewFrame.dataSource = self;
-    self.tableViewFrame.delegate = self;
-    self.tableViewFrame.backgroundColor = [UIColor clearColor];
-    self.tableViewFrame.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    [self.tableViewFrame registerNib:[UINib nibWithNibName:@"StyleOneTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleOneTableViewCell"];
-    [self.tableViewFrame registerNib:[UINib nibWithNibName:@"StyleTwoTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleTwoTableViewCell"];
-    [self.tableViewFrame registerNib:[UINib nibWithNibName:@"StyleThreeTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleThreeTableViewCell"];
-    [scrollView addSubview:self.tableViewFrame];
+    self.tableViewRange = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth*3, 0, MSWidth, MSHeight*10) style:UITableViewStylePlain];
+    self.tableViewRange.dataSource = self;
+    self.tableViewRange.delegate = self;
+    self.tableViewRange.backgroundColor = [UIColor clearColor];
+    self.tableViewRange.separatorStyle = NO;
+    [self.tableViewRange registerNib:[UINib nibWithNibName:@"StyleOneTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleOneTableViewCell"];
+    [self.tableViewRange registerNib:[UINib nibWithNibName:@"StyleTwoTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleTwoTableViewCell"];
+    [self.tableViewRange registerNib:[UINib nibWithNibName:@"StyleThreeTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleThreeTableViewCell"];
+    [scrollView addSubview:self.tableViewRange];
  
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
@@ -141,7 +152,7 @@
         {
             if (section == 0 || section == 1) {
                 return 2;
-            }else if (section == 2 || section == 4){
+            }else if (section == 3 || section == 4){
                 return 4;
             }else{
                 return 3;
@@ -185,31 +196,34 @@
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 14, MSWidth-15, 30)];
     label.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
     label.font = [UIFont ToAdapFont:14.f];
-    label.text = @"121";
-//    switch (self.selectStyleElement) {
-//        case SelectFrame:
-//        {
-//        
-//        }
-//            break;
-//        case SelectAxis:
-//        {
-//            
-//        }
-//            break;
-//        case SelectFrame:
-//        {
-//            
-//        }
-//            break;
-//        case SelectFrame:
-//        {
-//            
-//        }
-//            break;
-//        default:
-//            break;
-//    }
+    switch (self.selectStyleElement) {
+        case SelectFrame:
+        {
+            label.text = _FrameSectionSource[section];
+
+        }
+            break;
+        case SelectAxis:
+        {
+            label.text =  _AxisSectionSource[section];
+
+        }
+            break;
+        case SelectNeedle:
+        {
+            label.text = _NeedleSectionSource[section];
+ 
+        }
+            break;
+        case SelectRange:
+        {
+            label.text = _RangeSectionSource[section];
+ 
+        }
+            break;
+        default:
+            break;
+    }
     [headView addSubview:label];
     
     return headView;
@@ -257,7 +271,7 @@
             break;
         case SelectRange:
         {
-            if (indexPath.section == 0 && (indexPath.row==0 || indexPath.row==3)){
+            if ( indexPath.row==0 || indexPath.row==3){
                 return 44.f;
             }else{
                 return 65.f;
@@ -284,21 +298,80 @@
     switch (self.selectStyleElement) {
         case SelectFrame:
         {
+            switch (indexPath.section) {
+                case 0:
+                {
+                    StyleOneCell.titleName.text = _FrameRowTitleSource[indexPath.row];
+                }
+                    break;
+                case 1:
+                {
+                    StyleTwoCell.titleName.text = _FrameRowTitleSource[indexPath.row + 2];
+                }
+                    break;
+                case 2:
+                {
+                    StyleTwoCell.titleName.text = _FrameRowTitleSource[4];
+                    StyleOneCell.titleName.text = _FrameRowTitleSource[indexPath.row +4];
+                    
+                }
+                    break;
+                case 3:
+                {
+                    StyleThreeCell.titleName.text = _FrameRowTitleSource[7];
+                    StyleTwoCell.titleName.text = _FrameRowTitleSource[8];
+                    StyleOneCell.titleName.text = _FrameRowTitleSource[indexPath.row +7];
+                }
+                    break;
+                case 4:
+                {
+                    StyleTwoCell.titleName.text = _FrameRowTitleSource[11];
+                    StyleOneCell.titleName.text = _FrameRowTitleSource[indexPath.row +11];
+                }
+                    break;
+                default:
+                    break;
+            }
+            
             if (indexPath.section == 1 ) {
+                
                   resultCell = StyleTwoCell;
             }else if ((indexPath.section == 2 || indexPath.section == 4)  && indexPath.row==0  ){
                 resultCell = StyleTwoCell;
             }else if (indexPath.section == 3 && ( indexPath.row==1)){
                 resultCell = StyleTwoCell;
             }else if (indexPath.section == 3 && ( indexPath.row==0)){
-                resultCell = StyleTwoCell;
+                resultCell = StyleThreeCell;
             }else{
                 resultCell = StyleOneCell;
             }
+           
         }
             break;
         case SelectAxis:
         {
+            switch (indexPath.section) {
+                case 0:
+                {
+                    StyleOneCell.titleName.text = _AxisRowTitleSource[indexPath.row];
+                    StyleTwoCell.titleName.text = _AxisRowTitleSource[indexPath.row];
+                }
+                    break;
+                case 1:
+                {
+                    StyleOneCell.titleName.text = _AxisRowTitleSource[indexPath.row];
+                    StyleTwoCell.titleName.text = _AxisRowTitleSource[indexPath.row];
+                }
+                    break;
+                case 2:
+                {
+                    StyleThreeCell.titleName.text = _AxisRowTitleSource[indexPath.row +3];
+                    StyleOneCell.titleName.text = _AxisRowTitleSource[indexPath.row+3];
+                }
+                    break;
+                default:
+                    break;
+            }
             if ((indexPath.section == 0 || indexPath.section == 1)&& indexPath.row == 2 ){
                 resultCell = StyleTwoCell;
             }else if (indexPath.section == 2 && (indexPath.row==0 || indexPath.row==1)){
@@ -310,6 +383,23 @@
             break;
         case SelectNeedle:
         {
+            switch (indexPath.section) {
+                case 0:
+                {
+                    StyleThreeCell.titleName.text = _NeedleRowTitleSource[indexPath.row];
+                    StyleOneCell.titleName.text = _NeedleRowTitleSource[indexPath.row];
+                    StyleTwoCell.titleName.text = _NeedleRowTitleSource[indexPath.row];
+                }
+                    break;
+                case 1:
+                {
+                    StyleOneCell.titleName.text = _NeedleRowTitleSource[4];
+                    StyleTwoCell.titleName.text = _NeedleRowTitleSource[5];
+                }
+                    break;
+                default:
+                    break;
+            }
             if (indexPath.section == 0 && indexPath.row==0 ){
                 resultCell = StyleThreeCell;
             }else if (  indexPath.section == 0 && indexPath.row==3){
@@ -318,15 +408,18 @@
             {
                 resultCell = StyleTwoCell;
             }else{
-                resultCell = StyleThreeCell;
+                resultCell = StyleOneCell;
             }
         }
             break;
         case SelectRange:
         {
-            if (indexPath.section == 0 && indexPath.row==0 ){
+            StyleThreeCell.titleName.text = _RangeRowTitleSource[0];
+            StyleOneCell.titleName.text = _RangeRowTitleSource[indexPath.row ];
+            StyleTwoCell.titleName.text = _RangeRowTitleSource[indexPath.row];
+            if ( indexPath.row==0 ){
                 resultCell = StyleThreeCell;
-            }else if( indexPath.section == 0 &&indexPath.row==3){
+            }else if(indexPath.row==3){
                 resultCell = StyleTwoCell;
             }else{
                 resultCell = StyleOneCell;
@@ -348,30 +441,38 @@
     switch (index) {
         case 0:
         {
+            HeadView.slider.hidden = YES;
             self.selectStyleElement = SelectFrame;
+            [self.tableView reloadData ];
         }
             break;
         case 1:
         {
+            HeadView.slider.hidden = NO;
+
             self.selectStyleElement = SelectAxis;
+            [self.tableViewAxis reloadData ];
 
         }
             break;
         case 2:
         {
             self.selectStyleElement = SelectNeedle;
+            [self.tableViewNeedle reloadData ];
 
         }
             break;
         case 3:
         {
             self.selectStyleElement = SelectRange;
+            [self.tableViewRange reloadData ];
+
         }
             break;
         default:
             break;
     }
-
+    NSLog(@"%ld",self.selectStyleElement);
 }
 //当滚动视图发生位移，就会进入下方代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
