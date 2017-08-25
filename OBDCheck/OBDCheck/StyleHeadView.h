@@ -20,7 +20,10 @@
 {
     UIButton *selectBtn;
 }
-@property (nonatomic,strong) UIView *DashboardView;
+@property (nonatomic,strong) DashboardView *DashViewA;
+@property (nonatomic,strong) DashboardViewStyleB *DashViewB;
+@property (nonatomic,strong) DashboardViewStyleC *DashViewC;
+@property (nonatomic,strong) UIView *View;
 @property (nonatomic,strong) UISlider *slider;
 @property (nonatomic,strong) UILabel *NumberLabel;
 @property (nonatomic,strong) NSMutableArray *datasource;

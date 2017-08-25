@@ -10,6 +10,8 @@
 
 @implementation gradientView
 - (void)drawRect:(CGRect)rect {
+    self.layer.cornerRadius = ViewWidth/2;
+    self.layer.masksToBounds = YES;
     [self test:rect start:_gradientColor end:[_gradientColor down:SXColorTypeAlpha num:255]withradius:self.frame.size.width/2 - (3.0/300)*self.frame.size.width];
 }
 - (void)test:(CGRect)rect start:(UIColor *)startColor end:(UIColor *)endColor withradius:(CGFloat)radius{

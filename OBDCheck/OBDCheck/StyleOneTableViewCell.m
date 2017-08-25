@@ -12,9 +12,22 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
-}
+    // 为UISlider添加事件方法
+    [self.NumberSider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
 
+
+}
+- (void)sliderValueChanged:(id)sender {
+    if ([sender isKindOfClass:[UISlider class]]) {
+        UISlider * slider = (UISlider *)sender;
+        self.NumberLabel.text = [NSString stringWithFormat:@"%.f",(360/(2*M_PI))*slider.value];
+        if ([self.delegate respondsToSelector:@selector(sliderBeTouch:)]) {
+            [self.delegate sliderBeTouch:slider];
+        }
+    }
+   
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

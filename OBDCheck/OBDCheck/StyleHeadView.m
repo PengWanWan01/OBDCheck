@@ -32,22 +32,29 @@
         
         switch ([DashboardSetting sharedInstance].dashboardStyle ) {
             case DashboardStyleOne:{
-              self.DashboardView = [[DashboardViewA alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
-                
+              self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+                [self.DashViewA drawCalibration:M_PI WithendAngle:2*M_PI WithRingWidth:10.f MAJORTICKSWidth:0 MAJORTICKSLength:15.f MAJORTICKSColor:[UIColor whiteColor] MINORTICKSWidth:0 MINORTICKSLength:5.f MAJORTICKSColor:[UIColor whiteColor] LABELSVisible:YES Rotate:YES Font:[UIFont systemFontOfSize:10.f] OffestTickline:0];
+                self.View = self.DashViewA;
+                [self addSubview:self.DashViewA];
             }
                 break;
             case DashboardStyleTwo:{
-                self.DashboardView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+                self.DashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+                self.View = self.DashViewB;
+
+                [self addSubview:self.DashViewB];
             }
                 break;
             case DashboardStyleThree:{
-                   self.DashboardView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+                   self.DashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+                self.View = self.DashViewC;
+                [self addSubview:self.DashViewC];
                 }
                 break;
             default:
                 break;
         }
-        self.NumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(self.DashboardView.frame) + 5, 150, 20)];
+        self.NumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(self.View.frame) + 5, 150, 20)];
         self.NumberLabel.textAlignment = NSTextAlignmentCenter;
         self.NumberLabel.font = [UIFont ToAdapFont:12];
         self.NumberLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
@@ -58,7 +65,7 @@
         label.textColor = [ColorTools colorWithHexString:@"#FE9002"];
         label.font = [UIFont ToAdapFont:14.f];
         
-        self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashboardView.frame) + 10, CGRectGetMaxY(label.frame )+10, 150, 20)];
+        self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.View.frame) + 10, CGRectGetMaxY(label.frame )+10, 150, 20)];
         self.slider.minimumTrackTintColor = [ColorTools colorWithHexString:@"FE9002"];
         
         UIView *btnView = [[UIView alloc]initWithFrame:CGRectMake(29, CGRectGetMaxY(self.NumberLabel.frame) + 10, MSWidth - 58, 24)];
@@ -93,7 +100,6 @@
             LineView.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
             [btnView addSubview:LineView];
         }
-        [self addSubview:self.DashboardView];
         [self addSubview:label];
         [self addSubview:self.slider];
         [self addSubview:self.NumberLabel];

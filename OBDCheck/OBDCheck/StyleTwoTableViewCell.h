@@ -11,7 +11,7 @@
 @protocol selectColorDelegete <NSObject>
 
 @optional
-- (void)selectColorBetouched:(UIColor *)color;
+- (void)selectColorBetouched:(NSInteger )indexTag;
 
 @end
 
@@ -22,4 +22,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleName;
 
 @property (nonatomic,weak) id<selectColorDelegete> delegate;
+
+@property (nonatomic,strong) void(^colorClick)(UIColor *Color) ;
 @end

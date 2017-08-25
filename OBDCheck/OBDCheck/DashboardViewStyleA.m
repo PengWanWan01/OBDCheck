@@ -26,101 +26,135 @@
     if (!self) {
         return nil;
     }
-    self.backgroundColor = [ColorTools colorWithHexString:@"18191C"];
-    self.layer.cornerRadius = self.frame.size.width / 2;
-    self.layer.masksToBounds = YES;
+    self.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+   
     self.userInteractionEnabled = YES;
     _center = CGPointMake(ViewWidth / 2, ViewWidth / 2);
-    _ringWidth = 10;
     _radius = ViewWidth/ 2 ;
     _dialPieceCount  =5;
-    _LongscaleWidth = 15.f;
-    _ShortscaleWidth = 5.f;
     _dialCount = 8 * self.dialPieceCount;
     // 添加外环
-    [self addCircleLayer];
-    [self addSubview:self.pointerView];
-    [self addSubview:self.infoLabel];
     
     return self;
 }
+//[ColorTools colorWithHexString:@"18191C"].CGColor
+- (void)addGradientView:(UIColor *)gradientColor GradientViewWidth:(CGFloat)gradientViewWidth{
+//    gradientView *gradientview = [[gradientView alloc]initWithFrame:CGRectMake(0, 0, gradientViewWidth, gradientViewWidth)];
+//    gradientview.layer.cornerRadius = ViewWidth/2;
+//    gradientview.layer.masksToBounds = YES;
+//    gradientview.gradientColor = gradientColor;
+    UIView *gradientview =  [[UIView alloc]initWithFrame:CGRectMake(0, 0, gradientViewWidth, gradientViewWidth)];
+    gradientview.layer.cornerRadius = ViewWidth/2;
+    gradientview.layer.masksToBounds = YES;
+    gradientview.backgroundColor = gradientColor;
+    [self addSubview:gradientview];
+    
 
-- (void)addCircleLayer {
-    CGFloat startAngle = self.StartAngle; // 开始角度
-    CGFloat endAngle = self.endAngle; // 结束角度
+}
+- (void)addCircleLayer:(CGFloat)RingWidth {
+    CGFloat startAngle = 0; // 开始角度
+    CGFloat endAngle = 2*M_PI; // 结束角度
     BOOL clockwise = YES; // 顺时针
     
-    CALayer *containerLayer = [CALayer layer];
+//    CALayer *containerLayer = [CALayer layer];
     
     // 环形Layer层
     CAShapeLayer *circleLayer = [CAShapeLayer layer];
-    circleLayer.lineWidth = self.ringWidth;
+    circleLayer.lineWidth = 0;
     circleLayer.lineCap = kCALineCapRound;
     circleLayer.lineJoin = kCALineJoinRound;
-    circleLayer.fillColor = [UIColor clearColor].CGColor;
-    circleLayer.strokeColor = [UIColor redColor].CGColor;
-    UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
+    circleLayer.fillColor = [ ColorTools colorWithHexString:@"18191c"].CGColor;
+    circleLayer.strokeColor = [ColorTools colorWithHexString:@"18191c"].CGColor;
+    UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-RingWidth startAngle:startAngle endAngle:endAngle clockwise:clockwise];
     circleLayer.path = circlePath.CGPath;
-    [containerLayer addSublayer:circleLayer];
-    for (int i = 0; i <= _dialCount; i++) {
-        [self containerLayer:self.layer addDialWithIndex:i]; // 添加刻度
-    }
-    [self.layer addSublayer:containerLayer];
+    [self.layer addSublayer:circleLayer];
+   
    
 }
 
-- (void)containerLayer:(CALayer *)containerLayer addDialWithIndex:(NSInteger)index {
-    self.StartAngle  = 0; // 开始角度
-    self.endAngle = M_PI ; // 结束角度
+// 画刻度
+- (void)drawCalibration:(CGFloat )TheAngle WithendAngle:(CGFloat)TheendAngle WithRingWidth:(CGFloat)RingWidth MAJORTICKSWidth:(CGFloat)MAWidth MAJORTICKSLength:(CGFloat)MALength MAJORTICKSColor:(UIColor *)MAColor MINORTICKSWidth:(CGFloat)MIWidth MINORTICKSLength:(CGFloat)MILength MAJORTICKSColor:(UIColor *)MIColor LABELSVisible:(BOOL)Visible Rotate:(BOOL)rotate Font:(UIFont *)font OffestTickline:(CGFloat)offestTick  
+
+
+{
+    [self addCircleLayer:RingWidth];
+    [self addSubview:self.pointerView];
+    self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KFontmultiple, _center.y- 40*KFontmultiple, 120*KFontmultiple, 30*KFontmultiple)];
+    self.infoLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
+    self.infoLabel.textAlignment = NSTextAlignmentCenter;
+    self.infoLabel.text = @"0";
+    self.infoLabel.font = [UIFont ToAdapFont:16.f];
+    [self addSubview:self.infoLabel];
     
+    self.numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, ViewWidth + 5, ViewWidth, 20)];
+    self.numberLabel.font = [UIFont boldSystemFontOfSize:17];
+    self.numberLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
+    self.numberLabel.textAlignment = NSTextAlignmentCenter;
+    self.numberLabel.text = @"N/A";
+    [self addSubview:self.numberLabel];
+
+    self.StartAngle = TheAngle;
+    self.endAngle = TheendAngle;
+    self.ringWidth = RingWidth;
+    self.maLength = MALength;
+    self.miLength = MILength;
+    self.miWidth =  MIWidth;
+    self.maWidth = MAWidth;
+    self.maColor = MAColor;
+    self.miColor = MIColor;
     
-    CGFloat perAngle = (self.endAngle - self.StartAngle)  / _dialCount;
-    CGFloat startAngel = (- M_PI + perAngle * index);
-    CGFloat endAngel = startAngel + perAngle/10;
-    UIBezierPath *tickPath = [[UIBezierPath alloc]init];
+    CGFloat perAngle = (TheendAngle - TheAngle)  / _dialCount;
     
-    CAShapeLayer *perLayer = [CAShapeLayer layer];
-    
-    
-    if (index % 5 == 0) {
-        tickPath =   [UIBezierPath bezierPathWithArcCenter:self.center radius:_radius-self.LongscaleWidth startAngle:startAngel endAngle:endAngel clockwise:YES];
-        perLayer = [CAShapeLayer layer];
-        
-        perLayer.strokeColor = [UIColor whiteColor].CGColor;
-        perLayer.lineWidth = self.LongscaleWidth;
-        //添加刻度
-        CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel];
-        NSString *tickText = [NSString stringWithFormat:@"%ld",index * 2];
-        
-        //默认label的大小14 * 14
-        UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(point.x - 5, point.y - 5, 10, 10)];
-        text.text = tickText;
-        text.backgroundColor = [UIColor redColor];
-        text.font = [UIFont systemFontOfSize:15];
-        text.textColor = [UIColor whiteColor];
-        text.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:text];
-        
-    }else{
-        tickPath = [UIBezierPath bezierPathWithArcCenter:self.center radius:_radius-self.ShortscaleWidth startAngle:startAngel endAngle:endAngel clockwise:YES];
-        perLayer = [CAShapeLayer layer];
-        
-        perLayer.strokeColor = [UIColor whiteColor].CGColor;
-        perLayer.lineWidth = _ShortscaleWidth;
+    if (perAngle< 0) {
+     perAngle=    -(TheendAngle - TheAngle)/_dialCount;
+    }else
+    {
+    perAngle = (TheendAngle - TheAngle)  / _dialCount;
     }
-    
-    perLayer.path = tickPath.CGPath;
-    [containerLayer addSublayer:perLayer];
-
-
+    for (int i = 0; i<= _dialCount; i++) {
+        CGFloat startAngel = (- M_PI + perAngle * i+TheAngle);
+        CGFloat endAngel = startAngel + perAngle/10;
+        UIBezierPath *tickPath = [[UIBezierPath alloc]init];
+        
+        CAShapeLayer *perLayer = [CAShapeLayer layer];
+        
+        
+        if (i % 5 == 0) {
+            tickPath =   [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-RingWidth- MILength startAngle:startAngel endAngle:endAngel clockwise:YES];
+            perLayer = [CAShapeLayer layer];
+            
+            perLayer.strokeColor = MAColor.CGColor;
+            perLayer.lineWidth = MALength;
+            //添加刻度
+            CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:_radius-RingWidth- MALength- 5];
+            NSString *tickText = [NSString stringWithFormat:@"%d",i * 2];
+            
+            //默认label的大小14 * 14
+            UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(point.x - 5, point.y - 5, 14, 14)];
+            text.text = tickText;
+            text.font = font;
+            text.textColor = [UIColor whiteColor];
+            text.textAlignment = NSTextAlignmentCenter;
+            [self addSubview:text];
+            
+        }else{
+            tickPath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-RingWidth startAngle:startAngel endAngle:endAngel clockwise:YES];
+            perLayer = [CAShapeLayer layer];
+            
+            perLayer.strokeColor = MIColor.CGColor;
+            perLayer.lineWidth = MILength;
+        }
+        
+        perLayer.path = tickPath.CGPath;
+        [self.layer addSublayer:perLayer];
+    }
 }
+
 // 计算label的坐标
 - (CGPoint)calculateTextPositonWithArcCenter:(CGPoint)center
-                                       Angle:(CGFloat)angel {
-    NSLog(@"%f",_radius);
-    
-    CGFloat x = _radius-_LongscaleWidth-self.LongscaleWidth * cosf(angel);
-    CGFloat y = _radius-_LongscaleWidth-self.LongscaleWidth * sinf(angel);
+                                       Angle:(CGFloat)angel radius:(CGFloat)Theradius{    
+    CGFloat x = (Theradius) * cosf(angel);
+    CGFloat y = (Theradius) * sinf(angel);
     return CGPointMake(center.x + x, center.y - y);
 }
 
@@ -141,17 +175,27 @@
     return _pointerView;
 }
 
-#pragma mark - InfoLabe;
-- (UILabel *)infoLabel {
-    if (!_infoLabel) {
-        _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KFontmultiple, _center.y- 40*KFontmultiple, 120*KFontmultiple, 30*KFontmultiple)];
-        _infoLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
-        _infoLabel.textAlignment = NSTextAlignmentCenter;
-        _infoLabel.text = @"0";
-        _infoLabel.font = [UIFont ToAdapFont:16.f];
+
+#pragma mark 颜色转化
+- (NSString *)hexFromUIColor:(UIColor *)color
+{
+    if (CGColorGetNumberOfComponents(color.CGColor) < 4) {
+        const CGFloat *components = CGColorGetComponents(color.CGColor);
+        color = [UIColor colorWithRed:components[0]
+                                green:components[0]
+                                 blue:components[0]
+                                alpha:components[1]];
     }
-    return _infoLabel;
+    
+    if (CGColorSpaceGetModel(CGColorGetColorSpace(color.CGColor)) != kCGColorSpaceModelRGB) {
+        return [NSString stringWithFormat:@"#FFFFFF"];
+    }
+    
+    return [NSString stringWithFormat:@"#%x%x%x", (int)((CGColorGetComponents(color.CGColor))[0]*255.0),
+            (int)((CGColorGetComponents(color.CGColor))[1]*255.0),
+            (int)((CGColorGetComponents(color.CGColor))[2]*255.0)];
 }
+
 /*
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {

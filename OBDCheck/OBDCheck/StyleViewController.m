@@ -11,10 +11,11 @@
 
 #import "StyleViewController.h"
 
-@interface StyleViewController ()<switchCommonDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface StyleViewController ()<switchCommonDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,selectColorDelegete>
 {
     UIScrollView *scrollView;
-    StyleHeadView *HeadView ;
+    NSInteger selectTag;
+    UIButton *Fristbtn;
 }
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) UITableView *tableViewFrame;
@@ -42,7 +43,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initWithData];  
+    [self initWithData];
+    [self initWithHeadUI];
+    
     [self initWithUI];
 
 }
@@ -62,20 +65,107 @@
     
     
 }
+- (void)initWithHeadUI{
+    
+    self.theStartAngle = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StartAngle%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+    
+    self.endAngle= [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"endAngle%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+    self.ringWidth =     [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"ringWidth%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+    self.maLength =    [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"maLength%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+    self.maWidth =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"maWidth%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+    self.miLength =   [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"miLength%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+    self.miWidth =       [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"miWidth%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+    self.maColor =     [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"maColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+    self.miColor =   [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"miColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+    
+    switch ([DashboardSetting sharedInstance].dashboardStyle ) {
+        case DashboardStyleOne:{
+ 
+            self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+            //画底盘渐变色
+            [self.DashViewA addGradientView:[ColorTools colorWithHexString:@"#18191C"] GradientViewWidth:150*KFontmultiple];
+            [self.DashViewA drawCalibration:self.theStartAngle WithendAngle:self.endAngle WithRingWidth:self.ringWidth MAJORTICKSWidth:self.maWidth MAJORTICKSLength:self.maLength MAJORTICKSColor:[UIColor whiteColor] MINORTICKSWidth:self.miWidth MINORTICKSLength:self.miLength MAJORTICKSColor:[UIColor whiteColor] LABELSVisible:YES Rotate:YES Font:[UIFont systemFontOfSize:10.f] OffestTickline:0];
+            self.DashView = self.DashViewA;
+            [self.view addSubview:self.DashViewA];
+        }
+            break;
+        case DashboardStyleTwo:{
+            self.DashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+            self.DashView = self.DashViewB;
+            
+            [self.view addSubview:self.DashViewB];
+        }
+            break;
+        case DashboardStyleThree:{
+            self.DashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+            self.DashView = self.DashViewC;
+            [self.view addSubview:self.DashViewC];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
+    label.text = @"Value";
+    label.textColor = [ColorTools colorWithHexString:@"#FE9002"];
+    label.font = [UIFont ToAdapFont:14.f];
+    
+    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashView.frame) + 10, CGRectGetMaxY(label.frame )+10, 150, 20)];
+    self.slider.minimumTrackTintColor = [ColorTools colorWithHexString:@"FE9002"];
+    
+    UIView *btnView = [[UIView alloc]initWithFrame:CGRectMake(29, CGRectGetMaxY(self.DashView.frame) + 40, MSWidth - 58, 24)];
+    _datasource = [[NSMutableArray alloc]initWithObjects:@"Frame",@"Axis",@"Needle",@"Range", nil];
+    
+    for (NSInteger i = 0; i< 4; i++) {
+        selectTag = 0;
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(btnView.frame.size.width/4), 0, btnView.frame.size.width/4, 24)];
+        [btn setTitle:_datasource[i] forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont ToAdapFont:13];
+        if (i == 0) {
+            Fristbtn = btn;
+            [Fristbtn setTitleColor:[ColorTools colorWithHexString:@"#212329"] forState:UIControlStateNormal];
+            Fristbtn.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+        }else{
+            [btn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
+            btn.backgroundColor = [UIColor clearColor];
+        }
+        
+        
+        [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
+        btn.tag = i;
+        [btnView addSubview:btn];
+    }
+    for (NSInteger i = 0; i< 5; i++) {
+        UIView *LineView = [[UIView alloc]initWithFrame:CGRectMake(i*(btnView.bounds.size.width)/4, 0, 1, btnView.bounds.size.height)];
+        LineView.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+        [btnView addSubview:LineView];
+    }
+    for (NSInteger i = 0; i< 2; i++) {
+        UIView *LineView = [[UIView alloc]initWithFrame:CGRectMake(0, i*(btnView.bounds.size.height), btnView.bounds.size.width,1)];
+        LineView.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+        [btnView addSubview:LineView];
+    }
+    [self.view addSubview:label];
+    [self.view  addSubview:self.slider];
+    [self.view  addSubview:self.NumberLabel];
+    [self.view  addSubview:btnView];
+
+
+}
 - (void)initWithUI{
-    HeadView = [[StyleHeadView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 237)];
-    HeadView.delegate = self;
-    [self.view addSubview:HeadView];
+ 
     //创建滚动视图
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 237, MSWidth, MSHeight)];
-    scrollView.contentSize = CGSizeMake(MSWidth*4,MSHeight *2);
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 237+44, MSWidth, MSHeight)];
+    scrollView.contentSize = CGSizeMake(MSWidth*4,MSHeight - 237);
     scrollView.delegate = self;
     scrollView.pagingEnabled=YES;
     scrollView.backgroundColor = [UIColor clearColor];
     scrollView.showsHorizontalScrollIndicator=NO;
+    scrollView.scrollEnabled = NO;
     [self.view addSubview:scrollView];
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight*10) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight - 237-44-64) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -86,7 +176,7 @@
     self.selectStyleElement = SelectFrame;
     [scrollView addSubview:self.tableView];
     
-    self.tableViewAxis = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth, 0, MSWidth, MSHeight*10) style:UITableViewStylePlain];
+    self.tableViewAxis = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth, 0, MSWidth, MSHeight - 237-44-64) style:UITableViewStylePlain];
     self.tableViewAxis.dataSource = self;
     self.tableViewAxis.delegate = self;
     self.tableViewAxis.backgroundColor = [UIColor clearColor];
@@ -97,7 +187,7 @@
     [scrollView addSubview:self.tableViewAxis];
  
     
-    self.tableViewNeedle = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth*2, 0, MSWidth, MSHeight*10) style:UITableViewStylePlain];
+    self.tableViewNeedle = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth*2, 0, MSWidth, MSHeight - 237-44-64) style:UITableViewStylePlain];
     self.tableViewNeedle.dataSource = self;
     self.tableViewNeedle.delegate = self;
     self.tableViewNeedle.backgroundColor = [UIColor clearColor];
@@ -107,7 +197,7 @@
     [self.tableViewNeedle registerNib:[UINib nibWithNibName:@"StyleThreeTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleThreeTableViewCell"];
     [scrollView addSubview:self.tableViewNeedle];
     
-    self.tableViewRange = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth*3, 0, MSWidth, MSHeight*10) style:UITableViewStylePlain];
+    self.tableViewRange = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth*3, 0, MSWidth, MSHeight - 237-44-64) style:UITableViewStylePlain];
     self.tableViewRange.dataSource = self;
     self.tableViewRange.delegate = self;
     self.tableViewRange.backgroundColor = [UIColor clearColor];
@@ -289,9 +379,17 @@
     UITableViewCell *resultCell = [[UITableViewCell alloc]init];
     resultCell.backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
     StyleOneTableViewCell *StyleOneCell = [tableView dequeueReusableCellWithIdentifier:@"StyleOneTableViewCell"];
+   [ StyleOneCell.NumberSider    addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+
      StyleOneCell.selectionStyle = UITableViewCellSelectionStyleNone;
      StyleTwoTableViewCell *StyleTwoCell = [tableView dequeueReusableCellWithIdentifier:@"StyleTwoTableViewCell"];
+    StyleTwoCell.delegate = self;
     StyleTwoCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    StyleTwoCell.colorClick = ^(UIColor *color){
+        NSLog(@"diandiandianji%@",color);
+        self.outColor = color;
+    };
+    
     StyleThreeTableViewCell *StyleThreeCell = [tableView dequeueReusableCellWithIdentifier:@"StyleThreeTableViewCell"];
     StyleThreeCell.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -302,18 +400,72 @@
                 case 0:
                 {
                     StyleOneCell.titleName.text = _FrameRowTitleSource[indexPath.row];
+                    StyleOneCell.NumberSider.minimumValue = -2*M_PI;
+                    StyleOneCell.NumberSider.maximumValue = 2*M_PI;
+                    switch (indexPath.row) {
+                        case 0:{
+                            StyleOneCell.NumberSider.value = self.theStartAngle;
+                            StyleOneCell.NumberSider.tag = 0;
+                        }
+                            break;
+                        case 1:{
+                            StyleOneCell.NumberSider.value = self.endAngle;
+                            StyleOneCell.NumberSider.tag = 1;
+                        }
+                            break;
+                        default:
+                            break;
+                    }
+                    StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.f",(360/(2*M_PI))*StyleOneCell.NumberSider.value ];
+
                 }
                     break;
                 case 1:
                 {
                     StyleTwoCell.titleName.text = _FrameRowTitleSource[indexPath.row + 2];
+                    switch (indexPath.row) {
+                        case 0:
+                        {
+                            StyleTwoCell.ColorView.tag = 0;
+                        }
+                            break;
+                        case 1:
+                        {
+                            StyleTwoCell.ColorView.tag = 1;
+
+                            
+                        }
+                            break;
+                        default:
+                            break;
+                    }
                 }
                     break;
                 case 2:
                 {
                     StyleTwoCell.titleName.text = _FrameRowTitleSource[4];
                     StyleOneCell.titleName.text = _FrameRowTitleSource[indexPath.row +4];
-                    
+                    StyleOneCell.NumberSider.tag = indexPath.row +4 ;
+                     StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
+                    switch (indexPath.row) {
+                        case 1:
+                        {
+                            StyleOneCell.NumberSider.minimumValue = 0.02;
+                            StyleOneCell.NumberSider.maximumValue = 0.5;
+                            StyleOneCell.NumberSider.tag = 2;
+
+                        }
+                            break;
+                        case 2:
+                        {
+                            StyleOneCell.NumberSider.minimumValue = 0;
+                            StyleOneCell.NumberSider.maximumValue = 1;
+                            StyleOneCell.NumberSider.tag = 3;
+                        }
+                            break;
+                        default:
+                            break;
+                    }
                 }
                     break;
                 case 3:
@@ -321,12 +473,60 @@
                     StyleThreeCell.titleName.text = _FrameRowTitleSource[7];
                     StyleTwoCell.titleName.text = _FrameRowTitleSource[8];
                     StyleOneCell.titleName.text = _FrameRowTitleSource[indexPath.row +7];
+                    StyleOneCell.tag = indexPath.row +7 ;
+                     StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
+                    switch (indexPath.row) {
+                        case 2:
+                        {
+                            StyleOneCell.NumberSider.minimumValue = 0.02;
+                            StyleOneCell.NumberSider.maximumValue = 0.5;
+                            StyleOneCell.NumberSider.tag = 4;
+                        }
+                            break;
+                        case 3:
+                        {
+                            StyleOneCell.NumberSider.minimumValue = 0;
+                            StyleOneCell.NumberSider.maximumValue = 1;
+                            StyleOneCell.NumberSider.tag = 5;
+                        }
+                            break;
+                        default:
+                            break;
+
+                }
                 }
                     break;
                 case 4:
                 {
                     StyleTwoCell.titleName.text = _FrameRowTitleSource[11];
                     StyleOneCell.titleName.text = _FrameRowTitleSource[indexPath.row +11];
+                     StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
+                    switch (indexPath.row) {
+                        case 1:
+                        {
+                            StyleOneCell.NumberSider.minimumValue = 0.02;
+                            StyleOneCell.NumberSider.maximumValue = 0.5;
+                            StyleOneCell.NumberSider.tag = 6;
+                        }
+                            break;
+                        case 2:
+                        {
+                            StyleOneCell.NumberSider.minimumValue = 0;
+                            StyleOneCell.NumberSider.maximumValue = 1;
+                            StyleOneCell.NumberSider.tag = 7;
+                        }
+                            break;
+                        case 3:
+                        {
+                            StyleOneCell.NumberSider.minimumValue = 0;
+                            StyleOneCell.NumberSider.maximumValue = 1;
+                            StyleOneCell.NumberSider.tag = 8;
+                        }
+                            break;
+                        default:
+                            break;
+                    }
+
                 }
                     break;
                 default:
@@ -355,18 +555,83 @@
                 {
                     StyleOneCell.titleName.text = _AxisRowTitleSource[indexPath.row];
                     StyleTwoCell.titleName.text = _AxisRowTitleSource[indexPath.row];
+                     StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
+                    switch (indexPath.row) {
+                        case 0:
+                        {
+                            StyleOneCell.NumberSider.minimumValue = 0;
+                            StyleOneCell.NumberSider.maximumValue = 5;
+                            StyleOneCell.NumberSider.value = self.maWidth;
+                            StyleOneCell.NumberSider.tag = 9;
+                        }
+                            break;
+                        case 1:
+                        {
+                            StyleOneCell.NumberSider.minimumValue = 0;
+                            StyleOneCell.NumberSider.maximumValue = 30;
+                            StyleOneCell.NumberSider.value = self.maLength;
+                            StyleOneCell.NumberSider.tag = 10;
+                        }
+                            break;
+                        default:
+                            break;
+                    }
                 }
                     break;
                 case 1:
                 {
                     StyleOneCell.titleName.text = _AxisRowTitleSource[indexPath.row];
                     StyleTwoCell.titleName.text = _AxisRowTitleSource[indexPath.row];
+                    StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
+                    switch (indexPath.row) {
+                        case 0:
+                        {
+                            StyleOneCell.NumberSider.minimumValue = 0;
+                            StyleOneCell.NumberSider.maximumValue = 5;
+                            StyleOneCell.NumberSider.tag = 11;
+                            StyleOneCell.NumberSider.value = self.miWidth;
+
+                        }
+                            break;
+                        case 1:
+                        {
+                            StyleOneCell.NumberSider.minimumValue = 0;
+                            StyleOneCell.NumberSider.maximumValue = 30;
+                            StyleOneCell.NumberSider.tag = 12;
+                            StyleOneCell.NumberSider.value = self.maLength;
+
+                        }
+                            break;
+                        default:
+                            break;
+                    }
                 }
                     break;
                 case 2:
                 {
                     StyleThreeCell.titleName.text = _AxisRowTitleSource[indexPath.row +3];
                     StyleOneCell.titleName.text = _AxisRowTitleSource[indexPath.row+3];
+                    StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
+                    switch (indexPath.row) {
+                        case 2:
+                        {
+                            StyleOneCell.NumberSider.minimumValue = 0.02;
+                            StyleOneCell.NumberSider.maximumValue = 0.2;
+                            StyleOneCell.NumberSider.tag = 13;
+
+                        }
+                            break;
+                        case 3:
+                        {
+                            StyleOneCell.NumberSider.minimumValue = -0.2;
+                            StyleOneCell.NumberSider.maximumValue = 0.2;
+                            StyleOneCell.NumberSider.tag = 14;
+
+                        }
+                            break;
+                        default:
+                            break;
+                    }
                 }
                     break;
                 default:
@@ -389,12 +654,39 @@
                     StyleThreeCell.titleName.text = _NeedleRowTitleSource[indexPath.row];
                     StyleOneCell.titleName.text = _NeedleRowTitleSource[indexPath.row];
                     StyleTwoCell.titleName.text = _NeedleRowTitleSource[indexPath.row];
+                    StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
+                    switch (indexPath.row) {
+                        case 1:
+                        {
+                            StyleOneCell.NumberSider.minimumValue = 0;
+                            StyleOneCell.NumberSider.maximumValue = 0.23f;
+                            StyleOneCell.NumberSider.tag = 15;
+
+
+                        }
+                            break;
+                        case 2:
+                        {
+                            StyleOneCell.NumberSider.minimumValue = 0;
+                            StyleOneCell.NumberSider.maximumValue = 1;
+                            StyleOneCell.NumberSider.tag = 16;
+
+
+                        }
+                            break;
+                        default:
+                            break;
+                    }
                 }
                     break;
                 case 1:
                 {
                     StyleOneCell.titleName.text = _NeedleRowTitleSource[4];
                     StyleTwoCell.titleName.text = _NeedleRowTitleSource[5];
+                    StyleOneCell.NumberSider.minimumValue = 0;
+                    StyleOneCell.NumberSider.maximumValue = 0.1;
+                    StyleOneCell.NumberSider.tag = 17;
+
                 }
                     break;
                 default:
@@ -424,7 +716,26 @@
             }else{
                 resultCell = StyleOneCell;
             }
-        }
+           
+                    StyleOneCell.NumberSider.minimumValue = 0;
+                    StyleOneCell.NumberSider.maximumValue = 1;
+            switch (indexPath.row) {
+                case 1:
+                {
+                    StyleOneCell.NumberSider.tag = 18;
+
+                }
+                    break;
+                case 2:
+                {
+                    StyleOneCell.NumberSider.tag = 19;
+
+                }
+                    break;
+                default:
+                    break;
+            }
+            }
             break;
         default:
             break;
@@ -433,47 +744,170 @@
     
 }
 
-#pragma mark 头部的点击事件
-- (void)switchWithIndex:(NSInteger)index{
-    NSLog(@"%ld",(long)index);
-    scrollView.contentOffset = CGPointMake(index*MSWidth, 0);
-    
-    switch (index) {
+
+- (void)btn:(UIButton *)btn{
+    NSLog(@"111===%ld",(long)btn.tag);
+    scrollView.contentOffset = CGPointMake(MSWidth*btn.tag,0);
+    switch (btn.tag) {
         case 0:
         {
-            HeadView.slider.hidden = YES;
             self.selectStyleElement = SelectFrame;
-            [self.tableView reloadData ];
+            [self.tableViewFrame reloadData ];
         }
             break;
         case 1:
         {
-            HeadView.slider.hidden = NO;
-
             self.selectStyleElement = SelectAxis;
             [self.tableViewAxis reloadData ];
-
+            
         }
             break;
         case 2:
         {
             self.selectStyleElement = SelectNeedle;
             [self.tableViewNeedle reloadData ];
-
+            
         }
             break;
         case 3:
         {
             self.selectStyleElement = SelectRange;
             [self.tableViewRange reloadData ];
-
+            
         }
             break;
         default:
             break;
     }
-    NSLog(@"%ld",self.selectStyleElement);
+    if (btn.tag != 0 && selectTag == 0) {
+        NSLog(@"yyyyy");
+        [Fristbtn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
+        Fristbtn.backgroundColor = [UIColor clearColor];
+        
+    }
+    if (btn.tag==0) {
+        selectTag=1;
+    }
+    if(selectBtn == btn ) {
+        //上次点击过的按钮，不做处理
+    } else{
+        //本次点击的按钮设为黑色
+        [btn setTitleColor:[ColorTools colorWithHexString:@"#212329"] forState:UIControlStateNormal];
+        btn.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+        
+        
+        //将上次点击过的按钮设为白色
+        [selectBtn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
+        selectBtn.backgroundColor = [UIColor clearColor];
+        
+        
+    }
+    selectBtn= btn;
+    
+   
+    
 }
+#pragma mark Slider的点击事件
+- (void)sliderValueChanged:(id)sender {
+    if ([sender isKindOfClass:[UISlider class]]) {
+        UISlider * slider = (UISlider *)sender;
+        NSLog(@"slide.tag%ld",(long)slider.tag);
+
+        switch (slider.tag) {
+            case 0:
+            {
+                NSLog(@"开始角度%f",slider.value);
+                 [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"StartAngle%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                self.theStartAngle = slider.value;
+                
+                [self upDateDashView];
+            }
+                break;
+            case 1:
+            {
+              
+                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"endAngle%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                self.endAngle = slider.value;
+                [self upDateDashView];
+            }
+                break;
+            case 9:
+            {
+                
+                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"maWidth%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                self.maWidth = slider.value;
+                [self upDateDashView];
+            }
+                break;
+            case 10:
+            {
+                
+                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"maLength%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                self.maLength = slider.value;
+                [self upDateDashView];
+            }
+                break;
+            case 11:
+            {
+                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"miWidth%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                self.miWidth = slider.value;
+                [self upDateDashView];
+            }
+                break;
+            case 12:
+            {
+                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"miLength%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                self.miLength = slider.value;
+                [self upDateDashView];
+            }
+                break;
+            default:
+                break;
+        }
+    }
+
+    
+}
+#pragma mark 外径颜色的变化
+- (void)selectColorBetouched:(NSInteger)indexTag{
+    switch (indexTag) {
+        case 0:
+        {
+           
+        }
+            break;
+        case 1:
+        {
+            [self.DashViewA removeFromSuperview];
+            
+            self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+            //画底盘渐变色
+            [self.DashViewA addGradientView:self.outColor GradientViewWidth:150*KFontmultiple];
+            [self.DashViewA drawCalibration:self.theStartAngle WithendAngle:self.endAngle WithRingWidth:self.ringWidth MAJORTICKSWidth:self.maWidth MAJORTICKSLength:self.maLength MAJORTICKSColor:[UIColor whiteColor] MINORTICKSWidth:self.miWidth MINORTICKSLength:self.miLength MAJORTICKSColor:[UIColor whiteColor] LABELSVisible:YES Rotate:YES Font:[UIFont systemFontOfSize:10.f] OffestTickline:0];
+            self.DashView = self.DashViewA;
+            [self.view addSubview:self.DashViewA];
+        }
+            break;
+   
+        default:
+            break;
+    }
+
+}
+#pragma mark 更新仪表盘
+- (void)upDateDashView{
+    [self.DashViewA removeFromSuperview];
+    
+    self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+    //画底盘渐变色
+    [self.DashViewA addGradientView:[ColorTools colorWithHexString:@"#18191C"] GradientViewWidth:150*KFontmultiple];
+    [self.DashViewA drawCalibration:self.theStartAngle WithendAngle:self.endAngle WithRingWidth:self.ringWidth MAJORTICKSWidth:self.maWidth MAJORTICKSLength:self.maLength MAJORTICKSColor:[UIColor whiteColor] MINORTICKSWidth:self.miWidth MINORTICKSLength:self.miLength MAJORTICKSColor:[UIColor whiteColor] LABELSVisible:YES Rotate:YES Font:[UIFont systemFontOfSize:10.f] OffestTickline:0];
+    self.DashView = self.DashViewA;
+    [self.view addSubview:self.DashViewA];
+
+}
+
+
 //当滚动视图发生位移，就会进入下方代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
 

@@ -20,9 +20,9 @@
 }
 - (void)tap{
 
-    NSLog(@"1212");
+    NSLog(@"self.ColorView.tag %ld",(long)self.ColorView.tag);
     if ([self.delegate respondsToSelector:@selector(selectColorBetouched:)]) {
-        [self.delegate selectColorBetouched:self.ColorView.backgroundColor];
+        [self.delegate selectColorBetouched:self.ColorView.tag];
     }
     ILColorPickerView *vc = [[ILColorPickerView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight)];
     vc.delegate = self;
@@ -40,6 +40,10 @@
 {
    self.ColorView.backgroundColor = newColor;
     self.ColorLabel.text = [self hexFromUIColor:newColor];
+    if (self.colorClick) {
+        self.colorClick(newColor);
+        
+    }
     [self setNeedsLayout];
     [self setNeedsDisplay];
 
