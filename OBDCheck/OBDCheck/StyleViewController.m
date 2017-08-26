@@ -11,7 +11,7 @@
 
 #import "StyleViewController.h"
 
-@interface StyleViewController ()<switchCommonDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,selectColorDelegete>
+@interface StyleViewController ()<switchCommonDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,selectColorDelegete,selectSwtichDelegete>
 {
     UIScrollView *scrollView;
     NSInteger selectTag;
@@ -383,7 +383,7 @@
     resultCell.backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
     StyleOneTableViewCell *StyleOneCell = [tableView dequeueReusableCellWithIdentifier:@"StyleOneTableViewCell"];
    [ StyleOneCell.NumberSider    addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-
+    
      StyleOneCell.selectionStyle = UITableViewCellSelectionStyleNone;
      StyleTwoTableViewCell *StyleTwoCell = [tableView dequeueReusableCellWithIdentifier:@"StyleTwoTableViewCell"];
     StyleTwoCell.delegate = self;
@@ -394,6 +394,7 @@
     };
     
     StyleThreeTableViewCell *StyleThreeCell = [tableView dequeueReusableCellWithIdentifier:@"StyleThreeTableViewCell"];
+    StyleThreeCell.delegate  =self;
     StyleThreeCell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     switch (self.selectStyleElement) {
@@ -478,6 +479,7 @@
                 case 3:
                 {
                     StyleThreeCell.titleName.text = _FrameRowTitleSource[7];
+                    StyleThreeCell.SwitchBtn.tag = 0;
                     StyleTwoCell.titleName.text = _FrameRowTitleSource[8];
                     StyleOneCell.titleName.text = _FrameRowTitleSource[indexPath.row +7];
                     StyleOneCell.tag = indexPath.row +7 ;
@@ -636,6 +638,14 @@
                     StyleOneCell.titleName.text = _AxisRowTitleSource[indexPath.row+3];
                     StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
                     switch (indexPath.row) {
+                        case 0:{
+                            StyleThreeCell.SwitchBtn.tag = 1;
+                        }
+                            break;
+                        case 1:{
+                            StyleThreeCell.SwitchBtn.tag = 2;
+                        }
+                            break;
                         case 2:
                         {
                             StyleOneCell.NumberSider.minimumValue = 0.02;
@@ -675,6 +685,7 @@
                 case 0:
                 {
                     StyleThreeCell.titleName.text = _NeedleRowTitleSource[indexPath.row];
+                     StyleThreeCell.SwitchBtn.tag = 3;
                     StyleOneCell.titleName.text = _NeedleRowTitleSource[indexPath.row];
                     StyleTwoCell.titleName.text = _NeedleRowTitleSource[indexPath.row];
                     StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
@@ -735,6 +746,7 @@
         case SelectRange:
         {
             StyleThreeCell.titleName.text = _RangeRowTitleSource[0];
+             StyleThreeCell.SwitchBtn.tag = 4;
             StyleOneCell.titleName.text = _RangeRowTitleSource[indexPath.row ];
             StyleTwoCell.titleName.text = _RangeRowTitleSource[indexPath.row];
             if ( indexPath.row==0 ){
@@ -1019,6 +1031,39 @@
             break;
     }
 
+}
+#pragma mark 开关按钮
+- (void)selectSwtichBetouched:(UISwitch *)switchBtn{
+
+    switch (switchBtn.tag) {
+        case 0:
+        {
+        
+        }
+            break;
+        case 1:
+        {
+            
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        case 3:
+        {
+            
+        }
+            break;
+        case 4:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
 }
 #pragma mark 更新仪表盘
 - (void)upDateDashView{

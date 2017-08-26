@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface StyleCViewController : UIViewController
+@property (nonatomic,strong) UITableView *tableView;
+
 @property (nonatomic,strong) UILabel *NumberLabel;
 @property (nonatomic,strong) NSMutableArray *datasource;
 @property (nonatomic,copy) NSString *selectColor;

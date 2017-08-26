@@ -8,7 +8,7 @@
 
 #import "StyleViewBController.h"
 
-@interface StyleViewBController ()
+@interface StyleViewBController ()<UITableViewDelegate,UITableViewDataSource,selectColorDelegete,selectSwtichDelegete>
 {
     DashboardViewStyleB  *dashViewB;
     NSInteger selectTag;
@@ -16,23 +16,45 @@
     UIButton *selectBtn;
 
 }
+@property (nonatomic,strong) UITableView *tableView;
+@property (nonatomic,strong) NSMutableArray *sectionSource;
+@property (nonatomic,strong) NSMutableArray *rowTitleSource;
+
 @end
 
 @implementation StyleViewBController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [self initNavBarTitle:@"Style" andLeftItemImageName:@"back" andRightItemName:@"Cancel"];
+    self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self initWithData];
     [self  initWithHeadUI];
+    [self initWithUI];
+    
+}
+- (void)initWithData{
+_sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TITLE LABEL",@"VALUE LABEL",@"UNITS LABEL",@"PONITER",@"RANGE", nil];
+    _rowTitleSource = [[NSMutableArray alloc]initWithObjects:@"Color",@"Gradient Radius",@"Title Color",@"Font Scale",@"Position",@"Value Visible",@"Value Color",@"Font Scale",@"Position",@"Units Color",@"Font Scale",@"Position",@"Color",@"Width",@"Fill Enabled",@"Color",nil];
+    
+}
+- (void)initWithUI{
+    
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 186, MSWidth, MSHeight - 186 - 44 -64) style:UITableViewStylePlain];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorStyle = NO;
+    [self.tableView registerNib:[UINib nibWithNibName:@"StyleOneTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleOneTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"StyleTwoTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleTwoTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"StyleThreeTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleThreeTableViewCell"];
+    [self.view addSubview:self.tableView];
     
 }
 - (void)initWithHeadUI{
-  
-    
-   
-    
-   
-    
        self.backColor = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleBbackColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
     self.GradientColor = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleBGradientColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
     self.titleColor = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleBtitleColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
@@ -69,73 +91,289 @@
     UIView *btnView = [[UIView alloc]initWithFrame:CGRectMake(29, CGRectGetMaxY(dashViewB.frame) + 40, MSWidth - 58, 24)];
     _datasource = [[NSMutableArray alloc]initWithObjects:@"Frame",@"Axis",@"Needle",@"Range", nil];
     
-    for (NSInteger i = 0; i< 4; i++) {
-        selectTag = 0;
-        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(btnView.frame.size.width/4), 0, btnView.frame.size.width/4, 24)];
-        [btn setTitle:_datasource[i] forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont ToAdapFont:13];
-        if (i == 0) {
-            Fristbtn = btn;
-            [Fristbtn setTitleColor:[ColorTools colorWithHexString:@"#212329"] forState:UIControlStateNormal];
-            Fristbtn.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
-        }else{
-            [btn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
-            btn.backgroundColor = [UIColor clearColor];
-        }
-        
-        
-        [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
-        btn.tag = i;
-        [btnView addSubview:btn];
-    }
-    for (NSInteger i = 0; i< 5; i++) {
-        UIView *LineView = [[UIView alloc]initWithFrame:CGRectMake(i*(btnView.bounds.size.width)/4, 0, 1, btnView.bounds.size.height)];
-        LineView.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
-        [btnView addSubview:LineView];
-    }
-    for (NSInteger i = 0; i< 2; i++) {
-        UIView *LineView = [[UIView alloc]initWithFrame:CGRectMake(0, i*(btnView.bounds.size.height), btnView.bounds.size.width,1)];
-        LineView.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
-        [btnView addSubview:LineView];
-    }
+   
     [self.view addSubview:label];
     [self.view  addSubview:self.slider];
     [self.view  addSubview:self.NumberLabel];
-    [self.view  addSubview:btnView];
     
     
 }
-- (void)btn:(UIButton *)btn{
-    NSLog(@"111===%ld",(long)btn.tag);
-   
-       if (btn.tag != 0 && selectTag == 0) {
-        NSLog(@"yyyyy");
-        [Fristbtn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
-        Fristbtn.backgroundColor = [UIColor clearColor];
-        
+#pragma mark tabble代理
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 6;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (section == 1 || section ==3) {
+        return 3;
+    }else if (section == 2){
+        return 4;
+    }else{
+        return 2;
     }
-    if (btn.tag==0) {
-        selectTag=1;
+
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (((indexPath.section == 0 || indexPath.section == 1|| indexPath.section == 3 ||indexPath.section == 4 )&&indexPath.row == 0)) {
+       return 44.f;
+    }else if (indexPath.section == 2 &&  indexPath.row == 1 ){
+        return 44.f;
+    }else if ((indexPath.section == 2 ||indexPath.section == 5 ) && indexPath.row == 0)
+    {
+        return 44.f;
+    }else{
+        return 65.f;;
     }
-    if(selectBtn == btn ) {
-        //上次点击过的按钮，不做处理
-    } else{
-        //本次点击的按钮设为黑色
-        [btn setTitleColor:[ColorTools colorWithHexString:@"#212329"] forState:UIControlStateNormal];
-        btn.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
-        
-        
-        //将上次点击过的按钮设为白色
-        [selectBtn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
-        selectBtn.backgroundColor = [UIColor clearColor];
-        
-        
+    
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 44.f;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 44)];
+    headView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 14, MSWidth-15, 30)];
+    label.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+    label.font = [UIFont ToAdapFont:14.f];
+    label.text = _sectionSource[section];
+    [headView addSubview:label];
+    
+    return headView;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *resultCell = [[UITableViewCell alloc]init];
+    resultCell.backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
+    StyleOneTableViewCell *StyleOneCell = [tableView dequeueReusableCellWithIdentifier:@"StyleOneTableViewCell"];
+    [ StyleOneCell.NumberSider    addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    StyleOneCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    StyleTwoTableViewCell *StyleTwoCell = [tableView dequeueReusableCellWithIdentifier:@"StyleTwoTableViewCell"];
+    StyleTwoCell.delegate = self;
+    StyleTwoCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    StyleTwoCell.colorClick = ^(NSString *color){
+        NSLog(@"diandiandianji%@",color);
+        self.selectColor = color;
+    };
+    
+    StyleThreeTableViewCell *StyleThreeCell = [tableView dequeueReusableCellWithIdentifier:@"StyleThreeTableViewCell"];
+    StyleThreeCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    StyleThreeCell.delegate = self;
+    if (((indexPath.section == 0 || indexPath.section == 1|| indexPath.section == 3 ||indexPath.section == 4 )&&indexPath.row == 0)) {
+        resultCell = StyleTwoCell;
+    }else if (indexPath.section == 2 &&  indexPath.row == 1 ){
+      resultCell = StyleTwoCell;
+    }else if ((indexPath.section == 2 ||indexPath.section == 5 ) && indexPath.row == 0)
+    {
+        resultCell = StyleThreeCell;
+    }else{
+        resultCell =StyleOneCell;
     }
-    selectBtn= btn;
-    
-    
-    
+    switch (indexPath.section) {
+        case 0:
+        {
+            StyleTwoCell.titleName.text = _rowTitleSource[0];
+            StyleOneCell.titleName.text = _rowTitleSource[1];
+            StyleTwoCell.ColorView.tag = 0;
+            StyleOneCell.NumberSider.tag = 0;
+        }
+            break;
+        case 1:
+        {
+            StyleTwoCell.titleName.text = _rowTitleSource[2];
+            StyleOneCell.titleName.text = _rowTitleSource[indexPath.row +2];
+            StyleTwoCell.ColorView.tag = 1;
+            switch (indexPath.row) {
+                case 1:
+                {
+                    StyleOneCell.NumberSider.tag = 1;
+                }
+                    break;
+                case 2:
+                {
+                    StyleOneCell.NumberSider.tag = 2;
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+        case 2:
+        {
+            StyleThreeCell.titleName.text = _rowTitleSource[5];
+            StyleThreeCell.SwitchBtn.tag = 0;
+            StyleTwoCell.titleName.text = _rowTitleSource[6];
+            StyleOneCell.titleName.text = _rowTitleSource[indexPath.row +5];
+            StyleTwoCell.ColorView.tag = 2;
+            switch (indexPath.row) {
+                case 2:
+                {
+                    StyleOneCell.NumberSider.tag = 3;
+                }
+                    break;
+                case 3:
+                {
+                    StyleOneCell.NumberSider.tag = 4;
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+        case 3:
+        {
+            StyleTwoCell.titleName.text = _rowTitleSource[9];
+            StyleOneCell.titleName.text = _rowTitleSource[indexPath.row +9];
+            StyleTwoCell.ColorView.tag = 3;
+            switch (indexPath.row) {
+                case 1:
+                {
+                    StyleOneCell.NumberSider.tag = 5;
+                }
+                    break;
+                case 2:
+                {
+                    StyleOneCell.NumberSider.tag = 6;
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+        case 4:
+        {
+             StyleTwoCell.titleName.text = _rowTitleSource[12];
+            StyleOneCell.titleName.text = _rowTitleSource[13];
+            StyleTwoCell.ColorView.tag = 4;
+            StyleOneCell.NumberSider.tag = 7;
+        }
+            break;
+        case 5:
+        {
+            StyleThreeCell.titleName.text = _rowTitleSource[14];
+            StyleThreeCell.SwitchBtn.tag = 1;
+            StyleTwoCell.titleName.text = _rowTitleSource[15];
+            StyleOneCell.NumberSider.tag = 8;
+
+        }
+            break;
+        default:
+            break;
+    }
+    return resultCell;
 }
 
 
+#pragma mark Slider的点击事件
+- (void)sliderValueChanged:(id)sender {
+    if ([sender isKindOfClass:[UISlider class]]) {
+        UISlider * slider = (UISlider *)sender;
+        NSLog(@"slide.tag%ld",(long)slider.tag );
+        switch (slider.tag) {
+            case 0:
+            {
+            
+            }
+                break;
+            case 1:
+            {
+                
+            }
+                break;
+            case 2:
+            {
+                
+            }
+                break;
+            case 3:
+            {
+                
+            }
+                break;
+            case 4:
+            {
+                
+            }
+                break;
+            case 5:
+            {
+                
+            }
+                break;
+            case 6:
+            {
+                
+            }
+                break;
+            case 7:
+            {
+                
+            }
+                break;
+            case 8:
+            {
+                
+            }
+                break;
+           
+            default:
+                break;
+        }
+    
+    }
+}
+#pragma mark 外径颜色的变化
+- (void)selectColorBetouched:(NSInteger)indexTag{
+    NSLog(@"indexTag==%ld",(long)indexTag);
+    switch (indexTag) {
+        case 0:
+        {
+        
+        }
+            break;
+        case 1:
+        {
+            
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        case 3:
+        {
+            
+        }
+            break;
+        case 4:
+        {
+            
+        }
+            break;
+               default:
+            break;
+    }
+}
+#pragma mark 开关按钮
+- (void)selectSwtichBetouched:(UISwitch *)switchBtn{
+    switch (switchBtn.tag) {
+        case 0:
+        {
+        
+        }
+            break;
+        case 1:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
+    
+}
 @end

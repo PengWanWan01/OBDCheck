@@ -12,9 +12,15 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    [self.SwitchBtn addTarget:self action:@selector(selctSwitchBtn) forControlEvents:UIControlEventTouchUpInside];
+    
 }
+- (void)selctSwitchBtn{
 
+    if ([self.delegate respondsToSelector:@selector(selectSwtichBetouched:)]) {
+        [self.delegate selectSwtichBetouched:self.SwitchBtn];
+    }
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

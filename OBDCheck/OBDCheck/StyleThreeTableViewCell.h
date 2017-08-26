@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol selectSwtichDelegete <NSObject>
+
+@optional
+- (void)selectSwtichBetouched:(UISwitch  *)switchBtn;
+
+@end
 
 @interface StyleThreeTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleName;
 @property (weak, nonatomic) IBOutlet UISwitch *SwitchBtn;
-
+@property (nonatomic,weak) id<selectSwtichDelegete> delegate;
 @end
