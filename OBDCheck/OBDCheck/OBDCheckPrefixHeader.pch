@@ -80,5 +80,7 @@
 #import "ILColorPickerView.h"
 #import "ILSaturationBrightnessPickerView.h"
 #import "TabbarView.h"
+#import "StyleViewBController.h"
+#import "StyleCViewController.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

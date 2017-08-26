@@ -104,16 +104,19 @@
             case DashboardStyleOne:
             {
                 [self initWithStyleA];
+                [self clearAllUserDefaultsData];
             }
                 break;
             case DashboardStyleTwo:
             {
               [self initWithStyleB];
+                [self clearAllUserDefaultsData];
             }
                 break;
             case DashboardStyleThree:
             {
                 [self initWithStyleC];
+                [self clearAllUserDefaultsData];
                           }
                 break;
             default:
@@ -188,17 +191,32 @@
     CGFloat  StartAngleResult  = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StartAngle%ld",view.tag]] ;
     CGFloat  endAngleResult  = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"endAngle%ld",view.tag]] ;
    
-  CGFloat  ringWidthResult  =     [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"ringWidth%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
- CGFloat  maLengthResult    =    [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"maLength%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
-  CGFloat  maWidthResult   =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"maWidth%ld",[DashboardSetting sharedInstance].Dashboardindex]];
-   CGFloat  miLengthResult    =   [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"miLength%ld",[DashboardSetting sharedInstance].Dashboardindex]];
-    CGFloat  miWidthResult    =       [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"miWidth%ld",[DashboardSetting sharedInstance].Dashboardindex]];
-//  NSString * maColorResult =     [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"maColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
-//  NSString * miColorResult   =   [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"miColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+  CGFloat  ringWidthResult  =     [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"ringWidth%ld",view.tag]] ;
+ CGFloat  maLengthResult    =    [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"maLength%ld",view.tag]] ;
+  CGFloat  maWidthResult   =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"maWidth%ld",view.tag]];
+   CGFloat  miLengthResult    =   [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"miLength%ld",view.tag]];
+    CGFloat  miWidthResult    =       [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"miWidth%ld",view.tag]];
+  NSString * maColorResult =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"maColor%ld",view.tag]] ;
+  NSString * miColorResult   =   [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"miColor%ld",view.tag]] ;
+    
+    NSString * outerColorResult   =   [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"outerColor%ld",view.tag]] ;
+     NSString * innerColorResult   =   [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"innerColor%ld",view.tag]] ;
+    NSString *titleColorResult  =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"titleColor%ld",view.tag]] ;
+    CGFloat TitleFontScaleResult =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"TitleFontScale%ld",view.tag]];
+ CGFloat TitlePositionResult =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"TitlePosition%ld",view.tag]];
+    BOOL ValueVisbleResult =  [[DashboardSetting sharedInstance].defaults boolForKey:[NSString stringWithFormat:@"ValueVisble%ld",view.tag]];
+     NSString *ValueColorResult  =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"ValueColor%ld",view.tag]] ;
+     CGFloat  ValueFontScaleResult =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"ValueFontScale%ld",view.tag]];
+      CGFloat  ValuePositionResult =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"ValuePosition%ld",view.tag]];
+    
+    CGFloat LabelFontScaleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"LabelFontScale%ld",view.tag]];
+    CGFloat LabelOffestResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"LabelOffest%ld",view.tag]];
     //画底盘渐变色
-    [dashboardStyleAView addGradientView:[ColorTools colorWithHexString:@"#18191C"] GradientViewWidth:view.frame.size.width];
+    [dashboardStyleAView addGradientView:@"#18191C" GradientViewWidth:view.frame.size.width];
     //画刻度
-    [dashboardStyleAView drawCalibration:0 WithendAngle:2*M_PI WithRingWidth:10.f MAJORTICKSWidth:0 MAJORTICKSLength:15.f MAJORTICKSColor:[UIColor whiteColor] MINORTICKSWidth:0 MINORTICKSLength:5.f MAJORTICKSColor:[UIColor whiteColor] LABELSVisible:YES Rotate:YES Font:[UIFont systemFontOfSize:10.f] OffestTickline:0];
+    [dashboardStyleAView drawCalibration:0 WithendAngle:2*M_PI WithRingWidth:10.f MAJORTICKSWidth:0 MAJORTICKSLength:15.f MAJORTICKSColor:@"FFFFFF" MINORTICKSWidth:0 MINORTICKSLength:5.f MINORTICKSColor:@"FFFFFF" LABELSVisible:YES Rotate:YES Font:1 OffestTickline:1 InnerColor:@"18191C" TitleColor:@"FE9002" TitleFontScale:1 TitlePosition:1 ValueVisble:YES ValueColor:@"FE9002" ValueFontScale:1 ValuePosition:1];
+    
+   
     //加入是被点击过的 ；让被选中的仪表盘位置发生变化
     if ([[[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"test%ld",dashboardStyleAView.tag]] isEqualToString:@"YES"]) {
         NSInteger TapIndex = view.tag;
@@ -207,9 +225,9 @@
         [view removeFromSuperview];
         dashboardStyleAView  = [[DashboardView alloc]initWithFrame: CGRectMake(([LeftResult floatValue]/100)*MSWidth+PageNumber*MSWidth, ([TopResult floatValue]/100)*MSHeight,([diameterResult floatValue]/100)*MSWidth,([diameterResult floatValue]/100)*MSWidth)];
         //画底盘渐变色
-        [dashboardStyleAView addGradientView:[ColorTools colorWithHexString:@"#18191C"] GradientViewWidth:([diameterResult floatValue]/100)*MSWidth];
+        [dashboardStyleAView addGradientView:outerColorResult GradientViewWidth:([diameterResult floatValue]/100)*MSWidth];
         //画刻度
-        [dashboardStyleAView drawCalibration:StartAngleResult WithendAngle:endAngleResult WithRingWidth:ringWidthResult MAJORTICKSWidth:maWidthResult MAJORTICKSLength:maLengthResult MAJORTICKSColor:[UIColor whiteColor] MINORTICKSWidth:miWidthResult MINORTICKSLength:miLengthResult MAJORTICKSColor:[UIColor whiteColor] LABELSVisible:YES Rotate:YES Font:[UIFont systemFontOfSize:10.f] OffestTickline:0];
+        [dashboardStyleAView drawCalibration:StartAngleResult WithendAngle:endAngleResult WithRingWidth:ringWidthResult MAJORTICKSWidth:maWidthResult MAJORTICKSLength:maLengthResult MAJORTICKSColor:maColorResult MINORTICKSWidth:miWidthResult MINORTICKSLength:miLengthResult MINORTICKSColor:miColorResult LABELSVisible:YES Rotate:YES Font:LabelFontScaleResult OffestTickline:LabelOffestResult InnerColor:innerColorResult TitleColor:titleColorResult TitleFontScale:TitleFontScaleResult TitlePosition:TitlePositionResult ValueVisble:ValueVisbleResult ValueColor:ValueColorResult ValueFontScale:ValueFontScaleResult ValuePosition:ValuePositionResult];
         dashboardStyleAView.tag = TapIndex;
        
         
@@ -560,6 +578,7 @@
 - (void)tap:(UILongPressGestureRecognizer *)sender{
   
     NSLog(@" [sender view].tag %ld", sender.view.tag);
+    [self initWithDefault:sender.view.tag];
     [DashboardSetting sharedInstance].Dashboardindex = sender.view.tag;
     NSInteger PageNumber = sender.view.frame.origin.x / MSWidth;
     
@@ -585,10 +604,31 @@
     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.maLength forKey:[NSString stringWithFormat:@"maWidth%ld",sender.view.tag]];
     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.miLength forKey:[NSString stringWithFormat:@"miLength%ld",sender.view.tag]];
     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.miWidth forKey:[NSString stringWithFormat:@"miWidth%ld",sender.view.tag]];
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.maColor forKey:[NSString stringWithFormat:@"maColor%ld",sender.view.tag]];
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.miColor forKey:[NSString stringWithFormat:@"miColor%ld",sender.view.tag]];
-   
+    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.maColor  forKey:[NSString stringWithFormat:@"maColor%ld",sender.view.tag]];
     
+    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.miColor forKey:[NSString stringWithFormat:@"miColor%ld",sender.view.tag]];
+    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.outerColor  forKey:[NSString stringWithFormat:@"outerColor%ld",sender.view.tag]];
+     [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.innerColor forKey:[NSString stringWithFormat:@"innerColor%ld",sender.view.tag]];
+    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.titleColor forKey:[NSString stringWithFormat:@"titleColor%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.titleFontScale forKey:[NSString stringWithFormat:@"TitleFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+    
+     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.titleFontScale forKey:[NSString stringWithFormat:@"TitlePosition%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+    
+    
+     [[DashboardSetting sharedInstance].defaults setBool:dashboardStyleAView.ValueVisble forKey:[NSString stringWithFormat:@"ValueVisble%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+    
+     [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.ValueColor forKey:[NSString stringWithFormat:@"ValueColor%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+  
+    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.titleFontScale forKey:[NSString stringWithFormat:@"ValueFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+    
+     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.titleFontScale forKey:[NSString stringWithFormat:@"ValuePosition%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+    
+      [[DashboardSetting sharedInstance].defaults setBool:dashboardStyleAView.LabelVisble forKey:[NSString stringWithFormat:@"LabelVisble%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+      [[DashboardSetting sharedInstance].defaults setBool:dashboardStyleAView.LabelRotate forKey:[NSString stringWithFormat:@"LabelRotate%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+      [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.LabelFontScale forKey:[NSString stringWithFormat:@"LabelFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.LabelOffest forKey:[NSString stringWithFormat:@"LabelOffest%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+    
+   
     
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
@@ -619,7 +659,11 @@
             break;
     }
 }
+#pragma mark 进行默认设置
+- (void)initWithDefault:(NSInteger)index{
 
+
+}
 #pragma mark 移除一整页仪表盘
 - (void)removeDashboard{
     NSLog(@"1212移除");

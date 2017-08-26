@@ -81,8 +81,29 @@
             break;
         case 2:
         {
-            StyleViewController *vc = [[StyleViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
+            switch ([DashboardSetting sharedInstance].dashboardStyle) {
+                case DashboardStyleOne:
+                {
+                    StyleViewController *vc = [[StyleViewController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                case DashboardStyleTwo:
+                {
+                    StyleViewBController *vc = [[StyleViewBController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                case DashboardStyleThree:
+                {
+                     StyleCViewController *vc = [[StyleCViewController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                default:
+                    break;
+            }
+          
         }
             break;
         case 3:

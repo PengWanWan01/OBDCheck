@@ -33,7 +33,7 @@
         switch ([DashboardSetting sharedInstance].dashboardStyle ) {
             case DashboardStyleOne:{
               self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
-                [self.DashViewA drawCalibration:M_PI WithendAngle:2*M_PI WithRingWidth:10.f MAJORTICKSWidth:0 MAJORTICKSLength:15.f MAJORTICKSColor:[UIColor whiteColor] MINORTICKSWidth:0 MINORTICKSLength:5.f MAJORTICKSColor:[UIColor whiteColor] LABELSVisible:YES Rotate:YES Font:[UIFont systemFontOfSize:10.f] OffestTickline:0];
+//                [self.DashViewA drawCalibration:M_PI WithendAngle:2*M_PI WithRingWidth:10.f MAJORTICKSWidth:0 MAJORTICKSLength:15.f MAJORTICKSColor:[UIColor whiteColor] MINORTICKSWidth:0 MINORTICKSLength:5.f MAJORTICKSColor:[UIColor whiteColor] LABELSVisible:YES Rotate:YES Font:[UIFont systemFontOfSize:10.f] OffestTickline:0 InnerColor:[ui] TitleColor:<#(UIColor *)#> TitleFontScale:<#(CGFloat)#> TitlePosition:<#(CGFloat)#> ValueVisble:<#(BOOL)#> ValueColor:<#(UIColor *)#> ValueFontScale:<#(CGFloat)#> ValuePosition:<#(CGFloat)#>];
                 self.View = self.DashViewA;
                 [self addSubview:self.DashViewA];
             }

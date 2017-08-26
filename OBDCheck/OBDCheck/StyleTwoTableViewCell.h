@@ -23,5 +23,5 @@
 
 @property (nonatomic,weak) id<selectColorDelegete> delegate;
 
-@property (nonatomic,strong) void(^colorClick)(UIColor *Color) ;
+@property (nonatomic,strong) void(^colorClick)(NSString *Color) ;
 @end
