@@ -35,8 +35,9 @@
 @property (nonatomic,copy) NSString *pointerColor;
 @property (nonatomic,assign) CGFloat Pointerwidth;
 @property (nonatomic,assign) BOOL FillEnable;
-@property (nonatomic,copy) NSString *FillColor;
+@property (nonatomic,assign) CGFloat FillPosition;
 
+- (void)drawgradient:(NSString *)backViewColor TitlteColor:(NSString *)titlteColor TitlteFontScale:(CGFloat )titlteFontScale TitlePositon:(CGFloat)titlePositon ValueVisible:(BOOL )valueVisible Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon PointColor:(NSString *)PointColor PointWidth:(CGFloat )PointWidth Fillenable:(BOOL)fillenable  FillPosition:(CGFloat)fillPosition;
 
 
 

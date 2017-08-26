@@ -17,7 +17,8 @@
 @property (nonatomic,strong) UISlider *slider;
 
 
-@property (nonatomic,copy) NSString *backColor;
+@property (nonatomic,copy) NSString *innerColor;
+@property (nonatomic,copy) NSString *outerColor;
 @property (nonatomic,copy) NSString *GradientColor;
 
 @property (nonatomic,copy) NSString *titleColor;

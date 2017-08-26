@@ -16,7 +16,9 @@
 @property (nonatomic,strong) UILabel *NumberLabel;
 @property (nonatomic,strong) UILabel *UnitLabel;
 
-@property (nonatomic,copy) NSString *backColor;
+@property (nonatomic,copy) NSString *innerColor;
+@property (nonatomic,copy) NSString *outerColor;
+
 @property (nonatomic,copy) NSString *GradientColor;
 
 @property (nonatomic,copy) NSString *titleColor;
@@ -35,6 +37,7 @@
 @property (nonatomic,copy) NSString *FrameColor;
 @property (nonatomic,assign) CGFloat FrameScale;
 
+- (void)drawinnerColor:(NSString *)innerColor OuterColor:(NSString *)outerColor TitleColor:(NSString *)titlecolor TiltefontScale:(CGFloat)tiltefontScale TitlePosition:(CGFloat)titlePosition ValueVisible:(BOOL)valueVisible  Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon FrameColor:(NSString *)frameColor FrameScale:(CGFloat)frameScale;
 
 
 

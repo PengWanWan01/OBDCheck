@@ -16,42 +16,61 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.userInteractionEnabled = YES;
-        self.backgroundColor = [ColorTools colorWithHexString:@"202226"];
-        self.layer.borderColor=[ColorTools colorWithHexString:@"202226"].CGColor;
-        self.layer.borderWidth=1;
-        self.layer.cornerRadius=16.f*KMultipleC;
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(21*KMultipleC, 21*KMultipleC, self.bounds.size.width - 42*KMultipleC, self.bounds.size.width - 42*KMultipleC)];
-        view.backgroundColor = [UIColor blackColor];
-        view.layer.cornerRadius=16.f*KMultipleC;
-        //UIView设置阴影
-        [[view layer] setShadowOffset:CGSizeMake(1, 1)];
-        [[view layer] setShadowRadius:16.f*KMultipleC];
-        [[view layer] setShadowOpacity:0.1f]; //阴影的透明度
-        [[view layer] setShadowColor:[ColorTools colorWithHexString:@"FFFFFF"].CGColor];
-    self.NumberLabel =  [[UILabel alloc]initWithFrame:CGRectMake(0, view.bounds.size.height/2 - 35.0*KMultipleC , view.bounds.size.width, 80.f*KMultipleC)];
-    self.NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:74.f*KMultipleC];
-        self.NumberLabel.text = @"0.00";
-        self.NumberLabel.textAlignment = NSTextAlignmentCenter;
-        self.NumberLabel.textColor = [ColorTools colorWithHexString:@"#FFFFFF"];
-        
-        self.PIDLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,53*KMultipleC , view.bounds.size.width, 35.0*KMultipleC)];
-        self.PIDLabel.font = [UIFont systemFontOfSize:36.f*KMultipleC];
-        self.PIDLabel.text = @"RPM";
-        self.PIDLabel.textAlignment = NSTextAlignmentCenter;
-        self.PIDLabel.textColor = [ColorTools colorWithHexString:@"#FFFFFF"];
-        
-        self.UnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, view.bounds.size.height  - 78*KMultipleC, view.bounds.size.width, 35.0*KMultipleC)];
-        self.UnitLabel.font = [UIFont systemFontOfSize:36.f*KMultipleC];
-        self.UnitLabel.text = @"/min";
-        self.UnitLabel.textAlignment = NSTextAlignmentCenter;
-        self.UnitLabel.textColor = [ColorTools colorWithHexString:@"#FFFFFF"];
-        
-        [self addSubview:view];
-        [view addSubview:self.PIDLabel];
-        [view addSubview:self.NumberLabel];
-        [view addSubview:self.UnitLabel];
+      
     }
     return self;
+}
+- (void)drawinnerColor:(NSString *)innerColor OuterColor:(NSString *)outerColor TitleColor:(NSString *)titlecolor TiltefontScale:(CGFloat)tiltefontScale TitlePosition:(CGFloat)titlePosition ValueVisible:(BOOL)valueVisible  Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon FrameColor:(NSString *)frameColor FrameScale:(CGFloat)frameScale{
+  
+    self.backgroundColor = [ColorTools colorWithHexString:outerColor];
+    self.layer.borderColor=[ColorTools colorWithHexString:outerColor].CGColor;
+    self.layer.borderWidth=1;
+    self.layer.cornerRadius=16.f*KMultipleC;
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(21*KMultipleC, 21*KMultipleC, self.bounds.size.width - 42*KMultipleC, self.bounds.size.width - 42*KMultipleC)];
+    view.backgroundColor = [ColorTools colorWithHexString:innerColor];
+    view.layer.cornerRadius=16.f*KMultipleC;
+    //UIView设置阴影
+    [[view layer] setShadowOffset:CGSizeMake(1, 1)];
+    [[view layer] setShadowRadius:16.f*KMultipleC];
+    [[view layer] setShadowOpacity:0.1f]; //阴影的透明度
+    [[view layer] setShadowColor:[ColorTools colorWithHexString:innerColor].CGColor];
+    self.innerColor = innerColor;
+    self.outerColor = outerColor;
+    self.NumberLabel =  [[UILabel alloc]initWithFrame:CGRectMake(0, (view.bounds.size.height/2 - 35.0*KMultipleC)*valuePositon , view.bounds.size.width, 80.f*KMultipleC)];
+    self.NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:valueFontScale* 74.f*KMultipleC];
+    self.NumberLabel.text = @"0.00";
+    self.NumberLabel.textAlignment = NSTextAlignmentCenter;
+    self.NumberLabel.textColor = [ColorTools colorWithHexString:ValueColor];
+    
+    self.ValueColor = ValueColor;
+    self.ValueFontScale = valueFontScale;
+    self.ValuePositon = valuePositon;
+    
+    self.PIDLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,(53*KMultipleC)*titlePosition , view.bounds.size.width, 35.0*KMultipleC)];
+    self.PIDLabel.font = [UIFont systemFontOfSize:tiltefontScale* 36.f*KMultipleC];
+    self.PIDLabel.text = @"RPM";
+    self.PIDLabel.textAlignment = NSTextAlignmentCenter;
+    self.PIDLabel.textColor = [ColorTools colorWithHexString:titlecolor];
+    self.titlePositon = titlePosition;
+    self.titleFontScale =tiltefontScale;
+    self.titleColor = titlecolor;
+    
+    self.UnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,( view.bounds.size.height  - 78*KMultipleC)*unitPositon, view.bounds.size.width, 35.0*KMultipleC)];
+    self.UnitLabel.font = [UIFont systemFontOfSize:36.f*KMultipleC*unitFontScale];
+    self.UnitLabel.text = @"/min";
+    self.UnitLabel.textAlignment = NSTextAlignmentCenter;
+    self.UnitLabel.textColor = [ColorTools colorWithHexString:unitColor];
+    self.UnitColor = unitColor;
+    self.UnitFontScale = unitFontScale;
+    self.UnitPositon = unitPositon;
+    
+    self.FrameColor = frameColor;
+    self.FrameScale = frameScale;
+    [self addSubview:view];
+    [view addSubview:self.PIDLabel];
+    [view addSubview:self.NumberLabel];
+    [view addSubview:self.UnitLabel];
+
 }
 //- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 //{

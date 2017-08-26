@@ -54,11 +54,13 @@
 - (void)initWithHeadUI{
  
     
-    self.backColor = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleCbackColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+    self.innerColor = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleCinnerColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+    self.outerColor = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleCouterColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
      self.GradientColor = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleCGradientColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
     
     self.titleColor = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleCtitleColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
     self.titleFontScale = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCtitleFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+    self.titlePositon = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCtitlePositon%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
     
     self.ValueVisible = [[DashboardSetting sharedInstance].defaults boolForKey:[NSString stringWithFormat:@"StyleCValueVisible%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
     self.ValueColor = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleCValueColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
@@ -72,9 +74,11 @@
     self.FrameColor = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleCFrameColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
     self.FrameScale = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCFrameScale%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
     
-            dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+    dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
             [self.view addSubview:dashViewC];
            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
+    [dashViewC drawinnerColor:self.innerColor OuterColor:self.outerColor TitleColor:self.titleColor TiltefontScale:self.titleFontScale TitlePosition:self.titlePositon ValueVisible:self.ValueVisible Valuecolor:self.ValueColor ValueFontScale:self.ValueFontScale ValuePositon:self.ValuePositon UnitColor:self.UnitColor UnitFontScale:self.UnitFontScale UnitPositon:self.UnitPositon FrameColor:self.FrameColor FrameScale:self.FrameScale];
+    
     label.text = @"Value";
     label.textColor = [ColorTools colorWithHexString:@"#FE9002"];
     label.font = [UIFont ToAdapFont:14.f];
@@ -93,7 +97,7 @@
     return 5;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section == 1 || section ==3) {
+    if (section == 0 || section == 1 || section ==3) {
         return 3;
     }else if (section == 2){
         return 4;
@@ -167,7 +171,8 @@
         case 0:
         {
             StyleTwoCell.titleName.text = _rowTitleSource[indexPath.row];
-            StyleOneCell.titleName.text = _rowTitleSource[indexPath.row];
+            StyleOneCell.titleName.text = _rowTitleSource[indexPath.row ];
+            StyleOneCell.NumberSider.tag = 0;
             switch (indexPath.row) {
                 case 0:
                 {
@@ -194,12 +199,12 @@
             switch (indexPath.row) {
                 case 1:
                 {
-                    StyleOneCell.NumberSider.tag = 0;
+                    StyleOneCell.NumberSider.tag = 1;
                 }
                     break;
                 case 2:
                 {
-                    StyleOneCell.NumberSider.tag = 1;
+                    StyleOneCell.NumberSider.tag = 2;
                 }
                     break;
                 default:
@@ -218,12 +223,12 @@
             switch (indexPath.row) {
                 case 2:
                 {
-                    StyleOneCell.NumberSider.tag = 2;
+                    StyleOneCell.NumberSider.tag = 3;
                 }
                     break;
                 case 3:
                 {
-                    StyleOneCell.NumberSider.tag = 3;
+                    StyleOneCell.NumberSider.tag = 4;
                 }
                     break;
                 default:
@@ -234,18 +239,18 @@
             break;
         case 3:
         {
-            StyleTwoCell.titleName.text = _rowTitleSource[9];
-            StyleOneCell.titleName.text = _rowTitleSource[9+indexPath.row];
+            StyleTwoCell.titleName.text = _rowTitleSource[10];
+            StyleOneCell.titleName.text = _rowTitleSource[10+indexPath.row];
             StyleTwoCell.ColorView.tag = 4;
             switch (indexPath.row) {
                 case 1:
                 {
-                    StyleOneCell.NumberSider.tag = 4;
+                    StyleOneCell.NumberSider.tag = 5;
                 }
                     break;
                 case 2:
                 {
-                    StyleOneCell.NumberSider.tag = 5;
+                    StyleOneCell.NumberSider.tag = 6;
                 }
                     break;
                 default:
@@ -255,10 +260,10 @@
             break;
         case 4:
         {
-            StyleTwoCell.titleName.text = _rowTitleSource[12];
-            StyleOneCell.titleName.text = _rowTitleSource[13];
+            StyleTwoCell.titleName.text = _rowTitleSource[13];
+            StyleOneCell.titleName.text = _rowTitleSource[14];
             StyleTwoCell.ColorView.tag = 5;
-            StyleOneCell.NumberSider.tag = 6;
+            StyleOneCell.NumberSider.tag = 7;
         }
             break;
        
@@ -282,35 +287,56 @@
                 break;
             case 1:
             {
-                
+                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"StyleCtitleFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+                self.titleFontScale = slider.value;
+                [self upDateDashView];
             }
                 break;
             case 2:
             {
-                
+                 [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"StyleCtitlePositon%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+                self.titlePositon = slider.value;
+                [self upDateDashView];
             }
                 break;
             case 3:
             {
-                
+                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"StyleCValueFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+                self.ValueFontScale = slider.value;
+                [self upDateDashView];
             }
                 break;
             case 4:
             {
+                 [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"StyleCValuePositon%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+                self.ValuePositon   = slider.value;
+                [self upDateDashView];
                 
             }
                 break;
             case 5:
             {
-                
+                 [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"StyleCUnitFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+                self.UnitFontScale = slider.value;
+                [self upDateDashView];
+              
             }
                 break;
             case 6:
             {
+                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"StyleCUnitPositon%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+                self.UnitPositon = slider.value;
+                [self upDateDashView];
+            }
+                break;
+            case 7:
+            {
+                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"StyleCFrameColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+                self.FrameScale  = slider.value;
+                [self upDateDashView];
                 
             }
                 break;
-           
             default:
                 break;
         }
@@ -322,24 +348,46 @@
     switch (indexTag) {
         case 0:
         {
-            
+             [[DashboardSetting sharedInstance].defaults setObject:self.selectColor forKey:[NSString stringWithFormat:@"StyleCinnerColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+            self.innerColor = self.selectColor;
+            [self upDateDashView];
         }
             break;
         case 1:
         {
-            
+             [[DashboardSetting sharedInstance].defaults setObject:self.selectColor forKey:[NSString stringWithFormat:@"StyleCouterColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+             self.outerColor = self.selectColor;
+            [self upDateDashView];
+
         }
             break;
         case 2:
         {
+            [[DashboardSetting sharedInstance].defaults setObject:self.selectColor forKey:[NSString stringWithFormat:@"StyleCtitleColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+            self.titleColor = self.selectColor;
+            [self upDateDashView];
             
         }
             break;
         case 3:
         {
+            [[DashboardSetting sharedInstance].defaults setObject:self.selectColor forKey:[NSString stringWithFormat:@"StyleCValueColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+            self.ValueColor = self.selectColor;
+            [self upDateDashView];
+        }
+            break;
+        case 4:{
+          [[DashboardSetting sharedInstance].defaults setObject:self.selectColor forKey:[NSString stringWithFormat:@"StyleCUnitColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+            self.UnitColor = self.selectColor;
+            [self upDateDashView];
             
         }
             break;
+        case 5:{
+            [[DashboardSetting sharedInstance].defaults setObject:self.selectColor forKey:[NSString stringWithFormat:@"StyleCFrameColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+            self.FrameColor   = self.selectColor;
+            [self upDateDashView];
+        }
         default:
             break;
     }
@@ -357,6 +405,14 @@
         default:
             break;
     }
+    
+}
+- (void)upDateDashView{
+    [dashViewC removeFromSuperview];
+    dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+
+    [dashViewC drawinnerColor:self.innerColor OuterColor:self.outerColor TitleColor:self.titleColor TiltefontScale:self.titleFontScale TitlePosition:self.titlePositon ValueVisible:self.ValueVisible Valuecolor:self.ValueColor ValueFontScale:self.ValueFontScale ValuePositon:self.ValuePositon UnitColor:self.UnitColor UnitFontScale:self.UnitFontScale UnitPositon:self.UnitPositon FrameColor:self.FrameColor FrameScale:self.FrameScale];
+    [self.view addSubview:dashViewC];
     
 }
 @end

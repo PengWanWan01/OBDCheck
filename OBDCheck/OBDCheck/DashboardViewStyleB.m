@@ -18,53 +18,77 @@
         //添加仪表盘的底盘
         self.image = [UIImage imageNamed:@"Dashboard"];
         self.contentMode = UIViewContentModeScaleAspectFill;
-        //添加渐变色
-        gradientView *view = [[gradientView alloc]initWithFrame:self.bounds];
-        view.gradientColor = [ColorTools colorWithHexString:@"00a6ff"];
-        view.backgroundColor = [UIColor clearColor];
-        [self addSubview:view];
-        //添加仪表盘中间的内容
-        [self addmiddle ];
-        //添加仪表盘 底部的内容
-        UIImageView *image2 = [[UIImageView alloc]initWithFrame:CGRectMake(self.bounds.size.width/2 - 100*KMultipleB, self.bounds.size.width -73.0*KMultipleB , 200.0*KMultipleB,  70.0*KMultipleB)];
-        image2.image = [UIImage imageNamed:@"yuanhu"];
-        image2.contentMode = UIViewContentModeScaleAspectFill;
         
-        [self addSubview:image2];
-        //添加进度条
-        [self draw:self.bounds.size.width/2 - 23.0*KMultipleB lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:@"1d2027"] startAngle:(M_PI / 4) +(M_PI/18) endAngle: M_PI *3/4-M_PI/18];
-        [self draw:self.bounds.size.width/2 - (23.0/300)*self.frame.size.width lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:@"00a6ff"] startAngle:(M_PI / 2) endAngle: M_PI *3/4-M_PI/18];
+      
         
     }
     return self;
 }
-- (void)addmiddle{
+- (void)drawgradient:(NSString *)backViewColor TitlteColor:(NSString *)titlteColor TitlteFontScale:(CGFloat )titlteFontScale TitlePositon:(CGFloat)titlePositon ValueVisible:(BOOL )valueVisible Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon PointColor:(NSString *)PointColor PointWidth:(CGFloat )PointWidth Fillenable:(BOOL)fillenable  FillPosition:(CGFloat)fillPosition{
+    //添加渐变色
+//    [ColorTools colorWithHexString:@"00a6ff"];
+
+    gradientView *view = [[gradientView alloc]initWithFrame:self.bounds];
+    view.gradientColor = [ColorTools colorWithHexString:backViewColor];
+    self.backColor = backViewColor;
+    view.backgroundColor = [UIColor clearColor];
+    [self addSubview:view];
+    //添加仪表盘中间的内容
+    [self addmiddle:titlteColor TitlteFontScale:titlteFontScale TitlePositon:titlePositon ValueVisible:valueVisible Valuecolor:ValueColor ValueFontScale:valueFontScale ValuePositon:valuePositon UnitColor:unitColor UnitFontScale:unitFontScale UnitPositon:unitPositon ];
+
+    //添加仪表盘 底部的内容
+    UIImageView *image2 = [[UIImageView alloc]initWithFrame:CGRectMake(self.bounds.size.width/2 - 100*KMultipleB, self.bounds.size.width -73.0*KMultipleB , 200.0*KMultipleB,  70.0*KMultipleB)];
+    image2.image = [UIImage imageNamed:@"yuanhu"];
+    image2.contentMode = UIViewContentModeScaleAspectFill;
+    
+    [self addSubview:image2];
+
+    //添加进度条
+    [self draw:self.bounds.size.width/2 - 23.0*KMultipleB lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:@"1d2027"] startAngle:(M_PI / 4) +(M_PI/18) endAngle: M_PI *3/4-M_PI/18];
+    [self draw:self.bounds.size.width/2 - (23.0/300)*self.frame.size.width lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:backViewColor] startAngle:(M_PI / 2) endAngle: M_PI *3/4-M_PI/18];
+}
+- (void)addmiddle:(NSString *)titlteColor TitlteFontScale:(CGFloat )titlteFontScale TitlePositon:(CGFloat)titlePositon ValueVisible:(BOOL )valueVisible Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon {
+    
     UIImageView *innerimage = [[UIImageView alloc]initWithFrame:CGRectMake(43.0*KMultipleB, 43.0*KMultipleB, self.bounds.size.width - 86.0*KMultipleB,  self.bounds.size.width - 86.0*KMultipleB)];
     innerimage.image = [UIImage imageNamed:@"circle-top"];
     innerimage.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:innerimage];
     
-    _NumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,innerimage.bounds.size.width/2 - 25.0*KMultipleB , innerimage.bounds.size.width, 60.0*KMultipleB)];
-     _NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:56.0*KMultipleB];
-    _NumberLabel.textColor = [ColorTools colorWithHexString:@"#FFFFFF"];
+    _NumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,(innerimage.bounds.size.width/2 - 25.0*KMultipleB)*valuePositon , innerimage.bounds.size.width, 60.0*KMultipleB)];
+     _NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:56.0*KMultipleB*valueFontScale];
+  
+    // [ColorTools colorWithHexString:@"#FFFFFF"]
+    _NumberLabel.textColor = [ColorTools colorWithHexString: ValueColor];
+    
     _NumberLabel.textAlignment = NSTextAlignmentCenter;
     _NumberLabel.text = @"2500";
+    self.ValueColor  = ValueColor;
+    self.ValueFontScale = valueFontScale;
+    self.ValuePositon = valuePositon;
     [innerimage addSubview:_NumberLabel];
     
-    _PIDLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 25*KMultipleB, innerimage.bounds.size.width, 30.0*KMultipleB)];
-    _PIDLabel.font = [UIFont boldSystemFontOfSize:24.0*KMultipleB];
-    _PIDLabel.textColor = [ColorTools colorWithHexString:@"#757476"];
+    self.ValueVisible = valueVisible;
+    //[ColorTools colorWithHexString:@"#757476"]
+    _PIDLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (25*KMultipleB)*titlePositon, innerimage.bounds.size.width, 30.0*KMultipleB)];
+    _PIDLabel.font = [UIFont boldSystemFontOfSize:24.0*KMultipleB*titlteFontScale];
+    _PIDLabel.textColor =[ColorTools colorWithHexString: titlteColor];
     _PIDLabel.textAlignment = NSTextAlignmentCenter;
     _PIDLabel.text = @"MPH";
+    self.titleColor  = titlteColor;
+    self.titleFontScale = titlteFontScale;
+    self.titlePositon = titlePositon;
     [innerimage addSubview:_PIDLabel];
     
     
-    
-    _UnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_NumberLabel.frame) + 10*KMultipleB, innerimage.bounds.size.width, 24.0*KMultipleB)];
-    _UnitLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleB];
-    _UnitLabel.textColor =  [ColorTools colorWithHexString:@"#757476"];
+    //[ColorTools colorWithHexString:@"#757476"];
+    _UnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (CGRectGetMaxY(_NumberLabel.frame) + 10*KMultipleB)*unitPositon, innerimage.bounds.size.width, 24.0*KMultipleB)];
+    _UnitLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleB*unitFontScale];
+    _UnitLabel.textColor =  [ColorTools colorWithHexString:unitColor];
     _UnitLabel.textAlignment = NSTextAlignmentCenter;
     _UnitLabel.text = @"R/MIN";
+    self.UnitColor = unitColor;
+    self.UnitFontScale = unitFontScale;
+    self.UnitPositon = unitPositon;
     [innerimage addSubview:_UnitLabel];
 }
 - (void)draw:(CGFloat )radius lineWidth:(CGFloat)width lineColor:(UIColor *)color startAngle:(CGFloat)start endAngle:(CGFloat)end{
