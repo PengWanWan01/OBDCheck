@@ -56,7 +56,7 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
 }
 - (void)initWithHeadUI{
        self.backColor = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleBbackColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
-    self.GradientColor = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleBGradientColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+    self.GradientRadius = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBGradientRadius%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
     self.titleColor = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleBtitleColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
     self.titleFontScale = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBtitleFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
     self.titlePositon = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBtitlePositon%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
@@ -77,7 +77,7 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
     self.FillPosition = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBFillPosition%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
     
             dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
-    [dashViewB drawgradient:self.backColor TitlteColor:self.titleColor TitlteFontScale:self.titleFontScale TitlePositon:self.titlePositon ValueVisible:self.ValueVisible Valuecolor:self.ValueColor ValueFontScale:self.ValueFontScale ValuePositon:self.ValuePositon UnitColor:self.UnitColor UnitFontScale:self.UnitFontScale UnitPositon:self.UnitPositon PointColor:self.pointerColor PointWidth:self.Pointerwidth Fillenable:self.FillEnable FillPosition:self.FillPosition];
+    [dashViewB drawgradient:self.backColor GradientRadius:1.f TitlteColor:self.titleColor TitlteFontScale:self.titleFontScale TitlePositon:self.titlePositon ValueVisible:self.ValueVisible Valuecolor:self.ValueColor ValueFontScale:self.ValueFontScale ValuePositon:self.ValuePositon UnitColor:self.UnitColor UnitFontScale:self.UnitFontScale UnitPositon:self.UnitPositon PointColor:self.pointerColor PointWidth:self.Pointerwidth Fillenable:self.FillEnable FillPosition:self.FillPosition];
     
             [self.view addSubview:dashViewB];
           
@@ -174,25 +174,39 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
         case 0:
         {
             StyleTwoCell.titleName.text = _rowTitleSource[0];
+            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:self.backColor];
+            StyleTwoCell.ColorLabel.text = self.backColor;
             StyleOneCell.titleName.text = _rowTitleSource[1];
             StyleTwoCell.ColorView.tag = 0;
             StyleOneCell.NumberSider.tag = 0;
+            StyleOneCell.NumberSider.minimumValue = 0;
+            StyleOneCell.NumberSider.maximumValue = 1;
+            StyleOneCell.NumberSider.value  = self.GradientRadius;
+
         }
             break;
         case 1:
         {
             StyleTwoCell.titleName.text = _rowTitleSource[2];
+            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:self.titleColor];
+            StyleTwoCell.ColorLabel.text = self.titleColor;
             StyleOneCell.titleName.text = _rowTitleSource[indexPath.row +2];
             StyleTwoCell.ColorView.tag = 1;
             switch (indexPath.row) {
                 case 1:
                 {
                     StyleOneCell.NumberSider.tag = 1;
+                    StyleOneCell.NumberSider.minimumValue = 0;
+                    StyleOneCell.NumberSider.maximumValue = 1;
+                    StyleOneCell.NumberSider.value  = self.titleFontScale;
                 }
                     break;
                 case 2:
                 {
                     StyleOneCell.NumberSider.tag = 2;
+                    StyleOneCell.NumberSider.minimumValue = 0;
+                    StyleOneCell.NumberSider.maximumValue = 1;
+                    StyleOneCell.NumberSider.value  = self.titlePositon;
                 }
                     break;
                 default:
@@ -203,19 +217,30 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
         case 2:
         {
             StyleThreeCell.titleName.text = _rowTitleSource[5];
+            StyleThreeCell.SwitchBtn.on = self.ValueVisible;
             StyleThreeCell.SwitchBtn.tag = 0;
             StyleTwoCell.titleName.text = _rowTitleSource[6];
+            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:self.ValueColor];
+            StyleTwoCell.ColorLabel.text = self.ValueColor;
             StyleOneCell.titleName.text = _rowTitleSource[indexPath.row +5];
             StyleTwoCell.ColorView.tag = 2;
             switch (indexPath.row) {
                 case 2:
                 {
                     StyleOneCell.NumberSider.tag = 3;
+                    StyleOneCell.NumberSider.minimumValue = 0;
+                    StyleOneCell.NumberSider.maximumValue = 1;
+                    StyleOneCell.NumberSider.value  = self.ValueFontScale;
+
                 }
                     break;
                 case 3:
                 {
                     StyleOneCell.NumberSider.tag = 4;
+                    StyleOneCell.NumberSider.minimumValue = 0;
+                    StyleOneCell.NumberSider.maximumValue = 1;
+                    StyleOneCell.NumberSider.value  = self.ValuePositon;
+
                 }
                     break;
                 default:
@@ -227,16 +252,26 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
         {
             StyleTwoCell.titleName.text = _rowTitleSource[9];
             StyleOneCell.titleName.text = _rowTitleSource[indexPath.row +9];
+            
             StyleTwoCell.ColorView.tag = 3;
+            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:self.UnitColor ];
+            StyleTwoCell.ColorLabel.text = self.UnitColor;
+
             switch (indexPath.row) {
                 case 1:
                 {
                     StyleOneCell.NumberSider.tag = 5;
+                    StyleOneCell.NumberSider.minimumValue = 0;
+                    StyleOneCell.NumberSider.maximumValue = 1;
+                    StyleOneCell.NumberSider.value  = self.UnitFontScale;
                 }
                     break;
                 case 2:
                 {
                     StyleOneCell.NumberSider.tag = 6;
+                    StyleOneCell.NumberSider.minimumValue = 0;
+                    StyleOneCell.NumberSider.maximumValue = 1;
+                    StyleOneCell.NumberSider.value  = self.UnitPositon;
                 }
                     break;
                 default:
@@ -250,14 +285,23 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
             StyleOneCell.titleName.text = _rowTitleSource[13];
             StyleTwoCell.ColorView.tag = 4;
             StyleOneCell.NumberSider.tag = 7;
+            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:self.pointerColor ];
+            StyleTwoCell.ColorLabel.text = self.pointerColor;
+            StyleOneCell.NumberSider.minimumValue = 0;
+            StyleOneCell.NumberSider.maximumValue = 1;
+            StyleOneCell.NumberSider.value  = self.Pointerwidth;
         }
             break;
         case 5:
         {
             StyleThreeCell.titleName.text = _rowTitleSource[14];
             StyleThreeCell.SwitchBtn.tag = 1;
-            StyleTwoCell.titleName.text = _rowTitleSource[15];
+            StyleThreeCell.SwitchBtn.on = self.FillEnable;
+            StyleOneCell.titleName.text = _rowTitleSource[15];
             StyleOneCell.NumberSider.tag = 8;
+            StyleOneCell.NumberSider.minimumValue = 0;
+            StyleOneCell.NumberSider.maximumValue = 1;
+            StyleOneCell.NumberSider.value  = self.FillPosition;
 
         }
             break;
@@ -281,7 +325,7 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
                 break;
             case 1:
             {
-                  [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"StyleBtitleFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"StyleBtitleFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
                 self.titleFontScale = slider.value;
                 [self upDateDashView];
             }
@@ -384,6 +428,8 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
 }
 #pragma mark 开关按钮
 - (void)selectSwtichBetouched:(UISwitch *)switchBtn{
+    NSLog(@"开关tag%ld",(long)switchBtn.tag);
+
     switch (switchBtn.tag) {
         case 0:
         {
@@ -405,7 +451,7 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
     [dashViewB removeFromSuperview];
     
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
-    [dashViewB drawgradient:self.backColor TitlteColor:self.titleColor TitlteFontScale:self.titleFontScale TitlePositon:self.titlePositon ValueVisible:self.ValueVisible Valuecolor:self.ValueColor ValueFontScale:self.ValueFontScale ValuePositon:self.ValuePositon UnitColor:self.UnitColor UnitFontScale:self.UnitFontScale UnitPositon:self.UnitPositon PointColor:self.pointerColor PointWidth:self.Pointerwidth Fillenable:self.FillEnable FillPosition:self.FillPosition];
+    [dashViewB drawgradient:self.backColor GradientRadius:self.GradientRadius TitlteColor:self.titleColor TitlteFontScale:self.titleFontScale TitlePositon:self.titlePositon ValueVisible:self.ValueVisible Valuecolor:self.ValueColor ValueFontScale:self.ValueFontScale ValuePositon:self.ValuePositon UnitColor:self.UnitColor UnitFontScale:self.UnitFontScale UnitPositon:self.UnitPositon PointColor:self.pointerColor PointWidth:self.Pointerwidth Fillenable:self.FillEnable FillPosition:self.FillPosition];
     [self.view addSubview:dashViewB];
     
 }

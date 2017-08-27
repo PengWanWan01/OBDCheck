@@ -67,14 +67,14 @@ typedef NS_ENUM(NSInteger ,SelectStyleElement )
 @property (nonatomic,assign) CGFloat LabelOffest;  //数字刻度的位置
 
 @property (nonatomic,assign) BOOL PointerVisble; //指针样式能否改变
-@property (nonatomic,assign) BOOL PointerWidth; //指针样式的宽度
+@property (nonatomic,assign) CGFloat PointerWidth; //指针样式的宽度
 @property (nonatomic,assign) CGFloat  PointerLength; //指针样式的长度
 @property (nonatomic,copy) NSString *PointerColor;  //指针样式的颜色
 
 @property (nonatomic,assign) CGFloat  KNOBRadius; //圆点样式的半径
 @property (nonatomic,copy) NSString *KNOBColor;  //圆点样式的颜色
 
-@property (nonatomic,assign) BOOL Fillabled; //是否可以填充
+@property (nonatomic,assign) BOOL Fillenabled; //是否可以填充
 @property (nonatomic,assign) CGFloat FillInnerPosition; //填充内径颜色
 @property (nonatomic,assign) CGFloat FillOuterPosition; //填充外径颜色
 @property (nonatomic,copy) NSString *FillColor; //填充n颜色

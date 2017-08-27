@@ -21,7 +21,7 @@
 - (void)sliderValueChanged:(id)sender {
     if ([sender isKindOfClass:[UISlider class]]) {
         UISlider * slider = (UISlider *)sender;
-        self.NumberLabel.text = [NSString stringWithFormat:@"%.f",(360/(2*M_PI))*slider.value];
+        self.NumberLabel.text = [NSString stringWithFormat:@"%.f",slider.value];
         if ([self.delegate respondsToSelector:@selector(sliderBeTouch:)]) {
             [self.delegate sliderBeTouch:slider];
         }

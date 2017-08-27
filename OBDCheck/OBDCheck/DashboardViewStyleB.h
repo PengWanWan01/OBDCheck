@@ -17,7 +17,7 @@
 @property (nonatomic,strong)UILabel *UnitLabel;
 
 @property (nonatomic,copy) NSString *backColor;
-@property (nonatomic,copy) NSString *GradientColor;
+@property (nonatomic,assign) CGFloat GradientRadius;
 
 @property (nonatomic,copy) NSString *titleColor;
 @property (nonatomic,assign) CGFloat titleFontScale;
@@ -37,7 +37,7 @@
 @property (nonatomic,assign) BOOL FillEnable;
 @property (nonatomic,assign) CGFloat FillPosition;
 
-- (void)drawgradient:(NSString *)backViewColor TitlteColor:(NSString *)titlteColor TitlteFontScale:(CGFloat )titlteFontScale TitlePositon:(CGFloat)titlePositon ValueVisible:(BOOL )valueVisible Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon PointColor:(NSString *)PointColor PointWidth:(CGFloat )PointWidth Fillenable:(BOOL)fillenable  FillPosition:(CGFloat)fillPosition;
+- (void)drawgradient:(NSString *)backViewColor GradientRadius:(CGFloat)gradientRadius TitlteColor:(NSString *)titlteColor TitlteFontScale:(CGFloat )titlteFontScale TitlePositon:(CGFloat)titlePositon ValueVisible:(BOOL )valueVisible Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon PointColor:(NSString *)PointColor PointWidth:(CGFloat )PointWidth Fillenable:(BOOL)fillenable  FillPosition:(CGFloat)fillPosition;
 
 
 

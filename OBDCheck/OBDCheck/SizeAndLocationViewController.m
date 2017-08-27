@@ -30,12 +30,40 @@
   
     _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Diameter(10-100)",@"Left(0-100)",@"Top(0-100)", nil];
    
-    NSString *diameterPercentStr = [NSString stringWithFormat:@"%@",[[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"diameterPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]]];
-    
-    NSString *LeftPercentStr = [NSString stringWithFormat:@"%@",[[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"LeftPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]]];
-    
-     NSString *TopPercentStr = [NSString stringWithFormat:@"%@",[[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"TopPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]]];
-    _fieldViewDatasurce = [[NSMutableArray alloc]initWithObjects:diameterPercentStr,LeftPercentStr,TopPercentStr, nil];
+    CGFloat diameterPercentStr ;
+    CGFloat LeftPercentStr ;
+     CGFloat TopPercentStr ;
+    // StyleB
+    switch ([DashboardSetting sharedInstance].dashboardStyle ) {
+        case DashboardStyleOne:
+        {
+           diameterPercentStr = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"diameterPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            
+            LeftPercentStr = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"LeftPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            
+            TopPercentStr = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"TopPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+        }
+            break;
+        case DashboardStyleTwo:{
+            diameterPercentStr = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBdiameterPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            
+            LeftPercentStr = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBLeftPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            
+            TopPercentStr = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBTopPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+        }
+            break;
+        case DashboardStyleThree:{
+            diameterPercentStr =[[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCdiameterPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            
+            LeftPercentStr = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCLeftPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            
+            TopPercentStr = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCTopPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+        }
+            break;
+        default:
+            break;
+    }
+    _fieldViewDatasurce = [[NSMutableArray alloc]initWithObjects:[NSString stringWithFormat:@"%f",diameterPercentStr],[NSString stringWithFormat:@"%f",LeftPercentStr],[NSString stringWithFormat:@"%f",TopPercentStr], nil];
     
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, 44*_titleNameArray.count) style:UITableViewStylePlain];
     tableView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
@@ -120,17 +148,74 @@
     switch (textField.tag) {
         case 0:
         {
-             [[DashboardSetting sharedInstance].defaults setObject:textField.text  forKey:[NSString stringWithFormat:@"diameterPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+           
+            switch ([DashboardSetting sharedInstance].dashboardStyle) {
+                case DashboardStyleOne:
+                {
+                      [[DashboardSetting sharedInstance].defaults setObject:textField.text  forKey:[NSString stringWithFormat:@"diameterPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                }
+                    break;
+                case DashboardStyleTwo :
+                {
+                      [[DashboardSetting sharedInstance].defaults setObject:textField.text  forKey:[NSString stringWithFormat:@"StyleBdiameterPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                }
+                    break;
+                case DashboardStyleThree:
+                {
+                      [[DashboardSetting sharedInstance].defaults setObject:textField.text  forKey:[NSString stringWithFormat:@"StyleCdiameterPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                }
+                    break;
+                default:
+                    break;
+            }
         }
             break;
         case 1:
         {
-            [[DashboardSetting sharedInstance].defaults setObject:textField.text   forKey:[NSString stringWithFormat:@"LeftPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+          
+            switch ([ DashboardSetting sharedInstance].dashboardStyle) {
+                case DashboardStyleOne:
+                {
+                  [[DashboardSetting sharedInstance].defaults setFloat:[textField.text floatValue]   forKey:[NSString stringWithFormat:@"LeftPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                }
+                    break;
+                case DashboardStyleTwo :
+                {
+                      [[DashboardSetting sharedInstance].defaults setFloat:[textField.text floatValue]  forKey:[NSString stringWithFormat:@"StyleBLeftPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                }
+                    break;
+                case DashboardStyleThree:
+                {
+                      [[DashboardSetting sharedInstance].defaults setFloat:[textField.text floatValue]    forKey:[NSString stringWithFormat:@"StyleBLeftPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                }
+                    break;
+                default:
+                    break;
+            }
         }
             break;
         case 2:
         {
-            [[DashboardSetting sharedInstance].defaults setObject:textField.text  forKey:[NSString stringWithFormat:@"TopPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+          
+            switch ([ DashboardSetting sharedInstance].dashboardStyle) {
+                case DashboardStyleOne:
+                {
+                    [[DashboardSetting sharedInstance].defaults setFloat:[textField.text floatValue]forKey:[NSString stringWithFormat:@"TopPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                }
+                    break;
+                case DashboardStyleTwo :
+                {
+                    [[DashboardSetting sharedInstance].defaults setFloat:[textField.text floatValue]   forKey:[NSString stringWithFormat:@"StyleBTopPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                }
+                    break;
+                case DashboardStyleThree:
+                {
+                    [[DashboardSetting sharedInstance].defaults setFloat:[textField.text floatValue]   forKey:[NSString stringWithFormat:@"StyleBTopPercent%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                }
+                    break;
+                default:
+                    break;
+            }
         }
             break;
         default:

@@ -19,7 +19,7 @@
 
 @property (nonatomic,copy) NSString *innerColor;
 @property (nonatomic,copy) NSString *outerColor;
-@property (nonatomic,copy) NSString *GradientColor;
+@property (nonatomic,assign) CGFloat Gradientradius;
 
 @property (nonatomic,copy) NSString *titleColor;
 @property (nonatomic,assign) CGFloat titleFontScale;

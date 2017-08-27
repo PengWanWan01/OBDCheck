@@ -94,7 +94,7 @@
         [backView addSubview:btn];
         NSLog(@"%f",btn.frame.size.width);
     }
-      
+        [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(EveryViewtap)] ];
 
 }
 -(void)initWithData{
@@ -105,6 +105,11 @@
     
     NSLog(@"%f",4*MSWidth/15 );
     
+}
+#pragma mark 整个屏幕的点击事件
+- (void)EveryViewtap{
+
+    [self.blueView hide];
 }
 #pragma mark 六个按钮的点击
 - (void)tap:(UITapGestureRecognizer *)sender{

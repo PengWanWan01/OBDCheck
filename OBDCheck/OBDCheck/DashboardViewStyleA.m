@@ -73,7 +73,7 @@
 }
 
 // 画刻度
-- (void)drawCalibration:(CGFloat )TheAngle WithendAngle:(CGFloat)TheendAngle WithRingWidth:(CGFloat)RingWidth MAJORTICKSWidth:(CGFloat)MAWidth MAJORTICKSLength:(CGFloat)MALength MAJORTICKSColor:(NSString *)MAColor MINORTICKSWidth:(CGFloat)MIWidth MINORTICKSLength:(CGFloat)MILength MINORTICKSColor:(NSString *)MIColor LABELSVisible:(BOOL)Visible Rotate:(BOOL)rotate Font:(CGFloat)labelFontScale OffestTickline:(CGFloat)labeloffestTick InnerColor:(NSString *)innerColor TitleColor:(NSString *)titleColor TitleFontScale:(CGFloat)titleFontScale TitlePosition:(CGFloat) titlePosition ValueVisble:(BOOL)valueVisble ValueColor:(NSString *)valueColor ValueFontScale:(CGFloat)valueFontScale ValuePosition:(CGFloat)valuePosition
+- (void)drawCalibration:(CGFloat )TheAngle WithendAngle:(CGFloat)TheendAngle WithRingWidth:(CGFloat)RingWidth MAJORTICKSWidth:(CGFloat)MAWidth MAJORTICKSLength:(CGFloat)MALength MAJORTICKSColor:(NSString *)MAColor MINORTICKSWidth:(CGFloat)MIWidth MINORTICKSLength:(CGFloat)MILength MINORTICKSColor:(NSString *)MIColor LABELSVisible:(BOOL)labelVisble Rotate:(BOOL)labelRotate Font:(CGFloat)labelFontScale OffestTickline:(CGFloat)labeloffestTick InnerColor:(NSString *)innerColor TitleColor:(NSString *)titleColor TitleFontScale:(CGFloat)titleFontScale TitlePosition:(CGFloat) titlePosition ValueVisble:(BOOL)valueVisble ValueColor:(NSString *)valueColor ValueFontScale:(CGFloat)valueFontScale ValuePosition:(CGFloat)valuePosition PointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor Fillenabled:(BOOL)fillenabled FillInnerPosition:(CGFloat)fillInnerPosition FillOuterPosition:(CGFloat )fillOuterPosition FillColor:(NSString *)fillColor
 
 {
     [self addCircleLayer:RingWidth withInnerColor:innerColor];
@@ -82,6 +82,19 @@
     self.titleColor = titleColor;
     self.titleFontScale = titleFontScale;
     self.titlePosition = titlePosition;
+    self.ValueVisble = valueVisble;
+    self.LabelVisble = labelVisble;
+    self.LabelRotate = labelRotate;
+    self.PointerVisble = pointerVisble;
+    self.PointerWidth = pointerWidth;
+    self.PointerLength = pointerLength;
+    self.PointerColor = pointerColor;
+    self.KNOBRadius = kNOBRadius;
+    self.KNOBColor = kNOBColor;
+    self.Fillenabled = fillenabled;
+    self.FillInnerPosition = fillInnerPosition;
+    self.FillOuterPosition = fillOuterPosition;
+    self.FillColor = fillColor;
     self.infoLabel.textColor = [ColorTools colorWithHexString:titleColor];
     self.infoLabel.textAlignment = NSTextAlignmentCenter;
     self.infoLabel.text = @"0";

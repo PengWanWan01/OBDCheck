@@ -24,9 +24,23 @@
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:view];
         [view addSubview:imageView];
-        _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Mode",@"Dashboards Style",@"Add Display",@"Add Dashboard",@"Remove Dashboard",@"Load Default Dashboards",@"Toggle HUD Mode",@"Calibrate Device Sensors", nil];
-        
-        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 8, self.bounds.size.width, self.bounds.size.height - 8)];
+       
+        switch ([DashboardSetting sharedInstance].dashboardMode) {
+            case DashboardClassicMode:
+            {
+             _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Mode",@"Dashboards Style",@"Load Default Dashboards",@"Toggle HUD Mode",@"Calibrate Device Sensors", nil];
+            }
+                break;
+            case DashboardCustomMode:
+            {
+                 _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Mode",@"Dashboards Style",@"Add Display",@"Add Dashboard",@"Remove Dashboard",@"Load Default Dashboards",@"Toggle HUD Mode",@"Calibrate Device Sensors", nil];
+            }
+                break;
+            default:
+                break;
+        }
+       
+       UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 8, self.bounds.size.width, self.bounds.size.height - 8)];                  
         tableView.backgroundColor = [UIColor clearColor];
         tableView.separatorInset = UIEdgeInsetsZero;
         tableView.scrollEnabled = NO;

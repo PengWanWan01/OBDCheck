@@ -38,7 +38,7 @@
     switch ([DashboardSetting sharedInstance].dashboardMode) {
         case DashboardClassicMode:
         {
-         _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Instant fuel economy",@"Min",@"Max",@"PID",@"Number of Decimals",@"Multiplier",@"Remove Display", nil];
+         _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Instant fuel economy",@"Min",@"Max",@"PID",@"Number of Decimals",@"Multiplier", nil];
         }
             break;
         case DashboardCustomMode:
@@ -64,18 +64,7 @@
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    switch ([DashboardSetting sharedInstance].dashboardMode) {
-        case DashboardClassicMode:{
-            return 6;
-        }
-            break;
-        case DashboardCustomMode:{
-            return 5;
-        }
-            break;
-        default:
-            break;
-    }
+    return 5;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 1) {
