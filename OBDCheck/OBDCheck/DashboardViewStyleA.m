@@ -15,6 +15,7 @@
     CGPoint _center; // 中心点
     CGFloat _radius; // 外环半径
     NSInteger _dialCount; // 刻度线的个数
+    CGFloat _pointerLength; // 指针长度记录
 }
 @end
 
@@ -52,6 +53,7 @@
     
 
 }
+#pragma mark 画圆
 - (void)addCircleLayer:(CGFloat)RingWidth withInnerColor:(NSString *)color {
     CGFloat startAngle = 0; // 开始角度
     CGFloat endAngle = 2*M_PI; // 结束角度
@@ -73,11 +75,15 @@
 }
 
 // 画刻度
-- (void)drawCalibration:(CGFloat )TheAngle WithendAngle:(CGFloat)TheendAngle WithRingWidth:(CGFloat)RingWidth MAJORTICKSWidth:(CGFloat)MAWidth MAJORTICKSLength:(CGFloat)MALength MAJORTICKSColor:(NSString *)MAColor MINORTICKSWidth:(CGFloat)MIWidth MINORTICKSLength:(CGFloat)MILength MINORTICKSColor:(NSString *)MIColor LABELSVisible:(BOOL)labelVisble Rotate:(BOOL)labelRotate Font:(CGFloat)labelFontScale OffestTickline:(CGFloat)labeloffestTick InnerColor:(NSString *)innerColor TitleColor:(NSString *)titleColor TitleFontScale:(CGFloat)titleFontScale TitlePosition:(CGFloat) titlePosition ValueVisble:(BOOL)valueVisble ValueColor:(NSString *)valueColor ValueFontScale:(CGFloat)valueFontScale ValuePosition:(CGFloat)valuePosition PointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor Fillenabled:(BOOL)fillenabled FillInnerPosition:(CGFloat)fillInnerPosition FillOuterPosition:(CGFloat )fillOuterPosition FillColor:(NSString *)fillColor
+- (void)drawCalibration:(CGFloat )TheAngle WithendAngle:(CGFloat)TheendAngle WithRingWidth:(CGFloat)RingWidth MAJORTICKSWidth:(CGFloat)MAWidth MAJORTICKSLength:(CGFloat)MALength MAJORTICKSColor:(NSString *)MAColor MINORTICKSWidth:(CGFloat)MIWidth MINORTICKSLength:(CGFloat)MILength MINORTICKSColor:(NSString *)MIColor LABELSVisible:(BOOL)labelVisble Rotate:(BOOL)labelRotate Font:(CGFloat)labelFontScale OffestTickline:(CGFloat)labeloffestTick InnerColor:(NSString *)innerColor TitleColor:(NSString *)titleColor TitleFontScale:(CGFloat)titleFontScale TitlePosition:(CGFloat) titlePosition ValueVisble:(BOOL)valueVisble ValueColor:(NSString *)valueColor ValueFontScale:(CGFloat)valueFontScale ValuePosition:(CGFloat)valuePosition  UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale UnitVerticalPosition:(CGFloat)unitVerticalPosition UnitHorizontalPosition:(CGFloat)unitHorizontalPosition PointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor Fillenabled:(BOOL)fillenabled FillstartAngle:(CGFloat)fillstartAngle FillEndAngle:(CGFloat )fillEndAngle FillColor:(NSString *)fillColor
 
 {
     [self addCircleLayer:RingWidth withInnerColor:innerColor];
-    [self addSubview:self.pointerView];
+//    [self addSubview:self.pointerView];
+//    pointerLength = _radius - MALength - 14;
+    
+    [self adddrawPointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor];
+    
     self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KFontmultiple, (_center.y- 40*KFontmultiple)*titlePosition, 120*KFontmultiple, 30*KFontmultiple)];
     self.titleColor = titleColor;
     self.titleFontScale = titleFontScale;
@@ -92,8 +98,8 @@
     self.KNOBRadius = kNOBRadius;
     self.KNOBColor = kNOBColor;
     self.Fillenabled = fillenabled;
-    self.FillInnerPosition = fillInnerPosition;
-    self.FillOuterPosition = fillOuterPosition;
+    self.FillstartAngle = fillstartAngle;
+    self.FillEndAngle = fillEndAngle;
     self.FillColor = fillColor;
     self.infoLabel.textColor = [ColorTools colorWithHexString:titleColor];
     self.infoLabel.textAlignment = NSTextAlignmentCenter;
@@ -101,6 +107,17 @@
     self.infoLabel.font = [UIFont ToAdapFont:titleFontScale*16.f];
     [self addSubview:self.infoLabel];
     
+    self.unitLabel = [[UILabel alloc]initWithFrame:CGRectMake(((ViewWidth/2) - 20*KFontmultiple)*unitHorizontalPosition, ((ViewWidth/2)+ 10)*unitVerticalPosition, 40*KFontmultiple, 20*KFontmultiple)];
+    self.unitLabel.text = @"F";
+    self.unitLabel.font = [UIFont ToAdapFont:unitFontScale*16.f];
+    self.unitLabel.textColor = [ColorTools colorWithHexString:unitColor];
+    self.unitLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:self.unitLabel];
+    self.UnitColor = unitColor;
+    self.UnitFontScale = unitFontScale;
+    self.UnitVerticalPosition = unitVerticalPosition;
+    self.UnitHorizontalPosition = unitHorizontalPosition;
+    [self addSubview:self.unitLabel];
     self.numberLabel = [[UILabel alloc]initWithFrame:CGRectMake((ViewWidth/3)*valuePosition, ViewWidth + 5, ViewWidth/3, 20)];
     self.ValueColor = valueColor;
     self.ValueFontScale = valueFontScale;
@@ -146,11 +163,11 @@
             perLayer.strokeColor = [ColorTools colorWithHexString:MAColor].CGColor;
             perLayer.lineWidth = MALength;
             //添加刻度
-            CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:_radius-RingWidth- MALength- 5];
+            CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:(_radius-RingWidth- MALength- 5)*labeloffestTick Rotate:labelRotate];
             NSString *tickText = [NSString stringWithFormat:@"%d",i * 2];
             
             //默认label的大小14 * 14
-            UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake((point.x - 5)*labeloffestTick, point.y - 5, 14, 14)];
+            UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake((point.x - 5), (point.y - 5), 14, 14)];
             text.text = tickText;
             self.LabelFontScale = labelFontScale;
             self.LabelOffest = labeloffestTick;
@@ -170,11 +187,12 @@
         perLayer.path = tickPath.CGPath;
         [self.layer addSublayer:perLayer];
     }
+    [self addDrawFillstartAngle:fillstartAngle FillendAngle:fillEndAngle FillColor:fillColor withRingWidth:RingWidth];
 }
 
 // 计算label的坐标
 - (CGPoint)calculateTextPositonWithArcCenter:(CGPoint)center
-                                       Angle:(CGFloat)angel radius:(CGFloat)Theradius{    
+                                       Angle:(CGFloat)angel radius:(CGFloat)Theradius Rotate:(BOOL)labelRotate{    
     CGFloat x = (Theradius) * cosf(angel);
     CGFloat y = (Theradius) * sinf(angel);
     return CGPointMake(center.x + x, center.y - y);
@@ -183,8 +201,64 @@
 - (void)drawRect:(CGRect)rect {
    
 }
+//画指针 圆与三角形
+- (void)adddrawPointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor{
 
+   
+    
+    // 线的路径 三角形
+    UIBezierPath *polygonPath = [UIBezierPath bezierPath];
+    
+    // 这些点的位置都是相对于所在视图的
+    // 起点
+    [polygonPath moveToPoint:CGPointMake(ViewWidth/2,(ViewWidth/2) +pointerLength)];
+    // 其他点
+    [polygonPath addLineToPoint:CGPointMake((ViewWidth/2) - pointerWidth/2, ViewWidth/2)];
+    [polygonPath addLineToPoint:CGPointMake((ViewWidth/2) + pointerWidth/2, ViewWidth/2)];
+    
+    [polygonPath closePath]; // 添加一个结尾点和起点相同
+    
+    CAShapeLayer *polygonLayer = [CAShapeLayer layer];
+    polygonLayer.lineWidth = 2;
+    
+    polygonLayer.strokeColor = [ColorTools colorWithHexString:pointerColor].CGColor;
+    polygonLayer.path = polygonPath.CGPath;
+    polygonLayer.fillColor = [ColorTools colorWithHexString:pointerColor].CGColor; //
+    [self.layer addSublayer:polygonLayer];
 
+    //画圆
+    CGFloat startAngle = 0; // 开始角度
+    CGFloat endAngle = 2*M_PI; // 结束角度
+    BOOL clockwise = YES; // 顺时针
+    //    CALayer *containerLayer = [CALayer layer];
+    
+    // 环形Layer层
+    CAShapeLayer *circleLayer = [CAShapeLayer layer];
+    circleLayer.lineWidth = 0;
+    circleLayer.lineCap = kCALineCapRound;
+    circleLayer.lineJoin = kCALineJoinRound;
+    circleLayer.fillColor = [ColorTools colorWithHexString:kNOBColor].CGColor;
+    circleLayer.strokeColor = [ColorTools colorWithHexString:kNOBColor].CGColor;
+    UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_center radius:kNOBRadius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
+    circleLayer.path = circlePath.CGPath;
+    [self.layer addSublayer:circleLayer];
+}
+- (void)addDrawFillstartAngle:(CGFloat)startAngle FillendAngle:(CGFloat)endAngle FillColor:(NSString *)fillColor withRingWidth:(CGFloat)RingWidth{
+   
+    BOOL clockwise = YES; // 顺时针
+    //    CALayer *containerLayer = [CALayer layer];
+    
+    // 环形Layer层
+    CAShapeLayer *circleLayer = [CAShapeLayer layer];
+    circleLayer.lineWidth = RingWidth;
+    circleLayer.lineCap = kCALineCapSquare;
+    circleLayer.lineJoin = kCALineJoinMiter;
+    circleLayer.fillColor = [UIColor clearColor].CGColor;
+    circleLayer.strokeColor = [ColorTools colorWithHexString:fillColor].CGColor;
+    UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
+    circleLayer.path = circlePath.CGPath;
+    [self.layer addSublayer:circleLayer];
+}
 #pragma mark - PointerView
 - (UIImageView *)pointerView {
     if (!_pointerView) {

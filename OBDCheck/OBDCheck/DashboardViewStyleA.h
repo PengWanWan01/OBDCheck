@@ -32,6 +32,7 @@
  */
 @property (nonatomic, strong) UILabel *infoLabel;
 @property (nonatomic,strong)  UILabel  *numberLabel;
+@property (nonatomic,strong)  UILabel  *unitLabel;
 
 @property (nonatomic,assign) NSInteger maxNumber;
 @property (nonatomic,assign) NSInteger minNumber;
@@ -81,12 +82,12 @@
 @property (nonatomic,copy) NSString *KNOBColor;  //圆点样式的颜色
 
 @property (nonatomic,assign) BOOL Fillenabled; //是否可以填充
-@property (nonatomic,assign) CGFloat FillInnerPosition; //填充内径颜色
-@property (nonatomic,assign) CGFloat FillOuterPosition; //填充外径颜色
+@property (nonatomic,assign) CGFloat FillstartAngle; //填充开始角度
+@property (nonatomic,assign) CGFloat FillEndAngle; //填充结束角度
 @property (nonatomic,copy) NSString *FillColor; //填充n颜色
 
 
-- (void)drawCalibration:(CGFloat )TheAngle WithendAngle:(CGFloat)TheendAngle WithRingWidth:(CGFloat)RingWidth MAJORTICKSWidth:(CGFloat)MAWidth MAJORTICKSLength:(CGFloat)MALength MAJORTICKSColor:(NSString *)MAColor MINORTICKSWidth:(CGFloat)MIWidth MINORTICKSLength:(CGFloat)MILength MINORTICKSColor:(NSString *)MIColor LABELSVisible:(BOOL)Visible Rotate:(BOOL)rotate Font:(CGFloat )labelFontScale OffestTickline:(CGFloat)labeloffestTick InnerColor:(NSString *)innerColor TitleColor:(NSString *)titleColor TitleFontScale:(CGFloat)titleFontScale TitlePosition:(CGFloat) titlePosition ValueVisble:(BOOL)valueVisble ValueColor:(NSString *)valueColor ValueFontScale:(CGFloat)valueFontScale ValuePosition:(CGFloat)valuePosition PointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor Fillenabled:(BOOL)fillenabled FillInnerPosition:(CGFloat)fillInnerPosition FillOuterPosition:(CGFloat )fillOuterPosition FillColor:(NSString *)fillColor;
+- (void)drawCalibration:(CGFloat )TheAngle WithendAngle:(CGFloat)TheendAngle WithRingWidth:(CGFloat)RingWidth MAJORTICKSWidth:(CGFloat)MAWidth MAJORTICKSLength:(CGFloat)MALength MAJORTICKSColor:(NSString *)MAColor MINORTICKSWidth:(CGFloat)MIWidth MINORTICKSLength:(CGFloat)MILength MINORTICKSColor:(NSString *)MIColor LABELSVisible:(BOOL)Visible Rotate:(BOOL)rotate Font:(CGFloat )labelFontScale OffestTickline:(CGFloat)labeloffestTick InnerColor:(NSString *)innerColor TitleColor:(NSString *)titleColor TitleFontScale:(CGFloat)titleFontScale TitlePosition:(CGFloat) titlePosition ValueVisble:(BOOL)valueVisble ValueColor:(NSString *)valueColor ValueFontScale:(CGFloat)valueFontScale ValuePosition:(CGFloat)valuePosition UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale UnitVerticalPosition:(CGFloat)unitVerticalPosition UnitHorizontalPosition:(CGFloat)unitHorizontalPosition PointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor Fillenabled:(BOOL)fillenabled FillstartAngle:(CGFloat)FillstartAngle FillEndAngle:(CGFloat )fillEndAngle FillColor:(NSString *)fillColor;
 
 - (void)addGradientView:(NSString *)gradientColor GradientViewWidth:(CGFloat )gradientViewWidth;
 

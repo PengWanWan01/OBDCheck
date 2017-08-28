@@ -225,13 +225,19 @@
     CGFloat KNOBRadiusResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"KNOBRadius%ld",view.tag]];
      NSString *KNOBColorResult  =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"KNOBColor%ld",view.tag]] ;
      BOOL FillenabledResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"Fillenabled%ld",view.tag]];
-    CGFloat FillInnerPositionResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"FillInnerPosition%ld",view.tag]];
-     CGFloat FillOuterPositionResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"FillOuterPosition%ld",view.tag]];
+    CGFloat FillstartAngleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"FillstartAngle%ld",view.tag]];
+     CGFloat FillEndAngleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"FillEndAngle%ld",view.tag]];
      NSString *FillColorResult  =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"FillColor%ld",view.tag]] ;
+    NSLog(@"FillColorVVv%@", FillColorResult );
+    
+    NSString *UnitColorResult  =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"UnitColor%ld",view.tag]] ;
+    CGFloat UnitFontScaleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"UnitFontScale%ld",view.tag]];
+       CGFloat UnitVerticalPositionResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"UnitVerticalPosition%ld",view.tag]];
+       CGFloat UnitHorizontalPositionResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"UnitHorizontalPosition%ld",view.tag]];
     //画底盘渐变色
     [dashboardStyleAView addGradientView:@"#18191C" GradientViewWidth:view.frame.size.width];
     //画刻度
-    [dashboardStyleAView drawCalibration:0 WithendAngle:2*M_PI WithRingWidth:10.f MAJORTICKSWidth:0 MAJORTICKSLength:15.f MAJORTICKSColor:@"FFFFFF" MINORTICKSWidth:0 MINORTICKSLength:5.f MINORTICKSColor:@"FFFFFF" LABELSVisible:YES Rotate:YES Font:1 OffestTickline:1 InnerColor:@"18191C" TitleColor:@"FE9002" TitleFontScale:1 TitlePosition:1 ValueVisble:YES ValueColor:@"FE9002" ValueFontScale:1 ValuePosition:1 PointerVisble:YES PointerWidth:10.f PointerLength:10.f PointerColor:@"FE9002" KNOBRadius:10.f KNOBColor:@"FE9002" Fillenabled:YES FillInnerPosition:5.f FillOuterPosition:5.f FillColor:@"FE9002"];
+    [dashboardStyleAView drawCalibration:0 WithendAngle:2*M_PI WithRingWidth:10.f MAJORTICKSWidth:0 MAJORTICKSLength:15.f MAJORTICKSColor:@"FFFFFF" MINORTICKSWidth:0 MINORTICKSLength:5.f MINORTICKSColor:@"FFFFFF" LABELSVisible:YES Rotate:YES Font:1 OffestTickline:1 InnerColor:@"18191C" TitleColor:@"FE9002" TitleFontScale:1 TitlePosition:1 ValueVisble:YES ValueColor:@"FE9002" ValueFontScale:1 ValuePosition:1 UnitColor:@"FE9002" UnitFontScale:1 UnitVerticalPosition:1 UnitHorizontalPosition:1 PointerVisble:YES PointerWidth:10.f PointerLength: (view.frame.size.width/2) - 15 - 14 PointerColor:@"FE9002" KNOBRadius:10.f KNOBColor:@"FFFFFF" Fillenabled:YES FillstartAngle:0 FillEndAngle:0 FillColor:@"FE9002"];
     
    
     //加入是被点击过的 ；让被选中的仪表盘位置发生变化
@@ -244,7 +250,7 @@
         //画底盘渐变色
         [dashboardStyleAView addGradientView:outerColorResult GradientViewWidth:([diameterResult floatValue]/100)*MSWidth];
         //画刻度
-        [dashboardStyleAView drawCalibration:StartAngleResult WithendAngle:endAngleResult WithRingWidth:ringWidthResult MAJORTICKSWidth:maWidthResult MAJORTICKSLength:maLengthResult MAJORTICKSColor:maColorResult MINORTICKSWidth:miWidthResult MINORTICKSLength:miLengthResult MINORTICKSColor:miColorResult LABELSVisible:YES Rotate:YES Font:LabelFontScaleResult OffestTickline:LabelOffestResult InnerColor:innerColorResult TitleColor:titleColorResult TitleFontScale:TitleFontScaleResult TitlePosition:TitlePositionResult ValueVisble:ValueVisbleResult ValueColor:ValueColorResult ValueFontScale:ValueFontScaleResult ValuePosition:ValuePositionResult PointerVisble:PointerVisbleResult PointerWidth:PointerWidthResult PointerLength:PointerLengthResult PointerColor:PointerColorResult KNOBRadius:KNOBRadiusResult KNOBColor:KNOBColorResult Fillenabled:FillenabledResult FillInnerPosition:FillInnerPositionResult FillOuterPosition:FillOuterPositionResult FillColor:FillColorResult];
+        [dashboardStyleAView drawCalibration:StartAngleResult WithendAngle:endAngleResult WithRingWidth:ringWidthResult MAJORTICKSWidth:maWidthResult MAJORTICKSLength:maLengthResult MAJORTICKSColor:maColorResult MINORTICKSWidth:miWidthResult MINORTICKSLength:miLengthResult MINORTICKSColor:miColorResult LABELSVisible:YES Rotate:YES Font:LabelFontScaleResult OffestTickline:LabelOffestResult InnerColor:innerColorResult TitleColor:titleColorResult TitleFontScale:TitleFontScaleResult TitlePosition:TitlePositionResult ValueVisble:ValueVisbleResult ValueColor:ValueColorResult ValueFontScale:ValueFontScaleResult ValuePosition:ValuePositionResult UnitColor:UnitColorResult   UnitFontScale:UnitFontScaleResult UnitVerticalPosition:UnitVerticalPositionResult UnitHorizontalPosition:UnitHorizontalPositionResult  PointerVisble:PointerVisbleResult PointerWidth:PointerWidthResult PointerLength:PointerLengthResult PointerColor:PointerColorResult KNOBRadius:KNOBRadiusResult KNOBColor:KNOBColorResult Fillenabled:FillenabledResult FillstartAngle:FillstartAngleResult   FillEndAngle:FillEndAngleResult FillColor:FillColorResult];
         dashboardStyleAView.tag = TapIndex;
        
         
@@ -779,9 +785,15 @@
     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.KNOBRadius forKey:[NSString stringWithFormat:@"KNOBRadius%ld",senderview.tag]];
     [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.KNOBColor forKey:[NSString stringWithFormat:@"KNOBColor%ld",senderview.tag]] ;
    [[DashboardSetting sharedInstance].defaults setBool:dashboardStyleAView.Fillenabled forKey:[NSString stringWithFormat:@"Fillenabled%ld",senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.FillInnerPosition forKey:[NSString stringWithFormat:@"FillInnerPosition%ld",senderview.tag]];
-   [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.FillOuterPosition forKey:[NSString stringWithFormat:@"FillOuterPosition%ld",senderview.tag]];
+    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.FillstartAngle forKey:[NSString stringWithFormat:@"FillstartAngle%ld",senderview.tag]];
+   [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.FillEndAngle forKey:[NSString stringWithFormat:@"FillEndAngle%ld",senderview.tag]];
     [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.FillColor forKey:[NSString stringWithFormat:@"FillColor%ld",senderview.tag]] ;
+    NSLog(@"FillColorv%@", [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"FillColor%ld",senderview.tag]] );
+    
+ [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.UnitColor forKey:[NSString stringWithFormat:@"UnitColor%ld",senderview.tag]] ;
+   [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.UnitFontScale forKey:[NSString stringWithFormat:@"UnitFontScale%ld",senderview.tag]];
+     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.UnitVerticalPosition forKey:[NSString stringWithFormat:@"UnitVerticalPosition%ld",senderview.tag]];
+     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.UnitHorizontalPosition forKey:[NSString stringWithFormat:@"UnitHorizontalPosition%ld",senderview.tag]];
 
 }
 - (void)initWithDefaultStyleB :(UIView *)senderview{
@@ -823,6 +835,7 @@
    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleBView.Pointerwidth forKey:[NSString stringWithFormat:@"StyleBPointerwidth%ld",senderview.tag]] ;
     [[DashboardSetting sharedInstance].defaults setBool:dashboardStyleBView.FillEnable forKey:[NSString stringWithFormat:@"StyleBFillEnable%ld",senderview.tag]] ;
     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleBView.FillPosition forKey:[NSString stringWithFormat:@"StyleBFillPosition%ld",senderview.tag]] ;
+    
 
 }
 - (void)initWithDefaultStyleC :(UIView *)senderview{

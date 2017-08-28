@@ -52,6 +52,7 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 @property (nonatomic,assign) BOOL isDashboardFont;          //是否跳到最前面
 @property (nonatomic,assign) BOOL isDashboardMove;          //是否可以移动
 @property (nonatomic,assign) BOOL isDashboardRemove;          //是否可以删除
+
 @property (nonatomic,strong) NSMutableArray *DashboardViewFrame;    //是否可以移动
 
 

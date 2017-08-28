@@ -60,7 +60,7 @@
     _FrameRowTitleSource = [[NSMutableArray alloc]initWithObjects:@"Start Angle",@"End Angle",@"Inner Color",@"Outer Color",@"Title Color",@"Font Scale",@"Position",@"Value Visible",@"Value Color",@"Font Scale",@"Position",@"Units Color",@"Font Scale",@"Vertical Position",@"Horizontal Position", nil];
     _AxisRowTitleSource = [[NSMutableArray alloc]initWithObjects:@"Width",@"Length",@"Color",@"Visible",@"Rotate",@"Fonts Scale",@"Offest From Tickline", nil];
     _NeedleRowTitleSource = [[NSMutableArray alloc]initWithObjects:@"Visible",@"Width",@"Length",@"Color",@"Radius",@"Color", nil];
-    _RangeRowTitleSource = [[NSMutableArray alloc]initWithObjects:@"Enabled",@"Inner Position",@"Outer Position",@"Color", nil];
+    _RangeRowTitleSource = [[NSMutableArray alloc]initWithObjects:@"Enabled",@"Start Angle",@"End Angle",@"Color", nil];
     
     
     
@@ -107,15 +107,19 @@
     self.KNOBRadius  = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"KNOBRadius%ld",[DashboardSetting sharedInstance].Dashboardindex]];
    self.KNOBColor  =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"KNOBColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
    self.Fillenabled  = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"Fillenabled%ld",[DashboardSetting sharedInstance].Dashboardindex]];
-    self.FillInnerPosition  = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"FillInnerPosition%ld",[DashboardSetting sharedInstance].Dashboardindex]];
-    self.FillOuterPosition = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"FillOuterPosition%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+    self.FillstartAngle  = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"FillstartAngle%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+    self.FillEndAngle = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"FillEndAngle%ld",[DashboardSetting sharedInstance].Dashboardindex]];
    self.FillColor  =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"FillColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+    self.UnitColor =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"UnitColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+     self.UnitFontScale = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"UnitFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+     self.UnitVerticalPosition = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"UnitVerticalPosition%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+     self.UnitHorizontalPosition = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"UnitHorizontalPosition%ld",[DashboardSetting sharedInstance].Dashboardindex]];
     
             self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
             //画底盘渐变色
             [self.DashViewA addGradientView:self.outerColor GradientViewWidth:150*KFontmultiple];
 
-            [self.DashViewA drawCalibration:self.StartAngle WithendAngle:self.endAngle  WithRingWidth:self.ringWidth MAJORTICKSWidth:self.maWidth MAJORTICKSLength:self.maLength MAJORTICKSColor:self.maColor MINORTICKSWidth:self.miWidth MINORTICKSLength:self.miLength MINORTICKSColor:self.miColor LABELSVisible:YES Rotate:YES Font:self.LabelFontScale OffestTickline:self.LabelOffest InnerColor:self.innerColor TitleColor:self.titleColor TitleFontScale:self.titleFontScale TitlePosition:self.titlePosition ValueVisble:YES ValueColor:self.ValueColor ValueFontScale:self.ValueFontScale ValuePosition:self.ValuePosition PointerVisble:self.PointerVisble PointerWidth:self.PointerWidth PointerLength:self.PointerLength PointerColor:self.PointerColor KNOBRadius:self.KNOBRadius KNOBColor:self.KNOBColor Fillenabled:self.Fillenabled FillInnerPosition:self.FillInnerPosition FillOuterPosition:self.FillOuterPosition FillColor:self.FillColor ];
+            [self.DashViewA drawCalibration:self.StartAngle WithendAngle:self.endAngle  WithRingWidth:self.ringWidth MAJORTICKSWidth:self.maWidth MAJORTICKSLength:self.maLength MAJORTICKSColor:self.maColor MINORTICKSWidth:self.miWidth MINORTICKSLength:self.miLength MINORTICKSColor:self.miColor LABELSVisible:YES Rotate:YES Font:self.LabelFontScale OffestTickline:self.LabelOffest InnerColor:self.innerColor TitleColor:self.titleColor TitleFontScale:self.titleFontScale TitlePosition:self.titlePosition ValueVisble:YES ValueColor:self.ValueColor ValueFontScale:self.ValueFontScale ValuePosition:self.ValuePosition UnitColor:self.UnitColor UnitFontScale:self.UnitFontScale UnitVerticalPosition:self.UnitVerticalPosition UnitHorizontalPosition:self.UnitHorizontalPosition PointerVisble:self.PointerVisble PointerWidth:self.PointerWidth PointerLength:self.PointerLength PointerColor:self.PointerColor KNOBRadius:self.KNOBRadius KNOBColor:self.KNOBColor Fillenabled:self.Fillenabled FillstartAngle:self.FillstartAngle FillEndAngle:self.FillEndAngle FillColor:self.FillColor ];
             
             self.DashView = self.DashViewA;
             [self.view addSubview:self.DashViewA];
@@ -416,7 +420,7 @@
                     StyleOneCell.titleName.text = _FrameRowTitleSource[indexPath.row];
                     StyleOneCell.NumberSider.minimumValue = -2*M_PI;
                     StyleOneCell.NumberSider.maximumValue = 2*M_PI;
-                    StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.f",(360/(2*M_PI))*StyleOneCell.NumberSider.value];
+                    
                     switch (indexPath.row) {
                         case 0:{
                             StyleOneCell.NumberSider.value = self.StartAngle;
@@ -432,7 +436,7 @@
                         default:
                             break;
                     }
-                    StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.f",(360/(2*M_PI))*StyleOneCell.NumberSider.value ];
+                    
 
                 }
                     break;
@@ -584,6 +588,7 @@
                 
                   resultCell = StyleTwoCell;
             }else if ((indexPath.section == 2 || indexPath.section == 4)  && indexPath.row==0  ){
+                
                 resultCell = StyleTwoCell;
             }else if (indexPath.section == 3 && ( indexPath.row==1)){
                 resultCell = StyleTwoCell;
@@ -733,7 +738,7 @@
                         case 1:
                         {
                             StyleOneCell.NumberSider.minimumValue = 0;
-                            StyleOneCell.NumberSider.maximumValue = 0.23f;
+                            StyleOneCell.NumberSider.maximumValue = 18.f;
                             StyleOneCell.NumberSider.value  = self.PointerWidth;
                             StyleOneCell.NumberSider.tag = 15;
 
@@ -743,7 +748,7 @@
                         case 2:
                         {
                             StyleOneCell.NumberSider.minimumValue = 0;
-                            StyleOneCell.NumberSider.maximumValue = 1;
+                            StyleOneCell.NumberSider.maximumValue =  75*KFontmultiple;
                             StyleOneCell.NumberSider.value  = self.PointerLength;
                             StyleOneCell.NumberSider.tag = 16;
 
@@ -766,7 +771,7 @@
                     StyleOneCell.titleName.text = _NeedleRowTitleSource[4];
                     StyleTwoCell.titleName.text = _NeedleRowTitleSource[5];
                     StyleOneCell.NumberSider.minimumValue = 0;
-                    StyleOneCell.NumberSider.maximumValue = 0.1;
+                    StyleOneCell.NumberSider.maximumValue = 20;
                     StyleOneCell.NumberSider.value  = self.KNOBRadius;
                     StyleOneCell.NumberSider.tag = 17;
                     StyleTwoCell.ColorView.tag = 8;
@@ -796,6 +801,8 @@
             StyleThreeCell.SwitchBtn.on = self.Fillenabled;
             StyleOneCell.titleName.text = _RangeRowTitleSource[indexPath.row ];
             StyleTwoCell.titleName.text = _RangeRowTitleSource[indexPath.row];
+            StyleOneCell.NumberSider.minimumValue = -2*M_PI;
+            StyleOneCell.NumberSider.maximumValue = 2*M_PI;
             if ( indexPath.row==0 ){
                 resultCell = StyleThreeCell;
             }else if(indexPath.row==3){
@@ -804,15 +811,12 @@
                 resultCell = StyleOneCell;
             }
            
-                    StyleOneCell.NumberSider.minimumValue = 0;
-                    StyleOneCell.NumberSider.maximumValue = 1;
             switch (indexPath.row) {
                 case 1:
                 {
                     StyleOneCell.NumberSider.tag = 18;
-                    StyleOneCell.NumberSider.minimumValue = 0;
-                    StyleOneCell.NumberSider.maximumValue = 2;
-                    StyleOneCell.NumberSider.value = self.FillInnerPosition;
+                   
+                    StyleOneCell.NumberSider.value = self.FillstartAngle;
 
 
                 }
@@ -820,9 +824,7 @@
                 case 2:
                 {
                     StyleOneCell.NumberSider.tag = 19;
-                    StyleOneCell.NumberSider.minimumValue = 0;
-                    StyleOneCell.NumberSider.maximumValue = 2;
-                    StyleOneCell.NumberSider.value = self.FillOuterPosition;
+                    StyleOneCell.NumberSider.value = self.FillEndAngle;
 
                 }
                 case 3:{
@@ -940,28 +942,56 @@
                 break;
             case 3:
             {
-                
-                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"TitlePosition%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+              [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"TitlePosition%ld",[DashboardSetting sharedInstance].Dashboardindex]];
                 self.titlePosition = slider.value;
                 [self upDateDashView];
             }
                 break;
             case 4:
             {
-                
+                if (self.ValueVisble == YES) {
                 [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"ValueFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]];
                 self.ValueFontScale = slider.value;
                 [self upDateDashView];
+                }
             }
                 break;
             case 5:
             {
-                
+                  if (self.ValueVisble == YES) {
                 [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"ValuePosition%ld",[DashboardSetting sharedInstance].Dashboardindex]];
                 self.ValuePosition = slider.value;
                 [self upDateDashView];
+                  }
             }
                 break;
+            case 6:
+            {
+                
+                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"UnitFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                self.UnitFontScale = slider.value;
+                [self upDateDashView];
+            }
+
+                break;
+            case 7:
+            {
+                
+                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"UnitVerticalPosition%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                self.UnitVerticalPosition = slider.value;
+                [self upDateDashView];
+            }
+                break;
+            case 8:
+            {
+                
+                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"UnitHorizontalPosition%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                self.UnitHorizontalPosition = slider.value;
+                [self upDateDashView];
+            }
+                
+                break;
+
             case 9:
             {
                 
@@ -994,16 +1024,67 @@
                 break;
             case 13:
             {
+                if (self.LabelVisble == YES) {
+                    
+                
                 [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"LabelFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]];
                 self.LabelFontScale = slider.value;
                 [self upDateDashView];
+                }
             }
                 break;
             case 14:
             {
+                 if (self.LabelVisble == YES) {
                 [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"LabelOffest%ld",[DashboardSetting sharedInstance].Dashboardindex]];
                 self.LabelOffest = slider.value;
                 [self upDateDashView];
+                 }
+            }
+                break;
+            case 15:
+            {
+                if (self.PointerVisble == YES) {
+                    
+                    
+                    [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"PointerWidth%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                    self.PointerWidth = slider.value;
+                    [self upDateDashView];
+                }
+            }
+                break;
+            case 16:
+            {
+                if (self.PointerVisble == YES) {
+                    [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"PointerLength%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                    self.PointerLength = slider.value;
+                    [self upDateDashView];
+                }
+            }
+                break;
+            case 17:
+            {
+                    [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"KNOBRadius%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                    self.KNOBRadius = slider.value;
+                    [self upDateDashView];
+            }
+                break;
+            case 18:
+            {
+                if (self.Fillenabled == YES) {
+                    [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"FillstartAngle%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                    self.FillstartAngle = slider.value;
+                    [self upDateDashView];
+                }
+            }
+                break;
+            case 19:
+            {
+                if (self.Fillenabled == YES) {
+                    [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"FillEndAngle%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                    self.FillEndAngle = slider.value;
+                    [self upDateDashView];
+                }
             }
                 break;
             default:
@@ -1043,14 +1124,18 @@
             break;
         case 3:
         {
+              if (self.ValueVisble == YES) {
             self.ValueColor = self.selectColor;
             [[DashboardSetting sharedInstance].defaults setObject:self.ValueColor forKey:[NSString stringWithFormat:@"ValueColor%ld",[DashboardSetting sharedInstance].Dashboardindex]];
             [self upDateDashView];
+              }
         }
             break;
         case 4:
         {
-            
+            self.UnitColor = self.selectColor;
+            [[DashboardSetting sharedInstance].defaults setObject:self.UnitColor forKey:[NSString stringWithFormat:@"UnitColor%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            [self upDateDashView];
         }
             break;
         case 5:
@@ -1069,17 +1154,25 @@
             break;
         case 7:
         {
-            
+            self.PointerColor = self.selectColor;
+            [[DashboardSetting sharedInstance].defaults setObject:self.PointerColor forKey:[NSString stringWithFormat:@"PointerColor%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            [self upDateDashView];
         }
             break;
         case 8:
         {
-            
+            self.KNOBColor = self.selectColor;
+            [[DashboardSetting sharedInstance].defaults setObject:self.KNOBColor forKey:[NSString stringWithFormat:@"KNOBColor%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            [self upDateDashView];
         }
             break;
         case 9:
         {
-            
+            if (self.Fillenabled == YES) {
+                self.FillColor = self.selectColor;
+                [[DashboardSetting sharedInstance].defaults setObject:self.FillColor forKey:[NSString stringWithFormat:@"FillColor%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+                [self upDateDashView];
+            }
         }
             break;
        
@@ -1090,31 +1183,42 @@
 }
 #pragma mark 开关按钮
 - (void)selectSwtichBetouched:(UISwitch *)switchBtn{
-    NSLog(@"开关tag%ld",(long)switchBtn.tag);
+    NSLog(@"开关tag%ld",  switchBtn.tag);
+     NSLog(@"开关on%d",  switchBtn.on);
     switch (switchBtn.tag) {
         case 0:
         {
-        
+            [[DashboardSetting sharedInstance].defaults setBool:switchBtn.on forKey:[NSString stringWithFormat:@"ValueVisble%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            self.ValueVisble = switchBtn.on;
+            [self upDateDashView];
         }
             break;
         case 1:
         {
-            
+            [[DashboardSetting sharedInstance].defaults setBool:switchBtn.on forKey:[NSString stringWithFormat:@"LabelVisble%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            self.LabelVisble = switchBtn.on;
+            [self upDateDashView];
         }
             break;
         case 2:
         {
-            
+            [[DashboardSetting sharedInstance].defaults setBool:switchBtn.on forKey:[NSString stringWithFormat:@"LabelRotate%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            self.LabelRotate = switchBtn.on;
+            [self upDateDashView];
         }
             break;
         case 3:
         {
-            
+            [[DashboardSetting sharedInstance].defaults setBool:switchBtn.on forKey:[NSString stringWithFormat:@"PointerVisble%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            self.PointerVisble = switchBtn.on;
+            [self upDateDashView];
         }
             break;
         case 4:
         {
-            
+            [[DashboardSetting sharedInstance].defaults setBool:switchBtn.on forKey:[NSString stringWithFormat:@"Fillenabled%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            self.Fillenabled = switchBtn.on;
+            [self upDateDashView];
         }
             break;
         default:
@@ -1128,7 +1232,7 @@
     self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
     //画底盘渐变色
     [self.DashViewA addGradientView:self.outerColor GradientViewWidth:150*KFontmultiple];
-    [self.DashViewA drawCalibration:self.StartAngle WithendAngle:self.endAngle WithRingWidth:self.ringWidth MAJORTICKSWidth:self.maWidth MAJORTICKSLength:self.maLength MAJORTICKSColor:self.maColor MINORTICKSWidth:self.miWidth MINORTICKSLength:self.miLength MINORTICKSColor:self.miColor LABELSVisible:YES Rotate:YES Font:self.LabelFontScale OffestTickline:self.LabelOffest InnerColor:self.innerColor TitleColor:self.titleColor TitleFontScale:self.titleFontScale TitlePosition:self.titlePosition ValueVisble:self.ValueVisble ValueColor:self.ValueColor ValueFontScale:self.ValueFontScale ValuePosition:self.ValuePosition PointerVisble:self.PointerVisble PointerWidth:self.PointerWidth PointerLength:self.PointerLength PointerColor:self.PointerColor KNOBRadius:self.KNOBRadius KNOBColor:self.KNOBColor Fillenabled:self.Fillenabled FillInnerPosition:self.FillInnerPosition FillOuterPosition:self.FillOuterPosition FillColor:self.FillColor];
+    [self.DashViewA drawCalibration:self.StartAngle WithendAngle:self.endAngle WithRingWidth:self.ringWidth MAJORTICKSWidth:self.maWidth MAJORTICKSLength:self.maLength MAJORTICKSColor:self.maColor MINORTICKSWidth:self.miWidth MINORTICKSLength:self.miLength MINORTICKSColor:self.miColor LABELSVisible:YES Rotate:YES Font:self.LabelFontScale OffestTickline:self.LabelOffest InnerColor:self.innerColor TitleColor:self.titleColor TitleFontScale:self.titleFontScale TitlePosition:self.titlePosition ValueVisble:self.ValueVisble ValueColor:self.ValueColor ValueFontScale:self.ValueFontScale ValuePosition:self.ValuePosition UnitColor:self.UnitColor UnitFontScale:self.UnitFontScale UnitVerticalPosition:self.UnitVerticalPosition UnitHorizontalPosition:self.UnitHorizontalPosition PointerVisble:self.PointerVisble PointerWidth:self.PointerWidth PointerLength:self.PointerLength PointerColor:self.PointerColor KNOBRadius:self.KNOBRadius KNOBColor:self.KNOBColor Fillenabled:self.Fillenabled FillstartAngle:self.FillstartAngle  FillEndAngle:self.FillEndAngle FillColor:self.FillColor];
     self.DashView = self.DashViewA;
     [self.view addSubview:self.DashViewA];
 

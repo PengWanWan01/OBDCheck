@@ -75,8 +75,10 @@ typedef NS_ENUM(NSInteger ,SelectStyleElement )
 @property (nonatomic,copy) NSString *KNOBColor;  //圆点样式的颜色
 
 @property (nonatomic,assign) BOOL Fillenabled; //是否可以填充
-@property (nonatomic,assign) CGFloat FillInnerPosition; //填充内径颜色
-@property (nonatomic,assign) CGFloat FillOuterPosition; //填充外径颜色
+@property (nonatomic,assign) CGFloat FillstartAngle; //填充开始角度
+@property (nonatomic,assign) CGFloat FillEndAngle; //填充结束角度
+//FillIner
+//FillOter;
 @property (nonatomic,copy) NSString *FillColor; //填充n颜色
 
 @end
