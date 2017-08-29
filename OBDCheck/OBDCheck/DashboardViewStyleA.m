@@ -27,7 +27,7 @@
     if (!self) {
         return nil;
     }
-    self.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    self.backgroundColor = [UIColor clearColor];
    
     self.userInteractionEnabled = YES;
     _center = CGPointMake(ViewWidth / 2, ViewWidth / 2);
@@ -35,7 +35,7 @@
     _dialPieceCount  =5;
     _dialCount = 8 * self.dialPieceCount;
     // 添加外环
-    
+    self.infoLabeltext = self.infoLabel.text;
     return self;
 }
 //[ColorTools colorWithHexString:@"18191C"].CGColor
@@ -103,7 +103,7 @@
     self.FillColor = fillColor;
     self.infoLabel.textColor = [ColorTools colorWithHexString:titleColor];
     self.infoLabel.textAlignment = NSTextAlignmentCenter;
-    self.infoLabel.text = @"0";
+    self.infoLabel.text = @"50";
     self.infoLabel.font = [UIFont ToAdapFont:titleFontScale*16.f];
     [self addSubview:self.infoLabel];
     
@@ -329,6 +329,40 @@
     
     //移动view
     self.center = newcenter;
+//    if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
+//        [self.delegate touchMoveWithcenterX:newcenter.x WithcenterY:newcenter.y];
+//        
+//    }
 }
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
 
+    //计算位移=当前位置-起始位置
+    CGPoint point = [[touches anyObject] locationInView:self];
+    float dx = point.x - startPoint.x;
+    float dy = point.y - startPoint.y;
+    
+    //计算移动后的view中心点
+    CGPoint newcenter = CGPointMake(self.center.x + dx, self.center.y + dy);
+    
+    
+    /* 限制用户不可将视图托出屏幕 */
+    
+    float halfx = CGRectGetMidX(self.bounds);
+    //x坐标左边界
+    newcenter.x = MAX(halfx, newcenter.x);
+    //x坐标右边界
+    newcenter.x = MIN(self.superview.bounds.size.width - halfx, newcenter.x);
+    
+    //y坐标同理
+    float halfy = CGRectGetMidY(self.bounds);
+    newcenter.y = MAX(halfy, newcenter.y);
+    newcenter.y = MIN(self.superview.bounds.size.height - halfy, newcenter.y);
+    
+    //移动view
+    self.center = newcenter;
+    if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
+        [self.delegate touchMoveWithcenterX:newcenter.x WithcenterY:newcenter.y];
+        
+    }
+}
 @end

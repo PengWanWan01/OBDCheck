@@ -8,13 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol touchMoveDelegate <NSObject>
+
+- (void)touchMoveWithcenterX:(CGFloat)centerX WithcenterY:(CGFloat)WithcenterY;
+
+@end
 @interface DashboardView : UIView
 {
     CGPoint startPoint;
     
 }
 
-
+@property (nonatomic,weak) id<touchMoveDelegate> delegate;
 @property (nonatomic, assign) CGFloat dialLength;
 
 /*
@@ -40,6 +45,7 @@
 
 
 
+@property (nonatomic,copy) NSString  *infoLabeltext; //名字
 
 @property (nonatomic,assign) CGFloat StartAngle; //开始角度
 @property (nonatomic,assign) CGFloat endAngle;  //结束角度

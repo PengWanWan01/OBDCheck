@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol StyleBtouchMoveDelegate <NSObject>
 
+- (void)touchMoveWithcenterX:(CGFloat)centerX WithcenterY:(CGFloat)WithcenterY;
+
+@end
 @interface DashboardViewStyleB : UIImageView
 {
     CGPoint startPoint;
 }
+@property (nonatomic,weak) id<StyleBtouchMoveDelegate> delegate;
+
 @property (nonatomic,strong)UILabel *PIDLabel;
 @property (nonatomic,strong)UILabel *NumberLabel;
 @property (nonatomic,strong)UILabel *UnitLabel;
@@ -35,9 +41,9 @@
 @property (nonatomic,copy) NSString *pointerColor;
 @property (nonatomic,assign) CGFloat Pointerwidth;
 @property (nonatomic,assign) BOOL FillEnable;
-@property (nonatomic,assign) CGFloat FillPosition;
+@property (nonatomic,copy ) NSString *FillColor;
 
-- (void)drawgradient:(NSString *)backViewColor GradientRadius:(CGFloat)gradientRadius TitlteColor:(NSString *)titlteColor TitlteFontScale:(CGFloat )titlteFontScale TitlePositon:(CGFloat)titlePositon ValueVisible:(BOOL )valueVisible Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon PointColor:(NSString *)PointColor PointWidth:(CGFloat )PointWidth Fillenable:(BOOL)fillenable  FillPosition:(CGFloat)fillPosition;
+- (void)drawgradient:(NSString *)backViewColor GradientRadius:(CGFloat)gradientRadius TitlteColor:(NSString *)titlteColor TitlteFontScale:(CGFloat )titlteFontScale TitlePositon:(CGFloat)titlePositon ValueVisible:(BOOL )valueVisible Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon PointColor:(NSString *)PointColor PointWidth:(CGFloat )PointWidth Fillenable:(BOOL)fillenable  FillColor:(NSString *)fillColor;
 
 
 

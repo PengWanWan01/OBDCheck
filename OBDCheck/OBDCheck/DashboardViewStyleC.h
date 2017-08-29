@@ -7,11 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol StyleCtouchMoveDelegate <NSObject>
+
+- (void)touchMoveWithcenterX:(CGFloat)centerX WithcenterY:(CGFloat)WithcenterY;
+
+@end
 
 @interface DashboardViewStyleC : UIView
 {
     CGPoint startPoint;
 }
+@property (nonatomic,weak) id<StyleCtouchMoveDelegate> delegate;
+
 @property (nonatomic,strong) UILabel *PIDLabel;
 @property (nonatomic,strong) UILabel *NumberLabel;
 @property (nonatomic,strong) UILabel *UnitLabel;

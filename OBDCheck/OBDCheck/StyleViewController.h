@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger ,SelectStyleElement )
 @property (nonatomic,strong) UILabel *NumberLabel;
 @property (nonatomic,strong) NSMutableArray *datasource;
 @property (nonatomic,copy) NSString *selectColor;
+@property (nonatomic,copy) NSString  *infoLabeltext; //名字
 
 @property (nonatomic,assign) CGFloat StartAngle; //开始角度
 @property (nonatomic,assign) CGFloat endAngle;  //结束角度

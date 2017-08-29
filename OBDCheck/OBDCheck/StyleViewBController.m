@@ -74,10 +74,10 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
     self.pointerColor = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleBpointerColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
     self.Pointerwidth = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBPointerwidth%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
     self.FillEnable = [[DashboardSetting sharedInstance].defaults boolForKey:[NSString stringWithFormat:@"StyleBFillEnable%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
-    self.FillPosition = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBFillPosition%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+    self.FillColor = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleBFillColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
     
             dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
-    [dashViewB drawgradient:self.backColor GradientRadius:1.f TitlteColor:self.titleColor TitlteFontScale:self.titleFontScale TitlePositon:self.titlePositon ValueVisible:self.ValueVisible Valuecolor:self.ValueColor ValueFontScale:self.ValueFontScale ValuePositon:self.ValuePositon UnitColor:self.UnitColor UnitFontScale:self.UnitFontScale UnitPositon:self.UnitPositon PointColor:self.pointerColor PointWidth:self.Pointerwidth Fillenable:self.FillEnable FillPosition:self.FillPosition];
+    [dashViewB drawgradient:self.backColor GradientRadius:1.f TitlteColor:self.titleColor TitlteFontScale:self.titleFontScale TitlePositon:self.titlePositon ValueVisible:self.ValueVisible Valuecolor:self.ValueColor ValueFontScale:self.ValueFontScale ValuePositon:self.ValuePositon UnitColor:self.UnitColor UnitFontScale:self.UnitFontScale UnitPositon:self.UnitPositon PointColor:self.pointerColor PointWidth:self.Pointerwidth Fillenable:self.FillEnable FillColor:self.FillColor];
     
             [self.view addSubview:dashViewB];
           
@@ -120,6 +120,9 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
     }else if (indexPath.section == 2 &&  indexPath.row == 1 ){
         return 44.f;
     }else if ((indexPath.section == 2 ||indexPath.section == 5 ) && indexPath.row == 0)
+    {
+        return 44.f;
+    }else if ((indexPath.section == 5  ) && indexPath.row == 1)
     {
         return 44.f;
     }else{
@@ -167,7 +170,10 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
     }else if ((indexPath.section == 2 ||indexPath.section == 5 ) && indexPath.row == 0)
     {
         resultCell = StyleThreeCell;
-    }else{
+    }else if (indexPath.section == 5  && indexPath.row == 1)
+    {
+        resultCell = StyleTwoCell;
+    }else {
         resultCell =StyleOneCell;
     }
     switch (indexPath.section) {
@@ -297,11 +303,11 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
             StyleThreeCell.titleName.text = _rowTitleSource[14];
             StyleThreeCell.SwitchBtn.tag = 1;
             StyleThreeCell.SwitchBtn.on = self.FillEnable;
-            StyleOneCell.titleName.text = _rowTitleSource[15];
-            StyleOneCell.NumberSider.tag = 8;
-            StyleOneCell.NumberSider.minimumValue = 0;
-            StyleOneCell.NumberSider.maximumValue = 1;
-            StyleOneCell.NumberSider.value  = self.FillPosition;
+            StyleTwoCell.titleName.text = _rowTitleSource[15];
+            StyleTwoCell.ColorView.tag = 5;
+            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:self.FillColor];
+            StyleTwoCell.ColorLabel.text =self.FillColor;
+          
 
         }
             break;
@@ -339,17 +345,23 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
                 break;
             case 3:
             {
+                if (self.ValueVisible == YES) {
+                    
+                
                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"StyleBValueFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
                 self.ValueFontScale =  slider.value;
                 [self upDateDashView];
+                }
 
             }
                 break;
             case 4:
             {
+                 if (self.ValueVisible == YES) {
                   [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"StyleBValuePositon%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
                 self.ValuePositon = slider.value;
                 [self upDateDashView];
+                 }
 
             }
                 break;
@@ -369,12 +381,18 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
                 break;
             case 7:
             {
-                
+                [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"StyleBPointerwidth%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+                self.Pointerwidth =  slider.value;
+                [self upDateDashView];
             }
                 break;
             case 8:
             {
-                
+                if (self.FillEnable == YES) {
+//                    [[DashboardSetting sharedInstance].defaults setFloat:slider.value forKey:[NSString stringWithFormat:@"StyleBPointerwidth%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+//                    self. =  slider.value;
+//                    [self upDateDashView];
+                }
             }
                 break;
            
@@ -404,9 +422,11 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
             break;
         case 2:
         {
+             if (self.ValueVisible == YES) {
               [[DashboardSetting sharedInstance].defaults setObject:self.selectColor forKey:[NSString stringWithFormat:@"StyleBValueColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
             self.ValueColor  = self.selectColor;
              [self upDateDashView];
+             }
         }
             break;
         case 3:
@@ -420,6 +440,20 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
         case 4:
         {
             
+            [[DashboardSetting sharedInstance].defaults setObject:self.selectColor forKey:[NSString stringWithFormat:@"StyleBpointerColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+            self.pointerColor = self.selectColor;
+            [self upDateDashView];
+        }
+            break;
+        case 5:
+        {
+            if (self.FillEnable == YES) {
+                
+            
+            [[DashboardSetting sharedInstance].defaults setObject:self.selectColor forKey:[NSString stringWithFormat:@"StyleBFillColor%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
+            self.FillColor = self.selectColor;
+            [self upDateDashView];
+            }
         }
             break;
                default:
@@ -433,12 +467,16 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
     switch (switchBtn.tag) {
         case 0:
         {
-        
+            [[DashboardSetting sharedInstance].defaults setBool:switchBtn.on forKey:[NSString stringWithFormat:@"StyleBValueVisible%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            self.ValueVisible = switchBtn.on;
+            [self upDateDashView];
         }
             break;
         case 1:
         {
-            
+            [[DashboardSetting sharedInstance].defaults setBool:switchBtn.on forKey:[NSString stringWithFormat:@"StyleBFillEnable%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            self.FillEnable = switchBtn.on;
+            [self upDateDashView];
         }
             break;
         default:
@@ -451,7 +489,7 @@ _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TI
     [dashViewB removeFromSuperview];
     
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
-    [dashViewB drawgradient:self.backColor GradientRadius:self.GradientRadius TitlteColor:self.titleColor TitlteFontScale:self.titleFontScale TitlePositon:self.titlePositon ValueVisible:self.ValueVisible Valuecolor:self.ValueColor ValueFontScale:self.ValueFontScale ValuePositon:self.ValuePositon UnitColor:self.UnitColor UnitFontScale:self.UnitFontScale UnitPositon:self.UnitPositon PointColor:self.pointerColor PointWidth:self.Pointerwidth Fillenable:self.FillEnable FillPosition:self.FillPosition];
+    [dashViewB drawgradient:self.backColor GradientRadius:self.GradientRadius TitlteColor:self.titleColor TitlteFontScale:self.titleFontScale TitlePositon:self.titlePositon ValueVisible:self.ValueVisible Valuecolor:self.ValueColor ValueFontScale:self.ValueFontScale ValuePositon:self.ValuePositon UnitColor:self.UnitColor UnitFontScale:self.UnitFontScale UnitPositon:self.UnitPositon PointColor:self.pointerColor PointWidth:self.Pointerwidth Fillenable:self.FillEnable FillColor :self.FillColor];
     [self.view addSubview:dashViewB];
     
 }

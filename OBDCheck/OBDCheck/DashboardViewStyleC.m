@@ -25,13 +25,13 @@
     self.backgroundColor = [ColorTools colorWithHexString:outerColor];
     self.layer.borderColor=[ColorTools colorWithHexString:outerColor].CGColor;
     self.layer.borderWidth=1;
-    self.layer.cornerRadius=16.f*KMultipleC;
+    self.layer.cornerRadius= gradientradius;
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(21*KMultipleC, 21*KMultipleC, self.bounds.size.width - 42*KMultipleC, self.bounds.size.width - 42*KMultipleC)];
     view.backgroundColor = [ColorTools colorWithHexString:innerColor];
-    view.layer.cornerRadius=16.f*KMultipleC;
+    view.layer.cornerRadius=gradientradius;
     //UIView设置阴影
     [[view layer] setShadowOffset:CGSizeMake(1, 1)];
-    [[view layer] setShadowRadius:16.f*KMultipleC];
+    [[view layer] setShadowRadius:gradientradius];
     [[view layer] setShadowOpacity:0.1f]; //阴影的透明度
     [[view layer] setShadowColor:[ColorTools colorWithHexString:innerColor].CGColor];
     self.innerColor = innerColor;
@@ -73,57 +73,76 @@
     [view addSubview:self.UnitLabel];
 
 }
-//- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    //保存触摸起始点位置
-//    CGPoint point = [[touches anyObject] locationInView:self];
-//    startPoint = point;
-//    
-//    //该view置于最前
-//    [[self superview] bringSubviewToFront:self];
-//}
-//
-//-(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    //计算位移=当前位置-起始位置
-//    CGPoint point = [[touches anyObject] locationInView:self];
-//    float dx = point.x - startPoint.x;
-//    float dy = point.y - startPoint.y;
-//    
-//    //计算移动后的view中心点
-//    CGPoint newcenter = CGPointMake(self.center.x + dx, self.center.y + dy);
-//    
-//    
-//    /* 限制用户不可将视图托出屏幕 */
-//    float halfx = CGRectGetMidX(self.bounds);
-//    //x坐标左边界
-//    newcenter.x = MAX(halfx, newcenter.x);
-//    //x坐标右边界
-//    newcenter.x = MIN(self.superview.bounds.size.width - halfx, newcenter.x);
-//    
-//    //y坐标同理
-//    float halfy = CGRectGetMidY(self.bounds);
-//    newcenter.y = MAX(halfy, newcenter.y);
-//    newcenter.y = MIN(self.superview.bounds.size.height - halfy, newcenter.y);
-//    
-//    //移动view
-//    self.center = newcenter;
-//}
--(CGFloat)GetTextSize:(CGFloat)Size
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    Size*=0.8;
-//    if (IS_IPHONE_4_OR_LESS) {
-//        Size*=0.7;
-//    }
-//    else if (IS_IPHONE_5)
-//    {
-//        Size*=0.8;
-//    }
-//    else if (IS_IPHONE_6)
-//    {
-//        
-//    }
+    //保存触摸起始点位置
+    CGPoint point = [[touches anyObject] locationInView:self];
+    startPoint = point;
     
-    return Size;
+    //该view置于最前
+    [[self superview] bringSubviewToFront:self];
+}
+
+-(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    //计算位移=当前位置-起始位置
+    CGPoint point = [[touches anyObject] locationInView:self];
+    float dx = point.x - startPoint.x;
+    float dy = point.y - startPoint.y;
+    
+    //计算移动后的view中心点
+    CGPoint newcenter = CGPointMake(self.center.x + dx, self.center.y + dy);
+    
+    
+    /* 限制用户不可将视图托出屏幕 */
+    
+    float halfx = CGRectGetMidX(self.bounds);
+    //x坐标左边界
+    newcenter.x = MAX(halfx, newcenter.x);
+    //x坐标右边界
+    newcenter.x = MIN(self.superview.bounds.size.width - halfx, newcenter.x);
+    
+    //y坐标同理
+    float halfy = CGRectGetMidY(self.bounds);
+    newcenter.y = MAX(halfy, newcenter.y);
+    newcenter.y = MIN(self.superview.bounds.size.height - halfy, newcenter.y);
+    
+    //移动view
+    self.center = newcenter;
+    //    if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
+    //        [self.delegate touchMoveWithcenterX:newcenter.x WithcenterY:newcenter.y];
+    //
+    //    }
+}
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    //计算位移=当前位置-起始位置
+    CGPoint point = [[touches anyObject] locationInView:self];
+    float dx = point.x - startPoint.x;
+    float dy = point.y - startPoint.y;
+    
+    //计算移动后的view中心点
+    CGPoint newcenter = CGPointMake(self.center.x + dx, self.center.y + dy);
+    
+    
+    /* 限制用户不可将视图托出屏幕 */
+    
+    float halfx = CGRectGetMidX(self.bounds);
+    //x坐标左边界
+    newcenter.x = MAX(halfx, newcenter.x);
+    //x坐标右边界
+    newcenter.x = MIN(self.superview.bounds.size.width - halfx, newcenter.x);
+    
+    //y坐标同理
+    float halfy = CGRectGetMidY(self.bounds);
+    newcenter.y = MAX(halfy, newcenter.y);
+    newcenter.y = MIN(self.superview.bounds.size.height - halfy, newcenter.y);
+    
+    //移动view
+    self.center = newcenter;
+    if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
+        [self.delegate touchMoveWithcenterX:newcenter.x WithcenterY:newcenter.y];
+        
+    }
 }
 @end

@@ -114,13 +114,13 @@
      self.UnitFontScale = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"UnitFontScale%ld",[DashboardSetting sharedInstance].Dashboardindex]];
      self.UnitVerticalPosition = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"UnitVerticalPosition%ld",[DashboardSetting sharedInstance].Dashboardindex]];
      self.UnitHorizontalPosition = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"UnitHorizontalPosition%ld",[DashboardSetting sharedInstance].Dashboardindex]];
-    
+    self.infoLabeltext = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"infoLabeltext%ld",[DashboardSetting sharedInstance].Dashboardindex]] ;
             self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
             //画底盘渐变色
             [self.DashViewA addGradientView:self.outerColor GradientViewWidth:150*KFontmultiple];
 
             [self.DashViewA drawCalibration:self.StartAngle WithendAngle:self.endAngle  WithRingWidth:self.ringWidth MAJORTICKSWidth:self.maWidth MAJORTICKSLength:self.maLength MAJORTICKSColor:self.maColor MINORTICKSWidth:self.miWidth MINORTICKSLength:self.miLength MINORTICKSColor:self.miColor LABELSVisible:YES Rotate:YES Font:self.LabelFontScale OffestTickline:self.LabelOffest InnerColor:self.innerColor TitleColor:self.titleColor TitleFontScale:self.titleFontScale TitlePosition:self.titlePosition ValueVisble:YES ValueColor:self.ValueColor ValueFontScale:self.ValueFontScale ValuePosition:self.ValuePosition UnitColor:self.UnitColor UnitFontScale:self.UnitFontScale UnitVerticalPosition:self.UnitVerticalPosition UnitHorizontalPosition:self.UnitHorizontalPosition PointerVisble:self.PointerVisble PointerWidth:self.PointerWidth PointerLength:self.PointerLength PointerColor:self.PointerColor KNOBRadius:self.KNOBRadius KNOBColor:self.KNOBColor Fillenabled:self.Fillenabled FillstartAngle:self.FillstartAngle FillEndAngle:self.FillEndAngle FillColor:self.FillColor ];
-            
+            self.DashViewA.infoLabel.text =  self.infoLabeltext;
             self.DashView = self.DashViewA;
             [self.view addSubview:self.DashViewA];
           UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];

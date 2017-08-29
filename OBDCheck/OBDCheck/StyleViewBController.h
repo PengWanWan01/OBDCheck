@@ -33,5 +33,5 @@
 @property (nonatomic,copy) NSString *pointerColor;
 @property (nonatomic,assign) CGFloat Pointerwidth;
 @property (nonatomic,assign) BOOL FillEnable;
-@property (nonatomic,assign ) CGFloat FillPosition;
+@property (nonatomic,copy ) NSString *FillColor;
 @end

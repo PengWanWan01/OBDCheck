@@ -8,6 +8,11 @@
 
 #import "DashboardViewStyleB.h"
 #define KMultipleB  ViewWidth/300
+@interface DashboardViewStyleB()
+{
+    CGPoint _center; // 中心点
+}
+@end
 @implementation DashboardViewStyleB
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -18,13 +23,14 @@
         //添加仪表盘的底盘
         self.image = [UIImage imageNamed:@"Dashboard"];
         self.contentMode = UIViewContentModeScaleAspectFill;
-        
+        _center = CGPointMake(ViewWidth / 2, ViewWidth / 2);
+
       
         
     }
     return self;
 }
-- (void)drawgradient:(NSString *)backViewColor GradientRadius:(CGFloat)gradientRadius TitlteColor:(NSString *)titlteColor TitlteFontScale:(CGFloat )titlteFontScale TitlePositon:(CGFloat)titlePositon ValueVisible:(BOOL )valueVisible Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon PointColor:(NSString *)PointColor PointWidth:(CGFloat )PointWidth Fillenable:(BOOL)fillenable  FillPosition:(CGFloat)fillPosition{
+- (void)drawgradient:(NSString *)backViewColor GradientRadius:(CGFloat)gradientRadius TitlteColor:(NSString *)titlteColor TitlteFontScale:(CGFloat )titlteFontScale TitlePositon:(CGFloat)titlePositon ValueVisible:(BOOL )valueVisible Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon PointColor:(NSString *)PointColor PointWidth:(CGFloat )PointWidth Fillenable:(BOOL)fillenable  FillColor:(NSString *)fillColor{
     //添加渐变色
 //    [ColorTools colorWithHexString:@"00a6ff"];
 
@@ -46,7 +52,52 @@
 
     //添加进度条
     [self draw:self.bounds.size.width/2 - 23.0*KMultipleB lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:@"1d2027"] startAngle:(M_PI / 4) +(M_PI/18) endAngle: M_PI *3/4-M_PI/18];
-    [self draw:self.bounds.size.width/2 - (23.0/300)*self.frame.size.width lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:backViewColor] startAngle:(M_PI / 2) endAngle: M_PI *3/4-M_PI/18];
+    self.FillColor = fillColor;
+    [self draw:self.bounds.size.width/2 - (23.0/300)*self.frame.size.width lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:fillColor] startAngle:(M_PI / 2) endAngle: M_PI *3/4-M_PI/18];
+    [self adddrawPointColor:PointColor PointWidth:PointWidth Fillenable:fillenable   FillColor:fillColor];
+}
+//画指针 圆与三角形
+- (void)adddrawPointColor:(NSString *)PointColor PointWidth:(CGFloat )PointWidth Fillenable:(BOOL)fillenable   FillColor:(NSString *)fillColor{
+    
+    
+    
+    // 线的路径 三角形
+    UIBezierPath *polygonPath = [UIBezierPath bezierPath];
+    
+
+    self.pointerColor = PointColor;
+
+    [polygonPath moveToPoint:CGPointMake(_center.x, (43.0*KMultipleB/2) + 7)];
+    // 其他点
+    [polygonPath addLineToPoint:CGPointMake(_center.x - 14/2, 7)];
+    [polygonPath addLineToPoint:CGPointMake(_center.x  + 14/2, 7)];
+    
+    [polygonPath closePath]; // 添加一个结尾点和起点相同
+    
+    CAShapeLayer *polygonLayer = [CAShapeLayer layer];
+    polygonLayer.lineWidth = 2;
+    
+    polygonLayer.strokeColor = [ColorTools colorWithHexString:PointColor].CGColor;
+    polygonLayer.path = polygonPath.CGPath;
+    polygonLayer.fillColor = [ColorTools colorWithHexString:PointColor].CGColor; //
+    [self.layer addSublayer:polygonLayer];
+    //画直线
+    // 线的路径
+    UIBezierPath *linePath = [UIBezierPath bezierPath];
+    // 起点
+    [linePath moveToPoint:CGPointMake(_center.x, (43.0*KMultipleB/2) + 7)];
+    // 其他点
+    [linePath addLineToPoint:CGPointMake(_center.x, 43.0*KMultipleB)];
+    
+    CAShapeLayer *lineLayer = [CAShapeLayer layer];
+    
+    lineLayer.lineWidth = 2;
+    lineLayer.strokeColor = [ColorTools colorWithHexString:PointColor].CGColor;
+    lineLayer.path = linePath.CGPath;
+    lineLayer.fillColor = nil; // 默认为blackColor
+    
+    [self.layer addSublayer:lineLayer];
+    
 }
 - (void)addmiddle:(NSString *)titlteColor TitlteFontScale:(CGFloat )titlteFontScale TitlePositon:(CGFloat)titlePositon ValueVisible:(BOOL )valueVisible Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon {
     
@@ -119,41 +170,76 @@
     
     
 }
-//- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    //保存触摸起始点位置
-//    CGPoint point = [[touches anyObject] locationInView:self];
-//    startPoint = point;
-//    
-//    //该view置于最前
-//    [[self superview] bringSubviewToFront:self];
-//}
-//
-//-(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    //计算位移=当前位置-起始位置
-//    CGPoint point = [[touches anyObject] locationInView:self];
-//    float dx = point.x - startPoint.x;
-//    float dy = point.y - startPoint.y;
-//    
-//    //计算移动后的view中心点
-//    CGPoint newcenter = CGPointMake(self.center.x + dx, self.center.y + dy);
-//    
-//    
-//    /* 限制用户不可将视图托出屏幕 */
-//    float halfx = CGRectGetMidX(self.bounds);
-//    //x坐标左边界
-//    newcenter.x = MAX(halfx, newcenter.x);
-//    //x坐标右边界
-//    newcenter.x = MIN(self.superview.bounds.size.width - halfx, newcenter.x);
-//    
-//    //y坐标同理
-//    float halfy = CGRectGetMidY(self.bounds);
-//    newcenter.y = MAX(halfy, newcenter.y);
-//    newcenter.y = MIN(self.superview.bounds.size.height - halfy, newcenter.y);
-//    
-//    //移动view
-//    self.center = newcenter;
-//}
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    //保存触摸起始点位置
+    CGPoint point = [[touches anyObject] locationInView:self];
+    startPoint = point;
+    
+    //该view置于最前
+    [[self superview] bringSubviewToFront:self];
+}
 
+-(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    //计算位移=当前位置-起始位置
+    CGPoint point = [[touches anyObject] locationInView:self];
+    float dx = point.x - startPoint.x;
+    float dy = point.y - startPoint.y;
+    
+    //计算移动后的view中心点
+    CGPoint newcenter = CGPointMake(self.center.x + dx, self.center.y + dy);
+    
+    
+    /* 限制用户不可将视图托出屏幕 */
+    
+    float halfx = CGRectGetMidX(self.bounds);
+    //x坐标左边界
+    newcenter.x = MAX(halfx, newcenter.x);
+    //x坐标右边界
+    newcenter.x = MIN(self.superview.bounds.size.width - halfx, newcenter.x);
+    
+    //y坐标同理
+    float halfy = CGRectGetMidY(self.bounds);
+    newcenter.y = MAX(halfy, newcenter.y);
+    newcenter.y = MIN(self.superview.bounds.size.height - halfy, newcenter.y);
+    
+    //移动view
+    self.center = newcenter;
+    //    if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
+    //        [self.delegate touchMoveWithcenterX:newcenter.x WithcenterY:newcenter.y];
+    //
+    //    }
+}
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    //计算位移=当前位置-起始位置
+    CGPoint point = [[touches anyObject] locationInView:self];
+    float dx = point.x - startPoint.x;
+    float dy = point.y - startPoint.y;
+    
+    //计算移动后的view中心点
+    CGPoint newcenter = CGPointMake(self.center.x + dx, self.center.y + dy);
+    
+    
+    /* 限制用户不可将视图托出屏幕 */
+    
+    float halfx = CGRectGetMidX(self.bounds);
+    //x坐标左边界
+    newcenter.x = MAX(halfx, newcenter.x);
+    //x坐标右边界
+    newcenter.x = MIN(self.superview.bounds.size.width - halfx, newcenter.x);
+    
+    //y坐标同理
+    float halfy = CGRectGetMidY(self.bounds);
+    newcenter.y = MAX(halfy, newcenter.y);
+    newcenter.y = MIN(self.superview.bounds.size.height - halfy, newcenter.y);
+    
+    //移动view
+    self.center = newcenter;
+    if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
+        [self.delegate touchMoveWithcenterX:newcenter.x WithcenterY:newcenter.y];
+        
+    }
+}
 @end
