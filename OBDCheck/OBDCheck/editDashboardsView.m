@@ -137,10 +137,17 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self hide];
+   
     if (!(indexPath.row == 1||indexPath.row == 2 ) ) {
             if ([self.delegate respondsToSelector:@selector(AlertBetouched:)]) {
                 [self.delegate AlertBetouched:indexPath.row];
             }
+    }else{
+    
+        if ([self.delegate respondsToSelector:@selector(selectStyleBtnBetouched:)]) {
+            [self.delegate selectStyleBtnBetouched:indexPath.row];
+        }
+
     }
    
 

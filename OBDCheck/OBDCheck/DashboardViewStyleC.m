@@ -72,6 +72,14 @@
     [view addSubview:self.NumberLabel];
     [view addSubview:self.UnitLabel];
 
+    
+    UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+    [self addGestureRecognizer:LongPress];
+}
+-(void)tap:(UILongPressGestureRecognizer *)sender{
+    if ([self.delegate respondsToSelector:@selector(tap:)]) {
+        [self.delegate tap:sender];
+    }
 }
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {

@@ -31,7 +31,7 @@
 }
 - (void)initWithUI{
     UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight)];
-    tableview.backgroundColor = [UIColor grayColor];
+    tableview.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     tableview.delegate = self;
     tableview.dataSource =  self;
     [tableview registerNib:[UINib nibWithNibName:@"SetTableViewCell" bundle:nil] forCellReuseIdentifier:@"SetTableViewCell"];
@@ -52,6 +52,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SetTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:@"SetTableViewCell" forIndexPath:indexPath];
+     cell.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     cell.titleLabel.text = _datasource[indexPath.row];
     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
     return cell;

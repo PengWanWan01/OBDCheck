@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @protocol touchMoveDelegate <NSObject>
-
 - (void)touchMoveWithcenterX:(CGFloat)centerX WithcenterY:(CGFloat)WithcenterY;
-
+- (void)tap:(UILongPressGestureRecognizer *)sender;
 @end
 @interface DashboardView : UIView
 {

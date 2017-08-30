@@ -10,6 +10,7 @@
 @protocol StyleCtouchMoveDelegate <NSObject>
 
 - (void)touchMoveWithcenterX:(CGFloat)centerX WithcenterY:(CGFloat)WithcenterY;
+- (void)tap:(UILongPressGestureRecognizer *)sender;
 
 @end
 

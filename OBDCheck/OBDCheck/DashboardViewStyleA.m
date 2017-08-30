@@ -188,8 +188,14 @@
         [self.layer addSublayer:perLayer];
     }
     [self addDrawFillstartAngle:fillstartAngle FillendAngle:fillEndAngle FillColor:fillColor withRingWidth:RingWidth];
+    UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+    [self addGestureRecognizer:LongPress];
 }
-
+-(void)tap:(UILongPressGestureRecognizer *)sender{
+    if ([self.delegate respondsToSelector:@selector(tap:)]) {
+        [self.delegate tap:sender];
+    }
+}
 // 计算label的坐标
 - (CGPoint)calculateTextPositonWithArcCenter:(CGPoint)center
                                        Angle:(CGFloat)angel radius:(CGFloat)Theradius Rotate:(BOOL)labelRotate{    
@@ -295,6 +301,7 @@
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    NSLog(@"触摸触摸触摸");
     //保存触摸起始点位置
     CGPoint point = [[touches anyObject] locationInView:self];
     startPoint = point;

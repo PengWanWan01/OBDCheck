@@ -55,6 +55,13 @@
     self.FillColor = fillColor;
     [self draw:self.bounds.size.width/2 - (23.0/300)*self.frame.size.width lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:fillColor] startAngle:(M_PI / 2) endAngle: M_PI *3/4-M_PI/18];
     [self adddrawPointColor:PointColor PointWidth:PointWidth Fillenable:fillenable   FillColor:fillColor];
+    UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+    [self addGestureRecognizer:LongPress];
+}
+-(void)tap:(UILongPressGestureRecognizer *)sender{
+    if ([self.delegate respondsToSelector:@selector(tap:)]) {
+        [self.delegate tap:sender];
+    }
 }
 //画指针 圆与三角形
 - (void)adddrawPointColor:(NSString *)PointColor PointWidth:(CGFloat )PointWidth Fillenable:(BOOL)fillenable   FillColor:(NSString *)fillColor{
@@ -237,9 +244,6 @@
     
     //移动view
     self.center = newcenter;
-    if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
-        [self.delegate touchMoveWithcenterX:newcenter.x WithcenterY:newcenter.y];
-        
-    }
+   
 }
 @end

@@ -444,8 +444,10 @@
     switch (switchBtn.tag) {
         case 0:
         {
-        
-        
+            self.ValueVisible = switchBtn.on;
+            [[DashboardSetting sharedInstance].defaults setBool:switchBtn.on forKey:[NSString stringWithFormat:@"StyleCValueVisible%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+            self.ValueVisible = switchBtn.on;
+            [self upDateDashView];
         }
             break;
             

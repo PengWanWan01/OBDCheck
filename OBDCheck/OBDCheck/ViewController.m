@@ -48,6 +48,7 @@
     [super viewDidLoad];
     [self initWithData];
     [self initWithUI];
+    
 
 }
 
