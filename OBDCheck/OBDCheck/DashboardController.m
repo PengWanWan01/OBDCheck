@@ -64,7 +64,7 @@ static dispatch_source_t _timer;
     [super viewDidLoad];
 }
 - (void)startAnimation{
-    NSTimeInterval period = 0.3; //设置时间间隔
+    NSTimeInterval period = 1; //设置时间间隔
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
     dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), period * NSEC_PER_SEC, 0); //每秒执行
@@ -90,6 +90,11 @@ static dispatch_source_t _timer;
             {
                 dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:i+1];
                 dashboardStyleAView.numberLabel.text = _numberArray[i];
+              
+                 NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleAViewTag",_numberArray[i],@"StyleAViewnumber", nil];
+                
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
+
             }
                 break;
             case DashboardStyleTwo:
@@ -222,7 +227,7 @@ static dispatch_source_t _timer;
 
             dashboardStyleAView.infoLabel.text = _LabelNameArray[i];
             dashboardStyleAView.tag = ++DashBoardTag;
-
+    
             [self initWithChangeStyleA:dashboardStyleAView : dashboardStyleAView.tag -1] ;
     }
     //第二页的仪表盘
@@ -242,7 +247,7 @@ static dispatch_source_t _timer;
 - (void)initWithChangeStyleA:(DashboardView *)view :(NSInteger)index{
 
     [scrollView addSubview:view];
-    
+
     CGFloat    diameterResult =   [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"diameterPercent%ld",(long)view.tag]];
     CGFloat  LeftResult =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"LeftPercent%ld",(long)view.tag]];
     CGFloat  TopResult =   [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"TopPercent%ld",(long)view.tag]];
@@ -286,6 +291,7 @@ static dispatch_source_t _timer;
     CGFloat  UnitVerticalPositionResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"UnitVerticalPosition%ld",(long)view.tag]];
     CGFloat   UnitHorizontalPositionResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"UnitHorizontalPosition%ld",(long)view.tag]];
     NSString* infoLabeltextResult = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"infoLabeltext%ld",(long)view.tag]];    //画底盘渐变色
+  
     [dashboardStyleAView addGradientView:@"#18191C" GradientViewWidth:view.frame.size.width];
        //画刻度
     [dashboardStyleAView drawCalibration:0 WithendAngle:2*M_PI WithRingWidth:10.f MAJORTICKSWidth:0 MAJORTICKSLength:15.f MAJORTICKSColor:@"FFFFFF" MINORTICKSWidth:0 MINORTICKSLength:5.f MINORTICKSColor:@"FFFFFF" LABELSVisible:YES Rotate:YES Font:1 OffestTickline:1 InnerColor:@"18191C" TitleColor:@"FE9002" TitleFontScale:1 TitlePosition:1 ValueVisble:YES ValueColor:@"FE9002" ValueFontScale:1 ValuePosition:1 UnitColor:@"FE9002" UnitFontScale:1 UnitVerticalPosition:1 UnitHorizontalPosition:1 PointerVisble:YES PointerWidth:10.f PointerLength: (view.frame.size.width/2) - 15 - 14 PointerColor:@"FE9002" KNOBRadius:10.f KNOBColor:@"FFFFFF" Fillenabled:YES FillstartAngle:0 FillEndAngle:0 FillColor:@"FE9002"];
@@ -300,6 +306,7 @@ static dispatch_source_t _timer;
         
         [view removeFromSuperview];
         dashboardStyleAView  = [[DashboardView alloc]initWithFrame: CGRectMake((LeftResult /100)*MSWidth+PageNumber*MSWidth, (TopResult /100)*MSHeight,(diameterResult /100)*MSWidth,(diameterResult/100)*MSWidth)];
+      
         //画底盘渐变色
         [dashboardStyleAView addGradientView:outerColorResult GradientViewWidth:(diameterResult /100)*MSWidth];
         dashboardStyleAView.delegate = self;
@@ -1236,5 +1243,35 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
      [DashboardSetting sharedInstance].RemoveDashboardNumber = 0;
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+}
+#pragma mark 指针旋转角度
+- (void)rotationWithStartAngle:(CGFloat)StartAngle{
+    CGPoint oldOrigin = dashboardStyleAView.triangleView.frame.origin;
+    dashboardStyleAView.triangleView.layer.anchorPoint = CGPointMake(0.5, 0);
+    CGPoint newOrigin = dashboardStyleAView.triangleView.layer.frame.origin;
+    
+    CGPoint transition;
+    transition.x = newOrigin.x - oldOrigin.x;
+    transition.y = newOrigin.y - oldOrigin.y;
+    
+    dashboardStyleAView.triangleView.center = CGPointMake (dashboardStyleAView.triangleView.center.x - transition.x, dashboardStyleAView.triangleView.center.y - transition.y);
+    //    aaView.transform = CGAffineTransformMakeRotation(M_PI * 0.15 );
+    CABasicAnimation *animation = [CABasicAnimation new];
+    // 设置动画要改变的属性
+    animation.keyPath = @"transform.rotation.z";
+    //animation.fromValue = @(_bgImgV.layer.transform.m11);
+    // 动画的最终属性的值（）
+    animation.toValue = @(StartAngle);
+    // 动画的播放时间
+    animation.duration = 1;
+    // 动画效果慢进慢出
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    // 解决动画结束后回到原始状态的问题
+    animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeForwards;
+    // 将动画添加到视图bgImgV的layer上
+    [dashboardStyleAView.triangleView.layer addAnimation:animation forKey:@"rotation"];
+    
+    
 }
 @end

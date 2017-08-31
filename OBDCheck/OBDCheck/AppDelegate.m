@@ -18,11 +18,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     MyTabBarController *tabbar = [[MyTabBarController alloc]init];
-    
-    
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window setRootViewController:tabbar];
     [self.window makeKeyAndVisible];
+    [UITabBar appearance].backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
+    [UITabBar appearance].tintColor = [ColorTools colorWithHexString:@"#FE9002"];
+//    
     [self clearAllUserDefaultsData];
     
     return YES;

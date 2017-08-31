@@ -16,6 +16,7 @@
     CGFloat _radius; // 外环半径
     NSInteger _dialCount; // 刻度线的个数
     CGFloat _pointerLength; // 指针长度记录
+    
 }
 @end
 
@@ -36,7 +37,37 @@
     _dialCount = 8 * self.dialPieceCount;
     // 添加外环
     self.infoLabeltext = self.infoLabel.text;
+    //注册通知
+    
+
+    _minNumber = 0;
+    _maxNumber = 100;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNewNumber:) name:@"updateNumber"object:nil];
+
+  
+    
     return self;
+}
+- (void)getNewNumber:(NSNotification *)text{
+    
+//    NSLog(@"StyleAViewTagStyleAViewTag==%.f",[text.userInfo[@"StyleAViewTag"] floatValue]);
+
+        if ([text.userInfo[@"StyleAViewTag"] floatValue] == self.tag) {
+//            NSLog(@"StyleAViewnumberStyleAViewnumber%@",text.userInfo[@"StyleAViewnumber"]);
+            [self rotationWithStartAngle:self.StartAngle  WithEndAngle:self.StartAngle+M_PI/6];
+        }
+
+  
+  
+    
+    
+    
+}
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:self];
+    
+
+
 }
 //[ColorTools colorWithHexString:@"18191C"].CGColor
 - (void)addGradientView:(NSString *)gradientColor GradientViewWidth:(CGFloat)gradientViewWidth{
@@ -82,7 +113,7 @@
 //    [self addSubview:self.pointerView];
 //    pointerLength = _radius - MALength - 14;
     
-    [self adddrawPointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor];
+    [self adddrawPointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor withStartAngle:TheAngle];
     
     self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KFontmultiple, (_center.y- 40*KFontmultiple)*titlePosition, 120*KFontmultiple, 30*KFontmultiple)];
     self.titleColor = titleColor;
@@ -148,6 +179,8 @@
     {
     perAngle = (TheendAngle - TheAngle)  / _dialCount;
     }
+   
+   
     for (int i = 0; i<= _dialCount; i++) {
         CGFloat startAngel = (- M_PI + perAngle * i+TheAngle);
         CGFloat endAngel = startAngel + perAngle/10;
@@ -164,10 +197,10 @@
             perLayer.lineWidth = MALength;
             //添加刻度
             CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:(_radius-RingWidth- MALength- 5)*labeloffestTick Rotate:labelRotate];
-            NSString *tickText = [NSString stringWithFormat:@"%d",i * 2];
+            NSString *tickText = [NSString stringWithFormat:@"%ld",((_maxNumber - _minNumber)/8)*(i/5) +_minNumber];
             
             //默认label的大小14 * 14
-            UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake((point.x - 5), (point.y - 5), 14, 14)];
+            UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake((point.x - 15), (point.y - 15), 30, 30)];
             text.text = tickText;
             self.LabelFontScale = labelFontScale;
             self.LabelOffest = labeloffestTick;
@@ -196,7 +229,7 @@
         [self.delegate tap:sender];
     }
 }
-// 计算label的坐标
+#pragma mark // 计算label的坐标
 - (CGPoint)calculateTextPositonWithArcCenter:(CGPoint)center
                                        Angle:(CGFloat)angel radius:(CGFloat)Theradius Rotate:(BOOL)labelRotate{    
     CGFloat x = (Theradius) * cosf(angel);
@@ -207,20 +240,33 @@
 - (void)drawRect:(CGRect)rect {
    
 }
-//画指针 圆与三角形
-- (void)adddrawPointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor{
+#pragma mark 画指针 圆与三角形
+- (void)adddrawPointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor withStartAngle:(CGFloat )TheAngle{
 
-   
     
+    _triangleView= [[UIView alloc]initWithFrame:CGRectMake(((ViewWidth/2) - (pointerWidth/2)), (ViewWidth/2), pointerWidth,pointerLength)];
+    CGPoint oldOrigin = _triangleView.frame.origin;
+    //设置triangleView的角度与开始位置一直
+    _triangleView.layer.anchorPoint = CGPointMake(0.5, 0);
+    CGPoint newOrigin = _triangleView.layer.frame.origin;
+    
+    CGPoint transition;
+    transition.x = newOrigin.x - oldOrigin.x;
+    transition.y = newOrigin.y - oldOrigin.y;
+    
+    _triangleView.center = CGPointMake (_triangleView.center.x - transition.x, _triangleView.center.y - transition.y);
+
+    _triangleView.transform = CGAffineTransformMakeRotation(TheAngle+M_PI/2);
+    [self addSubview:_triangleView];
     // 线的路径 三角形
     UIBezierPath *polygonPath = [UIBezierPath bezierPath];
     
     // 这些点的位置都是相对于所在视图的
     // 起点
-    [polygonPath moveToPoint:CGPointMake(ViewWidth/2,(ViewWidth/2) +pointerLength)];
+    [polygonPath moveToPoint:CGPointMake(pointerWidth/2,pointerLength)];
     // 其他点
-    [polygonPath addLineToPoint:CGPointMake((ViewWidth/2) - pointerWidth/2, ViewWidth/2)];
-    [polygonPath addLineToPoint:CGPointMake((ViewWidth/2) + pointerWidth/2, ViewWidth/2)];
+    [polygonPath addLineToPoint:CGPointMake(0, 0)];
+    [polygonPath addLineToPoint:CGPointMake(pointerWidth, 0)];
     
     [polygonPath closePath]; // 添加一个结尾点和起点相同
     
@@ -230,8 +276,9 @@
     polygonLayer.strokeColor = [ColorTools colorWithHexString:pointerColor].CGColor;
     polygonLayer.path = polygonPath.CGPath;
     polygonLayer.fillColor = [ColorTools colorWithHexString:pointerColor].CGColor; //
-    [self.layer addSublayer:polygonLayer];
-
+    [_triangleView.layer addSublayer:polygonLayer];
+    
+//    [self rotationWithStartAngle:TheAngle];
     //画圆
     CGFloat startAngle = 0; // 开始角度
     CGFloat endAngle = 2*M_PI; // 结束角度
@@ -248,6 +295,36 @@
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_center radius:kNOBRadius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
     circleLayer.path = circlePath.CGPath;
     [self.layer addSublayer:circleLayer];
+}
+#pragma mark 指针旋转角度
+- (void)rotationWithStartAngle:(CGFloat)StartAngle WithEndAngle:(CGFloat)endAngle{
+    CGPoint oldOrigin = _triangleView.frame.origin;
+    _triangleView.layer.anchorPoint = CGPointMake(0.5, 0);
+    CGPoint newOrigin = _triangleView.layer.frame.origin;
+    
+    CGPoint transition;
+    transition.x = newOrigin.x - oldOrigin.x;
+    transition.y = newOrigin.y - oldOrigin.y;
+    
+    _triangleView.center = CGPointMake (_triangleView.center.x - transition.x, _triangleView.center.y - transition.y);
+    //    aaView.transform = CGAffineTransformMakeRotation(M_PI * 0.15 );
+    CABasicAnimation *animation = [CABasicAnimation new];
+    // 设置动画要改变的属性
+    animation.keyPath = @"transform.rotation.z";
+    animation.fromValue = @(self.StartAngle+M_PI/2);
+    // 动画的最终属性的值（）
+    animation.toValue = @(endAngle+M_PI/2);
+    // 动画的播放时间
+    animation.duration = 1;
+    // 动画效果慢进慢出
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    // 解决动画结束后回到原始状态的问题
+    animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeForwards;
+    // 将动画添加到视图bgImgV的layer上
+    [_triangleView.layer addAnimation:animation forKey:@"rotation"];
+    
+    
 }
 - (void)addDrawFillstartAngle:(CGFloat)startAngle FillendAngle:(CGFloat)endAngle FillColor:(NSString *)fillColor withRingWidth:(CGFloat)RingWidth{
    
@@ -298,7 +375,7 @@
             (int)((CGColorGetComponents(color.CGColor))[2]*255.0)];
 }
 
-
+#pragma mark 开始点击
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"触摸触摸触摸");

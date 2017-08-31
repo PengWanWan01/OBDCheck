@@ -82,4 +82,5 @@ typedef NS_ENUM(NSInteger ,SelectStyleElement )
 //FillOter;
 @property (nonatomic,copy) NSString *FillColor; //填充n颜色
 
+
 @end

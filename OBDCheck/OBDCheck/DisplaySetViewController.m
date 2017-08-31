@@ -8,7 +8,7 @@
 
 #import "DisplaySetViewController.h"
 
-@interface DisplaySetViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface DisplaySetViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {
     UITableView *MyTableView;
 }
@@ -128,12 +128,18 @@
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
     cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     if (indexPath.section ==1 ) {
-        UIButton *selectBtn = [[UIButton alloc]initWithFrame:CGRectMake(MSWidth - 120, 0, 100, 44)];
+        UITextField *selectfield = [[UITextField alloc]initWithFrame:CGRectMake(MSWidth - 50, 0, 50, 44)];
         //        selectBtn.backgroundColor = [UIColor redColor];
-        selectBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        [selectBtn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
-        [selectBtn setTitle:@"100" forState:UIControlStateNormal];
-        [cell addSubview:selectBtn];
+        selectfield.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        selectfield.tag = indexPath.row;
+        selectfield.text = @"100";
+        [selectfield setText:@"100"];
+        selectfield.delegate = self;
+        [selectfield setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
+        selectfield.keyboardType = UIKeyboardTypeNumberPad;
+        [selectfield addTarget:self action:@selector(textFieldEditChanged:) forControlEvents:UIControlEventEditingChanged];
+        cell.accessoryView = selectfield;
+        
            }
     if (indexPath.section==2 || indexPath.section ==3 || indexPath.section==4) {
         UIButton *selectBtn = [[UIButton alloc]initWithFrame:CGRectMake(MSWidth - 240, 0, 200, 44)];
@@ -238,7 +244,25 @@
             break;
     }
 }
-
+- (void)textFieldEditChanged:(UITextField *)textField
+{
+    NSLog(@"12121");
+    switch (textField.tag) {
+        case 0:
+        {
+            [[DashboardSetting sharedInstance].defaults setObject:textField.text forKey:[NSString stringWithFormat:@"StyleAMinNumber%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+              NSLog(@"StyleAMinNumberStyleAMinNumber%@", [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleAMinNumber%ld",[DashboardSetting sharedInstance].Dashboardindex]]);
+        }
+            break;
+        case 1:
+        {
+            [[DashboardSetting sharedInstance].defaults setObject:textField.text forKey:[NSString stringWithFormat:@"StyleAMaxNumber%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+        }
+            break;
+        default:
+            break;
+    }
+}
 - (void)selectBtn:(UIButton *)btn{
     switch (btn.tag) {
         case 2:

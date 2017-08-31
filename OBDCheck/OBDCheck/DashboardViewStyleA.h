@@ -15,8 +15,9 @@
 @interface DashboardView : UIView
 {
     CGPoint startPoint;
-    
+   
 }
+@property (nonatomic,strong)   UIView *triangleView ; //指针视图
 
 @property (nonatomic,weak) id<touchMoveDelegate> delegate;
 @property (nonatomic, assign) CGFloat dialLength;
@@ -37,7 +38,7 @@
 @property (nonatomic, strong) UILabel *infoLabel;
 @property (nonatomic,strong)  UILabel  *numberLabel;
 @property (nonatomic,strong)  UILabel  *unitLabel;
-
+@property (nonatomic,strong) NSMutableArray *scaleNumberLabel;
 @property (nonatomic,assign) NSInteger maxNumber;
 @property (nonatomic,assign) NSInteger minNumber;
 

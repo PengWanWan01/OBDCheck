@@ -60,7 +60,6 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 
 //单例模式，实例化对象
 +(instancetype )sharedInstance;
-- (instancetype)init;
 //设置一个属性
 -(BOOL)SetAttribute:(CGFloat)Value Key:(NSString *)key;
 //获取一个属性值

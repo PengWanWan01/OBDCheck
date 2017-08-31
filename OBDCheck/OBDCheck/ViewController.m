@@ -35,11 +35,10 @@
 //}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = NO;
+    self.tabBarController.tabBar.hidden = YES;
 //    [self setStatusBarBackgroundColor:[UIColor blackColor]];
      [UIApplication sharedApplication].statusBarStyle=UIStatusBarStyleLightContent;
      self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
-    //ColorTools colorWithHexString:@"#212329"
     [self initNavBarTitle:@"" andLeftItemImageName:@"Upload" andRightItemImageName:@"help"];
    
 
@@ -48,7 +47,7 @@
     [super viewDidLoad];
     [self initWithData];
     [self initWithUI];
-    
+   
 
 }
 
@@ -96,7 +95,48 @@
         NSLog(@"%f",btn.frame.size.width);
     }
         [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(EveryViewtap)] ];
-
+    for (NSInteger i = 0; i< 3; i++) {
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(MSWidth/3), MSHeight - 45*KHeightmultiple-64,MSWidth/3 , 45*KHeightmultiple)];
+        [btn setBackgroundImage: [UIImage imageNamed:_normalImage[i]] forState:UIControlStateNormal];
+        
+        btn.tag = i;
+        [btn.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        if (i==0) {
+            [btn setBackgroundImage: [UIImage imageNamed:_selectImage[i]] forState:UIControlStateNormal];
+        }
+        [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.view addSubview:btn];
+    }
+    
+}
+- (void)Selectbtn:(UIButton *)btn{
+    switch (btn.tag) {
+        case 0:
+        {
+            ViewController *vc = [[ViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+            
+        }
+            break;
+        case 1:
+        {
+            SpecialViewController *vc = [[SpecialViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+            
+        }
+            break;
+        case 2:
+        {
+            PersonalViewController *vc = [[PersonalViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+            
+        }
+            break;
+        default:
+            break;
+    }
 }
 -(void)initWithData{
     self.btnImageArray = [[NSMutableArray alloc]initWithObjects:@"dashboards",@"diagnostics",@"montiors",@"logs",@"performance",@"settings", nil];
@@ -124,6 +164,7 @@
             break;
         case 1:{
             DiagController *vc = [[DiagController alloc]init];
+           
             [self.navigationController pushViewController:vc animated:NO];
         }
             break;

@@ -30,6 +30,10 @@
 		CB82247F1F46F30000E1E4BA /* HUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB82247E1F46F30000E1E4BA /* HUDView.m */; };
 		CB848F151F4542F700C1A718 /* DecimalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB848F141F4542F700C1A718 /* DecimalViewController.m */; };
 		CB848F181F45434E00C1A718 /* MultiplierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB848F171F45434E00C1A718 /* MultiplierViewController.m */; };
+		CB84B3CD1F56A7D500B454E6 /* FreezeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB84B3CC1F56A7D500B454E6 /* FreezeViewController.m */; };
+		CB84B3D01F56A7EB00B454E6 /* ReadinessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB84B3CF1F56A7EB00B454E6 /* ReadinessViewController.m */; };
+		CB84B3D31F56A7FF00B454E6 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB84B3D21F56A7FF00B454E6 /* ReportViewController.m */; };
+		CB84B3E01F56DF0800B454E6 /* rotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB84B3DF1F56DF0800B454E6 /* rotationView.m */; };
 		CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB97176E1F32C110009C47FD /* OBDBtn.m */; };
 		CB9717721F32D595009C47FD /* UILabel+Dxfont.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9717711F32D595009C47FD /* UILabel+Dxfont.m */; };
 		CB9717751F332515009C47FD /* RLBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9717741F332515009C47FD /* RLBtn.m */; };
@@ -115,6 +119,14 @@
 		CB848F141F4542F700C1A718 /* DecimalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecimalViewController.m; sourceTree = "<group>"; };
 		CB848F161F45434E00C1A718 /* MultiplierViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiplierViewController.h; sourceTree = "<group>"; };
 		CB848F171F45434E00C1A718 /* MultiplierViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiplierViewController.m; sourceTree = "<group>"; };
+		CB84B3CB1F56A7D500B454E6 /* FreezeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreezeViewController.h; sourceTree = "<group>"; };
+		CB84B3CC1F56A7D500B454E6 /* FreezeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreezeViewController.m; sourceTree = "<group>"; };
+		CB84B3CE1F56A7EB00B454E6 /* ReadinessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadinessViewController.h; sourceTree = "<group>"; };
+		CB84B3CF1F56A7EB00B454E6 /* ReadinessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadinessViewController.m; sourceTree = "<group>"; };
+		CB84B3D11F56A7FF00B454E6 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportViewController.h; sourceTree = "<group>"; };
+		CB84B3D21F56A7FF00B454E6 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportViewController.m; sourceTree = "<group>"; };
+		CB84B3DE1F56DF0800B454E6 /* rotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rotationView.h; sourceTree = "<group>"; };
+		CB84B3DF1F56DF0800B454E6 /* rotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rotationView.m; sourceTree = "<group>"; };
 		CB97176D1F32C110009C47FD /* OBDBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDBtn.h; sourceTree = "<group>"; };
 		CB97176E1F32C110009C47FD /* OBDBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBDBtn.m; sourceTree = "<group>"; };
 		CB9717701F32D595009C47FD /* UILabel+Dxfont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Dxfont.h"; sourceTree = "<group>"; };
@@ -325,6 +337,37 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		CB84B3C71F56A50A00B454E6 /* common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
+		CB84B3DA1F56DEAD00B454E6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CB84B3DE1F56DF0800B454E6 /* rotationView.h */,
+				CB84B3DF1F56DF0800B454E6 /* rotationView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		CB84B3E11F56EC1900B454E6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E2711F30689B00EEC755 /* DiagController.h */,
+				CBF1E2721F30689B00EEC755 /* DiagController.m */,
+				CB84B3CB1F56A7D500B454E6 /* FreezeViewController.h */,
+				CB84B3CC1F56A7D500B454E6 /* FreezeViewController.m */,
+				CB84B3CE1F56A7EB00B454E6 /* ReadinessViewController.h */,
+				CB84B3CF1F56A7EB00B454E6 /* ReadinessViewController.m */,
+				CB84B3D11F56A7FF00B454E6 /* ReportViewController.h */,
+				CB84B3D21F56A7FF00B454E6 /* ReportViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		CB9B28611F3416BB00CD8C84 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,8 +522,9 @@
 		CBF1E25D1F30675800EEC755 /* Diagnostics */ = {
 			isa = PBXGroup;
 			children = (
-				CBF1E2711F30689B00EEC755 /* DiagController.h */,
-				CBF1E2721F30689B00EEC755 /* DiagController.m */,
+				CB84B3C71F56A50A00B454E6 /* common */,
+				CB84B3DA1F56DEAD00B454E6 /* View */,
+				CB84B3E11F56EC1900B454E6 /* Controller */,
 			);
 			name = Diagnostics;
 			sourceTree = "<group>";
@@ -738,15 +782,18 @@
 				CBEBF1CC1F3B0E3F006CCA8B /* SelectStyleViewController.m in Sources */,
 				CBF334641F4B0FE6003C0548 /* ILColorPickerView.m in Sources */,
 				CBF1E24C1F30262E00EEC755 /* MyTabBarController.m in Sources */,
+				CB84B3D31F56A7FF00B454E6 /* ReportViewController.m in Sources */,
 				CBEBF1D51F3B2804006CCA8B /* DisplaySetViewController.m in Sources */,
 				CB82247C1F46EEC400E1E4BA /* HUDViewController.m in Sources */,
 				CB848F181F45434E00C1A718 /* MultiplierViewController.m in Sources */,
 				CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */,
+				CB84B3D01F56A7EB00B454E6 /* ReadinessViewController.m in Sources */,
 				CBF334671F4B0FFC003C0548 /* UIColor+GetHSB.m in Sources */,
 				CB9717721F32D595009C47FD /* UILabel+Dxfont.m in Sources */,
 				CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */,
 				CB0220891F43E9CC008773ED /* DashboardSetting.m in Sources */,
 				CB5583631F5146B70010A1E5 /* StyleCViewController.m in Sources */,
+				CB84B3CD1F56A7D500B454E6 /* FreezeViewController.m in Sources */,
 				CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */,
 				CBF1E2891F30796400EEC755 /* ColorTools.m in Sources */,
 				CBEBF1C91F3AF343006CCA8B /* editDashboardsView.m in Sources */,
@@ -762,6 +809,7 @@
 				CBF1E2731F30689B00EEC755 /* DiagController.m in Sources */,
 				CBF1E2511F30293100EEC755 /* PersonalViewController.m in Sources */,
 				CB848F151F4542F700C1A718 /* DecimalViewController.m in Sources */,
+				CB84B3E01F56DF0800B454E6 /* rotationView.m in Sources */,
 				CBF1E2281F2ED49200EEC755 /* main.m in Sources */,
 				CBF1E27C1F3068ED00EEC755 /* SetViewController.m in Sources */,
 				CB0220851F42FE8E008773ED /* SelectModeViewController.m in Sources */,

@@ -28,6 +28,7 @@
 #define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
 #define  LabelFontSize  15
 #define KFontmultiple MSWidth/375
+#define Kwidthmultiple MSWidth/375
 #define KHeightmultiple MSHeight/667
 #define KMultipleC   ViewWidth/320
 
@@ -83,5 +84,9 @@
 #import "TabbarView.h"
 #import "StyleViewBController.h"
 #import "StyleCViewController.h"
+#import "FreezeViewController.h"
+#import "ReadinessViewController.h"
+#import "ReportViewController.h"
+#import "rotationView.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

@@ -26,28 +26,35 @@
     UIGraphicsEndImageContext();
     [self.tabBar setBackgroundImage:img];
     [self.tabBar setShadowImage:img];
-    
-    //obd_normal",@"special_normal",@"personal_normal
-    ViewController *vc1 = [[ViewController alloc]init];
-    vc1.tabBarItem.selectedImage=[[UIImage imageNamed:@"obd_highlight"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    vc1.tabBarItem.image= [[UIImage imageNamed:@"obd_normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    vc1.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 3, -6, -3);
-    UINavigationController *nav1 = [[UINavigationController alloc]initWithRootViewController:vc1];
-    
-    SpecialViewController *vc2 = [[SpecialViewController alloc]init];
-    vc2.tabBarItem.selectedImage=[[UIImage imageNamed:@"special_highlight"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    vc2.tabBarItem.image= [[UIImage imageNamed:@"special_normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    vc2.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 3, -6, -3);
 
-    UINavigationController *nav2 = [[UINavigationController alloc]initWithRootViewController:vc2];
-    
-    PersonalViewController *vc3 = [[PersonalViewController alloc]init];
-    vc3.tabBarItem.selectedImage=[[UIImage imageNamed:@"personal_highlight"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    vc3.tabBarItem.image= [[UIImage imageNamed:@"personal_normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    vc3.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 3, -6, -3);
-    UINavigationController *nav3 = [[UINavigationController alloc]initWithRootViewController:vc3];
-    
-    self.viewControllers = @[nav1,nav2,nav3];
+            ViewController *vc1 = [[ViewController alloc]init];
+            vc1.tabBarItem.selectedImage=[[UIImage imageNamed:@"troubleCode_highLight@"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            vc1.tabBarItem.image= [[UIImage imageNamed:@"troubleCode_normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            vc1.tabBarItem.title = @"trouble Codes";
+   
+
+            UINavigationController *nav1 = [[UINavigationController alloc]initWithRootViewController:vc1];
+            
+            FreezeViewController *vc2 = [[FreezeViewController alloc]init];
+            vc2.tabBarItem.selectedImage=[[UIImage imageNamed:@"Freeze_highlight"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            vc2.tabBarItem.image= [[UIImage imageNamed:@"freeze_normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            vc2.tabBarItem.title = @"Freeze Frame";
+            UINavigationController *nav2 = [[UINavigationController alloc]initWithRootViewController:vc2];
+            
+            ReadinessViewController *vc3 = [[ReadinessViewController alloc]init];
+            vc3.tabBarItem.selectedImage=[[UIImage imageNamed:@"readiness_highLight"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            vc3.tabBarItem.image= [[UIImage imageNamed:@"readiness_normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            vc3.tabBarItem.title  = @"Readiness Test";
+            UINavigationController *nav3 = [[UINavigationController alloc]initWithRootViewController:vc3];
+            
+            ReportViewController *vc4 = [[ReportViewController alloc]init];
+            vc4.tabBarItem.selectedImage=[[UIImage imageNamed:@"report_highLight"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            vc4.tabBarItem.image= [[UIImage imageNamed:@"report_normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            vc4.tabBarItem.title  = @"Report";
+            UINavigationController *nav4 = [[UINavigationController alloc]initWithRootViewController:vc4];
+            
+            self.viewControllers = @[nav1,nav2,nav3,nav4];
+  
     
   }
 

@@ -22,6 +22,7 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorColor = [ColorTools colorWithHexString:@"#212329"];
+     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
     [self.view addSubview:self.tableView];
     
 }
@@ -30,14 +31,18 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return self.dataSource.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44.f;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL"];
-    return cell;
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];
+    }
+    cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+       return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 34.f;
