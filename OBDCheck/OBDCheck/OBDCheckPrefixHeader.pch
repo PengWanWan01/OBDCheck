@@ -88,5 +88,7 @@
 #import "ReadinessViewController.h"
 #import "ReportViewController.h"
 #import "rotationView.h"
+#import "DiagnosticsTableViewCell.h"
+#import "HistoryViewController.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

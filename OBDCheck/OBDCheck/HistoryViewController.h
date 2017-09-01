@@ -1,5 +1,5 @@
 //
-//  ReadinessViewController.h
+//  HistoryViewController.h
 //  OBDCheck
 //
 //  Created by yutaozhao on 2017/9/1.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ReadinessViewController : BasicViewController
+@interface HistoryViewController : UIViewController
 
 @end

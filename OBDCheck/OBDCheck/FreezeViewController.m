@@ -9,6 +9,8 @@
 #import "FreezeViewController.h"
 
 @interface FreezeViewController ()
+@property(nonatomic,strong)NSMutableArray *FreezeDataDTCsource;
+@property(nonatomic,strong)NSMutableArray *FreezeDatasource;
 
 @end
 
@@ -26,6 +28,10 @@
 }
 - (void)initWithData{
     self.dataSource = [[NSMutableArray alloc]initWithObjects:@"FREEZE FRAME DTC",@"FREEZE FRAME", nil];
+    self.FreezeDataDTCsource = [[NSMutableArray alloc]initWithObjects:@"P0103",nil];
+    //MIL on,# Trouble codes4,Misfire: Available=False
+    self.FreezeDatasource = [[NSMutableArray alloc]initWithObjects:@"MIL on,# Trouble codes4,Misfire: Available=False",nil];
+
 }
 - (void)back{
     ViewController *vc = [[ViewController alloc
@@ -37,6 +43,20 @@
     return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    switch (section) {
+        case 0:
+        {
+            return _FreezeDataDTCsource.count;
+        }
+            break;
+        case 1:
+        {
+            return _FreezeDatasource.count;
+        }
+            break;
+        default:
+            break;
+    }
     return 1;
 }
 
@@ -44,12 +64,12 @@
     return 44.f;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 44.f)];
+    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, MSWidth, 24.f)];
     headView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 44.f)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, MSWidth, 24.f)];
     label.text = self.dataSource[section];
     label.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
-    label.font = [UIFont ToAdapFont:12.f];
+    label.font = [UIFont boldSystemFontOfSize:14.f];
     [headView addSubview:label];
     return headView;
     
@@ -61,7 +81,29 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];
+    }
     cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+    switch (indexPath.section) {
+        case 0:
+        {
+            cell.textLabel.text= _FreezeDataDTCsource[indexPath.row];
+            cell.imageView.image = [UIImage imageNamed:@"troubleCode_highLight"];
+        }
+            break;
+        case 1:
+        {
+            cell.textLabel.text= _FreezeDatasource[indexPath.row];
+            cell.textLabel.numberOfLines = 0;
+        }
+            break;
+       
+        default:
+            break;
+    }
     return cell;
 }
 
