@@ -44,10 +44,19 @@
     _maxNumber = 100;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNewNumber:) name:@"updateNumber"object:nil];
 
-  
-    
+     
     return self;
 }
+- (void)setNeedsDisplay{
+    [super setNeedsDisplay];
+    
+    if ([DashboardSetting sharedInstance].isDashboardFont == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag){
+        //该view置于最前
+          NSLog(@"动态改变%ld ,Dashboardindex=%ld",self.tag,[DashboardSetting sharedInstance].Dashboardindex);
+        [[self superview] bringSubviewToFront:self];
+    }
+}
+
 - (void)getNewNumber:(NSNotification *)text{
     
 //    NSLog(@"StyleAViewTagStyleAViewTag==%.f",[text.userInfo[@"StyleAViewTag"] floatValue]);
@@ -57,11 +66,6 @@
             [self rotationWithStartAngle:self.StartAngle  WithEndAngle:self.StartAngle+M_PI/6];
         }
 
-  
-  
-    
-    
-    
 }
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:self];
@@ -134,7 +138,7 @@
     self.FillColor = fillColor;
     self.infoLabel.textColor = [ColorTools colorWithHexString:titleColor];
     self.infoLabel.textAlignment = NSTextAlignmentCenter;
-    self.infoLabel.text = @"50";
+    self.infoLabel.text = @"title";
     self.infoLabel.font = [UIFont ToAdapFont:titleFontScale*16.f];
     [self addSubview:self.infoLabel];
     
@@ -223,6 +227,9 @@
     [self addDrawFillstartAngle:fillstartAngle FillendAngle:fillEndAngle FillColor:fillColor withRingWidth:RingWidth];
     UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:LongPress];
+    [self setNeedsDisplay];
+    
+
 }
 -(void)tap:(UILongPressGestureRecognizer *)sender{
     if ([self.delegate respondsToSelector:@selector(tap:)]) {
@@ -379,17 +386,24 @@
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"触摸触摸触摸");
+     NSLog(@"%ld ,%ld",(long)[DashboardSetting sharedInstance].Dashboardindex ,(long)self.tag);
     //保存触摸起始点位置
+    if ([DashboardSetting sharedInstance].isDashboardMove == YES && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
+        
+    
     CGPoint point = [[touches anyObject] locationInView:self];
     startPoint = point;
     
     //该view置于最前
     [[self superview] bringSubviewToFront:self];
+    }
 }
 
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+
     //计算位移=当前位置-起始位置
+      if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
     CGPoint point = [[touches anyObject] locationInView:self];
     float dx = point.x - startPoint.x;
     float dy = point.y - startPoint.y;
@@ -413,13 +427,13 @@
     
     //移动view
     self.center = newcenter;
-//    if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
-//        [self.delegate touchMoveWithcenterX:newcenter.x WithcenterY:newcenter.y];
-//        
-//    }
+      }
+
 }
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self touchesCancelled:touches withEvent:event];
 
+      if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
     //计算位移=当前位置-起始位置
     CGPoint point = [[touches anyObject] locationInView:self];
     float dx = point.x - startPoint.x;
@@ -441,12 +455,28 @@
     float halfy = CGRectGetMidY(self.bounds);
     newcenter.y = MAX(halfy, newcenter.y);
     newcenter.y = MIN(self.superview.bounds.size.height - halfy, newcenter.y);
+          startPoint = newcenter;
+          //移动view
+          self.center = newcenter;
+          [DashboardSetting sharedInstance].isDashboardMove = NO;
+          
+          if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
+              [self.delegate touchMoveWithcenterX:startPoint.x WithcenterY:startPoint.y];
+              //移动view
+          }
+  }
     
-    //移动view
-    self.center = newcenter;
+}
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesEnded:touches withEvent:event];
+      if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
+    [DashboardSetting sharedInstance].isDashboardMove = NO;
+    
     if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
-        [self.delegate touchMoveWithcenterX:newcenter.x WithcenterY:newcenter.y];
-        
+        [self.delegate touchMoveWithcenterX:startPoint.x WithcenterY:startPoint.y];
+        //移动view
     }
+      }
+
 }
 @end

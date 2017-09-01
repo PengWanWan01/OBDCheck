@@ -101,6 +101,8 @@ static dispatch_source_t _timer;
             {
                 dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:i+1];
                 dashboardStyleBView.NumberLabel.text = _numberArray[i];
+                NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleBViewTag",_numberArray[i],@"StyleBViewnumber", nil];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"StyleBupdateNumber" object:nil userInfo:dict];
             }
                 break;
             case DashboardStyleThree:
@@ -321,16 +323,14 @@ static dispatch_source_t _timer;
  
     [self ReMoveDashboard:(long)view.tag];
     
-    //让仪表盘到最前面
-    if ([DashboardSetting sharedInstance].Dashboardindex == index &&  [DashboardSetting sharedInstance].isDashboardFont == YES ) {
-        NSLog(@"dddd%ld",(long)index);
-//      DashboardView  *view = (DashboardView *)[scrollView viewWithTag:index];
-//         [[view superview] bringSubviewToFront:view];
-        //该view置于最前
-        [[dashboardStyleAView superview] bringSubviewToFront:dashboardStyleAView];
-        [DashboardSetting sharedInstance].isDashboardFont = NO;
-        
-    }
+//    //让仪表盘到最前面
+//    if ([DashboardSetting sharedInstance].Dashboardindex == view.tag &&  [DashboardSetting sharedInstance].isDashboardFont == YES ) {
+//        NSLog(@"dddd%ld",view.tag);
+//      dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:view.tag];
+//        [scrollView bringSubviewToFront:dashboardStyleAView];
+//        [DashboardSetting sharedInstance].isDashboardFont = NO;
+//        
+//    }
     
     [self MoveDashboard:(long)view.tag];
    
@@ -365,7 +365,7 @@ static dispatch_source_t _timer;
    
 }
 - (void)initWithChangeStyleB:(DashboardViewStyleB *)view :(NSInteger)index{
-    [scrollView addSubview:view];
+    [scrollView addSubview:dashboardStyleBView];
     [view drawgradient:@"00a6ff" GradientRadius:1.f TitlteColor:@"#757476" TitlteFontScale:1 TitlePositon:1 ValueVisible:YES Valuecolor:@"#FFFFFF" ValueFontScale:1 ValuePositon:1 UnitColor:@"#757476" UnitFontScale:1 UnitPositon:1 PointColor:@"FFFFFF" PointWidth:5 Fillenable:YES FillColor:@"00a6ff"];
     view.delegate = self;
     //StyleB
@@ -412,7 +412,7 @@ static dispatch_source_t _timer;
         dashboardStyleBView.tag = TapIndex;
     }
     [scrollView addSubview:dashboardStyleBView];
-   
+    dashboardStyleBView.delegate = self;
     
     //让仪表盘到最前面
     if ([DashboardSetting sharedInstance].Dashboardindex == index &&  [DashboardSetting sharedInstance].isDashboardFont == YES ) {
@@ -422,8 +422,9 @@ static dispatch_source_t _timer;
         [DashboardSetting sharedInstance].isDashboardFont = NO;
         
     }
-        [self MoveDashboard:(long)view.tag];
     [self ReMoveDashboard:(long)view.tag];
+    
+    [self MoveDashboard:(long)view.tag];
 }
 
 - (void)initWithStyleC{
@@ -436,7 +437,6 @@ static dispatch_source_t _timer;
        
         dashboardStyleCView.tag = ++DashBoardTag;
         [self initWithChangeStyleC:dashboardStyleCView :dashboardStyleCView.tag -1];
-  
     }
     //第二页的仪表盘
     for (NSInteger i = 0; i< 2; i++) {
@@ -500,8 +500,6 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
         dashboardStyleCView.NumberLabel.text = _numberArray[TapIndex-1];
     }
     [scrollView addSubview:dashboardStyleCView];
-
-    [scrollView addSubview:dashboardStyleCView];
   
   
     //让仪表盘到最前面
@@ -512,18 +510,10 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
         [DashboardSetting sharedInstance].isDashboardFont = NO;
         
     }
-    //让仪表盘移动
-    if ([DashboardSetting sharedInstance].Dashboardindex == index &&  [DashboardSetting sharedInstance].isDashboardMove == YES ) {
-        NSLog(@"CCC");
-        dashboardStyleCView.backgroundColor = [UIColor goldColor];
-        scrollView.userInteractionEnabled = NO;
-        [DashboardSetting sharedInstance].isDashboardMove = NO;
-        
-    }else{
-        scrollView.userInteractionEnabled = YES;
-    }
-     [self MoveDashboard:(long)view.tag];
+   
     [self ReMoveDashboard:(long)view.tag];
+    [self MoveDashboard:(long)view.tag];
+
 
 }
 #pragma mark 保存添加的仪表盘
@@ -584,7 +574,7 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
 
     if ([DashboardSetting sharedInstance].RemoveDashboardNumber > 0) {
         for (NSInteger i = 1; i<=[DashboardSetting sharedInstance].RemoveDashboardNumber; i++) {
-            NSInteger removeIndex =    [[[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"removeTag%ld",(long)i] ] integerValue] ;
+            NSInteger removeIndex =    [[DashboardSetting sharedInstance].defaults integerForKey:[NSString stringWithFormat:@"removeTag%ld",(long)i] ] ;
             if (indexTag == removeIndex) {
                 
                 switch ([DashboardSetting sharedInstance].dashboardStyle) {
@@ -1021,13 +1011,13 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
     if ([DashboardSetting sharedInstance].Dashboardindex == indexTag &&  [DashboardSetting sharedInstance].isDashboardMove == YES ) {
         NSLog(@"CCC");
         scrollView.scrollEnabled = NO;
-        [DashboardSetting sharedInstance].isDashboardMove = NO;
 
         switch ([DashboardSetting sharedInstance ].dashboardStyle) {
             case DashboardStyleOne:
             {
                 coverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, dashboardStyleAView.frame.size.width, dashboardStyleAView.frame.size.width)];
                 coverView.backgroundColor = [ColorTools colorWithHexString:@"#FE9002"];
+                dashboardStyleAView.userInteractionEnabled = YES;
                 coverView.alpha = 0.2;
                 [dashboardStyleAView addSubview:coverView];
             }
@@ -1035,6 +1025,7 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
             case DashboardStyleTwo :
             {
                 coverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, dashboardStyleBView.frame.size.width, dashboardStyleBView.frame.size.width)];
+                 dashboardStyleBView.userInteractionEnabled = YES;
                 coverView.backgroundColor = [ColorTools colorWithHexString:@"#FE9002"];
                  coverView.alpha = 0.2;
                 [dashboardStyleBView addSubview:coverView];
@@ -1043,6 +1034,8 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
             case DashboardStyleThree:
             {
                 coverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, dashboardStyleCView.frame.size.width, dashboardStyleCView.frame.size.width)];
+                dashboardStyleCView.userInteractionEnabled = YES;
+
                 coverView.backgroundColor = [ColorTools colorWithHexString:@"#FE9002"];
                 coverView.alpha = 0.2;
                 [dashboardStyleCView addSubview:coverView];

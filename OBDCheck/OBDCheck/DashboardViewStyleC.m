@@ -15,8 +15,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.userInteractionEnabled = YES;
-      
+        
     }
     return self;
 }
@@ -83,16 +82,20 @@
 }
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    NSLog(@"触摸触摸触摸");
+    if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
     //保存触摸起始点位置
     CGPoint point = [[touches anyObject] locationInView:self];
     startPoint = point;
     
     //该view置于最前
     [[self superview] bringSubviewToFront:self];
+    }
 }
 
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+     if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
     //计算位移=当前位置-起始位置
     CGPoint point = [[touches anyObject] locationInView:self];
     float dx = point.x - startPoint.x;
@@ -117,13 +120,12 @@
     
     //移动view
     self.center = newcenter;
-    //    if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
-    //        [self.delegate touchMoveWithcenterX:newcenter.x WithcenterY:newcenter.y];
-    //
-    //    }
+     }
+ 
 }
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
+     if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
     //计算位移=当前位置-起始位置
     CGPoint point = [[touches anyObject] locationInView:self];
     float dx = point.x - startPoint.x;
@@ -148,9 +150,23 @@
     
     //移动view
     self.center = newcenter;
-    if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
-        [self.delegate touchMoveWithcenterX:newcenter.x WithcenterY:newcenter.y];
+         [DashboardSetting sharedInstance].isDashboardMove = NO;
+         
+         if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
+             [self.delegate touchMoveWithcenterX:startPoint.x WithcenterY:startPoint.y];
+             //移动view
+         }
+     }
+}
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesEnded:touches withEvent:event];
+    if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
+        [DashboardSetting sharedInstance].isDashboardMove = NO;
         
+        if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
+            [self.delegate touchMoveWithcenterX:startPoint.x WithcenterY:startPoint.y];
+            //移动view
+        }
     }
 }
 @end

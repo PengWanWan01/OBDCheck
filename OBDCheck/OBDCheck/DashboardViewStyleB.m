@@ -25,10 +25,25 @@
         self.contentMode = UIViewContentModeScaleAspectFill;
         _center = CGPointMake(ViewWidth / 2, ViewWidth / 2);
 
-      
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNewNumber:) name:@"StyleBupdateNumber"object:nil];
         
+
     }
     return self;
+}
+- (void)getNewNumber:(NSNotification *)text{
+    
+    //    NSLog(@"StyleAViewTagStyleAViewTag==%.f",[text.userInfo[@"StyleAViewTag"] floatValue]);
+    
+    if ([text.userInfo[@"StyleBViewTag"] floatValue] == self.tag) {
+        //            NSLog(@"StyleAViewnumberStyleAViewnumber%@",text.userInfo[@"StyleAViewnumber"]);
+        [self rotateImageView];
+    }
+
+}
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:self];
+ 
 }
 - (void)drawgradient:(NSString *)backViewColor GradientRadius:(CGFloat)gradientRadius TitlteColor:(NSString *)titlteColor TitlteFontScale:(CGFloat )titlteFontScale TitlePositon:(CGFloat)titlePositon ValueVisible:(BOOL )valueVisible Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon PointColor:(NSString *)PointColor PointWidth:(CGFloat )PointWidth Fillenable:(BOOL)fillenable  FillColor:(NSString *)fillColor{
     //添加渐变色
@@ -63,21 +78,66 @@
         [self.delegate tap:sender];
     }
 }
-//画指针 圆与三角形
+#pragma mark画指针 圆与三角形
+- (void)rotateImageView {
+    CGPoint oldOrigin = _triangleView.frame.origin;
+    //设置triangleView的角度与开始位置一直
+    _triangleView.layer.anchorPoint = CGPointMake(0.5, 1);
+    CGPoint newOrigin = _triangleView.layer.frame.origin;
+    
+    CGPoint transition;
+    transition.x = newOrigin.x - oldOrigin.x;
+    transition.y = newOrigin.y - oldOrigin.y;
+    
+    _triangleView.center = CGPointMake (_triangleView.center.x - transition.x, _triangleView.center.y - transition.y);
+    CABasicAnimation *animation = [CABasicAnimation new];
+    // 设置动画要改变的属性
+    animation.keyPath = @"transform.rotation.z";
+    animation.fromValue = @(-M_PI/2-M_PI/4);
+    // 动画的最终属性的值（）
+    animation.toValue = @(-M_PI/2);
+    // 动画的播放时间
+    animation.duration = 1;
+//    animation.repeatCount = 1;
+
+    // 动画效果慢进慢出
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    // 解决动画结束后回到原始状态的问题
+    animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeForwards;
+    // 将动画添加到视图bgImgV的layer上
+    [_triangleView.layer addAnimation:animation forKey:@"rotation"];
+
+}
 - (void)adddrawPointColor:(NSString *)PointColor PointWidth:(CGFloat )PointWidth Fillenable:(BOOL)fillenable   FillColor:(NSString *)fillColor{
     
+    _triangleView = [[UIView alloc]initWithFrame:CGRectMake(ViewWidth/2 - 30*KMultipleB/2, 7*KMultipleB, 30*KMultipleB, (ViewWidth/2)-7*KMultipleB)];
+//    _triangleView.backgroundColor = [UIColor redColor];
+    CGPoint oldOrigin = _triangleView.frame.origin;
+    //设置triangleView的角度与开始位置一直
+    _triangleView.layer.anchorPoint = CGPointMake(0.5, 1);
+    CGPoint newOrigin = _triangleView.layer.frame.origin;
     
+    CGPoint transition;
+    transition.x = newOrigin.x - oldOrigin.x;
+    transition.y = newOrigin.y - oldOrigin.y;
     
+    _triangleView.center = CGPointMake (_triangleView.center.x - transition.x, _triangleView.center.y - transition.y);
+    
+    _triangleView.transform = CGAffineTransformMakeRotation(-M_PI/2-M_PI/4);
+    
+    [self addSubview:_triangleView];
+
     // 线的路径 三角形
     UIBezierPath *polygonPath = [UIBezierPath bezierPath];
     
 
     self.pointerColor = PointColor;
 
-    [polygonPath moveToPoint:CGPointMake(_center.x, (43.0*KMultipleB/2) + 7)];
+    [polygonPath moveToPoint:CGPointMake(15*KMultipleB, 36.0*KMultipleB/2)];
     // 其他点
-    [polygonPath addLineToPoint:CGPointMake(_center.x - 14/2, 7)];
-    [polygonPath addLineToPoint:CGPointMake(_center.x  + 14/2, 7)];
+    [polygonPath addLineToPoint:CGPointMake(0, 0)];
+    [polygonPath addLineToPoint:CGPointMake(30*KMultipleB, 0)];
     
     [polygonPath closePath]; // 添加一个结尾点和起点相同
     
@@ -87,14 +147,14 @@
     polygonLayer.strokeColor = [ColorTools colorWithHexString:PointColor].CGColor;
     polygonLayer.path = polygonPath.CGPath;
     polygonLayer.fillColor = [ColorTools colorWithHexString:PointColor].CGColor; //
-    [self.layer addSublayer:polygonLayer];
+    [_triangleView.layer addSublayer:polygonLayer];
     //画直线
     // 线的路径
     UIBezierPath *linePath = [UIBezierPath bezierPath];
     // 起点
-    [linePath moveToPoint:CGPointMake(_center.x, (43.0*KMultipleB/2) + 7)];
+    [linePath moveToPoint:CGPointMake(15*KMultipleB, 36.0*KMultipleB/2)];
     // 其他点
-    [linePath addLineToPoint:CGPointMake(_center.x, 43.0*KMultipleB)];
+    [linePath addLineToPoint:CGPointMake(15*KMultipleB, 36.0*KMultipleB)];
     
     CAShapeLayer *lineLayer = [CAShapeLayer layer];
     
@@ -103,9 +163,10 @@
     lineLayer.path = linePath.CGPath;
     lineLayer.fillColor = nil; // 默认为blackColor
     
-    [self.layer addSublayer:lineLayer];
+    [_triangleView.layer addSublayer:lineLayer];
     
 }
+
 - (void)addmiddle:(NSString *)titlteColor TitlteFontScale:(CGFloat )titlteFontScale TitlePositon:(CGFloat)titlePositon ValueVisible:(BOOL )valueVisible Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon {
     
     UIImageView *innerimage = [[UIImageView alloc]initWithFrame:CGRectMake(43.0*KMultipleB, 43.0*KMultipleB, self.bounds.size.width - 86.0*KMultipleB,  self.bounds.size.width - 86.0*KMultipleB)];
@@ -179,16 +240,23 @@
 }
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [super touchesBegan:touches withEvent:event];
+    NSLog(@"触摸触摸触摸");
+     if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
     //保存触摸起始点位置
     CGPoint point = [[touches anyObject] locationInView:self];
     startPoint = point;
     
     //该view置于最前
     [[self superview] bringSubviewToFront:self];
+     }
 }
 
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [super touchesMoved:touches withEvent:event];
+     NSLog(@"移动触摸触摸触摸1");
+    if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
     //计算位移=当前位置-起始位置
     CGPoint point = [[touches anyObject] locationInView:self];
     float dx = point.x - startPoint.x;
@@ -213,13 +281,13 @@
     
     //移动view
     self.center = newcenter;
-    //    if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
-    //        [self.delegate touchMoveWithcenterX:newcenter.x WithcenterY:newcenter.y];
-    //
-    //    }
+     }
 }
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
+    [super touchesEnded:touches withEvent:event];
+    NSLog(@"移动触摸触摸触摸2");
+
+    if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
     //计算位移=当前位置-起始位置
     CGPoint point = [[touches anyObject] locationInView:self];
     float dx = point.x - startPoint.x;
@@ -244,6 +312,24 @@
     
     //移动view
     self.center = newcenter;
-   
+        [DashboardSetting sharedInstance].isDashboardMove = NO;
+        
+        if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
+            [self.delegate touchMoveWithcenterX:startPoint.x WithcenterY:startPoint.y];
+            //移动view
+        }
 }
+
+}
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesEnded:touches withEvent:event];
+    if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
+        [DashboardSetting sharedInstance].isDashboardMove = NO;
+        
+        if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
+            [self.delegate touchMoveWithcenterX:startPoint.x WithcenterY:startPoint.y];
+            //移动view
+        }
+    }
+   }
 @end

@@ -18,6 +18,7 @@
     CGPoint startPoint;
 }
 @property (nonatomic,weak) id<StyleBtouchMoveDelegate> delegate;
+@property (nonatomic,strong)   UIView *triangleView ; //指针视图
 
 @property (nonatomic,strong)UILabel *PIDLabel;
 @property (nonatomic,strong)UILabel *NumberLabel;
