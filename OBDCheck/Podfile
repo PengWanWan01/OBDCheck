@@ -4,4 +4,5 @@ use_frameworks!
 source 'https://github.com/CocoaPods/Specs.git'
 target 'OBDCheck' do
 pod 'MBProgressHUD', '~> 0.8’
+pod 'FMDB'
 end

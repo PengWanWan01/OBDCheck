@@ -51,8 +51,7 @@
 
     gradientView *view = [[gradientView alloc]initWithFrame:self.bounds];
     view.gradientColor = [ColorTools colorWithHexString:backViewColor];
-    self.backColor = backViewColor;
-    self.GradientRadius = gradientRadius;
+   
     view.backgroundColor = [UIColor clearColor];
     [self addSubview:view];
     //添加仪表盘中间的内容
@@ -67,7 +66,6 @@
 
     //添加进度条
     [self draw:self.bounds.size.width/2 - 23.0*KMultipleB lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:@"1d2027"] startAngle:(M_PI / 4) +(M_PI/18) endAngle: M_PI *3/4-M_PI/18];
-    self.FillColor = fillColor;
     [self draw:self.bounds.size.width/2 - (23.0/300)*self.frame.size.width lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:fillColor] startAngle:(M_PI / 2) endAngle: M_PI *3/4-M_PI/18];
     [self adddrawPointColor:PointColor PointWidth:PointWidth Fillenable:fillenable   FillColor:fillColor];
     UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
@@ -182,33 +180,22 @@
     
     _NumberLabel.textAlignment = NSTextAlignmentCenter;
     _NumberLabel.text = @"2500";
-    self.ValueColor  = ValueColor;
-    self.ValueFontScale = valueFontScale;
-    self.ValuePositon = valuePositon;
+
     [innerimage addSubview:_NumberLabel];
-    
-    self.ValueVisible = valueVisible;
-    //[ColorTools colorWithHexString:@"#757476"]
+        //[ColorTools colorWithHexString:@"#757476"]
     _PIDLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (25*KMultipleB)*titlePositon, innerimage.bounds.size.width, 30.0*KMultipleB)];
     _PIDLabel.font = [UIFont boldSystemFontOfSize:24.0*KMultipleB*titlteFontScale];
     _PIDLabel.textColor =[ColorTools colorWithHexString: titlteColor];
     _PIDLabel.textAlignment = NSTextAlignmentCenter;
     _PIDLabel.text = @"MPH";
-    self.titleColor  = titlteColor;
-    self.titleFontScale = titlteFontScale;
-    self.titlePositon = titlePositon;
-    [innerimage addSubview:_PIDLabel];
-    
-    
-    //[ColorTools colorWithHexString:@"#757476"];
+       [innerimage addSubview:_PIDLabel];
+
     _UnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (CGRectGetMaxY(_NumberLabel.frame) + 10*KMultipleB)*unitPositon, innerimage.bounds.size.width, 24.0*KMultipleB)];
     _UnitLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleB*unitFontScale];
     _UnitLabel.textColor =  [ColorTools colorWithHexString:unitColor];
     _UnitLabel.textAlignment = NSTextAlignmentCenter;
     _UnitLabel.text = @"R/MIN";
-    self.UnitColor = unitColor;
-    self.UnitFontScale = unitFontScale;
-    self.UnitPositon = unitPositon;
+
     [innerimage addSubview:_UnitLabel];
 }
 - (void)draw:(CGFloat )radius lineWidth:(CGFloat)width lineColor:(UIColor *)color startAngle:(CGFloat)start endAngle:(CGFloat)end{

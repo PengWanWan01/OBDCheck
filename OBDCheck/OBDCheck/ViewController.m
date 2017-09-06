@@ -104,6 +104,7 @@
         btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         if (i==0) {
             [btn setBackgroundImage: [UIImage imageNamed:_selectImage[i]] forState:UIControlStateNormal];
+            
         }
         [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
         

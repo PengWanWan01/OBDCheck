@@ -90,5 +90,9 @@
 #import "rotationView.h"
 #import "DiagnosticsTableViewCell.h"
 #import "HistoryViewController.h"
+#import "DashboardA.h"
+#import "DashboardB.h"
+#import "DashboardC.h"
+#import "NSObject+BGModel.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

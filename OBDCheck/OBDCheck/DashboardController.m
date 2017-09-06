@@ -39,6 +39,7 @@ static dispatch_source_t _timer;
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     self.navigationController.navigationBar.hidden = NO;
     [UIApplication sharedApplication].statusBarHidden = NO;
+    
     if([[UIDevice currentDevice]respondsToSelector:@selector(setOrientation:)]) {
         
         SEL selector = NSSelectorFromString(@"setOrientation:");
@@ -58,10 +59,175 @@ static dispatch_source_t _timer;
     }
     [self updateView];
     [self startAnimation];
-
+  
+    NSArray* pAll = [DashboardA bg_findAll];
+    for (DashboardA *dash in pAll) {
+        NSLog(@"煮建%@",dash.ID);
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+- (void)isFristLoadDashboard{
+    NSLog(@"isFristLoadDashboard");
+    [self isFristLoadDashboardA];
+    [self isFristLoadDashboardB];
+    [self isFristLoadDashboardC];
+
+    NSArray* pAlltest = [DashboardA bg_findAll];
+    for (DashboardA *dash in pAlltest) {
+        NSLog(@"煮建%@",dash.orignwidth);
+    }
+    [[DashboardSetting sharedInstance].defaults setInteger:0 forKey:@"AddDashboardNumber"];
+    
+}
+- (void)isFristLoadDashboardC{
+    for (NSInteger i = 0; i< 6; i++) {
+        NSInteger index = i % 2;
+        NSInteger page = i / 2;
+        CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
+        dashboardStyleCView  = [[DashboardViewStyleC alloc] initWithFrame:CGRectMake(index * (space+ 150*KFontmultiple)+25,  page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple)];
+        NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25] , [NSNumber numberWithFloat:i+1]];
+        [DashboardC bg_updateSet:orignxsql];
+        
+        NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:  page  * (baseViewHeight + 40)+10 ], [NSNumber numberWithFloat:i+1]];
+        [DashboardC bg_updateSet:orignysql];
+        
+        NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:150*KFontmultiple], [NSNumber numberWithFloat:i+1]];
+        [DashboardC bg_updateSet:orignwidthsql];
+        
+        NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:150*KFontmultiple], [NSNumber numberWithFloat:i+1]];
+        [DashboardC bg_updateSet:orignheightsql];
+    }
+    //第二页的仪表盘
+    for (NSInteger i = 0; i< 2; i++) {
+        
+        dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30)+30, 220, 220)];
+        NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:MSWidth+ MSWidth/2 - 100] , [NSNumber numberWithFloat:i+7]];
+        [DashboardC bg_updateSet:orignxsql];
+        
+        NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: i  * (220+ 30)+30], [NSNumber numberWithFloat:i+7]];
+        [DashboardC bg_updateSet:orignysql];
+        
+        NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:220], [NSNumber numberWithFloat:i+7]];
+        [DashboardC bg_updateSet:orignwidthsql];
+        
+        NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:220], [NSNumber numberWithFloat:i+7]];
+        [DashboardC bg_updateSet:orignheightsql];
+        
+    }
+    dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth*2+(MSWidth- 300)/2,  88,300, 300)];
+    NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:MSWidth*2+(MSWidth- 300)/2] , [NSNumber numberWithFloat:9]];
+    [DashboardC bg_updateSet:orignxsql];
+    
+    NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: 88], [NSNumber numberWithFloat:9]];
+    [DashboardC bg_updateSet:orignysql];
+    
+    NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:300], [NSNumber numberWithFloat:9]];
+    [DashboardC bg_updateSet:orignwidthsql];
+    
+    NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:300], [NSNumber numberWithFloat:9]];
+    [DashboardC bg_updateSet:orignheightsql];
+}
+- (void)isFristLoadDashboardB{
+    for (NSInteger i = 0; i< 6; i++) {
+        NSInteger index = i % 2;
+        NSInteger page = i / 2;
+        CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
+        dashboardStyleBView  = [[DashboardViewStyleB alloc] initWithFrame:CGRectMake(index * (space+ 150*KFontmultiple)+25,  page  * (baseViewHeight + 40)+20, 150*KFontmultiple, 150*KFontmultiple )];
+        
+        NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25] , [NSNumber numberWithFloat:i+1]];
+        [DashboardB bg_updateSet:orignxsql];
+        
+        NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:  page  * (baseViewHeight + 40)+20 ], [NSNumber numberWithFloat:i+1]];
+        [DashboardB bg_updateSet:orignysql];
+        
+        NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:150*KFontmultiple], [NSNumber numberWithFloat:i+1]];
+        [DashboardB bg_updateSet:orignwidthsql];
+        
+        NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:150*KFontmultiple], [NSNumber numberWithFloat:i+1]];
+        [DashboardB bg_updateSet:orignheightsql];
+        
+    }
+    //第二页的仪表盘
+    for (NSInteger i = 0; i< 2; i++) {
+        dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30)+30, 220, 220)];
+        NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:MSWidth+ MSWidth/2 - 100] , [NSNumber numberWithFloat:i+7]];
+        [DashboardB bg_updateSet:orignxsql];
+        
+        NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:i  * (220+ 30)+30], [NSNumber numberWithFloat:i+7]];
+        [DashboardB bg_updateSet:orignysql];
+        
+        NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:220], [NSNumber numberWithFloat:i+7]];
+        [DashboardB bg_updateSet:orignwidthsql];
+        
+        NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:220], [NSNumber numberWithFloat:i+7]];
+        [DashboardB bg_updateSet:orignheightsql];
+    }
+    
+    dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth*2+(MSWidth- 300)/2,  88,300, 300)];
+    NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:MSWidth*2+(MSWidth- 300)/2], [NSNumber numberWithFloat:9]];
+    [DashboardB bg_updateSet:orignxsql];
+    
+    NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: 88 ], [NSNumber numberWithFloat:9]];
+    [DashboardB bg_updateSet:orignysql];
+    
+    NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:300], [NSNumber numberWithFloat:9]];
+    [DashboardB bg_updateSet:orignwidthsql];
+    
+    NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:300], [NSNumber numberWithFloat:9]];
+    [DashboardB bg_updateSet:orignheightsql];
+
+}
+- (void)isFristLoadDashboardA{
+    for (NSInteger i = 0; i< 6; i++) {
+        NSInteger index = i % 2;
+        NSInteger page = i / 2;
+        CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
+        dashboardStyleAView  = [[DashboardView alloc] initWithFrame:CGRectMake(index * (space+ 150*KFontmultiple)+25,  page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple +20)];
+        
+        NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25] , [NSNumber numberWithFloat:i+1]];
+        [DashboardA bg_updateSet:orignxsql];
+        
+        NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: page  * (baseViewHeight + 40)+10] , [NSNumber numberWithFloat:i+1]];
+        [DashboardA bg_updateSet:orignysql];
+        
+        NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:150*KFontmultiple], [NSNumber numberWithFloat:i+1]];
+        [DashboardA bg_updateSet:orignwidthsql];
+        
+        NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:150*KFontmultiple+20], [NSNumber numberWithFloat:i+1]];
+        [DashboardA bg_updateSet:orignheightsql];
+        
+    }
+    for (NSInteger i = 0; i< 2; i++) {
+        
+        dashboardStyleAView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30)+30, 220, 220+20)];
+        NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:MSWidth+ MSWidth/2 - 100], [NSNumber numberWithFloat:i+7]];
+        [DashboardA bg_updateSet:orignxsql];
+        
+        NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: i  * (220+ 30)+30 ], [NSNumber numberWithFloat:i+7]];
+        [DashboardA bg_updateSet:orignysql];
+        
+        NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:220], [NSNumber numberWithFloat:i+7]];
+        [DashboardA bg_updateSet:orignwidthsql];
+        
+        NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:220+20], [NSNumber numberWithFloat:i+7]];
+        [DashboardA bg_updateSet:orignheightsql];
+        
+    }
+    dashboardStyleAView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth*2+(MSWidth- 300)/2, 88,300, 300+20)];
+    NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:MSWidth*2+(MSWidth- 300)/2], [NSNumber numberWithFloat:9]];
+    [DashboardA bg_updateSet:orignxsql];
+    
+    NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: 88 ], [NSNumber numberWithFloat:9]];
+    [DashboardA bg_updateSet:orignysql];
+    
+    NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:300], [NSNumber numberWithFloat:9]];
+    [DashboardA bg_updateSet:orignwidthsql];
+    
+    NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:300+20], [NSNumber numberWithFloat:9]];
+    [DashboardA bg_updateSet:orignheightsql];
+
 }
 - (void)startAnimation{
     NSTimeInterval period = 1; //设置时间间隔
@@ -132,8 +298,8 @@ static dispatch_source_t _timer;
     self.numberArray = [[NSMutableArray alloc]initWithObjects:@"15",
                         @"19",@"34",@"23",@"54",@"34",@"23",@"54",@"23",@"43", nil];
     
-    if ([DashboardSetting sharedInstance].AddDashboardNumber > 0) {
-        for (int i = 1; i<=[DashboardSetting sharedInstance].AddDashboardNumber; i++) {
+    if ([[DashboardSetting sharedInstance].defaults integerForKey:@"AddDashboardNumber"] > 0) {
+        for (int i = 1; i<=[[DashboardSetting sharedInstance].defaults integerForKey:@"AddDashboardNumber"]; i++) {
             [_LabelNameArray addObject:@"add"];
             [self.numberArray  addObject:@"12"];
         }
@@ -172,7 +338,11 @@ static dispatch_source_t _timer;
     scrollView.delegate = self;
     pageControl.tag = 1000;
 //第一页的仪表盘
-   
+    NSUserDefaults *test = [NSUserDefaults standardUserDefaults];
+    if (![test valueForKey:@"test"]) {
+        [test setValue:@"sd" forKey:@"test"];
+        [self isFristLoadDashboard];
+    }
         switch ([DashboardSetting sharedInstance].dashboardStyle) {
             case DashboardStyleOne:
             {
@@ -196,6 +366,7 @@ static dispatch_source_t _timer;
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Remove Display" message:@"Are you sure you want to remove this item?" preferredStyle:  UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             //点击按钮的响应事件；
+            [DashboardSetting sharedInstance].isDashboardRemove = NO;
         }]];
         [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self RemoveDisplay];
@@ -214,114 +385,44 @@ static dispatch_source_t _timer;
     dispatch_source_cancel(_timer);
        [editview hide];
     ViewController *vc = [[ViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:NO];
     
 }
 
 #pragma mark 初始化仪表盘风格
 - (void)initWithStyleA{
     DashBoardTag = 0;
-        for (NSInteger i = 0; i< 6; i++) {
-        NSInteger index = i % 2;
-        NSInteger page = i / 2;
-            CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
-        dashboardStyleAView  = [[DashboardView alloc] initWithFrame:CGRectMake(index * (space+ 150*KFontmultiple)+25,  page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple +20)];
-
-            dashboardStyleAView.infoLabel.text = _LabelNameArray[i];
-            dashboardStyleAView.tag = ++DashBoardTag;
-    
+    NSArray* pAll = [DashboardA bg_findAll];
+    for (DashboardA *dash in pAll) {
+        NSLog(@"总共%@",dash.ID);
+        NSLog(@"_LabelNameArray%@",_LabelNameArray);
+        
+        dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.orignx floatValue], [dash.origny floatValue], [dash.orignwidth floatValue], [dash.orignheight floatValue])];
+            dashboardStyleAView.tag = [dash.ID integerValue];
+         DashBoardTag = dashboardStyleAView.tag ;
+        [scrollView addSubview:dashboardStyleAView];
             [self initWithChangeStyleA:dashboardStyleAView : dashboardStyleAView.tag -1] ;
     }
-    //第二页的仪表盘
-    for (NSInteger i = 0; i< 2; i++) {
-       
-        dashboardStyleAView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30)+30, 220, 220+20)];
-        dashboardStyleAView.tag = ++DashBoardTag;
-        [self initWithChangeStyleA:dashboardStyleAView :dashboardStyleAView.tag -1];
-    }
-   
-    dashboardStyleAView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth*2+(MSWidth- 300)/2, 88,300, 300+20)];
-    dashboardStyleAView.tag = ++DashBoardTag;
-    [self initWithChangeStyleA:dashboardStyleAView :dashboardStyleAView.tag -1] ;
-    //保存添加的仪表盘数据
-    [self SaveAddDoahboard];
+  
 }
 - (void)initWithChangeStyleA:(DashboardView *)view :(NSInteger)index{
-
-    [scrollView addSubview:view];
-
-    CGFloat    diameterResult =   [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"diameterPercent%ld",(long)view.tag]];
-    CGFloat  LeftResult =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"LeftPercent%ld",(long)view.tag]];
-    CGFloat  TopResult =   [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"TopPercent%ld",(long)view.tag]];
-    
-    CGFloat   StartAngleResult  = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StartAngle%ld",(long)view.tag]] ;
-    CGFloat   endAngleResult  = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"endAngle%ld",(long)view.tag]] ;
-    
-    CGFloat  ringWidthResult  =     [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"ringWidth%ld",(long)view.tag]] ;
-    CGFloat    maLengthResult    =    [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"maLength%ld",(long)view.tag]] ;
-    CGFloat    maWidthResult   =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"maWidth%ld",(long)view.tag]];
-    CGFloat    miLengthResult    =   [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"miLength%ld",(long)view.tag]];
-    CGFloat    miWidthResult    =       [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"miWidth%ld",(long)view.tag]];
-    NSString*    maColorResult =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"maColor%ld",(long)view.tag]] ;
-    NSString*  miColorResult   =   [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"miColor%ld",(long)view.tag]] ;
-    
-    NSString*   outerColorResult   =   [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"outerColor%ld",(long)view.tag]] ;
-    NSString*     innerColorResult   =   [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"innerColor%ld",(long)view.tag]] ;
-    NSString*   titleColorResult  =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"titleColor%ld",(long)view.tag]] ;
-    CGFloat  TitleFontScaleResult =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"TitleFontScale%ld",(long)view.tag]];
-    CGFloat   TitlePositionResult =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"TitlePosition%ld",(long)view.tag]];
-    BOOL   ValueVisbleResult =  [[DashboardSetting sharedInstance].defaults boolForKey:[NSString stringWithFormat:@"ValueVisble%ld",(long)view.tag]];
-    NSString*  ValueColorResult  =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"ValueColor%ld",(long)view.tag]] ;
-    CGFloat   ValueFontScaleResult =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"ValueFontScale%ld",(long)view.tag]];
-    CGFloat   ValuePositionResult =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"ValuePosition%ld",(long)view.tag]];
-    
-    CGFloat   LabelFontScaleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"LabelFontScale%ld",(long)view.tag]];
-    CGFloat  LabelOffestResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"LabelOffest%ld",(long)view.tag]];
-    
-    CGFloat   PointerVisbleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"PointerVisble%ld",(long)view.tag]];
-    CGFloat   PointerWidthResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"PointerWidth%ld",(long)view.tag]];
-    CGFloat   PointerLengthResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"PointerLength%ld",(long)view.tag]];
-    NSString*  PointerColorResult  =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"PointerColor%ld",(long)view.tag]] ;
-    CGFloat  KNOBRadiusResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"KNOBRadius%ld",(long)view.tag]];
-    NSString*   KNOBColorResult  =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"KNOBColor%ld",(long)view.tag]] ;
-    CGFloat  FillenabledResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"Fillenabled%ld",(long)view.tag]];
-    CGFloat  FillstartAngleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"FillstartAngle%ld",(long)view.tag]];
-    CGFloat   FillEndAngleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"FillEndAngle%ld",(long)view.tag]];
-    NSString*    FillColorResult  =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"FillColor%ld",(long)view.tag]] ;
-    NSString*   UnitColorResult  =  [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"UnitColor%ld",(long)view.tag]] ;
-    CGFloat   UnitFontScaleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"UnitFontScale%ld",(long)view.tag]];
-    CGFloat  UnitVerticalPositionResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"UnitVerticalPosition%ld",(long)view.tag]];
-    CGFloat   UnitHorizontalPositionResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"UnitHorizontalPosition%ld",(long)view.tag]];
-    NSString* infoLabeltextResult = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"infoLabeltext%ld",(long)view.tag]];    //画底盘渐变色
-  
-    [dashboardStyleAView addGradientView:@"#18191C" GradientViewWidth:view.frame.size.width];
-       //画刻度
-    [dashboardStyleAView drawCalibration:0 WithendAngle:2*M_PI WithRingWidth:10.f MAJORTICKSWidth:0 MAJORTICKSLength:15.f MAJORTICKSColor:@"FFFFFF" MINORTICKSWidth:0 MINORTICKSLength:5.f MINORTICKSColor:@"FFFFFF" LABELSVisible:YES Rotate:YES Font:1 OffestTickline:1 InnerColor:@"18191C" TitleColor:@"FE9002" TitleFontScale:1 TitlePosition:1 ValueVisble:YES ValueColor:@"FE9002" ValueFontScale:1 ValuePosition:1 UnitColor:@"FE9002" UnitFontScale:1 UnitVerticalPosition:1 UnitHorizontalPosition:1 PointerVisble:YES PointerWidth:10.f PointerLength: (view.frame.size.width/2) - 15 - 14 PointerColor:@"FE9002" KNOBRadius:10.f KNOBColor:@"FFFFFF" Fillenabled:YES FillstartAngle:0 FillEndAngle:0 FillColor:@"FE9002"];
-    dashboardStyleAView.delegate = self;
-    dashboardStyleAView.infoLabel.text = _LabelNameArray[index];
-    dashboardStyleAView.numberLabel.text = _numberArray[index];
-   
-    //加入是被点击过的 ；让被选中的仪表盘位置发生变化
-    if ([[[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"change%ld",(long)dashboardStyleAView.tag]] isEqualToString:@"YES"]) {
-        NSInteger TapIndex = (long)view.tag;
-        NSInteger PageNumber = view.frame.origin.x / MSWidth;
+    [self initWithData];
+    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: view.tag]];
+    NSArray* pAll = [DashboardA bg_findWhere:findsql];
+    for(DashboardA* dashboard in pAll){
         
-        [view removeFromSuperview];
-        dashboardStyleAView  = [[DashboardView alloc]initWithFrame: CGRectMake((LeftResult /100)*MSWidth+PageNumber*MSWidth, (TopResult /100)*MSHeight,(diameterResult /100)*MSWidth,(diameterResult/100)*MSWidth)];
-      
-        //画底盘渐变色
-        [dashboardStyleAView addGradientView:outerColorResult GradientViewWidth:(diameterResult /100)*MSWidth];
-        dashboardStyleAView.delegate = self;
-        //画刻度
-        [dashboardStyleAView drawCalibration:StartAngleResult WithendAngle:endAngleResult WithRingWidth:ringWidthResult MAJORTICKSWidth:maWidthResult MAJORTICKSLength:maLengthResult MAJORTICKSColor:maColorResult MINORTICKSWidth:miWidthResult MINORTICKSLength:miLengthResult MINORTICKSColor:miColorResult LABELSVisible:YES Rotate:YES Font:LabelFontScaleResult OffestTickline:LabelOffestResult InnerColor:innerColorResult TitleColor:titleColorResult TitleFontScale:TitleFontScaleResult TitlePosition:TitlePositionResult ValueVisble:ValueVisbleResult ValueColor:ValueColorResult ValueFontScale:ValueFontScaleResult ValuePosition:ValuePositionResult UnitColor:UnitColorResult   UnitFontScale:UnitFontScaleResult UnitVerticalPosition:UnitVerticalPositionResult UnitHorizontalPosition:UnitHorizontalPositionResult  PointerVisble:PointerVisbleResult PointerWidth:PointerWidthResult PointerLength:PointerLengthResult PointerColor:PointerColorResult KNOBRadius:KNOBRadiusResult KNOBColor:KNOBColorResult Fillenabled:FillenabledResult FillstartAngle:FillstartAngleResult   FillEndAngle:FillEndAngleResult FillColor:FillColorResult];
-        dashboardStyleAView.tag = TapIndex;
-        dashboardStyleAView.infoLabel.text = infoLabeltextResult;
-        dashboardStyleAView.numberLabel.text = _numberArray[TapIndex - 1];
-
+        if ([dashboard.ID integerValue] == view.tag) {
+            NSLog(@"%ld -- %ld",(long)[dashboard.ID integerValue],(long)view.tag);
+            NSLog(@"orignwidth%f",[dashboard.orignwidth floatValue]);
+            //画底盘渐变色
+    [dashboardStyleAView addGradientView:dashboard.outerColor  GradientViewWidth:view.frame.size.width];
+     [dashboardStyleAView drawCalibration:[dashboard.StartAngle floatValue]  WithendAngle:[dashboard.endAngle floatValue] WithRingWidth:[dashboard.ringWidth floatValue] MAJORTICKSWidth:[dashboard.maWidth floatValue] MAJORTICKSLength:[dashboard.maLength floatValue] MAJORTICKSColor:dashboard.maColor MINORTICKSWidth:[dashboard.miWidth floatValue ] MINORTICKSLength:[dashboard.miLength floatValue] MINORTICKSColor:dashboard.miColor LABELSVisible:dashboard.LabelVisble Rotate:dashboard.LabelRotate   Font:[dashboard.LabelFontScale floatValue] OffestTickline:[dashboard.LabelOffest floatValue] InnerColor:dashboard.innerColor TitleColor:dashboard.titleColor TitleFontScale:[dashboard.titleFontScale floatValue] TitlePosition:[dashboard.titlePosition floatValue] ValueVisble:dashboard.ValueVisble ValueColor:dashboard.ValueColor ValueFontScale:[dashboard.ValueFontScale floatValue] ValuePosition:[dashboard.ValuePosition floatValue] UnitColor:dashboard.UnitColor UnitFontScale:[dashboard.UnitFontScale floatValue] UnitVerticalPosition:[dashboard.UnitVerticalPosition floatValue] UnitHorizontalPosition:[dashboard.UnitHorizontalPosition floatValue] PointerVisble:dashboard.PointerVisble PointerWidth:[dashboard.PointerWidth floatValue] PointerLength: [dashboard.PointerLength floatValue] PointerColor:dashboard.PointerColor KNOBRadius:[dashboard.KNOBRadius floatValue] KNOBColor:dashboard.KNOBColor Fillenabled:dashboard.Fillenabled FillstartAngle:[dashboard.FillstartAngle floatValue] FillEndAngle:[dashboard.FillEndAngle floatValue] FillColor:dashboard.FillColor];
+            dashboardStyleAView.infoLabel.text = _LabelNameArray[[dashboard.ID integerValue] - 1];
+            dashboardStyleAView.numberLabel.text = _numberArray[[dashboard.ID integerValue] - 1];
+        }
     }
-    [scrollView addSubview:dashboardStyleAView];
+    dashboardStyleAView.delegate = self;
  
-    [self ReMoveDashboard:(long)view.tag];
     
 //    //让仪表盘到最前面
 //    if ([DashboardSetting sharedInstance].Dashboardindex == view.tag &&  [DashboardSetting sharedInstance].isDashboardFont == YES ) {
@@ -339,79 +440,36 @@ static dispatch_source_t _timer;
 
 - (void)initWithStyleB{
     DashBoardTag = 0;
-    for (NSInteger i = 0; i< 6; i++) {
-        NSInteger index = i % 2;
-        NSInteger page = i / 2;
-        CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
-        dashboardStyleBView  = [[DashboardViewStyleB alloc] initWithFrame:CGRectMake(index * (space+ 150*KFontmultiple)+25,  page  * (baseViewHeight + 40)+20, 150*KFontmultiple, 150*KFontmultiple )];
-      
-       dashboardStyleBView.tag = ++DashBoardTag;
-        [self initWithChangeStyleB:dashboardStyleBView :dashboardStyleBView.tag-1 ];
-
+    NSArray* pAll = [DashboardB bg_findAll];
+    for (DashboardB *dash in pAll) {
+        NSLog(@"总共%@",dash.ID);
+        NSLog(@"_LabelNameArray%@",_LabelNameArray);
+        
+        dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake([dash.orignx floatValue], [dash.origny floatValue], [dash.orignwidth floatValue], [dash.orignheight floatValue])];
+        dashboardStyleBView.tag = [dash.ID integerValue];
+        DashBoardTag = dashboardStyleBView.tag ;
+        [scrollView addSubview:dashboardStyleBView];
+        [self initWithChangeStyleB:dashboardStyleBView : dashboardStyleBView.tag -1] ;
     }
-    //第二页的仪表盘
-    for (NSInteger i = 0; i< 2; i++) {
-       
-       
-        dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30)+30, 220, 220)];
-       dashboardStyleBView.tag = ++DashBoardTag;
-        [self initWithChangeStyleB:dashboardStyleBView :dashboardStyleBView.tag -1 ];
-    }
-   
-    dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth*2+(MSWidth- 300)/2,  88,300, 300)];
-    dashboardStyleBView.tag = ++DashBoardTag;
-    [self initWithChangeStyleB:dashboardStyleBView :dashboardStyleBView.tag -1 ];
-    [self SaveAddDoahboard];
    
 }
 - (void)initWithChangeStyleB:(DashboardViewStyleB *)view :(NSInteger)index{
-    [scrollView addSubview:dashboardStyleBView];
-    [view drawgradient:@"00a6ff" GradientRadius:1.f TitlteColor:@"#757476" TitlteFontScale:1 TitlePositon:1 ValueVisible:YES Valuecolor:@"#FFFFFF" ValueFontScale:1 ValuePositon:1 UnitColor:@"#757476" UnitFontScale:1 UnitPositon:1 PointColor:@"FFFFFF" PointWidth:5 Fillenable:YES FillColor:@"00a6ff"];
+    [self initWithData];
+    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: view.tag]];
+    NSArray* pAll = [DashboardB bg_findWhere:findsql];
+    for(DashboardB* dashboard in pAll){
+        NSLog(@"dashboard.StartAngle %@",dashboard.backColor  );//            NSLog(@"StartAnglev%f",[dashboard.testStartAngle floatValue]);
+      [view drawgradient:dashboard.backColor GradientRadius:[dashboard.GradientRadius floatValue] TitlteColor:dashboard.titleColor TitlteFontScale:[dashboard.titleFontScale floatValue] TitlePositon:[dashboard.titlePositon floatValue] ValueVisible:dashboard.ValueFontScale Valuecolor:dashboard.ValueColor ValueFontScale:[dashboard.ValueFontScale floatValue] ValuePositon:[dashboard.ValuePositon floatValue] UnitColor:dashboard.UnitColor UnitFontScale:[dashboard.UnitFontScale floatValue] UnitPositon:[dashboard.UnitPositon floatValue] PointColor:dashboard.pointerColor PointWidth:[dashboard.Pointerwidth floatValue] Fillenable:dashboard.FillEnable FillColor:dashboard.FillColor];
+        
+    }
     view.delegate = self;
     //StyleB
-    CGFloat diameterResult =   [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBdiameterPercent%ld",(long)view.tag]];
-    CGFloat LeftResult =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBLeftPercent%ld",(long)view.tag]];
-    CGFloat TopResult =   [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBTopPercent%ld",(long)view.tag]];
-
-    
-   NSString *  backColorResult = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleBbackColor%ld",(long)view.tag]] ;
-    CGFloat GradientRaduisResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBGradientRaduis%ld",(long)[DashboardSetting sharedInstance].Dashboardindex]] ;
-  NSString *StyleBtitleColorResult = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleBtitleColor%ld",(long)view.tag]] ;
-    CGFloat  titleFontScaleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBtitleFontScale%ld",(long)view.tag]] ;
-    CGFloat titlePositonResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBtitlePositon%ld",(long)view.tag]] ;
-    BOOL ValueVisibleResult = [[DashboardSetting sharedInstance].defaults boolForKey:[NSString stringWithFormat:@"StyleBValueVisible%ld",(long)view.tag]] ;
-     NSString *StyleBValueColorResult = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleBValueColor%ld",(long)view.tag]] ;
-    CGFloat    StyleBValueFontScaleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBValueFontScale%ld",(long)view.tag]] ;
-     CGFloat ValuePositonResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBValuePositon%ld",(long)view.tag]] ;
-
-    
-   NSString *StyleBUnitColorResult = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleBUnitColor%ld",(long)view.tag]] ;
-      CGFloat    StyleBUnitFontScaleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBUnitFontScale%ld",(long)view.tag]] ;
-    CGFloat UnitPositonResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBUnitPositon%ld",(long)view.tag]] ;
-    
-    
-    NSString *pointerColorResult = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleBpointerColor%ld",(long)view.tag]] ;
-    CGFloat PointerwidthResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleBPointerwidth%ld",(long)view.tag]] ;
-    BOOL FillEnableResult = [[DashboardSetting sharedInstance].defaults boolForKey:[NSString stringWithFormat:@"StyleBFillEnable%ld",(long)view.tag]] ;
-     NSString *StyleBFillColorResult = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleBFillColor%ld",(long)view.tag]] ;
+  
     dashboardStyleBView.PIDLabel.text = _LabelNameArray[index];
     dashboardStyleBView.NumberLabel.text = _numberArray[index];
     dashboardStyleBView.delegate = self;
     //
-    if ([[[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleBchange%ld",(long)view.tag]] isEqualToString:@"YES"]) {
-        NSInteger TapIndex = view.tag;
-        NSInteger PageNumber = view.frame.origin.x / MSWidth;
-        
-        [view removeFromSuperview];
-        dashboardStyleBView  = [[DashboardViewStyleB alloc]initWithFrame: CGRectMake((LeftResult /100)*MSWidth+PageNumber*MSWidth, (TopResult /100)*MSHeight,(diameterResult /100)*MSWidth,(diameterResult /100)*MSWidth)];
-        dashboardStyleBView.delegate = self;
-        [dashboardStyleBView drawgradient:backColorResult GradientRadius:GradientRaduisResult TitlteColor:StyleBtitleColorResult TitlteFontScale:titleFontScaleResult TitlePositon:titlePositonResult ValueVisible:ValueVisibleResult Valuecolor:StyleBValueColorResult ValueFontScale:StyleBValueFontScaleResult ValuePositon:ValuePositonResult UnitColor:StyleBUnitColorResult UnitFontScale:StyleBUnitFontScaleResult UnitPositon:UnitPositonResult PointColor:pointerColorResult PointWidth:PointerwidthResult Fillenable:FillEnableResult FillColor:StyleBFillColorResult];
-        dashboardStyleBView.PIDLabel.text = _LabelNameArray[TapIndex -1];
-        dashboardStyleBView.NumberLabel.text = _numberArray[TapIndex -1];
-        dashboardStyleBView.delegate = self;
-        dashboardStyleBView.tag = TapIndex;
-    }
-    [scrollView addSubview:dashboardStyleBView];
+       [scrollView addSubview:dashboardStyleBView];
     dashboardStyleBView.delegate = self;
     
     //让仪表盘到最前面
@@ -422,86 +480,40 @@ static dispatch_source_t _timer;
         [DashboardSetting sharedInstance].isDashboardFont = NO;
         
     }
-    [self ReMoveDashboard:(long)view.tag];
     
     [self MoveDashboard:(long)view.tag];
 }
 
 - (void)initWithStyleC{
     DashBoardTag = 0;
-    for (NSInteger i = 0; i< 6; i++) {
-        NSInteger index = i % 2;
-        NSInteger page = i / 2;
-        CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
-        dashboardStyleCView  = [[DashboardViewStyleC alloc] initWithFrame:CGRectMake(index * (space+ 150*KFontmultiple)+25,  page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple)];
-       
-        dashboardStyleCView.tag = ++DashBoardTag;
-        [self initWithChangeStyleC:dashboardStyleCView :dashboardStyleCView.tag -1];
-    }
-    //第二页的仪表盘
-    for (NSInteger i = 0; i< 2; i++) {
+    NSArray* pAll = [DashboardC bg_findAll];
+    for (DashboardC *dash in pAll) {
+        NSLog(@"总共%@",dash.ID);
+        NSLog(@"_LabelNameArray%@",_LabelNameArray);
         
-        dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30)+30, 220, 220)];
-        dashboardStyleCView.tag = ++DashBoardTag;
-        [self initWithChangeStyleC:dashboardStyleCView :dashboardStyleCView.tag -1];
-
+        dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake([dash.orignx floatValue], [dash.origny floatValue], [dash.orignwidth floatValue], [dash.orignheight floatValue])];
+        dashboardStyleCView.tag = [dash.ID integerValue];
+        DashBoardTag = dashboardStyleCView.tag ;
+        [scrollView addSubview:dashboardStyleCView];
+        [self initWithChangeStyleC:dashboardStyleCView : dashboardStyleCView.tag -1] ;
     }
-    dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth*2+(MSWidth- 300)/2,  88,300, 300)];
-    dashboardStyleCView.tag = ++DashBoardTag;
-    [self initWithChangeStyleC:dashboardStyleCView :dashboardStyleCView.tag-1];
-    [self SaveAddDoahboard];
 
 }
 
 - (void)initWithChangeStyleC:(DashboardViewStyleC *)view :(NSInteger)index{
-    //ColorTools colorWithHexString:@"202226"
-    //黑色
-    //[ColorTools colorWithHexString:@"#FFFFFF"]
-    [view drawinnerColor:@"000000" OuterColor:@"202226"  Gradientradius:((view.frame.size.width)/320.f)*16.f TitleColor:@"FFFFFF" TiltefontScale:1 TitlePosition:1 ValueVisible:YES Valuecolor:@"FFFFFF" ValueFontScale:1 ValuePositon:1 UnitColor:@"FFFFFF" UnitFontScale:1 UnitPositon:1 FrameColor:@"FFFFFF" FrameScale:1];
+    [self initWithData];
+    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: view.tag]];
+    NSArray* pAll = [DashboardC bg_findWhere:findsql];
+    for(DashboardC* dashboard in pAll){
+        NSLog(@"dashboard.StartAngle %@",dashboard.innerColor  );
+    [view drawinnerColor:dashboard.innerColor OuterColor:dashboard.outerColor  Gradientradius:[dashboard.Gradientradius floatValue] TitleColor:dashboard.titleColor TiltefontScale:[dashboard.titleFontScale floatValue] TitlePosition:[dashboard.titlePositon floatValue] ValueVisible:dashboard.ValueVisible Valuecolor:dashboard.ValueColor ValueFontScale:[dashboard.ValueFontScale floatValue] ValuePositon:[dashboard.ValuePositon floatValue] UnitColor:dashboard.UnitColor UnitFontScale:[dashboard.UnitFontScale floatValue] UnitPositon:[dashboard.UnitPositon floatValue] FrameColor:dashboard.FrameColor FrameScale:[dashboard.FrameScale floatValue]];
     view.delegate = self;
-   CGFloat  diameterResult =   [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCdiameterPercent%ld",(long)view.tag]];
-   CGFloat  LeftResult =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCLeftPercent%ld",(long)view.tag]];
-   CGFloat  TopResult =   [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCTopPercent%ld",(long)view.tag]];
- 
-NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleCinnerColor%ld",(long)view.tag]] ;
- NSString*    outerColorResult = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleCouterColor%ld",(long)view.tag]] ;
-
-    CGFloat GradientradiusResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCGradientradius%ld",(long)view.tag]] ;
-    
- NSString*   titleColorResult = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleCtitleColor%ld",(long)view.tag]] ;
-    CGFloat titleFontScaleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCtitleFontScale%ld",(long)view.tag]] ;
-    
-  CGFloat titlePositonResult =   [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCtitlePositon%ld",(long)view.tag]] ;
-    CGFloat ValueVisibleResult = [[DashboardSetting sharedInstance].defaults boolForKey:[NSString stringWithFormat:@"StyleCValueVisible%ld",(long)view.tag]] ;
- NSString*    ValueColorResult = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleCValueColor%ld",(long)view.tag]] ;
-    
- CGFloat    ValueFontScaleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCValueFontScale%ld",(long)view.tag]] ;
-    CGFloat ValuePositonResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCValuePositon%ld",(long)view.tag]] ;
-   NSString*   UnitColorResult = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleCUnitColor%ld",(long)view.tag]] ;
-   CGFloat  UnitFontScaleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCUnitFontScale%ld",(long)view.tag]] ;
-    
-    CGFloat UnitPositonResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCUnitPositon%ld",(long)view.tag]] ;
-    NSString * FrameColorResult = [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleCFrameColor%ld",(long)view.tag]] ;
-    CGFloat FrameScaleResult = [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"StyleCFrameScale%ld",(long)view.tag]] ;
+        
+    }
     dashboardStyleCView.PIDLabel.text = _LabelNameArray[index];
     dashboardStyleCView.NumberLabel.text = _numberArray[index];
-
-    if ([[[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"StyleCchange%ld",(long)view.tag]] isEqualToString:@"YES"]) {
-        NSInteger TapIndex = (long)view.tag;
-        NSInteger PageNumber = view.frame.origin.x / MSWidth;
-        
-        [view removeFromSuperview];
-        dashboardStyleCView  = [[DashboardViewStyleC alloc]initWithFrame: CGRectMake((LeftResult /100)*MSWidth+PageNumber*MSWidth, (TopResult /100)*MSHeight,(diameterResult /100)*MSWidth,(diameterResult /100)*MSWidth)];
-        dashboardStyleCView.delegate = self;
-        [dashboardStyleCView drawinnerColor:innerColorResult OuterColor:outerColorResult Gradientradius:GradientradiusResult TitleColor:titleColorResult TiltefontScale:titleFontScaleResult TitlePosition:titlePositonResult ValueVisible:ValueVisibleResult Valuecolor:ValueColorResult ValueFontScale:ValueFontScaleResult ValuePositon:ValuePositonResult UnitColor:UnitColorResult UnitFontScale:UnitFontScaleResult UnitPositon:UnitPositonResult FrameColor:FrameColorResult FrameScale:FrameScaleResult];
-        
-        dashboardStyleCView.tag = TapIndex;
-        dashboardStyleCView.PIDLabel.text = _LabelNameArray[TapIndex-1];
-        dashboardStyleCView.NumberLabel.text = _numberArray[TapIndex-1];
-    }
+    
     [scrollView addSubview:dashboardStyleCView];
-  
-  
     //让仪表盘到最前面
     if ([DashboardSetting sharedInstance].Dashboardindex == index &&  [DashboardSetting sharedInstance].isDashboardFont == YES ) {
         NSLog(@"dddd");
@@ -511,99 +523,9 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
         
     }
    
-    [self ReMoveDashboard:(long)view.tag];
     [self MoveDashboard:(long)view.tag];
 
 
-}
-#pragma mark 保存添加的仪表盘
-- (void)SaveAddDoahboard{
-    NSLog(@"保存保存%ld",(long)[DashboardSetting sharedInstance].AddDashboardNumber);
-    //保存添加的仪表盘数据
-    if ([DashboardSetting sharedInstance].AddDashboardNumber >0) {
-        [self initWithData];
-        for (NSInteger  i= 1; i<=[DashboardSetting sharedInstance].AddDashboardNumber; i++) {
-            NSLog(@"==%ld",(long)i);
-            CGFloat diameterResult =   [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"adddiameterPercent%ld",(long)i]];
-            CGFloat LeftResult =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"addLeftPercent%ld",(long)i]];
-            CGFloat TopResult =  [[DashboardSetting sharedInstance].defaults floatForKey:[NSString stringWithFormat:@"addTopPercent%ld",(long)i]];
-            switch ([DashboardSetting sharedInstance].dashboardStyle) {
-                case DashboardStyleOne:
-                {
-                    dashboardStyleAView  = [[DashboardView alloc]initWithFrame: CGRectMake((LeftResult /100)*MSWidth, (TopResult /100)*MSHeight,(diameterResult /100)*MSWidth,(diameterResult /100)*MSWidth)];
-                    dashboardStyleAView.tag = [[DashboardSetting sharedInstance].defaults integerForKey:[NSString stringWithFormat:@"addTag%ld",(long)i]] ;
-                
-                    DashBoardTag = dashboardStyleAView.tag ;
-                    NSLog(@"DashBoardTag=DashBoardTag=%ld",(long)DashBoardTag);
-                    [self initWithChangeStyleA:dashboardStyleAView :DashBoardTag - 1];
-
-                }
-                    break;
-                case DashboardStyleTwo  :
-                {
-                    dashboardStyleBView  = [[DashboardViewStyleB alloc]initWithFrame: CGRectMake((LeftResult /100)*MSWidth, (TopResult /100)*MSHeight,(diameterResult /100)*MSWidth,(diameterResult /100)*MSWidth)];
-                    dashboardStyleBView.tag = [[DashboardSetting sharedInstance].defaults integerForKey:[NSString stringWithFormat:@"addTag%ld",(long)i]];
-                    DashBoardTag = dashboardStyleBView.tag ;
-                    [scrollView addSubview:dashboardStyleBView];
-                    [self initWithChangeStyleB:dashboardStyleBView :DashBoardTag -1];
-                }
-                    break;
-                case DashboardStyleThree:
-                {
-                    dashboardStyleCView  = [[DashboardViewStyleC alloc]initWithFrame: CGRectMake((LeftResult /100)*MSWidth, (TopResult /100)*MSHeight,(diameterResult /100)*MSWidth,(diameterResult /100)*MSWidth)];
-                    dashboardStyleCView.tag = [[DashboardSetting sharedInstance].defaults integerForKey:[NSString stringWithFormat:@"addTag%ld",(long)i] ];
-                    
-                    
-                    DashBoardTag = dashboardStyleCView.tag ;
-                    [scrollView addSubview:dashboardStyleCView];
-                    [self initWithChangeStyleC:dashboardStyleCView :DashBoardTag -1];
-                }
-                    break;
-                default:
-                    break;
-            }
-           
-        }
-        
-    }
-
-}
-#pragma mark 移除要清除的仪表盘
-- (void)ReMoveDashboard:(NSInteger)indexTag{
-    //移除需要移除的仪表盘
-
-    if ([DashboardSetting sharedInstance].RemoveDashboardNumber > 0) {
-        for (NSInteger i = 1; i<=[DashboardSetting sharedInstance].RemoveDashboardNumber; i++) {
-            NSInteger removeIndex =    [[DashboardSetting sharedInstance].defaults integerForKey:[NSString stringWithFormat:@"removeTag%ld",(long)i] ] ;
-            if (indexTag == removeIndex) {
-                
-                switch ([DashboardSetting sharedInstance].dashboardStyle) {
-                    case DashboardStyleOne:
-                    {
-                        dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:removeIndex];
-                        [dashboardStyleAView removeFromSuperview];
-                    }
-                        break;
-                    case DashboardStyleTwo:
-                    {
-                        dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:removeIndex];
-                        [dashboardStyleBView removeFromSuperview];
-                    }
-                        break;
-                    case DashboardStyleThree:
-                    {
-                        dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:removeIndex];
-                        [dashboardStyleCView removeFromSuperview];
-                    }
-                        break;
-                    default:
-                        break;
-                }
-            }
-            
-            
-        }
-    }
 }
 
 //当滚动视图发生位移，就会进入下方代理方法
@@ -678,25 +600,24 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
         {
             switch (index) {
                 case 3:{
-                    //添加一个仪表盘
-                    ++[DashboardSetting sharedInstance].AddDashboardNumber;
-                    [self initWithData];
-                    [self addDashboard];
-                }
-                    break;
-                case 4:{
                     //添加一页
                     [DashboardSetting sharedInstance].KPageNumer = [DashboardSetting sharedInstance].KPageNumer +1;
                     [scrollView removeFromSuperview];
                     [self updateView];
                     scrollView.contentOffset = CGPointMake(([DashboardSetting sharedInstance].KPageNumer  - 1)*MSWidth, 0);
+                }
+                    break;
+                case 4:{
                     
+                    //添加一个仪表盘
+                    [self addDashboard];
                 }
                     break;
                 case 5:{
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Remove Dashboard" message:@"Are you sure you want to remove this item?" preferredStyle:  UIAlertControllerStyleAlert];
                     [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         //点击按钮的响应事件；
+                    
                     }]];
                     [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         [self removeDashboard];
@@ -774,31 +695,8 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
 #pragma mark 长按仪表盘的手势
 - (void)tap:(UILongPressGestureRecognizer *)sender{
     NSLog(@" [sender view].tag %ld", (long)sender.view.tag);
-        switch ([DashboardSetting sharedInstance].dashboardStyle) {
-        case DashboardStyleOne:
-        {
-            [self initWithDefault:sender.view];
-
-        }
-            break;
-        case DashboardStyleTwo:
-        {
-            [self initWithDefaultStyleB:sender.view];
-            
-        }
-            break;
-        case DashboardStyleThree:
-        {
-            [self initWithDefaultStyleC:sender.view];
-            
-        }
-            break;
-        default:
-            break;
-    }
-    [DashboardSetting sharedInstance].Dashboardindex = sender.view.tag;
-    
-    
+      [DashboardSetting sharedInstance].Dashboardindex = sender.view.tag;
+    NSLog(@"aaa%ld",(long)[DashboardSetting sharedInstance].Dashboardindex);
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
             switch ([DashboardSetting sharedInstance].dashboardMode) {
@@ -813,7 +711,6 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
                     // 关闭定时器
                     dispatch_source_cancel(_timer);
                     EditDisplayViewController *vc = [[EditDisplayViewController alloc]init];
-                    [DashboardSetting sharedInstance].Dashboardindex =   sender.view.tag;
                     [self.navigationController pushViewController:vc animated:YES];
                 }
                     break;
@@ -830,158 +727,7 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
             break;
     }
 }
-#pragma mark 进行默认设置
-- (void)initWithDefault:(UIView *)senderview{
-    NSInteger PageNumber = senderview.frame.origin.x / MSWidth;
-    
-    diameterPercent = (senderview.frame.size.width/MSWidth)*100;
-    
-    LeftPercent =((senderview.frame.origin.x  - PageNumber*MSWidth)/MSWidth)*100 ;
-    
-    TopPercent  = ((senderview.frame.origin.y )/MSHeight)*100;
-    
-    dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:(long)senderview.tag];
-    
-    [[DashboardSetting sharedInstance].defaults setFloat:diameterPercent  forKey:[NSString stringWithFormat:@"diameterPercent%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:LeftPercent forKey:[NSString stringWithFormat:@"LeftPercent%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:TopPercent forKey:[NSString stringWithFormat:@"TopPercent%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setObject:@"YES" forKey:[NSString stringWithFormat:@"change%ld",(long)[DashboardSetting sharedInstance].Dashboardindex]];
 
-    
-    
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.StartAngle forKey:[NSString stringWithFormat:@"StartAngle%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.endAngle forKey:[NSString stringWithFormat:@"endAngle%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.ringWidth forKey:[NSString stringWithFormat:@"ringWidth%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.maLength forKey:[NSString stringWithFormat:@"maLength%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.maLength forKey:[NSString stringWithFormat:@"maWidth%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.miLength forKey:[NSString stringWithFormat:@"miLength%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.miWidth forKey:[NSString stringWithFormat:@"miWidth%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.maColor  forKey:[NSString stringWithFormat:@"maColor%ld",(long)senderview.tag]];
-    
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.miColor forKey:[NSString stringWithFormat:@"miColor%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.outerColor  forKey:[NSString stringWithFormat:@"outerColor%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.innerColor forKey:[NSString stringWithFormat:@"innerColor%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.titleColor forKey:[NSString stringWithFormat:@"titleColor%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.titleFontScale forKey:[NSString stringWithFormat:@"TitleFontScale%ld",(long)senderview.tag]];
-    
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.titleFontScale forKey:[NSString stringWithFormat:@"TitlePosition%ld",(long)senderview.tag]];
-    
-    
-    [[DashboardSetting sharedInstance].defaults setBool:dashboardStyleAView.ValueVisble forKey:[NSString stringWithFormat:@"ValueVisble%ld",(long)senderview.tag]];
-    
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.ValueColor forKey:[NSString stringWithFormat:@"ValueColor%ld",(long)senderview.tag]];
-    
-   
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.titleFontScale forKey:[NSString stringWithFormat:@"ValueFontScale%ld",(long)senderview.tag]];
-    
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.titleFontScale forKey:[NSString stringWithFormat:@"ValuePosition%ld",(long)senderview.tag]];
-    
-    [[DashboardSetting sharedInstance].defaults setBool:dashboardStyleAView.LabelVisble forKey:[NSString stringWithFormat:@"LabelVisble%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setBool:dashboardStyleAView.LabelRotate forKey:[NSString stringWithFormat:@"LabelRotate%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.LabelFontScale forKey:[NSString stringWithFormat:@"LabelFontScale%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.LabelOffest forKey:[NSString stringWithFormat:@"LabelOffest%ld",(long)senderview.tag]];
-    
-    [[DashboardSetting sharedInstance].defaults setBool:dashboardStyleAView.PointerVisble forKey:[NSString stringWithFormat:@"PointerVisble%ld",(long)senderview.tag]];
-     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.PointerWidth forKey:[NSString stringWithFormat:@"PointerWidth%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.PointerLength forKey:[NSString stringWithFormat:@"PointerLength%ld",(long)senderview.tag]];
-     [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.PointerColor forKey:[NSString stringWithFormat:@"PointerColor%ld",(long)senderview.tag]] ;
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.KNOBRadius forKey:[NSString stringWithFormat:@"KNOBRadius%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.KNOBColor forKey:[NSString stringWithFormat:@"KNOBColor%ld",(long)senderview.tag]] ;
-   [[DashboardSetting sharedInstance].defaults setBool:dashboardStyleAView.Fillenabled forKey:[NSString stringWithFormat:@"Fillenabled%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.FillstartAngle forKey:[NSString stringWithFormat:@"FillstartAngle%ld",(long)senderview.tag]];
-   [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.FillEndAngle forKey:[NSString stringWithFormat:@"FillEndAngle%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.FillColor forKey:[NSString stringWithFormat:@"FillColor%ld",(long)senderview.tag]] ;
-      [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.infoLabel.text forKey:[NSString stringWithFormat:@"infoLabeltext%ld",(long)senderview.tag]] ;
-    
-    NSLog(@"FillColorv%@", [[DashboardSetting sharedInstance].defaults objectForKey:[NSString stringWithFormat:@"FillColor%ld",(long)senderview.tag]] );
-    
- [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleAView.UnitColor forKey:[NSString stringWithFormat:@"UnitColor%ld",(long)senderview.tag]] ;
-   [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.UnitFontScale forKey:[NSString stringWithFormat:@"UnitFontScale%ld",(long)senderview.tag]];
-     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.UnitVerticalPosition forKey:[NSString stringWithFormat:@"UnitVerticalPosition%ld",(long)senderview.tag]];
-     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleAView.UnitHorizontalPosition forKey:[NSString stringWithFormat:@"UnitHorizontalPosition%ld",(long)senderview.tag]];
-
-}
-- (void)initWithDefaultStyleB :(UIView *)senderview{
-    NSInteger PageNumber = senderview.frame.origin.x / MSWidth;
-    
-    diameterPercent = (senderview.frame.size.width/MSWidth)*100;
-    
-    LeftPercent =((senderview.frame.origin.x  - PageNumber*MSWidth)/MSWidth)*100 ;
-    
-    TopPercent  = ((senderview.frame.origin.y )/MSHeight)*100;
-
-    dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:(long)senderview.tag];
-    
-    [[DashboardSetting sharedInstance].defaults setFloat:diameterPercent forKey:[NSString stringWithFormat:@"StyleBdiameterPercent%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:LeftPercent forKey:[NSString stringWithFormat:@"StyleBLeftPercent%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:TopPercent forKey:[NSString stringWithFormat:@"StyleBTopPercent%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setObject:@"YES" forKey:[NSString stringWithFormat:@"StyleBchange%ld",(long)senderview.tag]];
-    
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleBView.backColor forKey:[NSString stringWithFormat:@"StyleBbackColor%ld",(long)senderview.tag]] ;
-     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleBView.GradientRadius forKey:[NSString stringWithFormat:@"StyleBGradientRaduis%ld",(long)senderview.tag]] ;
-     [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleBView.titleColor forKey:[NSString stringWithFormat:@"StyleBtitleColor%ld",(long)senderview.tag]] ;
-     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleBView.titleFontScale forKey:[NSString stringWithFormat:@"StyleBtitleFontScale%ld",(long)senderview.tag]] ;
-    
-     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleBView.titlePositon forKey:[NSString stringWithFormat:@"StyleBtitlePositon%ld",(long)senderview.tag]] ;
-    [[DashboardSetting sharedInstance].defaults setBool:dashboardStyleBView.ValueVisible forKey:[NSString stringWithFormat:@"StyleBValueVisible%ld",(long)senderview.tag]] ;
-   [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleBView.ValueColor forKey:[NSString stringWithFormat:@"StyleBValueColor%ld",(long)senderview.tag]] ;
-     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleBView.ValueFontScale forKey:[NSString stringWithFormat:@"StyleBValueFontScale%ld",(long)senderview.tag]] ;
-  [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleBView.ValuePositon forKey:[NSString stringWithFormat:@"StyleBValuePositon%ld",(long)senderview.tag]] ;
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleBView.titlePositon forKey:[NSString stringWithFormat:@"StyleBtitlePositon%ld",(long)senderview.tag]] ;
-    
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleBView.UnitColor forKey:[NSString stringWithFormat:@"StyleBUnitColor%ld",(long)senderview.tag]] ;
- [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleBView.UnitFontScale forKey:[NSString stringWithFormat:@"StyleBUnitFontScale%ld",(long)senderview.tag]] ;
- [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleBView.UnitPositon forKey:[NSString stringWithFormat:@"StyleBUnitPositon%ld",(long)senderview.tag]] ;
-    
-    
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleBView.pointerColor forKey:[NSString stringWithFormat:@"StyleBpointerColor%ld",(long)senderview.tag]] ;
-   [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleBView.Pointerwidth forKey:[NSString stringWithFormat:@"StyleBPointerwidth%ld",(long)(long)senderview.tag]] ;
-    [[DashboardSetting sharedInstance].defaults setBool:dashboardStyleBView.FillEnable forKey:[NSString stringWithFormat:@"StyleBFillEnable%ld",(long)(long)senderview.tag]] ;
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleBView.FillColor forKey:[NSString stringWithFormat:@"StyleBFillColor%ld",(long)(long)senderview.tag]] ;
-    
-
-}
-- (void)initWithDefaultStyleC :(UIView *)senderview{
-    NSInteger PageNumber = senderview.frame.origin.x / MSWidth;
-
-    diameterPercent = (senderview.frame.size.width/MSWidth)*100;
-    
-    LeftPercent =((senderview.frame.origin.x  - PageNumber*MSWidth)/MSWidth)*100 ;
-    
-    TopPercent  = ((senderview.frame.origin.y )/MSHeight)*100;
-    
-   
-    dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:senderview.tag];
-    
-    [[DashboardSetting sharedInstance].defaults setFloat:diameterPercent forKey:[NSString stringWithFormat:@"StyleCdiameterPercent%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:LeftPercent forKey:[NSString stringWithFormat:@"StyleCLeftPercent%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setFloat:TopPercent forKey:[NSString stringWithFormat:@"StyleCTopPercent%ld",(long)senderview.tag]];
-    [[DashboardSetting sharedInstance].defaults setObject:@"YES" forKey:[NSString stringWithFormat:@"StyleCchange%ld",(long)senderview.tag]];
-    
-     [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleCView.innerColor forKey:[NSString stringWithFormat:@"StyleCinnerColor%ld",(long)senderview.tag]] ;
-      [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleCView.outerColor forKey:[NSString stringWithFormat:@"StyleCouterColor%ld",(long)senderview.tag]] ;
-    
-
-      [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleCView.Gradientradius forKey:[NSString stringWithFormat:@"StyleCGradientradius%ld",(long)senderview.tag]] ;
-    
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleCView.titleColor forKey :[NSString stringWithFormat:@"StyleCtitleColor%ld",(long)senderview.tag]] ;
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleCView.titleFontScale forKey:[NSString stringWithFormat:@"StyleCtitleFontScale%ld",(long)senderview.tag]] ;
-    
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleCView.titlePositon forKey:[NSString stringWithFormat:@"StyleCtitlePositon%ld",(long)senderview.tag]] ;
-    [[DashboardSetting sharedInstance].defaults setBool:dashboardStyleCView.ValueVisible forKey:[NSString stringWithFormat:@"StyleCValueVisible%ld",(long)senderview.tag]] ;
-    [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleCView.ValueColor forKey:[NSString stringWithFormat:@"StyleCValueColor%ld",(long)senderview.tag]] ;
-    
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleCView.ValueFontScale forKey:[NSString stringWithFormat:@"StyleCValueFontScale%ld",(long)senderview.tag]] ;
-     [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleCView.ValuePositon forKey:[NSString stringWithFormat:@"StyleCValuePositon%ld",(long)senderview.tag]] ;
-   [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleCView.UnitColor forKey:[NSString stringWithFormat:@"StyleCUnitColor%ld",(long)senderview.tag]] ;
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleCView.UnitFontScale forKey:[NSString stringWithFormat:@"StyleCUnitFontScale%ld",(long)senderview.tag]] ;
-    
-    [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleCView.UnitPositon forKey:[NSString stringWithFormat:@"StyleCUnitPositon%ld",(long)senderview.tag]] ;
-     [[DashboardSetting sharedInstance].defaults setObject:dashboardStyleCView.FrameColor forKey:[NSString stringWithFormat:@"StyleCFrameColor%ld",(long)senderview.tag]] ;
-      [[DashboardSetting sharedInstance].defaults setFloat:dashboardStyleCView.FrameScale forKey:[NSString stringWithFormat:@"StyleCFrameScale%ld",(long)senderview.tag]] ;
-    
-
-}
 #pragma mark //得到最终设置
 
 #pragma mark 移除一整页仪表盘
@@ -995,6 +741,13 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
 #pragma mark 全部恢复默认仪表盘
 - (void)LoadDefaultDashboards{
     NSLog(@"LoadLoad");
+    [DashboardA bg_drop];
+    [DashboardB bg_drop];
+    [DashboardC bg_drop];
+
+    [[DashboardSetting sharedInstance] initWithdashboardA];
+    [[DashboardSetting sharedInstance] initWithdashboardB];
+    [[DashboardSetting sharedInstance] initWithdashboardC];
     [DashboardSetting sharedInstance].KPageNumer = 3;
     [self clearAllUserDefaultsData];
     _LabelNameArray = [[NSMutableArray alloc]initWithObjects:@"MPH",@"RPM",@"Engine Temp",@"MAF",@"Fuel rate",@"Battery",@"Battery",@"Battery",@"Battery", nil];
@@ -1052,47 +805,68 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
 
 #pragma mark 点击添加
 - (void)addDashboard{
+      [[DashboardSetting sharedInstance].defaults setInteger:[[DashboardSetting sharedInstance].defaults integerForKey:@"AddDashboardNumber"]+1 forKey:@"AddDashboardNumber"];
     switch ([DashboardSetting sharedInstance].dashboardStyle) {
         case DashboardStyleOne:
         {
             dashboardStyleAView = [[DashboardView alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth +(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleAView.tag = ++ DashBoardTag;
+            [[DashboardSetting sharedInstance]initADDdashboardA];
+            NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleAView.frame.origin.x] , [NSNumber numberWithFloat:dashboardStyleAView.tag]];
+            [DashboardA bg_updateSet:orignxsql];
             
+            NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: dashboardStyleAView.frame.origin.y] , [NSNumber numberWithFloat:dashboardStyleAView.tag]];
+            [DashboardA bg_updateSet:orignysql];
+            
+            NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleAView.frame.size.width], [NSNumber numberWithFloat:dashboardStyleAView.tag]];
+            [DashboardA bg_updateSet:orignwidthsql];
+            
+            NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleAView.frame.size.height], [NSNumber numberWithFloat:dashboardStyleAView.tag]];
+            [DashboardA bg_updateSet:orignheightsql];
+            [scrollView addSubview:dashboardStyleAView];
             [self initWithChangeStyleA:dashboardStyleAView :dashboardStyleAView.tag -1];
-            
-            diameterPercent = (dashboardStyleAView.frame.size.width/MSWidth)*100;
-            
-            LeftPercent =((dashboardStyleAView.frame.origin.x )/MSWidth)*100 ;
-            
-            TopPercent  = ((dashboardStyleAView.frame.origin.y )/MSHeight)*100;
-             [[DashboardSetting sharedInstance].defaults setInteger:dashboardStyleAView.tag forKey:[NSString stringWithFormat:@"addTag%ld",(long)[DashboardSetting sharedInstance].AddDashboardNumber]];
+         
         }
             break;
         case DashboardStyleTwo:
         {
             dashboardStyleBView = [[DashboardViewStyleB alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth+(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleBView.tag = ++ DashBoardTag;
+            [[DashboardSetting sharedInstance]initADDdashboardB];
+            NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleBView.frame.origin.x] , [NSNumber numberWithFloat:dashboardStyleBView.tag]];
+            [DashboardB bg_updateSet:orignxsql];
+            
+            NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: dashboardStyleBView.frame.origin.y] , [NSNumber numberWithFloat:dashboardStyleBView.tag]];
+            [DashboardB bg_updateSet:orignysql];
+            
+            NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleBView.frame.size.width], [NSNumber numberWithFloat:dashboardStyleBView.tag]];
+            [DashboardB bg_updateSet:orignwidthsql];
+            
+            NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleBView.frame.size.height], [NSNumber numberWithFloat:dashboardStyleBView.tag]];
+            [DashboardB bg_updateSet:orignheightsql];
+            [scrollView addSubview:dashboardStyleBView];
             [self initWithChangeStyleB:dashboardStyleBView :dashboardStyleBView.tag-1 ];
-            diameterPercent = (dashboardStyleBView.frame.size.width/MSWidth)*100;
-            
-            LeftPercent =((dashboardStyleBView.frame.origin.x )/MSWidth)*100 ;
-            
-            TopPercent  = ((dashboardStyleBView.frame.origin.y )/MSHeight)*100;
-            [[DashboardSetting sharedInstance].defaults setInteger:dashboardStyleBView.tag forKey:[NSString stringWithFormat:@"addTag%ld",(long)[DashboardSetting sharedInstance].AddDashboardNumber]];
+           
         }
             break;
         case DashboardStyleThree:
         {
             dashboardStyleCView = [[DashboardViewStyleC alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth +(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleCView.tag = ++ DashBoardTag;
+            [[DashboardSetting sharedInstance]initADDdashboardC];
+            NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleCView.frame.origin.x] , [NSNumber numberWithFloat:dashboardStyleCView.tag]];
+            [DashboardC bg_updateSet:orignxsql];
+            
+            NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: dashboardStyleCView.frame.origin.y] , [NSNumber numberWithFloat:dashboardStyleCView.tag]];
+            [DashboardC bg_updateSet:orignysql];
+            
+            NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleCView.frame.size.width], [NSNumber numberWithFloat:dashboardStyleCView.tag]];
+            [DashboardC bg_updateSet:orignwidthsql];
+            
+            NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleCView.frame.size.height], [NSNumber numberWithFloat:dashboardStyleCView.tag]];
+            [DashboardC bg_updateSet:orignheightsql];
+            [scrollView addSubview:dashboardStyleCView];
             [self initWithChangeStyleC:dashboardStyleCView :dashboardStyleCView.tag -1];
-            diameterPercent = (dashboardStyleCView.frame.size.width/MSWidth)*100;
-            
-            LeftPercent =((dashboardStyleCView.frame.origin.x )/MSWidth)*100 ;
-            
-            TopPercent  = ((dashboardStyleCView.frame.origin.y )/MSHeight)*100;
-            
-            [[DashboardSetting sharedInstance].defaults setInteger:dashboardStyleCView.tag forKey:[NSString stringWithFormat:@"addTag%ld",(long)[DashboardSetting sharedInstance].AddDashboardNumber]];
         }
             break;
             
@@ -1100,40 +874,35 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
             break;
     }
 
-    [[DashboardSetting sharedInstance].defaults setFloat:diameterPercent forKey:[NSString stringWithFormat:@"adddiameterPercent%ld",(long)[DashboardSetting sharedInstance].AddDashboardNumber]];
-    
-    [[DashboardSetting sharedInstance].defaults setFloat:LeftPercent forKey:  [NSString stringWithFormat:@"addLeftPercent%ld",(long)[DashboardSetting sharedInstance].AddDashboardNumber]];
-    
-    [[DashboardSetting sharedInstance].defaults setFloat:TopPercent forKey:[NSString stringWithFormat:@"addTopPercent%ld",(long)[DashboardSetting sharedInstance].AddDashboardNumber]];
-   
-    
-    
-
 }
 #pragma mark 点击移除
 - (void)RemoveDisplay{
-    ++[DashboardSetting sharedInstance].RemoveDashboardNumber;
-    [[DashboardSetting sharedInstance].defaults setInteger:[DashboardSetting sharedInstance].Dashboardindex forKey:[NSString stringWithFormat:@"removeTag%ld",(long)[DashboardSetting sharedInstance].RemoveDashboardNumber]];
-    
-    [DashboardSetting sharedInstance].isDashboardRemove = NO;
+//    ++[DashboardSetting sharedInstance].RemoveDashboardNumber;
+//    [[DashboardSetting sharedInstance].defaults setInteger:[DashboardSetting sharedInstance].Dashboardindex forKey:[NSString stringWithFormat:@"removeTag%ld",(long)[DashboardSetting sharedInstance].RemoveDashboardNumber]];
+//    
+//    [DashboardSetting sharedInstance].isDashboardRemove = NO;
     switch ([DashboardSetting sharedInstance].dashboardStyle) {
         case DashboardStyleOne:
         {
             dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
+            NSString *SQL = [NSString stringWithFormat:@"where ID=%@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
+            [DashboardA bg_deleteWhere:SQL];
             [dashboardStyleAView removeFromSuperview];
         }
             break;
         case DashboardStyleTwo:
         {
             dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-            
+            NSString *SQL = [NSString stringWithFormat:@"where ID=%@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
+            [DashboardB bg_deleteWhere:SQL];
             [dashboardStyleBView removeFromSuperview];
         }
             break;
         case DashboardStyleThree:
         {
             dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-            
+            NSString *SQL = [NSString stringWithFormat:@"where ID=%@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
+            [DashboardC bg_deleteWhere:SQL];
             [dashboardStyleCView removeFromSuperview];
         }
             break;
@@ -1160,10 +929,13 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
             DashboardView  *view = (DashboardView *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
             scrollView.scrollEnabled = YES;
             NSInteger PageNumber = view.frame.origin.x / MSWidth;
-            LeftPercent =((view.frame.origin.x  - PageNumber*MSWidth)/MSWidth)*100 ;
-            TopPercent  = ((view.frame.origin.y )/MSHeight)*100;
-            [[DashboardSetting sharedInstance].defaults setFloat:LeftPercent forKey:[NSString stringWithFormat:@"LeftPercent%ld",(long)view.tag]];
-            [[DashboardSetting sharedInstance].defaults setFloat:TopPercent forKey:[NSString stringWithFormat:@"TopPercent%ld",(long)view.tag]];
+            NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:view.frame.origin.x  - PageNumber*MSWidth] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
+            [DashboardA bg_updateSet:orignxsql];
+            NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: view.frame.origin.y] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
+            [DashboardA bg_updateSet:orignysql];
+            
+           
+            
             [coverView removeFromSuperview];
         }
             break;
@@ -1172,12 +944,10 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
             DashboardViewStyleB  *view = (DashboardViewStyleB *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
             scrollView.scrollEnabled = YES;
             NSInteger PageNumber = view.frame.origin.x / MSWidth;
-            
-            LeftPercent =((view.frame.origin.x  - PageNumber*MSWidth)/MSWidth)*100 ;
-            TopPercent  = ((view.frame.origin.y )/MSHeight)*100;
-            
-            [[DashboardSetting sharedInstance].defaults setFloat:LeftPercent forKey:[NSString stringWithFormat:@"StyleBLeftPercent%ld",(long)view.tag]];
-            [[DashboardSetting sharedInstance].defaults setFloat:TopPercent forKey:[NSString stringWithFormat:@"StyleBTopPercent%ld",(long)view.tag]];
+            NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:view.frame.origin.x  - PageNumber*MSWidth] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
+            [DashboardA bg_updateSet:orignxsql];
+            NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: view.frame.origin.y] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
+            [DashboardA bg_updateSet:orignysql];
             [coverView removeFromSuperview];
         }
             break;
@@ -1186,12 +956,12 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
             DashboardViewStyleC  *view = (DashboardViewStyleC *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
             scrollView.scrollEnabled = YES;
             NSInteger PageNumber = view.frame.origin.x / MSWidth;
+            NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:view.frame.origin.x  - PageNumber*MSWidth] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
+            [DashboardC bg_updateSet:orignxsql];
+            NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: view.frame.origin.y] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
+            [DashboardC bg_updateSet:orignysql];
             
-            LeftPercent =((view.frame.origin.x  - PageNumber*MSWidth)/MSWidth)*100 ;
-            TopPercent  = ((view.frame.origin.y )/MSHeight)*100;
-            
-            [[DashboardSetting sharedInstance].defaults setFloat:LeftPercent forKey:[NSString stringWithFormat:@"StyleCLeftPercent%ld",(long)view.tag]];
-            [[DashboardSetting sharedInstance].defaults setFloat:TopPercent forKey:[NSString stringWithFormat:@"StyleCTopPercent%ld",(long)view.tag]];
+
             [coverView removeFromSuperview];
         }
             break;
@@ -1229,13 +999,8 @@ NSString*   innerColorResult = [[DashboardSetting sharedInstance].defaults objec
      [DashboardSetting sharedInstance].multiplierType = MultiplierType1;
      [DashboardSetting sharedInstance].hudModeType = HUDModeTypeToNormal;
      [DashboardSetting sharedInstance].KPageNumer = 3;
-     [DashboardSetting sharedInstance].AddDashboardNumber = 0;
-     [DashboardSetting sharedInstance].isDashboardFont = NO;
-     [DashboardSetting sharedInstance].isDashboardMove = NO;
      [DashboardSetting sharedInstance].isDashboardRemove = NO;
-     [DashboardSetting sharedInstance].RemoveDashboardNumber = 0;
-    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    [self isFristLoadDashboard];
 }
 #pragma mark 指针旋转角度
 - (void)rotationWithStartAngle:(CGFloat)StartAngle{

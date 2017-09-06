@@ -16,6 +16,29 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    NSUserDefaults *TimeOfBootCount = [NSUserDefaults standardUserDefaults];
+    if (![TimeOfBootCount valueForKey:@"time"]) {
+        [TimeOfBootCount setValue:@"sd" forKey:@"time"];
+        NSLog(@"第一次启动");
+        [DashboardA bg_drop];
+        [DashboardB bg_drop];
+        [DashboardC bg_drop];
+
+        [[DashboardSetting sharedInstance] initWithdashboardA];
+        [[DashboardSetting sharedInstance] initWithdashboardB];
+        [[DashboardSetting sharedInstance] initWithdashboardC];
+
+        
+    }else{
+        NSLog(@"不是第一次启动");
+        NSLog(@"11%ld",(long)[DashboardA bg_version]);
+
+    }
+    
+    NSLog(@"启动成功");
+
+    
     // Override point for customization after application launch.
     MyTabBarController *tabbar = [[MyTabBarController alloc]init];
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
@@ -24,13 +47,24 @@
     [UITabBar appearance].backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
     [UITabBar appearance].tintColor = [ColorTools colorWithHexString:@"#FE9002"];
 //    
-    [self clearAllUserDefaultsData];
     
     return YES;
 }
+
+
 - (void)clearAllUserDefaultsData
 {
-    
+    [DashboardSetting sharedInstance].dashboardMode = DashboardCustomMode;
+    [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleOne;
+    [DashboardSetting sharedInstance].numberDecimals = NumberDecimalZero;
+    [DashboardSetting sharedInstance].multiplierType = MultiplierType1;
+    [DashboardSetting sharedInstance].hudModeType = HUDModeTypeToNormal;
+    [DashboardSetting sharedInstance].KPageNumer = 3;
+    [DashboardSetting sharedInstance].AddDashboardNumber = 0;
+    [DashboardSetting sharedInstance].isDashboardFont = NO;
+    [DashboardSetting sharedInstance].isDashboardMove = NO;
+    [DashboardSetting sharedInstance].isDashboardRemove = NO;
+    [DashboardSetting sharedInstance].RemoveDashboardNumber = 0;
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
 }

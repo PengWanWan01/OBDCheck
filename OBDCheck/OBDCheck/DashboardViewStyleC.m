@@ -33,39 +33,26 @@
     [[view layer] setShadowRadius:gradientradius];
     [[view layer] setShadowOpacity:0.1f]; //阴影的透明度
     [[view layer] setShadowColor:[ColorTools colorWithHexString:innerColor].CGColor];
-    self.innerColor = innerColor;
-    self.outerColor = outerColor;
-    self.Gradientradius = gradientradius;
+   
     self.NumberLabel =  [[UILabel alloc]initWithFrame:CGRectMake(0, (view.bounds.size.height/2 - 35.0*KMultipleC)*valuePositon , view.bounds.size.width, 80.f*KMultipleC)];
     self.NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:valueFontScale* 74.f*KMultipleC];
     self.NumberLabel.text = @"0.00";
     self.NumberLabel.textAlignment = NSTextAlignmentCenter;
     self.NumberLabel.textColor = [ColorTools colorWithHexString:ValueColor];
-    
-    self.ValueColor = ValueColor;
-    self.ValueFontScale = valueFontScale;
-    self.ValuePositon = valuePositon;
+   
     
     self.PIDLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,(53*KMultipleC)*titlePosition , view.bounds.size.width, 35.0*KMultipleC)];
     self.PIDLabel.font = [UIFont systemFontOfSize:tiltefontScale* 36.f*KMultipleC];
     self.PIDLabel.text = @"RPM";
     self.PIDLabel.textAlignment = NSTextAlignmentCenter;
     self.PIDLabel.textColor = [ColorTools colorWithHexString:titlecolor];
-    self.titlePositon = titlePosition;
-    self.titleFontScale =tiltefontScale;
-    self.titleColor = titlecolor;
-    
+  
     self.UnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,( view.bounds.size.height  - 78*KMultipleC)*unitPositon, view.bounds.size.width, 35.0*KMultipleC)];
     self.UnitLabel.font = [UIFont systemFontOfSize:36.f*KMultipleC*unitFontScale];
     self.UnitLabel.text = @"/min";
     self.UnitLabel.textAlignment = NSTextAlignmentCenter;
     self.UnitLabel.textColor = [ColorTools colorWithHexString:unitColor];
-    self.UnitColor = unitColor;
-    self.UnitFontScale = unitFontScale;
-    self.UnitPositon = unitPositon;
-    
-    self.FrameColor = frameColor;
-    self.FrameScale = frameScale;
+  
     [self addSubview:view];
     [view addSubview:self.PIDLabel];
     [view addSubview:self.NumberLabel];

@@ -138,7 +138,7 @@
     self.FillColor = fillColor;
     self.infoLabel.textColor = [ColorTools colorWithHexString:titleColor];
     self.infoLabel.textAlignment = NSTextAlignmentCenter;
-    self.infoLabel.text = @"title";
+//    self.infoLabel.text = @"title";
     self.infoLabel.font = [UIFont ToAdapFont:titleFontScale*16.f];
     [self addSubview:self.infoLabel];
     
@@ -206,8 +206,6 @@
             //默认label的大小14 * 14
             UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake((point.x - 15), (point.y - 15), 30, 30)];
             text.text = tickText;
-            self.LabelFontScale = labelFontScale;
-            self.LabelOffest = labeloffestTick;
             text.font = [UIFont systemFontOfSize:labelFontScale*10.f];
             text.textColor = [UIColor whiteColor];
             text.textAlignment = NSTextAlignmentCenter;

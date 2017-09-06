@@ -57,9 +57,18 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 
 
 @property (nonatomic,strong)   NSUserDefaults* defaults;
+@property (nonatomic,copy)   NSString* DashBoardFristLoad;
 
 //单例模式，实例化对象
 +(instancetype )sharedInstance;
+- (void)initWithdashboardA;
+- (void)initADDdashboardA;
+- (void)initADDdashboardB;
+- (void)initADDdashboardC;
+
+- (void)initWithdashboardB;
+- (void)initWithdashboardC;
+
 //设置一个属性
 -(BOOL)SetAttribute:(CGFloat)Value Key:(NSString *)key;
 //获取一个属性值

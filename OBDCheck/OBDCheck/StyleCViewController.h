@@ -17,23 +17,5 @@
 @property (nonatomic,strong) UISlider *slider;
 
 
-@property (nonatomic,copy) NSString *innerColor;
-@property (nonatomic,copy) NSString *outerColor;
-@property (nonatomic,assign) CGFloat Gradientradius;
 
-@property (nonatomic,copy) NSString *titleColor;
-@property (nonatomic,assign) CGFloat titleFontScale;
-@property (nonatomic,assign) CGFloat titlePositon;
-
-@property (nonatomic,assign) BOOL ValueVisible;
-@property (nonatomic,copy ) NSString *ValueColor;
-@property (nonatomic,assign) CGFloat ValueFontScale;
-@property (nonatomic,assign) CGFloat ValuePositon;
-
-@property (nonatomic,copy ) NSString *UnitColor;
-@property (nonatomic,assign) CGFloat UnitFontScale;
-@property (nonatomic,assign) CGFloat UnitPositon;
-
-@property (nonatomic,copy) NSString *FrameColor;
-@property (nonatomic,assign) CGFloat FrameScale;
 @end
