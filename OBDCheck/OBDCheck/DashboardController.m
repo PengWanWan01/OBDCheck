@@ -877,10 +877,9 @@ static dispatch_source_t _timer;
 }
 #pragma mark 点击移除
 - (void)RemoveDisplay{
-//    ++[DashboardSetting sharedInstance].RemoveDashboardNumber;
-//    [[DashboardSetting sharedInstance].defaults setInteger:[DashboardSetting sharedInstance].Dashboardindex forKey:[NSString stringWithFormat:@"removeTag%ld",(long)[DashboardSetting sharedInstance].RemoveDashboardNumber]];
+
 //    
-//    [DashboardSetting sharedInstance].isDashboardRemove = NO;
+    [DashboardSetting sharedInstance].isDashboardRemove = NO;
     switch ([DashboardSetting sharedInstance].dashboardStyle) {
         case DashboardStyleOne:
         {
