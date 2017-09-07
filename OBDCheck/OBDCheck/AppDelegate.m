@@ -28,7 +28,7 @@
         [[DashboardSetting sharedInstance] initWithdashboardA];
         [[DashboardSetting sharedInstance] initWithdashboardB];
         [[DashboardSetting sharedInstance] initWithdashboardC];
-
+        [[DashboardSetting sharedInstance]CustomADDdashboardA];
         
     }else{
         NSLog(@"不是第一次启动");

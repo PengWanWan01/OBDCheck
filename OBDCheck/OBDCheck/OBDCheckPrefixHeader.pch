@@ -94,5 +94,6 @@
 #import "DashboardB.h"
 #import "DashboardC.h"
 #import "NSObject+BGModel.h"
+#import "CustomDashboard.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

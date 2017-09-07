@@ -38,12 +38,12 @@
     switch ([DashboardSetting sharedInstance].dashboardMode) {
         case DashboardClassicMode:
         {
-         _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Instant fuel economy",@"Min",@"Max",@"PID",@"Number of Decimals",@"Multiplier", nil];
+         _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"PID", nil];
         }
             break;
         case DashboardCustomMode:
         {
-             _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Instant fuel economy",@"Min",@"Max",@"PID",@"Number of Decimals",@"Multiplier", nil];
+             _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Instant fuel economy",@"Min",@"Max",@"PID",@"Multiplier", nil];
         }
             break;
         default:

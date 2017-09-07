@@ -21,7 +21,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Size and Location",@"Dispaly Configuration",@"Style",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];
+    _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Dispaly Configuration",@"Style",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];
     [self initWithUI];
 }
 
@@ -66,20 +66,20 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
+//        case 0:
+//        {
+//            SizeAndLocationViewController *vc = [[SizeAndLocationViewController alloc]init];
+//            [self.navigationController pushViewController:vc animated:YES];
+//            
+//        }
+//            break;
         case 0:
-        {
-            SizeAndLocationViewController *vc = [[SizeAndLocationViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
-            
-        }
-            break;
-        case 1:
         {
             DisplaySetViewController *vc = [[DisplaySetViewController alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
-        case 2:
+        case 1:
         {
             switch ([DashboardSetting sharedInstance].dashboardStyle) {
                 case DashboardStyleOne:
@@ -106,21 +106,21 @@
           
         }
             break;
-        case 3:
+        case 2:
         {
           [DashboardSetting sharedInstance].isDashboardRemove = YES;
             [self back];
             
         }
             break;
-        case 4:
+        case 3:
         {
             [DashboardSetting sharedInstance].isDashboardMove = YES;
 
             [self back];
         }
             break;
-        case 5:
+        case 4:
         {
             [DashboardSetting sharedInstance].isDashboardFont = YES;
          

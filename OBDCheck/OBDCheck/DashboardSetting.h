@@ -38,6 +38,9 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
     HUDModeTypeToHUD,   // 变成HUD类型
     HUDModeTypeToNormal    //变成正常类型
 };
+@class DashboardA;
+@class DashboardB;
+@class DashboardC;
 
 @interface DashboardSetting : NSObject
 @property(nonatomic)   DashboardMode dashboardMode;
@@ -57,18 +60,21 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 
 
 @property (nonatomic,strong)   NSUserDefaults* defaults;
-@property (nonatomic,copy)   NSString* DashBoardFristLoad;
+@property (nonatomic,assign)   BOOL DashBoardFristLoad;
 
 //单例模式，实例化对象
 +(instancetype )sharedInstance;
 - (void)initWithdashboardA;
-- (void)initADDdashboardA;
-- (void)initADDdashboardB;
-- (void)initADDdashboardC;
-
 - (void)initWithdashboardB;
 - (void)initWithdashboardC;
 
+- (void)initADDdashboardA:(DashboardA *)model;
+
+- (void)initADDdashboardB:(DashboardB *)model;
+- (void)initADDdashboardC:(DashboardC *)model;
+
+
+- (void)CustomADDdashboardA;
 //设置一个属性
 -(BOOL)SetAttribute:(CGFloat)Value Key:(NSString *)key;
 //获取一个属性值

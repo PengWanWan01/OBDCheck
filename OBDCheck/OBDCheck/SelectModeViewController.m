@@ -108,16 +108,6 @@
 }
 - (void)clearAllUserDefaultsData
 {
-    [DashboardSetting sharedInstance].numberDecimals = NumberDecimalZero;
-    [DashboardSetting sharedInstance].multiplierType = MultiplierType1;
-    [DashboardSetting sharedInstance].hudModeType = HUDModeTypeToNormal;
-    [DashboardSetting sharedInstance].KPageNumer = 3;
-    [DashboardSetting sharedInstance].AddDashboardNumber = 0;
-    [DashboardSetting sharedInstance].isDashboardFont = NO;
-    [DashboardSetting sharedInstance].isDashboardMove = NO;
-    [DashboardSetting sharedInstance].isDashboardRemove = NO;
-    [DashboardSetting sharedInstance].RemoveDashboardNumber = 0;
-    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    
 }
 @end

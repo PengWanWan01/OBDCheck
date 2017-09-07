@@ -70,15 +70,15 @@
 }
 - (void)initWithdashboardA{
     for (int i = 0; i<9; i++) {
-        [self initADDdashboardA];
+        DashboardA *model =  [DashboardA new];
+        [self initADDdashboardA:model];
+        [model bg_saveOrUpdate];
     }
     
 }
-- (void)initADDdashboardA{
+- (void)initADDdashboardA:(DashboardA *)model {
     bg_setDebug(YES);
-    DashboardA *model =  [DashboardA new];
-    
-    model.titleColor = @"FE9002";
+     model.titleColor = @"FE9002";
     model.titleFontScale = [NSNumber numberWithFloat:1];
     model.titlePosition = [NSNumber numberWithFloat:1];
     
@@ -130,18 +130,18 @@
     /**
      存储.
      */
-    [model bg_saveOrUpdate];
 }
 - (void)initWithdashboardB{
     for (int i = 0; i<9; i++) {
-        [self initADDdashboardB];
+        DashboardB *model =  [DashboardB new];
+        [self initADDdashboardB:model];
+         [model bg_saveOrUpdate];
     }
 
 
 }
-- (void)initADDdashboardB{
+- (void)initADDdashboardB:(DashboardB *)model{
     bg_setDebug(YES);
-    DashboardB *model =  [DashboardB new];
     model.ValueColor  = @"#FFFFFF";
     model.ValueFontScale = [NSNumber numberWithFloat:1.f];
     model.ValuePositon = [NSNumber numberWithFloat:1.f];
@@ -172,18 +172,18 @@
     /**
      存储.
      */
-    [model bg_saveOrUpdate];
 }
 - (void)initWithdashboardC{
     for (int i = 0; i<9; i++) {
-        [self initADDdashboardC];
+        DashboardC *model = [DashboardC new];
+        [self initADDdashboardC:model];
+         [model bg_saveOrUpdate];
     }
     
     
 }
-- (void)initADDdashboardC{
+- (void)initADDdashboardC:(DashboardC *)model{
     bg_setDebug(YES);
-    DashboardC *model =  [DashboardC new];
     model.UnitColor = @"FFFFFF";
     model.UnitFontScale = [NSNumber numberWithFloat:1.f];
     model.UnitPositon = [NSNumber numberWithFloat:1.f];
@@ -209,6 +209,18 @@
     /**
      存储.
      */
-    [model bg_saveOrUpdate];
+   
+}
+
+- (void)CustomADDdashboardA{
+   
+    for (int i = 0; i< 9; i++) {
+         CustomDashboard *model = [[CustomDashboard alloc]init];
+        DashboardA *dash = [DashboardA new];
+        [self initADDdashboardA:dash];
+        model.dashboardA = dash;
+        [model bg_saveOrUpdate];
+    }
+
 }
 @end

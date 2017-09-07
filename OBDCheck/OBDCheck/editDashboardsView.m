@@ -88,9 +88,11 @@
         UIButton *selectBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.bounds.size.width - 120, 0, 80, 44)];
         selectBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [selectBtn setTitleColor:[ColorTools colorWithHexString:@"#FE9002"] forState:UIControlStateNormal];
-        [selectBtn setTitle:@"One" forState:UIControlStateNormal];
         
         if (indexPath.row == 1) {
+             cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
+             [selectBtn addTarget:self action:@selector(selectBtn:) forControlEvents:UIControlEventTouchUpInside];
+            [cell addSubview:selectBtn];
             switch ([DashboardSetting sharedInstance].dashboardMode) {
                 case DashboardClassicMode:{
                     [selectBtn setTitle:@"Classic" forState:UIControlStateNormal];
@@ -104,32 +106,33 @@
                     break;
             }
             
+        }else  if (indexPath.row == 2 && [DashboardSetting sharedInstance].dashboardMode == DashboardClassicMode ) {
+            cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
+             [selectBtn addTarget:self action:@selector(selectBtn:) forControlEvents:UIControlEventTouchUpInside];
+            [cell addSubview:selectBtn];
+                    switch ([DashboardSetting sharedInstance].dashboardStyle) {
+                        case DashboardStyleOne:{
+                            [selectBtn setTitle:@"One" forState:UIControlStateNormal];
+                        }
+                            break;
+                        case DashboardStyleTwo:{
+                            [selectBtn setTitle:@"Two" forState:UIControlStateNormal];
+                        }
+                            break;
+                        case DashboardStyleThree:{
+                            [selectBtn setTitle:@"Three" forState:UIControlStateNormal];
+                        }
+                            break;
+                        default:
+                            break;
+                    }
+                    
         }
-        if (indexPath.row == 2) {
-            switch ([DashboardSetting sharedInstance].dashboardStyle) {
-                case DashboardStyleOne:{
-                    [selectBtn setTitle:@"One" forState:UIControlStateNormal];
-                }
-                    break;
-                case DashboardStyleTwo:{
-                    [selectBtn setTitle:@"Two" forState:UIControlStateNormal];
-                }
-                    break;
-                case DashboardStyleThree:{
-                    [selectBtn setTitle:@"Three" forState:UIControlStateNormal];
-                }
-                    break;
-                default:
-                    break;
-            }
-        }
+        
+        
         //选择Mode 与Style的设置
         selectBtn.tag = indexPath.row;
-        [selectBtn addTarget:self action:@selector(selectBtn:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [cell addSubview:selectBtn];
-        cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
-        
+
     }else{
     [cell.textLabel setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
     }
@@ -139,18 +142,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self hide];
    
-    if (!(indexPath.row == 1) ) {
-            if ([self.delegate respondsToSelector:@selector(AlertBetouched:)]) {
-                [self.delegate AlertBetouched:indexPath.row];
+        if (!(indexPath.row == 1 || indexPath.row == 2) ) {
+                if ([self.delegate respondsToSelector:@selector(AlertBetouched:)]) {
+                    [self.delegate AlertBetouched:indexPath.row];
+                }
+            }else{
+                if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
+                    if (indexPath.row == 2) {
+                        if ([self.delegate respondsToSelector:@selector(AlertBetouched:)]) {
+                            [self.delegate AlertBetouched:indexPath.row];
+                        }
+                    }
+                }
+                if ([self.delegate respondsToSelector:@selector(selectStyleBtnBetouched:)]) {
+                    [self.delegate selectStyleBtnBetouched:indexPath.row];
+                }
+                
             }
-    }else{
-    
-        if ([self.delegate respondsToSelector:@selector(selectStyleBtnBetouched:)]) {
-            [self.delegate selectStyleBtnBetouched:indexPath.row];
-        }
-
-    }
-   
 
 }
 - (void)show{

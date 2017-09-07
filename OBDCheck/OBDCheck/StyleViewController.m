@@ -17,6 +17,7 @@
     NSInteger selectTag;
     UIButton *Fristbtn;
     DashboardA* model;
+    UIView *btnView;//放四个按钮的View
 }
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) UITableView *tableViewFrame;
@@ -83,7 +84,7 @@
             self.DashView = self.DashViewA;
             [self.view addSubview:self.DashViewA];
     }
-          UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
+   UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
     label.text = @"Value";
     label.textColor = [ColorTools colorWithHexString:@"#FE9002"];
     label.font = [UIFont ToAdapFont:14.f];
@@ -91,7 +92,7 @@
     self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashView.frame) + 10, CGRectGetMaxY(label.frame )+10, 150, 20)];
     self.slider.minimumTrackTintColor = [ColorTools colorWithHexString:@"FE9002"];
     
-    UIView *btnView = [[UIView alloc]initWithFrame:CGRectMake(29, CGRectGetMaxY(self.DashView.frame) + 40, MSWidth - 58, 24)];
+   btnView = [[UIView alloc]initWithFrame:CGRectMake(29, CGRectGetMaxY(self.DashView.frame) + 40, MSWidth - 58, 24)];
     _datasource = [[NSMutableArray alloc]initWithObjects:@"Frame",@"Axis",@"Needle",@"Range", nil];
     
     for (NSInteger i = 0; i< 4; i++) {
@@ -133,7 +134,7 @@
 - (void)initWithUI{
  
     //创建滚动视图
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 237+44, MSWidth, MSHeight)];
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(btnView.frame)+20, MSWidth, MSHeight)];
     scrollView.contentSize = CGSizeMake(MSWidth*4,MSHeight - 237);
     scrollView.delegate = self;
     scrollView.pagingEnabled=YES;
@@ -142,7 +143,7 @@
     scrollView.scrollEnabled = NO;
     [self.view addSubview:scrollView];
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight - 237-44-64) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight - 237-44-64) style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -153,7 +154,7 @@
     self.selectStyleElement = SelectFrame;
     [scrollView addSubview:self.tableView];
     
-    self.tableViewAxis = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth, 0, MSWidth, MSHeight - 237-44-64) style:UITableViewStylePlain];
+    self.tableViewAxis = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth, 0, MSWidth, MSHeight - 237-44-64) style:UITableViewStyleGrouped];
     self.tableViewAxis.dataSource = self;
     self.tableViewAxis.delegate = self;
     self.tableViewAxis.backgroundColor = [UIColor clearColor];
@@ -164,7 +165,7 @@
     [scrollView addSubview:self.tableViewAxis];
  
     
-    self.tableViewNeedle = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth*2, 0, MSWidth, MSHeight - 237-44-64) style:UITableViewStylePlain];
+    self.tableViewNeedle = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth*2, 0, MSWidth, MSHeight - 237-44-64) style:UITableViewStyleGrouped];
     self.tableViewNeedle.dataSource = self;
     self.tableViewNeedle.delegate = self;
     self.tableViewNeedle.backgroundColor = [UIColor clearColor];
@@ -174,7 +175,7 @@
     [self.tableViewNeedle registerNib:[UINib nibWithNibName:@"StyleThreeTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleThreeTableViewCell"];
     [scrollView addSubview:self.tableViewNeedle];
     
-    self.tableViewRange = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth*3, 0, MSWidth, MSHeight - 237-44-64) style:UITableViewStylePlain];
+    self.tableViewRange = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth*3, 0, MSWidth, MSHeight - 237-44-64) style:UITableViewStyleGrouped];
     self.tableViewRange.dataSource = self;
     self.tableViewRange.delegate = self;
     self.tableViewRange.backgroundColor = [UIColor clearColor];
