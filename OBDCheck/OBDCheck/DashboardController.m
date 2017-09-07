@@ -208,8 +208,16 @@ static dispatch_source_t _timer;
 - (void)startAnimationView{
     //    NSInteger current = pageControl.currentPage;
     [self initWithData];
+    //自定义模式
     for (int i = 0; i<_numberArray.count; i++) {
-       
+        if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
+            dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:i+1];
+            dashboardStyleAView.numberLabel.text = _numberArray[i];
+            
+            NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleAViewTag",_numberArray[i],@"StyleAViewnumber", nil];
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
+        }else{
         switch ([DashboardSetting sharedInstance].dashboardStyle) {
             case DashboardStyleOne:
             {
@@ -241,7 +249,7 @@ static dispatch_source_t _timer;
         }
         
     }
-    
+    }
     
 }
 
@@ -316,7 +324,23 @@ static dispatch_source_t _timer;
         [test setValue:@"sd" forKey:@"test"];
         [self isFristLoadDashboard];
     }
+    [self LoadUI];
 
+
+}
+- (void)LoadUI{
+    //判断仪表盘模式：
+    if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
+        NSArray* pAll = [CustomDashboard bg_findAll];
+        for (CustomDashboard *dash in pAll) {
+            NSLog(@"总共%@,自定义orignx=%f",dash.ID, [dash.dashboardA.orignx floatValue] );
+            dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.orignx floatValue], [dash.dashboardA.origny floatValue], [dash.dashboardA.orignwidth floatValue], [dash.dashboardA.orignheight floatValue])];
+            dashboardStyleAView.tag = [dash.ID integerValue];
+            DashBoardTag = dashboardStyleAView.tag ;
+            [scrollView addSubview:dashboardStyleAView];
+            [self initWithChangeStyleA:dashboardStyleAView : dashboardStyleAView.tag -1] ;
+        }
+    }else{
         switch ([DashboardSetting sharedInstance].dashboardStyle) {
             case DashboardStyleOne:
             {
@@ -325,17 +349,19 @@ static dispatch_source_t _timer;
                 break;
             case DashboardStyleTwo:
             {
-              [self initWithStyleB];
+                [self initWithStyleB];
             }
                 break;
             case DashboardStyleThree:
             {
                 [self initWithStyleC];
-                          }
+            }
                 break;
             default:
                 break;
-}
+        }
+    }
+    
     if ([DashboardSetting sharedInstance].isDashboardRemove == YES) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Remove Display" message:@"Are you sure you want to remove this item?" preferredStyle:  UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -349,10 +375,7 @@ static dispatch_source_t _timer;
         //弹出提示框；
         [self presentViewController:alert animated:true completion:nil];
     }
-   
-
     
-
 }
 - (void)back{
     // 关闭定时器
@@ -368,22 +391,6 @@ static dispatch_source_t _timer;
     DashBoardTag = 0;
    
 
-    switch ([DashboardSetting sharedInstance].dashboardMode) {
-        case DashboardCustomMode:
-        {
-            NSArray* pAll = [CustomDashboard bg_findAll];
-            for (CustomDashboard *dash in pAll) {
-                NSLog(@"总共%@,自定义orignx=%f",dash.ID, [dash.dashboardA.orignx floatValue] );
-                dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.orignx floatValue], [dash.dashboardA.origny floatValue], [dash.dashboardA.orignwidth floatValue], [dash.dashboardA.orignheight floatValue])];
-                dashboardStyleAView.tag = [dash.ID integerValue];
-                DashBoardTag = dashboardStyleAView.tag ;
-                [scrollView addSubview:dashboardStyleAView];
-                [self initWithChangeStyleA:dashboardStyleAView : dashboardStyleAView.tag -1] ;
-        
-        }
-        }
-            break;
-        case DashboardClassicMode:{
             NSArray* pAll = [DashboardA bg_findAll];
             for (DashboardA *dash in pAll) {
                 NSLog(@"总共%@,orignx=%f",dash.ID, [dash.orignx floatValue]);
@@ -392,14 +399,9 @@ static dispatch_source_t _timer;
                 DashBoardTag = dashboardStyleAView.tag ;
                 [scrollView addSubview:dashboardStyleAView];
                 [self initWithChangeStyleA:dashboardStyleAView : dashboardStyleAView.tag -1] ;
-                
+            
             }
 
-        
-        }
-        default:
-            break;
-    }
   
 }
 - (void)initWithChangeStyleA:(DashboardView *)view :(NSInteger)index{
