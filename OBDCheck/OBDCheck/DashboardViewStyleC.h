@@ -11,7 +11,7 @@
 
 - (void)touchMoveWithcenterX:(CGFloat)centerX WithcenterY:(CGFloat)WithcenterY;
 - (void)tap:(UILongPressGestureRecognizer *)sender;
-
+- (void)pinchtap:(UIPinchGestureRecognizer *)sender OrignX:(CGFloat )orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height;
 @end
 
 @interface DashboardViewStyleC : UIView

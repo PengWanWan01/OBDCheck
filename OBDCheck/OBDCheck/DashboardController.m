@@ -86,48 +86,17 @@ static dispatch_source_t _timer;
         NSInteger index = i % 2;
         NSInteger page = i / 2;
         CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
-        dashboardStyleCView  = [[DashboardViewStyleC alloc] initWithFrame:CGRectMake(index * (space+ 150*KFontmultiple)+25,  page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple)];
-        NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25] , [NSNumber numberWithFloat:i+1]];
-        [DashboardC bg_updateSet:orignxsql];
-        
-        NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:  page  * (baseViewHeight + 40)+10 ], [NSNumber numberWithFloat:i+1]];
-        [DashboardC bg_updateSet:orignysql];
-        
-        NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:150*KFontmultiple], [NSNumber numberWithFloat:i+1]];
-        [DashboardC bg_updateSet:orignwidthsql];
-        
-        NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:150*KFontmultiple], [NSNumber numberWithFloat:i+1]];
-        [DashboardC bg_updateSet:orignheightsql];
+   dashboardStyleCView  = [[DashboardViewStyleC alloc] initWithFrame:CGRectMake(index * (space+ 150*KFontmultiple)+25,  page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple)];
+          [ self updatemodel:3 OrignX:dashboardStyleCView.frame.origin.x OrignY:dashboardStyleCView.frame.origin.y Width:dashboardStyleCView.frame.size.width Height:dashboardStyleCView.frame.size.height ID:i+1];
     }
     //第二页的仪表盘
     for (NSInteger i = 0; i< 2; i++) {
         
         dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30)+30, 220, 220)];
-        NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:MSWidth+ MSWidth/2 - 100] , [NSNumber numberWithFloat:i+7]];
-        [DashboardC bg_updateSet:orignxsql];
-        
-        NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: i  * (220+ 30)+30], [NSNumber numberWithFloat:i+7]];
-        [DashboardC bg_updateSet:orignysql];
-        
-        NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:220], [NSNumber numberWithFloat:i+7]];
-        [DashboardC bg_updateSet:orignwidthsql];
-        
-        NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:220], [NSNumber numberWithFloat:i+7]];
-        [DashboardC bg_updateSet:orignheightsql];
-        
+          [ self updatemodel:3 OrignX:dashboardStyleCView.frame.origin.x OrignY:dashboardStyleCView.frame.origin.y Width:dashboardStyleCView.frame.size.width Height:dashboardStyleCView.frame.size.height ID:i+7];
     }
     dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth*2+(MSWidth- 300)/2,  88,300, 300)];
-    NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:MSWidth*2+(MSWidth- 300)/2] , [NSNumber numberWithFloat:9]];
-    [DashboardC bg_updateSet:orignxsql];
-    
-    NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: 88], [NSNumber numberWithFloat:9]];
-    [DashboardC bg_updateSet:orignysql];
-    
-    NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:300], [NSNumber numberWithFloat:9]];
-    [DashboardC bg_updateSet:orignwidthsql];
-    
-    NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:300], [NSNumber numberWithFloat:9]];
-    [DashboardC bg_updateSet:orignheightsql];
+    [ self updatemodel:3 OrignX:dashboardStyleCView.frame.origin.x OrignY:dashboardStyleCView.frame.origin.y Width:dashboardStyleCView.frame.size.width Height:dashboardStyleCView.frame.size.height ID:9];
 }
 - (void)isFristLoadDashboardB{
     for (NSInteger i = 0; i< 6; i++) {
@@ -135,48 +104,17 @@ static dispatch_source_t _timer;
         NSInteger page = i / 2;
         CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
         dashboardStyleBView  = [[DashboardViewStyleB alloc] initWithFrame:CGRectMake(index * (space+ 150*KFontmultiple)+25,  page  * (baseViewHeight + 40)+20, 150*KFontmultiple, 150*KFontmultiple )];
-        
-        NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25] , [NSNumber numberWithFloat:i+1]];
-        [DashboardB bg_updateSet:orignxsql];
-        
-        NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:  page  * (baseViewHeight + 40)+20 ], [NSNumber numberWithFloat:i+1]];
-        [DashboardB bg_updateSet:orignysql];
-        
-        NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:150*KFontmultiple], [NSNumber numberWithFloat:i+1]];
-        [DashboardB bg_updateSet:orignwidthsql];
-        
-        NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:150*KFontmultiple], [NSNumber numberWithFloat:i+1]];
-        [DashboardB bg_updateSet:orignheightsql];
+        [ self updatemodel:2 OrignX:dashboardStyleBView.frame.origin.x OrignY:dashboardStyleBView.frame.origin.y Width:dashboardStyleBView.frame.size.width Height:dashboardStyleBView.frame.size.height ID:i+1];
         
     }
     //第二页的仪表盘
     for (NSInteger i = 0; i< 2; i++) {
         dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30)+30, 220, 220)];
-        NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:MSWidth+ MSWidth/2 - 100] , [NSNumber numberWithFloat:i+7]];
-        [DashboardB bg_updateSet:orignxsql];
-        
-        NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:i  * (220+ 30)+30], [NSNumber numberWithFloat:i+7]];
-        [DashboardB bg_updateSet:orignysql];
-        
-        NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:220], [NSNumber numberWithFloat:i+7]];
-        [DashboardB bg_updateSet:orignwidthsql];
-        
-        NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:220], [NSNumber numberWithFloat:i+7]];
-        [DashboardB bg_updateSet:orignheightsql];
+      [ self updatemodel:2 OrignX:dashboardStyleBView.frame.origin.x OrignY:dashboardStyleBView.frame.origin.y Width:dashboardStyleBView.frame.size.width Height:dashboardStyleBView.frame.size.height ID:7+i];
     }
     
     dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth*2+(MSWidth- 300)/2,  88,300, 300)];
-    NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:MSWidth*2+(MSWidth- 300)/2], [NSNumber numberWithFloat:9]];
-    [DashboardB bg_updateSet:orignxsql];
-    
-    NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: 88 ], [NSNumber numberWithFloat:9]];
-    [DashboardB bg_updateSet:orignysql];
-    
-    NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:300], [NSNumber numberWithFloat:9]];
-    [DashboardB bg_updateSet:orignwidthsql];
-    
-    NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:300], [NSNumber numberWithFloat:9]];
-    [DashboardB bg_updateSet:orignheightsql];
+    [ self updatemodel:2 OrignX:dashboardStyleBView.frame.origin.x OrignY:dashboardStyleBView.frame.origin.y Width:dashboardStyleBView.frame.size.width Height:dashboardStyleBView.frame.size.height ID:9];
 
 }
 - (void)isFristLoadDashboardA{
@@ -185,49 +123,56 @@ static dispatch_source_t _timer;
         NSInteger page = i / 2;
         CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
         dashboardStyleAView  = [[DashboardView alloc] initWithFrame:CGRectMake(index * (space+ 150*KFontmultiple)+25,  page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple +20)];
-        
-        NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25] , [NSNumber numberWithFloat:i+1]];
-        [DashboardA bg_updateSet:orignxsql];
-        
-        NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: page  * (baseViewHeight + 40)+10] , [NSNumber numberWithFloat:i+1]];
-        [DashboardA bg_updateSet:orignysql];
-        
-        NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:150*KFontmultiple], [NSNumber numberWithFloat:i+1]];
-        [DashboardA bg_updateSet:orignwidthsql];
-        
-        NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:150*KFontmultiple+20], [NSNumber numberWithFloat:i+1]];
-        [DashboardA bg_updateSet:orignheightsql];
-        
+      [ self updatemodel:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:i+1];
     }
     for (NSInteger i = 0; i< 2; i++) {
         
         dashboardStyleAView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30)+30, 220, 220+20)];
-        NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:MSWidth+ MSWidth/2 - 100], [NSNumber numberWithFloat:i+7]];
-        [DashboardA bg_updateSet:orignxsql];
-        
-        NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: i  * (220+ 30)+30 ], [NSNumber numberWithFloat:i+7]];
-        [DashboardA bg_updateSet:orignysql];
-        
-        NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:220], [NSNumber numberWithFloat:i+7]];
-        [DashboardA bg_updateSet:orignwidthsql];
-        
-        NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:220+20], [NSNumber numberWithFloat:i+7]];
-        [DashboardA bg_updateSet:orignheightsql];
+       [ self updatemodel:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:i+7];
         
     }
     dashboardStyleAView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth*2+(MSWidth- 300)/2, 88,300, 300+20)];
-    NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:MSWidth*2+(MSWidth- 300)/2], [NSNumber numberWithFloat:9]];
-    [DashboardA bg_updateSet:orignxsql];
-    
-    NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: 88 ], [NSNumber numberWithFloat:9]];
-    [DashboardA bg_updateSet:orignysql];
-    
-    NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:300], [NSNumber numberWithFloat:9]];
-    [DashboardA bg_updateSet:orignwidthsql];
-    
-    NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:300+20], [NSNumber numberWithFloat:9]];
-    [DashboardA bg_updateSet:orignheightsql];
+     [ self updatemodel:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:9];
+   }
+- (void)updatemodel:(NSInteger )modeltype OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(CGFloat)id{
+    NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:orignx], [NSNumber numberWithFloat:id]];
 
+    NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: origny ], [NSNumber numberWithFloat:id]];
+    
+    NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:width], [NSNumber numberWithFloat:id]];
+    
+    NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:height], [NSNumber numberWithFloat:id]];
+    bg_setDebug(YES);
+    switch (modeltype) {
+        case 1:
+        {
+            [DashboardA bg_updateSet:orignxsql];
+             [DashboardA bg_updateSet:orignysql];
+            [DashboardA bg_updateSet:orignwidthsql];
+            [DashboardA bg_updateSet:orignheightsql];
+
+        }
+            break;
+        case 2:
+        {
+            [DashboardB bg_updateSet:orignxsql];
+            [DashboardB bg_updateSet:orignysql];
+            [DashboardB bg_updateSet:orignwidthsql];
+            [DashboardB bg_updateSet:orignheightsql];
+        }
+            break;
+        case 3:
+        {
+            [DashboardC bg_updateSet:orignxsql];
+            [DashboardC bg_updateSet:orignysql];
+            [DashboardC bg_updateSet:orignwidthsql];
+            [DashboardC bg_updateSet:orignheightsql];
+        }
+            break;
+        default:
+            break;
+    }
+//
 }
 - (void)startAnimation{
     NSTimeInterval period = 1; //设置时间间隔
@@ -394,10 +339,11 @@ static dispatch_source_t _timer;
     DashBoardTag = 0;
     NSArray* pAll = [DashboardA bg_findAll];
     for (DashboardA *dash in pAll) {
-        NSLog(@"总共%@",dash.ID);
-        NSLog(@"_LabelNameArray%@",_LabelNameArray);
+        NSLog(@"总共%@,orignx=%f",dash.ID, [dash.orignx floatValue]);
+      
+//        NSLog(@"_LabelNameArray%@",_LabelNameArray);
         
-        dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.orignx floatValue], [dash.origny floatValue], [dash.orignwidth floatValue], [dash.orignheight floatValue])];
+    dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.orignx floatValue], [dash.origny floatValue], [dash.orignwidth floatValue], [dash.orignheight floatValue])];
             dashboardStyleAView.tag = [dash.ID integerValue];
          DashBoardTag = dashboardStyleAView.tag ;
         [scrollView addSubview:dashboardStyleAView];
@@ -541,26 +487,9 @@ static dispatch_source_t _timer;
 }
 
 - (void)rightBarButtonClick{
-  
-    switch ([DashboardSetting sharedInstance].dashboardMode) {
-        case DashboardClassicMode:
-        {
-         editview = [[editDashboardsView alloc]initWithFrame:CGRectMake(85*MSWidth/375, 50, MSWidth -85*MSWidth/375 , 376+44 - 3*44)];
-        }
-            break;
-        case DashboardCustomMode:
-        {
-             editview = [[editDashboardsView alloc]initWithFrame:CGRectMake(85*MSWidth/375, 50, MSWidth -85*MSWidth/375 , 376+44)];
-        }
-            break;
-        default:
-            break;
-    }
+    editview = [[editDashboardsView alloc]initWithFrame:CGRectMake(85*MSWidth/375, 50, MSWidth -85*MSWidth/375 , 240)];
     editview.delegate = self;
     [editview show];
-}
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
 }
 
 - (void)scrollViewtap{
@@ -571,20 +500,13 @@ static dispatch_source_t _timer;
     NSLog(@"tettet==%ld",(long)index);
     
     [editview hide];
+    // 关闭定时器
+    dispatch_source_cancel(_timer);
     switch (index) {
         case 1:
         {
-            // 关闭定时器
-            dispatch_source_cancel(_timer);
+            
             SelectModeViewController *vc = [[SelectModeViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-            break;
-        case 2:
-        {
-            // 关闭定时器
-            dispatch_source_cancel(_timer);
-            SelectStyleViewController *vc = [[SelectStyleViewController alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
@@ -594,103 +516,79 @@ static dispatch_source_t _timer;
    }
 #pragma mark 点击设置列表的某一行3、4、5、6、7、8弹框
 -(void)AlertBetouched:(NSInteger)index{
-
-    switch ([DashboardSetting sharedInstance].dashboardMode) {
-        case DashboardCustomMode:
+    // 关闭定时器
+    dispatch_source_cancel(_timer);
+    switch (index) {
+        case 2:
         {
-            switch (index) {
-                case 3:{
-                    //添加一页
-                    [DashboardSetting sharedInstance].KPageNumer = [DashboardSetting sharedInstance].KPageNumer +1;
-                    [scrollView removeFromSuperview];
-                    [self updateView];
-                    scrollView.contentOffset = CGPointMake(([DashboardSetting sharedInstance].KPageNumer  - 1)*MSWidth, 0);
-                }
-                    break;
-                case 4:{
-                    
+            switch ([ DashboardSetting sharedInstance].dashboardMode) {
+                case DashboardCustomMode: //自定义模式
+                {
                     //添加一个仪表盘
                     [self addDashboard];
                 }
                     break;
-                case 5:{
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Remove Dashboard" message:@"Are you sure you want to remove this item?" preferredStyle:  UIAlertControllerStyleAlert];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        //点击按钮的响应事件；
-                    
-                    }]];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        [self removeDashboard];
-                    }]];
-                    
-                    //弹出提示框；
-                    [self presentViewController:alert animated:true completion:nil];
-                    
-                }
-                    break;
-                case 6:{
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Load Default Dashboards" message:@"This will delete all of the existing dashboards and load the default set of dashboards. Do you want to continue?" preferredStyle:  UIAlertControllerStyleAlert];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        
-                    }]];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        [self LoadDefaultDashboards];
-                    }]];
-                    
-                    
-                    //弹出提示框；
-                    [self presentViewController:alert animated:true completion:nil];
-                }
-                    break;
-                case 7:{
-                    // 关闭定时器
-                    dispatch_source_cancel(_timer);
-                    HUDViewController *vc = [[HUDViewController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                    
+                case DashboardClassicMode: //经典模式
+                {
+                    SelectStyleViewController *VC = [[SelectStyleViewController alloc]init];
+                    [self.navigationController pushViewController:VC animated:YES];
                 }
                     break;
                 default:
                     break;
             }
-
-        
         }
             break;
-        case DashboardClassicMode:
+        case 3:
         {
-            switch (index) {
-                case 3:
-                {
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Load Default Dashboards" message:@"This will delete all of the existing dashboards and load the default set of dashboards. Do you want to continue?" preferredStyle:  UIAlertControllerStyleAlert];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        
-                    }]];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        [self LoadDefaultDashboards];
-                    }]];
-                    
-                    
-                    //弹出提示框；
-                    [self presentViewController:alert animated:true completion:nil];
-                }
-                    break;
-                case 4:{
-                    // 关闭定时器
-                    dispatch_source_cancel(_timer);
-                    HUDViewController *vc = [[HUDViewController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                    break;
-                default:
-                    break;
-            }
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Load Default Dashboards" message:@"This will delete all of the existing dashboards and load the default set of dashboards. Do you want to continue?" preferredStyle:  UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self LoadDefaultDashboards];
+            }]];
             
+            
+            //弹出提示框；
+            [self presentViewController:alert animated:true completion:nil];
+        }
+            break;
+        case 4:
+        {
+            HUDViewController *vc = [[HUDViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+    
+        default:
+            break;
+    }
+  
+    }
+#pragma mark 捏合手势代理
+- (void)pinchtap:(UIPinchGestureRecognizer *)sender OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height{
+
+    switch ([DashboardSetting sharedInstance].dashboardStyle) {
+        case DashboardStyleOne:
+        {
+            [self updatemodel:1 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
+        }
+            break;
+        case DashboardStyleTwo:
+        {
+             [self updatemodel:2 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
+        }
+            break;
+        case DashboardStyleThree:
+        {
+             [self updatemodel:3 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
         }
             break;
         default:
             break;
     }
+   
 }
 #pragma mark 长按仪表盘的手势
 - (void)tap:(UILongPressGestureRecognizer *)sender{
@@ -728,15 +626,7 @@ static dispatch_source_t _timer;
     }
 }
 
-#pragma mark //得到最终设置
 
-#pragma mark 移除一整页仪表盘
-- (void)removeDashboard{
-    NSLog(@"1212移除");
-//    [[[scrollView subviews]objectAtIndex:0]removeFromSuperview];
-    [scrollView removeFromSuperview];
-    [self initWithUI];
-}
 
 #pragma mark 全部恢复默认仪表盘
 - (void)LoadDefaultDashboards{
@@ -758,7 +648,7 @@ static dispatch_source_t _timer;
    
     
 }
-#pragma mark 移动仪表盘
+#pragma mark 点击移动仪表盘，让它变颜色；
 - (void)MoveDashboard:(NSInteger)indexTag{
     //让仪表盘移动
     if ([DashboardSetting sharedInstance].Dashboardindex == indexTag &&  [DashboardSetting sharedInstance].isDashboardMove == YES ) {
@@ -812,17 +702,8 @@ static dispatch_source_t _timer;
             dashboardStyleAView = [[DashboardView alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth +(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleAView.tag = ++ DashBoardTag;
             [[DashboardSetting sharedInstance]initADDdashboardA];
-            NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleAView.frame.origin.x] , [NSNumber numberWithFloat:dashboardStyleAView.tag]];
-            [DashboardA bg_updateSet:orignxsql];
+            [self updatemodel:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:dashboardStyleAView.tag];
             
-            NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: dashboardStyleAView.frame.origin.y] , [NSNumber numberWithFloat:dashboardStyleAView.tag]];
-            [DashboardA bg_updateSet:orignysql];
-            
-            NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleAView.frame.size.width], [NSNumber numberWithFloat:dashboardStyleAView.tag]];
-            [DashboardA bg_updateSet:orignwidthsql];
-            
-            NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleAView.frame.size.height], [NSNumber numberWithFloat:dashboardStyleAView.tag]];
-            [DashboardA bg_updateSet:orignheightsql];
             [scrollView addSubview:dashboardStyleAView];
             [self initWithChangeStyleA:dashboardStyleAView :dashboardStyleAView.tag -1];
          
@@ -833,17 +714,7 @@ static dispatch_source_t _timer;
             dashboardStyleBView = [[DashboardViewStyleB alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth+(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleBView.tag = ++ DashBoardTag;
             [[DashboardSetting sharedInstance]initADDdashboardB];
-            NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleBView.frame.origin.x] , [NSNumber numberWithFloat:dashboardStyleBView.tag]];
-            [DashboardB bg_updateSet:orignxsql];
-            
-            NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: dashboardStyleBView.frame.origin.y] , [NSNumber numberWithFloat:dashboardStyleBView.tag]];
-            [DashboardB bg_updateSet:orignysql];
-            
-            NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleBView.frame.size.width], [NSNumber numberWithFloat:dashboardStyleBView.tag]];
-            [DashboardB bg_updateSet:orignwidthsql];
-            
-            NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleBView.frame.size.height], [NSNumber numberWithFloat:dashboardStyleBView.tag]];
-            [DashboardB bg_updateSet:orignheightsql];
+            [self updatemodel:2 OrignX:dashboardStyleBView.frame.origin.x OrignY:dashboardStyleBView.frame.origin.y Width:dashboardStyleBView.frame.size.width Height:dashboardStyleBView.frame.size.height ID:dashboardStyleAView.tag];
             [scrollView addSubview:dashboardStyleBView];
             [self initWithChangeStyleB:dashboardStyleBView :dashboardStyleBView.tag-1 ];
            
@@ -854,17 +725,7 @@ static dispatch_source_t _timer;
             dashboardStyleCView = [[DashboardViewStyleC alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth +(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleCView.tag = ++ DashBoardTag;
             [[DashboardSetting sharedInstance]initADDdashboardC];
-            NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleCView.frame.origin.x] , [NSNumber numberWithFloat:dashboardStyleCView.tag]];
-            [DashboardC bg_updateSet:orignxsql];
-            
-            NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: dashboardStyleCView.frame.origin.y] , [NSNumber numberWithFloat:dashboardStyleCView.tag]];
-            [DashboardC bg_updateSet:orignysql];
-            
-            NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleCView.frame.size.width], [NSNumber numberWithFloat:dashboardStyleCView.tag]];
-            [DashboardC bg_updateSet:orignwidthsql];
-            
-            NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:dashboardStyleCView.frame.size.height], [NSNumber numberWithFloat:dashboardStyleCView.tag]];
-            [DashboardC bg_updateSet:orignheightsql];
+             [self updatemodel:3 OrignX:dashboardStyleCView.frame.origin.x OrignY:dashboardStyleCView.frame.origin.y Width:dashboardStyleCView.frame.size.width Height:dashboardStyleCView.frame.size.height ID:dashboardStyleCView.tag];
             [scrollView addSubview:dashboardStyleCView];
             [self initWithChangeStyleC:dashboardStyleCView :dashboardStyleCView.tag -1];
         }
@@ -916,21 +777,19 @@ static dispatch_source_t _timer;
     [scrollView removeFromSuperview];
       [self initWithData];
     [self initWithUI];
-  
      scrollView.contentOffset = CGPointMake(current*MSWidth, 0);
 }
 #pragma mark 移动代理
 - (void)touchMoveWithcenterX:(CGFloat)centerX WithcenterY:(CGFloat)WithcenterY{
-    
-    switch ([DashboardSetting sharedInstance].dashboardStyle ) {
+       scrollView.scrollEnabled = YES;
+        [DashboardSetting sharedInstance].isDashboardMove = NO;
+      switch ([DashboardSetting sharedInstance].dashboardStyle ) {
         case DashboardStyleOne:
         {
-            DashboardView  *view = (DashboardView *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-            scrollView.scrollEnabled = YES;
-            NSInteger PageNumber = view.frame.origin.x / MSWidth;
-            NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:view.frame.origin.x  - PageNumber*MSWidth] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
+            bg_setDebug(YES);
+            NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:centerX] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
             [DashboardA bg_updateSet:orignxsql];
-            NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: view.frame.origin.y] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
+            NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: WithcenterY] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
             [DashboardA bg_updateSet:orignysql];
             
            

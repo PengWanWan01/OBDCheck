@@ -16,6 +16,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+    
         self.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 8)];
         view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
@@ -28,12 +29,12 @@
         switch ([DashboardSetting sharedInstance].dashboardMode) {
             case DashboardClassicMode:
             {
-             _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Mode",@"Dashboards Style",@"Load Default Dashboards",@"Toggle HUD Mode",@"Calibrate Device Sensors", nil];
+             _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Mode",@"Dashboards Style",@"Load Default Dashboards",@"Toggle HUD Mode", nil];
             }
                 break;
             case DashboardCustomMode:
             {
-                 _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Mode",@"Dashboards Style",@"Add Display",@"Add Dashboard",@"Remove Dashboard",@"Load Default Dashboards",@"Toggle HUD Mode",@"Calibrate Device Sensors", nil];
+                 _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Mode",@"Add Dashboard",@"Load Default Dashboards",@"Toggle HUD Mode",nil];
             }
                 break;
             default:
@@ -138,7 +139,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self hide];
    
-    if (!(indexPath.row == 1||indexPath.row == 2 ) ) {
+    if (!(indexPath.row == 1) ) {
             if ([self.delegate respondsToSelector:@selector(AlertBetouched:)]) {
                 [self.delegate AlertBetouched:indexPath.row];
             }
