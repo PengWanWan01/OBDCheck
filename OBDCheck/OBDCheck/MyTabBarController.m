@@ -28,7 +28,7 @@
     [self.tabBar setShadowImage:img];
 
             ViewController *vc1 = [[ViewController alloc]init];
-            vc1.tabBarItem.selectedImage=[[UIImage imageNamed:@"troubleCode_highLight@"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            vc1.tabBarItem.selectedImage=[[UIImage imageNamed:@"troubleCode_highLight"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             vc1.tabBarItem.image= [[UIImage imageNamed:@"troubleCode_normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             vc1.tabBarItem.title = @"trouble Codes";
    

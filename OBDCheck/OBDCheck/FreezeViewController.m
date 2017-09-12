@@ -8,7 +8,7 @@
 
 #import "FreezeViewController.h"
 
-@interface FreezeViewController ()
+@interface FreezeViewController ()<TBarViewDelegate>
 @property(nonatomic,strong)NSMutableArray *FreezeDataDTCsource;
 @property(nonatomic,strong)NSMutableArray *FreezeDatasource;
 
@@ -31,12 +31,59 @@
     self.FreezeDataDTCsource = [[NSMutableArray alloc]initWithObjects:@"P0103",nil];
     //MIL on,# Trouble codes4,Misfire: Available=False
     self.FreezeDatasource = [[NSMutableArray alloc]initWithObjects:@"MIL on,# Trouble codes4,Misfire: Available=False",nil];
-
+    [self initWithUI];
+}
+- (void)initWithUI{
+    TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 45-64, MSWidth, 45)];
+    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    tbarView.numberBtn = 4;
+    tbarView.isSelectNumber = 1;
+    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_normal",@"freeze_normal",@"readiness_normal",@"report_normal", nil];
+    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_highLight",@"Freeze_highlight",@"readiness_highLight",@"report_highLight", nil];
+    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"trouble Codes",@"Freeze Frame",@"Readiness Test",@"Report", nil];
+    tbarView.delegate = self;
+    [tbarView initWithData];
+    
+    [self.view addSubview:tbarView];
+}
+- (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
+    switch (touchSelectNumber) {
+        case 0:
+        {
+            DiagController *vc = [[DiagController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+            
+        }
+            break;
+        case 1:
+        {
+            FreezeViewController *vc = [[FreezeViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+            
+        }
+            break;
+        case 2:
+        {
+            ReadinessViewController *vc = [[ReadinessViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+            
+        }
+            break;
+        case 3:
+        {
+            ReportViewController *vc = [[ReportViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+            
+        }
+            break;
+        default:
+            break;
+    }
 }
 - (void)back{
     ViewController *vc = [[ViewController alloc
                            ]init];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:NO];
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

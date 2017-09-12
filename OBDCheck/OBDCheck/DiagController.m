@@ -8,7 +8,7 @@
 
 #import "DiagController.h"
 
-@interface DiagController ()<UITableViewDelegate,UITableViewDataSource>
+@interface DiagController ()<UITableViewDelegate,UITableViewDataSource,TBarViewDelegate>
 {
     rotationView *roView;
     UILabel *infoLabel;
@@ -18,6 +18,7 @@
     UILabel *totalLabel;
     UILabel *importantLabel;
     UITableView *MYTableView;
+    
 }
 @property (nonatomic,strong) NSMutableArray *typeimageData;
 @property (nonatomic,strong) NSMutableArray *titleDataSource;
@@ -29,11 +30,6 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
     [UIApplication sharedApplication].statusBarHidden = NO;
-    UIViewController *navi = [self.navigationController.viewControllers objectAtIndex:0];
-    self.tabBarItem.selectedImage=[[UIImage imageNamed:@"troubleCode_highLight"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    self.tabBarItem.image= [[UIImage imageNamed:@"troubleCode_normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    self.tabBarItem.title = @"trouble Codes";
-    [navi.navigationController setViewControllers:@[self] animated:NO];
     [self initNavBarTitle:@"Diagnostics" andLeftItemImageName:@"back" andRightItemImageName:@"refresh"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
   }
@@ -73,6 +69,53 @@
     [footView addSubview:HistoricalBtn];
      [HistoricalBtn addTarget:self action:@selector(HistoricalBtn) forControlEvents:UIControlEventTouchUpInside];
     MYTableView.tableFooterView = footView;
+    
+    TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 45-64, MSWidth, 45)];
+    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    tbarView.numberBtn = 4;
+    tbarView.isSelectNumber = 0;
+    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_normal",@"freeze_normal",@"readiness_normal",@"report_normal", nil];
+    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_highLight",@"Freeze_highlight",@"readiness_highLight",@"report_highLight", nil];
+    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"trouble Codes",@"Freeze Frame",@"Readiness Test",@"Report", nil];
+    tbarView.delegate = self;
+    [tbarView initWithData];
+    
+    [self.view addSubview:tbarView];
+}
+- (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
+    NSLog(@"1212touchSelectNumber = %ld",(long)touchSelectNumber);
+    switch (touchSelectNumber) {
+        case 0:
+        {
+            DiagController *vc = [[DiagController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+            
+        }
+            break;
+        case 1:
+        {
+            FreezeViewController *vc = [[FreezeViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+            
+        }
+            break;
+        case 2:
+        {
+            ReadinessViewController *vc = [[ReadinessViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+            
+        }
+            break;
+        case 3:
+        {
+            ReportViewController *vc = [[ReportViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+            
+        }
+            break;
+        default:
+            break;
+    }
 }
 - (void)initWithheadUI{
     roView = [[rotationView alloc]initWithFrame:CGRectMake(10*Kwidthmultiple, 8*KHeightmultiple, 100*Kwidthmultiple, 100*Kwidthmultiple)];
@@ -100,7 +143,7 @@
         [showView addSubview:view];
       
         if (i == 1) {
-             importantLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 10,showView.frame.size.width -showView.frame.size.width/4- 24  , 20)];
+            importantLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 10,showView.frame.size.width -showView.frame.size.width/4- 24  , 20)];
             importantLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
             importantLabel.font = [UIFont ToAdapFont:16];
             importantLabel.text = @"Important：01";
@@ -132,7 +175,7 @@
   
     ViewController *vc = [[ViewController alloc
                            ]init];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:NO];
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

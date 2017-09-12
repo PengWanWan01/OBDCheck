@@ -43,7 +43,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="titlename" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Al0-a4-dcq">
-                        <rect key="frame" x="5" y="3" width="202" height="29"/>
+                        <rect key="frame" x="15" y="4" width="202" height="29"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="202" id="3u6-KB-4Ki"/>
                             <constraint firstAttribute="height" constant="29" id="CBj-mE-WUd"/>
@@ -59,8 +59,8 @@
                     <constraint firstAttribute="bottom" secondItem="NkT-ST-nEb" secondAttribute="bottom" id="IjX-7V-az9"/>
                     <constraint firstAttribute="bottom" secondItem="DX5-U2-3qk" secondAttribute="bottom" constant="0.5" id="Sv7-VC-rzy"/>
                     <constraint firstAttribute="trailing" secondItem="NkT-ST-nEb" secondAttribute="trailing" id="WMj-QE-NS2"/>
-                    <constraint firstItem="Al0-a4-dcq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="Zg1-Ta-Xpa"/>
-                    <constraint firstItem="Al0-a4-dcq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="mwa-Zv-GAp"/>
+                    <constraint firstItem="Al0-a4-dcq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Zg1-Ta-Xpa"/>
+                    <constraint firstItem="Al0-a4-dcq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="mwa-Zv-GAp"/>
                     <constraint firstItem="DX5-U2-3qk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="rUW-dU-QUU"/>
                     <constraint firstAttribute="trailing" secondItem="DX5-U2-3qk" secondAttribute="trailing" constant="8" id="wdg-NB-i4a"/>
                     <constraint firstAttribute="trailing" secondItem="DcP-Kh-Hm0" secondAttribute="trailing" constant="8" id="yXk-wM-X2F"/>

@@ -81,7 +81,6 @@
 #import "ILHuePickerView.h"
 #import "ILColorPickerView.h"
 #import "ILSaturationBrightnessPickerView.h"
-#import "TabbarView.h"
 #import "StyleViewBController.h"
 #import "StyleCViewController.h"
 #import "FreezeViewController.h"
@@ -95,5 +94,15 @@
 #import "DashboardC.h"
 #import "NSObject+BGModel.h"
 #import "CustomDashboard.h"
+#import "TBarView.h"
+#import "JXButton.h"
+#import "TripsViewController.h"
+#import "FilesViewController.h"
+#import "BridgHeader.swift"
+#import "OBDCheck-Bridging-Header.h"
+#import "LogSetViewController.h"
+#import "selectTableViewCell.h"
+#import "LogsSetting.h"
+#import "LogsModel.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

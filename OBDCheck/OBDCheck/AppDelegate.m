@@ -21,14 +21,7 @@
     if (![TimeOfBootCount valueForKey:@"time"]) {
         [TimeOfBootCount setValue:@"sd" forKey:@"time"];
         NSLog(@"第一次启动");
-        [DashboardA bg_drop];
-        [DashboardB bg_drop];
-        [DashboardC bg_drop];
-
-        [[DashboardSetting sharedInstance] initWithdashboardA];
-        [[DashboardSetting sharedInstance] initWithdashboardB];
-        [[DashboardSetting sharedInstance] initWithdashboardC];
-        [[DashboardSetting sharedInstance]CustomADDdashboardA];
+        [self initWithdatabase];
         
     }else{
         NSLog(@"不是第一次启动");
@@ -40,9 +33,11 @@
 
     
     // Override point for customization after application launch.
-    MyTabBarController *tabbar = [[MyTabBarController alloc]init];
+    ViewController *ROOTVC = [[ViewController alloc]init];
+    UINavigationController *NAC = [[UINavigationController alloc]initWithRootViewController:ROOTVC];
+    
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    [self.window setRootViewController:tabbar];
+    [self.window setRootViewController:NAC];
     [self.window makeKeyAndVisible];
     [UITabBar appearance].backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
     [UITabBar appearance].tintColor = [ColorTools colorWithHexString:@"#FE9002"];
@@ -50,7 +45,18 @@
     
     return YES;
 }
-
+- (void)initWithdatabase{
+    [DashboardA bg_drop];
+    [DashboardB bg_drop];
+    [DashboardC bg_drop];
+    [LogsModel bg_drop];
+    [[DashboardSetting sharedInstance] initWithdashboardA];
+    [[DashboardSetting sharedInstance] initWithdashboardB];
+    [[DashboardSetting sharedInstance] initWithdashboardC];
+    [[DashboardSetting sharedInstance]CustomADDdashboardA];
+    [[LogsSetting sharedInstance] initWithlogs];
+    
+}
 
 - (void)clearAllUserDefaultsData
 {

@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHO-1P-VrF">
-                        <rect key="frame" x="5" y="11" width="171" height="21"/>
+                        <rect key="frame" x="15" y="11" width="171" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="171" id="YhT-GO-hZ3"/>
                             <constraint firstAttribute="height" constant="21" id="p8Y-qn-Irn"/>
@@ -58,7 +58,7 @@
                 <color key="backgroundColor" red="0.23137254900000001" green="0.2470588235" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="6rW-yh-73l" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="-7" id="7qh-Y2-KAP"/>
-                    <constraint firstItem="zHO-1P-VrF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-3" id="K0B-jl-Hx4"/>
+                    <constraint firstItem="zHO-1P-VrF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="K0B-jl-Hx4"/>
                     <constraint firstItem="Tqx-ve-F7x" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="S44-qG-vwh"/>
                     <constraint firstItem="zHO-1P-VrF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="UIE-q1-3Tc"/>
                     <constraint firstAttribute="trailing" secondItem="QdV-1t-rtQ" secondAttribute="trailing" id="Ywc-vA-Cce"/>
