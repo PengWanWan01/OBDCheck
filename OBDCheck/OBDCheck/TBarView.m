@@ -43,7 +43,7 @@
         btn.tag = i;
         [self addSubview:btn];
     }
-
+  
 }
 - (void)btn:(UIButton *)btn{
     if ([self.delegate respondsToSelector:@selector(TBarBtnBetouch:)]) {

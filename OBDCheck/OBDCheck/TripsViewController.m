@@ -8,7 +8,12 @@
 
 #import "TripsViewController.h"
 
-@interface TripsViewController ()<TBarViewDelegate>
+@interface TripsViewController ()<TBarViewDelegate,UITableViewDelegate,UITableViewDataSource>
+{
+    UITableView *mytableView;
+}
+@property (nonatomic,strong) NSMutableArray *SectionHeadArray;
+@property (nonatomic,strong) NSMutableArray *dataSource;
 
 @end
 
@@ -21,9 +26,21 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initWithData];
     [self initWithUI];
 }
+- (void)initWithData{
+    self.dataSource = [[NSMutableArray alloc]initWithObjects:@"Distance",@"Fuel",@"Fuel Economy", nil];
+    self.SectionHeadArray = [[NSMutableArray alloc]initWithObjects:@"Trip one",@"Trip two",@"Trip three",@"Trip four", nil];
+}
 - (void)initWithUI{
+     mytableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-74-44) style:UITableViewStyleGrouped];
+    mytableView.dataSource =self;
+    mytableView.delegate = self;
+    mytableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    mytableView.separatorColor = [ColorTools colorWithHexString:@"212329"];
+    mytableView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    [self.view addSubview:mytableView];
     TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 45-64, MSWidth, 45)];
     tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     tbarView.numberBtn = 3;
@@ -34,7 +51,7 @@
     tbarView.delegate = self;
     [tbarView initWithData];
     [self.view addSubview:tbarView];
-
+  
 }
 - (void)back{
     ViewController *vc = [[ViewController alloc
@@ -69,19 +86,83 @@
     }
     
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark UITableViewDelegate,UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 4;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 3;
 }
-*/
-
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44.f;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 44.f;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 44.f)];
+    headView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];//    [ColorTools colorWithHexString:@"#212329"];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 14, 100, 20)];
+    label.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+    label.text = self.SectionHeadArray[section];
+    [headView addSubview:label];
+    return headView;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 44.f;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *FootView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 44.f)];
+    FootView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];//    [ColorTools colorWithHexString:@"#212329"];
+    UIButton *FootBtn = [[UIButton alloc]initWithFrame:CGRectMake((MSWidth/2) - 25, 14, 50, 20)];
+    [FootBtn setTitle:@"Reset" forState:UIControlStateNormal];
+    [FootBtn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
+    [FootBtn addTarget:self action:@selector(FootBtn:) forControlEvents:UIControlEventTouchUpInside];
+    FootBtn.tag = section;
+    [FootView addSubview:FootBtn];
+    return FootView;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell;
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
+    }
+    cell.backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
+    cell.textLabel.text = self.dataSource[indexPath.row];
+    cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+    cell.detailTextLabel.text = self.dataSource[indexPath.row];
+    cell.detailTextLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+- (void)FootBtn:(UIButton *)btn{
+    switch (btn.tag) {
+        case 0:
+        {
+        
+        
+        }
+            break;
+        case 1:
+        {
+            
+            
+        }
+            break;
+        case 2:
+        {
+            
+            
+        }
+            break;
+        case 3:
+        {
+            
+            
+        }
+            break;
+        default:
+            break;
+    }
+}
 @end

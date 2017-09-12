@@ -58,14 +58,14 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
  - (void)initWithLogView{
      [chartViewone removeFromSuperview];
      [chartViewTwo removeFromSuperview];
-    chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight - 45-64)];
+     chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight - 45-64)];
     [self.view addSubview:chartViewone];
      UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 20, 100, 20)];
      btn.backgroundColor = [UIColor redColor];
      [btn addTarget: self action:@selector(btn) forControlEvents:UIControlEventTouchUpInside];
      [self.view addSubview:btn];
 
-    [self initWithchartType:chartViewone];
+    [self initWithchartView:chartViewone Type:1];
     
     [self setDataCount:100 range:110 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
      [self setDataCount:100 range:550 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
@@ -84,8 +84,8 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     chartViewTwo = [[LineChartView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth, (MSHeight - 45-64)/2)];
     [self.view addSubview:chartViewone];
      [self.view addSubview:chartViewTwo];
-    [self initWithchartType:chartViewone];
-    [self initWithchartType:chartViewTwo];
+    [self initWithchartView:chartViewone Type:1];
+    [self initWithchartView:chartViewTwo Type:2];
     [self setDataCount:100 range:110 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
     [self setDataCount:100 range:550 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
     [self setDataCount:100 range:110 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item3PID withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:(model.item3Smoothing)];
@@ -112,7 +112,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     [linechartdata addEntry:[[ChartDataEntry alloc]initWithX:X y:Y] dataSetIndex:index];
       [linechartdata notifyDataChanged];
         [view notifyDataSetChanged];
-    NSLog(@"updateChartData%ld",linechartdata.entryCount);
+    NSLog(@"updateChartData%ld",(long)linechartdata.entryCount);
 
 }
 
@@ -146,11 +146,11 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         
         view.data = linechartdata;
         
-    NSLog(@"%ld",view.data.entryCount);
+    NSLog(@"%d",view.data.entryCount);
     
 }
 
-- (void)initWithchartType:(LineChartView *)view{
+- (void)initWithchartView:(LineChartView *)view Type:(NSInteger)type{
     view.delegate = self;
     view.chartDescription.enabled = NO;
     view.dragEnabled = YES;
@@ -181,17 +181,33 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     leftAxis.axisMaximum = 200.0;
     leftAxis.axisMinimum = 0.0;
     leftAxis.drawAxisLineEnabled = YES;
-    [leftAxis setAxisLineColor:[UIColor redColor]];
-    leftAxis.axisLineWidth = 2;
-    leftAxis.labelCount = 5;
+    
+    
     ChartYAxis *rightAxis = view.rightAxis;
     rightAxis.labelTextColor = [UIColor whiteColor];
     rightAxis.axisMaximum = 900.0;
     rightAxis.axisMinimum = -200.0;
     rightAxis.drawGridLinesEnabled = NO;
     rightAxis.drawAxisLineEnabled = YES;
-    [rightAxis setAxisLineColor:[UIColor greenColor]];
     rightAxis.axisLineWidth = 2;
+    
+    if (type ==2) {
+        [leftAxis setAxisLineColor:[ColorTools colorWithHexString:@"3F51B5"]];
+        [rightAxis setAxisLineColor:[ColorTools colorWithHexString:@"FF9800"]];
+        if (model.item4Enabled == NO) {
+            [rightAxis setAxisLineColor:[UIColor clearColor]];
+            rightAxis.labelTextColor = [UIColor clearColor];
+        }
+
+    }else{
+        [leftAxis setAxisLineColor:[ColorTools colorWithHexString:@"E51C23"]];
+        [rightAxis setAxisLineColor:[ColorTools colorWithHexString:@"54C44B"]];
+    }
+    leftAxis.axisLineWidth = 2;
+    leftAxis.labelCount = 5;
+    
+    
+   
     
 
 }
