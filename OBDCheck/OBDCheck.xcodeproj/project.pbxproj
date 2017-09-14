@@ -21,6 +21,8 @@
 		CB3FAD261F6A6F1000B572FD /* Sensors2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3FAD251F6A6F1000B572FD /* Sensors2ViewController.m */; };
 		CB3FAD291F6A6F1D00B572FD /* Mode06ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3FAD281F6A6F1D00B572FD /* Mode06ViewController.m */; };
 		CB3FAD2C1F6A6F3200B572FD /* Mode09ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3FAD2B1F6A6F3200B572FD /* Mode09ViewController.m */; };
+		CB3FAD341F6A9F9600B572FD /* MonitorsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3FAD321F6A9F9600B572FD /* MonitorsTableViewCell.m */; };
+		CB3FAD351F6A9F9600B572FD /* MonitorsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB3FAD331F6A9F9600B572FD /* MonitorsTableViewCell.xib */; };
 		CB3FAD621F5FDB5F00C4F21B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CB3FAD611F5FDB5F00C4F21B /* libsqlite3.0.tbd */; };
 		CB431F251F68C50300E465F4 /* TripsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB431F241F68C50300E465F4 /* TripsModel.m */; };
 		CB44DB2C1F4A822200A24629 /* StyleOneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB44DB2A1F4A822200A24629 /* StyleOneTableViewCell.m */; };
@@ -176,6 +178,9 @@
 		CB3FAD281F6A6F1D00B572FD /* Mode06ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mode06ViewController.m; sourceTree = "<group>"; };
 		CB3FAD2A1F6A6F3200B572FD /* Mode09ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mode09ViewController.h; sourceTree = "<group>"; };
 		CB3FAD2B1F6A6F3200B572FD /* Mode09ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mode09ViewController.m; sourceTree = "<group>"; };
+		CB3FAD311F6A9F9600B572FD /* MonitorsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorsTableViewCell.h; sourceTree = "<group>"; };
+		CB3FAD321F6A9F9600B572FD /* MonitorsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorsTableViewCell.m; sourceTree = "<group>"; };
+		CB3FAD331F6A9F9600B572FD /* MonitorsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitorsTableViewCell.xib; sourceTree = "<group>"; };
 		CB3FAD611F5FDB5F00C4F21B /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		CB431F231F68C50300E465F4 /* TripsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripsModel.h; sourceTree = "<group>"; };
 		CB431F241F68C50300E465F4 /* TripsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsModel.m; sourceTree = "<group>"; };
@@ -394,6 +399,16 @@
 				CB8E40E01F6144E6003E5024 /* CustomDashboard.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		CB3FAD301F6A9F7100B572FD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CB3FAD311F6A9F9600B572FD /* MonitorsTableViewCell.h */,
+				CB3FAD321F6A9F9600B572FD /* MonitorsTableViewCell.m */,
+				CB3FAD331F6A9F9600B572FD /* MonitorsTableViewCell.xib */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		CB538A1E1F4E62B10095B4FE /* DashboardView */ = {
@@ -778,6 +793,7 @@
 		CBF1E25E1F30675F00EEC755 /* Montiors */ = {
 			isa = PBXGroup;
 			children = (
+				CB3FAD301F6A9F7100B572FD /* View */,
 				CBF1E2741F3068C500EEC755 /* MonController.h */,
 				CBF1E2751F3068C500EEC755 /* MonController.m */,
 				CB3FAD241F6A6F1000B572FD /* Sensors2ViewController.h */,
@@ -990,6 +1006,7 @@
 				CB99E1B41F66C45600A87DAF /* selectTableViewCell.xib in Resources */,
 				CBB1CC511F626809002EE7EB /* FilesViewController.xib in Resources */,
 				CBF1E2311F2ED49200EEC755 /* Main.storyboard in Resources */,
+				CB3FAD351F6A9F9600B572FD /* MonitorsTableViewCell.xib in Resources */,
 				CB44DB371F4A825900A24629 /* StyleThreeTableViewCell.xib in Resources */,
 				CB44DB2D1F4A822200A24629 /* StyleOneTableViewCell.xib in Resources */,
 			);
@@ -1052,6 +1069,7 @@
 			files = (
 				CB82247F1F46F30000E1E4BA /* HUDView.m in Sources */,
 				CB3FAD1B1F6A1F0900B572FD /* FilesTableViewCell.m in Sources */,
+				CB3FAD341F6A9F9600B572FD /* MonitorsTableViewCell.m in Sources */,
 				CBCFDF711F42A4E6008329CF /* gradientView.m in Sources */,
 				CB9717751F332515009C47FD /* RLBtn.m in Sources */,
 				CBEBF1CF1F3B247F006CCA8B /* EditDisplayViewController.m in Sources */,

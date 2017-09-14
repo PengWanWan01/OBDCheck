@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Mode09ViewController : UIViewController
+@interface Mode09ViewController : BasicViewController
 
 @end

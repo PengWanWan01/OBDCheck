@@ -110,5 +110,6 @@
 #import "Sensors2ViewController.h"
 #import "Mode06ViewController.h"
 #import "Mode09ViewController.h"
+#import "MonitorsTableViewCell.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

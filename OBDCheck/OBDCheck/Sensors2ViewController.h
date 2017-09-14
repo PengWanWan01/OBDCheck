@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Sensors2ViewController : UIViewController
+@interface Sensors2ViewController : BasicViewController
 
 @end
