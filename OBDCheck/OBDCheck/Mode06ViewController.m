@@ -1,18 +1,18 @@
 //
-//  Mode09ViewController.m
+//  Mode06ViewController.m
 //  OBDCheck
 //
 //  Created by yutaozhao on 2017/9/14.
 //  Copyright © 2017年 Auptophix. All rights reserved.
 //
 
-#import "Mode09ViewController.h"
+#import "Mode06ViewController.h"
 
-@interface Mode09ViewController ()<TBarViewDelegate>
+@interface Mode06ViewController ()<TBarViewDelegate>
 
 @end
 
-@implementation Mode09ViewController
+@implementation Mode06ViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self initNavBarTitle:@"Montiors" andLeftItemImageName:@"back" andRightItemImageName:@"refresh"];
@@ -26,7 +26,7 @@
     TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 45-64, MSWidth, 45)];
     tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     tbarView.numberBtn = 4;
-    tbarView.isSelectNumber = 3;
+    tbarView.isSelectNumber = 2;
     tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"monitor_normal",@"Sensor_normal",@"Mode06_normal",@"Mode09_normal",nil];
     tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"monitor_highlight",@"Sensor_highlight",@"Mode06_highlight",@"Mode09_highlight",nil];
     tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Monitor Tests",@"O2 Sensors",@"Mode $06",@"Mode $09", nil];

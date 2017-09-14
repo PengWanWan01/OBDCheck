@@ -8,8 +8,9 @@
 
 #import "FilesViewController.h"
 
-@interface FilesViewController ()<TBarViewDelegate>
-
+@interface FilesViewController ()<TBarViewDelegate,UITableViewDelegate,UITableViewDataSource,deleteFileDelegate>
+@property (nonatomic,strong) UITableView *tableView ;
+@property (nonatomic,strong) NSMutableArray *dataSource;
 @end
 
 @implementation FilesViewController
@@ -26,10 +27,23 @@
     [self initWithUI];
 }
 - (void)initWithData{
-    self.dataSource = [[NSMutableArray alloc]initWithObjects:@"File one",@"File one",@"File one",@"File one",@"File one", nil];
+    self.dataSource = [[NSMutableArray alloc]initWithObjects:@"File 1",@"File 2",@"File 3",@"File 5",@"File 4", nil];
     
 }
 - (void)initWithUI{
+   
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight) style:UITableViewStylePlain];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorInset = UIEdgeInsetsZero;
+    self.tableView.separatorColor = [ColorTools colorWithHexString:@"212329"];
+    self.tableView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    [self.view addSubview:self.tableView];
+    //FilesTableViewCell
+    [self.tableView registerClass:[FilesTableViewCell class] forCellReuseIdentifier:@"FilesTableViewCell"];
+    
     TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 45-64, MSWidth, 45)];
     tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     tbarView.numberBtn = 3;
@@ -48,16 +62,26 @@
     [self.navigationController pushViewController:vc animated:NO];
 }
 - (void)rightBarButtonClick{
-//   UITableViewCell *cell = (UITableViewCell *)
+   
+    
     NSArray *arr = [self.tableView indexPathsForVisibleRows];
-    
     for (NSIndexPath *indexPath in arr) {
-        //根据索引，获取cell 然后就可以做你想做的事情啦
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        //我这里要隐藏cell 的图片
-        cell.imageView.hidden = NO;
+        FilesTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        cell.editstatus = EditstatusType2;
+        [cell setNeedsDisplay];
+        [cell setNeedsLayout];
     }
+ 
+}
+
+
+
+- (void)deleteData:(NSInteger)tag{
+    NSLog(@"%ld",(long)tag);
+    [self.dataSource removeObjectAtIndex:tag]; //从模型中删除
     
+    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:tag inSection:0]]  withRowAnimation:UITableViewRowAnimationRight];
+    [self.tableView reloadData];
 
 }
 - (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
@@ -99,19 +123,48 @@
     return 44.f;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell;
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
-    }
+     FilesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FilesTableViewCell"];
+    cell.editstatus = EditstatusType1;
+    cell.delegate = self;
     cell.backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
-    cell.textLabel.text = self.dataSource[indexPath.row];
-    cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-    cell.detailTextLabel.text = self.dataSource[indexPath.row];
-    cell.detailTextLabel.textColor = [ColorTools colorWithHexString:@"FE9002"];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.imageView.image = [UIImage imageNamed:@"delete"];
-    cell.imageView.hidden = YES;
-    return cell;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        cell.layoutMargins = UIEdgeInsetsZero;
+    }
+    cell.nameLabel.text = self.dataSource[indexPath.row];    
+    cell.detailLabel.text =self.dataSource[indexPath.row];
+    cell.editstatus = EditstatusType1;
+    cell.deleteBtn.tag = indexPath.row;
+    
+      return cell;
 }
-
+- (void)deletewithRow:(NSInteger)index{
+    NSLog(@"121%ld",(long)index);
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete" message:@"Are you sure you want to delete all log files?" preferredStyle:  UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSArray *arr = [self.tableView indexPathsForVisibleRows];
+        for (NSIndexPath *indexPath in arr) {
+            FilesTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            cell.editstatus = EditstatusType1;
+            [cell setNeedsDisplay];
+            [cell setNeedsLayout];
+        }
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSArray *arr = [self.tableView indexPathsForVisibleRows];
+        for (NSIndexPath *indexPath in arr) {
+            FilesTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            cell.editstatus = EditstatusType1;
+            [cell setNeedsDisplay];
+            [cell setNeedsLayout];
+        }
+        [self deleteData:index];
+    }]];
+    
+    //弹出提示框；
+    [self presentViewController:alert animated:true completion:nil];
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"%ld",(long)indexPath.row);
+}
 @end

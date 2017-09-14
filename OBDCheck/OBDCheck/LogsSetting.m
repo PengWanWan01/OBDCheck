@@ -45,9 +45,9 @@
     
     for (int i = 0; i<4; i++) {
     TripsModel *model = [TripsModel new];
-    model.distance = @"0.0";
-    model.Fuel = @"0.0";
-    model.FuelEconmy = @"0.0";
+    model.distance = @"0.00";
+    model.Fuel = @"0.00";
+    model.FuelEconmy = @"0.00";
     [model bg_saveOrUpdate];
     }
 }
