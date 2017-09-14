@@ -13,4 +13,6 @@
 -(void)initWithlogs;
 //单例模式，实例化对象
 +(instancetype )sharedInstance;
+- (void)initWithTrips;
+- (void)initWithlogs;
 @end

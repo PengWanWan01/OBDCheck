@@ -14,7 +14,6 @@
 }
 @property (nonatomic,strong) NSMutableArray *SectionHeadArray;
 @property (nonatomic,strong) NSMutableArray *dataSource;
-
 @end
 
 @implementation TripsViewController
@@ -130,39 +129,71 @@
     cell.backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
     cell.textLabel.text = self.dataSource[indexPath.row];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-    cell.detailTextLabel.text = self.dataSource[indexPath.row];
+    NSString *SQL = [NSString stringWithFormat:@"WHERE  ID = %d",indexPath.section + 1];
+    NSArray* pAll = [TripsModel bg_findWhere:SQL];
+    for(TripsModel* model in pAll){
+        switch (indexPath.row) {
+            case 0:
+            {
+             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@miles",model.distance];
+            }
+                break;
+            case 1:
+            {
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@gal",model.Fuel];
+
+            }
+                break;
+            case 2:
+            {
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@MPG",model.FuelEconmy];
+
+            }
+                break;
+            default:
+                break;
+        }
+    }
+   
     cell.detailTextLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 - (void)FootBtn:(UIButton *)btn{
-    switch (btn.tag) {
-        case 0:
-        {
-        
-        
-        }
-            break;
-        case 1:
-        {
-            
-            
-        }
-            break;
-        case 2:
-        {
-            
-            
-        }
-            break;
-        case 3:
-        {
-            
-            
-        }
-            break;
-        default:
-            break;
-    }
+    NSLog(@"%ld",(long)btn.tag);
+//    switch (btn.tag) {
+//        case 0:
+//        {
+            NSString *distancesql = [NSString stringWithFormat:@"SET distance ='%@' WHERE  ID = %d",@"0.00",btn.tag+1];
+             NSString *Fuelsql = [NSString stringWithFormat:@"SET Fuel ='%@' WHERE  ID = %d",@"0.00",btn.tag+1];
+             NSString *FuelEconmysql = [NSString stringWithFormat:@"SET FuelEconmy ='%@' WHERE  ID = %d",@"0.00",btn.tag+1];
+            [TripsModel bg_updateSet:distancesql];
+            [TripsModel bg_updateSet:Fuelsql];
+            [TripsModel bg_updateSet:FuelEconmysql];
+            [mytableView reloadData];
+
+//        }
+//            break;
+//        case 1:
+//        {
+//            
+//            
+//        }
+//            break;
+//        case 2:
+//        {
+//            
+//            
+//        }
+//            break;
+//        case 3:
+//        {
+//            
+//            
+//        }
+//            break;
+//        default:
+//            break;
+//    }
 }
 @end

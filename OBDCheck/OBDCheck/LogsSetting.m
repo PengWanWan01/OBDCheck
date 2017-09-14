@@ -41,4 +41,14 @@
     model.item4Smoothing = NO;
     [model bg_saveOrUpdate];
 }
+- (void)initWithTrips{
+    
+    for (int i = 0; i<4; i++) {
+    TripsModel *model = [TripsModel new];
+    model.distance = @"0.0";
+    model.Fuel = @"0.0";
+    model.FuelEconmy = @"0.0";
+    [model bg_saveOrUpdate];
+    }
+}
 @end

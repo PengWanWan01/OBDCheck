@@ -104,5 +104,11 @@
 #import "selectTableViewCell.h"
 #import "LogsSetting.h"
 #import "LogsModel.h"
+#import "TripsModel.h"
+#import "FilesTableViewCell.h"
+#import "Filesmodel.h"
+#import "Sensors2ViewController.h"
+#import "Mode06ViewController.h"
+#import "Mode09ViewController.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

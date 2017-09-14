@@ -21,6 +21,7 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.separatorColor = [ColorTools colorWithHexString:@"#212329"];
      [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
     [self.view addSubview:self.tableView];
@@ -40,6 +41,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL"];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];
+    }
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        cell.layoutMargins = UIEdgeInsetsZero;
     }
     cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
        return cell;

@@ -1179,7 +1179,7 @@
 }
 #pragma mark 开关按钮
 - (void)selectSwtichBetouched:(UISwitch *)switchBtn{
-    NSLog(@"开关tag%ld",  switchBtn.tag);
+    NSLog(@"开关tag%ld",  (long)switchBtn.tag);
      NSLog(@"开关on%d",  switchBtn.on);
     switch (switchBtn.tag) {
         case 0:

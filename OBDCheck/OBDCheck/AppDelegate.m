@@ -55,7 +55,8 @@
     [[DashboardSetting sharedInstance] initWithdashboardC];
     [[DashboardSetting sharedInstance]CustomADDdashboardA];
     [[LogsSetting sharedInstance] initWithlogs];
-    
+    [[LogsSetting sharedInstance] initWithTrips];
+
 }
 
 - (void)clearAllUserDefaultsData
