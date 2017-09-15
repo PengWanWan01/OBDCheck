@@ -66,7 +66,7 @@
         NSLog(@"backColor %@",dashboard.backColor  );
         model = dashboard;
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
-    [dashViewB drawgradient:model.backColor GradientRadius:[model.GradientRadius floatValue] TitlteColor:model.titleColor TitlteFontScale:[model.titleFontScale floatValue] TitlePositon:[model.titlePositon floatValue] ValueVisible:model.ValueVisible Valuecolor:model.ValueColor ValueFontScale:[model.ValueFontScale floatValue] ValuePositon:[model.ValuePositon floatValue] UnitColor:model.UnitColor UnitFontScale:[model.UnitFontScale floatValue] UnitPositon:[model.UnitPositon floatValue] PointColor:model.pointerColor PointWidth:[model.Pointerwidth floatValue] Fillenable:model.FillEnable FillColor:model.FillColor];
+    [dashViewB initWithModel:dashboard];
     
             [self.view addSubview:dashViewB];
     }
@@ -505,7 +505,7 @@
     [dashViewB removeFromSuperview];
     
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
-    [dashViewB drawgradient:model.backColor GradientRadius:[model.GradientRadius floatValue] TitlteColor:model.titleColor TitlteFontScale:[model.titleFontScale floatValue] TitlePositon:[model.titlePositon floatValue] ValueVisible:model.ValueVisible Valuecolor:model.ValueColor ValueFontScale:[model.ValueFontScale floatValue] ValuePositon:[model.ValuePositon floatValue] UnitColor:model.UnitColor UnitFontScale:[model.UnitFontScale floatValue] UnitPositon:[model.UnitPositon floatValue] PointColor:model.pointerColor PointWidth:[model.Pointerwidth floatValue] Fillenable:model.FillEnable FillColor:model.FillColor];
+    [dashViewB initWithModel:model];
     [self.view addSubview:dashViewB];
     
 }

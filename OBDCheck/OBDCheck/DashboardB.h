@@ -33,4 +33,6 @@
 @property (nonatomic,strong) NSNumber *origny; //坐标Y轴
 @property (nonatomic,strong) NSNumber *orignwidth; //宽
 @property (nonatomic,strong) NSNumber *orignheight; //坐标X轴
+@property (nonatomic,copy) NSString *minNumber;  //最小值
+@property (nonatomic,copy) NSString *maxNumber;  //最大值
 @end

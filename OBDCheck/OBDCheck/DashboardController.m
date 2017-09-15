@@ -155,10 +155,6 @@ static dispatch_source_t _timer;
     switch (modeltype) {
         case 1:
         {
-            [DashboardA bg_updateSet:orignxsql];
-             [DashboardA bg_updateSet:orignysql];
-            [DashboardA bg_updateSet:orignwidthsql];
-            [DashboardA bg_updateSet:orignheightsql];
             //设置自定义仪表盘
             [CustomDashboard bg_updateSet:Customorignxsql];
             [CustomDashboard bg_updateSet:Customorignysql];
@@ -169,18 +165,12 @@ static dispatch_source_t _timer;
             break;
         case 2:
         {
-            [DashboardB bg_updateSet:orignxsql];
-            [DashboardB bg_updateSet:orignysql];
-            [DashboardB bg_updateSet:orignwidthsql];
-            [DashboardB bg_updateSet:orignheightsql];
+           
         }
             break;
         case 3:
         {
-            [DashboardC bg_updateSet:orignxsql];
-            [DashboardC bg_updateSet:orignysql];
-            [DashboardC bg_updateSet:orignwidthsql];
-            [DashboardC bg_updateSet:orignheightsql];
+          
         }
             break;
         default:
@@ -414,8 +404,8 @@ static dispatch_source_t _timer;
             NSLog(@"%ld -- %ld",(long)[dashboard.ID integerValue],(long)view.tag);
             NSLog(@"orignwidth%f",[dashboard.orignwidth floatValue]);
             //画底盘渐变色
-    [dashboardStyleAView addGradientView:dashboard.outerColor  GradientViewWidth:view.frame.size.width];
-     [dashboardStyleAView drawCalibration:[dashboard.StartAngle floatValue]  WithendAngle:[dashboard.endAngle floatValue] WithRingWidth:[dashboard.ringWidth floatValue] MAJORTICKSWidth:[dashboard.maWidth floatValue] MAJORTICKSLength:[dashboard.maLength floatValue] MAJORTICKSColor:dashboard.maColor MINORTICKSWidth:[dashboard.miWidth floatValue ] MINORTICKSLength:[dashboard.miLength floatValue] MINORTICKSColor:dashboard.miColor LABELSVisible:dashboard.LabelVisble Rotate:dashboard.LabelRotate   Font:[dashboard.LabelFontScale floatValue] OffestTickline:[dashboard.LabelOffest floatValue] InnerColor:dashboard.innerColor TitleColor:dashboard.titleColor TitleFontScale:[dashboard.titleFontScale floatValue] TitlePosition:[dashboard.titlePosition floatValue] ValueVisble:dashboard.ValueVisble ValueColor:dashboard.ValueColor ValueFontScale:[dashboard.ValueFontScale floatValue] ValuePosition:[dashboard.ValuePosition floatValue] UnitColor:dashboard.UnitColor UnitFontScale:[dashboard.UnitFontScale floatValue] UnitVerticalPosition:[dashboard.UnitVerticalPosition floatValue] UnitHorizontalPosition:[dashboard.UnitHorizontalPosition floatValue] PointerVisble:dashboard.PointerVisble PointerWidth:[dashboard.PointerWidth floatValue] PointerLength: [dashboard.PointerLength floatValue] PointerColor:dashboard.PointerColor KNOBRadius:[dashboard.KNOBRadius floatValue] KNOBColor:dashboard.KNOBColor Fillenabled:dashboard.Fillenabled FillstartAngle:[dashboard.FillstartAngle floatValue] FillEndAngle:[dashboard.FillEndAngle floatValue] FillColor:dashboard.FillColor];
+            [dashboardStyleAView addGradientView:dashboard.outerColor  GradientViewWidth:view.frame.size.width];
+            [dashboardStyleAView initWithModel:dashboard];
             dashboardStyleAView.infoLabel.text = _LabelNameArray[[dashboard.ID integerValue] - 1];
             dashboardStyleAView.numberLabel.text = _numberArray[[dashboard.ID integerValue] - 1];
         }
@@ -458,7 +448,7 @@ static dispatch_source_t _timer;
     NSArray* pAll = [DashboardB bg_findWhere:findsql];
     for(DashboardB* dashboard in pAll){
         NSLog(@"dashboard.StartAngle %@",dashboard.backColor  );//            NSLog(@"StartAnglev%f",[dashboard.testStartAngle floatValue]);
-      [view drawgradient:dashboard.backColor GradientRadius:[dashboard.GradientRadius floatValue] TitlteColor:dashboard.titleColor TitlteFontScale:[dashboard.titleFontScale floatValue] TitlePositon:[dashboard.titlePositon floatValue] ValueVisible:dashboard.ValueFontScale Valuecolor:dashboard.ValueColor ValueFontScale:[dashboard.ValueFontScale floatValue] ValuePositon:[dashboard.ValuePositon floatValue] UnitColor:dashboard.UnitColor UnitFontScale:[dashboard.UnitFontScale floatValue] UnitPositon:[dashboard.UnitPositon floatValue] PointColor:dashboard.pointerColor PointWidth:[dashboard.Pointerwidth floatValue] Fillenable:dashboard.FillEnable FillColor:dashboard.FillColor];
+      [view initWithModel:dashboard];
         
     }
     view.delegate = self;
@@ -505,7 +495,7 @@ static dispatch_source_t _timer;
     NSArray* pAll = [DashboardC bg_findWhere:findsql];
     for(DashboardC* dashboard in pAll){
         NSLog(@"dashboard.StartAngle %@",dashboard.innerColor  );
-    [view drawinnerColor:dashboard.innerColor OuterColor:dashboard.outerColor  Gradientradius:[dashboard.Gradientradius floatValue] TitleColor:dashboard.titleColor TiltefontScale:[dashboard.titleFontScale floatValue] TitlePosition:[dashboard.titlePositon floatValue] ValueVisible:dashboard.ValueVisible Valuecolor:dashboard.ValueColor ValueFontScale:[dashboard.ValueFontScale floatValue] ValuePositon:[dashboard.ValuePositon floatValue] UnitColor:dashboard.UnitColor UnitFontScale:[dashboard.UnitFontScale floatValue] UnitPositon:[dashboard.UnitPositon floatValue] FrameColor:dashboard.FrameColor FrameScale:[dashboard.FrameScale floatValue]];
+        [view initWithModel:dashboard];
     view.delegate = self;
         
     }
@@ -575,24 +565,17 @@ static dispatch_source_t _timer;
             break;
     }
    }
-#pragma mark 点击设置列表的某一行3、4、5、6、7、8弹框
+#pragma mark 点击设置列表的某一行2\3\4弹框
 -(void)AlertBetouched:(NSInteger)index{
    
     switch (index) {
         case 2:
         {
-            switch ([ DashboardSetting sharedInstance].dashboardMode) {
-                case DashboardCustomMode: //自定义模式
-                {
-                    //添加一个仪表盘
+           //自定义模式
+              //添加一个仪表盘
                   if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
                     [self addDashboard];
                      }
-                }
-                    break;
-                default:
-                    break;
-            }
         }
             break;
         case 3:
@@ -659,7 +642,7 @@ static dispatch_source_t _timer;
                 case DashboardClassicMode:{
                     // 关闭定时器
                     dispatch_source_cancel(_timer);
-                    DisplaySetViewController *vc = [[DisplaySetViewController alloc]init ];
+                    PIDSelectViewController *vc = [[PIDSelectViewController alloc]init ];
                     [self.navigationController pushViewController:vc animated:YES];
                 }
                     break;
@@ -753,18 +736,22 @@ static dispatch_source_t _timer;
 
 #pragma mark 点击添加
 - (void)addDashboard{
+    NSLog(@"点击添加");
       [[DashboardSetting sharedInstance].defaults setInteger:[[DashboardSetting sharedInstance].defaults integerForKey:@"AddDashboardNumber"]+1 forKey:@"AddDashboardNumber"];
     switch ([DashboardSetting sharedInstance].dashboardStyle) {
         case DashboardStyleOne:
         {
+             NSLog(@"点击添加one");
             dashboardStyleAView = [[DashboardView alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth +(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleAView.tag = ++ DashBoardTag;
-            DashboardA *model = [DashboardA new];
-            [[DashboardSetting sharedInstance]initADDdashboardA:model];
-            [self updatemodel:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:dashboardStyleAView.tag];
-            
             [scrollView addSubview:dashboardStyleAView];
             [self initWithChangeStyleA:dashboardStyleAView :dashboardStyleAView.tag -1];
+            
+//            CustomDashboard *model = [CustomDashboard new];
+//            [[DashboardSetting sharedInstance]:model];
+//            [self updatemodel:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:dashboardStyleAView.tag];
+//            
+           
          
         }
             break;

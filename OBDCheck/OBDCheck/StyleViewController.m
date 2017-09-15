@@ -77,8 +77,7 @@
             model = dashboard;
     self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
       [self.DashViewA addGradientView:model.outerColor  GradientViewWidth:self.DashViewA.frame.size.width];
-       [self.DashViewA drawCalibration:[model.StartAngle floatValue]  WithendAngle:[dashboard.endAngle floatValue] WithRingWidth:[dashboard.ringWidth floatValue] MAJORTICKSWidth:[dashboard.maWidth floatValue] MAJORTICKSLength:[dashboard.maLength floatValue] MAJORTICKSColor:dashboard.maColor MINORTICKSWidth:[dashboard.miWidth floatValue ] MINORTICKSLength:[dashboard.miLength floatValue] MINORTICKSColor:dashboard.miColor LABELSVisible:dashboard.LabelVisble Rotate:dashboard.LabelRotate   Font:[dashboard.LabelFontScale floatValue] OffestTickline:[dashboard.LabelOffest floatValue] InnerColor:dashboard.innerColor TitleColor:dashboard.titleColor TitleFontScale:[dashboard.titleFontScale floatValue] TitlePosition:[dashboard.titlePosition floatValue] ValueVisble:dashboard.ValueVisble ValueColor:dashboard.ValueColor ValueFontScale:[dashboard.ValueFontScale floatValue] ValuePosition:[dashboard.ValuePosition floatValue] UnitColor:dashboard.UnitColor UnitFontScale:[dashboard.UnitFontScale floatValue] UnitVerticalPosition:[dashboard.UnitVerticalPosition floatValue] UnitHorizontalPosition:[dashboard.UnitHorizontalPosition floatValue] PointerVisble:dashboard.PointerVisble PointerWidth:[dashboard.PointerWidth floatValue] PointerLength: [dashboard.PointerLength floatValue] PointerColor:dashboard.PointerColor KNOBRadius:[dashboard.KNOBRadius floatValue] KNOBColor:dashboard.KNOBColor Fillenabled:dashboard.Fillenabled FillstartAngle:[dashboard.FillstartAngle floatValue] FillEndAngle:[dashboard.FillEndAngle floatValue] FillColor:dashboard.FillColor];
-            
+        [self.DashViewA initWithModel:dashboard];
             self.DashViewA.infoLabel.text =  self.infoLabeltext;
             
             self.DashView = self.DashViewA;
@@ -1233,8 +1232,7 @@
     self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
     //画底盘渐变色
     [self.DashViewA addGradientView:model.outerColor GradientViewWidth:150*KFontmultiple];
-    [self.DashViewA drawCalibration:[model.StartAngle floatValue] WithendAngle:[model.endAngle floatValue] WithRingWidth:[model.ringWidth floatValue] MAJORTICKSWidth:[model.maWidth floatValue] MAJORTICKSLength:[model.maLength floatValue] MAJORTICKSColor:model.maColor MINORTICKSWidth:[model.miWidth floatValue] MINORTICKSLength:[model.miLength floatValue] MINORTICKSColor:model.miColor LABELSVisible:model.LabelVisble Rotate:model.LabelRotate Font:[model.LabelFontScale floatValue] OffestTickline:[model.LabelOffest floatValue] InnerColor:model.innerColor TitleColor:model.titleColor TitleFontScale:[model.titleFontScale floatValue] TitlePosition:[model.titlePosition floatValue] ValueVisble:model.ValueVisble ValueColor:model.ValueColor ValueFontScale:[model.ValueFontScale floatValue ] ValuePosition:[model.ValuePosition floatValue] UnitColor:model.UnitColor UnitFontScale:[model.UnitFontScale floatValue] UnitVerticalPosition:[model.UnitVerticalPosition floatValue] UnitHorizontalPosition:[model.UnitHorizontalPosition floatValue] PointerVisble:model.PointerVisble PointerWidth:[model.PointerWidth floatValue] PointerLength:[model.PointerLength floatValue] PointerColor:model.PointerColor KNOBRadius:[model.KNOBRadius floatValue] KNOBColor:model.KNOBColor Fillenabled:model.Fillenabled FillstartAngle:[model.FillstartAngle floatValue] FillEndAngle:[model.FillEndAngle floatValue]FillColor:model.FillColor];
-   
+    [self.DashViewA initWithModel:model];
     self.DashView = self.DashViewA;
     [self.view addSubview:self.DashViewA];
 

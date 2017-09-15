@@ -19,39 +19,39 @@
     }
     return self;
 }
-- (void)drawinnerColor:(NSString *)innerColor OuterColor:(NSString *)outerColor Gradientradius:(CGFloat)gradientradius TitleColor:(NSString *)titlecolor TiltefontScale:(CGFloat)tiltefontScale TitlePosition:(CGFloat)titlePosition ValueVisible:(BOOL)valueVisible  Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon FrameColor:(NSString *)frameColor FrameScale:(CGFloat)frameScale{
+- (void)initWithModel:(DashboardC *)model{
   
-    self.backgroundColor = [ColorTools colorWithHexString:outerColor];
-    self.layer.borderColor=[ColorTools colorWithHexString:outerColor].CGColor;
+    self.backgroundColor = [ColorTools colorWithHexString:model.outerColor];
+    self.layer.borderColor=[ColorTools colorWithHexString:model.outerColor].CGColor;
     self.layer.borderWidth=1;
-    self.layer.cornerRadius= gradientradius;
+    self.layer.cornerRadius= [model.Gradientradius floatValue];
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(21*KMultipleC, 21*KMultipleC, self.bounds.size.width - 42*KMultipleC, self.bounds.size.width - 42*KMultipleC)];
-    view.backgroundColor = [ColorTools colorWithHexString:innerColor];
-    view.layer.cornerRadius=gradientradius;
+    view.backgroundColor = [ColorTools colorWithHexString:model.innerColor];
+    view.layer.cornerRadius=[model.Gradientradius floatValue];
     //UIView设置阴影
     [[view layer] setShadowOffset:CGSizeMake(1, 1)];
-    [[view layer] setShadowRadius:gradientradius];
+    [[view layer] setShadowRadius:[model.Gradientradius floatValue]];
     [[view layer] setShadowOpacity:0.1f]; //阴影的透明度
-    [[view layer] setShadowColor:[ColorTools colorWithHexString:innerColor].CGColor];
+    [[view layer] setShadowColor:[ColorTools colorWithHexString:model.innerColor].CGColor];
    
-    self.NumberLabel =  [[UILabel alloc]initWithFrame:CGRectMake(0, (view.bounds.size.height/2 - 35.0*KMultipleC)*valuePositon , view.bounds.size.width, 80.f*KMultipleC)];
-    self.NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:valueFontScale* 74.f*KMultipleC];
+    self.NumberLabel =  [[UILabel alloc]initWithFrame:CGRectMake(0, (view.bounds.size.height/2 - 35.0*KMultipleC)*[model.ValuePositon floatValue] , view.bounds.size.width, 80.f*KMultipleC)];
+    self.NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:[model.ValueFontScale floatValue]* 74.f*KMultipleC];
     self.NumberLabel.text = @"0.00";
     self.NumberLabel.textAlignment = NSTextAlignmentCenter;
-    self.NumberLabel.textColor = [ColorTools colorWithHexString:ValueColor];
+    self.NumberLabel.textColor = [ColorTools colorWithHexString:model.ValueColor];
    
     
-    self.PIDLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,(53*KMultipleC)*titlePosition , view.bounds.size.width, 35.0*KMultipleC)];
-    self.PIDLabel.font = [UIFont systemFontOfSize:tiltefontScale* 36.f*KMultipleC];
+    self.PIDLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,(53*KMultipleC)*[model.titlePositon floatValue] , view.bounds.size.width, 35.0*KMultipleC)];
+    self.PIDLabel.font = [UIFont systemFontOfSize:[model.titleFontScale floatValue]* 36.f*KMultipleC];
     self.PIDLabel.text = @"RPM";
     self.PIDLabel.textAlignment = NSTextAlignmentCenter;
-    self.PIDLabel.textColor = [ColorTools colorWithHexString:titlecolor];
+    self.PIDLabel.textColor = [ColorTools colorWithHexString:model.titleColor];
   
-    self.UnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,( view.bounds.size.height  - 78*KMultipleC)*unitPositon, view.bounds.size.width, 35.0*KMultipleC)];
-    self.UnitLabel.font = [UIFont systemFontOfSize:36.f*KMultipleC*unitFontScale];
+    self.UnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,( view.bounds.size.height  - 78*KMultipleC)*[model.UnitPositon floatValue], view.bounds.size.width, 35.0*KMultipleC)];
+    self.UnitLabel.font = [UIFont systemFontOfSize:36.f*KMultipleC*[model.UnitFontScale floatValue]];
     self.UnitLabel.text = @"/min";
     self.UnitLabel.textAlignment = NSTextAlignmentCenter;
-    self.UnitLabel.textColor = [ColorTools colorWithHexString:unitColor];
+    self.UnitLabel.textColor = [ColorTools colorWithHexString:model.UnitColor];
   
     [self addSubview:view];
     [view addSubview:self.PIDLabel];

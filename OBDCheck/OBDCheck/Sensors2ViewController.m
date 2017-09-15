@@ -89,7 +89,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MonitorsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MonitorsTableViewCell"];
-    
+    cell.selectionStyle =  UITableViewCellSelectionStyleNone;
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

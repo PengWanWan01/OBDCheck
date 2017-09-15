@@ -45,17 +45,14 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:self];
  
 }
-- (void)drawgradient:(NSString *)backViewColor GradientRadius:(CGFloat)gradientRadius TitlteColor:(NSString *)titlteColor TitlteFontScale:(CGFloat )titlteFontScale TitlePositon:(CGFloat)titlePositon ValueVisible:(BOOL )valueVisible Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon PointColor:(NSString *)PointColor PointWidth:(CGFloat )PointWidth Fillenable:(BOOL)fillenable  FillColor:(NSString *)fillColor{
-    //添加渐变色
-//    [ColorTools colorWithHexString:@"00a6ff"];
-
+- (void)initWithModel:(DashboardB *)model{
     gradientView *view = [[gradientView alloc]initWithFrame:self.bounds];
-    view.gradientColor = [ColorTools colorWithHexString:backViewColor];
+    view.gradientColor = [ColorTools colorWithHexString:model.backColor];
    
     view.backgroundColor = [UIColor clearColor];
     [self addSubview:view];
     //添加仪表盘中间的内容
-    [self addmiddle:titlteColor TitlteFontScale:titlteFontScale TitlePositon:titlePositon ValueVisible:valueVisible Valuecolor:ValueColor ValueFontScale:valueFontScale ValuePositon:valuePositon UnitColor:unitColor UnitFontScale:unitFontScale UnitPositon:unitPositon ];
+    [self addmiddle:model.titleColor TitlteFontScale:[model.titleFontScale floatValue] TitlePositon:[model.titlePositon floatValue] ValueVisible:model.ValueVisible Valuecolor:model.ValueColor ValueFontScale:[model.ValueFontScale floatValue] ValuePositon:[model.ValuePositon floatValue] UnitColor:model.UnitColor UnitFontScale:[model.UnitFontScale floatValue] UnitPositon:[model.UnitPositon floatValue] ];
 
     //添加仪表盘 底部的内容
     UIImageView *image2 = [[UIImageView alloc]initWithFrame:CGRectMake(self.bounds.size.width/2 - 100*KMultipleB, self.bounds.size.width -73.0*KMultipleB , 200.0*KMultipleB,  70.0*KMultipleB)];
@@ -66,8 +63,8 @@
 
     //添加进度条
     [self draw:self.bounds.size.width/2 - 23.0*KMultipleB lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:@"1d2027"] startAngle:(M_PI / 4) +(M_PI/18) endAngle: M_PI *3/4-M_PI/18];
-    [self draw:self.bounds.size.width/2 - (23.0/300)*self.frame.size.width lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:fillColor] startAngle:(M_PI / 2) endAngle: M_PI *3/4-M_PI/18];
-    [self adddrawPointColor:PointColor PointWidth:PointWidth Fillenable:fillenable   FillColor:fillColor];
+    [self draw:self.bounds.size.width/2 - (23.0/300)*self.frame.size.width lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:model.FillColor] startAngle:(M_PI / 2) endAngle: M_PI *3/4-M_PI/18];
+    [self adddrawPointColor:model.pointerColor PointWidth:[model.Pointerwidth floatValue] Fillenable:model.FillEnable   FillColor:model.FillColor];
     UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:LongPress];
     UIPinchGestureRecognizer* pinchGR = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchAction:)];
@@ -151,9 +148,6 @@
     // 线的路径 三角形
     UIBezierPath *polygonPath = [UIBezierPath bezierPath];
     
-
-    self.pointerColor = PointColor;
-
     [polygonPath moveToPoint:CGPointMake(15*KMultipleB, 36.0*KMultipleB/2)];
     // 其他点
     [polygonPath addLineToPoint:CGPointMake(0, 0)];

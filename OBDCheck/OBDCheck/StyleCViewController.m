@@ -66,7 +66,7 @@
     
     dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
             [self.view addSubview:dashViewC];
-        [dashViewC drawinnerColor:model.innerColor OuterColor:model.outerColor Gradientradius:[model.Gradientradius floatValue] TitleColor:model.titleColor TiltefontScale:[model.titleFontScale floatValue] TitlePosition:[model.titlePositon floatValue] ValueVisible:model.ValueVisible Valuecolor:model.ValueColor ValueFontScale:[model.ValueFontScale floatValue] ValuePositon:[model.ValuePositon floatValue] UnitColor:model.UnitColor UnitFontScale:[model.UnitFontScale floatValue] UnitPositon:[model.UnitPositon floatValue] FrameColor:model.FrameColor FrameScale:[model.FrameScale floatValue]];
+        [dashViewC initWithModel:dashboard];
     }
            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
    
@@ -464,7 +464,7 @@
 - (void)upDateDashView{
     [dashViewC removeFromSuperview];
     dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
-  [dashViewC drawinnerColor:model.innerColor OuterColor:model.outerColor Gradientradius:[model.Gradientradius floatValue] TitleColor:model.titleColor TiltefontScale:[model.titleFontScale floatValue] TitlePosition:[model.titlePositon floatValue] ValueVisible:model.ValueVisible Valuecolor:model.ValueColor ValueFontScale:[model.ValueFontScale floatValue] ValuePositon:[model.ValuePositon floatValue] UnitColor:model.UnitColor UnitFontScale:[model.UnitFontScale floatValue] UnitPositon:[model.UnitPositon floatValue] FrameColor:model.FrameColor FrameScale:[model.FrameScale floatValue]];
+    [dashViewC initWithModel:model];
     [self.view addSubview:dashViewC];
     
 }

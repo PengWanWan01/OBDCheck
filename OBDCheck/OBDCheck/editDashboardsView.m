@@ -142,23 +142,37 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self hide];
    
-        if (!(indexPath.row == 1 || indexPath.row == 2) ) {
-                if ([self.delegate respondsToSelector:@selector(AlertBetouched:)]) {
-                    [self.delegate AlertBetouched:indexPath.row];
-                }
-            }else{
-                if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
-                    if (indexPath.row == 2) {
-                        if ([self.delegate respondsToSelector:@selector(AlertBetouched:)]) {
-                            [self.delegate AlertBetouched:indexPath.row];
-                        }
-                    }
-                }
+        switch ([DashboardSetting sharedInstance].dashboardMode) {
+        case DashboardCustomMode:
+        {
+            if (indexPath.row==1) {
                 if ([self.delegate respondsToSelector:@selector(selectStyleBtnBetouched:)]) {
                     [self.delegate selectStyleBtnBetouched:indexPath.row];
                 }
-                
+            }else{
+                if ([self.delegate respondsToSelector:@selector(AlertBetouched:)]) {
+                    [self.delegate AlertBetouched:indexPath.row];
+                }
             }
+            
+            }
+            break;
+        case DashboardClassicMode:
+        {
+            if (indexPath.row==1 ||indexPath.row==2 ) {
+                if ([self.delegate respondsToSelector:@selector(selectStyleBtnBetouched:)]) {
+                    [self.delegate selectStyleBtnBetouched:indexPath.row];
+                }
+            }else{
+                if ([self.delegate respondsToSelector:@selector(AlertBetouched:)]) {
+                    [self.delegate AlertBetouched:indexPath.row];
+                }
+            }
+        }
+            break;
+        default:
+            break;
+    }
 
 }
 - (void)show{

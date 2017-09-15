@@ -40,8 +40,6 @@
     //注册通知
     
 
-    _minNumber = 0;
-    _maxNumber = 100;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNewNumber:) name:@"updateNumber"object:nil];
 
      
@@ -58,12 +56,12 @@
 }
 
 - (void)getNewNumber:(NSNotification *)text{
-    
-//    NSLog(@"StyleAViewTagStyleAViewTag==%.f",[text.userInfo[@"StyleAViewTag"] floatValue]);
-
+//    NSLog(@"1212%@",[text.userInfo objectForKey:@"StyleAViewnumber"] );
+    NSString *str = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"StyleAViewnumber"]];
+    CGFloat folatrr = [str floatValue];
         if ([text.userInfo[@"StyleAViewTag"] floatValue] == self.tag) {
-//            NSLog(@"StyleAViewnumberStyleAViewnumber%@",text.userInfo[@"StyleAViewnumber"]);
-            [self rotationWithStartAngle:self.StartAngle  WithEndAngle:self.StartAngle+M_PI/6];
+
+//            [self rotationWithStartAngle:self.StartAngle  WithEndAngle:M_PI*2*folatrr/100];
         }
 
 }
@@ -83,7 +81,6 @@
     gradientview.layer.cornerRadius = ViewWidth/2;
     gradientview.layer.masksToBounds = YES;
     gradientview.backgroundColor = [ColorTools colorWithHexString:gradientColor];
-    self.outerColor = gradientColor;
     [self addSubview:gradientview];
     
 
@@ -108,85 +105,49 @@
    
    
 }
-
 // 画刻度
-- (void)drawCalibration:(CGFloat )TheAngle WithendAngle:(CGFloat)TheendAngle WithRingWidth:(CGFloat)RingWidth MAJORTICKSWidth:(CGFloat)MAWidth MAJORTICKSLength:(CGFloat)MALength MAJORTICKSColor:(NSString *)MAColor MINORTICKSWidth:(CGFloat)MIWidth MINORTICKSLength:(CGFloat)MILength MINORTICKSColor:(NSString *)MIColor LABELSVisible:(BOOL)labelVisble Rotate:(BOOL)labelRotate Font:(CGFloat)labelFontScale OffestTickline:(CGFloat)labeloffestTick InnerColor:(NSString *)innerColor TitleColor:(NSString *)titleColor TitleFontScale:(CGFloat)titleFontScale TitlePosition:(CGFloat) titlePosition ValueVisble:(BOOL)valueVisble ValueColor:(NSString *)valueColor ValueFontScale:(CGFloat)valueFontScale ValuePosition:(CGFloat)valuePosition  UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale UnitVerticalPosition:(CGFloat)unitVerticalPosition UnitHorizontalPosition:(CGFloat)unitHorizontalPosition PointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor Fillenabled:(BOOL)fillenabled FillstartAngle:(CGFloat)fillstartAngle FillEndAngle:(CGFloat )fillEndAngle FillColor:(NSString *)fillColor
+- (void)initWithModel:(DashboardA *)model{
 
-{
-    [self addCircleLayer:RingWidth withInnerColor:innerColor];
-//    [self addSubview:self.pointerView];
-//    pointerLength = _radius - MALength - 14;
+    [self addCircleLayer:[model.ringWidth floatValue] withInnerColor:model.innerColor];
+
     
-    [self adddrawPointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor withStartAngle:TheAngle];
+    [self adddrawPointerVisble:model.PointerVisble PointerWidth:[model.PointerWidth  floatValue] PointerLength:[model.PointerLength  floatValue] PointerColor:model.PointerColor KNOBRadius:[model.KNOBRadius floatValue] KNOBColor:model.KNOBColor withStartAngle:[model.StartAngle floatValue]];
     
-    self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KFontmultiple, (_center.y- 40*KFontmultiple)*titlePosition, 120*KFontmultiple, 30*KFontmultiple)];
-    self.titleColor = titleColor;
-    self.titleFontScale = titleFontScale;
-    self.titlePosition = titlePosition;
-    self.ValueVisble = valueVisble;
-    self.LabelVisble = labelVisble;
-    self.LabelRotate = labelRotate;
-    self.PointerVisble = pointerVisble;
-    self.PointerWidth = pointerWidth;
-    self.PointerLength = pointerLength;
-    self.PointerColor = pointerColor;
-    self.KNOBRadius = kNOBRadius;
-    self.KNOBColor = kNOBColor;
-    self.Fillenabled = fillenabled;
-    self.FillstartAngle = fillstartAngle;
-    self.FillEndAngle = fillEndAngle;
-    self.FillColor = fillColor;
-    self.infoLabel.textColor = [ColorTools colorWithHexString:titleColor];
+    self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KFontmultiple, (_center.y- 40*KFontmultiple)*[model.titlePosition floatValue], 120*KFontmultiple, 30*KFontmultiple)];
+    self.infoLabel.textColor = [ColorTools colorWithHexString:model.titleColor];
     self.infoLabel.textAlignment = NSTextAlignmentCenter;
-//    self.infoLabel.text = @"title";
-    self.infoLabel.font = [UIFont ToAdapFont:titleFontScale*16.f];
+    self.infoLabel.font = [UIFont ToAdapFont:[model.titleFontScale floatValue]*16.f];
     [self addSubview:self.infoLabel];
     
-    self.unitLabel = [[UILabel alloc]initWithFrame:CGRectMake(((ViewWidth/2) - 20*KFontmultiple)*unitHorizontalPosition, ((ViewWidth/2)+ 10)*unitVerticalPosition, 40*KFontmultiple, 20*KFontmultiple)];
+    self.unitLabel = [[UILabel alloc]initWithFrame:CGRectMake(((ViewWidth/2) - 20*KFontmultiple)*[model.UnitHorizontalPosition floatValue], ((ViewWidth/2)+ 10)*[model.UnitVerticalPosition floatValue], 40*KFontmultiple, 20*KFontmultiple)];
     self.unitLabel.text = @"F";
-    self.unitLabel.font = [UIFont ToAdapFont:unitFontScale*16.f];
-    self.unitLabel.textColor = [ColorTools colorWithHexString:unitColor];
+    self.unitLabel.font = [UIFont ToAdapFont:[model.UnitFontScale floatValue]*16.f];
+    self.unitLabel.textColor = [ColorTools colorWithHexString:model.UnitColor];
     self.unitLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.unitLabel];
-    self.UnitColor = unitColor;
-    self.UnitFontScale = unitFontScale;
-    self.UnitVerticalPosition = unitVerticalPosition;
-    self.UnitHorizontalPosition = unitHorizontalPosition;
     [self addSubview:self.unitLabel];
-    self.numberLabel = [[UILabel alloc]initWithFrame:CGRectMake((ViewWidth/3)*valuePosition, ViewWidth + 5, ViewWidth/3, 20)];
-    self.ValueColor = valueColor;
-    self.ValueFontScale = valueFontScale;
-    self.ValuePosition = valuePosition;
-    self.numberLabel.font = [UIFont boldSystemFontOfSize:valueFontScale*17];
-    self.numberLabel.textColor = [ColorTools colorWithHexString: valueColor];
+    self.numberLabel = [[UILabel alloc]initWithFrame:CGRectMake((ViewWidth/3)*[model.ValuePosition floatValue], ViewWidth + 5, ViewWidth/3, 20)];
+   
+    self.numberLabel.font = [UIFont boldSystemFontOfSize:[model.ValueFontScale floatValue]*17];
+    self.numberLabel.textColor = [ColorTools colorWithHexString: model.ValueColor];
     self.numberLabel.textAlignment = NSTextAlignmentCenter;
     self.numberLabel.text = @"N/A";
     [self addSubview:self.numberLabel];
 
-    self.StartAngle = TheAngle;
-    self.endAngle = TheendAngle;
-    self.ringWidth = RingWidth;
-    self.maLength = MALength;
-    self.miLength = MILength;
-    self.miWidth =  MIWidth;
-    self.maWidth = MAWidth;
-    self.maColor = MAColor;
-    self.miColor = MIColor;
-    self.innerColor = innerColor;
-    self.ValueColor = valueColor;
+
     
-    CGFloat perAngle = (TheendAngle - TheAngle)  / _dialCount;
+    CGFloat perAngle = ([model.endAngle floatValue] - [model.StartAngle floatValue])  / _dialCount;
     
     if (perAngle< 0) {
-     perAngle=    -(TheendAngle - TheAngle)/_dialCount;
+     perAngle=    -([model.endAngle floatValue] - [model.StartAngle floatValue])/_dialCount;
     }else
     {
-    perAngle = (TheendAngle - TheAngle)  / _dialCount;
+    perAngle = ([model.endAngle floatValue] - [model.StartAngle floatValue])  / _dialCount;
     }
    
    
     for (int i = 0; i<= _dialCount; i++) {
-        CGFloat startAngel = (- M_PI + perAngle * i+TheAngle);
+        CGFloat startAngel = (- M_PI + perAngle * i+[model.StartAngle floatValue]);
         CGFloat endAngel = startAngel + perAngle/10;
         UIBezierPath *tickPath = [[UIBezierPath alloc]init];
         
@@ -194,40 +155,42 @@
         
         
         if (i % 5 == 0) {
-            tickPath =   [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-RingWidth- MILength startAngle:startAngel endAngle:endAngel clockwise:YES];
+            tickPath =   [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.ringWidth floatValue]- [model.miLength floatValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
             perLayer = [CAShapeLayer layer];
             
-            perLayer.strokeColor = [ColorTools colorWithHexString:MAColor].CGColor;
-            perLayer.lineWidth = MALength;
+            perLayer.strokeColor = [ColorTools colorWithHexString:model.maColor].CGColor;
+            perLayer.lineWidth = [model.maLength floatValue];
             //添加刻度
-            CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:(_radius-RingWidth- MALength- 5)*labeloffestTick Rotate:labelRotate];
-            NSString *tickText = [NSString stringWithFormat:@"%ld",((_maxNumber - _minNumber)/8)*(i/5) +_minNumber];
+            CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:(_radius-[model.ringWidth floatValue]- [model.maLength floatValue]- 5)*[model.LabelOffest floatValue] Rotate:model.LabelRotate];
+            //四舍五入
+            NSString *tickText = [NSString stringWithFormat:@"%.f",((roundf([model.maxNumber floatValue]- [model.minNumber floatValue])/8)*(i/5) +[model.minNumber floatValue])];
             
             //默认label的大小14 * 14
             UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake((point.x - 15), (point.y - 15), 30, 30)];
             text.text = tickText;
-            text.font = [UIFont systemFontOfSize:labelFontScale*10.f];
+            text.font = [UIFont systemFontOfSize:[model.LabelFontScale floatValue]*10.f];
             text.textColor = [UIColor whiteColor];
             text.textAlignment = NSTextAlignmentCenter;
             [self addSubview:text];
             
         }else{
-            tickPath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-RingWidth startAngle:startAngel endAngle:endAngel clockwise:YES];
+            tickPath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.ringWidth floatValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
             perLayer = [CAShapeLayer layer];
             
-            perLayer.strokeColor = [ColorTools colorWithHexString:MIColor].CGColor;
-            perLayer.lineWidth = MILength;
+            perLayer.strokeColor = [ColorTools colorWithHexString:model.miColor].CGColor;
+            perLayer.lineWidth = [model.miLength floatValue];
         }
         
         perLayer.path = tickPath.CGPath;
         [self.layer addSublayer:perLayer];
     }
-    [self addDrawFillstartAngle:fillstartAngle FillendAngle:fillEndAngle FillColor:fillColor withRingWidth:RingWidth];
+    [self addDrawFillstartAngle:[model.FillstartAngle floatValue] FillendAngle:[model.FillEndAngle floatValue] FillColor:model.FillColor withRingWidth:[model.ringWidth floatValue]];
     UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:LongPress];
+    if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
     UIPinchGestureRecognizer* pinchGR = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchAction:)];
     [self addGestureRecognizer:pinchGR];
-
+    }
     [self setNeedsDisplay];
     
 
@@ -307,7 +270,6 @@
     polygonLayer.fillColor = [ColorTools colorWithHexString:pointerColor].CGColor; //
     [_triangleView.layer addSublayer:polygonLayer];
     
-//    [self rotationWithStartAngle:TheAngle];
     //画圆
     CGFloat startAngle = 0; // 开始角度
     CGFloat endAngle = 2*M_PI; // 结束角度
@@ -340,7 +302,7 @@
     CABasicAnimation *animation = [CABasicAnimation new];
     // 设置动画要改变的属性
     animation.keyPath = @"transform.rotation.z";
-    animation.fromValue = @(self.StartAngle+M_PI/2);
+    animation.fromValue = @(StartAngle+M_PI/2);
     // 动画的最终属性的值（）
     animation.toValue = @(endAngle+M_PI/2);
     // 动画的播放时间

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class DashboardC;
 @protocol StyleCtouchMoveDelegate <NSObject>
 
 - (void)touchMoveWithcenterX:(CGFloat)centerX WithcenterY:(CGFloat)WithcenterY;
@@ -44,8 +45,7 @@
 
 @property (nonatomic,copy) NSString *FrameColor;
 @property (nonatomic,assign) CGFloat FrameScale;
-
-- (void)drawinnerColor:(NSString *)innerColor OuterColor:(NSString *)outerColor Gradientradius:(CGFloat)gradientradius TitleColor:(NSString *)titlecolor TiltefontScale:(CGFloat)tiltefontScale TitlePosition:(CGFloat)titlePosition ValueVisible:(BOOL)valueVisible  Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon FrameColor:(NSString *)frameColor FrameScale:(CGFloat)frameScale;
+- (void)initWithModel:(DashboardC *)model;
 
 
 

@@ -125,7 +125,8 @@
     model.origny = [NSNumber numberWithFloat:0];
     model.orignwidth = [NSNumber numberWithFloat:0];
     model.orignheight = [NSNumber numberWithFloat:0];
-
+    model.minNumber = @"0";
+    model.maxNumber = @"100";
     NSLog(@"%@",model.ID);
     /**
      存储.
@@ -168,7 +169,9 @@
     model.origny = [NSNumber numberWithFloat:0];
     model.orignwidth = [NSNumber numberWithFloat:0];
     model.orignheight = [NSNumber numberWithFloat:0];
-    NSLog(@"%@",model.ID);
+    
+    model.minNumber = @"0";
+    model.maxNumber = @"100";
     /**
      存储.
      */
@@ -205,7 +208,9 @@
     model.origny = [NSNumber numberWithFloat:0];
     model.orignwidth = [NSNumber numberWithFloat:0];
     model.orignheight = [NSNumber numberWithFloat:0];
-    NSLog(@"%@",model.ID);
+    
+    model.minNumber = @"0";
+    model.maxNumber = @"100";
     /**
      存储.
      */
