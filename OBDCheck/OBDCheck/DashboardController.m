@@ -29,6 +29,8 @@ static dispatch_source_t _timer;
 }
 @property (nonatomic,strong) NSMutableArray *LabelNameArray;
 @property (nonatomic,strong) NSMutableArray *numberArray;
+@property (nonatomic,strong) NSMutableArray *CustomNumberArray;
+@property (nonatomic,strong) NSMutableArray *CustomLabelArray;
 
 @end
 
@@ -60,9 +62,9 @@ static dispatch_source_t _timer;
     [self updateView];
     [self startAnimation];
   
-    NSArray* pAll = [DashboardA bg_findAll];
-    for (DashboardA *dash in pAll) {
-        NSLog(@"煮建%@",dash.ID);
+    NSArray* pAll = [CustomDashboard bg_findAll];
+    for (CustomDashboard *dash in pAll) {
+        NSLog(@"煮建%@-%ld",dash.ID,(long)dash.dashboardType);
     }
 }
 - (void)viewDidLoad {
@@ -73,13 +75,32 @@ static dispatch_source_t _timer;
     [self isFristLoadDashboardA];
     [self isFristLoadDashboardB];
     [self isFristLoadDashboardC];
-
+    [self isFristLoadCustomDashboard];
     NSArray* pAlltest = [DashboardA bg_findAll];
     for (DashboardA *dash in pAlltest) {
         NSLog(@"煮建%@",dash.orignwidth);
     }
     [[DashboardSetting sharedInstance].defaults setInteger:0 forKey:@"AddDashboardNumber"];
     
+}
+- (void)isFristLoadCustomDashboard{
+    for (NSInteger i = 0; i< 6; i++) {
+        NSInteger index = i % 2;
+        NSInteger page = i / 2;
+        CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
+        dashboardStyleAView  = [[DashboardView alloc] initWithFrame:CGRectMake(index * (space+ 150*KFontmultiple)+25,  page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple +20)];
+        [self updateCustomType:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:i+1];
+        
+    }
+    //第二页的仪表盘
+    //第二页的仪表盘
+    for (NSInteger i = 0; i< 2; i++) {
+        dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30)+30, 220, 220)];
+         [self updateCustomType:2 OrignX:dashboardStyleBView.frame.origin.x OrignY:dashboardStyleBView.frame.origin.y Width:dashboardStyleBView.frame.size.width Height:dashboardStyleBView.frame.size.height ID:i+7];
+    }
+    dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth*2+(MSWidth- 300)/2,  88,300, 300)];
+    [self updateCustomType:3 OrignX:dashboardStyleCView.frame.origin.x OrignY:dashboardStyleCView.frame.origin.y Width:dashboardStyleCView.frame.size.width Height:dashboardStyleCView.frame.size.height ID:9];
+
 }
 - (void)isFristLoadDashboardC{
     for (NSInteger i = 0; i< 6; i++) {
@@ -134,7 +155,61 @@ static dispatch_source_t _timer;
     dashboardStyleAView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth*2+(MSWidth- 300)/2, 88,300, 300+20)];
      [ self updatemodel:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:9];
    }
-- (void)updatemodel:(NSInteger )modeltype OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(CGFloat)id{
+#pragma mark 对自定义不同风格进行更新
+- (void)updateCustomType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(CGFloat)id{
+    NSString *Customorignxsql ;
+    NSString *Customorignysql;
+    NSString *Customorignwidthsql;
+    NSString *Customorignheightsql;
+    switch (Customtype) {
+        case 1:
+        {
+            
+           Customorignxsql = [NSString stringWithFormat:@"SET dashboardA->orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:orignx], [NSNumber numberWithFloat:id]];
+            
+           Customorignysql = [NSString stringWithFormat:@"SET dashboardA->origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: origny ], [NSNumber numberWithFloat:id]];
+            
+            Customorignwidthsql = [NSString stringWithFormat:@"SET dashboardA->orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:width], [NSNumber numberWithFloat:id]];
+            
+            Customorignheightsql = [NSString stringWithFormat:@"SET dashboardA->orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:height], [NSNumber numberWithFloat:id]];
+            
+        }
+            break;
+        case 2:
+        {
+            Customorignxsql = [NSString stringWithFormat:@"SET dashboardB->orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:orignx], [NSNumber numberWithFloat:id]];
+            
+            Customorignysql = [NSString stringWithFormat:@"SET dashboardB->origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: origny ], [NSNumber numberWithFloat:id]];
+            
+            Customorignwidthsql = [NSString stringWithFormat:@"SET dashboardB->orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:width], [NSNumber numberWithFloat:id]];
+            
+            Customorignheightsql = [NSString stringWithFormat:@"SET dashboardB->orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:height], [NSNumber numberWithFloat:id]];
+        }
+            break;
+        case 3:
+        {
+            Customorignxsql = [NSString stringWithFormat:@"SET dashboardC->orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:orignx], [NSNumber numberWithFloat:id]];
+            
+            Customorignysql = [NSString stringWithFormat:@"SET dashboardC->origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: origny ], [NSNumber numberWithFloat:id]];
+            
+            Customorignwidthsql = [NSString stringWithFormat:@"SET dashboardC->orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:width], [NSNumber numberWithFloat:id]];
+            
+            Customorignheightsql = [NSString stringWithFormat:@"SET dashboardC->orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:height], [NSNumber numberWithFloat:id]];
+            
+        }
+            break;
+        default:
+            break;
+    }
+
+        [CustomDashboard bg_updateSet:Customorignxsql];
+        [CustomDashboard bg_updateSet:Customorignysql];
+        [CustomDashboard bg_updateSet:Customorignwidthsql];
+        [CustomDashboard bg_updateSet:Customorignheightsql];
+    
+}
+#pragma mark 对经典三个表格进行更新
+- (void)updatemodel:(NSInteger )tabletype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(CGFloat)id{
     NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:orignx], [NSNumber numberWithFloat:id]];
 
     NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: origny ], [NSNumber numberWithFloat:id]];
@@ -143,34 +218,34 @@ static dispatch_source_t _timer;
     
     NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:height], [NSNumber numberWithFloat:id]];
     
-    NSString *Customorignxsql = [NSString stringWithFormat:@"SET dashboardA->orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:orignx], [NSNumber numberWithFloat:id]];
-    
-    NSString *Customorignysql = [NSString stringWithFormat:@"SET dashboardA->origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: origny ], [NSNumber numberWithFloat:id]];
-    
-    NSString *Customorignwidthsql = [NSString stringWithFormat:@"SET dashboardA->orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:width], [NSNumber numberWithFloat:id]];
-    
-    NSString *Customorignheightsql = [NSString stringWithFormat:@"SET dashboardA->orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:height], [NSNumber numberWithFloat:id]];
-    
     bg_setDebug(YES);
-    switch (modeltype) {
+    switch (tabletype) {
         case 1:
         {
-            //设置自定义仪表盘
-            [CustomDashboard bg_updateSet:Customorignxsql];
-            [CustomDashboard bg_updateSet:Customorignysql];
-            [CustomDashboard bg_updateSet:Customorignwidthsql];
-            [CustomDashboard bg_updateSet:Customorignheightsql];
+           
+            [DashboardA bg_updateSet:orignxsql];
+            [DashboardA bg_updateSet:orignysql];
+            [DashboardA bg_updateSet:orignwidthsql];
+            [DashboardA bg_updateSet:orignheightsql];
 
         }
             break;
         case 2:
         {
-           
+            [DashboardB bg_updateSet:orignxsql];
+            [DashboardB bg_updateSet:orignysql];
+            [DashboardB bg_updateSet:orignwidthsql];
+            [DashboardB bg_updateSet:orignheightsql];
+
         }
             break;
         case 3:
         {
-          
+            [DashboardC bg_updateSet:orignxsql];
+            [DashboardC bg_updateSet:orignysql];
+            [DashboardC bg_updateSet:orignwidthsql];
+            [DashboardC bg_updateSet:orignheightsql];
+
         }
             break;
         default:
@@ -201,12 +276,41 @@ static dispatch_source_t _timer;
     //自定义模式
     for (int i = 0; i<_numberArray.count; i++) {
         if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
-            dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:i+1];
-            dashboardStyleAView.numberLabel.text = _numberArray[i];
+            NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:i+1]];
+            NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+            for(CustomDashboard *dashboard in pAll){
+                switch (dashboard.dashboardType) {
+                    case 1:
+                    {
+                        dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:i+1];
+                        dashboardStyleAView.numberLabel.text = _numberArray[i];
+                        
+                        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleAViewTag",_numberArray[i],@"StyleAViewnumber", nil];
+                        
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
+                    }
+                        break;
+                    case 2:
+                    {
+                        dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:i+1];
+                        dashboardStyleBView.NumberLabel.text = _numberArray[i];
+                        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleBViewTag",_numberArray[i],@"StyleBViewnumber", nil];
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"StyleBupdateNumber" object:nil userInfo:dict];
+                    }
+                        break;
+                    case 3:
+                    {
+                        dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:i+1];
+                        dashboardStyleCView.NumberLabel.text = _numberArray[i];
+                    }
+                        break;
+                    default:
+                        break;
+                }
+                
+            }
             
-            NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleAViewTag",_numberArray[i],@"StyleAViewnumber", nil];
-            
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
+
         }else{
         switch ([DashboardSetting sharedInstance].dashboardStyle) {
             case DashboardStyleOne:
@@ -254,18 +358,24 @@ static dispatch_source_t _timer;
 
     self.numberArray = [[NSMutableArray alloc]initWithObjects:@"15",
                         @"19",@"34",@"23",@"54",@"34",@"23",@"54",@"23",@"43", nil];
+    _CustomLabelArray = [[NSMutableArray alloc]initWithObjects:@"MPH",@"RPM",@"Engine Temp",@"MAF",@"Fuel rate",@"Battery",@"Battery",@"Battery",@"Battery", nil];
     
+    self.CustomNumberArray = [[NSMutableArray alloc]initWithObjects:@"15",
+                        @"19",@"34",@"23",@"54",@"34",@"23",@"54",@"23",@"43", nil];
+
     if ([[DashboardSetting sharedInstance].defaults integerForKey:@"AddDashboardNumber"] > 0) {
         for (int i = 1; i<=[[DashboardSetting sharedInstance].defaults integerForKey:@"AddDashboardNumber"]; i++) {
-            [_LabelNameArray addObject:@"add"];
-            [self.numberArray  addObject:@"12"];
+            [_CustomLabelArray addObject:@"add"];
+            [self.CustomNumberArray  addObject:@"12"];
         }
     }
   
     for (int i = 0; i<_numberArray.count; i++) {
         [_numberArray  replaceObjectAtIndex:i withObject:[NSString stringWithFormat:@"%u", arc4random() % 100]];
     }
-    
+    for (int i = 0; i<_CustomLabelArray.count; i++) {
+        [self.CustomNumberArray    replaceObjectAtIndex:i withObject:[NSString stringWithFormat:@"%u", arc4random() % 100]];
+    }
 }
 - (void)initWithUI{
     switch ([DashboardSetting sharedInstance].dashboardMode) {
@@ -308,7 +418,7 @@ static dispatch_source_t _timer;
     // 为了检测滚动视图的偏移量，引入代理
     scrollView.delegate = self;
     pageControl.tag = 1000;
-//第一页的仪表盘
+//第一次进入改页面
     NSUserDefaults *test = [NSUserDefaults standardUserDefaults];
     if ((![test valueForKey:@"test"])) {
         [test setValue:@"sd" forKey:@"test"];
@@ -321,15 +431,8 @@ static dispatch_source_t _timer;
 - (void)LoadUI{
     //判断仪表盘模式：
     if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
-        NSArray* pAll = [CustomDashboard bg_findAll];
-        for (CustomDashboard *dash in pAll) {
-            NSLog(@"总共%@,自定义orignx=%f",dash.ID, [dash.dashboardA.orignx floatValue] );
-            dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.orignx floatValue], [dash.dashboardA.origny floatValue], [dash.dashboardA.orignwidth floatValue], [dash.dashboardA.orignheight floatValue])];
-            dashboardStyleAView.tag = [dash.ID integerValue];
-            DashBoardTag = dashboardStyleAView.tag ;
-            [scrollView addSubview:dashboardStyleAView];
-            [self initWithChangeStyleA:dashboardStyleAView : dashboardStyleAView.tag -1] ;
-        }
+            [self initWithcustomMode];
+        
     }else{
         switch ([DashboardSetting sharedInstance].dashboardStyle) {
             case DashboardStyleOne:
@@ -375,12 +478,98 @@ static dispatch_source_t _timer;
     [self.navigationController pushViewController:vc animated:NO];
     
 }
+- (void)initWithcustomMode{
+    NSArray* pAll = [CustomDashboard bg_findAll];
+    
+    for (CustomDashboard *dash in pAll) {
+              switch (dash.dashboardType) {
+            case 1:
+            {
+                dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.orignx floatValue], [dash.dashboardA.origny floatValue], [dash.dashboardA.orignwidth floatValue], [dash.dashboardA.orignheight floatValue])];
+                dashboardStyleAView.tag = [dash.ID integerValue];
+                DashBoardTag = dashboardStyleAView.tag ;
+                [scrollView addSubview:dashboardStyleAView];
+                [self initWithChangeCustomType:1 withTag:DashBoardTag] ;
 
+            }
+                break;
+            case 2:
+            {
+                dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake([dash.dashboardB.orignx floatValue], [dash.dashboardB.origny floatValue], [dash.dashboardB.orignwidth floatValue], [dash.dashboardB.orignheight floatValue])];
+                dashboardStyleBView.tag = [dash.ID integerValue];
+                DashBoardTag = dashboardStyleBView.tag ;
+                [scrollView addSubview:dashboardStyleBView];
+                [self initWithChangeCustomType:2 withTag:DashBoardTag] ;
+
+            }
+                break;
+            case 3:
+            {
+                dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake([dash.dashboardC.orignx floatValue], [dash.dashboardC.origny floatValue], [dash.dashboardC.orignwidth floatValue], [dash.dashboardC.orignheight floatValue])];
+                dashboardStyleCView.tag = [dash.ID integerValue];
+                DashBoardTag = dashboardStyleCView.tag ;
+                [scrollView addSubview:dashboardStyleCView];
+                [self initWithChangeCustomType:3 withTag:DashBoardTag] ;
+
+            }
+                break;
+            default:
+                break;
+        }
+      
+    }
+}
+- (void)initWithChangeCustomType:(NSInteger)type withTag:(NSInteger)tag{
+    [self initWithData];
+    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:tag]];
+    NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+    for(CustomDashboard *dashboard in pAll){
+        
+        switch (dashboard.dashboardType) {
+            case 1:
+            {
+                //画底盘渐变色
+                [dashboardStyleAView addGradientView:dashboard.dashboardA.outerColor  GradientViewWidth:MSWidth];
+                [dashboardStyleAView initWithModel:dashboard.dashboardA];
+                dashboardStyleAView.infoLabel.text = _CustomLabelArray[[dashboard.ID integerValue] - 1];
+                dashboardStyleAView.numberLabel.text = _CustomNumberArray[[dashboard.ID integerValue] - 1];
+                dashboardStyleAView.delegate = self;
+            }
+                break;
+            case 2:
+            {
+                NSLog(@"%@",dashboard.dashboardB.orignx);
+                [dashboardStyleBView initWithModel:dashboard.dashboardB];
+                dashboardStyleBView.PIDLabel.text = _CustomLabelArray[tag-1];
+                dashboardStyleBView.NumberLabel.text = _CustomNumberArray[tag-1];
+                dashboardStyleBView.delegate = self;
+            }
+                break;
+            case 3:
+            {
+                [dashboardStyleCView initWithModel:dashboard.dashboardC];
+                dashboardStyleCView.delegate = self;
+                dashboardStyleCView.PIDLabel.text = _CustomLabelArray[tag-1];
+                dashboardStyleCView.NumberLabel.text = _CustomNumberArray[tag-1];
+                
+
+            }
+                break;
+            default:
+                break;
+        }
+       
+        
+        
+    }
+   
+
+        [self MoveDashboard:tag];
+}
 #pragma mark 初始化仪表盘风格
 - (void)initWithStyleA{
     DashBoardTag = 0;
    
-
             NSArray* pAll = [DashboardA bg_findAll];
             for (DashboardA *dash in pAll) {
                 NSLog(@"总共%@,orignx=%f",dash.ID, [dash.orignx floatValue]);
@@ -494,7 +683,6 @@ static dispatch_source_t _timer;
     NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: view.tag]];
     NSArray* pAll = [DashboardC bg_findWhere:findsql];
     for(DashboardC* dashboard in pAll){
-        NSLog(@"dashboard.StartAngle %@",dashboard.innerColor  );
         [view initWithModel:dashboard];
     view.delegate = self;
         
@@ -649,6 +837,7 @@ static dispatch_source_t _timer;
                 case DashboardCustomMode:{
                     // 关闭定时器
                     dispatch_source_cancel(_timer);
+                    
                     EditDisplayViewController *vc = [[EditDisplayViewController alloc]init];
                     [self.navigationController pushViewController:vc animated:YES];
                 }
@@ -675,16 +864,14 @@ static dispatch_source_t _timer;
     [DashboardA bg_drop];
     [DashboardB bg_drop];
     [DashboardC bg_drop];
-
+    [CustomDashboard bg_drop];
     [[DashboardSetting sharedInstance] initWithdashboardA];
     [[DashboardSetting sharedInstance] initWithdashboardB];
     [[DashboardSetting sharedInstance] initWithdashboardC];
-    [DashboardSetting sharedInstance].KPageNumer = 3;
+    [[DashboardSetting sharedInstance] initwithCustomDashboard];
+
+    [DashboardSetting sharedInstance].KPageNumer = 4;
     [self clearAllUserDefaultsData];
-    _LabelNameArray = [[NSMutableArray alloc]initWithObjects:@"MPH",@"RPM",@"Engine Temp",@"MAF",@"Fuel rate",@"Battery",@"Battery",@"Battery",@"Battery", nil];
-    
-    self.numberArray = [[NSMutableArray alloc]initWithObjects:@"15",
-                        @"19",@"34",@"23",@"54",@"34",@"23",@"54",@"23",@"43", nil];
     [self  updateView];
    
     
@@ -696,39 +883,45 @@ static dispatch_source_t _timer;
         NSLog(@"CCC");
         scrollView.scrollEnabled = NO;
 
-        switch ([DashboardSetting sharedInstance ].dashboardStyle) {
-            case DashboardStyleOne:
-            {
-                coverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, dashboardStyleAView.frame.size.width, dashboardStyleAView.frame.size.width)];
-                coverView.backgroundColor = [ColorTools colorWithHexString:@"#FE9002"];
-                dashboardStyleAView.userInteractionEnabled = YES;
-                coverView.alpha = 0.2;
-                [dashboardStyleAView addSubview:coverView];
-            }
-                break;
-            case DashboardStyleTwo :
-            {
-                coverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, dashboardStyleBView.frame.size.width, dashboardStyleBView.frame.size.width)];
-                 dashboardStyleBView.userInteractionEnabled = YES;
-                coverView.backgroundColor = [ColorTools colorWithHexString:@"#FE9002"];
-                 coverView.alpha = 0.2;
-                [dashboardStyleBView addSubview:coverView];
-            }
-                break;
-            case DashboardStyleThree:
-            {
-                coverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, dashboardStyleCView.frame.size.width, dashboardStyleCView.frame.size.width)];
-                dashboardStyleCView.userInteractionEnabled = YES;
+        NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
+        NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+        for(CustomDashboard *dashboard in pAll){
+            
+            switch (dashboard.dashboardType) {
+                case 1:
+                {
+                    coverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, dashboardStyleAView.frame.size.width, dashboardStyleAView.frame.size.width)];
+                    coverView.backgroundColor = [ColorTools colorWithHexString:@"#FE9002"];
+                    dashboardStyleAView.userInteractionEnabled = YES;
+                    coverView.alpha = 0.2;
+                    [dashboardStyleAView addSubview:coverView];
 
-                coverView.backgroundColor = [ColorTools colorWithHexString:@"#FE9002"];
-                coverView.alpha = 0.2;
-                [dashboardStyleCView addSubview:coverView];
+                }
+                    break;
+                case 2:
+                {
+                    coverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, dashboardStyleBView.frame.size.width, dashboardStyleBView.frame.size.width)];
+                    dashboardStyleBView.userInteractionEnabled = YES;
+                    coverView.backgroundColor = [ColorTools colorWithHexString:@"#FE9002"];
+                    coverView.alpha = 0.2;
+                    [dashboardStyleBView addSubview:coverView];
+                }
+                    break;
+                case 3:
+                {
+                    coverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, dashboardStyleCView.frame.size.width, dashboardStyleCView.frame.size.width)];
+                    dashboardStyleCView.userInteractionEnabled = YES;
+                    
+                    coverView.backgroundColor = [ColorTools colorWithHexString:@"#FE9002"];
+                    coverView.alpha = 0.2;
+                    [dashboardStyleCView addSubview:coverView];
+                }
+                    break;
+                default:
+                    break;
             }
-                break;
-            default:
-                break;
         }
-      
+        
         
     }
 
@@ -738,44 +931,53 @@ static dispatch_source_t _timer;
 - (void)addDashboard{
     NSLog(@"点击添加");
       [[DashboardSetting sharedInstance].defaults setInteger:[[DashboardSetting sharedInstance].defaults integerForKey:@"AddDashboardNumber"]+1 forKey:@"AddDashboardNumber"];
-    switch ([DashboardSetting sharedInstance].dashboardStyle) {
-        case DashboardStyleOne:
+    switch ([DashboardSetting sharedInstance].addStyle) {
+        case AddStyleOne:
         {
              NSLog(@"点击添加one");
+            [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleOne];
+
             dashboardStyleAView = [[DashboardView alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth +(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleAView.tag = ++ DashBoardTag;
+            DashboardA *model = [DashboardA new];
+            [[DashboardSetting sharedInstance] initADDdashboardA:model];
+            [dashboardStyleAView addGradientView:model.outerColor  GradientViewWidth:MSWidth];
+            [dashboardStyleAView initWithModel:model];
             [scrollView addSubview:dashboardStyleAView];
-            [self initWithChangeStyleA:dashboardStyleAView :dashboardStyleAView.tag -1];
+            [self initWithChangeCustomType:1 withTag:dashboardStyleAView.tag];
             
-//            CustomDashboard *model = [CustomDashboard new];
-//            [[DashboardSetting sharedInstance]:model];
-//            [self updatemodel:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:dashboardStyleAView.tag];
-//            
-           
-         
-        }
+            [self updateCustomType:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:dashboardStyleAView.tag];
+            
+            
+         }
             break;
-        case DashboardStyleTwo:
+        case AddStyleTwo:
         {
+            
+            [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleTwo];
+         
             dashboardStyleBView = [[DashboardViewStyleB alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth+(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleBView.tag = ++ DashBoardTag;
             DashboardB *model = [DashboardB new];
-            [[DashboardSetting sharedInstance]initADDdashboardB:model];
-            [self updatemodel:2 OrignX:dashboardStyleBView.frame.origin.x OrignY:dashboardStyleBView.frame.origin.y Width:dashboardStyleBView.frame.size.width Height:dashboardStyleBView.frame.size.height ID:dashboardStyleAView.tag];
+            [[DashboardSetting sharedInstance] initADDdashboardB:model];
             [scrollView addSubview:dashboardStyleBView];
-            [self initWithChangeStyleB:dashboardStyleBView :dashboardStyleBView.tag-1 ];
-           
+            [self initWithChangeCustomType:2 withTag:dashboardStyleBView.tag];
+            
+            [self updateCustomType:2 OrignX:dashboardStyleBView.frame.origin.x OrignY:dashboardStyleBView.frame.origin.y Width:dashboardStyleBView.frame.size.width Height:dashboardStyleBView.frame.size.height ID:dashboardStyleBView.tag];
         }
             break;
-        case DashboardStyleThree:
+        case AddStyleThree:
         {
+            [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleThree];
+
             dashboardStyleCView = [[DashboardViewStyleC alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth +(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleCView.tag = ++ DashBoardTag;
             DashboardC *model = [DashboardC new];
-            [[DashboardSetting sharedInstance]initADDdashboardC:model];
-             [self updatemodel:3 OrignX:dashboardStyleCView.frame.origin.x OrignY:dashboardStyleCView.frame.origin.y Width:dashboardStyleCView.frame.size.width Height:dashboardStyleCView.frame.size.height ID:dashboardStyleCView.tag];
+            [[DashboardSetting sharedInstance] initADDdashboardC:model];
             [scrollView addSubview:dashboardStyleCView];
-            [self initWithChangeStyleC:dashboardStyleCView :dashboardStyleCView.tag -1];
+            [self initWithChangeCustomType:3 withTag:dashboardStyleCView.tag];
+            
+             [self updateCustomType:3 OrignX:dashboardStyleCView.frame.origin.x OrignY:dashboardStyleCView.frame.origin.y Width:dashboardStyleCView.frame.size.width Height:dashboardStyleCView.frame.size.height ID:dashboardStyleCView.tag];
         }
             break;
             
@@ -786,37 +988,39 @@ static dispatch_source_t _timer;
 }
 #pragma mark 点击移除
 - (void)RemoveDisplay{
-
-//    
     [DashboardSetting sharedInstance].isDashboardRemove = NO;
-    switch ([DashboardSetting sharedInstance].dashboardStyle) {
-        case DashboardStyleOne:
-        {
-            dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-            NSString *SQL = [NSString stringWithFormat:@"where ID=%@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
-            [DashboardA bg_deleteWhere:SQL];
-            [dashboardStyleAView removeFromSuperview];
-        }
-            break;
-        case DashboardStyleTwo:
-        {
-            dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-            NSString *SQL = [NSString stringWithFormat:@"where ID=%@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
-            [DashboardB bg_deleteWhere:SQL];
-            [dashboardStyleBView removeFromSuperview];
-        }
-            break;
-        case DashboardStyleThree:
-        {
-            dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-            NSString *SQL = [NSString stringWithFormat:@"where ID=%@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
-            [DashboardC bg_deleteWhere:SQL];
-            [dashboardStyleCView removeFromSuperview];
-        }
-            break;
-        default:
-            break;
-    }
+    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
+    NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+    for(CustomDashboard *dashboard in pAll){
+        
+        switch (dashboard.dashboardType) {
+            case 1:
+            {
+                dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
+                [CustomDashboard bg_deleteWhere:findsql];
+                [dashboardStyleAView removeFromSuperview];
+            }
+                break;
+            case 2:
+            {
+                dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
+                [CustomDashboard bg_deleteWhere:findsql];
+                [dashboardStyleBView removeFromSuperview];
+
+            }
+                break;
+            case 3:
+            {
+                dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
+                [CustomDashboard bg_deleteWhere:findsql];
+                [dashboardStyleCView removeFromSuperview];
+            }
+                break;
+            default:
+                break;
+        }    }
+    
+   
 }
 #pragma mark 更新最新的仪表盘
 - (void)updateView{
@@ -831,50 +1035,41 @@ static dispatch_source_t _timer;
 - (void)touchMoveWithcenterX:(CGFloat)centerX WithcenterY:(CGFloat)WithcenterY{
        scrollView.scrollEnabled = YES;
         [DashboardSetting sharedInstance].isDashboardMove = NO;
-      switch ([DashboardSetting sharedInstance].dashboardStyle ) {
-        case DashboardStyleOne:
-        {
-            bg_setDebug(YES);
-            NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:centerX] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
-            [DashboardA bg_updateSet:orignxsql];
-            NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: WithcenterY] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
-            [DashboardA bg_updateSet:orignysql];
-            
-           
-            
-            [coverView removeFromSuperview];
+    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
+    NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+    for(CustomDashboard *dashboard in pAll){
+        NSString *orignxsql;
+        NSString *orignysql;
+        switch (dashboard.dashboardType) {
+            case 1:
+            {
+               orignxsql = [NSString stringWithFormat:@"SET dashboardA->orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:centerX] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
+               orignysql = [NSString stringWithFormat:@"SET dashboardA->origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: WithcenterY] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
+                    }
+                break;
+            case 2:
+            {
+                orignxsql = [NSString stringWithFormat:@"SET dashboardB->orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:centerX] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
+               orignysql = [NSString stringWithFormat:@"SET dashboardB->origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:WithcenterY] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
+            }
+                break;
+            case 3:
+            {
+               orignxsql = [NSString stringWithFormat:@"SET dashboardC->orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:centerX] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
+               orignysql = [NSString stringWithFormat:@"SET dashboardC->origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:WithcenterY] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
+            }
+                break;
+            default:
+                break;
         }
-            break;
-        case DashboardStyleTwo:
-        {
-            DashboardViewStyleB  *view = (DashboardViewStyleB *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-            scrollView.scrollEnabled = YES;
-            NSInteger PageNumber = view.frame.origin.x / MSWidth;
-            NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:view.frame.origin.x  - PageNumber*MSWidth] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
-            [DashboardA bg_updateSet:orignxsql];
-            NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: view.frame.origin.y] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
-            [DashboardA bg_updateSet:orignysql];
-            [coverView removeFromSuperview];
-        }
-            break;
-        case DashboardStyleThree:
-        {
-            DashboardViewStyleC  *view = (DashboardViewStyleC *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-            scrollView.scrollEnabled = YES;
-            NSInteger PageNumber = view.frame.origin.x / MSWidth;
-            NSString *orignxsql = [NSString stringWithFormat:@"SET orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:view.frame.origin.x  - PageNumber*MSWidth] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
-            [DashboardC bg_updateSet:orignxsql];
-            NSString *orignysql = [NSString stringWithFormat:@"SET origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: view.frame.origin.y] , [NSNumber numberWithFloat:[DashboardSetting sharedInstance].Dashboardindex]];
-            [DashboardC bg_updateSet:orignysql];
-            
-
-            [coverView removeFromSuperview];
-        }
-            break;
-        default:
-            break;
+        [CustomDashboard bg_updateSet:orignxsql];
+        [CustomDashboard bg_updateSet:orignysql];
     }
     
+            [coverView removeFromSuperview];
+            scrollView.scrollEnabled = YES;
+
+
 
 }
 #pragma mark 颜色转化
@@ -907,35 +1102,5 @@ static dispatch_source_t _timer;
      [DashboardSetting sharedInstance].KPageNumer = 3;
      [DashboardSetting sharedInstance].isDashboardRemove = NO;
     [self isFristLoadDashboard];
-}
-#pragma mark 指针旋转角度
-- (void)rotationWithStartAngle:(CGFloat)StartAngle{
-    CGPoint oldOrigin = dashboardStyleAView.triangleView.frame.origin;
-    dashboardStyleAView.triangleView.layer.anchorPoint = CGPointMake(0.5, 0);
-    CGPoint newOrigin = dashboardStyleAView.triangleView.layer.frame.origin;
-    
-    CGPoint transition;
-    transition.x = newOrigin.x - oldOrigin.x;
-    transition.y = newOrigin.y - oldOrigin.y;
-    
-    dashboardStyleAView.triangleView.center = CGPointMake (dashboardStyleAView.triangleView.center.x - transition.x, dashboardStyleAView.triangleView.center.y - transition.y);
-    //    aaView.transform = CGAffineTransformMakeRotation(M_PI * 0.15 );
-    CABasicAnimation *animation = [CABasicAnimation new];
-    // 设置动画要改变的属性
-    animation.keyPath = @"transform.rotation.z";
-    //animation.fromValue = @(_bgImgV.layer.transform.m11);
-    // 动画的最终属性的值（）
-    animation.toValue = @(StartAngle);
-    // 动画的播放时间
-    animation.duration = 1;
-    // 动画效果慢进慢出
-    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    // 解决动画结束后回到原始状态的问题
-    animation.removedOnCompletion = NO;
-    animation.fillMode = kCAFillModeForwards;
-    // 将动画添加到视图bgImgV的layer上
-    [dashboardStyleAView.triangleView.layer addAnimation:animation forKey:@"rotation"];
-    
-    
 }
 @end

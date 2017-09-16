@@ -59,20 +59,14 @@
     cell.textLabel.text =  _titleNameArray[indexPath.row];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
     cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    if (indexPath.row==0 || indexPath.row ==1 || indexPath.row ==2) {
+    if (indexPath.row==0 || indexPath.row ==1 ) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
-//        case 0:
-//        {
-//            SizeAndLocationViewController *vc = [[SizeAndLocationViewController alloc]init];
-//            [self.navigationController pushViewController:vc animated:YES];
-//            
-//        }
-//            break;
+
         case 0:
         {
             DisplaySetViewController *vc = [[DisplaySetViewController alloc]init];
@@ -81,28 +75,35 @@
             break;
         case 1:
         {
-            switch ([DashboardSetting sharedInstance].dashboardStyle) {
-                case DashboardStyleOne:
-                {
-                    StyleViewController *vc = [[StyleViewController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
+            NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
+            NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+            for(CustomDashboard *dashboard in pAll){
+                switch (dashboard.dashboardType) {
+                    case 1:
+                    {
+                        StyleViewController *vc = [[StyleViewController alloc]init];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                        break;
+                    case 2:
+                    {
+                        StyleViewBController *vc = [[StyleViewBController alloc]init];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                        break;
+                    case 3:
+                    {
+                        StyleCViewController *vc = [[StyleCViewController alloc]init];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                        break;
+                    default:
+                        break;
                 }
-                    break;
-                case DashboardStyleTwo:
-                {
-                    StyleViewBController *vc = [[StyleViewBController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                    break;
-                case DashboardStyleThree:
-                {
-                     StyleCViewController *vc = [[StyleCViewController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                    break;
-                default:
-                    break;
             }
+            
+            
+           
           
         }
             break;

@@ -217,14 +217,54 @@
    
 }
 
-- (void)CustomADDdashboardA{
+- (void)initwithCustomDashboard{
    
     for (int i = 0; i< 9; i++) {
-         CustomDashboard *model = [[CustomDashboard alloc]init];
-        DashboardA *dash = [DashboardA new];
-        [self initADDdashboardA:dash];
-        model.dashboardA = dash;
-        [model bg_saveOrUpdate];
+        if (i<6) {
+        [self CustomDashboardType:AddStyleOne];
+        }else if (i>=6 && i < 8){
+        
+        [self CustomDashboardType:AddStyleTwo];
+        }else{
+        [self CustomDashboardType:AddStyleThree];
+        }
+    }
+
+}
+- (void)CustomDashboardType:(AddDashboardStyle)type{
+    switch (type) {
+        case AddStyleOne:
+        {
+            CustomDashboard *model = [[CustomDashboard alloc]init];
+            DashboardA *dash = [DashboardA new];
+            [self initADDdashboardA:dash];
+            model.dashboardA = dash;
+            model.dashboardType = 1;
+            [model bg_saveOrUpdate];
+        }
+            break;
+        case AddStyleTwo:
+        {
+            CustomDashboard *model = [[CustomDashboard alloc]init];
+            DashboardB *dash = [DashboardB new];
+            [self initADDdashboardB:dash];
+            model.dashboardB = dash;
+            model.dashboardType = 2;
+            [model bg_saveOrUpdate];
+        }
+            break;
+        case AddStyleThree:
+        {
+            CustomDashboard *model = [[CustomDashboard alloc]init];
+            DashboardC *dash = [DashboardC new];
+            [self initADDdashboardC:dash];
+            model.dashboardC = dash;
+            model.dashboardType = 3;
+            [model bg_saveOrUpdate];
+        }
+            break;
+        default:
+            break;
     }
 
 }

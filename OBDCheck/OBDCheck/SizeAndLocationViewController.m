@@ -108,28 +108,6 @@
     fieldView.delegate = self;
     fieldView.keyboardType = UIKeyboardTypeNumberPad;
     [fieldView addTarget:self action:@selector(textFieldEditChanged:) forControlEvents:UIControlEventEditingChanged];
-//    switch (indexPath.row) {
-//        case 0:
-//        {
-//            [DashboardSetting sharedInstance].diameter = fieldView.text;
-//            NSLog(@"%@", fieldView.text);
-//            
-//        }
-//            break;
-//        case 1:
-//        {
-//            [DashboardSetting sharedInstance].Left = fieldView.text;
-//        }
-//            break;
-//        case 2:
-//        {
-//            [DashboardSetting sharedInstance].Top = fieldView.text;
-//        }
-//            break;
-//        default:
-//            break;
-//    }
-//    fieldView.delegate = self;
     [cell addSubview:fieldView];
 //    cell.accessoryView.
     return cell;

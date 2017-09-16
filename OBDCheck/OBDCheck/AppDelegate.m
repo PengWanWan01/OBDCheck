@@ -53,7 +53,7 @@
     [[DashboardSetting sharedInstance] initWithdashboardA];
     [[DashboardSetting sharedInstance] initWithdashboardB];
     [[DashboardSetting sharedInstance] initWithdashboardC];
-    [[DashboardSetting sharedInstance]CustomADDdashboardA];
+    [[DashboardSetting sharedInstance] initwithCustomDashboard];
     [[LogsSetting sharedInstance] initWithlogs];
     [[LogsSetting sharedInstance] initWithTrips];
 

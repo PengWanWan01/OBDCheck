@@ -77,7 +77,7 @@
 //    gradientview.layer.cornerRadius = ViewWidth/2;
 //    gradientview.layer.masksToBounds = YES;
 //    gradientview.gradientColor = gradientColor;
-    UIView *gradientview =  [[UIView alloc]initWithFrame:CGRectMake(0, 0, gradientViewWidth, gradientViewWidth)];
+    UIView *gradientview =  [[UIView alloc]initWithFrame:CGRectMake(0, 0, ViewWidth, ViewWidth)];
     gradientview.layer.cornerRadius = ViewWidth/2;
     gradientview.layer.masksToBounds = YES;
     gradientview.backgroundColor = [ColorTools colorWithHexString:gradientColor];

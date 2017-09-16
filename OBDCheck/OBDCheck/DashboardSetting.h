@@ -20,7 +20,12 @@ typedef NS_ENUM(NSInteger ,DashboardStyle)
     DashboardStyleTwo,    //第二种风格
     DashboardStyleThree=2     //第三种风格
 };
-
+typedef NS_ENUM(NSInteger ,AddDashboardStyle)
+{
+    AddStyleOne=0,   // 添加第一种风格
+    AddStyleTwo,    //添加第二种风格
+    AddStyleThree=2     //添加第三种风格
+};
 typedef NS_ENUM(NSInteger ,NumberDecimals)
 {
     NumberDecimalZero=0,   // 0个小数点位数
@@ -48,6 +53,8 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 @property (nonatomic) NumberDecimals numberDecimals;
 @property (nonatomic) MultiplierType multiplierType;
 @property (nonatomic) HUDModeType hudModeType;
+@property (nonatomic) AddDashboardStyle addStyle;
+
 @property (nonatomic,assign)  NSInteger KPageNumer; //仪表盘的原始页数
 @property (nonatomic,assign) NSInteger Dashboardindex;   //被选中可以移动的仪表盘
 @property (nonatomic,assign) NSInteger AddDashboardNumber;   //添加的仪表盘个数
@@ -73,8 +80,8 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 - (void)initADDdashboardB:(DashboardB *)model;
 - (void)initADDdashboardC:(DashboardC *)model;
 
-
-- (void)CustomADDdashboardA;
+- (void)initwithCustomDashboard;
+- (void)CustomDashboardType:(AddDashboardStyle)type;
 //设置一个属性
 -(BOOL)SetAttribute:(CGFloat)Value Key:(NSString *)key;
 //获取一个属性值
