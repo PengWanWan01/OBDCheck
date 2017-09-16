@@ -879,47 +879,29 @@
         switch (slider.tag) {
             case 0:
             {
-                NSLog(@"开始角度%f",slider.value);
-                
                 model.StartAngle = [NSNumber numberWithFloat: slider.value] ;
-                 bg_setDebug(YES);
-                NSLog(@"开始角qe度%@",model.StartAngle);
-
-             NSString *sql = [NSString stringWithFormat:@"SET StartAngle = '%@' WHERE  ID = %@",model.StartAngle , self.indexID];
-             [DashboardA bg_updateSet:sql];
-                
-                NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",  self.indexID];
-                NSArray* pAll = [DashboardA bg_findWhere:findsql];
-                for(DashboardA* dashboard in pAll){
-                    NSLog(@"dashboard.StartAngle %@",dashboard.StartAngle  );
-                }
-                
-                [self upDateDashView];
+                                [self upDateDashView];
             }
                 break;
             case 1:
             {
               
                 model.endAngle = [NSNumber numberWithFloat: slider.value];
-                NSString *sql = [NSString stringWithFormat:@"SET endAngle ='%@' WHERE  ID = %@",model.endAngle, self.indexID];
-                [DashboardA bg_updateSet:sql];
-                [self upDateDashView];
+              [self upDateDashView];
             }
                 break;
                 case 2:
             {
             
                 model.titleFontScale =  [NSNumber numberWithFloat: slider.value];
-                NSString *sql = [NSString stringWithFormat:@"SET titleFontScale ='%@' WHERE  ID = %@",model.titleFontScale, self.indexID];
-                [DashboardA bg_updateSet:sql];
+              
                 [self upDateDashView];
             }
                 break;
             case 3:
             {
                 model.titlePosition = [NSNumber numberWithFloat: slider.value];
-                NSString *sql = [NSString stringWithFormat:@"SET titlePosition ='%@' WHERE  ID = %@",model.titlePosition, self.indexID];
-                [DashboardA bg_updateSet:sql];
+               
                 [self upDateDashView];
             }
                 break;
@@ -927,8 +909,6 @@
             {
                 if (model.ValueVisble == YES) {
                     model.ValueFontScale =  [NSNumber numberWithFloat: slider.value];
-                    NSString *sql = [NSString stringWithFormat:@"SET ValueFontScale ='%@' WHERE  ID = %@",model.ValueFontScale, self.indexID];
-                    [DashboardA bg_updateSet:sql];
                 [self upDateDashView];
                 }
             }
@@ -937,8 +917,6 @@
             {
                   if (model.ValueVisble == YES) {
                       model.ValuePosition =  [NSNumber numberWithFloat: slider.value];
-                      NSString *sql = [NSString stringWithFormat:@"SET ValuePosition ='%@' WHERE  ID = %@",model.ValuePosition, self.indexID];
-                      [DashboardA bg_updateSet:sql];
                 [self upDateDashView];
                   }
             }
@@ -946,8 +924,6 @@
             case 6:
             {
                 model.UnitFontScale =  [NSNumber numberWithFloat: slider.value];
-                NSString *sql = [NSString stringWithFormat:@"SET UnitFontScale ='%@' WHERE  ID = %@",model.UnitFontScale, self.indexID];
-                [DashboardA bg_updateSet:sql];
                 [self upDateDashView];
             }
 
@@ -955,16 +931,12 @@
             case 7:
             {
                 model.UnitVerticalPosition =  [NSNumber numberWithFloat: slider.value];
-                NSString *sql = [NSString stringWithFormat:@"SET UnitVerticalPosition ='%@' WHERE  ID = %@",model.UnitVerticalPosition, self.indexID];
-                [DashboardA bg_updateSet:sql];
                 [self upDateDashView];
             }
                 break;
             case 8:
             {
                 model.UnitHorizontalPosition = [NSNumber numberWithFloat: slider.value];
-                NSString *sql = [NSString stringWithFormat:@"SET UnitHorizontalPosition ='%@' WHERE  ID = %@",model.UnitHorizontalPosition, self.indexID];
-                [DashboardA bg_updateSet:sql];
                 [self upDateDashView];
             }
                 
@@ -981,24 +953,18 @@
             case 10:
             {
                 model.maLength = [NSNumber numberWithFloat: slider.value];
-                NSString *sql = [NSString stringWithFormat:@"SET maLength ='%@' WHERE  ID = %@",model.maLength, self.indexID];
-                [DashboardA bg_updateSet:sql];
                 [self upDateDashView];
             }
                 break;
             case 11:
             {
                 model.miWidth =  [NSNumber numberWithFloat: slider.value];
-                NSString *sql = [NSString stringWithFormat:@"SET miWidth ='%@' WHERE  ID = %@",model.miWidth, self.indexID];
-                [DashboardA bg_updateSet:sql];
                 [self upDateDashView];
             }
                 break;
             case 12:
             {
                 model.miLength = [NSNumber numberWithFloat: slider.value];
-                NSString *sql = [NSString stringWithFormat:@"SET miLength ='%@' WHERE  ID = %@",model.miLength, self.indexID];
-                [DashboardA bg_updateSet:sql];
                 [self upDateDashView];
             }
                 break;
@@ -1006,8 +972,6 @@
             {
                 if (model.LabelVisble == YES) {
                     model.LabelFontScale =  [NSNumber numberWithFloat: slider.value];
-                    NSString *sql = [NSString stringWithFormat:@"SET LabelFontScale ='%@' WHERE  ID = %@",model.LabelFontScale, self.indexID];
-                    [DashboardA bg_updateSet:sql];
                 [self upDateDashView];
                 }
             }
@@ -1016,8 +980,6 @@
             {
                  if (model.LabelVisble == YES) {
                      model.LabelOffest =  [NSNumber numberWithFloat: slider.value];
-                     NSString *sql = [NSString stringWithFormat:@"SET LabelOffest ='%@' WHERE  ID = %@",model.LabelOffest, self.indexID];
-                     [DashboardA bg_updateSet:sql];
                 [self upDateDashView];
                  }
             }
@@ -1026,8 +988,6 @@
             {
                 if (model.PointerVisble == YES) {
                     model.PointerWidth =  [NSNumber numberWithFloat: slider.value];
-                    NSString *sql = [NSString stringWithFormat:@"SET PointerWidth ='%@' WHERE  ID = %@",model.PointerWidth, self.indexID];
-                    [DashboardA bg_updateSet:sql];
                     [self upDateDashView];
                 }
             }
@@ -1036,8 +996,6 @@
             {
                 if (model.PointerVisble == YES) {
                     model.PointerLength = [NSNumber numberWithFloat: slider.value];
-                    NSString *sql = [NSString stringWithFormat:@"SET PointerLength ='%@' WHERE  ID = %@",model.PointerLength, self.indexID];
-                    [DashboardA bg_updateSet:sql];
                     [self upDateDashView];
                 }
             }
@@ -1045,17 +1003,13 @@
             case 17:
             {
                 model.KNOBRadius =  [NSNumber numberWithFloat: slider.value];
-                NSString *sql = [NSString stringWithFormat:@"SET KNOBRadius ='%@' WHERE  ID = %@",model.KNOBRadius, self.indexID];
-                [DashboardA bg_updateSet:sql];
-                    [self upDateDashView];
+                  [self upDateDashView];
             }
                 break;
             case 18:
             {
                 if (model.Fillenabled == YES) {
                     model.FillstartAngle =  [NSNumber numberWithFloat: slider.value];
-                    NSString *sql = [NSString stringWithFormat:@"SET FillstartAngle ='%@' WHERE  ID = %@",model.FillstartAngle, self.indexID];
-                    [DashboardA bg_updateSet:sql];
                     [self upDateDashView];
                 }
             }
@@ -1064,8 +1018,6 @@
             {
                 if (model.Fillenabled == YES) {
                     model.FillEndAngle =  [NSNumber numberWithFloat: slider.value];
-                    NSString *sql = [NSString stringWithFormat:@"SET maLength ='%@' WHERE  ID = %@",model.maLength, self.indexID];
-                    [DashboardA bg_updateSet:sql];
                     [self upDateDashView];
                 }
             }
@@ -1084,20 +1036,15 @@
     switch (indexTag) {
         case 0:
         {
-            bg_setDebug(YES);
 
             model.innerColor = self.selectColor;
-            NSString *sql = [NSString stringWithFormat:@"SET innerColor ='%@' WHERE  ID = %@",model.innerColor, self.indexID];
-            [DashboardA bg_updateSet:sql];
-            [self upDateDashView];
+                       [self upDateDashView];
 
         }
             break;
         case 1:
         {
             model.outerColor = self.selectColor;
-            NSString *sql = [NSString stringWithFormat:@"SET outerColor ='%@' WHERE  ID = %@",model.outerColor, self.indexID];
-            [DashboardA bg_updateSet:sql];
             [self upDateDashView];
             
         }
@@ -1105,8 +1052,6 @@
          case 2:
         {
             model.titleColor = self.selectColor;
-            NSString *sql = [NSString stringWithFormat:@"SET titleColor ='%@' WHERE  ID = %@",model.titleColor, self.self.indexID];
-            [DashboardA bg_updateSet:sql];
             [self upDateDashView];
         }
             break;
@@ -1114,49 +1059,37 @@
         {
               if (model.ValueVisble == YES) {
             model.ValueColor = self.selectColor;
-                  NSString *sql = [NSString stringWithFormat:@"SET ValueColor ='%@' WHERE  ID = %@",model.ValueColor, self.self.indexID];
-                  [DashboardA bg_updateSet:sql];
-            [self upDateDashView];
+                  [self upDateDashView];
               }
         }
             break;
         case 4:
         {
             model.UnitColor = self.selectColor;
-            NSString *sql = [NSString stringWithFormat:@"SET UnitColor ='%@' WHERE  ID = %@",model.UnitColor,self.indexID];
-            [DashboardA bg_updateSet:sql];
             [self upDateDashView];
         }
             break;
         case 5:
         {
             model.maColor = self.selectColor;
-            NSString *sql = [NSString stringWithFormat:@"SET maColor ='%@' WHERE  ID = %@",model.maColor,self.indexID];
-            [DashboardA bg_updateSet:sql];
             [self upDateDashView];
         }
             break;
         case 6:
         {
             model.miColor = self.selectColor;
-            NSString *sql = [NSString stringWithFormat:@"SET miColor ='%@' WHERE  ID = %@",model.miColor,self.indexID];
-            [DashboardA bg_updateSet:sql];
             [self upDateDashView];
         }
             break;
         case 7:
         {
             model.PointerColor = self.selectColor;
-            NSString *sql = [NSString stringWithFormat:@"SET PointerColor ='%@' WHERE  ID = %@",model.PointerColor,self.indexID];
-            [DashboardA bg_updateSet:sql];
             [self upDateDashView];
         }
             break;
         case 8:
         {
             model.KNOBColor = self.selectColor;
-            NSString *sql = [NSString stringWithFormat:@"SET KNOBColor ='%@' WHERE  ID = %@",model.KNOBColor,self.indexID];
-            [DashboardA bg_updateSet:sql];
             [self upDateDashView];
         }
             break;
@@ -1164,8 +1097,6 @@
         {
             if (model.Fillenabled == YES) {
                 model.FillColor = self.selectColor;
-                NSString *sql = [NSString stringWithFormat:@"SET FillColor ='%@' WHERE  ID = %@",model.FillColor,self.indexID];
-                [DashboardA bg_updateSet:sql];
                 [self upDateDashView];
             }
         }
@@ -1184,40 +1115,30 @@
         case 0:
         {
             model.ValueVisble = switchBtn.on;
-            NSString *sql = [NSString stringWithFormat:@"SET ValueVisble ='%d' WHERE  ID = %@",model.ValueVisble,self.indexID];
-            [DashboardA bg_updateSet:sql];
             [self upDateDashView];
         }
             break;
         case 1:
         {
             model.LabelVisble = switchBtn.on;
-            NSString *sql = [NSString stringWithFormat:@"SET LabelVisble ='%d' WHERE  ID = %@",model.LabelVisble,self.indexID];
-            [DashboardA bg_updateSet:sql];
             [self upDateDashView];
         }
             break;
         case 2:
         {
             model.LabelRotate = switchBtn.on;
-            NSString *sql = [NSString stringWithFormat:@"SET LabelRotate ='%d' WHERE  ID = %@",model.LabelRotate,self.indexID];
-            [DashboardA bg_updateSet:sql];
             [self upDateDashView];
         }
             break;
         case 3:
         {
             model.PointerVisble = switchBtn.on;
-            NSString *sql = [NSString stringWithFormat:@"SET PointerVisble ='%d' WHERE  ID = %@",model.PointerVisble,self.indexID];
-            [DashboardA bg_updateSet:sql];
             [self upDateDashView];
         }
             break;
         case 4:
         {
             model.Fillenabled = switchBtn.on;
-            NSString *sql = [NSString stringWithFormat:@"SET FillColor ='%d' WHERE  ID = %@",model.ValueVisble,self.indexID];
-            [DashboardA bg_updateSet:sql];
             [self upDateDashView];
         }
             break;
@@ -1237,7 +1158,86 @@
     [self.view addSubview:self.DashViewA];
 
 }
+#pragma mark 返回仪表盘更新数据库
+- (void)back{
+    [self.navigationController popViewControllerAnimated:YES];
+    NSLog(@"121");
+    NSString *sql = [NSString stringWithFormat:@"SET dashboardA->StartAngle = '%@' WHERE  ID = %@",model.StartAngle , self.indexID];
 
+    NSString *miLengthsql = [NSString stringWithFormat:@"SET dashboardA->miLength ='%@' WHERE  ID = %@",model.miLength, self.indexID];
+    
+    NSString *miWidthsql = [NSString stringWithFormat:@"SET dashboardA->miWidth ='%@' WHERE  ID = %@",model.miWidth, self.indexID];
+    
+
+    NSString *maLengthsql = [NSString stringWithFormat:@"SET dashboardA->maLength ='%@' WHERE  ID = %@",model.maLength, self.indexID];
+    
+    NSString *UnitHorizontalPositionsql = [NSString stringWithFormat:@"SET dashboardA->UnitHorizontalPosition ='%@' WHERE  ID = %@",model.UnitHorizontalPosition, self.indexID];
+    NSString *UnitVerticalPositionsql = [NSString stringWithFormat:@"SET dashboardA->UnitVerticalPosition ='%@' WHERE  ID = %@",model.UnitVerticalPosition, self.indexID];
+    
+    NSString *UnitFontScalesql = [NSString stringWithFormat:@"SET dashboardA->UnitFontScale ='%@' WHERE  ID = %@",model.UnitFontScale, self.indexID];
+   
+    NSString *ValuePositionsql = [NSString stringWithFormat:@"SET dashboardA->ValuePosition ='%@' WHERE  ID = %@",model.ValuePosition, self.indexID];
+    
+    NSString *ValueFontScalesql = [NSString stringWithFormat:@"SET dashboardA->ValueFontScale ='%@' WHERE  ID = %@",model.ValueFontScale, self.indexID];
+   
+    NSString *titlePositionsql = [NSString stringWithFormat:@"SET dashboardA->titlePosition ='%@' WHERE  ID = %@",model.titlePosition, self.indexID];
+    
+    NSString *endAnglesql = [NSString stringWithFormat:@"SET dashboardA->endAngle ='%@' WHERE  ID = %@",model.endAngle, self.indexID];
+       NSString *titleFontScalesql = [NSString stringWithFormat:@"SET dashboardA->titleFontScale ='%@' WHERE  ID = %@",model.titleFontScale, self.indexID];
+    NSString *FillstartAnglesql = [NSString stringWithFormat:@"SET dashboardA->FillstartAngle ='%@' WHERE  ID = %@",model.FillstartAngle, self.indexID];
+   
+    NSString *LabelFontScalesql = [NSString stringWithFormat:@"SET dashboardA->LabelFontScale ='%@' WHERE  ID = %@",model.LabelFontScale, self.indexID];
+    
+
+    NSString *LabelOffestsql = [NSString stringWithFormat:@"SET dashboardA->LabelOffest ='%@' WHERE  ID = %@",model.LabelOffest, self.indexID];
+      NSString *outerColorsql = [NSString stringWithFormat:@"SET dashboardA->outerColor ='%@' WHERE  ID = %@",model.outerColor, self.indexID];
+    
+    NSString *titleColorsql = [NSString stringWithFormat:@"SET dashboardA->titleColor ='%@' WHERE  ID = %@",model.titleColor, self.self.indexID];
+    
+    NSString *maColorsql = [NSString stringWithFormat:@"SET dashboardA->maColor ='%@' WHERE  ID = %@",model.maColor,self.indexID];
+    
+    NSString *FillColorsql = [NSString stringWithFormat:@"SET dashboardA->FillColor ='%@' WHERE  ID = %@",model.FillColor,self.indexID];
+    
+    NSString *KNOBColorsql = [NSString stringWithFormat:@"SET dashboardA->KNOBColor ='%@' WHERE  ID = %@",model.KNOBColor,self.indexID];
+    
+    NSString *PointerVisblesql = [NSString stringWithFormat:@"SET dashboardA->PointerVisble ='%d' WHERE  ID = %@",model.PointerVisble,self.indexID];
+    
+
+    NSString *LabelRotatesql = [NSString stringWithFormat:@"SET dashboardA->LabelRotate ='%d' WHERE  ID = %@",model.LabelRotate,self.indexID];
+   
+    NSString *ValueVisblesql = [NSString stringWithFormat:@"SET dashboardA->ValueVisble ='%d' WHERE  ID = %@",model.ValueVisble,self.indexID];
+    
+    NSString *LabelVisblesql = [NSString stringWithFormat:@"SET dashboardA->LabelVisble ='%d' WHERE  ID = %@",model.LabelVisble,self.indexID];
+    NSString * PointerWidthsql= [NSString stringWithFormat:@"SET dashboardA->PointerWidth ='%@' WHERE  ID = %@",model.PointerWidth,self.indexID];
+    
+    [CustomDashboard bg_updateSet:LabelVisblesql];
+    [CustomDashboard bg_updateSet:LabelRotatesql];
+    [CustomDashboard bg_updateSet:PointerVisblesql];
+    [CustomDashboard bg_updateSet:FillColorsql];
+    [CustomDashboard bg_updateSet:KNOBColorsql];
+    [CustomDashboard bg_updateSet:FillColorsql];
+    [CustomDashboard bg_updateSet:titleColorsql];
+    [CustomDashboard bg_updateSet:maColorsql];
+    [CustomDashboard bg_updateSet:outerColorsql];
+    [CustomDashboard bg_updateSet:LabelOffestsql];
+    [CustomDashboard bg_updateSet:PointerWidthsql];
+    [CustomDashboard bg_updateSet:sql];
+    [CustomDashboard bg_updateSet:miLengthsql];
+    [CustomDashboard bg_updateSet:miWidthsql];
+    [CustomDashboard bg_updateSet:maLengthsql];
+    [CustomDashboard bg_updateSet:UnitHorizontalPositionsql];
+    [CustomDashboard bg_updateSet:UnitVerticalPositionsql];
+    [CustomDashboard bg_updateSet:UnitFontScalesql];
+    [CustomDashboard bg_updateSet:ValuePositionsql];
+    [CustomDashboard bg_updateSet:ValueFontScalesql];
+    [CustomDashboard bg_updateSet:titlePositionsql];
+    [CustomDashboard bg_updateSet:titleFontScalesql];
+    [CustomDashboard bg_updateSet:maLengthsql];
+    [CustomDashboard bg_updateSet:ValueVisblesql];
+    [CustomDashboard bg_updateSet:LabelFontScalesql];
+    [CustomDashboard bg_updateSet:FillstartAnglesql];
+    [CustomDashboard bg_updateSet:endAnglesql];
+}
 #pragma mark 颜色转化
 - (NSString *)hexFromUIColor:(UIColor *)color
 {

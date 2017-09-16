@@ -311,24 +311,18 @@
             case 0:
             {
                 model.Gradientradius = [NSNumber numberWithFloat: slider.value] ;
-                NSString *sql = [NSString stringWithFormat:@"SET Gradientradius = '%@' WHERE  ID = %@",model.Gradientradius ,indexID];
-                [DashboardC bg_updateSet:sql];
                 [self upDateDashView];
             }
                 break;
             case 1:
             {
                 model.titleFontScale = [NSNumber numberWithFloat: slider.value] ;
-                NSString *sql = [NSString stringWithFormat:@"SET titleFontScale = '%@' WHERE  ID = %@",model.titleFontScale ,indexID];
-                [DashboardC bg_updateSet:sql];
                 [self upDateDashView];
             }
                 break;
             case 2:
             {
                 model.Gradientradius = [NSNumber numberWithFloat: slider.value] ;
-                NSString *sql = [NSString stringWithFormat:@"SET titlePositon = '%@' WHERE  ID = %@",model.titlePositon ,indexID];
-                [DashboardC bg_updateSet:sql];
                 [self upDateDashView];
             }
                 break;
@@ -336,8 +330,6 @@
             {
                 if (model.ValueVisible == YES) {
                     model.Gradientradius = [NSNumber numberWithFloat: slider.value] ;
-                    NSString *sql = [NSString stringWithFormat:@"SET ValueFontScale = '%@' WHERE  ID = %@",model.ValueFontScale ,indexID];
-                    [DashboardC bg_updateSet:sql];
                 [self upDateDashView];
                 }
             }
@@ -346,8 +338,6 @@
             {
                  if (model.ValueVisible == YES) {
                      model.ValuePositon = [NSNumber numberWithFloat: slider.value] ;
-                     NSString *sql = [NSString stringWithFormat:@"SET ValuePositon = '%@' WHERE  ID = %@",model.ValuePositon ,indexID];
-                     [DashboardC bg_updateSet:sql];
                 [self upDateDashView];
                  }
                 
@@ -355,26 +345,19 @@
                 break;
             case 5:
             {
-                model.UnitFontScale = [NSNumber numberWithFloat: slider.value] ;
-                NSString *sql = [NSString stringWithFormat:@"SET UnitFontScale = '%@' WHERE  ID = %@",model.UnitFontScale ,indexID];
-                [DashboardA bg_updateSet:sql];
-                [self upDateDashView];
+                model.UnitFontScale = [NSNumber numberWithFloat: slider.value] ;                [self upDateDashView];
             }
   
                 break;
             case 6:
             {
                 model.Gradientradius = [NSNumber numberWithFloat: slider.value] ;
-                NSString *sql = [NSString stringWithFormat:@"SET UnitPositon = '%@' WHERE  ID = %@",model.UnitPositon ,indexID];
-                [DashboardC bg_updateSet:sql];
                 [self upDateDashView];
             }
                 break;
             case 7:
             {
                 model.Gradientradius = [NSNumber numberWithFloat: slider.value] ;
-                NSString *sql = [NSString stringWithFormat:@"SET FrameScale = '%@' WHERE  ID = %@",model.FrameScale ,indexID];
-                [DashboardC bg_updateSet:sql];
                 [self upDateDashView];
                 
             }
@@ -391,16 +374,12 @@
         case 0:
         {
             model.innerColor = self.selectColor;
-            NSString *sql = [NSString stringWithFormat:@"SET innerColor ='%@' WHERE  ID = %@",model.innerColor,indexID];
-            [DashboardC bg_updateSet:sql];
             [self upDateDashView];
         }
             break;
         case 1:
         {
             model.outerColor = self.selectColor;
-            NSString *sql = [NSString stringWithFormat:@"SET outerColor ='%@' WHERE  ID = %@",model.outerColor,indexID];
-            [DashboardC bg_updateSet:sql];
             [self upDateDashView];
 
         }
@@ -408,8 +387,6 @@
         case 2:
         {
             model.titleColor = self.selectColor;
-            NSString *sql = [NSString stringWithFormat:@"SET titleColor ='%@' WHERE  ID = %@",model.titleColor,indexID];
-            [DashboardC bg_updateSet:sql];
             [self upDateDashView];
             
         }
@@ -426,16 +403,12 @@
             break;
         case 4:{
             model.UnitColor = self.selectColor;
-            NSString *sql = [NSString stringWithFormat:@"SET UnitColor ='%@' WHERE  ID = %@",model.UnitColor,indexID];
-            [DashboardC bg_updateSet:sql];
             [self upDateDashView];
             
         }
             break;
         case 5:{
             model.FrameColor = self.selectColor;
-            NSString *sql = [NSString stringWithFormat:@"SET FrameColor ='%@' WHERE  ID = %@",model.FrameColor,indexID];
-            [DashboardC bg_updateSet:sql];
             [self upDateDashView];
         }
         default:
@@ -450,8 +423,6 @@
         case 0:
         {
             model.ValueVisible = switchBtn.on;
-            NSString *sql = [NSString stringWithFormat:@"SET ValueVisible ='%d' WHERE  ID = %@",model.ValueVisible,indexID];
-            [DashboardC bg_updateSet:sql];
             [self upDateDashView];
         }
             break;
@@ -460,6 +431,38 @@
             break;
     }
     
+}
+-(void)back{
+    [self.navigationController popViewControllerAnimated:YES];
+    bg_setDebug(YES);
+    NSString *ValueVisiblesql = [NSString stringWithFormat:@"SET dashboardC->ValueVisible ='%d' WHERE  ID = %@",model.ValueVisible,indexID];
+    NSString *FrameColorsql = [NSString stringWithFormat:@"SET dashboardC->FrameColor ='%@' WHERE  ID = %@",model.FrameColor,indexID];
+    NSString *UnitColorsql = [NSString stringWithFormat:@"SET dashboardC->UnitColor ='%@' WHERE  ID = %@",model.UnitColor,indexID];
+    NSString *titleColorsql = [NSString stringWithFormat:@"SET dashboardC->titleColor ='%@' WHERE  ID = %@",model.titleColor,indexID];
+    NSString *outerColorsql = [NSString stringWithFormat:@"SET dashboardC->outerColor ='%@' WHERE  ID = %@",model.outerColor,indexID];
+    NSString *innerColorsql = [NSString stringWithFormat:@"SET dashboardC->innerColor ='%@' WHERE  ID = %@",model.innerColor,indexID];
+    NSString *FrameScalesql = [NSString stringWithFormat:@"SET dashboardC->FrameScale = '%@' WHERE  ID = %@",model.FrameScale ,indexID];
+    NSString *UnitPositonsql = [NSString stringWithFormat:@"SET dashboardC->UnitPositon = '%@' WHERE  ID = %@",model.UnitPositon ,indexID];
+    NSString *UnitFontScalesql = [NSString stringWithFormat:@"SET dashboardC->UnitFontScale = '%@' WHERE  ID = %@",model.UnitFontScale ,indexID];
+    NSString *ValuePositonsql = [NSString stringWithFormat:@"SET dashboardC->ValuePositon = '%@' WHERE  ID = %@",model.ValuePositon ,indexID];
+    NSString *ValueFontScalesql = [NSString stringWithFormat:@"SET dashboardC->ValueFontScale = '%@' WHERE  ID = %@",model.ValueFontScale ,indexID];
+    NSString *titlePositonsql = [NSString stringWithFormat:@"SET dashboardC->titlePositon = '%@' WHERE  ID = %@",model.titlePositon ,indexID];
+    NSString *titleFontScalesql = [NSString stringWithFormat:@"SET dashboardC->titleFontScale = '%@' WHERE  ID = %@",model.titleFontScale ,indexID];
+    NSString *Gradientradiussql = [NSString stringWithFormat:@"SET dashboardC->Gradientradius = '%@' WHERE  ID = %@",model.Gradientradius ,indexID];
+    [CustomDashboard bg_updateSet:UnitFontScalesql];
+    [CustomDashboard bg_updateSet:ValuePositonsql];
+    [CustomDashboard bg_updateSet:ValueFontScalesql];
+    [CustomDashboard bg_updateSet:titlePositonsql];
+    [CustomDashboard bg_updateSet:titleFontScalesql];
+    [CustomDashboard bg_updateSet:Gradientradiussql];
+    [CustomDashboard bg_updateSet:UnitPositonsql];
+    [CustomDashboard bg_updateSet:FrameScalesql];
+    [CustomDashboard bg_updateSet:innerColorsql];
+    [CustomDashboard bg_updateSet:outerColorsql];
+    [CustomDashboard bg_updateSet:titleColorsql];
+    [CustomDashboard bg_updateSet:UnitColorsql];
+    [CustomDashboard bg_updateSet:FrameColorsql];
+    [CustomDashboard bg_updateSet:ValueVisiblesql];
 }
 - (void)upDateDashView{
     [dashViewC removeFromSuperview];
