@@ -140,7 +140,7 @@
     [self addCircleLayer:[model.ringWidth floatValue] withInnerColor:model.innerColor];
 
     
-    [self adddrawPointerVisble:model.PointerVisble PointerWidth:[model.PointerWidth  floatValue] PointerLength:[model.PointerLength  floatValue] PointerColor:model.PointerColor KNOBRadius:[model.KNOBRadius floatValue] KNOBColor:model.KNOBColor withStartAngle:[model.StartAngle floatValue]];
+    [self adddrawPointerVisble:model.PointerVisble PointerWidth:[model.PointerWidth  floatValue] PointerLength:[model.PointerLength  floatValue] PointerColor:model.PointerColor KNOBRadius:[model.KNOBRadius floatValue] KNOBColor:model.KNOBColor withStartAngle:[model.StartAngle floatValue] withModel:(DashboardA *)model];
     
     self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KFontmultiple, (_center.y- 40*KFontmultiple)*[model.titlePosition floatValue], 120*KFontmultiple, 30*KFontmultiple)];
     self.infoLabel.textColor = [ColorTools colorWithHexString:model.titleColor];
@@ -161,8 +161,11 @@
     self.numberLabel.textColor = [ColorTools colorWithHexString: model.ValueColor];
     self.numberLabel.textAlignment = NSTextAlignmentCenter;
     self.numberLabel.text = @"N/A";
-    [self addSubview:self.numberLabel];
-
+   
+    if (model.ValueVisble==YES) {
+         [self addSubview:self.numberLabel];
+    }else{
+    }
 
     
     CGFloat perAngle = ([model.endAngle floatValue] - [model.StartAngle floatValue])  / _dialCount;
@@ -200,7 +203,19 @@
             text.font = [UIFont systemFontOfSize:[model.LabelFontScale floatValue]*10.f];
             text.textColor = [UIColor whiteColor];
             text.textAlignment = NSTextAlignmentCenter;
-            [self addSubview:text];
+            
+            //让文字刻度显示
+            if (model.LabelVisble == YES) {
+                [self addSubview:text];
+            }else{
+               
+            }
+            //让文字显示的形式，是正的还是斜的
+            if (model.LabelRotate == YES) {
+                
+            }else{
+            
+            }
             
         }else{
             tickPath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.ringWidth floatValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
@@ -213,7 +228,7 @@
         perLayer.path = tickPath.CGPath;
         [self.layer addSublayer:perLayer];
     }
-    [self addDrawFillstartAngle:[model.FillstartAngle floatValue] FillendAngle:[model.FillEndAngle floatValue] FillColor:model.FillColor withRingWidth:[model.ringWidth floatValue]];
+    [self addDrawFillstartAngle:[model.FillstartAngle floatValue] FillendAngle:[model.FillEndAngle floatValue] FillColor:model.FillColor withRingWidth:[model.ringWidth floatValue] withModel:(DashboardA *)model];
     UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:LongPress];
     if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
@@ -262,7 +277,7 @@
    
 }
 #pragma mark 画指针 圆与三角形
-- (void)adddrawPointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor withStartAngle:(CGFloat )TheAngle{
+- (void)adddrawPointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor withStartAngle:(CGFloat )TheAngle withModel:(DashboardA *)model{
 
     
     _triangleView= [[UIView alloc]initWithFrame:CGRectMake(((ViewWidth/2) - (pointerWidth/2)), (ViewWidth/2), pointerWidth,pointerLength)];
@@ -297,8 +312,11 @@
     polygonLayer.strokeColor = [ColorTools colorWithHexString:pointerColor].CGColor;
     polygonLayer.path = polygonPath.CGPath;
     polygonLayer.fillColor = [ColorTools colorWithHexString:pointerColor].CGColor; //
-    [_triangleView.layer addSublayer:polygonLayer];
+    if (model.PointerVisble == YES) {
+            [_triangleView.layer addSublayer:polygonLayer];
+    }else{
     
+    }
     //画圆
     CGFloat startAngle = 0; // 开始角度
     CGFloat endAngle = 2*M_PI; // 结束角度
@@ -346,7 +364,7 @@
     
     
 }
-- (void)addDrawFillstartAngle:(CGFloat)startAngle FillendAngle:(CGFloat)endAngle FillColor:(NSString *)fillColor withRingWidth:(CGFloat)RingWidth{
+- (void)addDrawFillstartAngle:(CGFloat)startAngle FillendAngle:(CGFloat)endAngle FillColor:(NSString *)fillColor withRingWidth:(CGFloat)RingWidth withModel:(DashboardA *)model{
    
     BOOL clockwise = YES; // 顺时针
     //    CALayer *containerLayer = [CALayer layer];
@@ -360,7 +378,11 @@
     circleLayer.strokeColor = [ColorTools colorWithHexString:fillColor].CGColor;
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
     circleLayer.path = circlePath.CGPath;
-    [self.layer addSublayer:circleLayer];
+     if (model.Fillenabled == YES) {
+           [self.layer addSublayer:circleLayer];
+    }else{
+        
+    }
 }
 #pragma mark - PointerView
 - (UIImageView *)pointerView {

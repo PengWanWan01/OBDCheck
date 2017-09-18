@@ -55,7 +55,11 @@
   
     [self addSubview:view];
     [view addSubview:self.PIDLabel];
-    [view addSubview:self.NumberLabel];
+    if (model.ValueVisible == YES) {
+        [view addSubview:self.NumberLabel];
+    }else{
+    
+    }
     [view addSubview:self.UnitLabel];
 
     

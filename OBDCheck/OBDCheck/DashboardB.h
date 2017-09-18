@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface DashboardB : NSObject
+@property (nonatomic,copy) NSString  *infoLabeltext; //名字
+
 @property (nonatomic,copy) NSString *backColor;
 @property (nonatomic,strong) NSNumber* GradientRadius;
 

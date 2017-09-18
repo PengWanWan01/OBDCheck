@@ -78,7 +78,7 @@
       [self.DashViewA addGradientView:model.outerColor  GradientViewWidth:self.DashViewA.frame.size.width];
         [self.DashViewA initWithModel:dashboard.dashboardA];
             self.DashViewA.infoLabel.text =  self.infoLabeltext;
-            
+        self.DashViewA.infoLabel.text = dashboard.dashboardA.infoLabeltext;
             self.DashView = self.DashViewA;
             [self.view addSubview:self.DashViewA];
     }
@@ -1153,6 +1153,7 @@
     //画底盘渐变色
     [self.DashViewA addGradientView:model.outerColor GradientViewWidth:150*KFontmultiple];
     [self.DashViewA initWithModel:model];
+    self.DashViewA.infoLabel.text = model.infoLabeltext;
     self.DashView = self.DashViewA;
     [self.view addSubview:self.DashViewA];
 

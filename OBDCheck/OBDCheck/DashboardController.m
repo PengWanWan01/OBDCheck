@@ -534,6 +534,8 @@ static dispatch_source_t _timer;
                 [dashboardStyleAView initWithModel:dashboard.dashboardA];
                 dashboardStyleAView.infoLabel.text = _CustomLabelArray[[dashboard.ID integerValue] - 1];
                 dashboardStyleAView.numberLabel.text = _CustomNumberArray[[dashboard.ID integerValue] - 1];
+                NSString * infosql = [NSString stringWithFormat:@"SET dashboardA->infoLabeltext = '%@' WHERE  ID = %@",dashboardStyleAView.infoLabel.text, [NSNumber numberWithFloat:tag]];
+                [CustomDashboard bg_updateSet:infosql];
                 dashboardStyleAView.delegate = self;
             }
                 break;
@@ -544,6 +546,8 @@ static dispatch_source_t _timer;
                 dashboardStyleBView.PIDLabel.text = _CustomLabelArray[tag-1];
                 dashboardStyleBView.NumberLabel.text = _CustomNumberArray[tag-1];
                 dashboardStyleBView.delegate = self;
+                NSString * infosql = [NSString stringWithFormat:@"SET dashboardB->infoLabeltext = '%@' WHERE  ID = %@",dashboardStyleBView.PIDLabel.text, [NSNumber numberWithFloat:tag]];
+                [CustomDashboard bg_updateSet:infosql];
             }
                 break;
             case 3:
@@ -552,7 +556,8 @@ static dispatch_source_t _timer;
                 dashboardStyleCView.delegate = self;
                 dashboardStyleCView.PIDLabel.text = _CustomLabelArray[tag-1];
                 dashboardStyleCView.NumberLabel.text = _CustomNumberArray[tag-1];
-                
+                NSString * infosql = [NSString stringWithFormat:@"SET dashboardC->infoLabeltext = '%@' WHERE  ID = %@",dashboardStyleCView.PIDLabel.text, [NSNumber numberWithFloat:tag]];
+                [CustomDashboard bg_updateSet:infosql];
 
             }
                 break;
@@ -586,6 +591,7 @@ static dispatch_source_t _timer;
 }
 - (void)initWithChangeStyleA:(DashboardView *)view :(NSInteger)index{
     [self initWithData];
+    
     NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: view.tag]];
     NSArray* pAll = [DashboardA bg_findWhere:findsql];
     for(DashboardA* dashboard in pAll){
@@ -598,6 +604,8 @@ static dispatch_source_t _timer;
             [dashboardStyleAView initWithModel:dashboard];
             dashboardStyleAView.infoLabel.text = _LabelNameArray[[dashboard.ID integerValue] - 1];
             dashboardStyleAView.numberLabel.text = _numberArray[[dashboard.ID integerValue] - 1];
+           NSString * infosql = [NSString stringWithFormat:@"SET infoLabeltext = '%@' WHERE  ID = %@",dashboardStyleAView.infoLabel.text, [NSNumber numberWithFloat:view.tag]];
+            [DashboardA bg_updateSet:infosql];
         }
     }
     dashboardStyleAView.delegate = self;
@@ -649,6 +657,8 @@ static dispatch_source_t _timer;
     dashboardStyleBView.delegate = self;
     //
        [scrollView addSubview:dashboardStyleBView];
+    NSString * infosql = [NSString stringWithFormat:@"SET infoLabeltext = '%@' WHERE  ID = %@",dashboardStyleBView.PIDLabel.text, [NSNumber numberWithFloat:view.tag]];
+    [DashboardB bg_updateSet:infosql];
     dashboardStyleBView.delegate = self;
     
     //让仪表盘到最前面
@@ -692,6 +702,8 @@ static dispatch_source_t _timer;
     dashboardStyleCView.NumberLabel.text = _numberArray[index];
     
     [scrollView addSubview:dashboardStyleCView];
+    NSString * infosql = [NSString stringWithFormat:@"SET infoLabeltext = '%@' WHERE  ID = %@",dashboardStyleCView.PIDLabel.text, [NSNumber numberWithFloat:view.tag]];
+    [DashboardC bg_updateSet:infosql];
     //让仪表盘到最前面
     if ([DashboardSetting sharedInstance].Dashboardindex == index &&  [DashboardSetting sharedInstance].isDashboardFont == YES ) {
         NSLog(@"dddd");
