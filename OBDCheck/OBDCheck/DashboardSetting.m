@@ -147,6 +147,7 @@
     model.ValueFontScale = [NSNumber numberWithFloat:1.f];
     model.ValuePositon = [NSNumber numberWithFloat:1.f];
     model.ValueVisible = YES;
+    model.GradientRadius  = [NSNumber numberWithFloat:150.f];
     
     model.titleColor  = @"#757476";
     model.titleFontScale = [NSNumber numberWithFloat:1.f];

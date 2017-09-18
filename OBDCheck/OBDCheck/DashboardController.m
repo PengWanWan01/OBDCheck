@@ -163,6 +163,7 @@ static dispatch_source_t _timer;
     NSString *Customorignysql;
     NSString *Customorignwidthsql;
     NSString *Customorignheightsql;
+    
     switch (Customtype) {
         case 1:
         {
@@ -174,7 +175,7 @@ static dispatch_source_t _timer;
             Customorignwidthsql = [NSString stringWithFormat:@"SET dashboardA->orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:width], [NSNumber numberWithFloat:id]];
             
             Customorignheightsql = [NSString stringWithFormat:@"SET dashboardA->orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:height], [NSNumber numberWithFloat:id]];
-            
+
         }
             break;
         case 2:
@@ -209,6 +210,7 @@ static dispatch_source_t _timer;
         [CustomDashboard bg_updateSet:Customorignwidthsql];
         [CustomDashboard bg_updateSet:Customorignheightsql];
     
+
 }
 #pragma mark 对经典三个表格进行更新
 - (void)updatemodel:(NSInteger )tabletype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(CGFloat)id{
@@ -219,7 +221,8 @@ static dispatch_source_t _timer;
     NSString *orignwidthsql = [NSString stringWithFormat:@"SET orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:width], [NSNumber numberWithFloat:id]];
     
     NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:height], [NSNumber numberWithFloat:id]];
-    
+   
+   
     bg_setDebug(YES);
     switch (tabletype) {
         case 1:
@@ -229,6 +232,8 @@ static dispatch_source_t _timer;
             [DashboardA bg_updateSet:orignysql];
             [DashboardA bg_updateSet:orignwidthsql];
             [DashboardA bg_updateSet:orignheightsql];
+         
+
 
         }
             break;
@@ -276,37 +281,31 @@ static dispatch_source_t _timer;
     //    NSInteger current = pageControl.currentPage;
     //自定义模式
     for (int i = 0; i<_numberArray.count; i++) {
+        _PreNumberStr = _numberArray[i];
+        [self initWithData];
         if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
-            _PreNumberStr = _numberArray[i];
-            [self initWithData];
             NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:i+1]];
             NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
             for(CustomDashboard *dashboard in pAll){
                 switch (dashboard.dashboardType) {
                     case 1:
                     {
-                       
-
-                        dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:i+1];
-                        dashboardStyleAView.numberLabel.text = _numberArray[i];
                         
-                        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleAViewTag",_numberArray[i],@"StyleAViewnumber",_PreNumberStr,@"PreStyleAViewnumber", nil];
+                        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleAViewTag",_CustomNumberArray[i],@"StyleAViewnumber",_PreNumberStr,@"PreStyleAViewnumber", nil];
                         
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
                     }
                         break;
                     case 2:
                     {
-                        dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:i+1];
-                        dashboardStyleBView.NumberLabel.text = _numberArray[i];
-                        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleBViewTag",_numberArray[i],@"StyleBViewnumber",_PreNumberStr,@"PreStyleBViewnumber", nil];
+                        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleBViewTag",_CustomNumberArray[i],@"StyleBViewnumber",_PreNumberStr,@"PreStyleBViewnumber", nil];
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"StyleBupdateNumber" object:nil userInfo:dict];
                     }
                         break;
                     case 3:
                     {
                         dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:i+1];
-                        dashboardStyleCView.NumberLabel.text = _numberArray[i];
+                        dashboardStyleCView.NumberLabel.text = _CustomNumberArray[i];
                     }
                         break;
                     default:
@@ -320,10 +319,9 @@ static dispatch_source_t _timer;
         switch ([DashboardSetting sharedInstance].dashboardStyle) {
             case DashboardStyleOne:
             {
-                dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:i+1];
-                dashboardStyleAView.numberLabel.text = _numberArray[i];
-              
-                 NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleAViewTag",_numberArray[i],@"StyleAViewnumber", nil];
+
+                
+                NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleAViewTag",_numberArray[i],@"StyleAViewnumber",_PreNumberStr,@"PreStyleAViewnumber", nil];
                 
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
 
@@ -331,9 +329,7 @@ static dispatch_source_t _timer;
                 break;
             case DashboardStyleTwo:
             {
-                dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:i+1];
-                dashboardStyleBView.NumberLabel.text = _numberArray[i];
-                NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleBViewTag",_numberArray[i],@"StyleBViewnumber", nil];
+                NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleBViewTag",_numberArray[i],@"StyleBViewnumber",_PreNumberStr,@"PreStyleBViewnumber", nil];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"StyleBupdateNumber" object:nil userInfo:dict];
             }
                 break;
@@ -996,6 +992,8 @@ static dispatch_source_t _timer;
 }
 #pragma mark 点击移除
 - (void)RemoveDisplay{
+     [[DashboardSetting sharedInstance].defaults setInteger:[[DashboardSetting sharedInstance].defaults integerForKey:@"AddDashboardNumber"]-1 forKey:@"AddDashboardNumber"];
+    
     [DashboardSetting sharedInstance].isDashboardRemove = NO;
     NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
     NSArray* pAll = [CustomDashboard bg_findWhere:findsql];

@@ -41,11 +41,29 @@
     if ([text.userInfo[@"StyleBViewTag"] floatValue] == self.tag) {
         
         NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: self.tag]];
-        NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
-        for(CustomDashboard* dashboard in pAll){
-            CGFloat Space =   (3*M_PI/2)/([dashboard.dashboardB.maxNumber floatValue] - [dashboard.dashboardB.minNumber floatValue]);
-             [self rotateImageView:(-M_PI/2-M_PI/4) + Space*start Withend:(-M_PI/2-M_PI/4) +Space*end];
-            
+        switch ([DashboardSetting sharedInstance].dashboardMode) {
+            case DashboardCustomMode:
+            {
+                NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+                for(CustomDashboard* dashboard in pAll){
+                    CGFloat Space =   (3*M_PI/2)/([dashboard.dashboardB.maxNumber floatValue] - [dashboard.dashboardB.minNumber floatValue]);
+                    [self rotateImageView:(-M_PI/2-M_PI/4) + Space*start Withend:(-M_PI/2-M_PI/4) +Space*end];
+                    
+                }
+            }
+                break;
+            case DashboardClassicMode:
+            {
+                NSArray* pAll = [DashboardB bg_findWhere:findsql];
+                for(DashboardB * dashboard in pAll){
+                    CGFloat Space =   (3*M_PI/2)/([dashboard.maxNumber floatValue] - [dashboard.minNumber floatValue]);
+                    [self rotateImageView:(-M_PI/2-M_PI/4) + Space*start Withend:(-M_PI/2-M_PI/4) +Space*end];
+                    
+                }
+            }
+                break;
+            default:
+                break;
         }
     }
 

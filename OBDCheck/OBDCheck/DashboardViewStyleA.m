@@ -64,12 +64,33 @@
     if ([text.userInfo[@"StyleAViewTag"] floatValue] == self.tag) {
     
     NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: self.tag]];
-    NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
-               for(CustomDashboard* dashboard in pAll){
-    CGFloat Space =   ([dashboard.dashboardA.endAngle floatValue]- [dashboard.dashboardA.StartAngle floatValue])/([dashboard.dashboardA.maxNumber floatValue] - [dashboard.dashboardA.minNumber floatValue]);
-    [self rotationWithStartAngle:[dashboard.dashboardA.StartAngle floatValue] + start*Space  WithEndAngle:[dashboard.dashboardA.StartAngle floatValue] + end*Space];
+        switch ([ DashboardSetting sharedInstance].dashboardMode) {
+            case DashboardCustomMode:
+            {
+                NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+                for(CustomDashboard* dashboard in pAll){
+                    CGFloat Space =   ([dashboard.dashboardA.endAngle floatValue]- [dashboard.dashboardA.StartAngle floatValue])/([dashboard.dashboardA.maxNumber floatValue] - [dashboard.dashboardA.minNumber floatValue]);
+                    [self rotationWithStartAngle:[dashboard.dashboardA.StartAngle floatValue] + start*Space  WithEndAngle:[dashboard.dashboardA.StartAngle floatValue] + end*Space];
+                    self.numberLabel.text = presentStr;
+                }
+            }
+                break;
+            case DashboardClassicMode:
+            {
+                NSArray* pAll = [DashboardA bg_findWhere:findsql];
+                for(DashboardA* dashboard in pAll){
+                    CGFloat Space =   ([dashboard.endAngle floatValue]- [dashboard.StartAngle floatValue])/([dashboard.maxNumber floatValue] - [dashboard.minNumber floatValue]);
+                    [self rotationWithStartAngle:[dashboard.StartAngle floatValue] + start*Space  WithEndAngle:[dashboard.StartAngle floatValue] + end*Space];
+                     self.numberLabel.text = presentStr;
+                }
+            }
+                break;
+            default:
+                break;
+        }
+   
                    
-      }
+      
     }
 
 }
