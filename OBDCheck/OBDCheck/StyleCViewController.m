@@ -59,14 +59,14 @@
 - (void)initWithHeadUI{
  
     NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
-    NSArray* pAll = [DashboardC bg_findWhere:findsql];
-    for(DashboardC * dashboard in pAll){
-        NSLog(@"FrameColor %@",dashboard.FrameColor  );
-        model = dashboard;
+    NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+    for(CustomDashboard * dashboard in pAll){
+        NSLog(@"FrameColor %@",dashboard.dashboardC.FrameColor  );
+        model = dashboard.dashboardC;
     
     dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
             [self.view addSubview:dashViewC];
-        [dashViewC initWithModel:dashboard];
+        [dashViewC initWithModel:dashboard.dashboardC];
     }
            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
    
@@ -463,6 +463,10 @@
     [CustomDashboard bg_updateSet:UnitColorsql];
     [CustomDashboard bg_updateSet:FrameColorsql];
     [CustomDashboard bg_updateSet:ValueVisiblesql];
+}
+-(void)rightBarButtonClick{
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 - (void)upDateDashView{
     [dashViewC removeFromSuperview];

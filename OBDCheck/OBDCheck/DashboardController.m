@@ -31,7 +31,7 @@ static dispatch_source_t _timer;
 @property (nonatomic,strong) NSMutableArray *numberArray;
 @property (nonatomic,strong) NSMutableArray *CustomNumberArray;
 @property (nonatomic,strong) NSMutableArray *CustomLabelArray;
-
+@property (nonatomic,copy)  NSString *  PreNumberStr;
 @end
 
 @implementation DashboardController
@@ -62,9 +62,11 @@ static dispatch_source_t _timer;
     [self updateView];
     [self startAnimation];
   
-    NSArray* pAll = [CustomDashboard bg_findAll];
-    for (CustomDashboard *dash in pAll) {
-        NSLog(@"煮建%@-%ld",dash.ID,(long)dash.dashboardType);
+    NSArray* pAll = [DashboardA bg_findAll];
+    for (DashboardA *dash in pAll) {
+        
+        NSLog(@"煮建%@-%@",dash.ID, dash.endAngle);
+       
     }
 }
 - (void)viewDidLoad {
@@ -272,20 +274,23 @@ static dispatch_source_t _timer;
 }
 - (void)startAnimationView{
     //    NSInteger current = pageControl.currentPage;
-    [self initWithData];
     //自定义模式
     for (int i = 0; i<_numberArray.count; i++) {
         if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
+            _PreNumberStr = _numberArray[i];
+            [self initWithData];
             NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:i+1]];
             NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
             for(CustomDashboard *dashboard in pAll){
                 switch (dashboard.dashboardType) {
                     case 1:
                     {
+                       
+
                         dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:i+1];
                         dashboardStyleAView.numberLabel.text = _numberArray[i];
                         
-                        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleAViewTag",_numberArray[i],@"StyleAViewnumber", nil];
+                        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleAViewTag",_numberArray[i],@"StyleAViewnumber",_PreNumberStr,@"PreStyleAViewnumber", nil];
                         
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
                     }
@@ -294,7 +299,7 @@ static dispatch_source_t _timer;
                     {
                         dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:i+1];
                         dashboardStyleBView.NumberLabel.text = _numberArray[i];
-                        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleBViewTag",_numberArray[i],@"StyleBViewnumber", nil];
+                        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleBViewTag",_numberArray[i],@"StyleBViewnumber",_PreNumberStr,@"PreStyleBViewnumber", nil];
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"StyleBupdateNumber" object:nil userInfo:dict];
                     }
                         break;
@@ -939,6 +944,7 @@ static dispatch_source_t _timer;
 
             dashboardStyleAView = [[DashboardView alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth +(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleAView.tag = ++ DashBoardTag;
+            dashboardStyleAView.delegate =self;
             DashboardA *model = [DashboardA new];
             [[DashboardSetting sharedInstance] initADDdashboardA:model];
             [dashboardStyleAView addGradientView:model.outerColor  GradientViewWidth:MSWidth];
@@ -958,6 +964,7 @@ static dispatch_source_t _timer;
          
             dashboardStyleBView = [[DashboardViewStyleB alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth+(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleBView.tag = ++ DashBoardTag;
+            dashboardStyleBView.delegate =self;
             DashboardB *model = [DashboardB new];
             [[DashboardSetting sharedInstance] initADDdashboardB:model];
             [scrollView addSubview:dashboardStyleBView];
@@ -972,6 +979,7 @@ static dispatch_source_t _timer;
 
             dashboardStyleCView = [[DashboardViewStyleC alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth +(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleCView.tag = ++ DashBoardTag;
+            dashboardStyleCView.delegate = self;
             DashboardC *model = [DashboardC new];
             [[DashboardSetting sharedInstance] initADDdashboardC:model];
             [scrollView addSubview:dashboardStyleCView];

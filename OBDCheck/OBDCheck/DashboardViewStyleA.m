@@ -56,13 +56,21 @@
 }
 
 - (void)getNewNumber:(NSNotification *)text{
-//    NSLog(@"1212%@",[text.userInfo objectForKey:@"StyleAViewnumber"] );
-    NSString *str = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"StyleAViewnumber"]];
-    CGFloat folatrr = [str floatValue];
-        if ([text.userInfo[@"StyleAViewTag"] floatValue] == self.tag) {
-
-//            [self rotationWithStartAngle:self.StartAngle  WithEndAngle:M_PI*2*folatrr/100];
-        }
+    NSString *presentStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"StyleAViewnumber"]];
+    NSString *PreviouStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"PreStyleAViewnumber"]];
+    
+    CGFloat start = [PreviouStr floatValue];
+    CGFloat end = [presentStr floatValue];
+    if ([text.userInfo[@"StyleAViewTag"] floatValue] == self.tag) {
+    
+    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: self.tag]];
+    NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+               for(CustomDashboard* dashboard in pAll){
+    CGFloat Space =   ([dashboard.dashboardA.endAngle floatValue]- [dashboard.dashboardA.StartAngle floatValue])/([dashboard.dashboardA.maxNumber floatValue] - [dashboard.dashboardA.minNumber floatValue]);
+    [self rotationWithStartAngle:[dashboard.dashboardA.StartAngle floatValue] + start*Space  WithEndAngle:[dashboard.dashboardA.StartAngle floatValue] + end*Space];
+                   
+      }
+    }
 
 }
 - (void)dealloc{

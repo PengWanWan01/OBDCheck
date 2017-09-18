@@ -33,12 +33,27 @@
 }
 - (void)getNewNumber:(NSNotification *)text{
     
-    //    NSLog(@"StyleAViewTagStyleAViewTag==%.f",[text.userInfo[@"StyleAViewTag"] floatValue]);
+    NSString *presentStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"StyleBViewnumber"]];
+    NSString *PreviouStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"PreStyleBViewnumber"]];
     
+    CGFloat start = [PreviouStr floatValue];
+    CGFloat end = [presentStr floatValue];
     if ([text.userInfo[@"StyleBViewTag"] floatValue] == self.tag) {
-        //            NSLog(@"StyleAViewnumberStyleAViewnumber%@",text.userInfo[@"StyleAViewnumber"]);
-        [self rotateImageView];
+        
+        NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: self.tag]];
+        NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+        for(CustomDashboard* dashboard in pAll){
+            CGFloat Space =   (3*M_PI/2)/([dashboard.dashboardB.maxNumber floatValue] - [dashboard.dashboardB.minNumber floatValue]);
+             [self rotateImageView:(-M_PI/2-M_PI/4) + Space*start Withend:(-M_PI/2-M_PI/4) +Space*end];
+            
+        }
     }
+
+    
+//    if ([text.userInfo[@"StyleBViewTag"] floatValue] == self.tag) {
+//        //            NSLog(@"StyleAViewnumberStyleAViewnumber%@",text.userInfo[@"StyleAViewnumber"]);
+//        [self rotateImageView:<#(CGFloat)#> Withend:<#(CGFloat)#>];
+//    }
 
 }
 - (void)dealloc{
@@ -96,7 +111,7 @@
     
 }
 #pragma mark画指针 圆与三角形
-- (void)rotateImageView {
+- (void)rotateImageView:(CGFloat)StartAngle Withend:(CGFloat)endAngle {
     CGPoint oldOrigin = _triangleView.frame.origin;
     //设置triangleView的角度与开始位置一直
     _triangleView.layer.anchorPoint = CGPointMake(0.5, 1);
@@ -110,9 +125,9 @@
     CABasicAnimation *animation = [CABasicAnimation new];
     // 设置动画要改变的属性
     animation.keyPath = @"transform.rotation.z";
-    animation.fromValue = @(-M_PI/2-M_PI/4);
+    animation.fromValue = @(endAngle);
     // 动画的最终属性的值（）
-    animation.toValue = @(-M_PI/2);
+    animation.toValue = @(StartAngle);
     // 动画的播放时间
     animation.duration = 1;
 //    animation.repeatCount = 1;

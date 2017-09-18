@@ -71,13 +71,12 @@
 - (void)initWithHeadUI{
     NSLog(@"headU");
     NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
-    NSArray* pAll = [DashboardA bg_findWhere:findsql];
-    for(DashboardA* dashboard in pAll){
-        NSLog(@"dashboard.StartAngle %@",dashboard.StartAngle  );
-            model = dashboard;
+    NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+    for(CustomDashboard* dashboard in pAll){
+    model = dashboard.dashboardA;
     self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
       [self.DashViewA addGradientView:model.outerColor  GradientViewWidth:self.DashViewA.frame.size.width];
-        [self.DashViewA initWithModel:dashboard];
+        [self.DashViewA initWithModel:dashboard.dashboardA];
             self.DashViewA.infoLabel.text =  self.infoLabeltext;
             
             self.DashView = self.DashViewA;
@@ -1162,6 +1161,8 @@
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
     NSLog(@"121");
+    bg_setDebug(YES);
+
     NSString *sql = [NSString stringWithFormat:@"SET dashboardA->StartAngle = '%@' WHERE  ID = %@",model.StartAngle , self.indexID];
 
     NSString *miLengthsql = [NSString stringWithFormat:@"SET dashboardA->miLength ='%@' WHERE  ID = %@",model.miLength, self.indexID];
@@ -1237,6 +1238,10 @@
     [CustomDashboard bg_updateSet:LabelFontScalesql];
     [CustomDashboard bg_updateSet:FillstartAnglesql];
     [CustomDashboard bg_updateSet:endAnglesql];
+}
+-(void)rightBarButtonClick{
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 #pragma mark 颜色转化
 - (NSString *)hexFromUIColor:(UIColor *)color

@@ -60,13 +60,13 @@
 }
 - (void)initWithHeadUI{
     NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
-    NSArray* pAll = [DashboardB bg_findWhere:findsql];
+    NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
 
-    for(DashboardB * dashboard in pAll){
-        NSLog(@"backColor %@",dashboard.backColor  );
-        model = dashboard;
+    for(CustomDashboard * dashboard in pAll){
+        NSLog(@"backColor %@",dashboard.dashboardB.backColor  );
+        model = dashboard.dashboardB;
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
-    [dashViewB initWithModel:dashboard];
+    [dashViewB initWithModel:dashboard.dashboardB];
     
             [self.view addSubview:dashViewB];
     }
@@ -493,6 +493,10 @@
     [CustomDashboard bg_updateSet:titleColorsql];
     [CustomDashboard bg_updateSet:pointerColorsql];
     [CustomDashboard bg_updateSet:FillEnablesql];
+
+}
+-(void)rightBarButtonClick{
+    [self.navigationController popViewControllerAnimated:YES];
 
 }
 #pragma mark 更新仪表盘
