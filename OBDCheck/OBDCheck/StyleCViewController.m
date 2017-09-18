@@ -76,8 +76,13 @@
     label.textColor = [ColorTools colorWithHexString:@"#FE9002"];
     label.font = [UIFont ToAdapFont:14.f];
     
-    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(dashViewC.frame) + 10, CGRectGetMaxY(label.frame )+10, 150, 20)];
+    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(dashViewC.frame) + 10, CGRectGetMaxY(label.frame )+10, MSWidth - dashViewC.frame.size.width-50*KFontmultiple , 20)];
+    self.slider.minimumValue = [model.minNumber floatValue];
+    self.slider.maximumValue = [model.maxNumber floatValue];
+    [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     self.slider.minimumTrackTintColor = [ColorTools colorWithHexString:@"FE9002"];
+    self.slider.tag = 8;
+
     
          [self.view addSubview:label];
     [self.view  addSubview:self.slider];
@@ -362,6 +367,11 @@
                 model.Gradientradius = [NSNumber numberWithFloat: slider.value] ;
                 [self upDateDashView];
                 
+            }
+                break;
+            case 8:
+            {
+                dashViewC.NumberLabel.text = [NSString stringWithFormat:@"%.f",roundf(slider.value)];
             }
                 break;
             default:

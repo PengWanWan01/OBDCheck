@@ -16,7 +16,7 @@
     UIButton *selectBtn;
     DashboardB * model;
     NSNumber *indexID;
-
+ CGFloat slideValue;  //slide的前一个
 }
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSMutableArray *sectionSource;
@@ -77,9 +77,13 @@
     label.textColor = [ColorTools colorWithHexString:@"#FE9002"];
     label.font = [UIFont ToAdapFont:14.f];
     
-    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(dashViewB.frame) + 10, CGRectGetMaxY(label.frame )+10, 150, 20)];
+    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(dashViewB.frame) + 10, CGRectGetMaxY(label.frame )+10, MSWidth - dashViewB.frame.size.width-50*KFontmultiple , 20)];
+    self.slider.minimumValue = [model.minNumber floatValue];
+    self.slider.maximumValue = [model.maxNumber floatValue];
+    [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     self.slider.minimumTrackTintColor = [ColorTools colorWithHexString:@"FE9002"];
-    
+    self.slider.tag = 9;
+    slideValue = self.slider.value;
    
     _datasource = [[NSMutableArray alloc]initWithObjects:@"Frame",@"Axis",@"Needle",@"Range", nil];
     
@@ -375,12 +379,22 @@
                 }
             }
                 break;
-           
+            case 9:
+            {
+               dashViewB.NumberLabel.text = [NSString stringWithFormat:@"%.f",roundf(slider.value)];
+                slideValue = slider.value;
+                [self rotationWithView];
+            }
+                break;
             default:
                 break;
         }
     
     }
+}
+- (void)rotationWithView{
+    CGFloat Space =   (3*M_PI/2)/([model.maxNumber floatValue] - [model.minNumber floatValue]);
+    [dashViewB rotateImageView:(-M_PI/2-M_PI/4)+Space*slideValue  Withend:(-M_PI/2-M_PI/4) ];
 }
 #pragma mark 外径颜色的变化
 - (void)selectColorBetouched:(NSInteger)indexTag{

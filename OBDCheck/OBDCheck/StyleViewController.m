@@ -18,6 +18,7 @@
     UIButton *Fristbtn;
     DashboardA* model;
     UIView *btnView;//放四个按钮的View
+    CGFloat slideValue;  //slide的前一个
 }
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) UITableView *tableViewFrame;
@@ -87,10 +88,14 @@
     label.textColor = [ColorTools colorWithHexString:@"#FE9002"];
     label.font = [UIFont ToAdapFont:14.f];
     
-    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashView.frame) + 10, CGRectGetMaxY(label.frame )+10, 150, 20)];
+    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashView.frame) + 10, CGRectGetMaxY(label.frame )+10, MSWidth - self.DashViewA.frame.size.width-50*KFontmultiple , 20)];
+    self.slider.minimumValue = [model.minNumber floatValue];
+    self.slider.maximumValue = [model.maxNumber floatValue];
+     [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     self.slider.minimumTrackTintColor = [ColorTools colorWithHexString:@"FE9002"];
-    
-   btnView = [[UIView alloc]initWithFrame:CGRectMake(29, CGRectGetMaxY(self.DashView.frame) + 40, MSWidth - 58, 24)];
+    self.slider.tag = 20;
+    slideValue = self.slider.value;
+    btnView = [[UIView alloc]initWithFrame:CGRectMake(29, CGRectGetMaxY(self.DashView.frame) + 40, MSWidth - 58, 24)];
     _datasource = [[NSMutableArray alloc]initWithObjects:@"Frame",@"Axis",@"Needle",@"Range", nil];
     
     for (NSInteger i = 0; i< 4; i++) {
@@ -129,6 +134,7 @@
 
 
 }
+
 - (void)initWithUI{
  
     //创建滚动视图
@@ -1021,12 +1027,25 @@
                 }
             }
                 break;
+            case 20:
+            {
+                self.DashViewA.numberLabel.text = [NSString stringWithFormat:@"%.f",roundf(slider.value)];
+                slideValue = slider.value;
+                [self rotationWithView];
+            }
+                break;
             default:
                 break;
         }
     }
 
     
+}
+- (void)rotationWithView{
+      CGFloat Space =   ([model.endAngle floatValue]- [model.StartAngle floatValue])/([model.maxNumber floatValue] - [model.minNumber floatValue]);
+      [self.DashViewA rotationWithStartAngle:[model.StartAngle floatValue]  WithEndAngle:[model.StartAngle floatValue] + slideValue*Space];
+   
+
 }
 #pragma mark 外径颜色的变化
 - (void)selectColorBetouched:(NSInteger)indexTag{

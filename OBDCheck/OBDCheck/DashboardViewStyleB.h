@@ -27,7 +27,7 @@
 
 - (void)initWithModel:(DashboardB *)model;
 
-
+- (void)rotateImageView:(CGFloat)StartAngle Withend:(CGFloat)endAngle ;
 
 
 @end
