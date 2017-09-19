@@ -364,6 +364,7 @@
    [ StyleOneCell.NumberSider    addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     
      StyleOneCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    StyleOneCell.dashboardType = 1;
      StyleTwoTableViewCell *StyleTwoCell = [tableView dequeueReusableCellWithIdentifier:@"StyleTwoTableViewCell"];
     StyleTwoCell.delegate = self;
     StyleTwoCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -401,7 +402,7 @@
                         default:
                             break;
                     }
-                    
+                      StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.f",(360/(2*M_PI))*StyleOneCell.NumberSider.value];
 
                 }
                     break;
@@ -436,7 +437,7 @@
                     StyleTwoCell.ColorLabel.text = model.titleColor;
                     StyleOneCell.titleName.text = _FrameRowTitleSource[indexPath.row +4];
                     StyleOneCell.NumberSider.tag = indexPath.row +4 ;
-                     StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
+                    
                     switch (indexPath.row) {
                         case 0:{
                             StyleTwoCell.ColorView.tag = 2;
@@ -463,6 +464,7 @@
                         default:
                             break;
                     }
+                     StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
                 }
                     break;
                 case 3:
@@ -475,7 +477,7 @@
                     StyleTwoCell.ColorLabel.text = model.ValueColor;
                     StyleOneCell.titleName.text = _FrameRowTitleSource[indexPath.row +7];
                     StyleOneCell.tag = indexPath.row +7 ;
-                     StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
+                    
                     switch (indexPath.row) {
                         case 1:{
                             StyleTwoCell.ColorView.tag = 3;
@@ -499,8 +501,8 @@
                             break;
                         default:
                             break;
-
-                }
+                        }
+                     StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
                 }
                     break;
                 case 4:
@@ -509,7 +511,6 @@
                     StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.UnitColor];
                     StyleTwoCell.ColorLabel.text = model.UnitColor;
                     StyleOneCell.titleName.text = _FrameRowTitleSource[indexPath.row +11];
-                     StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
                     switch (indexPath.row) {
                         case 0:{
                             StyleTwoCell.ColorView.tag = 4;
@@ -526,7 +527,7 @@
                         case 2:
                         {
                             StyleOneCell.NumberSider.minimumValue = 0;
-                            StyleOneCell.NumberSider.maximumValue = 1;
+                            StyleOneCell.NumberSider.maximumValue = 2;
                             StyleOneCell.NumberSider.value = [model.ValuePosition floatValue];
 
                             StyleOneCell.NumberSider.tag = 7;
@@ -535,7 +536,7 @@
                         case 3:
                         {
                             StyleOneCell.NumberSider.minimumValue = 0;
-                            StyleOneCell.NumberSider.maximumValue = 1;
+                            StyleOneCell.NumberSider.maximumValue = 2;
                             StyleOneCell.NumberSider.value = [model.UnitHorizontalPosition floatValue];
                             StyleOneCell.NumberSider.tag = 8;
                         }
@@ -543,7 +544,7 @@
                         default:
                             break;
                     }
-
+                    StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
                 }
                     break;
                 default:
@@ -575,7 +576,6 @@
                     StyleTwoCell.titleName.text = _AxisRowTitleSource[indexPath.row];
                     StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.maColor];
                     StyleTwoCell.ColorLabel.text = model.maColor;
-                     StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
                     switch (indexPath.row) {
                         case 0:
                         {
@@ -600,6 +600,7 @@
                         default:
                             break;
                     }
+                     StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
                 }
                     break;
                 case 1:
@@ -608,7 +609,6 @@
                     StyleTwoCell.titleName.text = _AxisRowTitleSource[indexPath.row];
                     StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.miColor];
                     StyleTwoCell.ColorLabel.text = model.miColor;
-                    StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
                     switch (indexPath.row) {
                         case 0:
                         {
@@ -635,13 +635,13 @@
                         default:
                             break;
                     }
+                     StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
                 }
                     break;
                 case 2:
                 {
                     StyleThreeCell.titleName.text = _AxisRowTitleSource[indexPath.row +3];
                     StyleOneCell.titleName.text = _AxisRowTitleSource[indexPath.row+3];
-                    StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
                     switch (indexPath.row) {
                         case 0:{
                             StyleThreeCell.SwitchBtn.tag = 1;
@@ -669,7 +669,7 @@
                             StyleOneCell.NumberSider.maximumValue = 2;
                             StyleOneCell.NumberSider.value = [model.LabelOffest floatValue];
                             StyleOneCell.NumberSider.tag = 14;
-
+                            StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
                         }
                             break;
                         default:
@@ -699,7 +699,6 @@
                     StyleThreeCell.SwitchBtn.on = model.PointerVisble;
                     StyleOneCell.titleName.text = _NeedleRowTitleSource[indexPath.row];
                     StyleTwoCell.titleName.text = _NeedleRowTitleSource[indexPath.row];
-                    StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
                     switch (indexPath.row) {
                         case 1:
                         {
@@ -730,6 +729,7 @@
                         default:
                             break;
                     }
+                    StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
                 }
                     break;
                 case 1:
@@ -739,6 +739,7 @@
                     StyleOneCell.NumberSider.minimumValue = 0;
                     StyleOneCell.NumberSider.maximumValue = 20;
                     StyleOneCell.NumberSider.value  = [model.KNOBRadius floatValue];
+                    StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
                     StyleOneCell.NumberSider.tag = 17;
                     StyleTwoCell.ColorView.tag = 8;
                     StyleTwoCell.ColorView.backgroundColor  = [ColorTools colorWithHexString:model.KNOBColor];
@@ -802,6 +803,7 @@
                 default:
                     break;
             }
+            StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
             }
             break;
         default:

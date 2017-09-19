@@ -305,6 +305,7 @@
         default:
             break;
     }
+    StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
     return resultCell;
 }
 

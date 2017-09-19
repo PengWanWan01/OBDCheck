@@ -181,7 +181,7 @@
             StyleTwoCell.ColorView.tag = 0;
             StyleOneCell.NumberSider.tag = 0;
             StyleOneCell.NumberSider.minimumValue = 0;
-            StyleOneCell.NumberSider.maximumValue = 1;
+            StyleOneCell.NumberSider.maximumValue = 2;
             StyleOneCell.NumberSider.value  = [model.GradientRadius floatValue];
 
         }
@@ -198,7 +198,7 @@
                 {
                     StyleOneCell.NumberSider.tag = 1;
                     StyleOneCell.NumberSider.minimumValue = 0;
-                    StyleOneCell.NumberSider.maximumValue = 1;
+                    StyleOneCell.NumberSider.maximumValue = 2;
                     StyleOneCell.NumberSider.value  = [model.titleFontScale floatValue];
                 }
                     break;
@@ -206,7 +206,7 @@
                 {
                     StyleOneCell.NumberSider.tag = 2;
                     StyleOneCell.NumberSider.minimumValue = 0;
-                    StyleOneCell.NumberSider.maximumValue = 1;
+                    StyleOneCell.NumberSider.maximumValue = 2;
                     StyleOneCell.NumberSider.value  = [model.titlePositon floatValue];
                 }
                     break;
@@ -230,7 +230,7 @@
                 {
                     StyleOneCell.NumberSider.tag = 3;
                     StyleOneCell.NumberSider.minimumValue = 0;
-                    StyleOneCell.NumberSider.maximumValue = 1;
+                    StyleOneCell.NumberSider.maximumValue = 2;
                     StyleOneCell.NumberSider.value  = [model.ValueFontScale floatValue];
 
                 }
@@ -239,7 +239,7 @@
                 {
                     StyleOneCell.NumberSider.tag = 4;
                     StyleOneCell.NumberSider.minimumValue = 0;
-                    StyleOneCell.NumberSider.maximumValue = 1;
+                    StyleOneCell.NumberSider.maximumValue = 2;
                     StyleOneCell.NumberSider.value  = [model.ValuePositon floatValue];
 
                 }
@@ -263,7 +263,7 @@
                 {
                     StyleOneCell.NumberSider.tag = 5;
                     StyleOneCell.NumberSider.minimumValue = 0;
-                    StyleOneCell.NumberSider.maximumValue = 1;
+                    StyleOneCell.NumberSider.maximumValue = 2;
                     StyleOneCell.NumberSider.value  = [model.UnitFontScale floatValue];
                 }
                     break;
@@ -271,7 +271,7 @@
                 {
                     StyleOneCell.NumberSider.tag = 6;
                     StyleOneCell.NumberSider.minimumValue = 0;
-                    StyleOneCell.NumberSider.maximumValue = 1;
+                    StyleOneCell.NumberSider.maximumValue = 2;
                     StyleOneCell.NumberSider.value  = [model.UnitPositon floatValue];
                 }
                     break;
@@ -289,7 +289,7 @@
             StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.pointerColor ];
             StyleTwoCell.ColorLabel.text = model.pointerColor;
             StyleOneCell.NumberSider.minimumValue = 0;
-            StyleOneCell.NumberSider.maximumValue = 1;
+            StyleOneCell.NumberSider.maximumValue = 2;
             StyleOneCell.NumberSider.value  = [model.Pointerwidth floatValue];
         }
             break;
@@ -309,6 +309,7 @@
         default:
             break;
     }
+    StyleOneCell.NumberLabel.text = [NSString stringWithFormat:@"%.2f",StyleOneCell.NumberSider.value ];
     return resultCell;
 }
 

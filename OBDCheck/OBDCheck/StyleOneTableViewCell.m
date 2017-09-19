@@ -21,9 +21,12 @@
 - (void)sliderValueChanged:(id)sender {
     if ([sender isKindOfClass:[UISlider class]]) {
         UISlider * slider = (UISlider *)sender;
-       
+        if (self.dashboardType == 1) {
+            
+        
         if (self.NumberSider.tag == 0 ||  self.NumberSider.tag == 1  ||  self.NumberSider.tag == 18 ||   self.NumberSider.tag == 19) {
              self.NumberLabel.text = [NSString stringWithFormat:@"%.f",(360/(2*M_PI))*slider.value];
+        }
         }else{
              self.NumberLabel.text = [NSString stringWithFormat:@"%.2f",slider.value];
         }

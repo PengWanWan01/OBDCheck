@@ -18,4 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *NumberLabel;
 @property (weak, nonatomic) IBOutlet UISlider *NumberSider;
 @property (nonatomic,weak) id<sliderBeTouchDelegate> delegate;
+@property (nonatomic,assign) NSInteger  dashboardType ;
+
 @end
