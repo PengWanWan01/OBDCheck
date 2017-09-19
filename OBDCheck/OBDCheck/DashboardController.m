@@ -60,7 +60,7 @@ static dispatch_source_t _timer;
         
     }
     [self updateView];
-  
+//    [self startAnimation];
     NSArray* pAll = [DashboardA bg_findAll];
     for (DashboardA *dash in pAll) {
         
@@ -260,19 +260,19 @@ static dispatch_source_t _timer;
 //
 }
 - (void)startAnimation{
-    NSTimeInterval period = 1; //设置时间间隔
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-    dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), period * NSEC_PER_SEC, 0); //每秒执行
-    // 事件回调
-    dispatch_source_set_event_handler(_timer, ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
+//    NSTimeInterval period = 1; //设置时间间隔
+//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+//    dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), period * NSEC_PER_SEC, 0); //每秒执行
+//    // 事件回调
+//    dispatch_source_set_event_handler(_timer, ^{
+//        dispatch_async(dispatch_get_main_queue(), ^{
             [self startAnimationView];
-        });
-    });
-    
-    // 开启定时器
-    dispatch_resume(_timer);
+//        });
+//    });
+//    
+//    // 开启定时器
+//    dispatch_resume(_timer);
     
     
 }
@@ -440,7 +440,8 @@ static dispatch_source_t _timer;
             [self addDashboard];
             [DashboardSetting sharedInstance].isAddDashboard = NO;
         }
-        
+        [self moveFoneView];
+
     }else{
         switch ([DashboardSetting sharedInstance].dashboardStyle) {
             case DashboardStyleOne:
@@ -524,7 +525,7 @@ static dispatch_source_t _timer;
             default:
                 break;
         }
-      
+        
     }
 }
 - (void)initWithChangeCustomType:(NSInteger)type withTag:(NSInteger)tag{
@@ -574,9 +575,9 @@ static dispatch_source_t _timer;
         
         
     }
-   
 
-        [self MoveDashboard:tag];
+    
+    [self MoveDashboard:tag];
 }
 #pragma mark 初始化仪表盘风格
 - (void)initWithStyleA{
@@ -617,16 +618,6 @@ static dispatch_source_t _timer;
     dashboardStyleAView.delegate = self;
  
     
-//    //让仪表盘到最前面
-//    if ([DashboardSetting sharedInstance].Dashboardindex == view.tag &&  [DashboardSetting sharedInstance].isDashboardFont == YES ) {
-//        NSLog(@"dddd%ld",view.tag);
-//      dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:view.tag];
-//        [scrollView bringSubviewToFront:dashboardStyleAView];
-//        [DashboardSetting sharedInstance].isDashboardFont = NO;
-//        
-//    }
-    
-    [self MoveDashboard:(long)view.tag];
    
 
 }
@@ -667,16 +658,6 @@ static dispatch_source_t _timer;
     [DashboardB bg_updateSet:infosql];
     dashboardStyleBView.delegate = self;
     
-    //让仪表盘到最前面
-    if ([DashboardSetting sharedInstance].Dashboardindex == index &&  [DashboardSetting sharedInstance].isDashboardFont == YES ) {
-        NSLog(@"dddd");
-        [scrollView bringSubviewToFront:dashboardStyleBView];
-        
-        [DashboardSetting sharedInstance].isDashboardFont = NO;
-        
-    }
-    
-    [self MoveDashboard:(long)view.tag];
 }
 
 - (void)initWithStyleC{
@@ -710,16 +691,7 @@ static dispatch_source_t _timer;
     [scrollView addSubview:dashboardStyleCView];
     NSString * infosql = [NSString stringWithFormat:@"SET infoLabeltext = '%@' WHERE  ID = %@",dashboardStyleCView.PIDLabel.text, [NSNumber numberWithFloat:view.tag]];
     [DashboardC bg_updateSet:infosql];
-    //让仪表盘到最前面
-    if ([DashboardSetting sharedInstance].Dashboardindex == index &&  [DashboardSetting sharedInstance].isDashboardFont == YES ) {
-        NSLog(@"dddd");
-        [scrollView bringSubviewToFront:dashboardStyleCView];
-        
-        [DashboardSetting sharedInstance].isDashboardFont = NO;
-        
-    }
-   
-    [self MoveDashboard:(long)view.tag];
+  
 
 
 }
@@ -899,6 +871,42 @@ static dispatch_source_t _timer;
    
     
 }
+#pragma mark 使仪表盘移动到最前面
+- (void)moveFoneView{
+   
+    //让仪表盘到最前面
+    if ([DashboardSetting sharedInstance].isDashboardFont == YES ) {
+        NSLog(@"CCqianm");
+        NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
+        NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+        for(CustomDashboard *dashboard in pAll){
+            
+            switch (dashboard.dashboardType) {
+                case 1:
+                {
+                    DashboardView *view = (DashboardView *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
+                    [[view superview] bringSubviewToFront:view];
+                }
+                    break;
+                case 2:
+                {
+                    DashboardViewStyleB *view = (DashboardViewStyleB *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
+                    [[view superview] bringSubviewToFront:view];
+                }
+                    break;
+                case 3:
+                {
+                    DashboardViewStyleC *view = (DashboardViewStyleC *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
+                    [[view superview] bringSubviewToFront:view];
+                }
+                    break;
+                default:
+                    break;
+            }
+            [DashboardSetting sharedInstance].isDashboardFont = NO;
+    }
+    }
+}
 #pragma mark 点击移动仪表盘，让它变颜色；
 - (void)MoveDashboard:(NSInteger)indexTag{
     //让仪表盘移动
@@ -960,7 +968,7 @@ static dispatch_source_t _timer;
              NSLog(@"点击添加one");
             [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleOne];
 
-            dashboardStyleAView = [[DashboardView alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth +(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
+            dashboardStyleAView = [[DashboardView alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth +(arc4random() % (int)MSWidth)-150*KFontmultiple, (arc4random() % (int)MSHeight)-150*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleAView.tag = ++ DashBoardTag;
             dashboardStyleAView.delegate =self;
             DashboardA *model = [DashboardA new];

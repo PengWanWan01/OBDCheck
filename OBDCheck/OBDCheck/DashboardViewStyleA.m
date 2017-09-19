@@ -48,13 +48,14 @@
 - (void)setNeedsDisplay{
     [super setNeedsDisplay];
     
-    if ([DashboardSetting sharedInstance].isDashboardFont == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag){
-        //该view置于最前
-          NSLog(@"动态改变%ld ,Dashboardindex=%ld",self.tag,[DashboardSetting sharedInstance].Dashboardindex);
+    
+}
+- (void)updateTOFont{
+    if ([DashboardSetting sharedInstance].isDashboardFont == YES) {
         [[self superview] bringSubviewToFront:self];
+        [DashboardSetting sharedInstance].isDashboardFont = NO;
     }
 }
-
 - (void)getNewNumber:(NSNotification *)text{
     NSString *presentStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"StyleAViewnumber"]];
     NSString *PreviouStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"PreStyleAViewnumber"]];
@@ -420,13 +421,14 @@
 #pragma mark 开始点击
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+   
     //保存触摸起始点位置
     if ([DashboardSetting sharedInstance].isDashboardMove == YES && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
 
     
-    //该view置于最前
-    [[self superview] bringSubviewToFront:self];
+   
     }
+   
 }
 
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -450,7 +452,7 @@
           //平移
           self.transform = CGAffineTransformTranslate(self.transform, offsetX, offsetY);
       }
-
+   
 }
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
    
@@ -462,6 +464,8 @@
               //移动view
           }
   }
+    
+    
     
 }
 

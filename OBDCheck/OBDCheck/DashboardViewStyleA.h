@@ -52,5 +52,5 @@
 
 - (void)addGradientView:(NSString *)gradientColor GradientViewWidth:(CGFloat )gradientViewWidth;
 - (void)rotationWithStartAngle:(CGFloat)StartAngle WithEndAngle:(CGFloat)endAngle;
-
+- (void)updateTOFont;
 @end

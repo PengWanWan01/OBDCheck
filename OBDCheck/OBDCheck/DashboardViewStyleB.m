@@ -275,12 +275,14 @@
 #pragma mark 开始点击
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    NSLog(@"chumochumo");
+    //该view置于最前
+  
     //保存触摸起始点位置
     if ([DashboardSetting sharedInstance].isDashboardMove == YES && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
         
         
-        //该view置于最前
-        [[self superview] bringSubviewToFront:self];
+       
     }
 }
 
@@ -317,6 +319,7 @@
             //移动view
         }
     }
+   
     
 }
 @end

@@ -126,8 +126,7 @@
             [DashboardSetting sharedInstance].isDashboardFont = YES;
          
             [self back];
-           //            DashboardController *VC = [[DashboardController alloc]init];
-//            [self.navigationController pushViewController:VC animated:YES];
+
         }
             break;
         default:
