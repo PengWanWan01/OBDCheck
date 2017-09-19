@@ -31,7 +31,7 @@
         self.multiplierType = MultiplierType1;
         self.hudModeType = HUDModeTypeToNormal;
         self.KPageNumer = 3;
-        self.AddDashboardNumber = 0;
+        self.isAddDashboard = NO;
         self.isDashboardFont = NO;
         self.isDashboardMove = NO;
         self.isDashboardRemove = NO;
@@ -127,7 +127,7 @@
     model.orignheight = [NSNumber numberWithFloat:0];
     model.minNumber = @"0";
     model.maxNumber = @"100";
-    NSLog(@"%@",model.ID);
+    model.infoLabeltext = @"add";
     /**
      存储.
      */
@@ -173,6 +173,8 @@
     
     model.minNumber = @"0";
     model.maxNumber = @"100";
+    model.infoLabeltext = @"add";
+
     /**
      存储.
      */
@@ -212,6 +214,8 @@
     
     model.minNumber = @"0";
     model.maxNumber = @"100";
+    model.infoLabeltext = @"add";
+
     /**
      存储.
      */

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface SelectStyleViewController : UIViewController
-
+@property (nonatomic,assign) NSInteger Currentpage;
 @end

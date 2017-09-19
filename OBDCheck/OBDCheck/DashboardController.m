@@ -60,7 +60,6 @@ static dispatch_source_t _timer;
         
     }
     [self updateView];
-    [self startAnimation];
   
     NSArray* pAll = [DashboardA bg_findAll];
     for (DashboardA *dash in pAll) {
@@ -223,7 +222,7 @@ static dispatch_source_t _timer;
     NSString *orignheightsql = [NSString stringWithFormat:@"SET orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:height], [NSNumber numberWithFloat:id]];
    
    
-    bg_setDebug(YES);
+//    bg_setDebug(YES);
     switch (tabletype) {
         case 1:
         {
@@ -278,10 +277,10 @@ static dispatch_source_t _timer;
     
 }
 - (void)startAnimationView{
-    //    NSInteger current = pageControl.currentPage;
+    
     //自定义模式
-    for (int i = 0; i<_numberArray.count; i++) {
-        _PreNumberStr = _numberArray[i];
+    for (int i = 0; i<_CustomNumberArray.count; i++) {
+        _PreNumberStr = _CustomNumberArray[i];
         [self initWithData];
         if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
             NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:i+1]];
@@ -316,6 +315,7 @@ static dispatch_source_t _timer;
             
 
         }else{
+       //经典模式
         switch ([DashboardSetting sharedInstance].dashboardStyle) {
             case DashboardStyleOne:
             {
@@ -364,13 +364,16 @@ static dispatch_source_t _timer;
     self.CustomNumberArray = [[NSMutableArray alloc]initWithObjects:@"15",
                         @"19",@"34",@"23",@"54",@"34",@"23",@"54",@"23",@"43", nil];
 
-    if ([[DashboardSetting sharedInstance].defaults integerForKey:@"AddDashboardNumber"] > 0) {
-        for (int i = 1; i<=[[DashboardSetting sharedInstance].defaults integerForKey:@"AddDashboardNumber"]; i++) {
+   
+    NSArray *PAll = [CustomDashboard bg_findAll];
+    CustomDashboard *modle = PAll.lastObject;
+    NSInteger space =   [modle.ID integerValue] - _CustomLabelArray.count;
+    if (space > 0) {
+        for (int i = 1; i<=space; i++) {
             [_CustomLabelArray addObject:@"add"];
             [self.CustomNumberArray  addObject:@"12"];
         }
     }
-  
     for (int i = 0; i<_numberArray.count; i++) {
         [_numberArray  replaceObjectAtIndex:i withObject:[NSString stringWithFormat:@"%u", arc4random() % 100]];
     }
@@ -433,6 +436,10 @@ static dispatch_source_t _timer;
     //判断仪表盘模式：
     if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
             [self initWithcustomMode];
+        if ([DashboardSetting sharedInstance].isAddDashboard == YES) {
+            [self addDashboard];
+            [DashboardSetting sharedInstance].isAddDashboard = NO;
+        }
         
     }else{
         switch ([DashboardSetting sharedInstance].dashboardStyle) {
@@ -473,7 +480,7 @@ static dispatch_source_t _timer;
 }
 - (void)back{
     // 关闭定时器
-    dispatch_source_cancel(_timer);
+//    dispatch_source_cancel(_timer);
        [editview hide];
     ViewController *vc = [[ViewController alloc]init];
     [self.navigationController pushViewController:vc animated:NO];
@@ -541,9 +548,8 @@ static dispatch_source_t _timer;
                 break;
             case 2:
             {
-                NSLog(@"%@",dashboard.dashboardB.orignx);
                 [dashboardStyleBView initWithModel:dashboard.dashboardB];
-                dashboardStyleBView.PIDLabel.text = _CustomLabelArray[tag-1];
+                dashboardStyleBView.PIDLabel.text = _CustomLabelArray[tag-1];                
                 dashboardStyleBView.NumberLabel.text = _CustomNumberArray[tag-1];
                 dashboardStyleBView.delegate = self;
                 NSString * infosql = [NSString stringWithFormat:@"SET dashboardB->infoLabeltext = '%@' WHERE  ID = %@",dashboardStyleBView.PIDLabel.text, [NSNumber numberWithFloat:tag]];
@@ -745,7 +751,7 @@ static dispatch_source_t _timer;
     
     [editview hide];
     // 关闭定时器
-    dispatch_source_cancel(_timer);
+//    dispatch_source_cancel(_timer);
     switch (index) {
         case 1:
         {
@@ -775,7 +781,11 @@ static dispatch_source_t _timer;
            //自定义模式
               //添加一个仪表盘
                   if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
-                    [self addDashboard];
+//                    [self addDashboard];
+                      SelectStyleViewController *vc =   [[SelectStyleViewController alloc]init];
+                      vc.Currentpage = pageControl.currentPage;
+                      [self.navigationController pushViewController:vc animated:YES];
+                      [DashboardSetting sharedInstance].isAddDashboard = YES;
                      }
         }
             break;
@@ -797,7 +807,7 @@ static dispatch_source_t _timer;
         case 4:
         {
             // 关闭定时器
-            dispatch_source_cancel(_timer);
+//            dispatch_source_cancel(_timer);
             HUDViewController *vc = [[HUDViewController alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -842,14 +852,14 @@ static dispatch_source_t _timer;
             switch ([DashboardSetting sharedInstance].dashboardMode) {
                 case DashboardClassicMode:{
                     // 关闭定时器
-                    dispatch_source_cancel(_timer);
+//                    dispatch_source_cancel(_timer);
                     PIDSelectViewController *vc = [[PIDSelectViewController alloc]init ];
                     [self.navigationController pushViewController:vc animated:YES];
                 }
                     break;
                 case DashboardCustomMode:{
                     // 关闭定时器
-                    dispatch_source_cancel(_timer);
+//                    dispatch_source_cancel(_timer);
                     
                     EditDisplayViewController *vc = [[EditDisplayViewController alloc]init];
                     [self.navigationController pushViewController:vc animated:YES];
@@ -1045,8 +1055,9 @@ static dispatch_source_t _timer;
      NSInteger current = pageControl.currentPage;
     [pageControl removeFromSuperview];
     [scrollView removeFromSuperview];
-      [self initWithData];
-    [self initWithUI];
+         [self initWithUI];
+    [self initWithData];
+
      scrollView.contentOffset = CGPointMake(current*MSWidth, 0);
 }
 #pragma mark 移动代理

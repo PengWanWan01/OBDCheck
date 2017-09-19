@@ -195,7 +195,9 @@
 
 }
 
-
+- (void)back{
+    NSLog(@"上传内容");
+}
 #pragma mark 导航栏的点击
 
 - (void)titleBtn{

@@ -7,12 +7,13 @@
 //
 
 #import "DiagController.h"
+static dispatch_source_t _timer;
 
 @interface DiagController ()<UITableViewDelegate,UITableViewDataSource,TBarViewDelegate>
 {
     rotationView *roView;
     UILabel *infoLabel;
-    UIView *lineView;
+    UIProgressView *progressView;
     NSInteger totalNumber;
     NSInteger importantNumber;
     UILabel *totalLabel;
@@ -129,13 +130,33 @@
     infoLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
     [self.view addSubview:infoLabel];
 
-    lineView  = [[UIView alloc]initWithFrame:CGRectMake(0, 116*KHeightmultiple,MSWidth, 4)];
-    lineView.backgroundColor = [ColorTools colorWithHexString:@"#FE9002"];
+    progressView  = [[UIProgressView alloc]initWithFrame:CGRectMake(0, 116*KHeightmultiple,MSWidth, 4)];
+    progressView.progress = 0;
+    progressView.trackTintColor= [ColorTools colorWithHexString:@"#C8C6C6"];
+    progressView.progressTintColor= [ColorTools colorWithHexString:@"#FE9002"];
+    [self.view addSubview:progressView];
+    NSTimeInterval period = 1; //设置时间间隔
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), period * NSEC_PER_SEC, 0); //每秒执行
+    // 事件回调
+    dispatch_source_set_event_handler(_timer, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            progressView.progress =   progressView.progress+0.1;
+            roView.numberLabel.text = [NSString stringWithFormat:@"%.f%%",progressView.progress*100];
+            
+            if (progressView.progress == 1) {
+                 dispatch_source_cancel(_timer);
+            }
+        });
+    });
     
-    [self.view addSubview:lineView];
+    // 开启定时器
+    dispatch_resume(_timer);
     
+
     for (NSInteger i = 0; i<2; i++) {
-        UIView *showView = [[UIView alloc]initWithFrame:CGRectMake(i*MSWidth/2, CGRectGetMaxY(lineView.frame)+20, MSWidth/2, 30)];
+        UIView *showView = [[UIView alloc]initWithFrame:CGRectMake(i*MSWidth/2, CGRectGetMaxY(progressView.frame)+20, MSWidth/2, 30)];
         showView.backgroundColor = [ColorTools colorWithHexString:@"#18191D"];
         [self.view addSubview:showView];
         UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(showView.frame.size.width/4, 10, 24, 20)];

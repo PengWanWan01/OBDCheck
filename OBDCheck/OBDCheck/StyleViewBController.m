@@ -322,7 +322,8 @@
         switch (slider.tag) {
             case 0:
             {
-            
+                model.GradientRadius =[NSNumber numberWithFloat: slider.value] ;
+                [self upDateDashView];
             }
                 break;
             case 1:

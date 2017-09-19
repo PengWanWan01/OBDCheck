@@ -57,11 +57,11 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 
 @property (nonatomic,assign)  NSInteger KPageNumer; //仪表盘的原始页数
 @property (nonatomic,assign) NSInteger Dashboardindex;   //被选中可以移动的仪表盘
-@property (nonatomic,assign) NSInteger AddDashboardNumber;   //添加的仪表盘个数
 @property (nonatomic,assign) NSInteger RemoveDashboardNumber;   //移除的仪表盘
 @property (nonatomic,assign) BOOL isDashboardFont;          //是否跳到最前面
 @property (nonatomic,assign) BOOL isDashboardMove;          //是否可以移动
 @property (nonatomic,assign) BOOL isDashboardRemove;          //是否可以删除
+@property (nonatomic,assign) BOOL isAddDashboard;   //是否添加仪表盘
 
 @property (nonatomic,strong) NSMutableArray *DashboardViewFrame;    //是否可以移动
 

@@ -64,6 +64,7 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
     cell.accessoryView = imageView;
     cell.accessoryView.hidden = YES;
+    if ([DashboardSetting sharedInstance].dashboardMode == DashboardClassicMode) {
     switch ([DashboardSetting sharedInstance].dashboardStyle ) {
         case DashboardStyleOne:{
             if (indexPath.row == 0) {
@@ -86,35 +87,77 @@
         default:
             break;
     }
+    }
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    for (NSInteger i = 0; i<_styleDataArray.count; i++) {
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-       if (i == indexPath.row) {
-            cell.accessoryView.hidden = NO;
-           switch (indexPath.row) {
-               case 0:{     //第一种仪表盘
-                  [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleOne;
-               }
-                   break;
-               case 1:{     //第二种仪表盘
-                     [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleTwo;
-               }
-                   break;
-               case 2:{         //第三种仪表盘
-                     [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleThree;
-               }
-                   break;
-               default:
-                   break;
-           }
-          
-        }else{
-            cell.accessoryView.hidden = YES;
+    switch ([DashboardSetting sharedInstance].dashboardMode) {
+        case DashboardCustomMode:
+        {
+            for (NSInteger i = 0; i<_styleDataArray.count; i++) {
+                UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+                if (i == indexPath.row) {
+                    cell.accessoryView.hidden = NO;
+                    switch (indexPath.row) {
+                        case 0:{     //第一种仪表盘
+                            [DashboardSetting sharedInstance].addStyle = AddStyleOne;
+                        }
+                            break;
+                        case 1:{     //第二种仪表盘
+                            [DashboardSetting sharedInstance].addStyle = AddStyleTwo;
+                        }
+                            break;
+                        case 2:{         //第三种仪表盘
+                            [DashboardSetting sharedInstance].addStyle = AddStyleThree;
+                        }
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                }else{
+                    cell.accessoryView.hidden = YES;
+                    
+                }
+            }
+        
+        }
+            break;
+        case DashboardClassicMode:
+        {
+            for (NSInteger i = 0; i<_styleDataArray.count; i++) {
+                UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+                if (i == indexPath.row) {
+                    cell.accessoryView.hidden = NO;
+                    switch (indexPath.row) {
+                        case 0:{     //第一种仪表盘
+                            [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleOne;
+                        }
+                            break;
+                        case 1:{     //第二种仪表盘
+                            [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleTwo;
+                        }
+                            break;
+                        case 2:{         //第三种仪表盘
+                            [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleThree;
+                        }
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                }else{
+                    cell.accessoryView.hidden = YES;
+                    
+                }
+            }
             
         }
+            break;
+        default:
+            break;
     }
+   
 }
 
 

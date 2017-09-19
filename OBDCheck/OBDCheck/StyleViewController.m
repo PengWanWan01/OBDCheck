@@ -1183,7 +1183,7 @@
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
     NSLog(@"121");
-    bg_setDebug(YES);
+//    bg_setDebug(YES);
 
     NSString *sql = [NSString stringWithFormat:@"SET dashboardA->StartAngle = '%@' WHERE  ID = %@",model.StartAngle , self.indexID];
 

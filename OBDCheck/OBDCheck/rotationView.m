@@ -15,7 +15,7 @@
     if (self) {
         self.rotationImage.contentMode = UIViewContentModeScaleAspectFill;
         self.rotationImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ViewWidth,ViewHeight)];
-        [self rotate360WithDuration:0.5 repeatCount:100];
+        [self rotate360WithDuration:0.1 repeatCount:100];
         [self addSubview:self.rotationImage];
         self.numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, ViewWidth, ViewHeight)];
         self.numberLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];

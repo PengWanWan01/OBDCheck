@@ -67,7 +67,7 @@
     [DashboardSetting sharedInstance].multiplierType = MultiplierType1;
     [DashboardSetting sharedInstance].hudModeType = HUDModeTypeToNormal;
     [DashboardSetting sharedInstance].KPageNumer = 3;
-    [DashboardSetting sharedInstance].AddDashboardNumber = 0;
+    [DashboardSetting sharedInstance].isAddDashboard = NO;
     [DashboardSetting sharedInstance].isDashboardFont = NO;
     [DashboardSetting sharedInstance].isDashboardMove = NO;
     [DashboardSetting sharedInstance].isDashboardRemove = NO;
