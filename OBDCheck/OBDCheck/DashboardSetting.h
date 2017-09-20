@@ -22,9 +22,10 @@ typedef NS_ENUM(NSInteger ,DashboardStyle)
 };
 typedef NS_ENUM(NSInteger ,AddDashboardStyle)
 {
-    AddStyleOne=0,   // 添加第一种风格
+    AddStyleNone=0,
+    AddStyleOne,   // 添加第一种风格
     AddStyleTwo,    //添加第二种风格
-    AddStyleThree=2     //添加第三种风格
+    AddStyleThree    //添加第三种风格
 };
 typedef NS_ENUM(NSInteger ,NumberDecimals)
 {
@@ -68,6 +69,7 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 
 @property (nonatomic,strong)   NSUserDefaults* defaults;
 @property (nonatomic,assign)   BOOL DashBoardFristLoad;
+@property (nonatomic,assign) NSInteger CurrentPage;   //当前仪表盘页数
 
 //单例模式，实例化对象
 +(instancetype )sharedInstance;

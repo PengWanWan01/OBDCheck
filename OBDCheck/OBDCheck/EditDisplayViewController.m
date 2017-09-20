@@ -21,7 +21,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Dispaly Configuration",@"Style",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];
+    _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Dispaly Configuration",@"Style",@"Dashboards Style",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];
     [self initWithUI];
 }
 
@@ -59,7 +59,7 @@
     cell.textLabel.text =  _titleNameArray[indexPath.row];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
     cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    if (indexPath.row==0 || indexPath.row ==1 ) {
+    if (indexPath.row==0 || indexPath.row ==1 || indexPath.row==2) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return cell;
@@ -109,19 +109,26 @@
             break;
         case 2:
         {
+            SelectStyleViewController *vc = [[SelectStyleViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        }
+            break;
+        case 3:
+        {
           [DashboardSetting sharedInstance].isDashboardRemove = YES;
             [self back];
             
         }
             break;
-        case 3:
+        case 4:
         {
             [DashboardSetting sharedInstance].isDashboardMove = YES;
 
             [self back];
         }
             break;
-        case 4:
+        case 5:
         {
             [DashboardSetting sharedInstance].isDashboardFont = YES;
          

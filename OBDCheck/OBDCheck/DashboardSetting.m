@@ -38,6 +38,8 @@
         self.RemoveDashboardNumber = 0;
         self.Dashboardindex = 0;
         self.DashBoardFristLoad = @"NO";
+        self.addStyle  = AddStyleNone;
+        self.CurrentPage = 0;
 //         [self.defaults setObject:@"11" forKey:[NSString stringWithFormat:@"test%ld",[DashboardSetting sharedInstance].Dashboardindex]];
     
     }

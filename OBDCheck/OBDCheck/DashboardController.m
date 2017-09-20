@@ -405,8 +405,7 @@ static dispatch_source_t _timer;
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(scrollViewtap)] ];
     [self.view addSubview:scrollView];
     //  添加页数控制视图 new = alloc + init
-    pageControl = [UIPageControl new
-                                  ];
+    pageControl = [UIPageControl new];
     //不要加到滚动视图中， 会随着滚动消失掉
     [self.view addSubview:pageControl];
     //    设置常用属性,距离屏幕下方60像素。
@@ -752,12 +751,12 @@ static dispatch_source_t _timer;
         {
            //自定义模式
               //添加一个仪表盘
-                  if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
-//                    [self addDashboard];
-                      SelectStyleViewController *vc =   [[SelectStyleViewController alloc]init];
-                      vc.Currentpage = pageControl.currentPage;
-                      [self.navigationController pushViewController:vc animated:YES];
-                      [DashboardSetting sharedInstance].isAddDashboard = YES;
+       if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
+           [DashboardSetting sharedInstance].isAddDashboard = YES;
+           [DashboardSetting sharedInstance].CurrentPage = pageControl.currentPage;
+           SelectStyleViewController *vc =   [[SelectStyleViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+                     
                      }
         }
             break;
@@ -960,21 +959,17 @@ static dispatch_source_t _timer;
 
 #pragma mark 点击添加
 - (void)addDashboard{
-    NSLog(@"点击添加");
-      [[DashboardSetting sharedInstance].defaults setInteger:[[DashboardSetting sharedInstance].defaults integerForKey:@"AddDashboardNumber"]+1 forKey:@"AddDashboardNumber"];
+    NSLog(@"点击添加one,%ld",[DashboardSetting sharedInstance].CurrentPage );
     switch ([DashboardSetting sharedInstance].addStyle) {
         case AddStyleOne:
         {
-             NSLog(@"点击添加one");
             [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleOne];
-
-            dashboardStyleAView = [[DashboardView alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth +(arc4random() % (int)MSWidth)-150*KFontmultiple, (arc4random() % (int)MSHeight)-150*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+ 
+            dashboardStyleAView = [[DashboardView alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage *MSWidth +(arc4random() % (int)MSWidth)-150*KFontmultiple, (arc4random() % (int)MSHeight)-150*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleAView.tag = ++ DashBoardTag;
             dashboardStyleAView.delegate =self;
             DashboardA *model = [DashboardA new];
             [[DashboardSetting sharedInstance] initADDdashboardA:model];
-            [dashboardStyleAView addGradientView:model.outerColor  GradientViewWidth:MSWidth];
-            [dashboardStyleAView initWithModel:model];
             [scrollView addSubview:dashboardStyleAView];
             [self initWithChangeCustomType:1 withTag:dashboardStyleAView.tag];
             
@@ -988,7 +983,7 @@ static dispatch_source_t _timer;
             
             [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleTwo];
          
-            dashboardStyleBView = [[DashboardViewStyleB alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth+(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
+            dashboardStyleBView = [[DashboardViewStyleB alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage*MSWidth+(arc4random() % (int)MSWidth)-150*KFontmultiple, (arc4random() % (int)MSHeight )-150*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleBView.tag = ++ DashBoardTag;
             dashboardStyleBView.delegate =self;
             DashboardB *model = [DashboardB new];
@@ -1003,7 +998,7 @@ static dispatch_source_t _timer;
         {
             [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleThree];
 
-            dashboardStyleCView = [[DashboardViewStyleC alloc ]initWithFrame:CGRectMake( pageControl.currentPage*MSWidth +(arc4random() % (int)MSWidth), (arc4random() % (int)MSHeight ), 150*KFontmultiple, 150*KFontmultiple)];
+            dashboardStyleCView = [[DashboardViewStyleC alloc ]initWithFrame:CGRectMake( [DashboardSetting sharedInstance].CurrentPage*MSWidth +(arc4random() % (int)MSWidth)-150*KFontmultiple, (arc4random() % (int)MSHeight )-150*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleCView.tag = ++ DashBoardTag;
             dashboardStyleCView.delegate = self;
             DashboardC *model = [DashboardC new];
