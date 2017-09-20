@@ -30,7 +30,6 @@
 @property (nonatomic,strong) NSNumber * UnitPositon;
 
 @property (nonatomic,copy) NSString *FrameColor;
-@property (nonatomic,strong) NSNumber * FrameScale;
 @property (nonatomic,strong) NSNumber *orignx; //坐标X轴
 @property (nonatomic,strong) NSNumber *origny; //坐标Y轴
 @property (nonatomic,strong) NSNumber *orignwidth; //宽

@@ -21,20 +21,34 @@
 - (void)sliderValueChanged:(id)sender {
     if ([sender isKindOfClass:[UISlider class]]) {
         UISlider * slider = (UISlider *)sender;
-        if (self.dashboardType == 1) {
-            
+        switch (self.dashboardType) {
+            case 1:
+            {
+                if (self.NumberSider.tag == 0 ||  self.NumberSider.tag == 1  ||  self.NumberSider.tag == 18 ||   self.NumberSider.tag == 19) {
+                    self.NumberLabel.text = [NSString stringWithFormat:@"%.f",(360/(2*M_PI))*slider.value];
+                }else{
+                    self.NumberLabel.text = [NSString stringWithFormat:@"%.2f",slider.value];
+                }
+            }
+                break;
+            case 2:{
+            self.NumberLabel.text = [NSString stringWithFormat:@"%.2f",slider.value];
+            }
+                break;
+            case 3:{
+                self.NumberLabel.text = [NSString stringWithFormat:@"%.2f",slider.value];
+            }
+                break;
+            default:
+                break;
+        }
         
-        if (self.NumberSider.tag == 0 ||  self.NumberSider.tag == 1  ||  self.NumberSider.tag == 18 ||   self.NumberSider.tag == 19) {
-             self.NumberLabel.text = [NSString stringWithFormat:@"%.f",(360/(2*M_PI))*slider.value];
-        }
-        }else{
-             self.NumberLabel.text = [NSString stringWithFormat:@"%.2f",slider.value];
-        }
         if ([self.delegate respondsToSelector:@selector(sliderBeTouch:)]) {
             [self.delegate sliderBeTouch:slider];
-        }
+        
     }
    
+}
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

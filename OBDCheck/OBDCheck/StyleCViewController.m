@@ -40,7 +40,7 @@
 }
 - (void)initWithData{
     _sectionSource = [[NSMutableArray alloc]initWithObjects:@"BACKGROUND COLOR",@"TITLE LABEL",@"VALUE LABEL",@"UNITS LABEL",@"Frame",nil];
-    _rowTitleSource = [[NSMutableArray alloc]initWithObjects:@"Inner Color", @"Outer Color",@"Gradient Radius",@"Title Color",@"Font Scale",@"Position",@"Value Visible",@"Value Color",@"Font Scale",@"Position",@"Units Color",@"Font Scale",@"Position",@"Frame Color",@"Frame Scale",nil];
+    _rowTitleSource = [[NSMutableArray alloc]initWithObjects:@"Inner Color", @"Outer Color",@"Gradient Radius",@"Title Color",@"Font Scale",@"Position",@"Value Visible",@"Value Color",@"Font Scale",@"Position",@"Units Color",@"Font Scale",@"Position",@"Frame Color",nil];
     
 }
 - (void)initWithUI{
@@ -100,7 +100,7 @@
     }else if (section == 2){
         return 4;
     }else{
-        return 2;
+        return 1;
     }
     
 }
@@ -142,6 +142,7 @@
     [ StyleOneCell.NumberSider    addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     
     StyleOneCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    StyleOneCell.dashboardType = 3;
     StyleTwoTableViewCell *StyleTwoCell = [tableView dequeueReusableCellWithIdentifier:@"StyleTwoTableViewCell"];
     StyleTwoCell.delegate = self;
     StyleTwoCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -290,14 +291,10 @@
         case 4:
         {
             StyleTwoCell.titleName.text = _rowTitleSource[13];
-            StyleOneCell.titleName.text = _rowTitleSource[14];
             StyleTwoCell.ColorView.tag = 5;
-            StyleOneCell.NumberSider.tag = 7;
             StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.FrameColor];
             StyleTwoCell.ColorLabel.text = model.FrameColor;
-            StyleOneCell.NumberSider.minimumValue = 0;
-            StyleOneCell.NumberSider.maximumValue = 2;
-            StyleOneCell.NumberSider.value  = [model.FrameScale floatValue];
+           
 
         }
             break;
@@ -330,14 +327,14 @@
                 break;
             case 2:
             {
-                model.Gradientradius = [NSNumber numberWithFloat: slider.value] ;
+                model.titlePositon = [NSNumber numberWithFloat: slider.value] ;
                 [self upDateDashView];
             }
                 break;
             case 3:
             {
                 if (model.ValueVisible == YES) {
-                    model.Gradientradius = [NSNumber numberWithFloat: slider.value] ;
+                    model.ValueFontScale = [NSNumber numberWithFloat: slider.value] ;
                 [self upDateDashView];
                 }
             }
@@ -359,7 +356,7 @@
                 break;
             case 6:
             {
-                model.Gradientradius = [NSNumber numberWithFloat: slider.value] ;
+                model.UnitPositon = [NSNumber numberWithFloat: slider.value] ;
                 [self upDateDashView];
             }
                 break;
@@ -454,7 +451,7 @@
     NSString *titleColorsql = [NSString stringWithFormat:@"SET dashboardC->titleColor ='%@' WHERE  ID = %@",model.titleColor,indexID];
     NSString *outerColorsql = [NSString stringWithFormat:@"SET dashboardC->outerColor ='%@' WHERE  ID = %@",model.outerColor,indexID];
     NSString *innerColorsql = [NSString stringWithFormat:@"SET dashboardC->innerColor ='%@' WHERE  ID = %@",model.innerColor,indexID];
-    NSString *FrameScalesql = [NSString stringWithFormat:@"SET dashboardC->FrameScale = '%@' WHERE  ID = %@",model.FrameScale ,indexID];
+
     NSString *UnitPositonsql = [NSString stringWithFormat:@"SET dashboardC->UnitPositon = '%@' WHERE  ID = %@",model.UnitPositon ,indexID];
     NSString *UnitFontScalesql = [NSString stringWithFormat:@"SET dashboardC->UnitFontScale = '%@' WHERE  ID = %@",model.UnitFontScale ,indexID];
     NSString *ValuePositonsql = [NSString stringWithFormat:@"SET dashboardC->ValuePositon = '%@' WHERE  ID = %@",model.ValuePositon ,indexID];
@@ -469,7 +466,6 @@
     [CustomDashboard bg_updateSet:titleFontScalesql];
     [CustomDashboard bg_updateSet:Gradientradiussql];
     [CustomDashboard bg_updateSet:UnitPositonsql];
-    [CustomDashboard bg_updateSet:FrameScalesql];
     [CustomDashboard bg_updateSet:innerColorsql];
     [CustomDashboard bg_updateSet:outerColorsql];
     [CustomDashboard bg_updateSet:titleColorsql];

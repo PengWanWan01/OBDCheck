@@ -147,6 +147,7 @@
     [ StyleOneCell.NumberSider    addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     
     StyleOneCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    StyleOneCell.dashboardType = 2;
     StyleTwoTableViewCell *StyleTwoCell = [tableView dequeueReusableCellWithIdentifier:@"StyleTwoTableViewCell"];
     StyleTwoCell.delegate = self;
     StyleTwoCell.selectionStyle = UITableViewCellSelectionStyleNone;

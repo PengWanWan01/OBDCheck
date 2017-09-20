@@ -61,10 +61,10 @@ static dispatch_source_t _timer;
     }
     [self updateView];
 //    [self startAnimation];
-    NSArray* pAll = [DashboardA bg_findAll];
-    for (DashboardA *dash in pAll) {
+    NSArray* pAll = [CustomDashboard bg_findAll];
+    for (CustomDashboard *dash in pAll) {
         
-        NSLog(@"煮建%@-%@",dash.ID, dash.endAngle);
+        NSLog(@"煮建%@",dash.ID);
        
     }
 }
@@ -77,11 +77,7 @@ static dispatch_source_t _timer;
     [self isFristLoadDashboardB];
     [self isFristLoadDashboardC];
     [self isFristLoadCustomDashboard];
-    NSArray* pAlltest = [DashboardA bg_findAll];
-    for (DashboardA *dash in pAlltest) {
-        NSLog(@"煮建%@",dash.orignwidth);
-    }
-    [[DashboardSetting sharedInstance].defaults setInteger:0 forKey:@"AddDashboardNumber"];
+  
     
 }
 - (void)isFristLoadCustomDashboard{
@@ -167,7 +163,7 @@ static dispatch_source_t _timer;
         case 1:
         {
             
-           Customorignxsql = [NSString stringWithFormat:@"SET dashboardA->orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:orignx], [NSNumber numberWithFloat:id]];
+            Customorignxsql = [NSString stringWithFormat:@"SET dashboardA->orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:orignx], [NSNumber numberWithFloat:id]];
             
            Customorignysql = [NSString stringWithFormat:@"SET dashboardA->origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: origny ], [NSNumber numberWithFloat:id]];
             
@@ -965,7 +961,7 @@ static dispatch_source_t _timer;
         {
             [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleOne];
  
-            dashboardStyleAView = [[DashboardView alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage *MSWidth +(arc4random() % (int)MSWidth)-150*KFontmultiple, (arc4random() % (int)MSHeight)-150*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+            dashboardStyleAView = [[DashboardView alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage *MSWidth +(arc4random() % (int)200), (arc4random() % (int)300), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleAView.tag = ++ DashBoardTag;
             dashboardStyleAView.delegate =self;
             DashboardA *model = [DashboardA new];
@@ -983,7 +979,7 @@ static dispatch_source_t _timer;
             
             [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleTwo];
          
-            dashboardStyleBView = [[DashboardViewStyleB alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage*MSWidth+(arc4random() % (int)MSWidth)-150*KFontmultiple, (arc4random() % (int)MSHeight )-150*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+            dashboardStyleBView = [[DashboardViewStyleB alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage*MSWidth+(arc4random() % (int)200), (arc4random() % (int)300 ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleBView.tag = ++ DashBoardTag;
             dashboardStyleBView.delegate =self;
             DashboardB *model = [DashboardB new];
@@ -998,7 +994,7 @@ static dispatch_source_t _timer;
         {
             [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleThree];
 
-            dashboardStyleCView = [[DashboardViewStyleC alloc ]initWithFrame:CGRectMake( [DashboardSetting sharedInstance].CurrentPage*MSWidth +(arc4random() % (int)MSWidth)-150*KFontmultiple, (arc4random() % (int)MSHeight )-150*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+            dashboardStyleCView = [[DashboardViewStyleC alloc ]initWithFrame:CGRectMake( [DashboardSetting sharedInstance].CurrentPage*MSWidth +(arc4random() % (int)200), (arc4random() % (int)300 ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleCView.tag = ++ DashBoardTag;
             dashboardStyleCView.delegate = self;
             DashboardC *model = [DashboardC new];

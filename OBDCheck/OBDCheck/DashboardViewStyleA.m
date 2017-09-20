@@ -181,13 +181,17 @@
    
     for (int i = 0; i<= _dialCount; i++) {
         CGFloat startAngel = (- M_PI + perAngle * i+[model.StartAngle floatValue]);
-        CGFloat endAngel = startAngel + perAngle/10;
+        CGFloat endAngel = startAngel + perAngle/[model.miWidth floatValue];
         UIBezierPath *tickPath = [[UIBezierPath alloc]init];
         
         CAShapeLayer *perLayer = [CAShapeLayer layer];
         
         
         if (i % 5 == 0) {
+            CGFloat endAngel = startAngel + perAngle/[model.maWidth floatValue];
+            UIBezierPath *tickPath = [[UIBezierPath alloc]init];
+            
+            CAShapeLayer *perLayer = [CAShapeLayer layer];
             tickPath =   [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.ringWidth floatValue]- [model.miLength floatValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
             perLayer = [CAShapeLayer layer];
             
@@ -204,7 +208,8 @@
             text.font = [UIFont systemFontOfSize:[model.LabelFontScale floatValue]*10.f];
             text.textColor = [UIColor whiteColor];
             text.textAlignment = NSTextAlignmentCenter;
-            
+            perLayer.path = tickPath.CGPath;
+            [self.layer addSublayer:perLayer];
             //让文字刻度显示
             if (model.LabelVisble == YES) {
                 [self addSubview:text];
@@ -224,10 +229,11 @@
             
             perLayer.strokeColor = [ColorTools colorWithHexString:model.miColor].CGColor;
             perLayer.lineWidth = [model.miLength floatValue];
+            perLayer.path = tickPath.CGPath;
+            [self.layer addSublayer:perLayer];
         }
         
-        perLayer.path = tickPath.CGPath;
-        [self.layer addSublayer:perLayer];
+        
     }
     [self addDrawFillstartAngle:[model.FillstartAngle floatValue] FillendAngle:[model.FillEndAngle floatValue] FillColor:model.FillColor withRingWidth:[model.ringWidth floatValue] withModel:(DashboardA *)model];
     UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];

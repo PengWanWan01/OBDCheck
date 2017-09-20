@@ -579,8 +579,8 @@
                     switch (indexPath.row) {
                         case 0:
                         {
-                            StyleOneCell.NumberSider.minimumValue = 0;
-                            StyleOneCell.NumberSider.maximumValue = 5;
+                            StyleOneCell.NumberSider.minimumValue = 2;
+                            StyleOneCell.NumberSider.maximumValue = 10;
                             StyleOneCell.NumberSider.value = [model.maWidth floatValue];
                             StyleOneCell.NumberSider.tag = 9;
                         }
@@ -612,8 +612,8 @@
                     switch (indexPath.row) {
                         case 0:
                         {
-                            StyleOneCell.NumberSider.minimumValue = 0;
-                            StyleOneCell.NumberSider.maximumValue = 5;
+                            StyleOneCell.NumberSider.minimumValue = 2;
+                            StyleOneCell.NumberSider.maximumValue = 10;
                             StyleOneCell.NumberSider.tag = 11;
                             StyleOneCell.NumberSider.value = [model.miWidth floatValue];
 
@@ -952,8 +952,6 @@
             case 9:
             {
                 model.maWidth =  [NSNumber numberWithFloat: slider.value];
-                NSString *sql = [NSString stringWithFormat:@"SET maWidth ='%@' WHERE  ID = %@",model.maWidth, self.indexID];
-                [DashboardA bg_updateSet:sql];
                 [self upDateDashView];
             }
                 break;
@@ -1190,7 +1188,7 @@
     NSString *miLengthsql = [NSString stringWithFormat:@"SET dashboardA->miLength ='%@' WHERE  ID = %@",model.miLength, self.indexID];
     
     NSString *miWidthsql = [NSString stringWithFormat:@"SET dashboardA->miWidth ='%@' WHERE  ID = %@",model.miWidth, self.indexID];
-    
+    NSString *maWidthsql = [NSString stringWithFormat:@"SET dashboardA->maWidth ='%@' WHERE  ID = %@",model.maWidth, self.indexID];
 
     NSString *maLengthsql = [NSString stringWithFormat:@"SET dashboardA->maLength ='%@' WHERE  ID = %@",model.maLength, self.indexID];
     
@@ -1248,6 +1246,7 @@
     [CustomDashboard bg_updateSet:miLengthsql];
     [CustomDashboard bg_updateSet:miWidthsql];
     [CustomDashboard bg_updateSet:maLengthsql];
+    [CustomDashboard bg_updateSet:maWidthsql];
     [CustomDashboard bg_updateSet:UnitHorizontalPositionsql];
     [CustomDashboard bg_updateSet:UnitVerticalPositionsql];
     [CustomDashboard bg_updateSet:UnitFontScalesql];

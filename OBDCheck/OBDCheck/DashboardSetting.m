@@ -32,6 +32,7 @@
         self.hudModeType = HUDModeTypeToNormal;
         self.KPageNumer = 3;
         self.isAddDashboard = NO;
+        self.ischangeDashboard = NO;
         self.isDashboardFont = NO;
         self.isDashboardMove = NO;
         self.isDashboardRemove = NO;
@@ -39,6 +40,7 @@
         self.Dashboardindex = 0;
         self.DashBoardFristLoad = @"NO";
         self.addStyle  = AddStyleNone;
+        self.ChangeStyle = ChangeDashboardStyleNone;
         self.CurrentPage = 0;
 //         [self.defaults setObject:@"11" forKey:[NSString stringWithFormat:@"test%ld",[DashboardSetting sharedInstance].Dashboardindex]];
     
@@ -117,8 +119,8 @@
     model.ringWidth = [NSNumber numberWithFloat:10.f];
     model.maLength = [NSNumber numberWithFloat:15.f];
     model.miLength = [NSNumber numberWithFloat:5];
-    model.miWidth = [NSNumber numberWithFloat:0];
-    model.maWidth = [NSNumber numberWithFloat:0];
+    model.miWidth = [NSNumber numberWithFloat:10.f];
+    model.maWidth = [NSNumber numberWithFloat:10.f];
     model.maColor = @"FFFFFF";
     model.miColor = @"FFFFFF";
     model.innerColor = @"18191C";
@@ -167,7 +169,7 @@
     model.FillEnable = YES;
     
     model.Pointerwidth = [NSNumber numberWithFloat:1.f];
-    model.pointerColor = @"FE9002";
+    model.pointerColor = @"#FFFFFF";
     model.orignx = [NSNumber numberWithFloat:0];
     model.origny = [NSNumber numberWithFloat:0];
     model.orignwidth = [NSNumber numberWithFloat:0];
@@ -197,7 +199,6 @@
     model.UnitPositon = [NSNumber numberWithFloat:1.f];
     
     model.FrameColor = @"FFFFFF";
-    model.FrameScale = [NSNumber numberWithFloat:1.f];
     model.titlePositon = [NSNumber numberWithFloat:1.f];
     model.titleFontScale =[NSNumber numberWithFloat:1.f];
     model.titleColor = @"FFFFFF";
@@ -239,33 +240,35 @@
 
 }
 - (void)CustomDashboardType:(AddDashboardStyle)type{
+    
+    CustomDashboard *model = [[CustomDashboard alloc]init];
+    DashboardA *dashA = [DashboardA new];
+    [self initADDdashboardA:dashA];
+    model.dashboardA = dashA;
+    
+    DashboardB *dashB = [DashboardB new];
+    [self initADDdashboardB:dashB];
+    model.dashboardB = dashB;
+    
+    DashboardC *dashC = [DashboardC new];
+    [self initADDdashboardC:dashC];
+    model.dashboardC = dashC;
+    
     switch (type) {
         case AddStyleOne:
         {
-            CustomDashboard *model = [[CustomDashboard alloc]init];
-            DashboardA *dash = [DashboardA new];
-            [self initADDdashboardA:dash];
-            model.dashboardA = dash;
             model.dashboardType = 1;
             [model bg_saveOrUpdate];
         }
             break;
         case AddStyleTwo:
         {
-            CustomDashboard *model = [[CustomDashboard alloc]init];
-            DashboardB *dash = [DashboardB new];
-            [self initADDdashboardB:dash];
-            model.dashboardB = dash;
             model.dashboardType = 2;
             [model bg_saveOrUpdate];
         }
             break;
         case AddStyleThree:
         {
-            CustomDashboard *model = [[CustomDashboard alloc]init];
-            DashboardC *dash = [DashboardC new];
-            [self initADDdashboardC:dash];
-            model.dashboardC = dash;
             model.dashboardType = 3;
             [model bg_saveOrUpdate];
         }

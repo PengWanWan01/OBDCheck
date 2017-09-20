@@ -27,6 +27,13 @@ typedef NS_ENUM(NSInteger ,AddDashboardStyle)
     AddStyleTwo,    //添加第二种风格
     AddStyleThree    //添加第三种风格
 };
+typedef NS_ENUM(NSInteger ,ChangeDashboardStyle)
+{
+    ChangeDashboardStyleNone=0,
+    ChangeDashboardStyleOne,   // 改变为第一种风格
+    ChangeDashboardStyleTwo,    //改变为第二种风格
+    ChangeDashboardStyleThree    //改变为第三种风格
+};
 typedef NS_ENUM(NSInteger ,NumberDecimals)
 {
     NumberDecimalZero=0,   // 0个小数点位数
@@ -55,6 +62,7 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 @property (nonatomic) MultiplierType multiplierType;
 @property (nonatomic) HUDModeType hudModeType;
 @property (nonatomic) AddDashboardStyle addStyle;
+@property (nonatomic) ChangeDashboardStyle ChangeStyle;
 
 @property (nonatomic,assign)  NSInteger KPageNumer; //仪表盘的原始页数
 @property (nonatomic,assign) NSInteger Dashboardindex;   //被选中可以移动的仪表盘
@@ -63,6 +71,7 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 @property (nonatomic,assign) BOOL isDashboardMove;          //是否可以移动
 @property (nonatomic,assign) BOOL isDashboardRemove;          //是否可以删除
 @property (nonatomic,assign) BOOL isAddDashboard;   //是否添加仪表盘
+@property (nonatomic,assign) BOOL ischangeDashboard;   //是否改变仪表盘风格
 
 @property (nonatomic,strong) NSMutableArray *DashboardViewFrame;    //是否可以移动
 
