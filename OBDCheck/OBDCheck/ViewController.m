@@ -94,7 +94,8 @@
         [backView addSubview:btn];
         NSLog(@"%f",btn.frame.size.width);
     }
-        [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(EveryViewtap)] ];
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(EveryViewtap)] ];
+    
     for (NSInteger i = 0; i< 3; i++) {
         UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(MSWidth/3), MSHeight - 45*KHeightmultiple-64,MSWidth/3 , 45*KHeightmultiple)];
         [btn setBackgroundImage: [UIImage imageNamed:_normalImage[i]] forState:UIControlStateNormal];
@@ -155,7 +156,7 @@
 }
 #pragma mark 六个按钮的点击
 - (void)tap:(UITapGestureRecognizer *)sender{
-//    NSLog(@"1212");
+    [self.blueView hide];
  self.tabBarController.tabBar.hidden = YES;
     switch ([sender view].tag) {
         case 0:{

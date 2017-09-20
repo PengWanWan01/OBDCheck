@@ -60,10 +60,10 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      [chartViewTwo removeFromSuperview];
      chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight - 45-64)];
     [self.view addSubview:chartViewone];
-     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 20, 100, 20)];
-     btn.backgroundColor = [UIColor redColor];
-     [btn addTarget: self action:@selector(btn) forControlEvents:UIControlEventTouchUpInside];
-     [self.view addSubview:btn];
+//     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 20, 100, 20)];
+//     btn.backgroundColor = [UIColor redColor];
+//     [btn addTarget: self action:@selector(btn) forControlEvents:UIControlEventTouchUpInside];
+//     [self.view addSubview:btn];
 
     [self initWithchartView:chartViewone Type:1];
     

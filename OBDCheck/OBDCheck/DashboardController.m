@@ -158,7 +158,7 @@ static dispatch_source_t _timer;
     NSString *Customorignysql;
     NSString *Customorignwidthsql;
     NSString *Customorignheightsql;
-    
+    NSString *GradientRadiussql;
     switch (Customtype) {
         case 1:
         {
@@ -170,7 +170,6 @@ static dispatch_source_t _timer;
             Customorignwidthsql = [NSString stringWithFormat:@"SET dashboardA->orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:width], [NSNumber numberWithFloat:id]];
             
             Customorignheightsql = [NSString stringWithFormat:@"SET dashboardA->orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:height], [NSNumber numberWithFloat:id]];
-
         }
             break;
         case 2:
@@ -182,6 +181,9 @@ static dispatch_source_t _timer;
             Customorignwidthsql = [NSString stringWithFormat:@"SET dashboardB->orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:width], [NSNumber numberWithFloat:id]];
             
             Customorignheightsql = [NSString stringWithFormat:@"SET dashboardB->orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:height], [NSNumber numberWithFloat:id]];
+              GradientRadiussql = [NSString stringWithFormat:@"SET dashboardB->GradientRadius = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:width], [NSNumber numberWithFloat:id]];
+            [CustomDashboard bg_updateSet:GradientRadiussql];
+
         }
             break;
         case 3:
@@ -204,7 +206,7 @@ static dispatch_source_t _timer;
         [CustomDashboard bg_updateSet:Customorignysql];
         [CustomDashboard bg_updateSet:Customorignwidthsql];
         [CustomDashboard bg_updateSet:Customorignheightsql];
-    
+
 
 }
 #pragma mark 对经典三个表格进行更新
