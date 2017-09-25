@@ -79,6 +79,7 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 @property (nonatomic,strong)   NSUserDefaults* defaults;
 @property (nonatomic,assign)   BOOL DashBoardFristLoad;
 @property (nonatomic,assign) NSInteger CurrentPage;   //当前仪表盘页数
+@property (nonatomic,copy ) NSString  *HUDColourStr;   //HUD颜色
 
 //单例模式，实例化对象
 +(instancetype )sharedInstance;

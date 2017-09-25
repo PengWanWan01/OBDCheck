@@ -34,7 +34,10 @@
 - (void)initWithUI{
 
     for (NSInteger i = 0; i< 3; i++) {
-        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(MSWidth/3), MSHeight - 45*KHeightmultiple-64,MSWidth/3 , 45*KHeightmultiple)];
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(MSWidth/3), MSHeight - 45*KHeightmultiple-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height,MSWidth/3 , 45*KHeightmultiple)];
+        if (IS_IPHONE_X) {
+            btn.frame = CGRectMake(i*(MSWidth/3), MSHeight - 45*KHeightmultiple-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height-34,MSWidth/3 , 45*KHeightmultiple);
+        }
         [btn setBackgroundImage: [UIImage imageNamed:_normalImage[i]] forState:UIControlStateNormal];
         btn.tag = i;
         [btn.imageView setContentMode:UIViewContentModeScaleAspectFill];

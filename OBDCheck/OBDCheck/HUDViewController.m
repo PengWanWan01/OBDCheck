@@ -9,6 +9,17 @@
 #import "HUDViewController.h"
 
 @interface HUDViewController ()
+{
+    UILabel *NumberLabel;
+    UILabel *PIDNameLabel;
+    UILabel *UnitLabel;
+    UIView *lineView;
+    NSTimer* timer;
+    
+}
+@property (nonatomic,strong) NSMutableArray *PIDDataSource;
+@property (nonatomic,strong) NSMutableArray *NumberDataSource;
+@property (nonatomic,strong) NSMutableArray *UnitDataSource;
 
 @end
 
@@ -16,85 +27,112 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
-    [self initNavBarTitle:@"HUD" andLeftItemImageName:@"back" andRightItemImageName:@""];
-     [self hideNavi];
-    if([[UIDevice currentDevice]respondsToSelector:@selector(setOrientation:)]) {
-        
-        SEL selector = NSSelectorFromString(@"setOrientation:");
-        
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
-        
-        [invocation setSelector:selector];
-        
-        [invocation setTarget:[UIDevice currentDevice]];
-        
-        int val = UIInterfaceOrientationLandscapeRight;//横屏
-        
-        [invocation setArgument:&val atIndex:2];
-        
-        [invocation invoke];
-        
-    }
+    [self initNavBarTitle:@"" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
+    [self hideNavi];
+    [self initWithData];
+    [self initWithUI];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initWithUI];
+   
 }
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
    
 }
-
+- (void)initWithData{
+    self.PIDDataSource = [[NSMutableArray alloc]initWithObjects:@"Speed",@"Rotational Speed",@"Average fuel consumption", nil];
+     self.NumberDataSource = [[NSMutableArray alloc]initWithObjects:@"0",@"2500",@"7.6", nil];
+    self.UnitDataSource = [[NSMutableArray alloc]initWithObjects:@"KM/H",@"R/MIN",@"L/100KM", nil];
+    
+}
 - (void)initWithUI{
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(MSHeight/2 - 1, 0, 1, MSWidth)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:lineView];
-    for (NSInteger i = 0; i< 2; i++) {
-        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, (i +1) * (MSWidth/3), MSHeight, 1)];
-        lineView.backgroundColor = [UIColor whiteColor];
-   [self.view addSubview:lineView];
-    }
-    UIView *FristView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSHeight/2 - 1, (MSWidth - 2)/3 )];
-    [self.view addSubview:FristView];
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(FristView.frame.size.width/2 - 20, FristView.frame.size.height/2 - 22.5, 40, 45)];
-    imageView.image = [UIImage imageNamed:@"HUDBtn"];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *Clicktap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickToHUD:)];
-      [imageView addGestureRecognizer:Clicktap];
-    [FristView addSubview:imageView];
-    
-    for (NSInteger i = 1; i< 6; i++) {
-        NSInteger index = i % 2;
-        NSInteger page = i / 2;
-        HUDView *View  = [[HUDView alloc]initWithFrame:CGRectMake(index * ((MSHeight/2)-1 ), page  * ( (MSWidth-2)/3), MSHeight/2, (MSWidth-2)/3)];
-        [self.view addSubview:View];
-       }
-    
+    [self initWithlandscapeUI];
+//    [self initWithPortraitUI];
+
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
     
     [self.view addGestureRecognizer:tap];
 }
+- (void)initWithlandscapeUI
+{
+    for (NSInteger i = 0; i<3; i++) {
+        UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, i*(MSHeight/3), MSWidth, (MSHeight/3))];
+        [self.view addSubview:backView];
+        PIDNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, MSWidth - 20, 23)];
+        PIDNameLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
+        PIDNameLabel.font = [UIFont systemFontOfSize:14.f];
+        PIDNameLabel.text  = self.PIDDataSource[i];
+        
+        NumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, MSWidth,MSHeight/3 -  80)];
+        NumberLabel.textAlignment = NSTextAlignmentCenter;
+        NumberLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
+        NumberLabel.font = [UIFont systemFontOfSize:70];
+        NumberLabel.text  = self.NumberDataSource[i];
+
+        UnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,backView.frame.size.height-23 , MSWidth - 20, 23)];
+        UnitLabel.textAlignment = NSTextAlignmentRight;
+        UnitLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
+        UnitLabel.font  = [UIFont systemFontOfSize:14.f];
+        UnitLabel.text  = self.UnitDataSource[i];
+
+        [backView addSubview:PIDNameLabel];
+        [backView addSubview:NumberLabel];
+        [backView addSubview:UnitLabel];
+        lineView = [[UIView alloc]initWithFrame:CGRectMake(0, (i+1)*MSHeight/3, MSWidth, 0.5)];
+        lineView.backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
+        [self.view addSubview:lineView];
+
+        
+    }
+    
+    
+}
+- (void)initWithPortraitUI{
+    
+    //    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(MSHeight/2 - 1, 0, 1, MSWidth)];
+    //    lineView.backgroundColor = [UIColor whiteColor];
+    //    [self.view addSubview:lineView];
+    //    for (NSInteger i = 0; i< 2; i++) {
+    //        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, (i +1) * (MSWidth/3), MSHeight, 1)];
+    //        lineView.backgroundColor = [UIColor whiteColor];
+    //   [self.view addSubview:lineView];
+    //    }
+    //    UIView *FristView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSHeight/2 - 1, (MSWidth - 2)/3 )];
+    //    [self.view addSubview:FristView];
+    //    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(FristView.frame.size.width/2 - 20, FristView.frame.size.height/2 - 22.5, 40, 45)];
+    //    imageView.image = [UIImage imageNamed:@"HUDBtn"];
+    //    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    //    imageView.userInteractionEnabled = YES;
+    //    UITapGestureRecognizer *Clicktap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickToHUD:)];
+    //      [imageView addGestureRecognizer:Clicktap];
+    //    [FristView addSubview:imageView];
+    //
+    //    for (NSInteger i = 1; i< 6; i++) {
+    //        NSInteger index = i % 2;
+    //        NSInteger page = i / 2;
+    //        HUDView *View  = [[HUDView alloc]initWithFrame:CGRectMake(index * ((MSHeight/2)-1 ), page  * ( (MSWidth-2)/3), MSHeight/2, (MSWidth-2)/3)];
+    //        [self.view addSubview:View];
+    //       }
+    
+    
+}
 #pragma mark 屏幕上的点击事件
 - (void)tap{
-//    //弹出导航栏和状态栏
-//    self.navigationController.navigationBar.hidden = NO;
-//    [UIApplication sharedApplication].statusBarHidden = NO;
-//    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-//    //创建计时器，3秒之后收回导航栏
-//    NSTimer* timer = [NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(hideNavi) userInfo:nil repeats:NO];
-//    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Exit the HUD Mode" message:nil preferredStyle:  UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        //点击按钮的响应事件；
-    }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self showAlert];
-    }]];
-    
-    //弹出提示框；
-    [self presentViewController:alert animated:true completion:nil];
+    //弹出导航栏和状态栏
+    self.navigationController.navigationBar.hidden = NO;
+    [UIApplication sharedApplication].statusBarHidden = NO;
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    //创建计时器，3秒之后收回导航栏
+    timer = [NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(hideNavi) userInfo:nil repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+
+}
+- (void)rightBarButtonClick{
+     [timer invalidate];
+    HUDColorViewController *vc = [[HUDColorViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark 隐藏导航栏和状态栏
 - (void)hideNavi{

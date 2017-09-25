@@ -23,7 +23,7 @@
     [self initWithUI];
 }
 - (void)initWithUI{
-//    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight)];
+
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     self.tableView.dataSource = self;
@@ -35,7 +35,10 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ResultsTableViewCell" bundle:nil] forCellReuseIdentifier:@"ResultsTableViewCell"];
     [self.tableView registerClass:[SummaryTableViewCell class] forCellReuseIdentifier:@"SummaryTableViewCell"];
     
-    TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 45-64, MSWidth, 45)];
+    TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 45*KHeightmultiple-64, MSWidth, 45*KHeightmultiple)];
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, MSHeight - 45*KHeightmultiple-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height-34,MSWidth , 45*KHeightmultiple);
+    }
     tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     tbarView.numberBtn = 4;
     tbarView.isSelectNumber = 0;

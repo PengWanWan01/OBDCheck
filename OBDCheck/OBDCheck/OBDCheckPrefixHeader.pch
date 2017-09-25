@@ -26,11 +26,14 @@
 #define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH <= 568.0)
 #define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
 #define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
+#define IS_IPHONE_X (IS_IPHONE && SCREEN_MAX_LENGTH == 812.0)
+
 #define  LabelFontSize  15
 #define KFontmultiple MSWidth/375
 #define Kwidthmultiple MSWidth/375
 #define KHeightmultiple MSHeight/667
 #define KMultipleC   ViewWidth/320
+
 
 #
 // Include any system framework and library headers here that should be included in all compilation units.
@@ -113,5 +116,7 @@
 #import "MonitorsTableViewCell.h"
 #import "ResultsTableViewCell.h"
 #import "SummaryTableViewCell.h"
+#import "HUDColorViewController.h"
+#import "ColorTableViewCell.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

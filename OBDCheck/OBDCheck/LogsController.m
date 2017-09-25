@@ -59,6 +59,9 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      [chartViewone removeFromSuperview];
      [chartViewTwo removeFromSuperview];
      chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight - 45-64)];
+     if (IS_IPHONE_X) {
+         chartViewone.frame = CGRectMake(0, 0, MSWidth, MSHeight - 45-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -34);
+     }
     [self.view addSubview:chartViewone];
 //     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 20, 100, 20)];
 //     btn.backgroundColor = [UIColor redColor];
@@ -81,7 +84,13 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     [chartViewone removeFromSuperview];
     [chartViewTwo removeFromSuperview];
     chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, (MSHeight - 45-64)/2)];
+    if (IS_IPHONE_X) {
+        chartViewone.frame = CGRectMake(0, 0, MSWidth, (MSHeight - 45-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -34)/2);
+    }
     chartViewTwo = [[LineChartView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth, (MSHeight - 45-64)/2)];
+    if (IS_IPHONE_X) {
+        chartViewTwo.frame = CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth, (MSHeight - 45-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -34)/2);
+    }
     [self.view addSubview:chartViewone];
      [self.view addSubview:chartViewTwo];
     [self initWithchartView:chartViewone Type:1];
@@ -146,7 +155,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         
         view.data = linechartdata;
         
-    NSLog(@"%d",view.data.entryCount);
+    NSLog(@"%ld",view.data.entryCount);
     
 }
 
@@ -213,7 +222,10 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 
 - (void)initWithUI{
-    TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 45-64, MSWidth, 45)];
+    TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 45*KHeightmultiple-64, MSWidth, 45*KHeightmultiple)];
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, MSHeight - 45*KHeightmultiple-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height-34,MSWidth , 45*KHeightmultiple);
+    }
     tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     tbarView.numberBtn = 3;
     tbarView.isSelectNumber = 0;

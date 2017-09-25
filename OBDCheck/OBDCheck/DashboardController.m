@@ -407,7 +407,7 @@ static dispatch_source_t _timer;
     //不要加到滚动视图中， 会随着滚动消失掉
     [self.view addSubview:pageControl];
     //    设置常用属性,距离屏幕下方60像素。
-    pageControl.frame = CGRectMake(0, MSHeight- 100, MSWidth, 30);
+    pageControl.frame = CGRectMake(0, MSHeight- self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -40, MSWidth, 30);
     //    设置圆点的个数
     pageControl.numberOfPages = [DashboardSetting sharedInstance].KPageNumer;
     //    设置没有被选中时圆点的颜色
@@ -789,26 +789,32 @@ static dispatch_source_t _timer;
     }
 #pragma mark 捏合手势代理
 - (void)pinchtap:(UIPinchGestureRecognizer *)sender OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height{
-
-    switch ([DashboardSetting sharedInstance].dashboardStyle) {
-        case DashboardStyleOne:
-        {
-            [self updatemodel:1 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
+    
+    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:sender.view.tag]];
+    NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+    for(CustomDashboard *dashboard in pAll){
+        switch (dashboard.dashboardType) {
+            case 1:
+            {
+                [self updateCustomType:1 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
+            }
+                break;
+            case 2:
+            {
+                [self updateCustomType:2 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
+            }
+                break;
+            case 3:
+            {
+                [self updateCustomType:3 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
+            }
+                break;
+            default:
+                break;
         }
-            break;
-        case DashboardStyleTwo:
-        {
-             [self updatemodel:2 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
-        }
-            break;
-        case DashboardStyleThree:
-        {
-             [self updatemodel:3 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
-        }
-            break;
-        default:
-            break;
     }
+    
+   
    
 }
 #pragma mark 长按仪表盘的手势
