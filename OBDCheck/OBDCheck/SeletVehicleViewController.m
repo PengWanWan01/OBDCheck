@@ -21,11 +21,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initWithData];
+   
 }
 - (void)initWithData{
     self.dataSource = [[NSMutableArray alloc]initWithObjects:@"1A1JC5444R7252367",@"1A1JC5444R7252367",@"1A1JC5444R7252367",@"1A1JC5444R7252367", nil];
     
 }
+
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;

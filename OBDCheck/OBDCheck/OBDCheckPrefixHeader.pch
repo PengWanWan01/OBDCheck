@@ -119,5 +119,11 @@
 #import "HUDColorViewController.h"
 #import "ColorTableViewCell.h"
 #import "SeletVehicleViewController.h"
+#import "YearViewController.h"
+#import "MakerViewController.h"
+#import "ModerViewController.h"
+#import "TyperViewController.h"
+#import "FuleTypeViewController.h"
+#import "FuelCaculationViewController.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

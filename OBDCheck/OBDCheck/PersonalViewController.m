@@ -17,6 +17,7 @@
 @property (nonatomic,strong) NSMutableArray *normalImage;
 @property (nonatomic,strong) NSMutableArray *selectImage;
 @property (nonatomic,strong) NSMutableArray *sectionDatasource;
+@property (nonatomic,strong) NSMutableArray *texttitleDatasource;
 
 @end
 
@@ -37,10 +38,14 @@
     self.normalImage = [[NSMutableArray alloc]initWithObjects:@"obd_normal",@"special_normal",@"personal_normal", nil];
     self.selectImage = [[NSMutableArray alloc]initWithObjects:@"obd_highlight",@"special_highlight",@"personal_highlight", nil];
     self.sectionDatasource = [[NSMutableArray alloc]initWithObjects:@"NAME",@"VEHICLE IDENTIFICATION NUMBER",@"YEAR",@"MAKE",@"MODEL",@"OPTION",@"TYPE",@"FUEL TYPE",@"ENGINE SIZE(LITRES)",@"VOLUMETRIC EFFICIENCY(%)",@"BRAKE SPECIFIC FUEL CONSUMPTION(LB/HP·HR)",@"FUEL CALCULATION METHOD",@"FUEL TANK CAPACITY (GAL)",@"FUEL COST PER UNIT ($)",@"VEHICLE SPEED SCALE FACTOR", nil];
-  
+    self.texttitleDatasource = [[NSMutableArray alloc]initWithObjects:@"NAME",@"1A1J5444R7252367",@"1996",@"AC",@"Cobra",@"Option",@"Select",@"Select",@"2",@"65",@"0.45",@"Select",@"14.0",@"4.0",@"1", nil];
+    
 }
 - (void)initWithUI{
-    Mytableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-54)];
+    Mytableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-54) style:UITableViewStylePlain];
+    if (IS_IPHONE_X) {
+        Mytableview.frame  = CGRectMake(0, 0, MSWidth, MSHeight-88);
+    }
     Mytableview.backgroundColor = [UIColor clearColor];
     Mytableview.dataSource = self;
     Mytableview.delegate = self;
@@ -163,15 +168,47 @@
   
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL"];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
     }
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
         cell.layoutMargins = UIEdgeInsetsZero;
     }
     cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    cell.textLabel.text = self.texttitleDatasource[indexPath.section];
+    cell.textLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+    if ((indexPath.section == 2) || (indexPath.section == 3) || (indexPath.section == 4) || (indexPath.section == 5) ||(indexPath.section == 6) || (indexPath.section == 7)|| (indexPath.section == 11))  {
+        cell.detailTextLabel.text = @"select";
+        cell.detailTextLabel.textColor = [ColorTools colorWithHexString:@"FE9002"];
+        if ((indexPath.section == 6) ) {
+            cell.detailTextLabel.text = @"Sedan";
+            cell.accessoryType =UITableViewCellAccessoryDisclosureIndicator;
+        }else if ( indexPath.section == 7){
+            cell.detailTextLabel.text = @"Gasoline/pertrol";
+             cell.accessoryType =UITableViewCellAccessoryDisclosureIndicator;
+        }else if (indexPath.section == 11){
+            cell.detailTextLabel.text = @"Mass air flow rate";
+             cell.accessoryType =UITableViewCellAccessoryDisclosureIndicator;
+        }
+    }
+    if (indexPath.section == 8 || indexPath.section == 9 ||indexPath.section == 10 ||indexPath.section == 14 ) {
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Personal_sigh"]];
+        cell.accessoryView = imageView;
+    }
     return cell;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    switch (indexPath.section) {
+        case 6:
+            {
+                
+            }
+            break;
+            
+        default:
+            break;
+    }
+    
+}
 @end
