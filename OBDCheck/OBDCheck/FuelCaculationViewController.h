@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FuelCaculationViewController : UIViewController
+@interface FuelCaculationViewController : BasicViewController
 
 @end

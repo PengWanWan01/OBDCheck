@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ModerViewController : UIViewController
+@interface ModerViewController : BasicViewController
 
 @end

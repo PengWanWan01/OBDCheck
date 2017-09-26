@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YearViewController : UIViewController
+@interface YearViewController : BasicViewController
 
 @end

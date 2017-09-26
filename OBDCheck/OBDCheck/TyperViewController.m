@@ -13,25 +13,54 @@
 @end
 
 @implementation TyperViewController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self initNavBarTitle:@"Type" andLeftItemImageName:@"back" andRightItemName:@"Cancel"];
+    self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self initWithData];
+    if (IS_IPHONE_X) {
+        self.tableView.frame  = CGRectMake(0, 0, MSWidth, MSHeight-132);
+    }
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)initWithData{
+    self.dataSource = [[NSMutableArray alloc]initWithObjects:@"Sedan",@"Truck",@"Minivan",@"Van",@"SportsCar",@"SUV", nil];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark UITableViewDelegate,UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
 }
-*/
-
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.dataSource.count;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44.f;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
+    }
+    cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+    cell.textLabel.text  = self.dataSource[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
+    cell.accessoryView = imageView;
+    cell.accessoryView.hidden = YES;
+    return cell;
+    return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    for (NSInteger i = 0; i<self.dataSource.count; i++) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        if (i == indexPath.row) {
+            cell.accessoryView.hidden = NO;
+        }else{
+            cell.accessoryView.hidden = YES;
+        }
+    }
+}
 @end

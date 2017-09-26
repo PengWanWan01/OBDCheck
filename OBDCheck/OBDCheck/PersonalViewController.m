@@ -42,9 +42,9 @@
     
 }
 - (void)initWithUI{
-    Mytableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-54) style:UITableViewStylePlain];
+    Mytableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-54) style:UITableViewStyleGrouped];
     if (IS_IPHONE_X) {
-        Mytableview.frame  = CGRectMake(0, 0, MSWidth, MSHeight-88);
+        Mytableview.frame  = CGRectMake(0, 0, MSWidth, MSHeight-132);
     }
     Mytableview.backgroundColor = [UIColor clearColor];
     Mytableview.dataSource = self;
@@ -178,6 +178,7 @@
     cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     cell.textLabel.text = self.texttitleDatasource[indexPath.section];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+    cell.selectionStyle =  UITableViewCellEditingStyleNone;
     if ((indexPath.section == 2) || (indexPath.section == 3) || (indexPath.section == 4) || (indexPath.section == 5) ||(indexPath.section == 6) || (indexPath.section == 7)|| (indexPath.section == 11))  {
         cell.detailTextLabel.text = @"select";
         cell.detailTextLabel.textColor = [ColorTools colorWithHexString:@"FE9002"];
@@ -200,12 +201,42 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.section) {
-        case 6:
+        case 2:
             {
-                
+                YearViewController *VC = [[YearViewController alloc]init];
+                [self.navigationController pushViewController:VC animated:YES];
             }
             break;
-            
+        case 3:
+        {
+            MakerViewController *VC = [[MakerViewController alloc]init];
+            [self.navigationController pushViewController:VC animated:YES];
+        }
+            break;
+        case 4:
+        {
+            ModerViewController *VC = [[ModerViewController alloc]init];
+            [self.navigationController pushViewController:VC animated:YES];
+        }
+            break;
+        case 6:
+        {
+            TyperViewController *VC = [[TyperViewController alloc]init];
+            [self.navigationController pushViewController:VC animated:YES];
+        }
+            break;
+        case 7:
+        {
+            FuleTypeViewController *VC = [[FuleTypeViewController alloc]init];
+            [self.navigationController pushViewController:VC animated:YES];
+        }
+            break;
+        case 11:
+        {
+            FuelCaculationViewController *VC = [[FuelCaculationViewController alloc]init];
+            [self.navigationController pushViewController:VC animated:YES];
+        }
+            break;
         default:
             break;
     }

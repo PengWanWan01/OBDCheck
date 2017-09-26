@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FuleTypeViewController : UIViewController
+@interface FuleTypeViewController : BasicViewController
 
 @end

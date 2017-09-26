@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MakerViewController : UIViewController
+@interface MakerViewController : BasicViewController
 
 @end

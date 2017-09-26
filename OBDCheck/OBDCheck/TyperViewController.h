@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TyperViewController : UIViewController
+@interface TyperViewController : BasicViewController
 
 @end
