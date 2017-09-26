@@ -8,15 +8,22 @@
 
 #import "PersonalViewController.h"
 
-@interface PersonalViewController ()
+@interface PersonalViewController ()<UITableViewDelegate,UITableViewDataSource>
+{
+    
+    UITableView *Mytableview;
+    
+}
 @property (nonatomic,strong) NSMutableArray *normalImage;
 @property (nonatomic,strong) NSMutableArray *selectImage;
+@property (nonatomic,strong) NSMutableArray *sectionDatasource;
+
 @end
 
 @implementation PersonalViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initNavBarTitle:@"Personal" andLeftItemImageName:@" " andRightItemName:@""];
+    [self initNavBarTitle:@"Personal" andLeftItemImageName:@" " andRightItemName:@"Menu"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
 }
 - (void)viewDidLoad {
@@ -29,10 +36,19 @@
 - (void)initWithData{
     self.normalImage = [[NSMutableArray alloc]initWithObjects:@"obd_normal",@"special_normal",@"personal_normal", nil];
     self.selectImage = [[NSMutableArray alloc]initWithObjects:@"obd_highlight",@"special_highlight",@"personal_highlight", nil];
-
+    self.sectionDatasource = [[NSMutableArray alloc]initWithObjects:@"NAME",@"VEHICLE IDENTIFICATION NUMBER",@"YEAR",@"MAKE",@"MODEL",@"OPTION",@"TYPE",@"FUEL TYPE",@"ENGINE SIZE(LITRES)",@"VOLUMETRIC EFFICIENCY(%)",@"BRAKE SPECIFIC FUEL CONSUMPTION(LB/HP·HR)",@"FUEL CALCULATION METHOD",@"FUEL TANK CAPACITY (GAL)",@"FUEL COST PER UNIT ($)",@"VEHICLE SPEED SCALE FACTOR", nil];
+  
 }
 - (void)initWithUI{
-
+    Mytableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-54)];
+    Mytableview.backgroundColor = [UIColor clearColor];
+    Mytableview.dataSource = self;
+    Mytableview.delegate = self;
+    Mytableview.separatorInset = UIEdgeInsetsZero;
+    Mytableview.separatorColor = [ColorTools colorWithHexString:@"#212329"];
+    [self.view addSubview:Mytableview];
+    [Mytableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
+    
     for (NSInteger i = 0; i< 3; i++) {
         UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(MSWidth/3), MSHeight - 45*KHeightmultiple-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height,MSWidth/3 , 45*KHeightmultiple)];
         if (IS_IPHONE_X) {
@@ -76,17 +92,86 @@
             break;
     }
 }
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)rightBarButtonClick{
+    UIAlertController *actionSheetController = [UIAlertController alertControllerWithTitle:nil message:@"MENU" preferredStyle:UIAlertControllerStyleActionSheet];
+    // 响应方法-取消
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"点击了取消按钮");
+    }];
+    // 响应方法-相册
+    UIAlertAction *takeAction = [UIAlertAction actionWithTitle:@"Delete Vehicle" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"点击了删除按钮");
+        [self deleteVehicle];
+    }];
+    // 响应方法-拍照
+    UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"Select Vehicle" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"点击了选择按钮");
+         [self selectVehicle];
+    }];
+    // 添加响应方式
+    [actionSheetController addAction:cancelAction];
+    [actionSheetController addAction:takeAction];
+    [actionSheetController addAction:photoAction];
+    // 显示
+    [self presentViewController:actionSheetController animated:YES completion:nil];
 }
-*/
+- (void)deleteVehicle{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete" message:@"Are you sure you want to delete the active vehicle?" preferredStyle:  UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self SureDeleteVehicle];
+    }]];
+    
+    //弹出提示框；
+    [self presentViewController:alert animated:true completion:nil];
+    
+}
+- (void)selectVehicle{
+    SeletVehicleViewController *vc = [[SeletVehicleViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+- (void)SureDeleteVehicle{
+    NSLog(@"确认删除");
+    
+}
+#pragma mark UITableViewDelegate,UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.sectionDatasource.count;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44.f;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+   
+        return 54.f;
+   
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+        UIView *View = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 54)];
+        View.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 24, MSWidth, 24)];
+        label.text = self.sectionDatasource[section];
+        label.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+        [View addSubview:label];
+        return View;
+  
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];
+    }
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        cell.layoutMargins = UIEdgeInsetsZero;
+    }
+    cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    return cell;
+}
 
 @end

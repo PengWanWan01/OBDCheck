@@ -39,6 +39,7 @@
 		CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2F11F481B3200B23D8E /* StyleHeadView.m */; };
 		CB5583601F51468C0010A1E5 /* StyleViewBController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB55835F1F51468C0010A1E5 /* StyleViewBController.m */; };
 		CB5583631F5146B70010A1E5 /* StyleCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5583621F5146B70010A1E5 /* StyleCViewController.m */; };
+		CB5A618F1F79FB62000D23D6 /* SeletVehicleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A618E1F79FB62000D23D6 /* SeletVehicleViewController.m */; };
 		CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5AA4101F31A377002B3006 /* SetTableViewCell.m */; };
 		CB5AA4131F31A377002B3006 /* SetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */; };
 		CB5DAC621F78FA93009A8A19 /* ColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5DAC601F78FA93009A8A19 /* ColorTableViewCell.m */; };
@@ -214,6 +215,8 @@
 		CB55835F1F51468C0010A1E5 /* StyleViewBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleViewBController.m; sourceTree = "<group>"; };
 		CB5583611F5146B70010A1E5 /* StyleCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleCViewController.h; sourceTree = "<group>"; };
 		CB5583621F5146B70010A1E5 /* StyleCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleCViewController.m; sourceTree = "<group>"; };
+		CB5A618D1F79FB62000D23D6 /* SeletVehicleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeletVehicleViewController.h; sourceTree = "<group>"; };
+		CB5A618E1F79FB62000D23D6 /* SeletVehicleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeletVehicleViewController.m; sourceTree = "<group>"; };
 		CB5AA40F1F31A377002B3006 /* SetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTableViewCell.h; sourceTree = "<group>"; };
 		CB5AA4101F31A377002B3006 /* SetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTableViewCell.m; sourceTree = "<group>"; };
 		CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetTableViewCell.xib; sourceTree = "<group>"; };
@@ -758,6 +761,8 @@
 				CBF1E24E1F30293100EEC755 /* PersonalViewController.h */,
 				CBF1E24F1F30293100EEC755 /* PersonalViewController.m */,
 				CBF1E2501F30293100EEC755 /* PersonalViewController.xib */,
+				CB5A618D1F79FB62000D23D6 /* SeletVehicleViewController.h */,
+				CB5A618E1F79FB62000D23D6 /* SeletVehicleViewController.m */,
 			);
 			name = Personal;
 			sourceTree = "<group>";
@@ -1121,6 +1126,7 @@
 				CBF1E2761F3068C500EEC755 /* MonController.m in Sources */,
 				CB44DB2C1F4A822200A24629 /* StyleOneTableViewCell.m in Sources */,
 				CB99E1BC1F67ABC200A87DAF /* LogsSetting.m in Sources */,
+				CB5A618F1F79FB62000D23D6 /* SeletVehicleViewController.m in Sources */,
 				CB07EA271F41A370002894F9 /* UIColor+Separate.m in Sources */,
 				CBE4AC061F4426BC003714A4 /* BasicViewController.m in Sources */,
 				CBB1CC471F6249B8002EE7EB /* JXButton.m in Sources */,

@@ -118,5 +118,6 @@
 #import "SummaryTableViewCell.h"
 #import "HUDColorViewController.h"
 #import "ColorTableViewCell.h"
+#import "SeletVehicleViewController.h"
 
 #endif /* OBDCheckPrefixHeader_pch */
