@@ -87,6 +87,8 @@
 		CBB1CC511F626809002EE7EB /* FilesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB1CC4F1F626809002EE7EB /* FilesViewController.xib */; };
 		CBB1CCE41F66A52C002EE7EB /* BridgHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB1CCE31F66A52C002EE7EB /* BridgHeader.swift */; };
 		CBCD978F1F7C94850002383F /* FileBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCD978E1F7C94850002383F /* FileBackViewController.m */; };
+		CBCD97961F7CE8F10002383F /* FileInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCD97951F7CE8F10002383F /* FileInfoView.m */; };
+		CBCD979A1F7CED2F0002383F /* FileInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBCD97991F7CED2F0002383F /* FileInfoView.xib */; };
 		CBCFDF6E1F42A4C5008329CF /* DashboardViewStyleB.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCFDF6D1F42A4C5008329CF /* DashboardViewStyleB.m */; };
 		CBCFDF711F42A4E6008329CF /* gradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCFDF701F42A4E6008329CF /* gradientView.m */; };
 		CBE4AC031F442674003714A4 /* PIDSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AC021F442674003714A4 /* PIDSelectViewController.m */; };
@@ -309,6 +311,9 @@
 		CBB1CCE31F66A52C002EE7EB /* BridgHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BridgHeader.swift; sourceTree = "<group>"; };
 		CBCD978D1F7C94850002383F /* FileBackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileBackViewController.h; sourceTree = "<group>"; };
 		CBCD978E1F7C94850002383F /* FileBackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileBackViewController.m; sourceTree = "<group>"; };
+		CBCD97941F7CE8F10002383F /* FileInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileInfoView.h; sourceTree = "<group>"; };
+		CBCD97951F7CE8F10002383F /* FileInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileInfoView.m; sourceTree = "<group>"; };
+		CBCD97991F7CED2F0002383F /* FileInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileInfoView.xib; sourceTree = "<group>"; };
 		CBCFDF6C1F42A4C5008329CF /* DashboardViewStyleB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewStyleB.h; sourceTree = "<group>"; };
 		CBCFDF6D1F42A4C5008329CF /* DashboardViewStyleB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewStyleB.m; sourceTree = "<group>"; };
 		CBCFDF6F1F42A4E6008329CF /* gradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gradientView.h; sourceTree = "<group>"; };
@@ -655,6 +660,9 @@
 				CB99E1B21F66C45600A87DAF /* selectTableViewCell.xib */,
 				CB3FAD181F6A1F0900B572FD /* FilesTableViewCell.h */,
 				CB3FAD191F6A1F0900B572FD /* FilesTableViewCell.m */,
+				CBCD97941F7CE8F10002383F /* FileInfoView.h */,
+				CBCD97951F7CE8F10002383F /* FileInfoView.m */,
+				CBCD97991F7CED2F0002383F /* FileInfoView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1074,6 +1082,7 @@
 				CB5AA4131F31A377002B3006 /* SetTableViewCell.xib in Resources */,
 				CBF1E2361F2ED49200EEC755 /* LaunchScreen.storyboard in Resources */,
 				CB5DAC631F78FA93009A8A19 /* ColorTableViewCell.xib in Resources */,
+				CBCD979A1F7CED2F0002383F /* FileInfoView.xib in Resources */,
 				CBF1E2331F2ED49200EEC755 /* Assets.xcassets in Resources */,
 				CBF1E2521F30293100EEC755 /* PersonalViewController.xib in Resources */,
 				CB835D2E1F594DB6007C5A17 /* ReadinessViewController.xib in Resources */,
@@ -1192,6 +1201,7 @@
 				CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */,
 				CB99E1B81F67AABD00A87DAF /* LogsModel.m in Sources */,
 				CB0220891F43E9CC008773ED /* DashboardSetting.m in Sources */,
+				CBCD97961F7CE8F10002383F /* FileInfoView.m in Sources */,
 				CB5583631F5146B70010A1E5 /* StyleCViewController.m in Sources */,
 				CB99E1AA1F66A7C700A87DAF /* LogSetViewController.m in Sources */,
 				CBB1CC501F626809002EE7EB /* FilesViewController.m in Sources */,

@@ -126,5 +126,6 @@
 #import "FuleTypeViewController.h"
 #import "FuelCaculationViewController.h"
 #import "FileBackViewController.h"
+#import "FileInfoView.h"
 
 #endif /* OBDCheckPrefixHeader_pch */
