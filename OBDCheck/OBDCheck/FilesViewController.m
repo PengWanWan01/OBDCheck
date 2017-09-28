@@ -169,5 +169,7 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%ld",(long)indexPath.row);
+    FileBackViewController *vc = [[FileBackViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 @end

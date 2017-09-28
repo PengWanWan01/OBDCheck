@@ -86,6 +86,7 @@
 		CBB1CC501F626809002EE7EB /* FilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB1CC4E1F626809002EE7EB /* FilesViewController.m */; };
 		CBB1CC511F626809002EE7EB /* FilesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB1CC4F1F626809002EE7EB /* FilesViewController.xib */; };
 		CBB1CCE41F66A52C002EE7EB /* BridgHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB1CCE31F66A52C002EE7EB /* BridgHeader.swift */; };
+		CBCD978F1F7C94850002383F /* FileBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCD978E1F7C94850002383F /* FileBackViewController.m */; };
 		CBCFDF6E1F42A4C5008329CF /* DashboardViewStyleB.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCFDF6D1F42A4C5008329CF /* DashboardViewStyleB.m */; };
 		CBCFDF711F42A4E6008329CF /* gradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCFDF701F42A4E6008329CF /* gradientView.m */; };
 		CBE4AC031F442674003714A4 /* PIDSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AC021F442674003714A4 /* PIDSelectViewController.m */; };
@@ -306,6 +307,8 @@
 		CBB1CC4F1F626809002EE7EB /* FilesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilesViewController.xib; sourceTree = "<group>"; };
 		CBB1CCE21F66A52B002EE7EB /* OBDCheck-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OBDCheck-Bridging-Header.h"; sourceTree = "<group>"; };
 		CBB1CCE31F66A52C002EE7EB /* BridgHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BridgHeader.swift; sourceTree = "<group>"; };
+		CBCD978D1F7C94850002383F /* FileBackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileBackViewController.h; sourceTree = "<group>"; };
+		CBCD978E1F7C94850002383F /* FileBackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileBackViewController.m; sourceTree = "<group>"; };
 		CBCFDF6C1F42A4C5008329CF /* DashboardViewStyleB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewStyleB.h; sourceTree = "<group>"; };
 		CBCFDF6D1F42A4C5008329CF /* DashboardViewStyleB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewStyleB.m; sourceTree = "<group>"; };
 		CBCFDF6F1F42A4E6008329CF /* gradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gradientView.h; sourceTree = "<group>"; };
@@ -892,6 +895,8 @@
 				CBB1CC4D1F626809002EE7EB /* FilesViewController.h */,
 				CBB1CC4E1F626809002EE7EB /* FilesViewController.m */,
 				CBB1CC4F1F626809002EE7EB /* FilesViewController.xib */,
+				CBCD978D1F7C94850002383F /* FileBackViewController.h */,
+				CBCD978E1F7C94850002383F /* FileBackViewController.m */,
 			);
 			name = Logs;
 			sourceTree = "<group>";
@@ -1191,6 +1196,7 @@
 				CB99E1AA1F66A7C700A87DAF /* LogSetViewController.m in Sources */,
 				CBB1CC501F626809002EE7EB /* FilesViewController.m in Sources */,
 				CB3FAD291F6A6F1D00B572FD /* Mode06ViewController.m in Sources */,
+				CBCD978F1F7C94850002383F /* FileBackViewController.m in Sources */,
 				CB8E40EF1F614A36003E5024 /* BGPropertyInfo.m in Sources */,
 				CB84B3CD1F56A7D500B454E6 /* FreezeViewController.m in Sources */,
 				CB3FAD231F6A5F0B00B572FD /* Filesmodel.m in Sources */,

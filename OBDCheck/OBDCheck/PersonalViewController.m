@@ -42,7 +42,7 @@
     
 }
 - (void)initWithUI{
-    Mytableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-54) style:UITableViewStyleGrouped];
+    Mytableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-64-10) style:UITableViewStyleGrouped];
     if (IS_IPHONE_X) {
         Mytableview.frame  = CGRectMake(0, 0, MSWidth, MSHeight-132);
     }
