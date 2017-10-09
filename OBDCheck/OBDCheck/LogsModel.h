@@ -22,4 +22,5 @@
 @property (nonatomic,copy) NSString *item4PID;
 @property (nonatomic,assign) BOOL item4Enabled;
 @property (nonatomic,assign) BOOL item4Smoothing;
+@property (nonatomic,strong) NSMutableArray *YdataSource;
 @end

@@ -26,7 +26,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSArray* pAll = [LogsModel bg_findAll];
+    NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, 1"];
+    NSArray *pAll = [LogsModel bg_findWhere:SQL];
     for(LogsModel* logsmodel in pAll){
         NSLog(@"logsmodel.item1PID %@",logsmodel.item1PID  );
         model = logsmodel;
@@ -105,7 +106,7 @@
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *resultCell = [[UITableViewCell alloc]init];
+    UITableViewCell *resultCell;
     selectTableViewCell *selectCell = [tableView dequeueReusableCellWithIdentifier:@"selectTableViewCell"];
     StyleThreeTableViewCell *StylethreeCell = [tableView dequeueReusableCellWithIdentifier:@"StyleThreeTableViewCell"];
     if ( indexPath.row == 0) {

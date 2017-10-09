@@ -476,7 +476,7 @@
 - (void)back{
     
     [self.navigationController popViewControllerAnimated:YES];
-
+ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     bg_setDebug(YES);
     
     NSString *titleFontScalesql = [NSString stringWithFormat:@"SET dashboardB->titleFontScale = '%@' WHERE  ID = %@",model.titleFontScale ,indexID];
@@ -511,7 +511,7 @@
     [CustomDashboard bg_updateSet:titleColorsql];
     [CustomDashboard bg_updateSet:pointerColorsql];
     [CustomDashboard bg_updateSet:FillEnablesql];
-
+ });
 }
 -(void)rightBarButtonClick{
     [self.navigationController popViewControllerAnimated:YES];

@@ -61,10 +61,10 @@
     [headView addSubview:LineView];
 //添加UIScrollView内容
     contentScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 40, MSWidth*2, MSHeight)];
-    contentScrollView.contentSize = CGSizeMake(MSWidth,MSHeight);
+    contentScrollView.contentSize = CGSizeMake(MSWidth,MSHeight*2);
     contentScrollView.pagingEnabled = NO;
     [contentScrollView setShowsHorizontalScrollIndicator:NO];
-    [contentScrollView setShowsVerticalScrollIndicator:NO];
+//    [contentScrollView setShowsVerticalScrollIndicator:NO];
 //    contentScrollView.backgroundColor  = [UIColor redColor];
     [self.view addSubview:contentScrollView];
     [self initWithChart];
@@ -158,12 +158,14 @@
         case 0:
             {
             LineView.frame = CGRectMake(0, 38, MSWidth/2, 2);
+                contentScrollView.scrollEnabled = YES;
             }
             break;
         case 1:
         {
            LineView.frame = CGRectMake(MSWidth/2, 38, MSWidth/2, 2);
-            
+            contentScrollView.scrollEnabled = NO;
+
         }
             break;
         default:

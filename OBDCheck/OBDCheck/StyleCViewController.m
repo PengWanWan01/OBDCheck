@@ -444,6 +444,7 @@
 }
 -(void)back{
     [self.navigationController popViewControllerAnimated:YES];
+     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     bg_setDebug(YES);
     NSString *ValueVisiblesql = [NSString stringWithFormat:@"SET dashboardC->ValueVisible ='%d' WHERE  ID = %@",model.ValueVisible,indexID];
     NSString *FrameColorsql = [NSString stringWithFormat:@"SET dashboardC->FrameColor ='%@' WHERE  ID = %@",model.FrameColor,indexID];
@@ -472,6 +473,7 @@
     [CustomDashboard bg_updateSet:UnitColorsql];
     [CustomDashboard bg_updateSet:FrameColorsql];
     [CustomDashboard bg_updateSet:ValueVisiblesql];
+          });
 }
 -(void)rightBarButtonClick{
     [self.navigationController popViewControllerAnimated:YES];

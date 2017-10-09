@@ -7,6 +7,8 @@
 //
 
 #import "LogsController.h"
+static dispatch_source_t _timer;
+
 typedef NS_ENUM(NSInteger ,chartViewnumber)
 {
     chartViewnumberone=0,   // 一种图表
@@ -21,7 +23,8 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     LineChartDataSet *set1;
     LineChartData *PartOnedata;
     LineChartData *PartTwodata;
-
+    NSMutableArray *XdataSource;
+    NSInteger indextag;
 }
 @end
 
@@ -34,7 +37,8 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     PartTwodata = [[LineChartData alloc] initWithDataSet:set1];
 
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
-    NSArray* pAll = [LogsModel bg_findAll];
+    NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, 1"];
+    NSArray *pAll = [LogsModel bg_findWhere:SQL];    
     for(LogsModel* logsmodel in pAll){
         NSLog(@"logsmodel.item1PID %@",logsmodel.item1PID  );
         model = logsmodel;
@@ -47,15 +51,22 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    XdataSource = [[NSMutableArray alloc]init];
+    indextag = 0;
+    for (NSInteger i = 11; i < 100; i++) {
+        [XdataSource addObject:[NSString stringWithFormat:@"%ld",(long)i]];
+    }
+    
     [self initWithUI];
   
 
-   }
+}
 - (void)btn{
     NSLog(@"1212");
     [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:100 withY:100];
 }
  - (void)initWithLogView{
+     NSLog(@"弹出一个图");
      [chartViewone removeFromSuperview];
      [chartViewTwo removeFromSuperview];
      chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight - 45-64)];
@@ -63,24 +74,49 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
          chartViewone.frame = CGRectMake(0, 0, MSWidth, MSHeight - 45-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -34);
      }
     [self.view addSubview:chartViewone];
-//     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 20, 100, 20)];
-//     btn.backgroundColor = [UIColor redColor];
-//     [btn addTarget: self action:@selector(btn) forControlEvents:UIControlEventTouchUpInside];
-//     [self.view addSubview:btn];
-
     [self initWithchartView:chartViewone Type:1];
     
-    [self setDataCount:100 range:110 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
-     [self setDataCount:100 range:550 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
+    [self setDataCount:10 range:110 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
+     [self setDataCount:10 range:550 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
+     NSLog(@"getDataSetByIndex%@",[PartOnedata getDataSetByIndex:10]);
+         [chartViewone animateWithXAxisDuration:5];
+         //设置当前可以看到的个数
+         [chartViewone setVisibleXRangeMaximum:10];
+         //设置当前开始的位置
+         [chartViewone moveViewToX:0];
+//定时器
+         NSTimeInterval period = 1; //设置时间间隔
+//5S后执行；
+       int interval = 5;
+         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+         _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+         dispatch_source_set_timer(_timer, dispatch_walltime(DISPATCH_TIME_NOW, NSEC_PER_SEC * interval), period * NSEC_PER_SEC, 0); //每秒执行
+         // 事件回调
+         dispatch_source_set_event_handler(_timer, ^{
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 NSLog(@"%@,%ld",XdataSource,(long)[XdataSource[indextag] integerValue]);
+                 
+                 [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)[XdataSource[indextag] integerValue] withY:12];
+                 [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)[XdataSource[indextag] integerValue] withY:12];
+                 ++indextag;
+                 if (indextag == XdataSource.count -1) {
+                     dispatch_source_cancel(_timer);
+                     
+                 }
+             });
+         });
+
+     // 开启定时器
+     dispatch_resume(_timer);
+
      
-    [chartViewone animateWithXAxisDuration:1];
-     //设置当前可以看到的个数
-     [chartViewone setVisibleXRangeMaximum:10];
-     //设置当前开始的位置
-     [chartViewone moveViewToX:15];
-     
+     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 50, 100, 20)];
+     btn.backgroundColor = [UIColor redColor];
+     [btn addTarget:self action:@selector(btn) forControlEvents:UIControlEventAllEvents];
+     [chartViewone addSubview:btn];
 }
 - (void)initWithLogViewTwoPart{
+    NSLog(@"弹出2个图");
     [chartViewone removeFromSuperview];
     [chartViewTwo removeFromSuperview];
     chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, (MSHeight - 45-64)/2)];
@@ -106,25 +142,27 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     [chartViewone setVisibleXRangeMaximum:10];
     //设置当前开始的位置
     [chartViewone moveViewToX:15];
- 
+
     [chartViewTwo animateWithXAxisDuration:1];
     //设置当前可以看到的个数
     [chartViewTwo setVisibleXRangeMaximum:10];
     //设置当前开始的位置
     [chartViewTwo moveViewToX:15];
 }
-//添加动态数据
+//添加动态数据 index代表第几根折线
 - (void)updateChartData:(LineChartView *)view withData:(LineChartData *)linechartdata withIndex:(NSInteger)index  withX:(int)X withY:(int)Y
 {
-    
-    
     [linechartdata addEntry:[[ChartDataEntry alloc]initWithX:X y:Y] dataSetIndex:index];
+    //设置当前可以看到的个数
+    [chartViewone setVisibleXRangeMaximum:10];
+    //设置当前开始的位置
+    [chartViewone moveViewToX:X - 10];
       [linechartdata notifyDataChanged];
         [view notifyDataSetChanged];
     NSLog(@"updateChartData%ld",(long)linechartdata.entryCount);
 
 }
-
+// 设置其中一条折线的内容，数据，颜色，宽度
 - (void)setDataCount:(int)count range:(double)range withView:(LineChartView *)view withdata:(LineChartData *)linechartdata withPIDTiltle:(NSString *)title withLineColor:(UIColor *)color withDependency:(AxisDependency)Dependency  iSsmoothing:(BOOL)smoothing
 {
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
@@ -137,8 +175,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     }
         set1 = [[LineChartDataSet alloc] initWithValues:yVals label:title];
         set1.axisDependency = Dependency;
-    NSLog(@"colorcolor%@",color);
-    
      [set1 setColor:color];  
         set1.highlightColor = [UIColor clearColor]; //点击时候的颜色
         set1.drawCircleHoleEnabled = NO;
@@ -154,8 +190,8 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         [linechartdata setValueFont:[UIFont systemFontOfSize:9.f]];
         
         view.data = linechartdata;
-        
-    NSLog(@"%ld",view.data.entryCount);
+    
+
     
 }
 
@@ -184,14 +220,13 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     xAxis.labelPosition = XAxisLabelPositionBottom;
     xAxis.decimals = 6;
     xAxis.gridColor = [UIColor grayColor];
-    
+//设置左边的Y轴
     ChartYAxis *leftAxis = view.leftAxis;
     leftAxis.labelTextColor = [UIColor whiteColor];
     leftAxis.axisMaximum = 200.0;
     leftAxis.axisMinimum = 0.0;
     leftAxis.drawAxisLineEnabled = YES;
-    
-    
+// 设置右边的Y轴
     ChartYAxis *rightAxis = view.rightAxis;
     rightAxis.labelTextColor = [UIColor whiteColor];
     rightAxis.axisMaximum = 900.0;
@@ -199,7 +234,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     rightAxis.drawGridLinesEnabled = NO;
     rightAxis.drawAxisLineEnabled = YES;
     rightAxis.axisLineWidth = 2;
-    
     if (type ==2) {
         [leftAxis setAxisLineColor:[ColorTools colorWithHexString:@"3F51B5"]];
         [rightAxis setAxisLineColor:[ColorTools colorWithHexString:@"FF9800"]];
@@ -207,21 +241,28 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
             [rightAxis setAxisLineColor:[UIColor clearColor]];
             rightAxis.labelTextColor = [UIColor clearColor];
         }
-
     }else{
         [leftAxis setAxisLineColor:[ColorTools colorWithHexString:@"E51C23"]];
         [rightAxis setAxisLineColor:[ColorTools colorWithHexString:@"54C44B"]];
     }
     leftAxis.axisLineWidth = 2;
     leftAxis.labelCount = 5;
-    
-    
-   
-    
-
 }
 
 - (void)initWithUI{
+    UIView * topView= [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, self.navigationController.navigationBar.frame.size.height)];
+    UIButton *startBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, topView.frame.size.height)];
+    [startBtn setImage:[UIImage imageNamed:@"start"] forState:UIControlStateNormal];
+    [startBtn addTarget:self action:@selector(startBtn) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *stopBtn = [[UIButton alloc]initWithFrame:CGRectMake(50, 0, 50, topView.frame.size.height)];
+     [stopBtn setImage:[UIImage imageNamed:@"stop"] forState:UIControlStateNormal];
+     [stopBtn addTarget:self action:@selector(stopBtn) forControlEvents:UIControlEventTouchUpInside];
+    
+        [topView addSubview:stopBtn];
+        [topView addSubview:startBtn];
+    self.navigationItem.titleView = topView;
+    
     TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 45*KHeightmultiple-64, MSWidth, 45*KHeightmultiple)];
     if (IS_IPHONE_X) {
         tbarView.frame = CGRectMake(0, MSHeight - 45*KHeightmultiple-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height-34,MSWidth , 45*KHeightmultiple);
@@ -237,11 +278,18 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     [self.view addSubview:tbarView];
 }
 - (void)back{
+    //假如定时器存在，才把它停止
+    if (_timer) {
+        dispatch_source_cancel(_timer);
+    }
     ViewController *vc = [[ViewController alloc
                            ]init];
     [self.navigationController pushViewController:vc animated:NO];
 }
 - (void)rightBarButtonClick{
+    if (_timer) {
+     dispatch_source_cancel(_timer);
+    }
     LogSetViewController *vc = [[LogSetViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
     
@@ -274,6 +322,16 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     }
 
 }
+//点击停止
+- (void)stopBtn{
+    
+    NSLog(@"点击停止");
+}
+// 点击开始
+- (void)startBtn{
+    
+    NSLog(@"点击开始");
 
+}
 
 @end

@@ -1182,7 +1182,8 @@
     [self.navigationController popViewControllerAnimated:YES];
     NSLog(@"121");
 //    bg_setDebug(YES);
-
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+  
     NSString *sql = [NSString stringWithFormat:@"SET dashboardA->StartAngle = '%@' WHERE  ID = %@",model.StartAngle , self.indexID];
 
     NSString *miLengthsql = [NSString stringWithFormat:@"SET dashboardA->miLength ='%@' WHERE  ID = %@",model.miLength, self.indexID];
@@ -1211,8 +1212,11 @@
     
 
     NSString *LabelOffestsql = [NSString stringWithFormat:@"SET dashboardA->LabelOffest ='%@' WHERE  ID = %@",model.LabelOffest, self.indexID];
+        
       NSString *outerColorsql = [NSString stringWithFormat:@"SET dashboardA->outerColor ='%@' WHERE  ID = %@",model.outerColor, self.indexID];
-    
+        
+      NSString *innerColorsql = [NSString stringWithFormat:@"SET dashboardA->innerColor ='%@' WHERE  ID = %@",model.innerColor, self.indexID];
+        
     NSString *titleColorsql = [NSString stringWithFormat:@"SET dashboardA->titleColor ='%@' WHERE  ID = %@",model.titleColor, self.self.indexID];
     
     NSString *maColorsql = [NSString stringWithFormat:@"SET dashboardA->maColor ='%@' WHERE  ID = %@",model.maColor,self.indexID];
@@ -1240,6 +1244,7 @@
     [CustomDashboard bg_updateSet:titleColorsql];
     [CustomDashboard bg_updateSet:maColorsql];
     [CustomDashboard bg_updateSet:outerColorsql];
+    [CustomDashboard bg_updateSet:innerColorsql];
     [CustomDashboard bg_updateSet:LabelOffestsql];
     [CustomDashboard bg_updateSet:PointerWidthsql];
     [CustomDashboard bg_updateSet:sql];
@@ -1259,6 +1264,7 @@
     [CustomDashboard bg_updateSet:LabelFontScalesql];
     [CustomDashboard bg_updateSet:FillstartAnglesql];
     [CustomDashboard bg_updateSet:endAnglesql];
+    });
 }
 -(void)rightBarButtonClick{
     [self.navigationController popViewControllerAnimated:YES];

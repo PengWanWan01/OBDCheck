@@ -61,12 +61,7 @@ static dispatch_source_t _timer;
     }
     [self updateView];
 //    [self startAnimation];
-    NSArray* pAll = [CustomDashboard bg_findAll];
-    for (CustomDashboard *dash in pAll) {
-        
-        NSLog(@"煮建%@",dash.ID);
-       
-    }
+   
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -363,8 +358,10 @@ static dispatch_source_t _timer;
                         @"19",@"34",@"23",@"54",@"34",@"23",@"54",@"23",@"43", nil];
 
    
-    NSArray *PAll = [CustomDashboard bg_findAll];
-    CustomDashboard *modle = PAll.lastObject;
+    NSArray *pAllCount = [CustomDashboard bg_findAll];
+    NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0,  %lu",(unsigned long)pAllCount.count];
+    NSArray *pAll = [CustomDashboard bg_findWhere:SQL];
+    CustomDashboard *modle = pAll.lastObject;
     NSInteger space =   [modle.ID integerValue] - _CustomLabelArray.count;
     if (space > 0) {
         for (int i = 1; i<=space; i++) {
@@ -485,8 +482,9 @@ static dispatch_source_t _timer;
     
 }
 - (void)initWithcustomMode{
-    NSArray* pAll = [CustomDashboard bg_findAll];
-    
+    NSArray* pAllCount = [CustomDashboard bg_findAll];
+    NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, %lu",(unsigned long)pAllCount.count];
+    NSArray *pAll = [CustomDashboard bg_findWhere:SQL];
     for (CustomDashboard *dash in pAll) {
               switch (dash.dashboardType) {
             case 1:
@@ -580,7 +578,9 @@ static dispatch_source_t _timer;
 - (void)initWithStyleA{
     DashBoardTag = 0;
    
-            NSArray* pAll = [DashboardA bg_findAll];
+    NSArray* pAllCount = [DashboardA bg_findAll];
+    NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0,  %lu",(unsigned long)pAllCount.count];
+    NSArray *pAll = [DashboardA bg_findWhere:SQL];
             for (DashboardA *dash in pAll) {
                 NSLog(@"总共%@,orignx=%f",dash.ID, [dash.orignx floatValue]);
                 dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.orignx floatValue], [dash.origny floatValue], [dash.orignwidth floatValue], [dash.orignheight floatValue])];
@@ -621,7 +621,9 @@ static dispatch_source_t _timer;
 
 - (void)initWithStyleB{
     DashBoardTag = 0;
-    NSArray* pAll = [DashboardB bg_findAll];
+    NSArray* pAllCount = [DashboardB bg_findAll];
+    NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, %lu",(unsigned long)pAllCount.count];
+    NSArray *pAll = [DashboardB bg_findWhere:SQL];
     for (DashboardB *dash in pAll) {
         NSLog(@"总共%@",dash.ID);
         NSLog(@"_LabelNameArray%@",_LabelNameArray);
@@ -659,7 +661,9 @@ static dispatch_source_t _timer;
 
 - (void)initWithStyleC{
     DashBoardTag = 0;
-    NSArray* pAll = [DashboardC bg_findAll];
+    NSArray* pAllCount = [DashboardC bg_findAll];
+    NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0,  %lu",(unsigned long)pAllCount.count];
+    NSArray *pAll = [DashboardC bg_findWhere:SQL];
     for (DashboardC *dash in pAll) {
         NSLog(@"总共%@",dash.ID);
         NSLog(@"_LabelNameArray%@",_LabelNameArray);

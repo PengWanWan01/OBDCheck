@@ -182,21 +182,15 @@
     for (int i = 0; i<= _dialCount; i++) {
         CGFloat startAngel = (- M_PI + perAngle * i+[model.StartAngle floatValue]);
         CGFloat endAngel = startAngel + perAngle/[model.miWidth floatValue];
-        UIBezierPath *tickPath = [[UIBezierPath alloc]init];
-        
-        CAShapeLayer *perLayer = [CAShapeLayer layer];
-        
-        
+  
         if (i % 5 == 0) {
             CGFloat endAngel = startAngel + perAngle/[model.maWidth floatValue];
-            UIBezierPath *tickPath = [[UIBezierPath alloc]init];
+
+         UIBezierPath *LongtickPath    =   [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.ringWidth floatValue]- [model.miLength floatValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
+         CAShapeLayer *LongperLayer    = [CAShapeLayer layer];
             
-            CAShapeLayer *perLayer = [CAShapeLayer layer];
-            tickPath =   [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.ringWidth floatValue]- [model.miLength floatValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
-            perLayer = [CAShapeLayer layer];
-            
-            perLayer.strokeColor = [ColorTools colorWithHexString:model.maColor].CGColor;
-            perLayer.lineWidth = [model.maLength floatValue];
+            LongperLayer.strokeColor = [ColorTools colorWithHexString:model.maColor].CGColor;
+            LongperLayer.lineWidth = [model.maLength floatValue];
             //添加刻度
             CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:(_radius-[model.ringWidth floatValue]- [model.maLength floatValue]- 5)*[model.LabelOffest floatValue] Rotate:model.LabelRotate];
             //四舍五入
@@ -208,8 +202,8 @@
             text.font = [UIFont systemFontOfSize:[model.LabelFontScale floatValue]*10.f];
             text.textColor = [UIColor whiteColor];
             text.textAlignment = NSTextAlignmentCenter;
-            perLayer.path = tickPath.CGPath;
-            [self.layer addSublayer:perLayer];
+            LongperLayer.path = LongtickPath.CGPath;
+            [self.layer addSublayer:LongperLayer];
             //让文字刻度显示
             if (model.LabelVisble == YES) {
                 [self addSubview:text];
@@ -224,8 +218,8 @@
             }
             
         }else{
-            tickPath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.ringWidth floatValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
-            perLayer = [CAShapeLayer layer];
+            UIBezierPath *tickPath  = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.ringWidth floatValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
+            CAShapeLayer *perLayer = [CAShapeLayer layer];
             
             perLayer.strokeColor = [ColorTools colorWithHexString:model.miColor].CGColor;
             perLayer.lineWidth = [model.miLength floatValue];

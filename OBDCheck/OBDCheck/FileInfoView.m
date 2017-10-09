@@ -19,6 +19,7 @@
 - (void)awakeFromNib{
     [super awakeFromNib];
     self.FileInfoView = [[[NSBundle mainBundle]loadNibNamed:@"FileInfoView" owner:self options:nil]lastObject];
+    
     self.FileInfoView.frame = self.bounds;
     [self addSubview:self.FileInfoView];
 }
