@@ -9,6 +9,7 @@
 #import "GeneralController.h"
 
 @interface GeneralController ()
+@property (nonatomic,strong) NSMutableArray *detialdataSource;
 
 @end
 
@@ -16,8 +17,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-      [self initNavBarTitle:@"General" andLeftItemImageName:@"back" andRightItemImageName:@""];
+      [self initNavBarTitle:@"Communications" andLeftItemImageName:@"back" andRightItemImageName:@""];
     self.dataSource = [[NSMutableArray alloc]initWithObjects:@"Keep Screen on",@"Currency",@"Alarm Settings",@"Speed alarm",@"Water temperature alarm",@"Speed alarm", nil];
+    self.detialdataSource = [[NSMutableArray alloc]initWithObjects:@"120 km/h",@"110 ℃",@"3 h", nil];
     
 }
 
@@ -64,6 +66,8 @@
             {
                 cell.textLabel.text = self.dataSource[indexPath.row];
                 if (indexPath.row == 1) {
+                    cell.detailTextLabel.textColor = [ColorTools colorWithHexString:@"FE9002"];
+                    cell.detailTextLabel.text = @"USD";
                     cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
                 }
             }
@@ -71,12 +75,19 @@
         case 1:
         {
             cell.textLabel.text = self.dataSource[indexPath.row+2];
+            if (!(indexPath.row == 0)) {
+                cell.detailTextLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+                cell.detailTextLabel.text = self.detialdataSource[indexPath.row-1];
+            }
         }
             break;
         default:
             break;
     }
     if (indexPath.row == 0) {
+        UISwitch *swit = [[UISwitch alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
+        swit.on = YES;
+        cell.accessoryView = swit;
         
     }
     return cell;

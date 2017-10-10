@@ -9,6 +9,7 @@
 #import "informationController.h"
 
 @interface informationController ()
+@property (nonatomic,strong) NSMutableArray *detialdataSource;
 
 @end
 
@@ -20,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.dataSource = [[NSMutableArray alloc]initWithObjects:@"Preferences",@"Company",@"Version",@"Copyright",@"Architecture",@"Developed by", nil];
+    self.detialdataSource = [[NSMutableArray alloc]initWithObjects:@"OBDCHECK",@"OBD Solutions",@"0.0.1",@"Copyright © Autophix 2017",@"64-bit",@"Autophix",nil];
     
 }
 
@@ -37,7 +39,7 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
     }
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
         cell.layoutMargins = UIEdgeInsetsZero;
@@ -47,17 +49,10 @@
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
     cell.textLabel.text = self.dataSource[indexPath.row];
     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
+    cell.detailTextLabel.textColor = [ColorTools colorWithHexString:@"918E8E"];
+    cell.detailTextLabel.text = self.detialdataSource[indexPath.row];
     return cell;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

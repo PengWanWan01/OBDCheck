@@ -23,8 +23,10 @@
     self.sectionDataSource = [[NSMutableArray alloc]initWithObjects:@"WI-FI SETTINGS",@"OBD-II PROTOCOL",@"GENERAL", nil];
     
     self.dataSource = [[NSMutableArray alloc]initWithObjects:@"Device",@"Protocol",@"Protocol",@"Connection",@"Connect Silently", nil];
-    
+     [self.tableView registerNib:[UINib nibWithNibName:@"selectTableViewCell" bundle:nil] forCellReuseIdentifier:@"selectTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"StyleThreeTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleThreeTableViewCell"];
 }
+
 
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -71,37 +73,32 @@
     return 44.f;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
-    }
+    UITableViewCell *resultCell;
+    selectTableViewCell *selectCell = [tableView dequeueReusableCellWithIdentifier:@"selectTableViewCell"];
+    StyleThreeTableViewCell *StylethreeCell = [tableView dequeueReusableCellWithIdentifier:@"StyleThreeTableViewCell"];
+  
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-        cell.layoutMargins = UIEdgeInsetsZero;
+        resultCell.layoutMargins = UIEdgeInsetsZero;
     }
-    cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-    cell.textLabel.text = self.dataSource[indexPath.row];
-    cell.selectionStyle =  UITableViewCellSelectionStyleNone;
+  
 
     if (indexPath.row == 0) {
-        cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
-        cell.detailTextLabel.textColor = [ColorTools colorWithHexString:@"FE9002"];
+        selectCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        resultCell = selectCell;
         switch (indexPath.section) {
             case 0:
                 {
-                    cell.detailTextLabel.text = @"OBDCHECK WI-FI";
+                    selectCell.PIDLabel.text = @"OBDCHECK WI-FI";
                 }
                 break;
             case 1:
             {
-                cell.detailTextLabel.text = @"Automatic";
+                selectCell.PIDLabel.text = @"Automatic";
             }
                 break;
             case 2:
             {
-                cell.detailTextLabel.text = @"Manual";
+                selectCell.PIDLabel.text = @"Manual";
             }
                 break;
             default:
@@ -109,9 +106,11 @@
         }
       
     }else{
-        
+        StylethreeCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        resultCell = StylethreeCell;
+
     }
-    return cell;
+    return resultCell;
 }
 
 @end

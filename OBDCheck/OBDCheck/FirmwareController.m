@@ -25,10 +25,25 @@
 
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.dataSource.count;
+    NSInteger result = 0;
+    switch (section) {
+        case 0:
+            {
+                result = 2;
+            }
+            break;
+        case 1:
+        {
+          result = 1;
+        }
+            break;
+        default:
+            break;
+    }
+    return result;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44.f;
@@ -37,7 +52,7 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
     }
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
         cell.layoutMargins = UIEdgeInsetsZero;
@@ -45,8 +60,54 @@
     cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-    cell.textLabel.text = self.dataSource[indexPath.row];
-    cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
+    
+    switch (indexPath.section) {
+        case 0:
+            {
+                 cell.textLabel.text = self.dataSource[indexPath.row];
+                  cell.detailTextLabel.textColor = [ColorTools colorWithHexString:@"918E8E"];
+                switch (indexPath.row) {
+                    case 0:
+                        {
+                            cell.detailTextLabel.text = @"1.0.0";
+                        }
+                        break;
+                    case 1:
+                    {
+                        cell.detailTextLabel.text = @"201707190001";
+                    }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            break;
+        case 1:
+        {
+          cell.textLabel.text = self.dataSource[indexPath.row+2];
+        }
+            break;
+        default:
+            break;
+    }
     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
     return cell;
-}@end
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 44.f;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+   
+    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, MSWidth, 24.f)];
+    headView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, MSWidth, 24.f)];
+     if (section == 0) {
+       label.text = @"OBDCHECK";
+     }
+    label.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+    label.font = [UIFont boldSystemFontOfSize:14.f];
+    [headView addSubview:label];
+    return headView;
+  
+}
+@end

@@ -44,9 +44,20 @@
     cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
     cell.textLabel.text = self.dataSource[indexPath.row];
-    cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
+    cell.accessoryView = imageView;
+    cell.accessoryView.hidden = YES;
     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
     return cell;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    for (NSInteger i = 0; i<self.dataSource.count; i++) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        if (i == indexPath.row) {
+            cell.accessoryView.hidden = NO;
+        }else{
+            cell.accessoryView.hidden = YES;
+        }
+    }
+}
 @end
