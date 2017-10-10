@@ -152,8 +152,6 @@
     model.ValueFontScale = [NSNumber numberWithFloat:1.f];
     model.ValuePositon = [NSNumber numberWithFloat:1.f];
     model.ValueVisible = YES;
-    model.GradientRadius  = [NSNumber numberWithFloat:150.f];
-    
     model.titleColor  = @"#757476";
     model.titleFontScale = [NSNumber numberWithFloat:1.f];
     model.titlePositon = [NSNumber numberWithFloat:1.f];
@@ -164,7 +162,7 @@
     
     
     model.backColor = @"00a6ff";
-    model.GradientRadius = [NSNumber numberWithFloat:1.f];
+    model.GradientRadius = [NSNumber numberWithFloat:MSWidth/2];
     
     model.FillColor = @"FE9002";
     model.FillEnable = YES;

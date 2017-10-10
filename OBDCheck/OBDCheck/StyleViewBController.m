@@ -181,8 +181,8 @@
             StyleOneCell.titleName.text = _rowTitleSource[1];
             StyleTwoCell.ColorView.tag = 0;
             StyleOneCell.NumberSider.tag = 0;
-            StyleOneCell.NumberSider.minimumValue = 0;
-            StyleOneCell.NumberSider.maximumValue = 2;
+            StyleOneCell.NumberSider.minimumValue = [model.orignwidth floatValue]/2 ;
+            StyleOneCell.NumberSider.maximumValue = [model.orignwidth floatValue];
             StyleOneCell.NumberSider.value  = [model.GradientRadius floatValue];
 
         }
@@ -498,6 +498,8 @@
     NSString *backColorsql = [NSString stringWithFormat:@"SET dashboardB->backColor ='%@' WHERE  ID = %@",model.backColor,indexID];
     NSString *ValueVisiblesql = [NSString stringWithFormat:@"SET dashboardB->ValueVisible ='%d' WHERE  ID = %@",model.ValueVisible,indexID];
     NSString *FillEnablesql = [NSString stringWithFormat:@"SET dashboardB->FillEnable ='%d' WHERE  ID = %@",model.FillEnable,indexID];
+     NSString *GradientRadiussql = [NSString stringWithFormat:@"SET dashboardB->GradientRadius ='%@' WHERE  ID = %@",model.GradientRadius,indexID];
+     
     [CustomDashboard bg_updateSet:titleFontScalesql];
     [CustomDashboard bg_updateSet:ValueColorsql];
     [CustomDashboard bg_updateSet:ValuePositonsql];
@@ -511,6 +513,8 @@
     [CustomDashboard bg_updateSet:titleColorsql];
     [CustomDashboard bg_updateSet:pointerColorsql];
     [CustomDashboard bg_updateSet:FillEnablesql];
+    [CustomDashboard bg_updateSet:GradientRadiussql];
+
  });
 }
 -(void)rightBarButtonClick{

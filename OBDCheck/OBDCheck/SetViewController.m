@@ -26,34 +26,78 @@
 - (void)initWithData{
 
     self.datasource = [[NSMutableArray alloc
-                       ]initWithObjects:@"Preferences",@"Vehicle Editor",@"Information",@"Firmware Updates",@"Connection Help",@"License Agreement",@"Privacy Policy", nil];
+                       ]initWithObjects:@"Preferences",@"Information",@"Firmware Updates",@"Connection Help",@"License Agreement",@"Privacy Policy", nil];
     
 }
 - (void)initWithUI{
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight)];
+    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight) style:UITableViewStyleGrouped];
     tableview.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     tableview.delegate = self;
     tableview.dataSource =  self;
-    [tableview registerNib:[UINib nibWithNibName:@"SetTableViewCell" bundle:nil] forCellReuseIdentifier:@"SetTableViewCell"];
+  [tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
+    
     tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:tableview];
     
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    return 80.f;
+    return 44.f;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return 2;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 44.f;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _datasource.count;
+    NSInteger result = 0;
+    switch (section) {
+        case 0:
+            {
+                
+              result =  1;
+            }
+            break;
+        case 1:
+        {
+            
+            result =  _datasource.count-1;
+        }
+            break;
+        default:
+            break;
+    }
+    return  result;
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    SetTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:@"SetTableViewCell" forIndexPath:indexPath];
-     cell.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
-    cell.titleLabel.text = _datasource[indexPath.row];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];
+    }
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        cell.layoutMargins = UIEdgeInsetsZero;
+    }
+     cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+    switch (indexPath.section) {
+        case 0:
+            {
+                cell.textLabel.text = _datasource[indexPath.row];
+            }
+            break;
+        case 1:
+        {
+            cell.textLabel.text = _datasource[indexPath.row+1];
+        }
+            break;
+        default:
+            break;
+    }
+    cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
     return cell;
 }
