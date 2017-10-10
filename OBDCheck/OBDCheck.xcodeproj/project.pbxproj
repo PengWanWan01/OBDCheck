@@ -11,6 +11,13 @@
 		CB0220851F42FE8E008773ED /* SelectModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0220841F42FE8E008773ED /* SelectModeViewController.m */; };
 		CB0220891F43E9CC008773ED /* DashboardSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0220881F43E9CC008773ED /* DashboardSetting.m */; };
 		CB048C271F8C584D006A2ED7 /* LogView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB048C261F8C584D006A2ED7 /* LogView.m */; };
+		CB048C321F8CE185006A2ED7 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB048C311F8CE185006A2ED7 /* PreferencesController.m */; };
+		CB048C351F8CE199006A2ED7 /* informationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB048C341F8CE199006A2ED7 /* informationController.m */; };
+		CB048C3B1F8CE1CD006A2ED7 /* FirmwareController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB048C3A1F8CE1CD006A2ED7 /* FirmwareController.m */; };
+		CB048C3E1F8CE1E3006A2ED7 /* ConnectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB048C3D1F8CE1E3006A2ED7 /* ConnectionController.m */; };
+		CB048C411F8CE303006A2ED7 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB048C401F8CE303006A2ED7 /* CommunicationController.m */; };
+		CB048C441F8CE315006A2ED7 /* UnitsController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB048C431F8CE315006A2ED7 /* UnitsController.m */; };
+		CB048C471F8CE32A006A2ED7 /* GeneralController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB048C461F8CE32A006A2ED7 /* GeneralController.m */; };
 		CB07EA271F41A370002894F9 /* UIColor+Separate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB07EA241F41A370002894F9 /* UIColor+Separate.m */; };
 		CB07EA281F41A370002894F9 /* UIColor+Wonderful.m in Sources */ = {isa = PBXBuildFile; fileRef = CB07EA261F41A370002894F9 /* UIColor+Wonderful.m */; };
 		CB21DA461F343F880080648E /* DashboardViewStyleA.m in Sources */ = {isa = PBXBuildFile; fileRef = CB21DA451F343F880080648E /* DashboardViewStyleA.m */; };
@@ -175,6 +182,20 @@
 		CB0220881F43E9CC008773ED /* DashboardSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardSetting.m; sourceTree = "<group>"; };
 		CB048C251F8C584D006A2ED7 /* LogView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogView.h; sourceTree = "<group>"; };
 		CB048C261F8C584D006A2ED7 /* LogView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogView.m; sourceTree = "<group>"; };
+		CB048C301F8CE185006A2ED7 /* PreferencesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
+		CB048C311F8CE185006A2ED7 /* PreferencesController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
+		CB048C331F8CE199006A2ED7 /* informationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = informationController.h; sourceTree = "<group>"; };
+		CB048C341F8CE199006A2ED7 /* informationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = informationController.m; sourceTree = "<group>"; };
+		CB048C391F8CE1CD006A2ED7 /* FirmwareController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirmwareController.h; sourceTree = "<group>"; };
+		CB048C3A1F8CE1CD006A2ED7 /* FirmwareController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirmwareController.m; sourceTree = "<group>"; };
+		CB048C3C1F8CE1E3006A2ED7 /* ConnectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConnectionController.h; sourceTree = "<group>"; };
+		CB048C3D1F8CE1E3006A2ED7 /* ConnectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConnectionController.m; sourceTree = "<group>"; };
+		CB048C3F1F8CE303006A2ED7 /* CommunicationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommunicationController.h; sourceTree = "<group>"; };
+		CB048C401F8CE303006A2ED7 /* CommunicationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommunicationController.m; sourceTree = "<group>"; };
+		CB048C421F8CE315006A2ED7 /* UnitsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnitsController.h; sourceTree = "<group>"; };
+		CB048C431F8CE315006A2ED7 /* UnitsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnitsController.m; sourceTree = "<group>"; };
+		CB048C451F8CE32A006A2ED7 /* GeneralController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneralController.h; sourceTree = "<group>"; };
+		CB048C461F8CE32A006A2ED7 /* GeneralController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeneralController.m; sourceTree = "<group>"; };
 		CB07EA231F41A370002894F9 /* UIColor+Separate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Separate.h"; sourceTree = "<group>"; };
 		CB07EA241F41A370002894F9 /* UIColor+Separate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Separate.m"; sourceTree = "<group>"; };
 		CB07EA251F41A370002894F9 /* UIColor+Wonderful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Wonderful.h"; sourceTree = "<group>"; };
@@ -425,6 +446,27 @@
 				CB0220881F43E9CC008773ED /* DashboardSetting.m */,
 			);
 			name = common;
+			sourceTree = "<group>";
+		};
+		CB048C2E1F8CE14A006A2ED7 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CB048C301F8CE185006A2ED7 /* PreferencesController.h */,
+				CB048C311F8CE185006A2ED7 /* PreferencesController.m */,
+				CB048C331F8CE199006A2ED7 /* informationController.h */,
+				CB048C341F8CE199006A2ED7 /* informationController.m */,
+				CB048C391F8CE1CD006A2ED7 /* FirmwareController.h */,
+				CB048C3A1F8CE1CD006A2ED7 /* FirmwareController.m */,
+				CB048C3C1F8CE1E3006A2ED7 /* ConnectionController.h */,
+				CB048C3D1F8CE1E3006A2ED7 /* ConnectionController.m */,
+				CB048C3F1F8CE303006A2ED7 /* CommunicationController.h */,
+				CB048C401F8CE303006A2ED7 /* CommunicationController.m */,
+				CB048C421F8CE315006A2ED7 /* UnitsController.h */,
+				CB048C431F8CE315006A2ED7 /* UnitsController.m */,
+				CB048C451F8CE32A006A2ED7 /* GeneralController.h */,
+				CB048C461F8CE32A006A2ED7 /* GeneralController.m */,
+			);
+			name = controllers;
 			sourceTree = "<group>";
 		};
 		CB15FB711F5A9173005A978C /* FMDataBase */ = {
@@ -929,6 +971,7 @@
 				CB5AA40E1F31A321002B3006 /* View */,
 				CBF1E27A1F3068ED00EEC755 /* SetViewController.h */,
 				CBF1E27B1F3068ED00EEC755 /* SetViewController.m */,
+				CB048C2E1F8CE14A006A2ED7 /* controllers */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1160,6 +1203,7 @@
 				CB82247F1F46F30000E1E4BA /* HUDView.m in Sources */,
 				CB3FAD1B1F6A1F0900B572FD /* FilesTableViewCell.m in Sources */,
 				CB3FAD341F6A9F9600B572FD /* MonitorsTableViewCell.m in Sources */,
+				CB048C411F8CE303006A2ED7 /* CommunicationController.m in Sources */,
 				CBCFDF711F42A4E6008329CF /* gradientView.m in Sources */,
 				CB9717751F332515009C47FD /* RLBtn.m in Sources */,
 				CB45CBAD1F6B7B96003AA330 /* ResultsTableViewCell.m in Sources */,
@@ -1170,6 +1214,7 @@
 				CBF1E2701F30688200EEC755 /* PerformController.m in Sources */,
 				CB5583601F51468C0010A1E5 /* StyleViewBController.m in Sources */,
 				CB5A61A31F7A210A000D23D6 /* FuelCaculationViewController.m in Sources */,
+				CB048C321F8CE185006A2ED7 /* PreferencesController.m in Sources */,
 				CB5A61A01F7A20EE000D23D6 /* FuleTypeViewController.m in Sources */,
 				CB44DB311F4A823F00A24629 /* StyleTwoTableViewCell.m in Sources */,
 				CB44DB361F4A825900A24629 /* StyleThreeTableViewCell.m in Sources */,
@@ -1177,6 +1222,7 @@
 				CBEBF1D21F3B27E1006CCA8B /* SizeAndLocationViewController.m in Sources */,
 				CBF1E2861F306C6200EEC755 /* UIViewController+NavBar.m in Sources */,
 				CB07EA281F41A370002894F9 /* UIColor+Wonderful.m in Sources */,
+				CB048C3E1F8CE1E3006A2ED7 /* ConnectionController.m in Sources */,
 				CBF1E22E1F2ED49200EEC755 /* ViewController.m in Sources */,
 				CBE4AC0A1F443432003714A4 /* DashboardViewStyleC.m in Sources */,
 				CB47E2EC1F480C7000B23D8E /* UIFont+AdapFont.m in Sources */,
@@ -1187,6 +1233,7 @@
 				CB99E1BC1F67ABC200A87DAF /* LogsSetting.m in Sources */,
 				CB5A618F1F79FB62000D23D6 /* SeletVehicleViewController.m in Sources */,
 				CB07EA271F41A370002894F9 /* UIColor+Separate.m in Sources */,
+				CB048C471F8CE32A006A2ED7 /* GeneralController.m in Sources */,
 				CBE4AC061F4426BC003714A4 /* BasicViewController.m in Sources */,
 				CBB1CC471F6249B8002EE7EB /* JXButton.m in Sources */,
 				CB8E40EE1F614A36003E5024 /* BGModelInfo.m in Sources */,
@@ -1208,12 +1255,14 @@
 				CB0220891F43E9CC008773ED /* DashboardSetting.m in Sources */,
 				CBCD97961F7CE8F10002383F /* FileInfoView.m in Sources */,
 				CB5583631F5146B70010A1E5 /* StyleCViewController.m in Sources */,
+				CB048C351F8CE199006A2ED7 /* informationController.m in Sources */,
 				CB99E1AA1F66A7C700A87DAF /* LogSetViewController.m in Sources */,
 				CBB1CC501F626809002EE7EB /* FilesViewController.m in Sources */,
 				CB3FAD291F6A6F1D00B572FD /* Mode06ViewController.m in Sources */,
 				CBCD978F1F7C94850002383F /* FileBackViewController.m in Sources */,
 				CB8E40EF1F614A36003E5024 /* BGPropertyInfo.m in Sources */,
 				CB84B3CD1F56A7D500B454E6 /* FreezeViewController.m in Sources */,
+				CB048C3B1F8CE1CD006A2ED7 /* FirmwareController.m in Sources */,
 				CB3FAD231F6A5F0B00B572FD /* Filesmodel.m in Sources */,
 				CB3FAD1E1F5FD13300C4F21B /* DashboardC.m in Sources */,
 				CB3FAC0A1F5EBD9900C4F21B /* DashboardA.m in Sources */,
@@ -1231,6 +1280,7 @@
 				CB8E40F21F614A36003E5024 /* NSObject+BGModel.m in Sources */,
 				CB99E1B31F66C45600A87DAF /* selectTableViewCell.m in Sources */,
 				CBF1E22B1F2ED49200EEC755 /* AppDelegate.m in Sources */,
+				CB048C441F8CE315006A2ED7 /* UnitsController.m in Sources */,
 				CBE4AC031F442674003714A4 /* PIDSelectViewController.m in Sources */,
 				CB431F251F68C50300E465F4 /* TripsModel.m in Sources */,
 				CBF334631F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.m in Sources */,

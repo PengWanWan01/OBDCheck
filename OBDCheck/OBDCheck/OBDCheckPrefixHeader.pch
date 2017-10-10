@@ -128,5 +128,12 @@
 #import "FileBackViewController.h"
 #import "FileInfoView.h"
 #import "LogView.h"
+#import "PreferencesController.h"
+#import "informationController.h"
+#import "FirmwareController.h"
+#import "ConnectionController.h"
+#import "CommunicationController.h"
+#import "UnitsController.h"
+#import "GeneralController.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

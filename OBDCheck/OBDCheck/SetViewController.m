@@ -101,6 +101,53 @@
     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
     return cell;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    switch (indexPath.section) {
+        case 0:
+        {
+            PreferencesController *vc = [[PreferencesController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 1:
+        {
+            switch (indexPath.row) {
+                case 0:
+                {
+                    informationController *vc = [[informationController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                case 1:
+                {
+                    FirmwareController *vc = [[FirmwareController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                case 2:
+                {
+                    ConnectionController *vc = [[ConnectionController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                case 3:
+                {
+                    
+                }
+                    break;
+                case 4:
+                {
+                    
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
 
 @end
