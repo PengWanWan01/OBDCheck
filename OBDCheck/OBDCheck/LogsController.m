@@ -78,38 +78,11 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     
     [self setDataCount:10 range:110 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
      [self setDataCount:10 range:550 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
-     NSLog(@"getDataSetByIndex%@",[PartOnedata getDataSetByIndex:10]);
          [chartViewone animateWithXAxisDuration:5];
          //设置当前可以看到的个数
          [chartViewone setVisibleXRangeMaximum:10];
          //设置当前开始的位置
          [chartViewone moveViewToX:0];
-//定时器
-         NSTimeInterval period = 1; //设置时间间隔
-//5S后执行；
-       int interval = 5;
-         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-         _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-         dispatch_source_set_timer(_timer, dispatch_walltime(DISPATCH_TIME_NOW, NSEC_PER_SEC * interval), period * NSEC_PER_SEC, 0); //每秒执行
-         // 事件回调
-         dispatch_source_set_event_handler(_timer, ^{
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 NSLog(@"%@,%ld",XdataSource,(long)[XdataSource[indextag] integerValue]);
-                 
-                 [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)[XdataSource[indextag] integerValue] withY:12];
-                 [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)[XdataSource[indextag] integerValue] withY:12];
-                 ++indextag;
-                 if (indextag == XdataSource.count -1) {
-                     dispatch_source_cancel(_timer);
-                     
-                 }
-             });
-         });
-
-     // 开启定时器
-     dispatch_resume(_timer);
-
-     
      UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 50, 100, 20)];
      btn.backgroundColor = [UIColor redColor];
      [btn addTarget:self action:@selector(btn) forControlEvents:UIControlEventAllEvents];
@@ -188,11 +161,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     
         [linechartdata setValueTextColor:UIColor.clearColor];
         [linechartdata setValueFont:[UIFont systemFontOfSize:9.f]];
-        
         view.data = linechartdata;
-    
-
-    
 }
 
 - (void)initWithchartView:(LineChartView *)view Type:(NSInteger)type{
@@ -322,16 +291,36 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     }
 
 }
-//点击停止
+#pragma mark 点击开始点击停止
 - (void)stopBtn{
-    
-    NSLog(@"点击停止");
-}
-// 点击开始
-- (void)startBtn{
-    
-    NSLog(@"点击开始");
+    dispatch_source_cancel(_timer);
 
+}
+#pragma mark 点击开始
+- (void)startBtn{
+    //定时器
+    NSTimeInterval period = 1; //设置时间间隔
+    //5S后执行；
+    int interval = 5;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    dispatch_source_set_timer(_timer, dispatch_walltime(DISPATCH_TIME_NOW, NSEC_PER_SEC * interval), period * NSEC_PER_SEC, 0); //每秒执行
+    // 事件回调
+    dispatch_source_set_event_handler(_timer, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"%@,%ld",XdataSource,(long)[XdataSource[indextag] integerValue]);
+            
+            [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)[XdataSource[indextag] integerValue] withY:12];
+            [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)[XdataSource[indextag] integerValue] withY:12];
+            ++indextag;
+            if (indextag == XdataSource.count -1) {
+                dispatch_source_cancel(_timer);
+                
+            }
+        });
+    });
+    // 开启定时器
+    dispatch_resume(_timer);
 }
 
 @end

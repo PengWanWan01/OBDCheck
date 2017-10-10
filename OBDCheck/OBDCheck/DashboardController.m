@@ -533,7 +533,7 @@ static dispatch_source_t _timer;
             case 1:
             {
                 //画底盘渐变色
-                [dashboardStyleAView addGradientView:dashboard.dashboardA.outerColor  GradientViewWidth:MSWidth];
+                [dashboardStyleAView addGradientView:dashboard.dashboardA.outerColor  GradientViewWidth:dashboardStyleAView.frame.size.width];
                 [dashboardStyleAView initWithModel:dashboard.dashboardA];
                 dashboardStyleAView.infoLabel.text = _CustomLabelArray[[dashboard.ID integerValue] - 1];
                 dashboardStyleAView.numberLabel.text = _CustomNumberArray[[dashboard.ID integerValue] - 1];

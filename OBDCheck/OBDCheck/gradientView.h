@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface gradientView : UIView
-@property (nonatomic,strong) UIColor *gradientColor;
+@property (nonatomic,strong) UIColor *startGradientColor;
+@property (nonatomic,strong) UIColor *endGradientColor;
+@property (nonatomic,assign) CGFloat  gradientRadius;
 
 @end

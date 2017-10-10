@@ -12,48 +12,49 @@
 - (void)drawRect:(CGRect)rect {
     self.layer.cornerRadius = ViewWidth/2;
     self.layer.masksToBounds = YES;
-    [self test:rect start:_gradientColor end:[_gradientColor down:SXColorTypeAlpha num:255]withradius:self.frame.size.width/2 - (3.0/300)*self.frame.size.width];
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    //1.Create CGColorSpaceRef
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    
+    //2.Create CGGradientRef
+    //颜色分配:四个一组代表一种颜色(r,g,b,a)
+    CGFloat components[8] = {[[self getRGBWithColor:self.startGradientColor][0] floatValue], [[self getRGBWithColor:self.startGradientColor][1] floatValue], [[self getRGBWithColor:self.startGradientColor][2] floatValue], 1.0,[[self getRGBWithColor:self.endGradientColor][0] floatValue], [[self getRGBWithColor:self.endGradientColor][1] floatValue] ,[[self getRGBWithColor:self.endGradientColor][2] floatValue], 1.0};
+    //位置:每种颜色对应中心点位置,取0-1之间的float,默认起始点为(0,0)
+    CGFloat locations[2] = {0, 1};
+    //点数量:count为locations数量,size_t类型
+    size_t count = 2;
+    CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, components, locations, count);
+    
+    //3.DrawRadialGradient
+    /**渐变点:
+     起始点
+     结束点
+     起始半径
+     结束半径
+     */
+    CGPoint startCenter = CGPointMake(self.frame.size.width * 0.5, self.frame.size.height * 0.5);
+    CGPoint endCenter = CGPointMake(self.frame.size.width * 0.5, self.frame.size.height * 0.5);
+    CGFloat startRadius = 0;    
+    CGContextDrawRadialGradient(context, gradient, startCenter, startRadius, endCenter, self.gradientRadius, kCGGradientDrawsAfterEndLocation);
+    
+    //4.Release
+    CGColorSpaceRelease(colorSpace);
+    colorSpace = NULL;
+    CGGradientRelease(gradient);
+    gradient = NULL;
+    
+    
 }
-- (void)test:(CGRect)rect start:(UIColor *)startColor end:(UIColor *)endColor withradius:(CGFloat)radius{
-    CGPoint _c = CGPointMake(self.frame.size.width/2 , self.frame.size.width/2);
-    CGFloat _r = radius;
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef imgCtx = UIGraphicsGetCurrentContext();
-    CGContextMoveToPoint(imgCtx, _c.x,_c.y);
-    CGContextSetFillColor(imgCtx, CGColorGetComponents([UIColor blackColor].CGColor));
-    CGContextAddArc(imgCtx, _c.x, _c.y, _r,  M_PI/2, -3*M_PI/2, 1);
-    CGContextFillPath(imgCtx);
-    
-    CGContextSetLineCap(imgCtx, kCGLineCapRound);
-    CGContextSetLineWidth(imgCtx, 63.0);
-    
-    //save the context content into the image mask
-    CGImageRef mask = CGBitmapContextCreateImage(UIGraphicsGetCurrentContext());
-    UIGraphicsEndImageContext();
-    CGContextClipToMask(ctx, self.bounds, mask);
-    
-    UIColor *colors[2] = {startColor,endColor};
-    CGFloat components[2*4];
-    for (int i = 0; i < 2; i++) {
-        CGColorRef tmpcolorRef = colors[i].CGColor;
-        const CGFloat *tmpcomponents = CGColorGetComponents(tmpcolorRef);
-        for (int j = 0; j < 4; j++) {
-            components[i * 4 + j] = tmpcomponents[j];
-        }
-    }
-    
-    CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
-    CGGradientRef gradient = CGGradientCreateWithColorComponents(space, components, NULL,2);
-    CGColorSpaceRelease(space),space=NULL;//release
-    
-    CGPoint start = _c;
-    CGPoint end = _c;
-    CGFloat startRadius = 0.0f;
-    CGFloat endRadius = _r;
-    CGContextRef graCtx = UIGraphicsGetCurrentContext();
-    CGContextDrawRadialGradient(graCtx, gradient, start, startRadius, end, endRadius, 0);
-    CGGradientRelease(gradient),gradient=NULL;//release
+- (NSArray *)getRGBWithColor:(UIColor *)color
+{
+    CGFloat red = 0.0;
+    CGFloat green = 0.0;
+    CGFloat blue = 0.0;
+    CGFloat alpha = 0.0;
+    [color getRed:&red green:&green blue:&blue alpha:&alpha];
+    return @[@(red), @(green), @(blue), @(alpha)];
 }
+
 
 @end

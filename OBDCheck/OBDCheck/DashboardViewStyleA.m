@@ -103,14 +103,10 @@
 }
 //[ColorTools colorWithHexString:@"18191C"].CGColor
 - (void)addGradientView:(NSString *)gradientColor GradientViewWidth:(CGFloat)gradientViewWidth{
-//    gradientView *gradientview = [[gradientView alloc]initWithFrame:CGRectMake(0, 0, gradientViewWidth, gradientViewWidth)];
-//    gradientview.layer.cornerRadius = ViewWidth/2;
-//    gradientview.layer.masksToBounds = YES;
-//    gradientview.gradientColor = gradientColor;
-    UIView *gradientview =  [[UIView alloc]initWithFrame:CGRectMake(0, 0, ViewWidth, ViewWidth)];
-    gradientview.layer.cornerRadius = ViewWidth/2;
-    gradientview.layer.masksToBounds = YES;
-    gradientview.backgroundColor = [ColorTools colorWithHexString:gradientColor];
+    gradientView *gradientview = [[gradientView alloc]initWithFrame:CGRectMake(0, 0, gradientViewWidth, gradientViewWidth)];
+    gradientview.gradientRadius = gradientViewWidth/2;
+    gradientview.startGradientColor =   [UIColor clearColor];
+    gradientview.endGradientColor =  [ColorTools colorWithHexString:gradientColor];
     [self addSubview:gradientview];
     
 

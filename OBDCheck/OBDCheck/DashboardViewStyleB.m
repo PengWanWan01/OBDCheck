@@ -76,9 +76,9 @@
 }
 - (void)initWithModel:(DashboardB *)model{
     gradientView *view = [[gradientView alloc]initWithFrame:self.bounds];
-    view.gradientColor = [ColorTools colorWithHexString:model.backColor];
-   
-    view.backgroundColor = [UIColor clearColor];
+    view.gradientRadius = self.bounds.size.width/2;
+    view.startGradientColor =  [ColorTools colorWithHexString:model.backColor];
+    view.endGradientColor =  [UIColor clearColor];
     [self addSubview:view];
     //添加仪表盘中间的内容
     [self addmiddle:model.titleColor TitlteFontScale:[model.titleFontScale floatValue] TitlePositon:[model.titlePositon floatValue] ValueVisible:model.ValueVisible Valuecolor:model.ValueColor ValueFontScale:[model.ValueFontScale floatValue] ValuePositon:[model.ValuePositon floatValue] UnitColor:model.UnitColor UnitFontScale:[model.UnitFontScale floatValue] UnitPositon:[model.UnitPositon floatValue] withmoel:(DashboardB *)model  ];

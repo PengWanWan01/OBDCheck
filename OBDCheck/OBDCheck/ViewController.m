@@ -80,7 +80,6 @@
         OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], 100*MSWidth/375, 100*MSWidth/375 + 30)];
         btn.Label.text = _btnTitleArray[i];
         btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
-//        btn.backgroundColor= [UIColor redColor];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
         [btn addGestureRecognizer:tap];
       UIView *singleTapView  = [tap view];
@@ -153,6 +152,7 @@
 }
 #pragma mark 六个按钮的点击
 - (void)tap:(UITapGestureRecognizer *)sender{
+    NSLog(@"点击一个");
     [self.blueView hide];
  self.tabBarController.tabBar.hidden = YES;
     switch ([sender view].tag) {
