@@ -46,7 +46,6 @@
     cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
     cell.textLabel.text = self.dataSource[indexPath.row];
-    cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
     return cell;
 }
