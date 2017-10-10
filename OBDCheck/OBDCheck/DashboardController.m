@@ -967,7 +967,7 @@ static dispatch_source_t _timer;
 
 #pragma mark 点击添加
 - (void)addDashboard{
-    NSLog(@"点击添加one,%ld",[DashboardSetting sharedInstance].CurrentPage );
+    NSLog(@"点击添加one,%ld",(long)[DashboardSetting sharedInstance].CurrentPage );
     switch ([DashboardSetting sharedInstance].addStyle) {
         case AddStyleOne:
         {
@@ -976,11 +976,8 @@ static dispatch_source_t _timer;
             dashboardStyleAView = [[DashboardView alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage *MSWidth +(arc4random() % (int)200), (arc4random() % (int)300), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleAView.tag = ++ DashBoardTag;
             dashboardStyleAView.delegate =self;
-            DashboardA *model = [DashboardA new];
-            [[DashboardSetting sharedInstance] initADDdashboardA:model];
             [scrollView addSubview:dashboardStyleAView];
             [self initWithChangeCustomType:1 withTag:dashboardStyleAView.tag];
-            
             [self updateCustomType:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:dashboardStyleAView.tag];
             
             
@@ -994,11 +991,8 @@ static dispatch_source_t _timer;
             dashboardStyleBView = [[DashboardViewStyleB alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage*MSWidth+(arc4random() % (int)200), (arc4random() % (int)300 ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleBView.tag = ++ DashBoardTag;
             dashboardStyleBView.delegate =self;
-            DashboardB *model = [DashboardB new];
-            [[DashboardSetting sharedInstance] initADDdashboardB:model];
             [scrollView addSubview:dashboardStyleBView];
             [self initWithChangeCustomType:2 withTag:dashboardStyleBView.tag];
-            
             [self updateCustomType:2 OrignX:dashboardStyleBView.frame.origin.x OrignY:dashboardStyleBView.frame.origin.y Width:dashboardStyleBView.frame.size.width Height:dashboardStyleBView.frame.size.height ID:dashboardStyleBView.tag];
         }
             break;
@@ -1009,8 +1003,6 @@ static dispatch_source_t _timer;
             dashboardStyleCView = [[DashboardViewStyleC alloc ]initWithFrame:CGRectMake( [DashboardSetting sharedInstance].CurrentPage*MSWidth +(arc4random() % (int)200), (arc4random() % (int)300 ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleCView.tag = ++ DashBoardTag;
             dashboardStyleCView.delegate = self;
-            DashboardC *model = [DashboardC new];
-            [[DashboardSetting sharedInstance] initADDdashboardC:model];
             [scrollView addSubview:dashboardStyleCView];
             [self initWithChangeCustomType:3 withTag:dashboardStyleCView.tag];
             

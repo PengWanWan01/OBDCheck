@@ -127,6 +127,6 @@
 #import "FuelCaculationViewController.h"
 #import "FileBackViewController.h"
 #import "FileInfoView.h"
-#import "BGSqlite.h"
+#import "LogView.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

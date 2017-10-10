@@ -8,15 +8,21 @@
 
 #import "FileBackViewController.h"
 
-@interface FileBackViewController ()<UITableViewDelegate,UITableViewDataSource>{
+@interface FileBackViewController ()<UITableViewDelegate,UITableViewDataSource,ChartViewDelegate>{
     UIView *LineView;
     UIScrollView *contentScrollView;
     NSInteger PIDNumber;
-    LineChartView *chartViewone;
-    LineChartView *chartViewtwo;
+    FileInfoView *InfoView ;
+    LineChartView *chartViewone ;
+    LineChartView *chartViewTwo ;
+    LogsModel *model;
+    LineChartDataSet *set1;
+    LineChartData *PartOnedata;
+    LineChartData *PartTwodata;
+    NSMutableArray *XdataSource;
+    NSInteger indextag;
     UITableView *mytableView;
-    FileInfoView *InfoView;
-
+    UILabel *PlaybackLabel;
 }
 @property(nonatomic,strong)NSMutableArray *btnDatasource;
 @property(nonatomic,strong)NSMutableArray *Datasource;
@@ -42,7 +48,14 @@
     self.btnDatasource = [[NSMutableArray alloc]initWithObjects:@"Chart",@"Data", nil];
     self.Datasource = [[NSMutableArray alloc]initWithObjects:@"Beginning Time",@"End Time",@"Drive Time",@"Mileage",@"Fuel Cost",@"Charge",@"Max Speed",@"Average Speed",@"Overspeed Times",@"Overspeed Time",@"Idle Time",@"Score", nil];
     self.detailDatasource = [[NSMutableArray alloc]initWithObjects:@"2017-07-27 15:21:48",@"2017-07-27 15:21:48", @"00:00:00",@"0 Mile", @"0 G",@"0 USD", @"0 MPH",@"0 MPH",@"0",@"00:00:00", @"00:00:00",@"100",nil];
-    
+    set1 = nil;
+    PartOnedata = [[LineChartData alloc] initWithDataSet:set1];
+    PartTwodata = [[LineChartData alloc] initWithDataSet:set1];
+    XdataSource = [[NSMutableArray alloc]init];
+    indextag = 0;
+    for (NSInteger i = 11; i < 100; i++) {
+        [XdataSource addObject:[NSString stringWithFormat:@"%ld",(long)i]];
+    }
 }
 - (void)initWithTitleView{
     UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 40)];
@@ -61,17 +74,18 @@
     [headView addSubview:LineView];
 //添加UIScrollView内容
     contentScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 40, MSWidth*2, MSHeight)];
-    contentScrollView.contentSize = CGSizeMake(MSWidth,MSHeight*2);
+    contentScrollView.contentSize = CGSizeMake(MSWidth,MSHeight+100);
     contentScrollView.pagingEnabled = NO;
     [contentScrollView setShowsHorizontalScrollIndicator:NO];
 //    [contentScrollView setShowsVerticalScrollIndicator:NO];
 //    contentScrollView.backgroundColor  = [UIColor redColor];
     [self.view addSubview:contentScrollView];
-    [self initWithChart];
+    [self initWithChartUI];
     [self initWithDataUI];
     
 }
-- (void)initWithChart{
+#pragma mark 绘制左边Chart界面
+- (void)initWithChartUI{
     //设置Time/Mileage的内容；
     FileInfoView *TimeView = [[FileInfoView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 100)];
     TimeView.titileLabel.text = @"Time/Mileage";
@@ -82,25 +96,25 @@
     [contentScrollView addSubview:TimeView];
     
     //设置Playback的内容
-    UILabel *PlaybackLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(TimeView.frame)+30, MSWidth-15, 20)];
-//    PlaybackLabel.backgroundColor = [UIColor redColor];
+    PlaybackLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(TimeView.frame)+30, MSWidth-15, 20)];
     PlaybackLabel.textColor = [ColorTools colorWithHexString:@"918E8E"];
     PlaybackLabel.text = @"Playback";
     [contentScrollView addSubview:PlaybackLabel];
     
-    chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(PlaybackLabel.frame), MSWidth- 30, 180)];
-    chartViewone.backgroundColor = [ColorTools colorWithHexString:@"101010"];
-    [contentScrollView addSubview:chartViewone];
-    if (PIDNumber>2) {
-        chartViewtwo = [[LineChartView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(chartViewone.frame), MSWidth- 30, 180)];
-        chartViewtwo.backgroundColor = [ColorTools colorWithHexString:@"101010"];
-        [contentScrollView addSubview:chartViewtwo];
-        InfoView = [[FileInfoView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewtwo.frame), MSWidth, 100)];
-    }else{
-        InfoView = [[FileInfoView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth, 100)];
+    NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, 1"];
+    NSArray *pAll = [LogsModel bg_findWhere:SQL];
+    for(LogsModel* logsmodel in pAll){
+        NSLog(@"logsmodel.item1PID %@",logsmodel.item1PID  );
+        model = logsmodel;
+        if (model.item3Enabled == YES || model.item4Enabled == YES ) {
+            [self initWithLogViewTwoPart];
+           InfoView = [[FileInfoView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewTwo.frame), MSWidth, 100)];
+
+        }else{
+            [self initWithLogView];
+            InfoView = [[FileInfoView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth, 100)];
+        }
     }
-    
-    
     InfoView.titileLabel.text = @"Info";
     InfoView.leftNumberLabel.text = @"7.6 L/100km";
     InfoView.leftNameLabel.text = @"Average economy";
@@ -108,6 +122,60 @@
     InfoView.rightNameLabel.text = @"Average Speed";
     [contentScrollView addSubview:InfoView];
 }
+
+- (void)initWithLogView{
+    NSLog(@"弹出一个图");
+    [chartViewone removeFromSuperview];
+    [chartViewTwo removeFromSuperview];
+    chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(PlaybackLabel.frame)+10, MSWidth,170)];
+    [contentScrollView addSubview:chartViewone];
+    [self initWithchartView:chartViewone Type:1];
+    
+    [self setDataCount:10 range:110 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
+    [self setDataCount:10 range:550 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
+    NSLog(@"getDataSetByIndex%@",[PartOnedata getDataSetByIndex:10]);
+    [chartViewone animateWithXAxisDuration:5];
+    //设置当前可以看到的个数
+    [chartViewone setVisibleXRangeMaximum:10];
+    //设置当前开始的位置
+    [chartViewone moveViewToX:0];
+    
+}
+- (void)initWithLogViewTwoPart{
+    NSLog(@"弹出两个图%@", model.item1PID);
+   
+    [chartViewone removeFromSuperview];
+    [chartViewTwo removeFromSuperview];
+    chartViewone =[[LineChartView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(PlaybackLabel.frame)+10, MSWidth,170)];
+   
+    chartViewTwo = [[LineChartView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth,170)];
+    if (IS_IPHONE_X) {
+        chartViewTwo.frame = CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth, (MSHeight - 45-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -34)/2);
+    }
+    [contentScrollView addSubview:chartViewone];
+    [contentScrollView addSubview:chartViewTwo];
+    [self initWithchartView:chartViewone Type:1];
+    [self initWithchartView:chartViewTwo Type:2];
+    [self setDataCount:100 range:110 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
+    [self setDataCount:100 range:550 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
+    [self setDataCount:100 range:110 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item3PID withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:(model.item3Smoothing)];
+    if (model.item4Enabled == YES) {
+        [self setDataCount:100 range:550 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item4PID withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:(model.item4Smoothing)];
+    }
+    [chartViewone animateWithXAxisDuration:1];
+    //设置当前可以看到的个数
+    [chartViewone setVisibleXRangeMaximum:10];
+    //设置当前开始的位置
+    [chartViewone moveViewToX:15];
+    
+    [chartViewTwo animateWithXAxisDuration:1];
+    //设置当前可以看到的个数
+    [chartViewTwo setVisibleXRangeMaximum:10];
+    //设置当前开始的位置
+    [chartViewTwo moveViewToX:15];
+    
+}
+#pragma mark 绘制右边Data界面
 - (void)initWithDataUI{
     mytableView = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth, 0, MSWidth, MSHeight-100) style:UITableViewStylePlain];
     mytableView.backgroundColor = [UIColor clearColor];
@@ -173,5 +241,91 @@
     }
     
 }
+// 设置其中一条折线的内容，数据，颜色，宽度
+- (void)setDataCount:(int)count range:(double)range withView:(LineChartView *)view withdata:(LineChartData *)linechartdata withPIDTiltle:(NSString *)title withLineColor:(UIColor *)color withDependency:(AxisDependency)Dependency  iSsmoothing:(BOOL)smoothing
+{
+    NSMutableArray *yVals = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < count; i++)
+    {
+        double mult = range / 2.0;
+        double val = (double) (arc4random_uniform(mult)) + 50;
+        [yVals addObject:[[ChartDataEntry alloc] initWithX:i y:val]];
+    }
+    set1 = [[LineChartDataSet alloc] initWithValues:yVals label:title];
+    set1.axisDependency = Dependency;
+    [set1 setColor:color];
+    set1.highlightColor = [UIColor clearColor]; //点击时候的颜色
+    set1.drawCircleHoleEnabled = NO;
+    set1.lineWidth = 2.0;//折线宽度
+    //折线拐点样式
+    set1.drawCirclesEnabled = NO;//是否绘制拐点
+    if (smoothing == YES) {
+        [set1 setDrawCubicEnabled:YES];
+    }
+    [linechartdata addDataSet:set1];
+    
+    [linechartdata setValueTextColor:UIColor.clearColor];
+    [linechartdata setValueFont:[UIFont systemFontOfSize:9.f]];
+    
+    view.data = linechartdata;
+    
+    
+    
+}
+- (void)initWithchartView:(LineChartView *)view Type:(NSInteger)type{
+    view.delegate = self;
+    view.chartDescription.enabled = NO;
+    view.dragEnabled = YES;
+    [view setScaleEnabled:YES];
+    view.pinchZoomEnabled = YES;
+    view.drawGridBackgroundEnabled = YES;
+    view.backgroundColor = [UIColor clearColor];
+    view.gridBackgroundColor = [UIColor clearColor];
+    
+    ChartLegend *l = view.legend;
+    l.form = ChartLegendFormLine;
+    l.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11.f];
+    l.textColor = UIColor.whiteColor;
+    l.horizontalAlignment = ChartLegendHorizontalAlignmentLeft;
+    l.verticalAlignment = ChartLegendVerticalAlignmentBottom;
+    l.orientation = ChartLegendOrientationHorizontal;
+    l.drawInside = NO;
+    ChartXAxis *xAxis = view.xAxis;
+    xAxis.labelFont = [UIFont systemFontOfSize:11.f];
+    xAxis.labelTextColor = UIColor.whiteColor;
+    xAxis.drawGridLinesEnabled = YES;
+    xAxis.labelPosition = XAxisLabelPositionBottom;
+    xAxis.decimals = 6;
+    xAxis.gridColor = [UIColor grayColor];
+    //设置左边的Y轴
+    ChartYAxis *leftAxis = view.leftAxis;
+    leftAxis.labelTextColor = [UIColor whiteColor];
+    leftAxis.axisMaximum = 200.0;
+    leftAxis.axisMinimum = 0.0;
+    leftAxis.drawAxisLineEnabled = YES;
+    // 设置右边的Y轴
+    ChartYAxis *rightAxis = view.rightAxis;
+    rightAxis.labelTextColor = [UIColor whiteColor];
+    rightAxis.axisMaximum = 900.0;
+    rightAxis.axisMinimum = -200.0;
+    rightAxis.drawGridLinesEnabled = NO;
+    rightAxis.drawAxisLineEnabled = YES;
+    rightAxis.axisLineWidth = 2;
+    if (type ==2) {
+        [leftAxis setAxisLineColor:[ColorTools colorWithHexString:@"3F51B5"]];
+        [rightAxis setAxisLineColor:[ColorTools colorWithHexString:@"FF9800"]];
+        if (model.item4Enabled == NO) {
+            [rightAxis setAxisLineColor:[UIColor clearColor]];
+            rightAxis.labelTextColor = [UIColor clearColor];
+        }
+    }else{
+        [leftAxis setAxisLineColor:[ColorTools colorWithHexString:@"E51C23"]];
+        [rightAxis setAxisLineColor:[ColorTools colorWithHexString:@"54C44B"]];
+    }
+    leftAxis.axisLineWidth = 2;
+    leftAxis.labelCount = 5;
+}
+
 
 @end

@@ -10,6 +10,7 @@
 		68B0FEE83EC9AFD3217B8679 /* Pods_OBDCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0824B23CC3081482DB8C30D3 /* Pods_OBDCheck.framework */; };
 		CB0220851F42FE8E008773ED /* SelectModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0220841F42FE8E008773ED /* SelectModeViewController.m */; };
 		CB0220891F43E9CC008773ED /* DashboardSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0220881F43E9CC008773ED /* DashboardSetting.m */; };
+		CB048C271F8C584D006A2ED7 /* LogView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB048C261F8C584D006A2ED7 /* LogView.m */; };
 		CB07EA271F41A370002894F9 /* UIColor+Separate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB07EA241F41A370002894F9 /* UIColor+Separate.m */; };
 		CB07EA281F41A370002894F9 /* UIColor+Wonderful.m in Sources */ = {isa = PBXBuildFile; fileRef = CB07EA261F41A370002894F9 /* UIColor+Wonderful.m */; };
 		CB21DA461F343F880080648E /* DashboardViewStyleA.m in Sources */ = {isa = PBXBuildFile; fileRef = CB21DA451F343F880080648E /* DashboardViewStyleA.m */; };
@@ -172,6 +173,8 @@
 		CB0220841F42FE8E008773ED /* SelectModeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectModeViewController.m; sourceTree = "<group>"; };
 		CB0220871F43E9CC008773ED /* DashboardSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardSetting.h; sourceTree = "<group>"; };
 		CB0220881F43E9CC008773ED /* DashboardSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardSetting.m; sourceTree = "<group>"; };
+		CB048C251F8C584D006A2ED7 /* LogView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogView.h; sourceTree = "<group>"; };
+		CB048C261F8C584D006A2ED7 /* LogView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogView.m; sourceTree = "<group>"; };
 		CB07EA231F41A370002894F9 /* UIColor+Separate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Separate.h"; sourceTree = "<group>"; };
 		CB07EA241F41A370002894F9 /* UIColor+Separate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Separate.m"; sourceTree = "<group>"; };
 		CB07EA251F41A370002894F9 /* UIColor+Wonderful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Wonderful.h"; sourceTree = "<group>"; };
@@ -663,6 +666,8 @@
 				CBCD97941F7CE8F10002383F /* FileInfoView.h */,
 				CBCD97951F7CE8F10002383F /* FileInfoView.m */,
 				CBCD97991F7CED2F0002383F /* FileInfoView.xib */,
+				CB048C251F8C584D006A2ED7 /* LogView.h */,
+				CB048C261F8C584D006A2ED7 /* LogView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -889,10 +894,10 @@
 		CBF1E25F1F30676600EEC755 /* Logs */ = {
 			isa = PBXGroup;
 			children = (
+				CBB1CCD81F66A4FD002EE7EB /* iOSCharts */,
 				CB99E1B91F67ABA100A87DAF /* Common */,
 				CB99E1B51F67AAA400A87DAF /* Data */,
 				CB99E1AB1F66B75500A87DAF /* View */,
-				CBB1CCD81F66A4FD002EE7EB /* iOSCharts */,
 				CBF1E2771F3068E000EEC755 /* LogsController.h */,
 				CBF1E2781F3068E000EEC755 /* LogsController.m */,
 				CB99E1A81F66A7C700A87DAF /* LogSetViewController.h */,
@@ -1217,6 +1222,7 @@
 				CBF1E2891F30796400EEC755 /* ColorTools.m in Sources */,
 				CBEBF1C91F3AF343006CCA8B /* editDashboardsView.m in Sources */,
 				CB8E40F11F614A36003E5024 /* BGTool.m in Sources */,
+				CB048C271F8C584D006A2ED7 /* LogView.m in Sources */,
 				CB3FAD181F5FD10500C4F21B /* DashboardB.m in Sources */,
 				CBF334621F4B0FE6003C0548 /* ILHuePickerView.m in Sources */,
 				CBF1E2641F30680F00EEC755 /* DashboardController.m in Sources */,
