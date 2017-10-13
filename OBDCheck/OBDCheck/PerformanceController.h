@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PerformanceController : UIViewController
-@property (weak, nonatomic) IBOutlet UILabel *hpLabel;
-@property (weak, nonatomic) IBOutlet UILabel *lpLabel;
-@property (weak, nonatomic) IBOutlet UIView *sheetView;
+
 
 @end
