@@ -190,7 +190,8 @@ static dispatch_source_t _timer;
             Customorignwidthsql = [NSString stringWithFormat:@"SET dashboardC->orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:width], [NSNumber numberWithFloat:id]];
             
             Customorignheightsql = [NSString stringWithFormat:@"SET dashboardC->orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:height], [NSNumber numberWithFloat:id]];
-            
+            GradientRadiussql = [NSString stringWithFormat:@"SET dashboardC->Gradientradius = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:width/2], [NSNumber numberWithFloat:id]];
+            [CustomDashboard bg_updateSet:GradientRadiussql];
         }
             break;
         default:

@@ -24,16 +24,10 @@
     self.backgroundColor = [ColorTools colorWithHexString:model.outerColor];
     self.layer.borderColor=[ColorTools colorWithHexString:model.outerColor].CGColor;
     self.layer.borderWidth=1;
-    self.layer.cornerRadius= [model.Gradientradius floatValue];
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(21*KMultipleC, 21*KMultipleC, self.bounds.size.width - 42*KMultipleC, self.bounds.size.width - 42*KMultipleC)];
-    view.backgroundColor = [ColorTools colorWithHexString:model.innerColor];
-    view.layer.cornerRadius=[model.Gradientradius floatValue];
-    //UIView设置阴影
-    [[view layer] setShadowOffset:CGSizeMake(1, 1)];
-    [[view layer] setShadowRadius:[model.Gradientradius floatValue]];
-    [[view layer] setShadowOpacity:0.1f]; //阴影的透明度
-    [[view layer] setShadowColor:[ColorTools colorWithHexString:model.innerColor].CGColor];
-   
+    gradientView *view = [[gradientView alloc]initWithFrame:CGRectMake(21*KMultipleC, 21*KMultipleC, self.bounds.size.width - 42*KMultipleC, self.bounds.size.width - 42*KMultipleC)];
+    view.gradientRadius = [model.Gradientradius floatValue];
+     view.startGradientColor =   [UIColor clearColor];
+    view.endGradientColor =  [ColorTools colorWithHexString:model.innerColor];
     self.NumberLabel =  [[UILabel alloc]initWithFrame:CGRectMake(0, (view.bounds.size.height/2 - 35.0*KMultipleC)*[model.ValuePositon floatValue] , view.bounds.size.width, 80.f*KMultipleC)];
     self.NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:[model.ValueFontScale floatValue]* 74.f*KMultipleC];
     self.NumberLabel.text = @"0.00";

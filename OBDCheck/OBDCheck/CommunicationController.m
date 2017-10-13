@@ -21,13 +21,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.sectionDataSource = [[NSMutableArray alloc]initWithObjects:@"WI-FI SETTINGS",@"OBD-II PROTOCOL",@"GENERAL", nil];
-    
     self.dataSource = [[NSMutableArray alloc]initWithObjects:@"Device",@"Protocol",@"Protocol",@"Connection",@"Connect Silently", nil];
      [self.tableView registerNib:[UINib nibWithNibName:@"selectTableViewCell" bundle:nil] forCellReuseIdentifier:@"selectTableViewCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"StyleThreeTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleThreeTableViewCell"];
 }
-
-
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;

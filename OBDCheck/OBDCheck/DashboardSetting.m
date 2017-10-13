@@ -207,8 +207,8 @@
     model.ValuePositon = [NSNumber numberWithFloat:1.f];
     model.ValueVisible = YES;
     model.innerColor = @"000000";
-    model.outerColor = @"202226";
-    model.Gradientradius = [NSNumber numberWithFloat:((330)/320.f)*16.f];
+    model.outerColor = @"000000";
+    model.Gradientradius = [NSNumber numberWithFloat:MSWidth/2];
     model.orignx = [NSNumber numberWithFloat:0];
     model.origny = [NSNumber numberWithFloat:0];
     model.orignwidth = [NSNumber numberWithFloat:0];

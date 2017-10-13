@@ -35,7 +35,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     set1 = nil;
     PartOnedata = [[LineChartData alloc] initWithDataSet:set1];
     PartTwodata = [[LineChartData alloc] initWithDataSet:set1];
-
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, 1"];
     NSArray *pAll = [LogsModel bg_findWhere:SQL];    
@@ -53,13 +52,10 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     [super viewDidLoad];
     XdataSource = [[NSMutableArray alloc]init];
     indextag = 0;
-    for (NSInteger i = 11; i < 100; i++) {
+    for (NSInteger i = 11; i < 3600; i++) {
         [XdataSource addObject:[NSString stringWithFormat:@"%ld",(long)i]];
     }
-    
     [self initWithUI];
-  
-
 }
 - (void)btn{
     NSLog(@"1212");
@@ -75,7 +71,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      }
     [self.view addSubview:chartViewone];
     [self initWithchartView:chartViewone Type:1];
-    
     [self setDataCount:10 range:110 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
      [self setDataCount:10 range:550 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
          [chartViewone animateWithXAxisDuration:5];
@@ -83,10 +78,10 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
          [chartViewone setVisibleXRangeMaximum:10];
          //设置当前开始的位置
          [chartViewone moveViewToX:0];
-     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 50, 100, 20)];
-     btn.backgroundColor = [UIColor redColor];
-     [btn addTarget:self action:@selector(btn) forControlEvents:UIControlEventAllEvents];
-     [chartViewone addSubview:btn];
+//     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 50, 100, 20)];
+//     btn.backgroundColor = [UIColor redColor];
+//     [btn addTarget:self action:@selector(btn) forControlEvents:UIControlEventAllEvents];
+//     [chartViewone addSubview:btn];
 }
 - (void)initWithLogViewTwoPart{
     NSLog(@"弹出2个图");
@@ -104,32 +99,32 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      [self.view addSubview:chartViewTwo];
     [self initWithchartView:chartViewone Type:1];
     [self initWithchartView:chartViewTwo Type:2];
-    [self setDataCount:100 range:110 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
-    [self setDataCount:100 range:550 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
-    [self setDataCount:100 range:110 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item3PID withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:(model.item3Smoothing)];
+    [self setDataCount:10 range:110 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
+    [self setDataCount:10 range:550 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
+    [self setDataCount:10 range:110 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item3PID withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:(model.item3Smoothing)];
     if (model.item4Enabled == YES) {
-    [self setDataCount:100 range:550 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item4PID withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:(model.item4Smoothing)];
+    [self setDataCount:10 range:550 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item4PID withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:(model.item4Smoothing)];
     }
-    [chartViewone animateWithXAxisDuration:1];
+    [chartViewone animateWithXAxisDuration:5];
     //设置当前可以看到的个数
     [chartViewone setVisibleXRangeMaximum:10];
     //设置当前开始的位置
-    [chartViewone moveViewToX:15];
+    [chartViewone moveViewToX:0];
 
-    [chartViewTwo animateWithXAxisDuration:1];
+    [chartViewTwo animateWithXAxisDuration:5];
     //设置当前可以看到的个数
     [chartViewTwo setVisibleXRangeMaximum:10];
     //设置当前开始的位置
-    [chartViewTwo moveViewToX:15];
+    [chartViewTwo moveViewToX:0];
 }
 //添加动态数据 index代表第几根折线
 - (void)updateChartData:(LineChartView *)view withData:(LineChartData *)linechartdata withIndex:(NSInteger)index  withX:(int)X withY:(int)Y
 {
     [linechartdata addEntry:[[ChartDataEntry alloc]initWithX:X y:Y] dataSetIndex:index];
     //设置当前可以看到的个数
-    [chartViewone setVisibleXRangeMaximum:10];
+    [view setVisibleXRangeMaximum:10];
     //设置当前开始的位置
-    [chartViewone moveViewToX:X - 10];
+    [view moveViewToX:X - 10];
       [linechartdata notifyDataChanged];
         [view notifyDataSetChanged];
     NSLog(@"updateChartData%ld",(long)linechartdata.entryCount);
@@ -269,14 +264,12 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         {
             LogsController *vc = [[LogsController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
-            
         }
             break;
         case 1:
         {
             TripsViewController *vc = [[TripsViewController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
-            
         }
             break;
         case 2:
@@ -310,8 +303,15 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"%@,%ld",XdataSource,(long)[XdataSource[indextag] integerValue]);
             
-            [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)[XdataSource[indextag] integerValue] withY:12];
-            [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)[XdataSource[indextag] integerValue] withY:12];
+            [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)[XdataSource[indextag] integerValue] withY:arc4random() % 900];
+            [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)[XdataSource[indextag] integerValue] withY:arc4random() % 200];
+            if (model.item3Enabled == YES) {
+                NSLog(@"item3item3");
+                 [self updateChartData:chartViewTwo withData:PartTwodata withIndex:0 withX:(int)[XdataSource[indextag] integerValue] withY:arc4random() % 200];
+            }
+            if (model.item4Enabled == YES) {
+                 [self updateChartData:chartViewTwo withData:PartTwodata withIndex:1 withX:(int)[XdataSource[indextag] integerValue] withY:arc4random() % 200];
+            }
             ++indextag;
             if (indextag == XdataSource.count -1) {
                 dispatch_source_cancel(_timer);

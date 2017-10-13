@@ -7,6 +7,7 @@
 //
 
 #import "FileBackViewController.h"
+static dispatch_source_t _timer;
 
 @interface FileBackViewController ()<UITableViewDelegate,UITableViewDataSource,ChartViewDelegate>{
     UIView *LineView;
@@ -53,7 +54,7 @@
     PartTwodata = [[LineChartData alloc] initWithDataSet:set1];
     XdataSource = [[NSMutableArray alloc]init];
     indextag = 0;
-    for (NSInteger i = 11; i < 100; i++) {
+    for (NSInteger i = 11; i < 3600; i++) {
         [XdataSource addObject:[NSString stringWithFormat:@"%ld",(long)i]];
     }
 }
@@ -115,6 +116,7 @@
             InfoView = [[FileInfoView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth, 100)];
         }
     }
+    [self startBtn];
     InfoView.titileLabel.text = @"Info";
     InfoView.leftNumberLabel.text = @"7.6 L/100km";
     InfoView.leftNameLabel.text = @"Average economy";
@@ -326,6 +328,50 @@
     leftAxis.axisLineWidth = 2;
     leftAxis.labelCount = 5;
 }
-
+- (void)startBtn{
+    //定时器
+    NSTimeInterval period = 1; //设置时间间隔
+    //5S后执行；
+    int interval = 5;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    dispatch_source_set_timer(_timer, dispatch_walltime(DISPATCH_TIME_NOW, NSEC_PER_SEC * interval), period * NSEC_PER_SEC, 0); //每秒执行
+    // 事件回调
+    dispatch_source_set_event_handler(_timer, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"%@,%ld",XdataSource,(long)[XdataSource[indextag] integerValue]);
+            
+            [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)[XdataSource[indextag] integerValue] withY:arc4random() % 900];
+            [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)[XdataSource[indextag] integerValue] withY:arc4random() % 200];
+            if (model.item3Enabled == YES) {
+                NSLog(@"item3item3");
+                [self updateChartData:chartViewTwo withData:PartTwodata withIndex:0 withX:(int)[XdataSource[indextag] integerValue] withY:arc4random() % 200];
+            }
+            if (model.item4Enabled == YES) {
+                [self updateChartData:chartViewTwo withData:PartTwodata withIndex:1 withX:(int)[XdataSource[indextag] integerValue] withY:arc4random() % 200];
+            }
+            ++indextag;
+            if (indextag == XdataSource.count -1) {
+                dispatch_source_cancel(_timer);
+                
+            }
+        });
+    });
+    // 开启定时器
+    dispatch_resume(_timer);
+}
+//添加动态数据 index代表第几根折线
+- (void)updateChartData:(LineChartView *)view withData:(LineChartData *)linechartdata withIndex:(NSInteger)index  withX:(int)X withY:(int)Y
+{
+    [linechartdata addEntry:[[ChartDataEntry alloc]initWithX:X y:Y] dataSetIndex:index];
+    //设置当前可以看到的个数
+    [view setVisibleXRangeMaximum:10];
+    //设置当前开始的位置
+    [view moveViewToX:X - 10];
+    [linechartdata notifyDataChanged];
+    [view notifyDataSetChanged];
+    NSLog(@"updateChartData%ld",(long)linechartdata.entryCount);
+    
+}
 
 @end

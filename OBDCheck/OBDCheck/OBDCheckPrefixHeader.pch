@@ -47,7 +47,6 @@
 #import "DiagController.h"
 #import "MonController.h"
 #import "LogsController.h"
-#import "PerformController.h"
 #import "SetViewController.h"
 #import "UIViewController+NavBar.h"
 #import "ColorTools.h"
@@ -135,5 +134,6 @@
 #import "CommunicationController.h"
 #import "UnitsController.h"
 #import "GeneralController.h"
+#import "PerformanceController.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

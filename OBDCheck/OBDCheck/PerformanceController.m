@@ -1,26 +1,27 @@
+
 //
-//  PerformController.m
+//  PerformanceController.m
 //  OBDCheck
 //
-//  Created by yutaozhao on 2017/8/1.
+//  Created by yutaozhao on 2017/10/13.
 //  Copyright © 2017年 Auptophix. All rights reserved.
 //
 
-#import "PerformController.h"
+#import "PerformanceController.h"
 
-@interface PerformController ()
+@interface PerformanceController ()
 
 @end
 
-@implementation PerformController
+@implementation PerformanceController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initNavBarTitle:@"Performance" andLeftItemImageName:@"back" andRightItemImageName:@""];
+    [self initNavBarTitle:@"Performance" andLeftItemImageName:@"back" andRightItemName:@""];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning {
