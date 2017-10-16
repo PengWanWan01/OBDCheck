@@ -37,21 +37,21 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     PartTwodata = [[LineChartData alloc] initWithDataSet:set1];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, 1"];
-    NSArray *pAll = [LogsModel bg_findWhere:SQL];    
+    NSArray *pAll = [LogsModel bg_findWhere:SQL];
     for(LogsModel* logsmodel in pAll){
         NSLog(@"logsmodel.item1PID %@",logsmodel.item1PID  );
         model = logsmodel;
         if (model.item3Enabled == YES || model.item4Enabled == YES ) {
-            [self initWithLogViewTwoPart];
+            [self initWithLogViewTwoPartUI];
         }else{
-            [self initWithLogView];
+            [self initWithLogViewUI];
         }
     }
+    indextag =  0;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     XdataSource = [[NSMutableArray alloc]init];
-    indextag = 0;
     for (NSInteger i = 11; i < 3600; i++) {
         [XdataSource addObject:[NSString stringWithFormat:@"%ld",(long)i]];
     }
@@ -126,7 +126,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     //设置当前开始的位置
     [view moveViewToX:X - 10];
       [linechartdata notifyDataChanged];
-        [view notifyDataSetChanged];
+    [view notifyDataSetChanged];
     NSLog(@"updateChartData%ld",(long)linechartdata.entryCount);
 
 }
@@ -241,6 +241,43 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     [tbarView initWithData];
     [self.view addSubview:tbarView];
 }
+- (void)initWithLogViewUI{
+    NSLog(@"弹出一个图");
+    [chartViewone removeFromSuperview];
+    [chartViewTwo removeFromSuperview];
+    chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight - 45-64)];
+    if (IS_IPHONE_X) {
+        chartViewone.frame = CGRectMake(0, 0, MSWidth, MSHeight - 45-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -34);
+    }
+    [self.view addSubview:chartViewone];
+    [self initWithchartView:chartViewone Type:1];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
+    
+}
+- (void)initWithLogViewTwoPartUI{
+    NSLog(@"弹出2个图");
+    [chartViewone removeFromSuperview];
+    [chartViewTwo removeFromSuperview];
+    chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, (MSHeight - 45-64)/2)];
+    if (IS_IPHONE_X) {
+        chartViewone.frame = CGRectMake(0, 0, MSWidth, (MSHeight - 45-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -34)/2);
+    }
+    chartViewTwo = [[LineChartView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth, (MSHeight - 45-64)/2)];
+    if (IS_IPHONE_X) {
+        chartViewTwo.frame = CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth, (MSHeight - 45-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -34)/2);
+    }
+    [self.view addSubview:chartViewone];
+    [self.view addSubview:chartViewTwo];
+    [self initWithchartView:chartViewone Type:1];
+    [self initWithchartView:chartViewTwo Type:2];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item3PID withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:(model.item3Smoothing)];
+    if (model.item4Enabled == YES) {
+        [self setDataCount:0 range:0 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item4PID withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:(model.item4Smoothing)];
+    }
+}
 - (void)back{
     //假如定时器存在，才把它停止
     if (_timer) {
@@ -291,6 +328,22 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 #pragma mark 点击开始
 - (void)startBtn{
+    set1 = nil;
+    PartOnedata = [[LineChartData alloc] initWithDataSet:set1];
+    PartTwodata = [[LineChartData alloc] initWithDataSet:set1];
+    indextag =  0;
+    NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, 1"];
+    NSArray *pAll = [LogsModel bg_findWhere:SQL];
+    for(LogsModel* logsmodel in pAll){
+        NSLog(@"logsmodel.item1PID %@",logsmodel.item1PID  );
+        model = logsmodel;
+        if (model.item3Enabled == YES || model.item4Enabled == YES ) {
+            [self initWithLogViewTwoPart];
+        }else{
+            [self initWithLogView];
+        }
+    }
+    indextag =  0;
     //定时器
     NSTimeInterval period = 1; //设置时间间隔
     //5S后执行；
