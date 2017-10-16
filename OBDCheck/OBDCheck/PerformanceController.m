@@ -20,12 +20,17 @@ typedef NS_ENUM(NSInteger ,testMode)
     UIView *lbFillView;
     UIView *sheetView;
     UIImageView *dashimageView;
+    UIImageView *LongPointerView;
+    UIImageView *shortPointerView;
+    UILabel *speedLabel;
+    UILabel *rotateLabel;
     UILabel *hpLabel;
     UILabel *lbLabel;
     UILabel *resultlabel;
 }
 @property (nonatomic,strong) NSMutableArray *btntitleDataSource;
-@property (nonatomic,strong) NSMutableArray *titileDataSource;
+@property (nonatomic,strong) NSMutableArray *MPHDataSource;
+@property (nonatomic,strong) NSMutableArray *MIDataSource;
 @property (nonatomic,assign) testMode testmode;
 @end
 
@@ -38,7 +43,8 @@ typedef NS_ENUM(NSInteger ,testMode)
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.btntitleDataSource = [[NSMutableArray alloc]initWithObjects:@"Start",@"Results",@"0-60 MPH", nil];
-    self.titileDataSource = [[NSMutableArray alloc]initWithObjects:@"1/4 mi",@"1000 ft",@"1/8 mi",@"330ft",@"60 ft", nil];
+    self.MPHDataSource = [[NSMutableArray alloc]initWithObjects:@"1/4 mi",@"1000 ft",@"1/8 mi",@"330ft",@"60 ft", nil];
+    self.MIDataSource = [[NSMutableArray alloc]initWithObjects:@"Last",@"Fastest", nil];
     self.testmode = testMPH;
     [self initWithUI];
 }
@@ -47,6 +53,33 @@ typedef NS_ENUM(NSInteger ,testMode)
     dashimageView = [[UIImageView alloc]initWithFrame:CGRectMake((MSWidth-299)/2, 5, 299, 215)];
     dashimageView.image = [UIImage imageNamed:@"performance_ dash"];
     [self.view addSubview:dashimageView];
+    LongPointerView = [[UIImageView alloc]initWithFrame:CGRectMake(41,98, 80, 50)];
+    LongPointerView.image = [UIImage imageNamed:@"performance_ speed"];
+    [dashimageView addSubview:LongPointerView];
+    
+    shortPointerView = [[UIImageView alloc]initWithFrame:CGRectMake(226,102, 3, 51)];
+    shortPointerView.image = [UIImage imageNamed:@"performance_ rotate"];
+//    shortPointerView.backgroundColor = [UIColor redColor];
+    [dashimageView addSubview:shortPointerView];
+    
+    speedLabel = [[UILabel alloc]initWithFrame:CGRectMake(dashimageView.frame.origin.x, CGRectGetMaxY(dashimageView.frame)-156, 214, 200)];
+    speedLabel.font = [UIFont fontWithName:@"DBLCDTempBlack" size:44.f];
+//    speedLabel.font = [UIFont systemFontOfSize:44.f];
+    speedLabel.text = @"181";
+    speedLabel.textAlignment = NSTextAlignmentCenter;
+//    speedLabel.backgroundColor = [UIColor redColor];
+    speedLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+    [self.view addSubview:speedLabel];
+    
+    rotateLabel = [[UILabel alloc]initWithFrame:CGRectMake(dashimageView.frame.origin.x+175, CGRectGetMaxY(dashimageView.frame)-50, 110, 25)];
+    rotateLabel.font = [UIFont fontWithName:@"DBLCDTempBlack" size:22.f];
+//    rotateLabel.font = [UIFont systemFontOfSize:22.f];
+    rotateLabel.text = @"0937";
+    rotateLabel.textAlignment = NSTextAlignmentCenter;
+//    rotateLabel.backgroundColor = [UIColor redColor];
+    rotateLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+    [self.view addSubview:rotateLabel];
+    
     if (IS_IPHONE_5) {
          hpLabel  = [[UILabel alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(dashimageView.frame)+5, 30, 20)];
         lbLabel  = [[UILabel alloc]initWithFrame:CGRectMake(5, CGRectGetMaxY(hpLabel.frame)+10, 30, 20)];
@@ -167,7 +200,21 @@ typedef NS_ENUM(NSInteger ,testMode)
             break;
         case 1:
         {
-            
+            if (self.testmode == testMI) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Starting Speed" message:@"Please enter a value for the starting speed." preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [alert dismissViewControllerAnimated:YES completion:nil];
+                }];
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    NSLog(@"ok");
+                }];
+                [alert addAction:defaultAction];
+                [alert addAction:cancelAction];
+             [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                    textField.placeholder = @"0";
+                }];
+            [self presentViewController:alert animated:testMI completion:nil];
+            }
         }
             break;
         case 2:
@@ -177,12 +224,19 @@ typedef NS_ENUM(NSInteger ,testMode)
                 self.testmode = testMI;
                 [btn setTitle:@"1/4 mi" forState:UIControlStateNormal];
                 [self initWithMIUI];
+                UIButton *secondbtn =(UIButton *)[self.view viewWithTag:1];
+                secondbtn.layer.borderColor = [ColorTools colorWithHexString:@"C8C6C6"].CGColor;
+                [secondbtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+                [secondbtn setTitle:@"edit" forState:UIControlStateNormal];
+               
             }else{
                 self.testmode = testMPH;
                 [resultlabel removeFromSuperview];
                 [btn setTitle:@"0-60 MPH" forState:UIControlStateNormal];
                 [self initWithMPHUI];
-
+                 UIButton *secondbtn =(UIButton *)[self.view viewWithTag:1];
+                [secondbtn setTitleColor:[ColorTools colorWithHexString:@"3B3F49"] forState:UIControlStateNormal];
+                secondbtn.layer.borderColor = [ColorTools colorWithHexString:@"3B3F49"].CGColor;
             }
             
         }
@@ -221,7 +275,7 @@ typedef NS_ENUM(NSInteger ,testMode)
         //左边的label
         UILabel *leftlable  = [[UILabel alloc]initWithFrame:CGRectMake(6, ((sheetView.frame.size.height-15)/2+2)*i + 2, (sheetView.frame.size.width-18)/2, (sheetView.frame.size.height-15)/2)];
         leftlable.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-        leftlable.text = self.titileDataSource[i];
+        leftlable.text = self.MIDataSource[i];
         leftlable.font = [UIFont systemFontOfSize:14.f];
         leftlable.textAlignment = NSTextAlignmentCenter;
         [sheetView addSubview:leftlable];
@@ -258,7 +312,7 @@ typedef NS_ENUM(NSInteger ,testMode)
         //左边的label
         UILabel *leftlable  = [[UILabel alloc]initWithFrame:CGRectMake(6, ((sheetView.frame.size.height-15)/5+2)*i + 2, (sheetView.frame.size.width-18)/2, (sheetView.frame.size.height-15)/5)];
         leftlable.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-        leftlable.text = self.titileDataSource[i];
+        leftlable.text = self.MPHDataSource[i];
         leftlable.font = [UIFont systemFontOfSize:14.f];
         leftlable.textAlignment = NSTextAlignmentCenter;
         [sheetView addSubview:leftlable];
