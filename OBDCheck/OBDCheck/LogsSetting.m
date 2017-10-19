@@ -39,7 +39,7 @@
     model.item4PID = @"Accel Z";
     model.item4Enabled = NO;
     model.item4Smoothing = NO;
-    [model bg_saveOrUpdate];
+    [model save];
 }
 - (void)initWithTrips{
     
@@ -48,7 +48,7 @@
     model.distance = @"0.00";
     model.Fuel = @"0.00";
     model.FuelEconmy = @"0.00";
-    [model bg_saveOrUpdate];
+    [model save];
     }
 }
 @end

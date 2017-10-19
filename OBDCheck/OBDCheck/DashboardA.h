@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Auptophix. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "Tool_FMDBModel.h"
 
-@interface DashboardA : NSObject
+@interface DashboardA :Tool_FMDBModel<NSCoding>
 @property (nonatomic,copy) NSString  *infoLabeltext; //名字
 
 @property (nonatomic,strong) NSNumber *StartAngle; //开始角度

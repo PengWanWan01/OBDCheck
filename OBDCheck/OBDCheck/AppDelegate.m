@@ -22,10 +22,9 @@
         [TimeOfBootCount setValue:@"sd" forKey:@"time"];
         NSLog(@"第一次启动");
         [self initWithdatabase];
-        
     }else{
-        NSLog(@"不是第一次启动");
-        NSLog(@"11%ld",(long)[DashboardA bg_version]);
+//        NSLog(@"不是第一次启动");
+//        NSLog(@"11%ld",(long)[DashboardA bg_version]);
 
     }
     
@@ -46,10 +45,10 @@
     return YES;
 }
 - (void)initWithdatabase{
-    [DashboardA bg_drop];
-    [DashboardB bg_drop];
-    [DashboardC bg_drop];
-    [LogsModel bg_drop];
+    [DashboardA clearTable];
+    [DashboardB clearTable];
+    [DashboardC clearTable];
+    [LogsModel clearTable];
     [[DashboardSetting sharedInstance] initWithdashboardA];
     [[DashboardSetting sharedInstance] initWithdashboardB];
     [[DashboardSetting sharedInstance] initWithdashboardC];

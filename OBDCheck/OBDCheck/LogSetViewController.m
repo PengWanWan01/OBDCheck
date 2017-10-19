@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, 1"];
-    NSArray *pAll = [LogsModel bg_findWhere:SQL];
+    NSArray *pAll = [LogsModel findByCriteria:SQL];
     for(LogsModel* logsmodel in pAll){
         NSLog(@"logsmodel.item1PID %@",logsmodel.item1PID  );
         model = logsmodel;
@@ -186,45 +186,42 @@
     return resultCell;
 }
 - (void)selectSwtichBetouched:(UISwitch  *)switchBtn{
-    NSLog(@"tagtag%ld",(long)switchBtn.tag);
+  LogsModel *model = [LogsModel new];
     switch (switchBtn.tag) {
         case 1:
         {
-            bg_setDebug(YES);
-            NSString *sql = [NSString stringWithFormat:@"SET item1Smoothing ='%d'",switchBtn.on];
-            [LogsModel bg_updateSet:sql];
+          
+            model.item1Smoothing = switchBtn.on;
         }
             break;
         case 11:{
-            NSString *sql = [NSString stringWithFormat:@"SET item2Smoothing ='%d'",switchBtn.on];
-            [LogsModel bg_updateSet:sql];
+            model.item2Smoothing = switchBtn.on;
         }
             break;
         case 21:{
-            NSString *sql = [NSString stringWithFormat:@"SET item3Enabled ='%d'",switchBtn.on];
-            [LogsModel bg_updateSet:sql];
+               model.item3Enabled = switchBtn.on;
         }
             break;
 
         case 22:{
-            NSString *sql = [NSString stringWithFormat:@"SET item3Smoothing ='%d'",switchBtn.on];
-            [LogsModel bg_updateSet:sql];
+            model.item3Smoothing = switchBtn.on;
+
         }
             break;
 
         case 31:{
             NSString *sql = [NSString stringWithFormat:@"SET item4Enabled ='%d'",switchBtn.on];
-            [LogsModel bg_updateSet:sql];
         }
             break;
         case 32:{
             NSString *sql = [NSString stringWithFormat:@"SET item4Smoothing ='%d'",switchBtn.on];
-            [LogsModel bg_updateSet:sql];
         }
             break;
         default:
             break;
     }
+    [model update];
+
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {

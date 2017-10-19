@@ -38,6 +38,7 @@
 #
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import <CoreBluetooth/CoreBluetooth.h>
 #import "ViewController.h"
 #import "PersonalViewController.h"
 #import "SpecialViewController.h"
@@ -94,7 +95,6 @@
 #import "DashboardA.h"
 #import "DashboardB.h"
 #import "DashboardC.h"
-#import "NSObject+BGModel.h"
 #import "CustomDashboard.h"
 #import "TBarView.h"
 #import "JXButton.h"
@@ -135,5 +135,9 @@
 #import "UnitsController.h"
 #import "GeneralController.h"
 #import "PerformanceController.h"
+#import "Tool_FMDBModel.h"
+#import "Tool_FMDBGetDatabase.h"
+#import "FMDatabase.h"
+#import "fmdb/FMDB.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

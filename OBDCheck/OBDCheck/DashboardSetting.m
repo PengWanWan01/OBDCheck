@@ -77,12 +77,11 @@
     for (int i = 0; i<9; i++) {
         DashboardA *model =  [DashboardA new];
         [self initADDdashboardA:model];
-        [model bg_saveOrUpdate];
+        [model save];
     }
     
 }
 - (void)initADDdashboardA:(DashboardA *)model {
-    bg_setDebug(YES);
      model.titleColor = @"FE9002";
     model.titleFontScale = [NSNumber numberWithFloat:1];
     model.titlePosition = [NSNumber numberWithFloat:1];
@@ -141,13 +140,12 @@
     for (int i = 0; i<9; i++) {
         DashboardB *model =  [DashboardB new];
         [self initADDdashboardB:model];
-         [model bg_saveOrUpdate];
+         [model save];
     }
 
 
 }
 - (void)initADDdashboardB:(DashboardB *)model{
-    bg_setDebug(YES);
     model.ValueColor  = @"#FFFFFF";
     model.ValueFontScale = [NSNumber numberWithFloat:1.f];
     model.ValuePositon = [NSNumber numberWithFloat:1.f];
@@ -186,13 +184,12 @@
     for (int i = 0; i<9; i++) {
         DashboardC *model = [DashboardC new];
         [self initADDdashboardC:model];
-         [model bg_saveOrUpdate];
+         [model save];
     }
     
     
 }
 - (void)initADDdashboardC:(DashboardC *)model{
-    bg_setDebug(YES);
     model.UnitColor = @"FFFFFF";
     model.UnitFontScale = [NSNumber numberWithFloat:1.f];
     model.UnitPositon = [NSNumber numberWithFloat:1.f];
@@ -257,19 +254,19 @@
         case AddStyleOne:
         {
             model.dashboardType = 1;
-            [model bg_saveOrUpdate];
+            [model save];
         }
             break;
         case AddStyleTwo:
         {
             model.dashboardType = 2;
-            [model bg_saveOrUpdate];
+            [model save];
         }
             break;
         case AddStyleThree:
         {
             model.dashboardType = 3;
-            [model bg_saveOrUpdate];
+            [model save];
         }
             break;
         default:

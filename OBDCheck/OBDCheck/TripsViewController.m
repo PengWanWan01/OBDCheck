@@ -132,8 +132,8 @@
     cell.backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
     cell.textLabel.text = self.dataSource[indexPath.row];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-    NSString *SQL = [NSString stringWithFormat:@"WHERE  ID = %d",indexPath.section + 1];
-    NSArray* pAll = [TripsModel bg_findWhere:SQL];
+    NSString *SQL = [NSString stringWithFormat:@"WHERE  ID = %ld",(long)indexPath.section + 1];
+    NSArray* pAll = [TripsModel findByCriteria:SQL];
     for(TripsModel* model in pAll){
         switch (indexPath.row) {
             case 0:
@@ -164,39 +164,21 @@
 }
 - (void)FootBtn:(UIButton *)btn{
     NSLog(@"%ld",(long)btn.tag);
-//    switch (btn.tag) {
-//        case 0:
-//        {
-            NSString *distancesql = [NSString stringWithFormat:@"SET distance ='%@' WHERE  ID = %d",@"0.00",btn.tag+1];
-             NSString *Fuelsql = [NSString stringWithFormat:@"SET Fuel ='%@' WHERE  ID = %d",@"0.00",btn.tag+1];
-             NSString *FuelEconmysql = [NSString stringWithFormat:@"SET FuelEconmy ='%@' WHERE  ID = %d",@"0.00",btn.tag+1];
-            [TripsModel bg_updateSet:distancesql];
-            [TripsModel bg_updateSet:Fuelsql];
-            [TripsModel bg_updateSet:FuelEconmysql];
+    TripsModel *model;
+    NSString *SQL  = [NSString stringWithFormat:@"where pk = %ld",btn.tag+1];
+    NSArray *pAll = [TripsModel findByCriteria:SQL];
+    for(TripsModel* logsmodel in pAll){
+        NSLog(@"logsmodel.item1PID %d",logsmodel.pk  );
+        model = logsmodel;
+    }
+    
+    model.distance = @"0.00";
+    model.Fuel = @"0.00";
+    model.FuelEconmy = @"0.00";
+    [model update];
+    
             [mytableView reloadData];
 
-//        }
-//            break;
-//        case 1:
-//        {
-//            
-//            
-//        }
-//            break;
-//        case 2:
-//        {
-//            
-//            
-//        }
-//            break;
-//        case 3:
-//        {
-//            
-//            
-//        }
-//            break;
-//        default:
-//            break;
-//    }
+
 }
 @end

@@ -37,7 +37,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     PartTwodata = [[LineChartData alloc] initWithDataSet:set1];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, 1"];
-    NSArray *pAll = [LogsModel bg_findWhere:SQL];
+    NSArray *pAll = [LogsModel findByCriteria:SQL];
     for(LogsModel* logsmodel in pAll){
         NSLog(@"logsmodel.item1PID %@",logsmodel.item1PID  );
         model = logsmodel;
@@ -333,7 +333,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     PartTwodata = [[LineChartData alloc] initWithDataSet:set1];
     indextag =  0;
     NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, 1"];
-    NSArray *pAll = [LogsModel bg_findWhere:SQL];
+    NSArray *pAll = [LogsModel findByCriteria:SQL];
     for(LogsModel* logsmodel in pAll){
         NSLog(@"logsmodel.item1PID %@",logsmodel.item1PID  );
         model = logsmodel;

@@ -44,7 +44,7 @@
         switch ([DashboardSetting sharedInstance].dashboardMode) {
             case DashboardCustomMode:
             {
-                NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+                NSArray* pAll = [CustomDashboard findByCriteria:findsql];
                 for(CustomDashboard* dashboard in pAll){
                     CGFloat Space =   (3*M_PI/2)/([dashboard.dashboardB.maxNumber floatValue] - [dashboard.dashboardB.minNumber floatValue]);
                     [self rotateImageView:(-M_PI/2-M_PI/4) + Space*start Withend:(-M_PI/2-M_PI/4) +Space*end];
@@ -54,7 +54,7 @@
                 break;
             case DashboardClassicMode:
             {
-                NSArray* pAll = [DashboardB bg_findWhere:findsql];
+                NSArray* pAll = [DashboardB findByCriteria:findsql];
                 for(DashboardB * dashboard in pAll){
                     CGFloat Space =   (3*M_PI/2)/([dashboard.maxNumber floatValue] - [dashboard.minNumber floatValue]);
                     [self rotateImageView:(-M_PI/2-M_PI/4) + Space*start Withend:(-M_PI/2-M_PI/4) +Space*end];

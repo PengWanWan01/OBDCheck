@@ -72,7 +72,7 @@
 - (void)initWithHeadUI{
     NSLog(@"headU");
     NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
-    NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+    NSArray* pAll = [CustomDashboard findByCriteria:findsql];
     for(CustomDashboard* dashboard in pAll){
     model = dashboard.dashboardA;
     self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
@@ -1181,89 +1181,39 @@
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
     NSLog(@"121");
-//    bg_setDebug(YES);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-  
-    NSString *sql = [NSString stringWithFormat:@"SET dashboardA->StartAngle = '%@' WHERE  ID = %@",model.StartAngle , self.indexID];
-
-    NSString *miLengthsql = [NSString stringWithFormat:@"SET dashboardA->miLength ='%@' WHERE  ID = %@",model.miLength, self.indexID];
-    
-    NSString *miWidthsql = [NSString stringWithFormat:@"SET dashboardA->miWidth ='%@' WHERE  ID = %@",model.miWidth, self.indexID];
-    NSString *maWidthsql = [NSString stringWithFormat:@"SET dashboardA->maWidth ='%@' WHERE  ID = %@",model.maWidth, self.indexID];
-
-    NSString *maLengthsql = [NSString stringWithFormat:@"SET dashboardA->maLength ='%@' WHERE  ID = %@",model.maLength, self.indexID];
-    
-    NSString *UnitHorizontalPositionsql = [NSString stringWithFormat:@"SET dashboardA->UnitHorizontalPosition ='%@' WHERE  ID = %@",model.UnitHorizontalPosition, self.indexID];
-    NSString *UnitVerticalPositionsql = [NSString stringWithFormat:@"SET dashboardA->UnitVerticalPosition ='%@' WHERE  ID = %@",model.UnitVerticalPosition, self.indexID];
-    
-    NSString *UnitFontScalesql = [NSString stringWithFormat:@"SET dashboardA->UnitFontScale ='%@' WHERE  ID = %@",model.UnitFontScale, self.indexID];
-   
-    NSString *ValuePositionsql = [NSString stringWithFormat:@"SET dashboardA->ValuePosition ='%@' WHERE  ID = %@",model.ValuePosition, self.indexID];
-    
-    NSString *ValueFontScalesql = [NSString stringWithFormat:@"SET dashboardA->ValueFontScale ='%@' WHERE  ID = %@",model.ValueFontScale, self.indexID];
-   
-    NSString *titlePositionsql = [NSString stringWithFormat:@"SET dashboardA->titlePosition ='%@' WHERE  ID = %@",model.titlePosition, self.indexID];
-    
-    NSString *endAnglesql = [NSString stringWithFormat:@"SET dashboardA->endAngle ='%@' WHERE  ID = %@",model.endAngle, self.indexID];
-       NSString *titleFontScalesql = [NSString stringWithFormat:@"SET dashboardA->titleFontScale ='%@' WHERE  ID = %@",model.titleFontScale, self.indexID];
-    NSString *FillstartAnglesql = [NSString stringWithFormat:@"SET dashboardA->FillstartAngle ='%@' WHERE  ID = %@",model.FillstartAngle, self.indexID];
-   
-    NSString *LabelFontScalesql = [NSString stringWithFormat:@"SET dashboardA->LabelFontScale ='%@' WHERE  ID = %@",model.LabelFontScale, self.indexID];
-    
-
-    NSString *LabelOffestsql = [NSString stringWithFormat:@"SET dashboardA->LabelOffest ='%@' WHERE  ID = %@",model.LabelOffest, self.indexID];
-        
-      NSString *outerColorsql = [NSString stringWithFormat:@"SET dashboardA->outerColor ='%@' WHERE  ID = %@",model.outerColor, self.indexID];
-        
-      NSString *innerColorsql = [NSString stringWithFormat:@"SET dashboardA->innerColor ='%@' WHERE  ID = %@",model.innerColor, self.indexID];
-        
-    NSString *titleColorsql = [NSString stringWithFormat:@"SET dashboardA->titleColor ='%@' WHERE  ID = %@",model.titleColor, self.self.indexID];
-    
-    NSString *maColorsql = [NSString stringWithFormat:@"SET dashboardA->maColor ='%@' WHERE  ID = %@",model.maColor,self.indexID];
-    
-    NSString *FillColorsql = [NSString stringWithFormat:@"SET dashboardA->FillColor ='%@' WHERE  ID = %@",model.FillColor,self.indexID];
-    
-    NSString *KNOBColorsql = [NSString stringWithFormat:@"SET dashboardA->KNOBColor ='%@' WHERE  ID = %@",model.KNOBColor,self.indexID];
-    
-    NSString *PointerVisblesql = [NSString stringWithFormat:@"SET dashboardA->PointerVisble ='%d' WHERE  ID = %@",model.PointerVisble,self.indexID];
-    
-
-    NSString *LabelRotatesql = [NSString stringWithFormat:@"SET dashboardA->LabelRotate ='%d' WHERE  ID = %@",model.LabelRotate,self.indexID];
-   
-    NSString *ValueVisblesql = [NSString stringWithFormat:@"SET dashboardA->ValueVisble ='%d' WHERE  ID = %@",model.ValueVisble,self.indexID];
-    
-    NSString *LabelVisblesql = [NSString stringWithFormat:@"SET dashboardA->LabelVisble ='%d' WHERE  ID = %@",model.LabelVisble,self.indexID];
-    NSString * PointerWidthsql= [NSString stringWithFormat:@"SET dashboardA->PointerWidth ='%@' WHERE  ID = %@",model.PointerWidth,self.indexID];
-    
-    [CustomDashboard bg_updateSet:LabelVisblesql];
-    [CustomDashboard bg_updateSet:LabelRotatesql];
-    [CustomDashboard bg_updateSet:PointerVisblesql];
-    [CustomDashboard bg_updateSet:FillColorsql];
-    [CustomDashboard bg_updateSet:KNOBColorsql];
-    [CustomDashboard bg_updateSet:FillColorsql];
-    [CustomDashboard bg_updateSet:titleColorsql];
-    [CustomDashboard bg_updateSet:maColorsql];
-    [CustomDashboard bg_updateSet:outerColorsql];
-    [CustomDashboard bg_updateSet:innerColorsql];
-    [CustomDashboard bg_updateSet:LabelOffestsql];
-    [CustomDashboard bg_updateSet:PointerWidthsql];
-    [CustomDashboard bg_updateSet:sql];
-    [CustomDashboard bg_updateSet:miLengthsql];
-    [CustomDashboard bg_updateSet:miWidthsql];
-    [CustomDashboard bg_updateSet:maLengthsql];
-    [CustomDashboard bg_updateSet:maWidthsql];
-    [CustomDashboard bg_updateSet:UnitHorizontalPositionsql];
-    [CustomDashboard bg_updateSet:UnitVerticalPositionsql];
-    [CustomDashboard bg_updateSet:UnitFontScalesql];
-    [CustomDashboard bg_updateSet:ValuePositionsql];
-    [CustomDashboard bg_updateSet:ValueFontScalesql];
-    [CustomDashboard bg_updateSet:titlePositionsql];
-    [CustomDashboard bg_updateSet:titleFontScalesql];
-    [CustomDashboard bg_updateSet:maLengthsql];
-    [CustomDashboard bg_updateSet:ValueVisblesql];
-    [CustomDashboard bg_updateSet:LabelFontScalesql];
-    [CustomDashboard bg_updateSet:FillstartAnglesql];
-    [CustomDashboard bg_updateSet:endAnglesql];
+        if (model.pk == [self.indexID  intValue]) {
+            CustomDashboard *dash = [CustomDashboard new];
+            dash.dashboardA.StartAngle = model.StartAngle;
+             dash.dashboardA.miLength = model.miLength;
+             dash.dashboardA.miWidth = model.miWidth;
+             dash.dashboardA.maWidth = model.maWidth;
+             dash.dashboardA.maLength = model.maLength;
+             dash.dashboardA.UnitHorizontalPosition = model.UnitHorizontalPosition;
+            dash.dashboardA.UnitVerticalPosition = model.UnitVerticalPosition;
+            dash.dashboardA.UnitFontScale = model.UnitFontScale;
+            dash.dashboardA.ValuePosition = model.ValuePosition;
+            dash.dashboardA.ValueFontScale = model.ValueFontScale;
+            dash.dashboardA.endAngle = model.endAngle;
+            dash.dashboardA.titleFontScale = model.titleFontScale;
+            
+            dash.dashboardA.FillstartAngle = model.FillstartAngle;
+            dash.dashboardA.LabelFontScale = model.LabelFontScale;
+            dash.dashboardA.LabelOffest = model.LabelOffest;
+            dash.dashboardA.outerColor = model.outerColor;
+            dash.dashboardA.innerColor = model.innerColor;
+            dash.dashboardA.titleColor = model.titleColor;
+            
+            dash.dashboardA.maColor = model.maColor;
+            dash.dashboardA.FillColor = model.FillColor;
+            dash.dashboardA.KNOBColor = model.KNOBColor;
+            dash.dashboardA.PointerVisble = model.PointerVisble;
+            dash.dashboardA.LabelRotate = model.LabelRotate;
+            dash.dashboardA.ValueVisble = model.ValueVisble;
+            dash.dashboardA.LabelVisble = model.LabelVisble;
+            dash.dashboardA.PointerWidth = model.PointerWidth;
+            [dash update];
+        }
     });
 }
 -(void)rightBarButtonClick{

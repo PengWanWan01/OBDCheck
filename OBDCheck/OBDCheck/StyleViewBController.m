@@ -60,7 +60,7 @@
 }
 - (void)initWithHeadUI{
     NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
-    NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+    NSArray* pAll = [CustomDashboard findByCriteria:findsql];
 
     for(CustomDashboard * dashboard in pAll){
         NSLog(@"backColor %@",dashboard.dashboardB.backColor  );
@@ -477,43 +477,26 @@
     
     [self.navigationController popViewControllerAnimated:YES];
  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    bg_setDebug(YES);
-    
-    NSString *titleFontScalesql = [NSString stringWithFormat:@"SET dashboardB->titleFontScale = '%@' WHERE  ID = %@",model.titleFontScale ,indexID];
-    
-    NSString *ValueFontScalesql = [NSString stringWithFormat:@"SET dashboardB->ValueFontScale = '%@' WHERE  ID = %@",model.ValueFontScale ,indexID];
-    
-    NSString *ValuePositonsql = [NSString stringWithFormat:@"SET dashboardB->ValuePositon = '%@' WHERE  ID = %@",model.ValuePositon ,indexID];
-    NSString *UnitFontScalesql = [NSString stringWithFormat:@"SET dashboardB->UnitFontScale = '%@' WHERE  ID = %@",model.UnitFontScale ,indexID];
 
-    NSString *UnitPositonsql = [NSString stringWithFormat:@"SET dashboardB->UnitPositon = '%@' WHERE  ID = %@",model.UnitPositon ,indexID];
-    NSString *Pointerwidthsql = [NSString stringWithFormat:@"SET dashboardB->Pointerwidth = '%@' WHERE  ID = %@",model.Pointerwidth ,indexID];
-    
-    NSString *titleColorsql = [NSString stringWithFormat:@"SET dashboardB->titleColor ='%@' WHERE  ID = %@",model.titleColor,indexID];
-    NSString *ValueColorsql = [NSString stringWithFormat:@"SET dashboardB->ValueColor ='%@' WHERE  ID = %@",model.ValueColor,indexID];
-    
-    NSString *UnitColorsql = [NSString stringWithFormat:@"SET dashboardB->UnitColor ='%@' WHERE  ID = %@",model.UnitColor,indexID];
-    NSString *pointerColorsql = [NSString stringWithFormat:@"SET dashboardB->pointerColor ='%@' WHERE  ID = %@",model.pointerColor,indexID];
-    
-    NSString *backColorsql = [NSString stringWithFormat:@"SET dashboardB->backColor ='%@' WHERE  ID = %@",model.backColor,indexID];
-    NSString *ValueVisiblesql = [NSString stringWithFormat:@"SET dashboardB->ValueVisible ='%d' WHERE  ID = %@",model.ValueVisible,indexID];
-    NSString *FillEnablesql = [NSString stringWithFormat:@"SET dashboardB->FillEnable ='%d' WHERE  ID = %@",model.FillEnable,indexID];
-     NSString *GradientRadiussql = [NSString stringWithFormat:@"SET dashboardB->GradientRadius ='%@' WHERE  ID = %@",model.GradientRadius,indexID];
-     
-    [CustomDashboard bg_updateSet:titleFontScalesql];
-    [CustomDashboard bg_updateSet:ValueColorsql];
-    [CustomDashboard bg_updateSet:ValuePositonsql];
-    [CustomDashboard bg_updateSet:ValueVisiblesql];
-    [CustomDashboard bg_updateSet:ValueFontScalesql];
-    [CustomDashboard bg_updateSet:UnitFontScalesql];
-    [CustomDashboard bg_updateSet:UnitColorsql];
-    [CustomDashboard bg_updateSet:Pointerwidthsql];
-    [CustomDashboard bg_updateSet:UnitPositonsql];
-    [CustomDashboard bg_updateSet:backColorsql];
-    [CustomDashboard bg_updateSet:titleColorsql];
-    [CustomDashboard bg_updateSet:pointerColorsql];
-    [CustomDashboard bg_updateSet:FillEnablesql];
-    [CustomDashboard bg_updateSet:GradientRadiussql];
+     if (model.pk == [indexID intValue]) {
+         CustomDashboard *dash =  [[CustomDashboard alloc]init];
+         dash.dashboardB.titleFontScale = model.titleFontScale;
+         dash.dashboardB.ValueFontScale = model.ValueFontScale;
+         dash.dashboardB.ValuePositon = model.ValuePositon;
+         dash.dashboardB.UnitPositon = model.UnitPositon;
+         dash.dashboardB.titleColor = model.titleColor;
+         dash.dashboardB.ValueColor = model.ValueColor;
+         
+         dash.dashboardB.UnitColor = model.UnitColor;
+         dash.dashboardB.pointerColor = model.pointerColor;
+         dash.dashboardB.backColor = model.backColor;
+         dash.dashboardB.ValueVisible = model.ValueVisible;
+         dash.dashboardB.FillEnable = model.FillEnable;
+         dash.dashboardB.GradientRadius = model.GradientRadius;
+         [dash update];
+     }
+   
+
 
  });
 }

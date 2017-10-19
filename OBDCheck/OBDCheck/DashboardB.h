@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DashboardB : NSObject
+@interface DashboardB :Tool_FMDBModel<NSCoding>
 @property (nonatomic,copy) NSString  *infoLabeltext; //名字
 
 @property (nonatomic,copy) NSString *backColor;

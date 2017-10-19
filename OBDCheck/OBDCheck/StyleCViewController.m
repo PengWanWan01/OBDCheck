@@ -59,7 +59,7 @@
 - (void)initWithHeadUI{
  
     NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
-    NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+    NSArray* pAll = [CustomDashboard findByCriteria:findsql];
     for(CustomDashboard * dashboard in pAll){
         NSLog(@"FrameColor %@",dashboard.dashboardC.FrameColor  );
         model = dashboard.dashboardC;
@@ -405,8 +405,11 @@
         {
              if (model.ValueVisible == YES) {
                  model.ValueColor = self.selectColor;
-                 NSString *sql = [NSString stringWithFormat:@"SET ValueColor ='%@' WHERE  ID = %@",model.ValueColor,indexID];
-                 [DashboardC bg_updateSet:sql];
+                 if (model.pk == [indexID intValue]) {
+                     model.ValueColor = model.ValueColor;
+                     [model update];
+                 }
+               
             [self upDateDashView];
              }
         }
@@ -445,34 +448,27 @@
 -(void)back{
     [self.navigationController popViewControllerAnimated:YES];
      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    bg_setDebug(YES);
-    NSString *ValueVisiblesql = [NSString stringWithFormat:@"SET dashboardC->ValueVisible ='%d' WHERE  ID = %@",model.ValueVisible,indexID];
-    NSString *FrameColorsql = [NSString stringWithFormat:@"SET dashboardC->FrameColor ='%@' WHERE  ID = %@",model.FrameColor,indexID];
-    NSString *UnitColorsql = [NSString stringWithFormat:@"SET dashboardC->UnitColor ='%@' WHERE  ID = %@",model.UnitColor,indexID];
-    NSString *titleColorsql = [NSString stringWithFormat:@"SET dashboardC->titleColor ='%@' WHERE  ID = %@",model.titleColor,indexID];
-    NSString *outerColorsql = [NSString stringWithFormat:@"SET dashboardC->outerColor ='%@' WHERE  ID = %@",model.outerColor,indexID];
-    NSString *innerColorsql = [NSString stringWithFormat:@"SET dashboardC->innerColor ='%@' WHERE  ID = %@",model.innerColor,indexID];
+         CustomDashboard *dash = [CustomDashboard new];
+         if (dash.pk == [indexID integerValue]) {
+             dash.dashboardC.ValueVisible = model.ValueVisible;
+             dash.dashboardC.FrameColor = model.FrameColor;
+             dash.dashboardC.UnitColor = model.UnitColor;
+             dash.dashboardC.outerColor = model.outerColor;
+             dash.dashboardC.innerColor = model.innerColor;
+             dash.dashboardC.titleColor = model.titleColor;
 
-    NSString *UnitPositonsql = [NSString stringWithFormat:@"SET dashboardC->UnitPositon = '%@' WHERE  ID = %@",model.UnitPositon ,indexID];
-    NSString *UnitFontScalesql = [NSString stringWithFormat:@"SET dashboardC->UnitFontScale = '%@' WHERE  ID = %@",model.UnitFontScale ,indexID];
-    NSString *ValuePositonsql = [NSString stringWithFormat:@"SET dashboardC->ValuePositon = '%@' WHERE  ID = %@",model.ValuePositon ,indexID];
-    NSString *ValueFontScalesql = [NSString stringWithFormat:@"SET dashboardC->ValueFontScale = '%@' WHERE  ID = %@",model.ValueFontScale ,indexID];
-    NSString *titlePositonsql = [NSString stringWithFormat:@"SET dashboardC->titlePositon = '%@' WHERE  ID = %@",model.titlePositon ,indexID];
-    NSString *titleFontScalesql = [NSString stringWithFormat:@"SET dashboardC->titleFontScale = '%@' WHERE  ID = %@",model.titleFontScale ,indexID];
-    NSString *Gradientradiussql = [NSString stringWithFormat:@"SET dashboardC->Gradientradius = '%@' WHERE  ID = %@",model.Gradientradius ,indexID];
-    [CustomDashboard bg_updateSet:UnitFontScalesql];
-    [CustomDashboard bg_updateSet:ValuePositonsql];
-    [CustomDashboard bg_updateSet:ValueFontScalesql];
-    [CustomDashboard bg_updateSet:titlePositonsql];
-    [CustomDashboard bg_updateSet:titleFontScalesql];
-    [CustomDashboard bg_updateSet:Gradientradiussql];
-    [CustomDashboard bg_updateSet:UnitPositonsql];
-    [CustomDashboard bg_updateSet:innerColorsql];
-    [CustomDashboard bg_updateSet:outerColorsql];
-    [CustomDashboard bg_updateSet:titleColorsql];
-    [CustomDashboard bg_updateSet:UnitColorsql];
-    [CustomDashboard bg_updateSet:FrameColorsql];
-    [CustomDashboard bg_updateSet:ValueVisiblesql];
+             dash.dashboardC.UnitPositon = model.UnitPositon;
+             dash.dashboardC.UnitFontScale = model.UnitFontScale;
+             dash.dashboardC.ValuePositon = model.ValuePositon;
+             dash.dashboardC.ValueFontScale = model.ValueFontScale;
+             dash.dashboardC.titlePositon = model.titlePositon;
+             dash.dashboardC.titleFontScale = model.titleFontScale;
+             
+             dash.dashboardC.Gradientradius = model.Gradientradius;
+     
+             [dash update];
+         }
+
           });
 }
 -(void)rightBarButtonClick{

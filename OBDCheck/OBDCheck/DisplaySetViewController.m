@@ -136,7 +136,7 @@
         selectfield.textAlignment  = NSTextAlignmentCenter;
         selectfield.tag = indexPath.row;
         NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
-        NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+        NSArray* pAll = [CustomDashboard findByCriteria:findsql];
         for(CustomDashboard *dashboard in pAll){
             model = dashboard;
             switch (indexPath.row) {
@@ -385,19 +385,19 @@
 }
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
-    bg_setDebug(YES);
-   NSString *dashboardCMaxsql = [NSString stringWithFormat:@"SET dashboardC->maxNumber = '%@' WHERE  ID = %ld",model.dashboardC.maxNumber , (long)[DashboardSetting sharedInstance].Dashboardindex];
-  NSString *  dashboardBMaxsql = [NSString stringWithFormat:@"SET dashboardB->maxNumber = '%@' WHERE  ID = %ld",model.dashboardB.maxNumber , (long)[DashboardSetting sharedInstance].Dashboardindex];
- NSString *   dashboardAMaxsql = [NSString stringWithFormat:@"SET dashboardA->maxNumber = '%@' WHERE  ID = %ld",model.dashboardA.maxNumber , (long)[DashboardSetting sharedInstance].Dashboardindex];
-  NSString *  dashboardAMinsql = [NSString stringWithFormat:@"SET dashboardA->minNumber = '%@' WHERE  ID = %ld",model.dashboardA.minNumber, (long)[DashboardSetting sharedInstance].Dashboardindex];
-  NSString *  dashboardBMinsql = [NSString stringWithFormat:@"SET dashboardB->minNumber = '%@' WHERE  ID = %ld",model.dashboardB.minNumber, (long)[DashboardSetting sharedInstance].Dashboardindex];
-  NSString *  dashboardCMinsql = [NSString stringWithFormat:@"SET dashboardC->minNumber = '%@' WHERE  ID = %ld",model.dashboardC.minNumber , (long)[DashboardSetting sharedInstance].Dashboardindex];
-    [CustomDashboard bg_updateSet:dashboardAMaxsql];
-    [CustomDashboard bg_updateSet:dashboardBMaxsql];
-    [CustomDashboard bg_updateSet:dashboardCMaxsql];
-    [CustomDashboard bg_updateSet:dashboardAMinsql];
-    [CustomDashboard bg_updateSet:dashboardBMinsql];
-    [CustomDashboard bg_updateSet:dashboardCMinsql];
+//    NSString *SQL = @"where "
+    if(model.pk == [DashboardSetting sharedInstance].Dashboardindex ){
+        CustomDashboard *dash = [CustomDashboard new];
+        dash.dashboardC.maxNumber =model.dashboardC.maxNumber;
+        dash.dashboardB.maxNumber =model.dashboardB.maxNumber;
+        dash.dashboardA.maxNumber =model.dashboardA.maxNumber;
+        dash.dashboardA.minNumber =model.dashboardA.minNumber;
+        dash.dashboardB.minNumber =model.dashboardB.minNumber;
+        dash.dashboardC.minNumber =model.dashboardC.minNumber;
+        [dash update];
+
+    }
+
 
 }
 - (void)rightBarButtonClick{

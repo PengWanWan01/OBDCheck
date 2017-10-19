@@ -174,30 +174,28 @@
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
 
-//     NSString *sql = [NSString stringWithFormat:@"SET dashboardA->StartAngle = '%@' WHERE  ID = %@",model.StartAngle , self.indexID];
     if ([DashboardSetting sharedInstance].ischangeDashboard == YES) {
-        bg_setDebug(YES);
+     
     NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
-    NSArray *AL =  [CustomDashboard bg_findWhere:findsql];
+    NSArray *AL =  [CustomDashboard findByCriteria:findsql];
     for (CustomDashboard *dash in AL ) {
-          NSLog(@"%ld.%ld",(long)dash.dashboardType,[DashboardSetting sharedInstance].ChangeStyle);
+        if (dash.pk == self.indexID) {
+            
+      
         switch (dash.dashboardType) {
-                
             case 1:
             {
                 switch ([DashboardSetting sharedInstance].ChangeStyle) {
                     case ChangeDashboardStyleTwo:
                     {
-                        NSString *sql = [NSString stringWithFormat:@"SET dashboardType = '%d' WHERE  ID = %ld",2 , (long)self.indexID];
-                        [CustomDashboard bg_updateSet:sql];
+                        dash.dashboardType = 2;
                         [self updateCustomType:2 OrignX:[dash.dashboardA.orignx floatValue] OrignY:[dash.dashboardA.origny floatValue] Width:[dash.dashboardA.orignwidth floatValue] Height:[dash.dashboardA.orignwidth floatValue] ID:self.indexID];
                         
                     }
                         break;
                     case ChangeDashboardStyleThree:
                     {
-                        NSString *sql = [NSString stringWithFormat:@"SET dashboardType = '%d' WHERE  ID = %ld",3 , (long)self.indexID];
-                        [CustomDashboard bg_updateSet:sql];
+                        dash.dashboardType = 3;
                         [self updateCustomType:3 OrignX:[dash.dashboardA.orignx floatValue] OrignY:[dash.dashboardA.origny floatValue] Width:[dash.dashboardA.orignwidth floatValue] Height:[dash.dashboardA.orignheight floatValue] ID:self.indexID];
                     }
                         break;
@@ -212,15 +210,13 @@
                 switch ([DashboardSetting sharedInstance].ChangeStyle) {
                     case ChangeDashboardStyleOne:
                     {
-                        NSString *sql = [NSString stringWithFormat:@"SET dashboardType = '%d' WHERE  ID = %ld",1 , (long)self.indexID];
-                        [CustomDashboard bg_updateSet:sql];
+                        dash.dashboardType = 1;
                         [self updateCustomType:1 OrignX:[dash.dashboardB.orignx floatValue] OrignY:[dash.dashboardB.origny floatValue] Width:[dash.dashboardB.orignwidth floatValue] Height:[dash.dashboardB.orignwidth  floatValue]+20 ID:self.indexID];
                     }
                         break;
                     case ChangeDashboardStyleThree:
                     {
-                        NSString *sql = [NSString stringWithFormat:@"SET dashboardType = '%d' WHERE  ID = %ld",3 , (long)self.indexID];
-                        [CustomDashboard bg_updateSet:sql];
+                        dash.dashboardType = 3;
                         [self updateCustomType:3 OrignX:[dash.dashboardB.orignx floatValue] OrignY:[dash.dashboardB.origny floatValue] Width:[dash.dashboardB.orignwidth floatValue] Height:[dash.dashboardB.orignwidth  floatValue] ID:self.indexID];
                     }
                         break;
@@ -235,16 +231,14 @@
                 switch ([DashboardSetting sharedInstance].ChangeStyle) {
                     case ChangeDashboardStyleOne:
                     {
-                        NSString *sql = [NSString stringWithFormat:@"SET dashboardType = '%d' WHERE  ID = %ld",1 , (long)self.indexID];
-                        [CustomDashboard bg_updateSet:sql];
+                        dash.dashboardType = 1;
                         [self updateCustomType:1 OrignX:[dash.dashboardC.orignx floatValue] OrignY:[dash.dashboardC.origny floatValue] Width:[dash.dashboardC.orignwidth floatValue] Height:[dash.dashboardC.orignwidth  floatValue]+20 ID:self.indexID];
                     }
                         break;
                     case ChangeDashboardStyleTwo:
                     {
-                        NSString *sql = [NSString stringWithFormat:@"SET dashboardType = '%d' WHERE  ID = %ld",2 , (long)self.indexID];
-                        [CustomDashboard bg_updateSet:sql];
-                        [self updateCustomType:1 OrignX:[dash.dashboardC.orignx floatValue] OrignY:[dash.dashboardC.origny floatValue] Width:[dash.dashboardC.orignwidth floatValue] Height:[dash.dashboardC.orignwidth  floatValue] ID:self.indexID];
+                        dash.dashboardType = 2;
+                        [self updateCustomType:2 OrignX:[dash.dashboardC.orignx floatValue] OrignY:[dash.dashboardC.origny floatValue] Width:[dash.dashboardC.orignwidth floatValue] Height:[dash.dashboardC.orignwidth  floatValue] ID:self.indexID];
                     }
                         break;
                     default:
@@ -256,62 +250,55 @@
             default:
                 break;
         }
+            [dash update];
+
+        }
     }
         [DashboardSetting sharedInstance].ischangeDashboard = NO;
     }
     
 }
 - (void)updateCustomType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(CGFloat)id{
-    NSString *Customorignxsql ;
-    NSString *Customorignysql;
-    NSString *Customorignwidthsql;
-    NSString *Customorignheightsql;
-    
+
+    NSArray *array = [CustomDashboard findAll];
+    for(CustomDashboard *dash in array){
+        if(dash.pk == id ){
+           
     switch (Customtype) {
         case 1:
         {
             
-            Customorignxsql = [NSString stringWithFormat:@"SET dashboardA->orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:orignx], [NSNumber numberWithFloat:id]];
-            
-            Customorignysql = [NSString stringWithFormat:@"SET dashboardA->origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: origny ], [NSNumber numberWithFloat:id]];
-            
-            Customorignwidthsql = [NSString stringWithFormat:@"SET dashboardA->orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:width], [NSNumber numberWithFloat:id]];
-            
-            Customorignheightsql = [NSString stringWithFormat:@"SET dashboardA->orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:height], [NSNumber numberWithFloat:id]];
-            
+             dash.dashboardA.orignx = [NSNumber numberWithFloat:orignx];
+             dash.dashboardA.origny = [NSNumber numberWithFloat:origny];
+            dash.dashboardA.orignwidth = [NSNumber numberWithFloat:width];
+            dash.dashboardA.orignheight = [NSNumber numberWithFloat:height];
+           
         }
             break;
         case 2:
         {
-            Customorignxsql = [NSString stringWithFormat:@"SET dashboardB->orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:orignx], [NSNumber numberWithFloat:id]];
-            
-            Customorignysql = [NSString stringWithFormat:@"SET dashboardB->origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: origny ], [NSNumber numberWithFloat:id]];
-            
-            Customorignwidthsql = [NSString stringWithFormat:@"SET dashboardB->orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:width], [NSNumber numberWithFloat:id]];
-            
-            Customorignheightsql = [NSString stringWithFormat:@"SET dashboardB->orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:height], [NSNumber numberWithFloat:id]];
+            dash.dashboardB.orignx = [NSNumber numberWithFloat:orignx];
+            dash.dashboardB.origny = [NSNumber numberWithFloat:origny];
+            dash.dashboardB.orignwidth = [NSNumber numberWithFloat:width];
+            dash.dashboardB.orignheight = [NSNumber numberWithFloat:height];
         }
             break;
         case 3:
         {
-            Customorignxsql = [NSString stringWithFormat:@"SET dashboardC->orignx = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:orignx], [NSNumber numberWithFloat:id]];
-            
-            Customorignysql = [NSString stringWithFormat:@"SET dashboardC->origny = '%@' WHERE  ID = %@",[NSNumber numberWithFloat: origny ], [NSNumber numberWithFloat:id]];
-            
-            Customorignwidthsql = [NSString stringWithFormat:@"SET dashboardC->orignwidth = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:width], [NSNumber numberWithFloat:id]];
-            
-            Customorignheightsql = [NSString stringWithFormat:@"SET dashboardC->orignheight = '%@' WHERE  ID = %@",[NSNumber numberWithFloat:height], [NSNumber numberWithFloat:id]];
+            dash.dashboardC.orignx = [NSNumber numberWithFloat:orignx];
+            dash.dashboardC.origny = [NSNumber numberWithFloat:origny];
+            dash.dashboardC.orignwidth = [NSNumber numberWithFloat:width];
+            dash.dashboardC.orignheight = [NSNumber numberWithFloat:height];
             
         }
             break;
         default:
             break;
     }
-    
-    [CustomDashboard bg_updateSet:Customorignxsql];
-    [CustomDashboard bg_updateSet:Customorignysql];
-    [CustomDashboard bg_updateSet:Customorignwidthsql];
-    [CustomDashboard bg_updateSet:Customorignheightsql];
+            [dash update];
+        }
+    }
+   
     
     
 }

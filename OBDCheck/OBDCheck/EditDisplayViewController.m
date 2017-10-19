@@ -76,7 +76,7 @@
         case 1:
         {
             NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
-            NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+            NSArray* pAll = [CustomDashboard findByCriteria:findsql];
             for(CustomDashboard *dashboard in pAll){
                 switch (dashboard.dashboardType) {
                     case 1:

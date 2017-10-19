@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Auptophix. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "Tool_FMDBModel.h"
 
-@interface LogsModel : NSObject
+@interface LogsModel : Tool_FMDBModel<NSCoding>
 @property (nonatomic,copy) NSString *item1PID;
 @property (nonatomic,assign) BOOL item1Smoothing;
 
