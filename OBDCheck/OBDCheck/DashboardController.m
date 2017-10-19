@@ -66,15 +66,7 @@ static dispatch_source_t _timer;
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
-- (void)isFristLoadDashboard{
-    NSLog(@"isFristLoadDashboard");
-    [self isFristLoadDashboardA];
-    [self isFristLoadDashboardB];
-    [self isFristLoadDashboardC];
-    [self isFristLoadCustomDashboard];
-  
-    
-}
+
 - (void)isFristLoadCustomDashboard{
     for (NSInteger i = 0; i< 6; i++) {
         NSInteger index = i % 2;
@@ -94,59 +86,7 @@ static dispatch_source_t _timer;
     [self updateCustomType:3 OrignX:dashboardStyleCView.frame.origin.x OrignY:dashboardStyleCView.frame.origin.y Width:dashboardStyleCView.frame.size.width Height:dashboardStyleCView.frame.size.height ID:9];
 
 }
-- (void)isFristLoadDashboardC{
-    for (NSInteger i = 0; i< 6; i++) {
-        NSInteger index = i % 2;
-        NSInteger page = i / 2;
-        CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
-        dashboardStyleCView  = [[DashboardViewStyleC alloc] initWithFrame:CGRectMake(index * (space+ 150*KFontmultiple)+25,  page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple)];
-          [ self updatemodel:3 OrignX:dashboardStyleCView.frame.origin.x OrignY:dashboardStyleCView.frame.origin.y Width:dashboardStyleCView.frame.size.width Height:dashboardStyleCView.frame.size.height ID:i+1];
-    }
-    //第二页的仪表盘
-    for (NSInteger i = 0; i< 2; i++) {
-        
-        dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30)+30, 220, 220)];
-          [ self updatemodel:3 OrignX:dashboardStyleCView.frame.origin.x OrignY:dashboardStyleCView.frame.origin.y Width:dashboardStyleCView.frame.size.width Height:dashboardStyleCView.frame.size.height ID:i+7];
-    }
-    dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth*2+(MSWidth- 300)/2,  88,300, 300)];
-    [ self updatemodel:3 OrignX:dashboardStyleCView.frame.origin.x OrignY:dashboardStyleCView.frame.origin.y Width:dashboardStyleCView.frame.size.width Height:dashboardStyleCView.frame.size.height ID:9];
-}
-- (void)isFristLoadDashboardB{
-    for (NSInteger i = 0; i< 6; i++) {
-        NSInteger index = i % 2;
-        NSInteger page = i / 2;
-        CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
-        dashboardStyleBView  = [[DashboardViewStyleB alloc] initWithFrame:CGRectMake(index * (space+ 150*KFontmultiple)+25,  page  * (baseViewHeight + 40)+20, 150*KFontmultiple, 150*KFontmultiple )];
-        [ self updatemodel:2 OrignX:dashboardStyleBView.frame.origin.x OrignY:dashboardStyleBView.frame.origin.y Width:dashboardStyleBView.frame.size.width Height:dashboardStyleBView.frame.size.height ID:i+1];
-        
-    }
-    //第二页的仪表盘
-    for (NSInteger i = 0; i< 2; i++) {
-        dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30)+30, 220, 220)];
-      [ self updatemodel:2 OrignX:dashboardStyleBView.frame.origin.x OrignY:dashboardStyleBView.frame.origin.y Width:dashboardStyleBView.frame.size.width Height:dashboardStyleBView.frame.size.height ID:7+i];
-    }
-    
-    dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth*2+(MSWidth- 300)/2,  88,300, 300)];
-    [ self updatemodel:2 OrignX:dashboardStyleBView.frame.origin.x OrignY:dashboardStyleBView.frame.origin.y Width:dashboardStyleBView.frame.size.width Height:dashboardStyleBView.frame.size.height ID:9];
 
-}
-- (void)isFristLoadDashboardA{
-    for (NSInteger i = 0; i< 6; i++) {
-        NSInteger index = i % 2;
-        NSInteger page = i / 2;
-        CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
-        dashboardStyleAView  = [[DashboardView alloc] initWithFrame:CGRectMake(index * (space+ 150*KFontmultiple)+25,  page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple +20)];
-      [ self updatemodel:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:i+1];
-    }
-    for (NSInteger i = 0; i< 2; i++) {
-        
-        dashboardStyleAView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30)+30, 220, 220+20)];
-       [ self updatemodel:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:i+7];
-        
-    }
-    dashboardStyleAView = [[DashboardView alloc] initWithFrame:CGRectMake(MSWidth*2+(MSWidth- 300)/2, 88,300, 300+20)];
-     [ self updatemodel:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:9];
-   }
 #pragma mark 对自定义不同风格进行更新
 - (void)updateCustomType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(CGFloat)id{
     CustomDashboard *model = [CustomDashboard new];
@@ -366,9 +306,7 @@ static dispatch_source_t _timer;
 
    
     NSArray *pAllCount = [CustomDashboard findAll];
-    NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0,  %lu",(unsigned long)pAllCount.count];
-    NSArray *pAll = [CustomDashboard findByCriteria:SQL];
-    CustomDashboard *modle = pAll.lastObject;
+    CustomDashboard *modle = pAllCount.lastObject;
     NSInteger space =   modle.pk  - _CustomLabelArray.count;
     if (space > 0) {
         for (int i = 1; i<=space; i++) {
@@ -423,12 +361,6 @@ static dispatch_source_t _timer;
     // 为了检测滚动视图的偏移量，引入代理
     scrollView.delegate = self;
     pageControl.tag = 1000;
-//第一次进入改页面
-    NSUserDefaults *test = [NSUserDefaults standardUserDefaults];
-    if ((![test valueForKey:@"test"])) {
-        [test setValue:@"sd" forKey:@"test"];
-        [self isFristLoadDashboard];
-    }
     [self LoadUI];
 
 
@@ -490,57 +422,46 @@ static dispatch_source_t _timer;
 }
 - (void)initWithcustomMode{
     NSArray* pAllCount = [CustomDashboard findAll];
-    NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, %lu",(unsigned long)pAllCount.count];
-    NSArray *pAll = [CustomDashboard findByCriteria:SQL];
-    for (CustomDashboard *dash in pAll) {
-              switch (dash.dashboardType) {
-            case 1:
-            {
-                dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.orignx floatValue], [dash.dashboardA.origny floatValue], [dash.dashboardA.orignwidth floatValue], [dash.dashboardA.orignheight floatValue])];
-                dashboardStyleAView.tag = dash.pk ;
-                DashBoardTag = dashboardStyleAView.tag ;
-                [scrollView addSubview:dashboardStyleAView];
-                [self initWithChangeCustomType:1 withTag:DashBoardTag] ;
-
-            }
-                break;
-            case 2:
-            {
-                dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake([dash.dashboardB.orignx floatValue], [dash.dashboardB.origny floatValue], [dash.dashboardB.orignwidth floatValue], [dash.dashboardB.orignheight floatValue])];
-                dashboardStyleBView.tag =dash.pk ;
-                DashBoardTag = dashboardStyleBView.tag ;
-                [scrollView addSubview:dashboardStyleBView];
-                [self initWithChangeCustomType:2 withTag:DashBoardTag] ;
-
-            }
-                break;
-            case 3:
-            {
-                dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake([dash.dashboardC.orignx floatValue], [dash.dashboardC.origny floatValue], [dash.dashboardC.orignwidth floatValue], [dash.dashboardC.orignheight floatValue])];
-                dashboardStyleCView.tag = dash.pk ;
-                DashBoardTag = dashboardStyleCView.tag ;
-                [scrollView addSubview:dashboardStyleCView];
-                [self initWithChangeCustomType:3 withTag:DashBoardTag] ;
-
-            }
-                break;
-            default:
-                break;
+  
+    for (NSInteger i = 0;i<pAllCount.count;i++) {
+        CustomDashboard *dash = pAllCount[i];
+//        NSLog(@"orignx%@",dash);
+        if (dash.dashboardType == 1) {
+            dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.orignx floatValue], [dash.dashboardA.origny floatValue], [dash.dashboardA.orignwidth floatValue], [dash.dashboardA.orignheight floatValue])];
+            dashboardStyleAView.tag = dash.pk ;
+            DashBoardTag = dashboardStyleAView.tag ;
+            [dashboardStyleAView addGradientView:dash.dashboardA.outerColor  GradientViewWidth:dashboardStyleAView.frame.size.width];
+            [dashboardStyleAView initWithModel:dash.dashboardA];
+            [scrollView addSubview:dashboardStyleAView];
         }
-        
+        if (dash.dashboardType == 2){
+            dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake([dash.dashboardB.orignx floatValue], [dash.dashboardB.origny floatValue], [dash.dashboardB.orignwidth floatValue], [dash.dashboardB.orignheight floatValue])];
+            dashboardStyleBView.tag =dash.pk ;
+            [dashboardStyleBView initWithModel:dash.dashboardB];
+            DashBoardTag = dashboardStyleBView.tag ;
+            [scrollView addSubview:dashboardStyleBView];
+        }
+        if (dash.dashboardType == 3){
+            dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake([dash.dashboardC.orignx floatValue], [dash.dashboardC.origny floatValue], [dash.dashboardC.orignwidth floatValue], [dash.dashboardC.orignheight floatValue])];
+            dashboardStyleCView.tag = dash.pk ;
+            [dashboardStyleCView initWithModel:dash.dashboardC];
+            DashBoardTag = dashboardStyleCView.tag ;
+            [scrollView addSubview:dashboardStyleCView];
+        }
     }
 }
 - (void)initWithChangeCustomType:(NSInteger)type withTag:(NSInteger)tag{
     [self initWithData];
-    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:tag]];
+    NSString *findsql = [NSString stringWithFormat:@"WHERE  pk = %@",[NSNumber numberWithInteger:tag]];
     NSArray* pAll = [CustomDashboard findByCriteria:findsql];
     for(CustomDashboard *dashboard in pAll){
-        
+      
         switch (dashboard.dashboardType) {
             case 1:
             {
+                NSLog(@"outerColor%@",dashboard.dashboardA.outerColor);
                 //画底盘渐变色
-                [dashboardStyleAView addGradientView:dashboard.dashboardA.outerColor  GradientViewWidth:dashboardStyleAView.frame.size.width];
+                [dashboardStyleAView addGradientView:@"18181C" GradientViewWidth:dashboardStyleAView.frame.size.width];
                 [dashboardStyleAView initWithModel:dashboard.dashboardA];
                 dashboardStyleAView.infoLabel.text = _CustomLabelArray[dashboard.pk  - 1];
                 dashboardStyleAView.numberLabel.text = _CustomNumberArray[dashboard.pk  - 1];
@@ -1070,7 +991,7 @@ static dispatch_source_t _timer;
      NSInteger current = pageControl.currentPage;
     [pageControl removeFromSuperview];
     [scrollView removeFromSuperview];
-         [self initWithUI];
+     [self initWithUI];
     [self initWithData];
 
      scrollView.contentOffset = CGPointMake(current*MSWidth, 0);
@@ -1082,8 +1003,7 @@ static dispatch_source_t _timer;
     NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
     NSArray* pAll = [CustomDashboard findByCriteria:findsql];
     for(CustomDashboard *dashboard in pAll){
-        NSString *orignxsql;
-        NSString *orignysql;
+
         switch (dashboard.dashboardType) {
             case 1:
             {
@@ -1145,6 +1065,6 @@ static dispatch_source_t _timer;
      [DashboardSetting sharedInstance].hudModeType = HUDModeTypeToNormal;
      [DashboardSetting sharedInstance].KPageNumer = 3;
      [DashboardSetting sharedInstance].isDashboardRemove = NO;
-    [self isFristLoadDashboard];
+    [self LoadUI];
 }
 @end

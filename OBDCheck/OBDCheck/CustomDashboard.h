@@ -12,9 +12,10 @@
 @class DashboardC;
 
 @interface CustomDashboard : Tool_FMDBModel
+@property (nonatomic,assign) NSInteger  dashboardType ;
+
 @property (nonatomic,strong) DashboardA * dashboardA ;
 @property (nonatomic,strong) DashboardB * dashboardB ;
 @property (nonatomic,strong) DashboardC * dashboardC ;
-@property (nonatomic,assign) NSInteger  dashboardType ;
 
 @end

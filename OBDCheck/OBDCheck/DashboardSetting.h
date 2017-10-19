@@ -87,10 +87,10 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 - (void)initWithdashboardB;
 - (void)initWithdashboardC;
 
-- (void)initADDdashboardA:(DashboardA *)model;
+- (void)initADDdashboardA:(DashboardA *)model with:(NSInteger )i;
 
-- (void)initADDdashboardB:(DashboardB *)model;
-- (void)initADDdashboardC:(DashboardC *)model;
+- (void)initADDdashboardB:(DashboardB *)model with:(NSInteger )i;
+- (void)initADDdashboardC:(DashboardC *)model with:(NSInteger )i;
 
 - (void)initwithCustomDashboard;
 - (void)CustomDashboardType:(AddDashboardStyle)type;

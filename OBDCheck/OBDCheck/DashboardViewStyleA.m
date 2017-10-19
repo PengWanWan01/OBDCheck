@@ -134,8 +134,10 @@
 // 画刻度
 - (void)initWithModel:(DashboardA *)model{
 
-    [self addCircleLayer:[model.ringWidth floatValue] withInnerColor:model.innerColor];
 
+//       NSLog(@"innerColor%@",model);
+//    NSLog(@"innerColor%@%@",model,model.innerColor);
+     [self addCircleLayer:[model.ringWidth floatValue] withInnerColor:model.innerColor];
     
     [self adddrawPointerVisble:model.PointerVisble PointerWidth:[model.PointerWidth  floatValue] PointerLength:[model.PointerLength  floatValue] PointerColor:model.PointerColor KNOBRadius:[model.KNOBRadius floatValue] KNOBColor:model.KNOBColor withStartAngle:[model.StartAngle floatValue] withModel:(DashboardA *)model];
     
@@ -188,6 +190,7 @@
             LongperLayer.strokeColor = [ColorTools colorWithHexString:model.maColor].CGColor;
             LongperLayer.lineWidth = [model.maLength floatValue];
             //添加刻度
+             _center = CGPointMake([model.orignwidth floatValue]/2, [model.orignwidth floatValue]/2);
             CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:(_radius-[model.ringWidth floatValue]- [model.maLength floatValue]- 5)*[model.LabelOffest floatValue] Rotate:model.LabelRotate];
             //四舍五入
             NSString *tickText = [NSString stringWithFormat:@"%.f",((roundf([model.maxNumber floatValue]- [model.minNumber floatValue])/8)*(i/5) +[model.minNumber floatValue])];

@@ -7,7 +7,8 @@
 //
 
 #import "DashboardSetting.h"
-
+#define baseViewWidth  150
+#define baseViewHeight  150
 
 @implementation DashboardSetting
 #pragma mark - 单例
@@ -76,12 +77,12 @@
 - (void)initWithdashboardA{
     for (int i = 0; i<9; i++) {
         DashboardA *model =  [DashboardA new];
-        [self initADDdashboardA:model];
+        [self initADDdashboardA:model with:i ];
         [model save];
     }
     
 }
-- (void)initADDdashboardA:(DashboardA *)model {
+- (void)initADDdashboardA:(DashboardA *)model with:(NSInteger )i {
      model.titleColor = @"FE9002";
     model.titleFontScale = [NSNumber numberWithFloat:1];
     model.titlePosition = [NSNumber numberWithFloat:1];
@@ -115,7 +116,7 @@
     model.UnitHorizontalPosition = [NSNumber numberWithFloat:1];
     
     model.StartAngle = [NSNumber numberWithFloat:0.f];
-    model.endAngle = [NSNumber numberWithFloat:2*M_PI];
+    model.endAngle = [NSNumber numberWithFloat:2.f*M_PI];
     model.ringWidth = [NSNumber numberWithFloat:10.f];
     model.maLength = [NSNumber numberWithFloat:15.f];
     model.miLength = [NSNumber numberWithFloat:5];
@@ -125,10 +126,15 @@
     model.miColor = @"FFFFFF";
     model.innerColor = @"18191C";
     model.outerColor = @"18191C";
-    model.orignx = [NSNumber numberWithFloat:0];
-    model.origny = [NSNumber numberWithFloat:0];
-    model.orignwidth = [NSNumber numberWithFloat:0];
-    model.orignheight = [NSNumber numberWithFloat:0];
+    
+    NSInteger index = i % 2;
+    NSInteger page = i / 2;
+    CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
+    model.orignx = [NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25];
+    model.origny = [NSNumber numberWithFloat: page  * (baseViewHeight + 40)+10];
+    model.orignwidth = [NSNumber numberWithFloat:150*KFontmultiple];
+    model.orignheight = [NSNumber numberWithFloat:150*KFontmultiple +20];
+    
     model.minNumber = @"0";
     model.maxNumber = @"100";
     model.infoLabeltext = @"add";
@@ -139,13 +145,13 @@
 - (void)initWithdashboardB{
     for (int i = 0; i<9; i++) {
         DashboardB *model =  [DashboardB new];
-        [self initADDdashboardB:model];
+        [self initADDdashboardB:model with:i] ;
          [model save];
     }
 
 
 }
-- (void)initADDdashboardB:(DashboardB *)model{
+- (void)initADDdashboardB:(DashboardB *)model with:(NSInteger )i{
     model.ValueColor  = @"#FFFFFF";
     model.ValueFontScale = [NSNumber numberWithFloat:1.f];
     model.ValuePositon = [NSNumber numberWithFloat:1.f];
@@ -167,10 +173,11 @@
     
     model.Pointerwidth = [NSNumber numberWithFloat:1.f];
     model.pointerColor = @"#FFFFFF";
-    model.orignx = [NSNumber numberWithFloat:0];
-    model.origny = [NSNumber numberWithFloat:0];
-    model.orignwidth = [NSNumber numberWithFloat:0];
-    model.orignheight = [NSNumber numberWithFloat:0];
+    
+    model.orignx = [NSNumber numberWithFloat:MSWidth+ MSWidth/2 - 100];
+    model.origny = [NSNumber numberWithFloat:i  * (220+ 30)+30];
+    model.orignwidth = [NSNumber numberWithFloat:220];
+    model.orignheight = [NSNumber numberWithFloat:220];
     
     model.minNumber = @"0";
     model.maxNumber = @"100";
@@ -180,16 +187,16 @@
      存储.
      */
 }
-- (void)initWithdashboardC{
+- (void)initWithdashboardC {
     for (int i = 0; i<9; i++) {
         DashboardC *model = [DashboardC new];
-        [self initADDdashboardC:model];
+        [self initADDdashboardC:model with:i];
          [model save];
     }
     
     
 }
-- (void)initADDdashboardC:(DashboardC *)model{
+- (void)initADDdashboardC:(DashboardC *)model with:(NSInteger )i{
     model.UnitColor = @"FFFFFF";
     model.UnitFontScale = [NSNumber numberWithFloat:1.f];
     model.UnitPositon = [NSNumber numberWithFloat:1.f];
@@ -206,10 +213,11 @@
     model.innerColor = @"000000";
     model.outerColor = @"000000";
     model.Gradientradius = [NSNumber numberWithFloat:MSWidth/2];
-    model.orignx = [NSNumber numberWithFloat:0];
-    model.origny = [NSNumber numberWithFloat:0];
-    model.orignwidth = [NSNumber numberWithFloat:0];
-    model.orignheight = [NSNumber numberWithFloat:0];
+    
+    model.orignx = [NSNumber numberWithFloat:MSWidth*2+(MSWidth- 300)/2];
+    model.origny = [NSNumber numberWithFloat:88];
+    model.orignwidth = [NSNumber numberWithFloat:300];
+    model.orignheight = [NSNumber numberWithFloat:300];
     
     model.minNumber = @"0";
     model.maxNumber = @"100";
@@ -225,53 +233,50 @@
    
     for (int i = 0; i< 9; i++) {
         if (i<6) {
-        [self CustomDashboardType:AddStyleOne];
+            [self CustomDashboardType:AddStyleOne with:i];
         }else if (i>=6 && i < 8){
         
-        [self CustomDashboardType:AddStyleTwo];
+        [self CustomDashboardType:AddStyleTwo with:i-6];
         }else{
-        [self CustomDashboardType:AddStyleThree];
+        [self CustomDashboardType:AddStyleThree with:i];
         }
     }
 
 }
-- (void)CustomDashboardType:(AddDashboardStyle)type{
+- (void)CustomDashboardType:(AddDashboardStyle)type with:(NSInteger)i{
     
     CustomDashboard *model = [[CustomDashboard alloc]init];
     DashboardA *dashA = [DashboardA new];
-    [self initADDdashboardA:dashA];
+    [self initADDdashboardA:dashA with:i];
     model.dashboardA = dashA;
     
     DashboardB *dashB = [DashboardB new];
-    [self initADDdashboardB:dashB];
+    [self initADDdashboardB:dashB with:i];
     model.dashboardB = dashB;
     
     DashboardC *dashC = [DashboardC new];
-    [self initADDdashboardC:dashC];
+    [self initADDdashboardC:dashC with:i];
     model.dashboardC = dashC;
     
     switch (type) {
         case AddStyleOne:
         {
             model.dashboardType = 1;
-            [model save];
         }
             break;
         case AddStyleTwo:
         {
             model.dashboardType = 2;
-            [model save];
         }
             break;
         case AddStyleThree:
         {
             model.dashboardType = 3;
-            [model save];
         }
             break;
         default:
             break;
     }
-
+        [model save];
 }
 @end

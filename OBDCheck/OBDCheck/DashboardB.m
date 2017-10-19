@@ -42,7 +42,7 @@
         _titleColor = [aDecoder decodeObjectForKey:@"titleColor"];
         _titleFontScale = [aDecoder decodeObjectForKey:@"titleFontScale"];
         _titlePositon = [aDecoder decodeObjectForKey:@"titlePositon"];
-        _ValueVisible = [aDecoder decodeObjectForKey:@"ValueVisible"];
+        _ValueVisible = [aDecoder decodeBoolForKey:@"ValueVisible"];
         _ValueColor = [aDecoder decodeObjectForKey:@"ValueColor"];
         _ValueFontScale = [aDecoder decodeObjectForKey:@"ValueFontScale"];
         _ValuePositon = [aDecoder decodeObjectForKey:@"ValuePositon"];

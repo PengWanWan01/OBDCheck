@@ -76,8 +76,6 @@
 }
 - (void)initWithModel:(DashboardB *)model{
     gradientView *view = [[gradientView alloc]initWithFrame:self.bounds];
-    NSLog(@"gradientRadiusgradientRadius%f",view.gradientRadius);
-
     view.gradientRadius = [model.GradientRadius floatValue];
     view.startGradientColor =  [ColorTools colorWithHexString:model.backColor];
     view.endGradientColor =  [UIColor clearColor];

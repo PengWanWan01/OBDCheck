@@ -15,7 +15,7 @@
     [aCoder encodeObject:_StartAngle forKey:@"StartAngle"];
     [aCoder encodeObject:_endAngle forKey:@"endAngle"];
     [aCoder encodeObject:_ringWidth forKey:@"ringWidth"];
-
+   
     [aCoder encodeObject:_maLength forKey:@"maLength"];
     [aCoder encodeObject:_maWidth forKey:@"maWidth"];
     [aCoder encodeObject:_maColor forKey:@"maColor"];
@@ -50,7 +50,6 @@
     [aCoder encodeObject:_KNOBColor forKey:@"KNOBColor"];
     [aCoder encodeObject:_FillstartAngle forKey:@"FillstartAngle"];
     [aCoder encodeBool:_Fillenabled forKey:@"Fillenabled"];
-    [aCoder encodeObject:_FillstartAngle forKey:@"FillstartAngle"];
     
     [aCoder encodeObject:_FillEndAngle forKey:@"FillEndAngle"];
     [aCoder encodeObject:_FillColor forKey:@"FillColor"];
@@ -65,11 +64,15 @@
     if (self = [super init]) {
         _infoLabeltext = [aDecoder decodeObjectForKey:@"infoLabeltext"];
          _StartAngle = [aDecoder decodeObjectForKey:@"StartAngle"];
-         _ringWidth = [aDecoder decodeObjectForKey:@"ringWidth"];
+        _endAngle = [aDecoder decodeObjectForKey:@"endAngle"];
+
+        _ringWidth = [aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"ringWidth"];
+        
          _maLength = [aDecoder decodeObjectForKey:@"maLength"];
          _maWidth = [aDecoder decodeObjectForKey:@"maWidth"];
         
         _maColor = [aDecoder decodeObjectForKey:@"maColor"];
+        _miColor = [aDecoder decodeObjectForKey:@"miColor"];
         _miLength = [aDecoder decodeObjectForKey:@"miLength"];
         _miWidth = [aDecoder decodeObjectForKey:@"miWidth"];
         _innerColor = [aDecoder decodeObjectForKey:@"innerColor"];
