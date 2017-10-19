@@ -126,15 +126,25 @@
     model.miColor = @"FFFFFF";
     model.innerColor = @"18191C";
     model.outerColor = @"18191C";
-    
-    NSInteger index = i % 2;
-    NSInteger page = i / 2;
-    CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
-    model.orignx = [NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25];
-    model.origny = [NSNumber numberWithFloat: page  * (baseViewHeight + 40)+10];
-    model.orignwidth = [NSNumber numberWithFloat:150*KFontmultiple];
-    model.orignheight = [NSNumber numberWithFloat:150*KFontmultiple +20];
-    
+    if (i>=6 && i<8) {
+        model.orignx = [NSNumber numberWithFloat:MSWidth+ MSWidth/2 - 100];
+        model.origny = [NSNumber numberWithFloat:(i -6) * (220+ 30)+30];
+        model.orignwidth = [NSNumber numberWithFloat:220];
+        model.orignheight = [NSNumber numberWithFloat:220+20];
+    }else if (i==8){
+        model.orignx = [NSNumber numberWithFloat:MSWidth*2+(MSWidth- 300)/2];
+        model.origny = [NSNumber numberWithFloat:88];
+        model.orignwidth = [NSNumber numberWithFloat:300];
+        model.orignheight = [NSNumber numberWithFloat:300+20];
+    }else{
+        NSInteger index = i % 2;
+        NSInteger page = i / 2;
+        CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
+        model.orignx = [NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25];
+        model.origny = [NSNumber numberWithFloat: page  * (baseViewHeight + 40)+10];
+        model.orignwidth = [NSNumber numberWithFloat:150*KFontmultiple];
+        model.orignheight = [NSNumber numberWithFloat:150*KFontmultiple +20];
+    }
     model.minNumber = @"0";
     model.maxNumber = @"100";
     model.infoLabeltext = @"add";
@@ -173,11 +183,26 @@
     
     model.Pointerwidth = [NSNumber numberWithFloat:1.f];
     model.pointerColor = @"#FFFFFF";
-    
-    model.orignx = [NSNumber numberWithFloat:MSWidth+ MSWidth/2 - 100];
-    model.origny = [NSNumber numberWithFloat:i  * (220+ 30)+30];
-    model.orignwidth = [NSNumber numberWithFloat:220];
-    model.orignheight = [NSNumber numberWithFloat:220];
+   if (i>=6 && i<8)  {
+       model.orignx = [NSNumber numberWithFloat:MSWidth+ MSWidth/2 - 100];
+       model.origny = [NSNumber numberWithFloat:(i-6)  * (220+ 30)+30];
+       model.orignwidth = [NSNumber numberWithFloat:220];
+       model.orignheight = [NSNumber numberWithFloat:220];
+   }else if(i==8){
+       model.orignx = [NSNumber numberWithFloat:MSWidth*2+(MSWidth- 300)/2];
+       model.origny = [NSNumber numberWithFloat:88];
+       model.orignwidth = [NSNumber numberWithFloat:300];
+       model.orignheight = [NSNumber numberWithFloat:300];
+   }else{
+       NSInteger index = i % 2;
+       NSInteger page = i / 2;
+       CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
+       model.orignx = [NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25];
+       model.origny = [NSNumber numberWithFloat:page  * (baseViewHeight + 40)+20];
+       model.orignwidth = [NSNumber numberWithFloat:150*KFontmultiple];
+       model.orignheight = [NSNumber numberWithFloat:150*KFontmultiple];
+   }
+   
     
     model.minNumber = @"0";
     model.maxNumber = @"100";
@@ -213,11 +238,26 @@
     model.innerColor = @"000000";
     model.outerColor = @"000000";
     model.Gradientradius = [NSNumber numberWithFloat:MSWidth/2];
-    
-    model.orignx = [NSNumber numberWithFloat:MSWidth*2+(MSWidth- 300)/2];
-    model.origny = [NSNumber numberWithFloat:88];
-    model.orignwidth = [NSNumber numberWithFloat:300];
-    model.orignheight = [NSNumber numberWithFloat:300];
+    if (i>=6 && i<8)  {
+        model.orignx = [NSNumber numberWithFloat:MSWidth+ MSWidth/2 - 100];
+        model.origny = [NSNumber numberWithFloat:(i -6) * (220+ 30)+30];
+        model.orignwidth = [NSNumber numberWithFloat:220];
+        model.orignheight = [NSNumber numberWithFloat:220];
+    }else if (i==8){
+        model.orignx = [NSNumber numberWithFloat:MSWidth*2+(MSWidth- 300)/2];
+        model.origny = [NSNumber numberWithFloat:88];
+        model.orignwidth = [NSNumber numberWithFloat:300];
+        model.orignheight = [NSNumber numberWithFloat:300];
+    }else{
+        NSInteger index = i % 2;
+        NSInteger page = i / 2;
+        CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
+        model.orignx = [NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25];
+        model.origny = [NSNumber numberWithFloat:page  * (baseViewHeight + 40)+10];
+        model.orignwidth = [NSNumber numberWithFloat:150*KFontmultiple];
+        model.orignheight = [NSNumber numberWithFloat:150*KFontmultiple];
+    }
+   
     
     model.minNumber = @"0";
     model.maxNumber = @"100";
@@ -236,7 +276,7 @@
             [self CustomDashboardType:AddStyleOne with:i];
         }else if (i>=6 && i < 8){
         
-        [self CustomDashboardType:AddStyleTwo with:i-6];
+        [self CustomDashboardType:AddStyleTwo with:i];
         }else{
         [self CustomDashboardType:AddStyleThree with:i];
         }

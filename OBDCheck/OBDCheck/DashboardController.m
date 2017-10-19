@@ -508,15 +508,16 @@ static dispatch_source_t _timer;
     DashBoardTag = 0;
    
     NSArray* pAllCount = [DashboardA findAll];
-    NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0,  %lu",(unsigned long)pAllCount.count];
-    NSArray *pAll = [DashboardA findByCriteria:SQL];
-            for (DashboardA *dash in pAll) {
-                NSLog(@"总共%@,orignx=%f",dash.pk, [dash.orignx floatValue]);
+            for (DashboardA *dash in pAllCount) {
+                NSLog(@"总共%d,orignx=%f",dash.pk, [dash.orignx floatValue]);
                 dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.orignx floatValue], [dash.origny floatValue], [dash.orignwidth floatValue], [dash.orignheight floatValue])];
                 dashboardStyleAView.tag = dash.pk ;
+                //画底盘渐变色
+                [dashboardStyleAView addGradientView:dash.outerColor  GradientViewWidth:dashboardStyleAView.frame.size.width];
+                [dashboardStyleAView initWithModel:dash];
                 DashBoardTag = dashboardStyleAView.tag ;
                 [scrollView addSubview:dashboardStyleAView];
-                [self initWithChangeStyleA:dashboardStyleAView : dashboardStyleAView.tag -1] ;
+//                [self initWithChangeStyleA:dashboardStyleAView : dashboardStyleAView.tag -1] ;
             
             }
 
@@ -551,17 +552,16 @@ static dispatch_source_t _timer;
 - (void)initWithStyleB{
     DashBoardTag = 0;
     NSArray* pAllCount = [DashboardB findAll];
-    NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, %lu",(unsigned long)pAllCount.count];
-    NSArray *pAll = [DashboardB findByCriteria:SQL];
-    for (DashboardB *dash in pAll) {
-        NSLog(@"总共%@",dash.pk);
+    for (DashboardB *dash in pAllCount) {
+        NSLog(@"总共%d",dash.pk);
         NSLog(@"_LabelNameArray%@",_LabelNameArray);
         
         dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake([dash.orignx floatValue], [dash.origny floatValue], [dash.orignwidth floatValue], [dash.orignheight floatValue])];
+        [dashboardStyleBView initWithModel:dash];
         dashboardStyleBView.tag = dash.pk ;
         DashBoardTag = dashboardStyleBView.tag ;
         [scrollView addSubview:dashboardStyleBView];
-        [self initWithChangeStyleB:dashboardStyleBView : dashboardStyleBView.tag -1] ;
+//        [self initWithChangeStyleB:dashboardStyleBView : dashboardStyleBView.tag -1] ;
     }
    
 }
@@ -590,17 +590,16 @@ static dispatch_source_t _timer;
 - (void)initWithStyleC{
     DashBoardTag = 0;
     NSArray* pAllCount = [DashboardC findAll];
-    NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0,  %lu",(unsigned long)pAllCount.count];
-    NSArray *pAll = [DashboardC findByCriteria:SQL];
-    for (DashboardC *dash in pAll) {
-        NSLog(@"总共%@",dash.pk);
+    for (DashboardC *dash in pAllCount) {
+        NSLog(@"总共%d",dash.pk);
         NSLog(@"_LabelNameArray%@",_LabelNameArray);
         
         dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake([dash.orignx floatValue], [dash.origny floatValue], [dash.orignwidth floatValue], [dash.orignheight floatValue])];
         dashboardStyleCView.tag = dash.pk ;
+        [dashboardStyleCView initWithModel:dash];
         DashBoardTag = dashboardStyleCView.tag ;
         [scrollView addSubview:dashboardStyleCView];
-        [self initWithChangeStyleC:dashboardStyleCView : dashboardStyleCView.tag -1] ;
+//        [self initWithChangeStyleC:dashboardStyleCView : dashboardStyleCView.tag -1] ;
     }
 
 }
