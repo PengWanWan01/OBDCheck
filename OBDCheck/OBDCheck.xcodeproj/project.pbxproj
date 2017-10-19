@@ -79,7 +79,6 @@
 		CB84F2AC1F74E73A0008F681 /* HUDColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB84F2AB1F74E73A0008F681 /* HUDColorViewController.m */; };
 		CB8E40E11F6144E6003E5024 /* CustomDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8E40E01F6144E6003E5024 /* CustomDashboard.m */; };
 		CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB97176E1F32C110009C47FD /* OBDBtn.m */; };
-		CB9717721F32D595009C47FD /* UILabel+Dxfont.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9717711F32D595009C47FD /* UILabel+Dxfont.m */; };
 		CB9717751F332515009C47FD /* RLBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9717741F332515009C47FD /* RLBtn.m */; };
 		CB99E1A21F66A6CE00A87DAF /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB99E19F1F66A6B300A87DAF /* Charts.framework */; };
 		CB99E1A31F66A6CE00A87DAF /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB99E19F1F66A6B300A87DAF /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -307,8 +306,6 @@
 		CB8E40E01F6144E6003E5024 /* CustomDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDashboard.m; sourceTree = "<group>"; };
 		CB97176D1F32C110009C47FD /* OBDBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDBtn.h; sourceTree = "<group>"; };
 		CB97176E1F32C110009C47FD /* OBDBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBDBtn.m; sourceTree = "<group>"; };
-		CB9717701F32D595009C47FD /* UILabel+Dxfont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Dxfont.h"; sourceTree = "<group>"; };
-		CB9717711F32D595009C47FD /* UILabel+Dxfont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Dxfont.m"; sourceTree = "<group>"; };
 		CB9717731F332515009C47FD /* RLBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLBtn.h; sourceTree = "<group>"; };
 		CB9717741F332515009C47FD /* RLBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RLBtn.m; sourceTree = "<group>"; };
 		CB99E1991F66A6B300A87DAF /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
@@ -970,8 +967,6 @@
 			children = (
 				CBF334651F4B0FFC003C0548 /* UIColor+GetHSB.h */,
 				CBF334661F4B0FFC003C0548 /* UIColor+GetHSB.m */,
-				CB9717701F32D595009C47FD /* UILabel+Dxfont.h */,
-				CB9717711F32D595009C47FD /* UILabel+Dxfont.m */,
 				CBF1E2841F306C6200EEC755 /* UIViewController+NavBar.h */,
 				CBF1E2851F306C6200EEC755 /* UIViewController+NavBar.m */,
 				CB47E2EA1F480C7000B23D8E /* UIFont+AdapFont.h */,
@@ -1238,7 +1233,6 @@
 				CB848F181F45434E00C1A718 /* MultiplierViewController.m in Sources */,
 				CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */,
 				CBF334671F4B0FFC003C0548 /* UIColor+GetHSB.m in Sources */,
-				CB9717721F32D595009C47FD /* UILabel+Dxfont.m in Sources */,
 				CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */,
 				CB99E1B81F67AABD00A87DAF /* LogsModel.m in Sources */,
 				CB0220891F43E9CC008773ED /* DashboardSetting.m in Sources */,

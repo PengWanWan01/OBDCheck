@@ -71,17 +71,19 @@
 }
 - (void)initWithHeadUI{
     NSLog(@"headU");
-    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
-    NSArray* pAll = [CustomDashboard findByCriteria:findsql];
-    for(CustomDashboard* dashboard in pAll){
+    NSArray *findArr = [CustomDashboard findAll];
+    for(CustomDashboard* dashboard in findArr){
+    if (dashboard.pk == [DashboardSetting sharedInstance].Dashboardindex ) {
     model = dashboard.dashboardA;
     self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
-      [self.DashViewA addGradientView:model.outerColor  GradientViewWidth:self.DashViewA.frame.size.width];
+        NSLog(@"%@",dashboard);
+      [self.DashViewA addGradientView:dashboard.dashboardA.outerColor  GradientViewWidth:self.DashViewA.frame.size.width];
         [self.DashViewA initWithModel:dashboard.dashboardA];
             self.DashViewA.infoLabel.text =  self.infoLabeltext;
         self.DashViewA.infoLabel.text = dashboard.dashboardA.infoLabeltext;
             self.DashView = self.DashViewA;
             [self.view addSubview:self.DashViewA];
+        }
     }
    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
     label.text = @"Value";
@@ -882,11 +884,19 @@
     if ([sender isKindOfClass:[UISlider class]]) {
         UISlider * slider = (UISlider *)sender;
         NSLog(@"slide.tag%ld",(long)slider.tag);
-
         switch (slider.tag) {
             case 0:
             {
                 model.StartAngle = [NSNumber numberWithFloat: slider.value] ;
+                NSArray *array = [CustomDashboard findAll];
+                for (CustomDashboard *dash in array) {
+                    if (dash.pk == [self.indexID  intValue]) {
+                        NSLog(@"测试测试%d%d",dash.pk,[self.indexID intValue]);
+                dash.dashboardA.StartAngle = model.StartAngle;
+                         [dash update];
+                    }
+                }
+               
                                 [self upDateDashView];
             }
                 break;
@@ -1038,7 +1048,7 @@
                 break;
         }
     }
-
+    
     
 }
 - (void)rotationWithView{
@@ -1175,6 +1185,11 @@
     self.DashViewA.infoLabel.text = model.infoLabeltext;
     self.DashView = self.DashViewA;
     [self.view addSubview:self.DashViewA];
+    
+//    NSArray *dashArray = [CustomDashboard findAll];
+//    for (CustomDashboard *dash in dashArray) {
+//        NSLog(@" 测试测试%@ ",dash.dashboardA.StartAngle);
+//    }
 
 }
 #pragma mark 返回仪表盘更新数据库
@@ -1182,8 +1197,9 @@
     [self.navigationController popViewControllerAnimated:YES];
     NSLog(@"121");
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if (model.pk == [self.indexID  intValue]) {
-            CustomDashboard *dash = [CustomDashboard new];
+        NSArray *array = [CustomDashboard findAll];
+        for (CustomDashboard *dash in array) {
+        if (dash.pk == [self.indexID  intValue]) {
             dash.dashboardA.StartAngle = model.StartAngle;
              dash.dashboardA.miLength = model.miLength;
              dash.dashboardA.miWidth = model.miWidth;
@@ -1213,6 +1229,7 @@
             dash.dashboardA.LabelVisble = model.LabelVisble;
             dash.dashboardA.PointerWidth = model.PointerWidth;
             [dash update];
+        }
         }
     });
 }

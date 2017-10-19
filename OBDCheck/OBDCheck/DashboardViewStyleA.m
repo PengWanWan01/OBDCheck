@@ -60,9 +60,9 @@
     NSString *presentStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"StyleAViewnumber"]];
     NSString *PreviouStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"PreStyleAViewnumber"]];
     
-    CGFloat start = [PreviouStr floatValue];
-    CGFloat end = [presentStr floatValue];
-    if ([text.userInfo[@"StyleAViewTag"] floatValue] == self.tag) {
+    CGFloat start = [PreviouStr doubleValue];
+    CGFloat end = [presentStr doubleValue];
+    if ([text.userInfo[@"StyleAViewTag"] doubleValue] == self.tag) {
     
     NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: self.tag]];
         switch ([ DashboardSetting sharedInstance].dashboardMode) {
@@ -70,8 +70,8 @@
             {
                 NSArray* pAll = [CustomDashboard findByCriteria:findsql];
                 for(CustomDashboard* dashboard in pAll){
-                    CGFloat Space =   ([dashboard.dashboardA.endAngle floatValue]- [dashboard.dashboardA.StartAngle floatValue])/([dashboard.dashboardA.maxNumber floatValue] - [dashboard.dashboardA.minNumber floatValue]);
-                    [self rotationWithStartAngle:[dashboard.dashboardA.StartAngle floatValue] + start*Space  WithEndAngle:[dashboard.dashboardA.StartAngle floatValue] + end*Space];
+                    CGFloat Space =   ([dashboard.dashboardA.endAngle doubleValue]- [dashboard.dashboardA.StartAngle doubleValue])/([dashboard.dashboardA.maxNumber doubleValue] - [dashboard.dashboardA.minNumber doubleValue]);
+                    [self rotationWithStartAngle:[dashboard.dashboardA.StartAngle doubleValue] + start*Space  WithEndAngle:[dashboard.dashboardA.StartAngle doubleValue] + end*Space];
                     self.numberLabel.text = presentStr;
                 }
             }
@@ -80,8 +80,8 @@
             {
                 NSArray* pAll = [DashboardA findByCriteria:findsql];
                 for(DashboardA* dashboard in pAll){
-                    CGFloat Space =   ([dashboard.endAngle floatValue]- [dashboard.StartAngle floatValue])/([dashboard.maxNumber floatValue] - [dashboard.minNumber floatValue]);
-                    [self rotationWithStartAngle:[dashboard.StartAngle floatValue] + start*Space  WithEndAngle:[dashboard.StartAngle floatValue] + end*Space];
+                    CGFloat Space =   ([dashboard.endAngle doubleValue]- [dashboard.StartAngle doubleValue])/([dashboard.maxNumber doubleValue] - [dashboard.minNumber doubleValue]);
+                    [self rotationWithStartAngle:[dashboard.StartAngle doubleValue] + start*Space  WithEndAngle:[dashboard.StartAngle doubleValue] + end*Space];
                      self.numberLabel.text = presentStr;
                 }
             }
@@ -137,26 +137,26 @@
 
 //       NSLog(@"innerColor%@",model);
 //    NSLog(@"innerColor%@%@",model,model.innerColor);
-     [self addCircleLayer:[model.ringWidth floatValue] withInnerColor:model.innerColor];
+     [self addCircleLayer:[model.ringWidth doubleValue] withInnerColor:model.innerColor];
     
-    [self adddrawPointerVisble:model.PointerVisble PointerWidth:[model.PointerWidth  floatValue] PointerLength:[model.PointerLength  floatValue] PointerColor:model.PointerColor KNOBRadius:[model.KNOBRadius floatValue] KNOBColor:model.KNOBColor withStartAngle:[model.StartAngle floatValue] withModel:(DashboardA *)model];
+    [self adddrawPointerVisble:model.PointerVisble PointerWidth:[model.PointerWidth  doubleValue] PointerLength:[model.PointerLength  doubleValue] PointerColor:model.PointerColor KNOBRadius:[model.KNOBRadius doubleValue] KNOBColor:model.KNOBColor withStartAngle:[model.StartAngle doubleValue] withModel:(DashboardA *)model];
     
-    self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KFontmultiple, (_center.y- 40*KFontmultiple)*[model.titlePosition floatValue], 120*KFontmultiple, 30*KFontmultiple)];
+    self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KFontmultiple, (_center.y- 40*KFontmultiple)*[model.titlePosition doubleValue], 120*KFontmultiple, 30*KFontmultiple)];
     self.infoLabel.textColor = [ColorTools colorWithHexString:model.titleColor];
     self.infoLabel.textAlignment = NSTextAlignmentCenter;
-    self.infoLabel.font = [UIFont ToAdapFont:[model.titleFontScale floatValue]*16.f];
+    self.infoLabel.font = [UIFont ToAdapFont:[model.titleFontScale doubleValue]*16.f];
     [self addSubview:self.infoLabel];
     
-    self.unitLabel = [[UILabel alloc]initWithFrame:CGRectMake(((ViewWidth/2) - 20*KFontmultiple)*[model.UnitHorizontalPosition floatValue], ((ViewWidth/2)+ 10)*[model.UnitVerticalPosition floatValue], 40*KFontmultiple, 20*KFontmultiple)];
+    self.unitLabel = [[UILabel alloc]initWithFrame:CGRectMake(((ViewWidth/2) - 20*KFontmultiple)*[model.UnitHorizontalPosition doubleValue], ((ViewWidth/2)+ 10)*[model.UnitVerticalPosition doubleValue], 40*KFontmultiple, 20*KFontmultiple)];
     self.unitLabel.text = @"F";
-    self.unitLabel.font = [UIFont ToAdapFont:[model.UnitFontScale floatValue]*16.f];
+    self.unitLabel.font = [UIFont ToAdapFont:[model.UnitFontScale doubleValue]*16.f];
     self.unitLabel.textColor = [ColorTools colorWithHexString:model.UnitColor];
     self.unitLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.unitLabel];
     [self addSubview:self.unitLabel];
-    self.numberLabel = [[UILabel alloc]initWithFrame:CGRectMake((ViewWidth/3)*[model.ValuePosition floatValue], ViewWidth + 5, ViewWidth/3, 20)];
+    self.numberLabel = [[UILabel alloc]initWithFrame:CGRectMake((ViewWidth/3)*[model.ValuePosition doubleValue], ViewWidth + 5, ViewWidth/3, 20)];
    
-    self.numberLabel.font = [UIFont boldSystemFontOfSize:[model.ValueFontScale floatValue]*17];
+    self.numberLabel.font = [UIFont boldSystemFontOfSize:[model.ValueFontScale doubleValue]*17];
     self.numberLabel.textColor = [ColorTools colorWithHexString: model.ValueColor];
     self.numberLabel.textAlignment = NSTextAlignmentCenter;
     self.numberLabel.text = @"N/A";
@@ -167,40 +167,48 @@
     }
 
     
-    CGFloat perAngle = ([model.endAngle floatValue] - [model.StartAngle floatValue])  / _dialCount;
+    CGFloat perAngle = ([model.endAngle doubleValue] - [model.StartAngle doubleValue])  / _dialCount;
     
     if (perAngle< 0) {
-     perAngle=    -([model.endAngle floatValue] - [model.StartAngle floatValue])/_dialCount;
+     perAngle=    -([model.endAngle doubleValue] - [model.StartAngle doubleValue])/_dialCount;
     }else
     {
-    perAngle = ([model.endAngle floatValue] - [model.StartAngle floatValue])  / _dialCount;
+    perAngle = ([model.endAngle doubleValue] - [model.StartAngle doubleValue])  / _dialCount;
     }
    
    
     for (int i = 0; i<= _dialCount; i++) {
-        CGFloat startAngel = (- M_PI + perAngle * i+[model.StartAngle floatValue]);
-        CGFloat endAngel = startAngel + perAngle/[model.miWidth floatValue];
+        CGFloat startAngel = (- M_PI + perAngle * i+[model.StartAngle doubleValue]);
+        CGFloat endAngel = startAngel + perAngle/[model.miWidth doubleValue];
   
         if (i % 5 == 0) {
-            CGFloat endAngel = startAngel + perAngle/[model.maWidth floatValue];
+            CGFloat endAngel = startAngel + perAngle/[model.maWidth doubleValue];
 
-         UIBezierPath *LongtickPath    =   [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.ringWidth floatValue]- [model.miLength floatValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
+         UIBezierPath *LongtickPath    =   [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.ringWidth doubleValue]- [model.miLength doubleValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
          CAShapeLayer *LongperLayer    = [CAShapeLayer layer];
             
             LongperLayer.strokeColor = [ColorTools colorWithHexString:model.maColor].CGColor;
-            LongperLayer.lineWidth = [model.maLength floatValue];
+            LongperLayer.lineWidth = [model.maLength doubleValue];
             //添加刻度
-             _center = CGPointMake([model.orignwidth floatValue]/2, [model.orignwidth floatValue]/2);
-            CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:(_radius-[model.ringWidth floatValue]- [model.maLength floatValue]- 5)*[model.LabelOffest floatValue] Rotate:model.LabelRotate];
+            NSLog(@"%@",model.orignwidth);
+            
+             _center = CGPointMake([model.orignwidth doubleValue]/2, [model.orignwidth doubleValue]/2);
+            
+            CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:(_radius-[model.ringWidth doubleValue]- [model.maLength doubleValue]- 5)*[model.LabelOffest doubleValue] Rotate:model.LabelRotate];
             //四舍五入
-            NSString *tickText = [NSString stringWithFormat:@"%.f",((roundf([model.maxNumber floatValue]- [model.minNumber floatValue])/8)*(i/5) +[model.minNumber floatValue])];
+            NSString *tickText = [NSString stringWithFormat:@"%.f",((roundf([model.maxNumber doubleValue]- [model.minNumber doubleValue])/8)*(i/5) +[model.minNumber doubleValue])];
             
             //默认label的大小14 * 14
+            NSLog(@"%f",_center.x);
+            NSLog(@"point%f%f",point.x,point.y);
+          
             UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake((point.x - 15), (point.y - 15), 30, 30)];
+            
             text.text = tickText;
-            text.font = [UIFont systemFontOfSize:[model.LabelFontScale floatValue]*10.f];
+            text.font = [UIFont systemFontOfSize:[model.LabelFontScale doubleValue]*10.f];
             text.textColor = [UIColor whiteColor];
             text.textAlignment = NSTextAlignmentCenter;
+            
             LongperLayer.path = LongtickPath.CGPath;
             [self.layer addSublayer:LongperLayer];
             //让文字刻度显示
@@ -209,6 +217,7 @@
             }else{
                
             }
+            
             //让文字显示的形式，是正的还是斜的
             if (model.LabelRotate == YES) {
                 
@@ -217,18 +226,18 @@
             }
             
         }else{
-            UIBezierPath *tickPath  = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.ringWidth floatValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
+            UIBezierPath *tickPath  = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.ringWidth doubleValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
             CAShapeLayer *perLayer = [CAShapeLayer layer];
             
             perLayer.strokeColor = [ColorTools colorWithHexString:model.miColor].CGColor;
-            perLayer.lineWidth = [model.miLength floatValue];
+            perLayer.lineWidth = [model.miLength doubleValue];
             perLayer.path = tickPath.CGPath;
             [self.layer addSublayer:perLayer];
         }
         
         
     }
-    [self addDrawFillstartAngle:[model.FillstartAngle floatValue] FillendAngle:[model.FillEndAngle floatValue] FillColor:model.FillColor withRingWidth:[model.ringWidth floatValue] withModel:(DashboardA *)model];
+    [self addDrawFillstartAngle:[model.FillstartAngle doubleValue] FillendAngle:[model.FillEndAngle doubleValue] FillColor:model.FillColor withRingWidth:[model.ringWidth doubleValue] withModel:(DashboardA *)model];
     UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:LongPress];
     if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {

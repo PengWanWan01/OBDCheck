@@ -58,17 +58,16 @@
 }
 - (void)initWithHeadUI{
  
-    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
-    NSArray* pAll = [CustomDashboard findByCriteria:findsql];
+//    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
+    NSArray* pAll = [CustomDashboard findAll];
     for(CustomDashboard * dashboard in pAll){
-        NSLog(@"FrameColor %@",dashboard.dashboardC.FrameColor  );
+        if (dashboard.pk ==  [DashboardSetting sharedInstance].Dashboardindex) {
         model = dashboard.dashboardC;
-    
     dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
             [self.view addSubview:dashViewC];
         [dashViewC initWithModel:dashboard.dashboardC];
         dashViewC.PIDLabel.text = dashboard.dashboardC.infoLabeltext;
-
+        }
     }
            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
    
@@ -448,7 +447,8 @@
 -(void)back{
     [self.navigationController popViewControllerAnimated:YES];
      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-         CustomDashboard *dash = [CustomDashboard new];
+         NSArray *array = [CustomDashboard findAll];
+         for (CustomDashboard *dash in array) {
          if (dash.pk == [indexID integerValue]) {
              dash.dashboardC.ValueVisible = model.ValueVisible;
              dash.dashboardC.FrameColor = model.FrameColor;
@@ -456,17 +456,15 @@
              dash.dashboardC.outerColor = model.outerColor;
              dash.dashboardC.innerColor = model.innerColor;
              dash.dashboardC.titleColor = model.titleColor;
-
              dash.dashboardC.UnitPositon = model.UnitPositon;
              dash.dashboardC.UnitFontScale = model.UnitFontScale;
              dash.dashboardC.ValuePositon = model.ValuePositon;
              dash.dashboardC.ValueFontScale = model.ValueFontScale;
              dash.dashboardC.titlePositon = model.titlePositon;
              dash.dashboardC.titleFontScale = model.titleFontScale;
-             
              dash.dashboardC.Gradientradius = model.Gradientradius;
-     
              [dash update];
+         }
          }
 
           });

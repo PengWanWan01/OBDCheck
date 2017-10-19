@@ -75,7 +75,7 @@
             break;
         case 1:
         {
-            NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
+            NSString *findsql = [NSString stringWithFormat:@"WHERE  pk = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
             NSArray* pAll = [CustomDashboard findByCriteria:findsql];
             for(CustomDashboard *dashboard in pAll){
                 switch (dashboard.dashboardType) {

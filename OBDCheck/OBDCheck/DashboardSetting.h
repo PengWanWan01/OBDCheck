@@ -93,7 +93,7 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 - (void)initADDdashboardC:(DashboardC *)model with:(NSInteger )i;
 
 - (void)initwithCustomDashboard;
-- (void)CustomDashboardType:(AddDashboardStyle)type;
+- (void)CustomDashboardType:(AddDashboardStyle)type  with:(NSInteger)i;
 //设置一个属性
 -(BOOL)SetAttribute:(CGFloat)Value Key:(NSString *)key;
 //获取一个属性值

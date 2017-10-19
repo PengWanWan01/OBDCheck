@@ -59,17 +59,18 @@
     
 }
 - (void)initWithHeadUI{
-    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
-    NSArray* pAll = [CustomDashboard findByCriteria:findsql];
 
+    NSArray* pAll = [CustomDashboard findAll];
+  
     for(CustomDashboard * dashboard in pAll){
+     if (dashboard.pk  == [DashboardSetting sharedInstance].Dashboardindex ) {
         NSLog(@"backColor %@",dashboard.dashboardB.backColor  );
         model = dashboard.dashboardB;
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
     [dashViewB initWithModel:dashboard.dashboardB];
         dashViewB.PIDLabel.text = dashboard.dashboardB.infoLabeltext;
-
             [self.view addSubview:dashViewB];
+        }
     }
     
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
@@ -477,8 +478,9 @@
     
     [self.navigationController popViewControllerAnimated:YES];
  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
-     if (model.pk == [indexID intValue]) {
+     NSArray *array = [CustomDashboard findAll];
+     for (CustomDashboard *dash in array) {
+         if (dash.pk == [indexID  intValue]) {
          CustomDashboard *dash =  [[CustomDashboard alloc]init];
          dash.dashboardB.titleFontScale = model.titleFontScale;
          dash.dashboardB.ValueFontScale = model.ValueFontScale;
@@ -495,7 +497,7 @@
          dash.dashboardB.GradientRadius = model.GradientRadius;
          [dash update];
      }
-   
+     }
 
 
  });

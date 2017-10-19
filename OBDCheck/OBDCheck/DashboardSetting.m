@@ -26,6 +26,9 @@
     self = [super init];
     if (self) {
          self.defaults = [NSUserDefaults standardUserDefaults];
+//        [self.defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:myObject] forKey:@"MyObjectKey"];
+
+        [self.defaults synchronize];
         self.dashboardMode = DashboardCustomMode;
         self.dashboardStyle = DashboardStyleOne;
         self.numberDecimals = NumberDecimalZero;
