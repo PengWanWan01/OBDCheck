@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BlueToothController.h"
 
 @interface ViewController : UIViewController
 
-
+//蓝牙管理类
+@property (nonatomic,strong) BlueToothController *blurTooth ;
 @end
 

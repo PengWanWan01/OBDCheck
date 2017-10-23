@@ -129,6 +129,10 @@
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 
 }
+- (void)back{
+    [timer invalidate];
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (void)rightBarButtonClick{
      [timer invalidate];
     HUDColorViewController *vc = [[HUDColorViewController alloc]init];

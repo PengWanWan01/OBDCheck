@@ -41,7 +41,7 @@ static dispatch_source_t _timer;
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     self.navigationController.navigationBar.hidden = NO;
     [UIApplication sharedApplication].statusBarHidden = NO;
-    
+
     if([[UIDevice currentDevice]respondsToSelector:@selector(setOrientation:)]) {
         
         SEL selector = NSSelectorFromString(@"setOrientation:");
@@ -64,6 +64,7 @@ static dispatch_source_t _timer;
    
 }
 - (void)viewDidLoad {
+
     [super viewDidLoad];
 }
 

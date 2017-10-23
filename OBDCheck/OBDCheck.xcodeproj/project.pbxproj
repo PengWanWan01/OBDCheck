@@ -95,6 +95,9 @@
 		CBCFDF6E1F42A4C5008329CF /* DashboardViewStyleB.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCFDF6D1F42A4C5008329CF /* DashboardViewStyleB.m */; };
 		CBCFDF711F42A4E6008329CF /* gradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCFDF701F42A4E6008329CF /* gradientView.m */; };
 		CBD8EB5A1F9DB83D00FDABBB /* DashboardSetting.h in Sources */ = {isa = PBXBuildFile; fileRef = CB0220871F43E9CC008773ED /* DashboardSetting.h */; };
+		CBD8EB6B1F9E086000FDABBB /* BlueToothController.h in Sources */ = {isa = PBXBuildFile; fileRef = CB2E3D6D1F9778C600685DC9 /* BlueToothController.h */; };
+		CBD8EB6C1F9E08AD00FDABBB /* ViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E22C1F2ED49200EEC755 /* ViewController.h */; };
+		CBD8EB6D1F9E08F000FDABBB /* BELInfo.h in Sources */ = {isa = PBXBuildFile; fileRef = CBD8EB681F9E035300FDABBB /* BELInfo.h */; };
 		CBE4AC031F442674003714A4 /* PIDSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AC021F442674003714A4 /* PIDSelectViewController.m */; };
 		CBE4AC061F4426BC003714A4 /* BasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AC051F4426BC003714A4 /* BasicViewController.m */; };
 		CBE4AC0A1F443432003714A4 /* DashboardViewStyleC.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AC091F443432003714A4 /* DashboardViewStyleC.m */; };
@@ -330,6 +333,8 @@
 		CBCFDF6D1F42A4C5008329CF /* DashboardViewStyleB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewStyleB.m; sourceTree = "<group>"; };
 		CBCFDF6F1F42A4E6008329CF /* gradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gradientView.h; sourceTree = "<group>"; };
 		CBCFDF701F42A4E6008329CF /* gradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gradientView.m; sourceTree = "<group>"; };
+		CBD8EB681F9E035300FDABBB /* BELInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BELInfo.h; sourceTree = "<group>"; };
+		CBD8EB6A1F9E035400FDABBB /* BELInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BELInfo.m; sourceTree = "<group>"; };
 		CBE4AC011F442674003714A4 /* PIDSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIDSelectViewController.h; sourceTree = "<group>"; };
 		CBE4AC021F442674003714A4 /* PIDSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIDSelectViewController.m; sourceTree = "<group>"; };
 		CBE4AC041F4426BC003714A4 /* BasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicViewController.h; sourceTree = "<group>"; };
@@ -970,6 +975,8 @@
 		CBF1E28E1F30A14200EEC755 /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
+				CBD8EB681F9E035300FDABBB /* BELInfo.h */,
+				CBD8EB6A1F9E035400FDABBB /* BELInfo.m */,
 				CB2E3D6D1F9778C600685DC9 /* BlueToothController.h */,
 				CB2E3D6F1F9778C700685DC9 /* BlueToothController.m */,
 			);
@@ -1169,6 +1176,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBD8EB6D1F9E08F000FDABBB /* BELInfo.h in Sources */,
+				CBD8EB6C1F9E08AD00FDABBB /* ViewController.h in Sources */,
+				CBD8EB6B1F9E086000FDABBB /* BlueToothController.h in Sources */,
 				CBD8EB5A1F9DB83D00FDABBB /* DashboardSetting.h in Sources */,
 				CB82247F1F46F30000E1E4BA /* HUDView.m in Sources */,
 				CB3FAD1B1F6A1F0900B572FD /* FilesTableViewCell.m in Sources */,
@@ -1404,7 +1414,7 @@
 				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
 				INFOPLIST_FILE = OBDCheck/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = Auptophix.OBDCheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "OBDCheck/OBDCheck-Bridging-Header.h";
@@ -1425,7 +1435,7 @@
 				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
 				INFOPLIST_FILE = OBDCheck/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = Auptophix.OBDCheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "OBDCheck/OBDCheck-Bridging-Header.h";

@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController ()<BlueToothControllerDelegate>
 {
     UIImageView *statusView;
     UILabel  *statusLabel;
@@ -52,7 +52,7 @@
     titleBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [titleBtn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
     [titleBtn setImage:[UIImage imageNamed:@"xiala"] forState:UIControlStateNormal];
-    [titleBtn addTarget:self action:@selector(titleBtn) forControlEvents:UIControlEventTouchUpInside];
+    [titleBtn addTarget:self action:@selector(LinkBlueTooth) forControlEvents:UIControlEventTouchUpInside];
     isSelect = YES;
     self.navigationItem.titleView = titleBtn;
 //    [ColorTools colorWithHexString:@"#212329"];
@@ -196,12 +196,15 @@
 - (void)back{
     NSLog(@"上传内容");
 }
-#pragma mark 导航栏的点击
+#pragma mark 点击连接蓝牙
 
-- (void)titleBtn{
+- (void)LinkBlueTooth{
     if (isSelect) {
         NSLog(@"12");
          self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
+      
+        self.blurTooth = [BlueToothController Instance];
+        self.blurTooth.delegate = self;
      [ self.blueView show];
         isSelect = NO;
     }else{
@@ -209,6 +212,18 @@
         [ self.blueView hide];
         isSelect = YES;
     }
+}
+//代理协议，处理信息
+-(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
+{
+    NSLog(@"收到收到%@",data);
+    
+    NSLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+    
+}
+-(void)BlueToothState:(BlueToothState)state{
+    
+    
 }
 - (UIImage*)imageCompressWithSimple:(UIImage*)image{
     CGSize size = image.size;

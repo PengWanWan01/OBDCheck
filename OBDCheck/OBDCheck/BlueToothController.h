@@ -8,12 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-//#import "BELInfo.h"
-//#import "XYRunSetting.h"
-//#import "XHConvertUtil.h"
-//#import "XYData.h"
-//#import "Toast.h"
-//#import "OEM.h"
 
 //蓝牙状态的枚举类型
 typedef NS_ENUM(NSUInteger, BlueToothState)
