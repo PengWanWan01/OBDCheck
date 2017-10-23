@@ -175,11 +175,12 @@
     [self.navigationController popViewControllerAnimated:YES];
 
     if ([DashboardSetting sharedInstance].ischangeDashboard == YES) {
-     
-    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
-    NSArray *AL =  [CustomDashboard bg_findWhere:findsql];
-    for (CustomDashboard *dash in AL ) {
-        if (dash.bg_id == self.indexID) {
+    
+        NSArray *arr = @[@"BG_ID",@"=",@([DashboardSetting sharedInstance].Dashboardindex)];
+        NSArray *all = [CustomDashboard bg_findWhere:arr];
+ 
+    for (CustomDashboard *dash in all ) {
+        if ([dash.bg_id integerValue] == self.indexID) {
             
       
         switch (dash.dashboardType) {
@@ -262,8 +263,8 @@
 
     NSArray *array = [CustomDashboard bg_findAll];
     for(CustomDashboard *dash in array){
-        if(dash.dashboardA.orignx == @(23) ){
-           
+//        if(dash.dashboardA.orignx == @(23) ){
+        
     switch (Customtype) {
         case 1:
         {
@@ -296,7 +297,7 @@
             break;
     }
 //            [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
-        }
+//        }
     }
    
     

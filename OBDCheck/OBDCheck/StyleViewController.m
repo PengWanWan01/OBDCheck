@@ -17,6 +17,7 @@
     NSInteger selectTag;
     UIButton *Fristbtn;
     DashboardA* model;
+    CustomDashboard *CustomDashModel;
     UIView *btnView;//放四个按钮的View
     CGFloat slideValue;  //slide的前一个
 }
@@ -71,9 +72,10 @@
 }
 - (void)initWithHeadUI{
     NSLog(@"headU");
-    NSArray *findArr = [CustomDashboard bg_findAll];
+    NSArray *all =@[@"BG_ID",@"=",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
+    NSArray *findArr = [CustomDashboard bg_findWhere:all];
     for(CustomDashboard* dashboard in findArr){
-    if (dashboard.bg_id == [DashboardSetting sharedInstance].Dashboardindex ) {
+        CustomDashModel = dashboard;
     model = dashboard.dashboardA;
     self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
         NSLog(@"%@",dashboard);
@@ -83,7 +85,7 @@
         self.DashViewA.infoLabel.text = dashboard.dashboardA.infoLabeltext;
             self.DashView = self.DashViewA;
             [self.view addSubview:self.DashViewA];
-        }
+       
     }
    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
     label.text = @"Value";
@@ -888,16 +890,7 @@
             case 0:
             {
                 model.StartAngle = [NSNumber numberWithFloat: slider.value] ;
-                NSArray *array = [CustomDashboard bg_findAll];
-                for (CustomDashboard *dash in array) {
-                    if (dash.bg_id == [self.indexID  intValue]) {
-                        NSLog(@"测试测试%d%d",dash.bg_id,[self.indexID intValue]);
-                dash.dashboardA.StartAngle = model.StartAngle;
-//                         [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
-                    }
-                }
-               
-                                [self upDateDashView];
+                [self upDateDashView];
             }
                 break;
             case 1:
@@ -1197,40 +1190,36 @@
     [self.navigationController popViewControllerAnimated:YES];
     NSLog(@"121");
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSArray *array = [CustomDashboard bg_findAll];
-        for (CustomDashboard *dash in array) {
-        if (dash.bg_id == [self.indexID  intValue]) {
-            dash.dashboardA.StartAngle = model.StartAngle;
-             dash.dashboardA.miLength = model.miLength;
-             dash.dashboardA.miWidth = model.miWidth;
-             dash.dashboardA.maWidth = model.maWidth;
-             dash.dashboardA.maLength = model.maLength;
-             dash.dashboardA.UnitHorizontalPosition = model.UnitHorizontalPosition;
-            dash.dashboardA.UnitVerticalPosition = model.UnitVerticalPosition;
-            dash.dashboardA.UnitFontScale = model.UnitFontScale;
-            dash.dashboardA.ValuePosition = model.ValuePosition;
-            dash.dashboardA.ValueFontScale = model.ValueFontScale;
-            dash.dashboardA.endAngle = model.endAngle;
-            dash.dashboardA.titleFontScale = model.titleFontScale;
+      NSArray *all =@[@"BG_ID",@"=",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
+            CustomDashModel.dashboardA.StartAngle = model.StartAngle;
+             CustomDashModel.dashboardA.miLength = model.miLength;
+             CustomDashModel.dashboardA.miWidth = model.miWidth;
+             CustomDashModel.dashboardA.maWidth = model.maWidth;
+             CustomDashModel.dashboardA.maLength = model.maLength;
+             CustomDashModel.dashboardA.UnitHorizontalPosition = model.UnitHorizontalPosition;
+            CustomDashModel.dashboardA.UnitVerticalPosition = model.UnitVerticalPosition;
+            CustomDashModel.dashboardA.UnitFontScale = model.UnitFontScale;
+            CustomDashModel.dashboardA.ValuePosition = model.ValuePosition;
+            CustomDashModel.dashboardA.ValueFontScale = model.ValueFontScale;
+            CustomDashModel.dashboardA.endAngle = model.endAngle;
+            CustomDashModel.dashboardA.titleFontScale = model.titleFontScale;
             
-            dash.dashboardA.FillstartAngle = model.FillstartAngle;
-            dash.dashboardA.LabelFontScale = model.LabelFontScale;
-            dash.dashboardA.LabelOffest = model.LabelOffest;
-            dash.dashboardA.outerColor = model.outerColor;
-            dash.dashboardA.innerColor = model.innerColor;
-            dash.dashboardA.titleColor = model.titleColor;
-            
-            dash.dashboardA.maColor = model.maColor;
-            dash.dashboardA.FillColor = model.FillColor;
-            dash.dashboardA.KNOBColor = model.KNOBColor;
-            dash.dashboardA.PointerVisble = model.PointerVisble;
-            dash.dashboardA.LabelRotate = model.LabelRotate;
-            dash.dashboardA.ValueVisble = model.ValueVisble;
-            dash.dashboardA.LabelVisble = model.LabelVisble;
-            dash.dashboardA.PointerWidth = model.PointerWidth;
-//            [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
-        }
-        }
+            CustomDashModel.dashboardA.FillstartAngle = model.FillstartAngle;
+            CustomDashModel.dashboardA.LabelFontScale = model.LabelFontScale;
+            CustomDashModel.dashboardA.LabelOffest = model.LabelOffest;
+            CustomDashModel.dashboardA.outerColor = model.outerColor;
+            CustomDashModel.dashboardA.innerColor = model.innerColor;
+            CustomDashModel.dashboardA.titleColor = model.titleColor;
+            CustomDashModel.dashboardA.maColor = model.maColor;
+            CustomDashModel.dashboardA.FillColor = model.FillColor;
+            CustomDashModel.dashboardA.KNOBColor = model.KNOBColor;
+            CustomDashModel.dashboardA.PointerVisble = model.PointerVisble;
+            CustomDashModel.dashboardA.LabelRotate = model.LabelRotate;
+            CustomDashModel.dashboardA.ValueVisble = model.ValueVisble;
+            CustomDashModel.dashboardA.LabelVisble = model.LabelVisble;
+            CustomDashModel.dashboardA.PointerWidth = model.PointerWidth;
+            [CustomDashModel bg_updateWhere:all];
+      
     });
 }
 -(void)rightBarButtonClick{

@@ -64,11 +64,12 @@
     CGFloat end = [presentStr doubleValue];
     if ([text.userInfo[@"StyleAViewTag"] doubleValue] == self.tag) {
     
-    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: self.tag]];
+ 
+        NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger: self.tag]];
         switch ([ DashboardSetting sharedInstance].dashboardMode) {
             case DashboardCustomMode:
             {
-                NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+                NSArray* pAll = [CustomDashboard bg_findWhere:arr];
                 for(CustomDashboard* dashboard in pAll){
                     CGFloat Space =   ([dashboard.dashboardA.endAngle doubleValue]- [dashboard.dashboardA.StartAngle doubleValue])/([dashboard.dashboardA.maxNumber doubleValue] - [dashboard.dashboardA.minNumber doubleValue]);
                     [self rotationWithStartAngle:[dashboard.dashboardA.StartAngle doubleValue] + start*Space  WithEndAngle:[dashboard.dashboardA.StartAngle doubleValue] + end*Space];
@@ -78,7 +79,7 @@
                 break;
             case DashboardClassicMode:
             {
-                NSArray* pAll = [DashboardA bg_findWhere:findsql];
+                NSArray* pAll = [DashboardA bg_findWhere:arr];
                 for(DashboardA* dashboard in pAll){
                     CGFloat Space =   ([dashboard.endAngle doubleValue]- [dashboard.StartAngle doubleValue])/([dashboard.maxNumber doubleValue] - [dashboard.minNumber doubleValue]);
                     [self rotationWithStartAngle:[dashboard.StartAngle doubleValue] + start*Space  WithEndAngle:[dashboard.StartAngle doubleValue] + end*Space];

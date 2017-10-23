@@ -26,8 +26,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, 1"];
-    NSArray *pAll = [LogsModel bg_findWhere:SQL];
+    NSArray *pAll = [LogsModel bg_findAll];
+    
     for(LogsModel* logsmodel in pAll){
         NSLog(@"logsmodel.item1PID %@",logsmodel.item1PID  );
         model = logsmodel;
@@ -210,17 +210,22 @@
             break;
 
         case 31:{
-            NSString *sql = [NSString stringWithFormat:@"SET item4Enabled ='%d'",switchBtn.on];
+           
+            NSArray *arr = @[@"item4Enabled",@"=",@(switchBtn.on)];
+            [model bg_updateWhere:arr];
         }
             break;
         case 32:{
-            NSString *sql = [NSString stringWithFormat:@"SET item4Smoothing ='%d'",switchBtn.on];
+
+            NSArray *arr = @[@"item4Smoothing",@"=",@(switchBtn.on)];
+            [model bg_updateWhere:arr];
+
         }
             break;
         default:
             break;
     }
-//    [model bg_updateWhere:<#(NSArray * _Nullable)#>];
+    
 
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

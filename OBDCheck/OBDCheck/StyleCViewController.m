@@ -58,16 +58,15 @@
 }
 - (void)initWithHeadUI{
  
-//    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
-    NSArray* pAll = [CustomDashboard bg_findAll];
-    for(CustomDashboard * dashboard in pAll){
-        if (dashboard.bg_id ==  [DashboardSetting sharedInstance].Dashboardindex) {
+    NSArray *arr = @[@"BG_ID",@"=",@([DashboardSetting sharedInstance].Dashboardindex)];
+    NSArray *all = [CustomDashboard bg_findWhere:arr];
+    for(CustomDashboard * dashboard in all){
+       
         model = dashboard.dashboardC;
     dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
             [self.view addSubview:dashViewC];
         [dashViewC initWithModel:dashboard.dashboardC];
         dashViewC.PIDLabel.text = dashboard.dashboardC.infoLabeltext;
-        }
     }
            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
    
@@ -447,9 +446,9 @@
 -(void)back{
     [self.navigationController popViewControllerAnimated:YES];
      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-         NSArray *array = [CustomDashboard bg_findAll];
+         NSArray *all =@[@"BG_ID",@"=",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
+         NSArray *array = [CustomDashboard bg_findWhere:all];
          for (CustomDashboard *dash in array) {
-         if (dash.bg_id == [indexID integerValue]) {
              dash.dashboardC.ValueVisible = model.ValueVisible;
              dash.dashboardC.FrameColor = model.FrameColor;
              dash.dashboardC.UnitColor = model.UnitColor;
@@ -463,8 +462,8 @@
              dash.dashboardC.titlePositon = model.titlePositon;
              dash.dashboardC.titleFontScale = model.titleFontScale;
              dash.dashboardC.Gradientradius = model.Gradientradius;
-//             [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
-         }
+             [dash bg_updateWhere:all];
+        
          }
 
           });

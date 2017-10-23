@@ -46,6 +46,14 @@
 }
 - (void)initWithdatabase{
     [CustomDashboard bg_drop];
+    [DashboardA bg_drop];
+    [DashboardB bg_drop];
+    [DashboardC bg_drop];
+
+    [[DashboardSetting sharedInstance]initWithdashboardA];
+    [[DashboardSetting sharedInstance]initWithdashboardB];
+    [[DashboardSetting sharedInstance]initWithdashboardC];
+
     [[DashboardSetting sharedInstance]initwithCustomDashboard];
     
 }

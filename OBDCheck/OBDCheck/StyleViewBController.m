@@ -60,17 +60,16 @@
 }
 - (void)initWithHeadUI{
 
-    NSArray* pAll = [CustomDashboard bg_findAll];
-  
-    for(CustomDashboard * dashboard in pAll){
-     if (dashboard.bg_id  == [DashboardSetting sharedInstance].Dashboardindex ) {
-        NSLog(@"backColor %@",dashboard.dashboardB.backColor  );
+    NSArray *arr = @[@"BG_ID",@"=",@([DashboardSetting sharedInstance].Dashboardindex)];
+    NSArray *all = [CustomDashboard bg_findWhere:arr];
+    for(CustomDashboard * dashboard in all){
+   
         model = dashboard.dashboardB;
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
     [dashViewB initWithModel:dashboard.dashboardB];
         dashViewB.PIDLabel.text = dashboard.dashboardB.infoLabeltext;
             [self.view addSubview:dashViewB];
-        }
+       
     }
     
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
@@ -475,13 +474,11 @@
     
 }
 - (void)back{
-    
     [self.navigationController popViewControllerAnimated:YES];
  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-     NSArray *array = [CustomDashboard bg_findAll];
+     NSArray *all =@[@"BG_ID",@"=",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
+     NSArray *array = [CustomDashboard bg_findWhere:all];
      for (CustomDashboard *dash in array) {
-         if (dash.bg_id == [indexID  intValue]) {
-         CustomDashboard *dash =  [[CustomDashboard alloc]init];
          dash.dashboardB.titleFontScale = model.titleFontScale;
          dash.dashboardB.ValueFontScale = model.ValueFontScale;
          dash.dashboardB.ValuePositon = model.ValuePositon;
@@ -495,11 +492,9 @@
          dash.dashboardB.ValueVisible = model.ValueVisible;
          dash.dashboardB.FillEnable = model.FillEnable;
          dash.dashboardB.GradientRadius = model.GradientRadius;
-//         [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
+         [dash bg_updateWhere:all];
+    
      }
-     }
-
-
  });
 }
 -(void)rightBarButtonClick{

@@ -132,8 +132,9 @@
     cell.backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
     cell.textLabel.text = self.dataSource[indexPath.row];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-    NSString *SQL = [NSString stringWithFormat:@"WHERE  ID = %ld",(long)indexPath.section + 1];
-    NSArray* pAll = [TripsModel bg_findWhere:SQL];
+  
+    NSArray *arr= @[@"BG_ID",@"=",[NSNumber numberWithInteger:indexPath.section + 1]];
+    NSArray* pAll = [TripsModel bg_findWhere:arr];
     for(TripsModel* model in pAll){
         switch (indexPath.row) {
             case 0:

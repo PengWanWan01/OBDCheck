@@ -277,17 +277,17 @@
         NSLog(@"%d",i);
         if (i<6) {
             
-        [self CustomDashboardType:1 withTag:i];
+        [self CustomDashboardType:AddStyleOne withTag:i];
         }else if (i>=6 && i < 8){
-        [self CustomDashboardType:2 withTag:i];
+        [self CustomDashboardType:AddStyleTwo withTag:i];
         }else{
-        [self CustomDashboardType:3 withTag:i];
+        [self CustomDashboardType:AddStyleThree withTag:i];
         }
     }
 
     NSLog(@"你好你好nimei");
 }
-- (void)CustomDashboardType:(NSInteger)type withTag:(NSInteger)i{
+- (void)CustomDashboardType:(AddDashboardStyle)type withTag:(NSInteger)i{
     
     CustomDashboard *model = [CustomDashboard new ];
     DashboardA *dashA = [DashboardA new];
@@ -303,7 +303,7 @@
     model.dashboardC = dashC;
     
     switch (type) {
-        case 1:
+        case AddStyleOne:
         {
             model.dashboardType = 1;
             [model bg_saveAsync:^(BOOL isSuccess) {
@@ -312,13 +312,13 @@
 //            [model bg_saveOrUpdate];
         }
             break;
-        case 2:
+        case AddStyleTwo:
         {
             model.dashboardType = 2;
             [model bg_saveOrUpdate];
         }
             break;
-        case 3:
+        case AddStyleThree:
         {
             model.dashboardType = 3;
             [model bg_saveOrUpdate];

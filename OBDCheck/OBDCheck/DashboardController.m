@@ -94,7 +94,7 @@ static dispatch_source_t _timer;
     for (int i = 0; i<he.count; i++) {
         CustomDashboard *dash =he[i];
         
-        if (dash.bg_id == id ) {
+        if ([dash.bg_id integerValue] == id ) {
                NSLog(@"orignx%ld",(long)dash.bg_id);
     switch (Customtype) {
         case 1:
@@ -142,9 +142,10 @@ static dispatch_source_t _timer;
         case 1:
         {
             DashboardA *model = [DashboardA new];
-            NSString *SQL  = [NSString stringWithFormat:@"where bg_id = %@",[NSNumber numberWithFloat:id]];
-            NSArray *pAll = [DashboardA bg_findWhere:SQL];
-            for(DashboardA* dash in pAll){
+
+            NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithFloat:id]];
+            NSArray *all = [DashboardA bg_findWhere:arr];
+            for(DashboardA* dash in all){
                 model = dash;
             }
             model.orignx = [NSNumber numberWithFloat:orignx];
@@ -159,9 +160,10 @@ static dispatch_source_t _timer;
         case 2:
         {
             DashboardB *model = [DashboardB new];
-            NSString *SQL  = [NSString stringWithFormat:@"where bg_id = %@",[NSNumber numberWithFloat:id]];
-            NSArray *pAll = [DashboardB bg_findWhere:SQL];
-            for(DashboardB* dash in pAll){
+            NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithFloat:id]];
+            NSArray *all = [DashboardB bg_findWhere:arr];
+
+            for(DashboardB* dash in all){
                 model = dash;
             }
             model.orignx = [NSNumber numberWithFloat:orignx];
@@ -174,9 +176,10 @@ static dispatch_source_t _timer;
         case 3:
         {
             DashboardC *model = [DashboardC new];
-            NSString *SQL  = [NSString stringWithFormat:@"where bg_id = %@",[NSNumber numberWithFloat:id]];
-            NSArray *pAll = [DashboardC bg_findWhere:SQL];
-            for(DashboardC* dash in pAll){
+            NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithFloat:id]];
+            NSArray *all = [DashboardC bg_findWhere:arr];
+
+            for(DashboardC* dash in all){
                 model = dash;
             }
             model.orignx = [NSNumber numberWithFloat:orignx];
@@ -216,9 +219,9 @@ static dispatch_source_t _timer;
         _PreNumberStr = _CustomNumberArray[i];
         [self initWithData];
         if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
-            NSString *findsql = [NSString stringWithFormat:@"WHERE  bg_id = %@",[NSNumber numberWithInteger:i+1]];
-            NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
-            for(CustomDashboard *dashboard in pAll){
+            NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger: i+1]];
+            NSArray *all = [CustomDashboard bg_findWhere:arr];
+            for(CustomDashboard *dashboard in all){
                 switch (dashboard.dashboardType) {
                     case 1:
                     {
@@ -440,7 +443,7 @@ static dispatch_source_t _timer;
         }
         if (dash.dashboardType == 3){
             dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake([dash.dashboardC.orignx doubleValue], [dash.dashboardC.origny doubleValue], [dash.dashboardC.orignwidth doubleValue], [dash.dashboardC.orignheight doubleValue])];
-            dashboardStyleCView.tag = dash.bg_id ;
+            dashboardStyleCView.tag = [dash.bg_id integerValue] ;
             [dashboardStyleCView initWithModel:dash.dashboardC];
             DashBoardTag = dashboardStyleCView.tag ;
             dashboardStyleCView.delegate = self;
@@ -451,9 +454,10 @@ static dispatch_source_t _timer;
 }
 - (void)initWithChangeCustomType:(NSInteger)type withTag:(NSInteger)tag{
     [self initWithData];
-    NSString *findsql = [NSString stringWithFormat:@"WHERE  bg_id = %@",[NSNumber numberWithInteger:tag]];
-    NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
-    for(CustomDashboard *dashboard in pAll){
+    NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger:tag]];
+    NSArray *all = [DashboardA bg_findWhere:arr];
+    
+    for(CustomDashboard *dashboard in all){
       
         switch (dashboard.dashboardType) {
             case 1:
@@ -507,9 +511,9 @@ static dispatch_source_t _timer;
    
     NSArray* pAllCount = [DashboardA bg_findAll];
             for (DashboardA *dash in pAllCount) {
-                NSLog(@"总共%d,orignx=%f",dash.bg_id, [dash.orignx doubleValue]);
+                NSLog(@"总共%@,orignx=%f",dash.bg_id, [dash.orignx doubleValue]);
                 dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.orignx doubleValue], [dash.origny doubleValue], [dash.orignwidth doubleValue], [dash.orignheight doubleValue])];
-                dashboardStyleAView.tag = dash.bg_id ;
+                dashboardStyleAView.tag = [dash.bg_id integerValue];
                 //画底盘渐变色
                 [dashboardStyleAView addGradientView:dash.outerColor  GradientViewWidth:dashboardStyleAView.frame.size.width];
                 [dashboardStyleAView initWithModel:dash];
@@ -524,9 +528,11 @@ static dispatch_source_t _timer;
 - (void)initWithChangeStyleA:(DashboardView *)view :(NSInteger)index{
     [self initWithData];
     
-    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: view.tag]];
-    NSArray* pAll = [DashboardA bg_findWhere:findsql];
-    for(DashboardA* dashboard in pAll){
+    
+    NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger: view.tag]];
+    NSArray *all = [DashboardA bg_findWhere:arr];
+    
+    for(DashboardA* dashboard in all){
         
         if ([dashboard.bg_id integerValue] == view.tag) {
             NSLog(@"%ld -- %ld",(long)dashboard.bg_id ,(long)view.tag);
@@ -565,9 +571,11 @@ static dispatch_source_t _timer;
 }
 - (void)initWithChangeStyleB:(DashboardViewStyleB *)view :(NSInteger)index{
     [self initWithData];
-    NSString *findsql = [NSString stringWithFormat:@"WHERE  bg_id = %@",[NSNumber numberWithInteger: view.tag]];
-    NSArray* pAll = [DashboardB bg_findWhere:findsql];
-    for(DashboardB* dashboard in pAll){
+
+    NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger: view.tag]];
+    NSArray *all = [DashboardB bg_findWhere:arr];
+    
+    for(DashboardB* dashboard in all){
       [view initWithModel:dashboard];
     
    
@@ -589,11 +597,10 @@ static dispatch_source_t _timer;
     DashBoardTag = 0;
     NSArray* pAllCount = [DashboardC bg_findAll];
     for (DashboardC *dash in pAllCount) {
-        NSLog(@"总共%d",dash.bg_id);
-        NSLog(@"_LabelNameArray%@",_LabelNameArray);
+      
         
         dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake([dash.orignx doubleValue], [dash.origny doubleValue], [dash.orignwidth doubleValue], [dash.orignheight doubleValue])];
-        dashboardStyleCView.tag = dash.bg_id ;
+        dashboardStyleCView.tag = [dash.bg_id integerValue];
         [dashboardStyleCView initWithModel:dash];
         DashBoardTag = dashboardStyleCView.tag ;
         [scrollView addSubview:dashboardStyleCView];
@@ -604,9 +611,11 @@ static dispatch_source_t _timer;
 
 - (void)initWithChangeStyleC:(DashboardViewStyleC *)view :(NSInteger)index{
     [self initWithData];
-    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: view.tag]];
-    NSArray* pAll = [DashboardC bg_findWhere:findsql];
-    for(DashboardC* dashboard in pAll){
+ 
+    NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger: view.tag]];
+    NSArray *all = [DashboardC bg_findWhere:arr];
+
+    for(DashboardC* dashboard in all){
         [view initWithModel:dashboard];
     view.delegate = self;
     dashboardStyleCView.PIDLabel.text = _LabelNameArray[index];
@@ -716,9 +725,11 @@ static dispatch_source_t _timer;
 #pragma mark 捏合手势代理
 - (void)pinchtap:(UIPinchGestureRecognizer *)sender OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height{
     
-    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:sender.view.tag]];
-    NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
-    for(CustomDashboard *dashboard in pAll){
+   
+    NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger: sender.view.tag]];
+    NSArray *all = [CustomDashboard bg_findWhere:arr];
+    
+    for(CustomDashboard *dashboard in all){
         switch (dashboard.dashboardType) {
             case 1:
             {
@@ -792,7 +803,7 @@ static dispatch_source_t _timer;
 //    [[DashboardSetting sharedInstance] initWithdashboardA];
 //    [[DashboardSetting sharedInstance] initWithdashboardB];
 //    [[DashboardSetting sharedInstance] initWithdashboardC];
-//    [[DashboardSetting sharedInstance] initwithCustomDashboard];
+    [[DashboardSetting sharedInstance] initwithCustomDashboard];
 
     [DashboardSetting sharedInstance].KPageNumer = 4;
     [self clearAllUserDefaultsData];
@@ -806,9 +817,11 @@ static dispatch_source_t _timer;
     //让仪表盘到最前面
     if ([DashboardSetting sharedInstance].isDashboardFont == YES ) {
         NSLog(@"CCqianm");
-        NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
-        NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
-        for(CustomDashboard *dashboard in pAll){
+
+        NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
+        NSArray *all = [CustomDashboard bg_findWhere:arr];
+        
+        for(CustomDashboard *dashboard in all){
             
             switch (dashboard.dashboardType) {
                 case 1:
@@ -842,10 +855,9 @@ static dispatch_source_t _timer;
     if ([DashboardSetting sharedInstance].Dashboardindex == indexTag &&  [DashboardSetting sharedInstance].isDashboardMove == YES ) {
         NSLog(@"CCC");
         scrollView.scrollEnabled = NO;
-
-        NSString *findsql = [NSString stringWithFormat:@"WHERE  bg_id = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
-        NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
-        for(CustomDashboard *dashboard in pAll){
+        NSArray *arr = @[@"BG_ID",@"=",@([DashboardSetting sharedInstance].Dashboardindex)];
+        NSArray *all = [CustomDashboard bg_findWhere:arr];    
+        for(CustomDashboard *dashboard in all){
             
             switch (dashboard.dashboardType) {
                 case 1:
@@ -970,22 +982,27 @@ static dispatch_source_t _timer;
      [[DashboardSetting sharedInstance].defaults setInteger:[[DashboardSetting sharedInstance].defaults integerForKey:@"AddDashboardNumber"]-1 forKey:@"AddDashboardNumber"];
     
     [DashboardSetting sharedInstance].isDashboardRemove = NO;
-    NSString *findsql = [NSString stringWithFormat:@"WHERE  bg_id = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
-    NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
-    for(CustomDashboard *dashboard in pAll){
-        
+    NSArray *arr = @[@"bg_id",@"=",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
+    NSArray *all = [CustomDashboard bg_findWhere:arr];
+    for(CustomDashboard *dashboard in all){
         switch (dashboard.dashboardType) {
             case 1:
             {
                 dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-                [CustomDashboard bg_deleteWhere:findsql];
-                [dashboardStyleAView removeFromSuperview];
+                NSLog(@"bg_id%@",dashboard.bg_id);
+                
+                [CustomDashboard bg_deleteAsync:arr complete:^(BOOL isSuccess) {
+                    NSLog(@"删除成功");
+                  
+                }];
+                 [dashboardStyleAView removeFromSuperview];
+              
             }
                 break;
             case 2:
             {
                 dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-                [CustomDashboard bg_deleteWhere:findsql];
+                [CustomDashboard bg_deleteWhere:arr];
                 [dashboardStyleBView removeFromSuperview];
 
             }
@@ -993,7 +1010,7 @@ static dispatch_source_t _timer;
             case 3:
             {
                 dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-                [CustomDashboard bg_deleteWhere:findsql];
+                [CustomDashboard bg_deleteWhere:arr];
                 [dashboardStyleCView removeFromSuperview];
             }
                 break;
@@ -1021,38 +1038,35 @@ static dispatch_source_t _timer;
 - (void)touchMoveWithcenterX:(CGFloat)centerX WithcenterY:(CGFloat)WithcenterY{
        scrollView.scrollEnabled = YES;
         [DashboardSetting sharedInstance].isDashboardMove = NO;
-   
-    NSArray* pAll = [CustomDashboard bg_findAll];
-    for(NSInteger i = 0;i<pAll.count;i++){
-        CustomDashboard *dashboard = pAll[i];
-        if(dashboard.bg_id == [DashboardSetting sharedInstance].Dashboardindex){
-          
+    NSArray *arr = @[@"bg_id",@"=",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
+    NSArray *all = [CustomDashboard bg_findWhere:arr];
+    for(CustomDashboard *dashboard in all){
         switch (dashboard.dashboardType) {
             case 1:
             {
+                NSLog(@"111");
                 dashboard.dashboardA.orignx = [NSNumber numberWithFloat:centerX];
                 dashboard.dashboardA.origny = [NSNumber numberWithFloat:WithcenterY];
+               
                     }
                 break;
             case 2:
             {
-//                dashboard.dashboardB.orignx = [NSNumber numberWithFloat:centerX];
-//                dashboard.dashboardB.origny = [NSNumber numberWithFloat:WithcenterY];
+                dashboard.dashboardB.orignx = [NSNumber numberWithFloat:centerX];
+                dashboard.dashboardB.origny = [NSNumber numberWithFloat:WithcenterY];
             }
                 break;
             case 3:
             {
-//                dashboard.dashboardC.orignx = [NSNumber numberWithFloat:centerX];
-//                dashboard.dashboardC.origny = [NSNumber numberWithFloat:WithcenterY];
+                dashboard.dashboardC.orignx = [NSNumber numberWithFloat:centerX];
+                dashboard.dashboardC.origny = [NSNumber numberWithFloat:WithcenterY];
             }
                 break;
             default:
                 break;
         }
-//            [dashboard bg_updateWhere:<#(NSArray * _Nullable)#>];
-            NSLog(@"更新后的%@",dashboard);
-        }
-     
+        //更新为当前的数据
+        [dashboard bg_updateWhere:arr];
         
     }
     
