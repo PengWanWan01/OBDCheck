@@ -80,6 +80,7 @@ static BlueToothController* instance;
 }
 
 //查询到状态时调用的函数
+#pragma mark step1开始搜索蓝牙
 -(void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
     NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:false],CBCentralManagerScanOptionAllowDuplicatesKey, nil];
@@ -124,7 +125,7 @@ static BlueToothController* instance;
 //        
 //    }
 }
-
+#pragma mark step2处理搜索到的设备
 //处理搜索到的设备
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
@@ -145,6 +146,8 @@ static BlueToothController* instance;
     };
 }
 //保存蓝牙设备
+#pragma mark step3打印搜索到的设备
+#pragma mark step4搜索为查找的蓝牙时候，并进行连接
 -(BOOL)saveBLE:(BELInfo*)info
 {
     NSLog(@"发现设备%@:%@",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
@@ -168,7 +171,7 @@ static BlueToothController* instance;
     
 }
 
-//连接蓝牙函数
+#pragma mark连接蓝牙函数
 -(BOOL)ConnectBlueTooth:(CBPeripheral*)pheral
 {
     //连接蓝牙设备
@@ -180,7 +183,7 @@ static BlueToothController* instance;
     return YES;
 }
 
-//连接蓝牙的时候触发的协议函数
+#pragma mark连接蓝牙的时候触发的协议函数
 -(void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
     //关闭停止搜索的计时器
@@ -195,7 +198,7 @@ static BlueToothController* instance;
 
 }
 
-//没连上的时候的响应函数
+#pragma mark没连上的时候的响应函数
 -(void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     NSLog(@"蓝牙断开了链接！！开始重新搜索!!");
@@ -229,7 +232,7 @@ static BlueToothController* instance;
    
     NSLog(@"通知%@",characteristic.value );
 }
-
+#pragma mark重新搜索
 -(void)Scan
 {
 //    Toast* toast = [Toast makeText:NSLocalizedString(@"开始搜索附近的设备", @"")];
@@ -252,8 +255,7 @@ static BlueToothController* instance;
     //开启计时器50秒内没有连接到蓝牙设备，停止搜索
     timer = [NSTimer scheduledTimerWithTimeInterval:50.0 target:self selector:@selector(BLStopScan) userInfo:nil repeats:NO];
 }
-
-//停止搜索
+#pragma mark 停止搜索
 -(void)BLStopScan
 {
     [self.centralMgr stopScan];
@@ -274,7 +276,7 @@ static BlueToothController* instance;
     }
 }
 
-//搜索服务的时候触发的协议函数
+#pragma mark 搜索服务的时候触发的协议函数
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
     if (!error) {
@@ -289,7 +291,7 @@ static BlueToothController* instance;
         NSLog(@"搜索服务失败，失败提示：%@",error);
     }
 }
-//扫描完每一个特征值之后调用该函数
+#pragma mark 扫描完每一个特征值之后调用该函数
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
     if (!error) {
@@ -330,6 +332,7 @@ static BlueToothController* instance;
     }
   
 }
+#pragma mark校验和
 - (Byte)checkSumFun:(char[] )data withSum:(NSInteger)startIndex{
     char sumChar = 0x00;
     for (NSInteger i = startIndex; i < strlen(data)/2; i++) {
@@ -338,7 +341,7 @@ static BlueToothController* instance;
     return sumChar;
     
 }
-//通过特征值发送数据
+#pragma mark 通过特征值发送数据
 -(void)SendData:(NSData*)data
 {
 
@@ -357,7 +360,7 @@ static BlueToothController* instance;
 }
 
 
-//发送数据线程
+#pragma mark发送数据线程
 //////////////////////////////////////////////////////
 -(void)SenddataByOtherWay:(NSData*)data
 {
@@ -407,7 +410,7 @@ static BlueToothController* instance;
     //return [hex autorelease];
 }
 
-//监听读特征的协议函数
+#pragma mark监听读特征的协议函数
 
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
@@ -437,7 +440,7 @@ static BlueToothController* instance;
     
 }
 
-//断开连接
+#pragma mark断开连接
 -(void)DisConnectBlueTooth
 {
     self.ConnectPeripheral.delegate = nil;

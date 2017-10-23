@@ -37,8 +37,10 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     PartTwodata = [[LineChartData alloc] initWithDataSet:set1];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     NSArray *pAll = [LogsModel bg_findAll];
+    NSLog(@"测试%ld",(unsigned long)pAll.count);
     for(LogsModel* logsmodel in pAll){
-        NSLog(@"logsmodel.item1PID %@",logsmodel.item1PID  );
+        NSLog(@"logsmodel测试测试 %hhd =%hhd",logsmodel.item3Enabled,logsmodel.item4Enabled);
+        
         model = logsmodel;
         if (model.item3Enabled == YES || model.item4Enabled == YES ) {
             [self initWithLogViewTwoPartUI];
@@ -333,7 +335,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     indextag =  0; 
     NSArray *pAll = [LogsModel bg_findAll];
     for(LogsModel* logsmodel in pAll){
-        NSLog(@"logsmodel.item1PID %@",logsmodel.item1PID  );
+        NSLog(@"logsmodel.item1PID测试 %@",logsmodel.item1PID  );
         model = logsmodel;
         if (model.item3Enabled == YES || model.item4Enabled == YES ) {
             [self initWithLogViewTwoPart];

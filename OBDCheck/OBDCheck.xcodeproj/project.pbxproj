@@ -97,6 +97,10 @@
 		CBD8EB5A1F9DB83D00FDABBB /* DashboardSetting.h in Sources */ = {isa = PBXBuildFile; fileRef = CB0220871F43E9CC008773ED /* DashboardSetting.h */; };
 		CBD8EB6C1F9E08AD00FDABBB /* ViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E22C1F2ED49200EEC755 /* ViewController.h */; };
 		CBD8EB711F9E0BEF00FDABBB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CB5642921F984151002EFB7E /* libc++.tbd */; };
+		CBD8EB771F9E0CF600FDABBB /* BELInfo.h in Sources */ = {isa = PBXBuildFile; fileRef = CBD8EB741F9E0C1E00FDABBB /* BELInfo.h */; };
+		CBD8EB781F9E0CFD00FDABBB /* BlueToothController.h in Sources */ = {isa = PBXBuildFile; fileRef = CBD8EB731F9E0C1E00FDABBB /* BlueToothController.h */; };
+		CBD8EB791F9E0D0700FDABBB /* BlueToothController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD8EB761F9E0C1E00FDABBB /* BlueToothController.m */; };
+		CBD8EB7A1F9E0D1600FDABBB /* BELInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD8EB751F9E0C1E00FDABBB /* BELInfo.m */; };
 		CBE4AC031F442674003714A4 /* PIDSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AC021F442674003714A4 /* PIDSelectViewController.m */; };
 		CBE4AC061F4426BC003714A4 /* BasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AC051F4426BC003714A4 /* BasicViewController.m */; };
 		CBE4AC0A1F443432003714A4 /* DashboardViewStyleC.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AC091F443432003714A4 /* DashboardViewStyleC.m */; };
@@ -1176,6 +1180,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBD8EB7A1F9E0D1600FDABBB /* BELInfo.m in Sources */,
+				CBD8EB791F9E0D0700FDABBB /* BlueToothController.m in Sources */,
+				CBD8EB781F9E0CFD00FDABBB /* BlueToothController.h in Sources */,
+				CBD8EB771F9E0CF600FDABBB /* BELInfo.h in Sources */,
 				CBD8EB6C1F9E08AD00FDABBB /* ViewController.h in Sources */,
 				CBD8EB5A1F9DB83D00FDABBB /* DashboardSetting.h in Sources */,
 				CB82247F1F46F30000E1E4BA /* HUDView.m in Sources */,
@@ -1412,7 +1420,10 @@
 				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
 				INFOPLIST_FILE = OBDCheck/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-Objc",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Auptophix.OBDCheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "OBDCheck/OBDCheck-Bridging-Header.h";
@@ -1433,7 +1444,10 @@
 				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
 				INFOPLIST_FILE = OBDCheck/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-Objc",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Auptophix.OBDCheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "OBDCheck/OBDCheck-Bridging-Header.h";

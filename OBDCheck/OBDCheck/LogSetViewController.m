@@ -26,11 +26,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSArray *pAll = [LogsModel bg_findAll];
-    
-    for(LogsModel* logsmodel in pAll){
-        NSLog(@"logsmodel.item1PID %@",logsmodel.item1PID  );
-        model = logsmodel;
+    NSArray *arr = [LogsModel bg_findAll];
+    for (LogsModel *log in arr) {
+        model = log;
     }
     [self initWithUI];
 }
@@ -186,7 +184,6 @@
     return resultCell;
 }
 - (void)selectSwtichBetouched:(UISwitch  *)switchBtn{
-  LogsModel *model = [LogsModel new];
     switch (switchBtn.tag) {
         case 1:
         {
@@ -210,23 +207,19 @@
             break;
 
         case 31:{
-           
-            NSArray *arr = @[@"item4Enabled",@"=",@(switchBtn.on)];
-            [model bg_updateWhere:arr];
+            model.item4Enabled = switchBtn.on;
         }
             break;
         case 32:{
 
-            NSArray *arr = @[@"item4Smoothing",@"=",@(switchBtn.on)];
-            [model bg_updateWhere:arr];
-
+            model.item4Smoothing = switchBtn.on;
         }
             break;
         default:
             break;
+            
     }
-    
-
+     [model bg_saveOrUpdate];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
