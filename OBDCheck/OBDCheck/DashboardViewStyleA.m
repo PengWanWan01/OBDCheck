@@ -68,7 +68,7 @@
         switch ([ DashboardSetting sharedInstance].dashboardMode) {
             case DashboardCustomMode:
             {
-                NSArray* pAll = [CustomDashboard findByCriteria:findsql];
+                NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
                 for(CustomDashboard* dashboard in pAll){
                     CGFloat Space =   ([dashboard.dashboardA.endAngle doubleValue]- [dashboard.dashboardA.StartAngle doubleValue])/([dashboard.dashboardA.maxNumber doubleValue] - [dashboard.dashboardA.minNumber doubleValue]);
                     [self rotationWithStartAngle:[dashboard.dashboardA.StartAngle doubleValue] + start*Space  WithEndAngle:[dashboard.dashboardA.StartAngle doubleValue] + end*Space];
@@ -78,7 +78,7 @@
                 break;
             case DashboardClassicMode:
             {
-                NSArray* pAll = [DashboardA findByCriteria:findsql];
+                NSArray* pAll = [DashboardA bg_findWhere:findsql];
                 for(DashboardA* dashboard in pAll){
                     CGFloat Space =   ([dashboard.endAngle doubleValue]- [dashboard.StartAngle doubleValue])/([dashboard.maxNumber doubleValue] - [dashboard.minNumber doubleValue]);
                     [self rotationWithStartAngle:[dashboard.StartAngle doubleValue] + start*Space  WithEndAngle:[dashboard.StartAngle doubleValue] + end*Space];
@@ -190,7 +190,7 @@
             LongperLayer.strokeColor = [ColorTools colorWithHexString:model.maColor].CGColor;
             LongperLayer.lineWidth = [model.maLength doubleValue];
             //添加刻度
-            NSLog(@"%@",model.orignwidth);
+//            NSLog(@"%@",model.orignwidth);
             
              _center = CGPointMake([model.orignwidth doubleValue]/2, [model.orignwidth doubleValue]/2);
             
@@ -199,8 +199,8 @@
             NSString *tickText = [NSString stringWithFormat:@"%.f",((roundf([model.maxNumber doubleValue]- [model.minNumber doubleValue])/8)*(i/5) +[model.minNumber doubleValue])];
             
             //默认label的大小14 * 14
-            NSLog(@"%f",_center.x);
-            NSLog(@"point%f%f",point.x,point.y);
+//            NSLog(@"%f",_center.x);
+//            NSLog(@"point%f%f",point.x,point.y);
           
             UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake((point.x - 15), (point.y - 15), 30, 30)];
             
@@ -451,9 +451,9 @@
           //求偏移量 = 手指当前点的X - 手指上一个点的X
           CGPoint curP = [touch locationInView:self];
           CGPoint preP = [touch previousLocationInView:self];
-          NSLog(@"curP====%@",NSStringFromCGPoint(curP));
-          NSLog(@"preP====%@",NSStringFromCGPoint(preP));
-          
+//          NSLog(@"curP====%@",NSStringFromCGPoint(curP));
+//          NSLog(@"preP====%@",NSStringFromCGPoint(preP));
+//          
           CGFloat offsetX = curP.x - preP.x;
           CGFloat offsetY = curP.y - preP.y;
           
@@ -467,7 +467,7 @@
       if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
       
           if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
-               NSLog(@"origin%f,%f",self.frame.origin.x,self.frame.origin.y );
+//               NSLog(@"origin%f,%f",self.frame.origin.x,self.frame.origin.y );
               [self.delegate touchMoveWithcenterX:self.frame.origin.x WithcenterY:self.frame.origin.y];
               //移动view
           }

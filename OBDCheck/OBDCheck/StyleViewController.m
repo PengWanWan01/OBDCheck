@@ -71,9 +71,9 @@
 }
 - (void)initWithHeadUI{
     NSLog(@"headU");
-    NSArray *findArr = [CustomDashboard findAll];
+    NSArray *findArr = [CustomDashboard bg_findAll];
     for(CustomDashboard* dashboard in findArr){
-    if (dashboard.pk == [DashboardSetting sharedInstance].Dashboardindex ) {
+    if (dashboard.bg_id == [DashboardSetting sharedInstance].Dashboardindex ) {
     model = dashboard.dashboardA;
     self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
         NSLog(@"%@",dashboard);
@@ -888,12 +888,12 @@
             case 0:
             {
                 model.StartAngle = [NSNumber numberWithFloat: slider.value] ;
-                NSArray *array = [CustomDashboard findAll];
+                NSArray *array = [CustomDashboard bg_findAll];
                 for (CustomDashboard *dash in array) {
-                    if (dash.pk == [self.indexID  intValue]) {
-                        NSLog(@"测试测试%d%d",dash.pk,[self.indexID intValue]);
+                    if (dash.bg_id == [self.indexID  intValue]) {
+                        NSLog(@"测试测试%d%d",dash.bg_id,[self.indexID intValue]);
                 dash.dashboardA.StartAngle = model.StartAngle;
-                         [dash update];
+//                         [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
                     }
                 }
                
@@ -1197,9 +1197,9 @@
     [self.navigationController popViewControllerAnimated:YES];
     NSLog(@"121");
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSArray *array = [CustomDashboard findAll];
+        NSArray *array = [CustomDashboard bg_findAll];
         for (CustomDashboard *dash in array) {
-        if (dash.pk == [self.indexID  intValue]) {
+        if (dash.bg_id == [self.indexID  intValue]) {
             dash.dashboardA.StartAngle = model.StartAngle;
              dash.dashboardA.miLength = model.miLength;
              dash.dashboardA.miWidth = model.miWidth;
@@ -1228,7 +1228,7 @@
             dash.dashboardA.ValueVisble = model.ValueVisble;
             dash.dashboardA.LabelVisble = model.LabelVisble;
             dash.dashboardA.PointerWidth = model.PointerWidth;
-            [dash update];
+//            [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
         }
         }
     });

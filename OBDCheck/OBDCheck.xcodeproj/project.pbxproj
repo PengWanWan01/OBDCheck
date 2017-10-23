@@ -22,20 +22,14 @@
 		CB07EA271F41A370002894F9 /* UIColor+Separate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB07EA241F41A370002894F9 /* UIColor+Separate.m */; };
 		CB07EA281F41A370002894F9 /* UIColor+Wonderful.m in Sources */ = {isa = PBXBuildFile; fileRef = CB07EA261F41A370002894F9 /* UIColor+Wonderful.m */; };
 		CB21DA461F343F880080648E /* DashboardViewStyleA.m in Sources */ = {isa = PBXBuildFile; fileRef = CB21DA451F343F880080648E /* DashboardViewStyleA.m */; };
-		CB2E3D741F977BB500685DC9 /* Tool_FMDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2E3D701F977BB400685DC9 /* Tool_FMDBModel.m */; };
-		CB2E3D751F977BB500685DC9 /* Tool_FMDBGetDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2E3D711F977BB400685DC9 /* Tool_FMDBGetDatabase.m */; };
 		CB2E3D771F977D7900685DC9 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2E3D761F977D7900685DC9 /* libsqlite3.tbd */; };
-		CB3FAC0A1F5EBD9900C4F21B /* DashboardA.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3FAC091F5EBD9900C4F21B /* DashboardA.m */; };
-		CB3FAD181F5FD10500C4F21B /* DashboardB.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3FAD171F5FD10400C4F21B /* DashboardB.m */; };
 		CB3FAD1B1F6A1F0900B572FD /* FilesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3FAD191F6A1F0900B572FD /* FilesTableViewCell.m */; };
-		CB3FAD1E1F5FD13300C4F21B /* DashboardC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3FAD1D1F5FD13300C4F21B /* DashboardC.m */; };
 		CB3FAD231F6A5F0B00B572FD /* Filesmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3FAD221F6A5F0B00B572FD /* Filesmodel.m */; };
 		CB3FAD261F6A6F1000B572FD /* Sensors2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3FAD251F6A6F1000B572FD /* Sensors2ViewController.m */; };
 		CB3FAD291F6A6F1D00B572FD /* Mode06ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3FAD281F6A6F1D00B572FD /* Mode06ViewController.m */; };
 		CB3FAD2C1F6A6F3200B572FD /* Mode09ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3FAD2B1F6A6F3200B572FD /* Mode09ViewController.m */; };
 		CB3FAD341F6A9F9600B572FD /* MonitorsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3FAD321F6A9F9600B572FD /* MonitorsTableViewCell.m */; };
 		CB3FAD351F6A9F9600B572FD /* MonitorsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB3FAD331F6A9F9600B572FD /* MonitorsTableViewCell.xib */; };
-		CB3FAD621F5FDB5F00C4F21B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CB3FAD611F5FDB5F00C4F21B /* libsqlite3.0.tbd */; };
 		CB431F251F68C50300E465F4 /* TripsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB431F241F68C50300E465F4 /* TripsModel.m */; };
 		CB44DB2C1F4A822200A24629 /* StyleOneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB44DB2A1F4A822200A24629 /* StyleOneTableViewCell.m */; };
 		CB44DB2D1F4A822200A24629 /* StyleOneTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB44DB2B1F4A822200A24629 /* StyleOneTableViewCell.xib */; };
@@ -52,7 +46,6 @@
 		CB5583601F51468C0010A1E5 /* StyleViewBController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB55835F1F51468C0010A1E5 /* StyleViewBController.m */; };
 		CB5583631F5146B70010A1E5 /* StyleCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5583621F5146B70010A1E5 /* StyleCViewController.m */; };
 		CB56428F1F9840C4002EFB7E /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB5642901F9840C4002EFB7E /* FMDB.framework */; };
-		CB5642931F984151002EFB7E /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CB5642921F984151002EFB7E /* libc++.tbd */; };
 		CB5A618F1F79FB62000D23D6 /* SeletVehicleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A618E1F79FB62000D23D6 /* SeletVehicleViewController.m */; };
 		CB5A61941F7A206C000D23D6 /* YearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A61931F7A206C000D23D6 /* YearViewController.m */; };
 		CB5A61971F7A20AA000D23D6 /* MakerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A61961F7A20AA000D23D6 /* MakerViewController.m */; };
@@ -64,6 +57,9 @@
 		CB5AA4131F31A377002B3006 /* SetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */; };
 		CB5DAC621F78FA93009A8A19 /* ColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5DAC601F78FA93009A8A19 /* ColorTableViewCell.m */; };
 		CB5DAC631F78FA93009A8A19 /* ColorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5DAC611F78FA93009A8A19 /* ColorTableViewCell.xib */; };
+		CB7B8DB41F9D99B7009E4442 /* DashboardB.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7B8DAF1F9D99B7009E4442 /* DashboardB.m */; };
+		CB7B8DB51F9D99B7009E4442 /* DashboardC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7B8DB11F9D99B7009E4442 /* DashboardC.m */; };
+		CB7B8DB61F9D99B7009E4442 /* DashboardA.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7B8DB31F9D99B7009E4442 /* DashboardA.m */; };
 		CB82247C1F46EEC400E1E4BA /* HUDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB82247B1F46EEC400E1E4BA /* HUDViewController.m */; };
 		CB82247F1F46F30000E1E4BA /* HUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB82247E1F46F30000E1E4BA /* HUDView.m */; };
 		CB835D2D1F594DB6007C5A17 /* ReadinessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB835D2B1F594DB6007C5A17 /* ReadinessViewController.m */; };
@@ -99,6 +95,14 @@
 		CBCD979A1F7CED2F0002383F /* FileInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBCD97991F7CED2F0002383F /* FileInfoView.xib */; };
 		CBCFDF6E1F42A4C5008329CF /* DashboardViewStyleB.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCFDF6D1F42A4C5008329CF /* DashboardViewStyleB.m */; };
 		CBCFDF711F42A4E6008329CF /* gradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCFDF701F42A4E6008329CF /* gradientView.m */; };
+		CBD8EB5A1F9DB83D00FDABBB /* DashboardSetting.h in Sources */ = {isa = PBXBuildFile; fileRef = CB0220871F43E9CC008773ED /* DashboardSetting.h */; };
+		CBD8EB5C1F9DC20100FDABBB /* NSObject+BGModel.h in Sources */ = {isa = PBXBuildFile; fileRef = CB7B8DCA1F9DA1A8009E4442 /* NSObject+BGModel.h */; };
+		CBD8EB5D1F9DC20B00FDABBB /* BGDB.h in Sources */ = {isa = PBXBuildFile; fileRef = CB7B8DC01F9DA1A8009E4442 /* BGDB.h */; };
+		CBD8EB5E1F9DC21200FDABBB /* BGFMDB.h in Sources */ = {isa = PBXBuildFile; fileRef = CB7B8DC21F9DA1A8009E4442 /* BGFMDB.h */; };
+		CBD8EB5F1F9DC21A00FDABBB /* BGFMDBConfig.h in Sources */ = {isa = PBXBuildFile; fileRef = CB7B8DC31F9DA1A8009E4442 /* BGFMDBConfig.h */; };
+		CBD8EB601F9DC22400FDABBB /* BGModelInfo.h in Sources */ = {isa = PBXBuildFile; fileRef = CB7B8DC41F9DA1A8009E4442 /* BGModelInfo.h */; };
+		CBD8EB611F9DC22A00FDABBB /* BGTool.h in Sources */ = {isa = PBXBuildFile; fileRef = CB7B8DC61F9DA1A8009E4442 /* BGTool.h */; };
+		CBD8EB621F9DC24100FDABBB /* NSCache+BGCache.h in Sources */ = {isa = PBXBuildFile; fileRef = CB7B8DC81F9DA1A8009E4442 /* NSCache+BGCache.h */; };
 		CBE4AC031F442674003714A4 /* PIDSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AC021F442674003714A4 /* PIDSelectViewController.m */; };
 		CBE4AC061F4426BC003714A4 /* BasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AC051F4426BC003714A4 /* BasicViewController.m */; };
 		CBE4AC0A1F443432003714A4 /* DashboardViewStyleC.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AC091F443432003714A4 /* DashboardViewStyleC.m */; };
@@ -205,19 +209,9 @@
 		CB21DA451F343F880080648E /* DashboardViewStyleA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewStyleA.m; sourceTree = "<group>"; };
 		CB2E3D6D1F9778C600685DC9 /* BlueToothController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlueToothController.h; sourceTree = "<group>"; };
 		CB2E3D6F1F9778C700685DC9 /* BlueToothController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueToothController.m; sourceTree = "<group>"; };
-		CB2E3D701F977BB400685DC9 /* Tool_FMDBModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tool_FMDBModel.m; sourceTree = "<group>"; };
-		CB2E3D711F977BB400685DC9 /* Tool_FMDBGetDatabase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tool_FMDBGetDatabase.m; sourceTree = "<group>"; };
-		CB2E3D721F977BB500685DC9 /* Tool_FMDBGetDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tool_FMDBGetDatabase.h; sourceTree = "<group>"; };
-		CB2E3D731F977BB500685DC9 /* Tool_FMDBModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tool_FMDBModel.h; sourceTree = "<group>"; };
 		CB2E3D761F977D7900685DC9 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		CB3FAC081F5EBD9900C4F21B /* DashboardA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardA.h; sourceTree = "<group>"; };
-		CB3FAC091F5EBD9900C4F21B /* DashboardA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardA.m; sourceTree = "<group>"; };
-		CB3FAD161F5FD10400C4F21B /* DashboardB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardB.h; sourceTree = "<group>"; };
-		CB3FAD171F5FD10400C4F21B /* DashboardB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardB.m; sourceTree = "<group>"; };
 		CB3FAD181F6A1F0900B572FD /* FilesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesTableViewCell.h; sourceTree = "<group>"; };
 		CB3FAD191F6A1F0900B572FD /* FilesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilesTableViewCell.m; sourceTree = "<group>"; };
-		CB3FAD1C1F5FD13300C4F21B /* DashboardC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardC.h; sourceTree = "<group>"; };
-		CB3FAD1D1F5FD13300C4F21B /* DashboardC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardC.m; sourceTree = "<group>"; };
 		CB3FAD211F6A5F0B00B572FD /* Filesmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filesmodel.h; sourceTree = "<group>"; };
 		CB3FAD221F6A5F0B00B572FD /* Filesmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filesmodel.m; sourceTree = "<group>"; };
 		CB3FAD241F6A6F1000B572FD /* Sensors2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensors2ViewController.h; sourceTree = "<group>"; };
@@ -278,6 +272,24 @@
 		CB5DAC5F1F78FA93009A8A19 /* ColorTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorTableViewCell.h; sourceTree = "<group>"; };
 		CB5DAC601F78FA93009A8A19 /* ColorTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorTableViewCell.m; sourceTree = "<group>"; };
 		CB5DAC611F78FA93009A8A19 /* ColorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorTableViewCell.xib; sourceTree = "<group>"; };
+		CB7B8DAE1F9D99B6009E4442 /* DashboardB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DashboardB.h; sourceTree = "<group>"; };
+		CB7B8DAF1F9D99B7009E4442 /* DashboardB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DashboardB.m; sourceTree = "<group>"; };
+		CB7B8DB01F9D99B7009E4442 /* DashboardC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DashboardC.h; sourceTree = "<group>"; };
+		CB7B8DB11F9D99B7009E4442 /* DashboardC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DashboardC.m; sourceTree = "<group>"; };
+		CB7B8DB21F9D99B7009E4442 /* DashboardA.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DashboardA.h; sourceTree = "<group>"; };
+		CB7B8DB31F9D99B7009E4442 /* DashboardA.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DashboardA.m; sourceTree = "<group>"; };
+		CB7B8DC01F9DA1A8009E4442 /* BGDB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BGDB.h; sourceTree = "<group>"; };
+		CB7B8DC11F9DA1A8009E4442 /* BGDB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BGDB.m; sourceTree = "<group>"; };
+		CB7B8DC21F9DA1A8009E4442 /* BGFMDB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BGFMDB.h; sourceTree = "<group>"; };
+		CB7B8DC31F9DA1A8009E4442 /* BGFMDBConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BGFMDBConfig.h; sourceTree = "<group>"; };
+		CB7B8DC41F9DA1A8009E4442 /* BGModelInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BGModelInfo.h; sourceTree = "<group>"; };
+		CB7B8DC51F9DA1A8009E4442 /* BGModelInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BGModelInfo.m; sourceTree = "<group>"; };
+		CB7B8DC61F9DA1A8009E4442 /* BGTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BGTool.h; sourceTree = "<group>"; };
+		CB7B8DC71F9DA1A8009E4442 /* BGTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BGTool.m; sourceTree = "<group>"; };
+		CB7B8DC81F9DA1A8009E4442 /* NSCache+BGCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSCache+BGCache.h"; sourceTree = "<group>"; };
+		CB7B8DC91F9DA1A8009E4442 /* NSCache+BGCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSCache+BGCache.m"; sourceTree = "<group>"; };
+		CB7B8DCA1F9DA1A8009E4442 /* NSObject+BGModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+BGModel.h"; sourceTree = "<group>"; };
+		CB7B8DCB1F9DA1A8009E4442 /* NSObject+BGModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BGModel.m"; sourceTree = "<group>"; };
 		CB82247A1F46EEC400E1E4BA /* HUDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDViewController.h; sourceTree = "<group>"; };
 		CB82247B1F46EEC400E1E4BA /* HUDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDViewController.m; sourceTree = "<group>"; };
 		CB82247D1F46F30000E1E4BA /* HUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDView.h; sourceTree = "<group>"; };
@@ -407,11 +419,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB5642931F984151002EFB7E /* libc++.tbd in Frameworks */,
 				CB56428F1F9840C4002EFB7E /* FMDB.framework in Frameworks */,
 				CB2E3D771F977D7900685DC9 /* libsqlite3.tbd in Frameworks */,
 				CB99E1A21F66A6CE00A87DAF /* Charts.framework in Frameworks */,
-				CB3FAD621F5FDB5F00C4F21B /* libsqlite3.0.tbd in Frameworks */,
 				68B0FEE83EC9AFD3217B8679 /* Pods_OBDCheck.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -445,10 +455,6 @@
 			children = (
 				CB0220871F43E9CC008773ED /* DashboardSetting.h */,
 				CB0220881F43E9CC008773ED /* DashboardSetting.m */,
-				CB2E3D721F977BB500685DC9 /* Tool_FMDBGetDatabase.h */,
-				CB2E3D711F977BB400685DC9 /* Tool_FMDBGetDatabase.m */,
-				CB2E3D731F977BB500685DC9 /* Tool_FMDBModel.h */,
-				CB2E3D701F977BB400685DC9 /* Tool_FMDBModel.m */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -493,12 +499,12 @@
 		CB21339B1F5A8F9A009B970D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CB3FAC081F5EBD9900C4F21B /* DashboardA.h */,
-				CB3FAC091F5EBD9900C4F21B /* DashboardA.m */,
-				CB3FAD161F5FD10400C4F21B /* DashboardB.h */,
-				CB3FAD171F5FD10400C4F21B /* DashboardB.m */,
-				CB3FAD1C1F5FD13300C4F21B /* DashboardC.h */,
-				CB3FAD1D1F5FD13300C4F21B /* DashboardC.m */,
+				CB7B8DB21F9D99B7009E4442 /* DashboardA.h */,
+				CB7B8DB31F9D99B7009E4442 /* DashboardA.m */,
+				CB7B8DAE1F9D99B6009E4442 /* DashboardB.h */,
+				CB7B8DAF1F9D99B7009E4442 /* DashboardB.m */,
+				CB7B8DB01F9D99B7009E4442 /* DashboardC.h */,
+				CB7B8DB11F9D99B7009E4442 /* DashboardC.m */,
 				CB8E40DF1F6144E6003E5024 /* CustomDashboard.h */,
 				CB8E40E01F6144E6003E5024 /* CustomDashboard.m */,
 			);
@@ -609,6 +615,33 @@
 				CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		CB7B8DBC1F9DA195009E4442 /* BGDB */ = {
+			isa = PBXGroup;
+			children = (
+				CB7B8DBF1F9DA1A8009E4442 /* BG */,
+			);
+			name = BGDB;
+			sourceTree = "<group>";
+		};
+		CB7B8DBF1F9DA1A8009E4442 /* BG */ = {
+			isa = PBXGroup;
+			children = (
+				CB7B8DC01F9DA1A8009E4442 /* BGDB.h */,
+				CB7B8DC11F9DA1A8009E4442 /* BGDB.m */,
+				CB7B8DC21F9DA1A8009E4442 /* BGFMDB.h */,
+				CB7B8DC31F9DA1A8009E4442 /* BGFMDBConfig.h */,
+				CB7B8DC41F9DA1A8009E4442 /* BGModelInfo.h */,
+				CB7B8DC51F9DA1A8009E4442 /* BGModelInfo.m */,
+				CB7B8DC61F9DA1A8009E4442 /* BGTool.h */,
+				CB7B8DC71F9DA1A8009E4442 /* BGTool.m */,
+				CB7B8DC81F9DA1A8009E4442 /* NSCache+BGCache.h */,
+				CB7B8DC91F9DA1A8009E4442 /* NSCache+BGCache.m */,
+				CB7B8DCA1F9DA1A8009E4442 /* NSObject+BGModel.h */,
+				CB7B8DCB1F9DA1A8009E4442 /* NSObject+BGModel.m */,
+			);
+			path = BG;
 			sourceTree = "<group>";
 		};
 		CB848F121F4541DB00C1A718 /* Controllers */ = {
@@ -756,6 +789,7 @@
 			children = (
 				CBE4AC041F4426BC003714A4 /* BasicViewController.h */,
 				CBE4AC051F4426BC003714A4 /* BasicViewController.m */,
+				CB7B8DBC1F9DA195009E4442 /* BGDB */,
 			);
 			name = Basic;
 			sourceTree = "<group>";
@@ -1186,6 +1220,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBD8EB621F9DC24100FDABBB /* NSCache+BGCache.h in Sources */,
+				CBD8EB611F9DC22A00FDABBB /* BGTool.h in Sources */,
+				CBD8EB601F9DC22400FDABBB /* BGModelInfo.h in Sources */,
+				CBD8EB5F1F9DC21A00FDABBB /* BGFMDBConfig.h in Sources */,
+				CBD8EB5E1F9DC21200FDABBB /* BGFMDB.h in Sources */,
+				CBD8EB5D1F9DC20B00FDABBB /* BGDB.h in Sources */,
+				CBD8EB5C1F9DC20100FDABBB /* NSObject+BGModel.h in Sources */,
+				CBD8EB5A1F9DB83D00FDABBB /* DashboardSetting.h in Sources */,
 				CB82247F1F46F30000E1E4BA /* HUDView.m in Sources */,
 				CB3FAD1B1F6A1F0900B572FD /* FilesTableViewCell.m in Sources */,
 				CB3FAD341F6A9F9600B572FD /* MonitorsTableViewCell.m in Sources */,
@@ -1217,6 +1259,7 @@
 				CB44DB2C1F4A822200A24629 /* StyleOneTableViewCell.m in Sources */,
 				CB99E1BC1F67ABC200A87DAF /* LogsSetting.m in Sources */,
 				CB5A618F1F79FB62000D23D6 /* SeletVehicleViewController.m in Sources */,
+				CB7B8DB61F9D99B7009E4442 /* DashboardA.m in Sources */,
 				CB07EA271F41A370002894F9 /* UIColor+Separate.m in Sources */,
 				CB048C471F8CE32A006A2ED7 /* GeneralController.m in Sources */,
 				CBE4AC061F4426BC003714A4 /* BasicViewController.m in Sources */,
@@ -1246,18 +1289,14 @@
 				CB84B3CD1F56A7D500B454E6 /* FreezeViewController.m in Sources */,
 				CB048C3B1F8CE1CD006A2ED7 /* FirmwareController.m in Sources */,
 				CB3FAD231F6A5F0B00B572FD /* Filesmodel.m in Sources */,
-				CB3FAD1E1F5FD13300C4F21B /* DashboardC.m in Sources */,
-				CB3FAC0A1F5EBD9900C4F21B /* DashboardA.m in Sources */,
 				CB5A61941F7A206C000D23D6 /* YearViewController.m in Sources */,
 				CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */,
 				CBF1E2891F30796400EEC755 /* ColorTools.m in Sources */,
 				CBEBF1C91F3AF343006CCA8B /* editDashboardsView.m in Sources */,
 				CB048C271F8C584D006A2ED7 /* LogView.m in Sources */,
-				CB3FAD181F5FD10500C4F21B /* DashboardB.m in Sources */,
-				CB2E3D741F977BB500685DC9 /* Tool_FMDBModel.m in Sources */,
 				CBF334621F4B0FE6003C0548 /* ILHuePickerView.m in Sources */,
+				CB7B8DB41F9D99B7009E4442 /* DashboardB.m in Sources */,
 				CBF1E2641F30680F00EEC755 /* DashboardController.m in Sources */,
-				CB2E3D751F977BB500685DC9 /* Tool_FMDBGetDatabase.m in Sources */,
 				CB3FAD2C1F6A6F3200B572FD /* Mode09ViewController.m in Sources */,
 				CB835D2D1F594DB6007C5A17 /* ReadinessViewController.m in Sources */,
 				CB99E1B31F66C45600A87DAF /* selectTableViewCell.m in Sources */,
@@ -1272,6 +1311,7 @@
 				CB3FAD261F6A6F1000B572FD /* Sensors2ViewController.m in Sources */,
 				CBB1CC441F623C2B002EE7EB /* TBarView.m in Sources */,
 				CBF1E2731F30689B00EEC755 /* DiagController.m in Sources */,
+				CB7B8DB51F9D99B7009E4442 /* DashboardC.m in Sources */,
 				CBF1E2511F30293100EEC755 /* PersonalViewController.m in Sources */,
 				CB848F151F4542F700C1A718 /* DecimalViewController.m in Sources */,
 				CB84B3E01F56DF0800B454E6 /* rotationView.m in Sources */,
@@ -1422,6 +1462,7 @@
 				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
 				INFOPLIST_FILE = OBDCheck/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = Auptophix.OBDCheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "OBDCheck/OBDCheck-Bridging-Header.h";
@@ -1442,6 +1483,7 @@
 				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
 				INFOPLIST_FILE = OBDCheck/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = Auptophix.OBDCheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "OBDCheck/OBDCheck-Bridging-Header.h";

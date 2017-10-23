@@ -133,7 +133,7 @@
     cell.textLabel.text = self.dataSource[indexPath.row];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
     NSString *SQL = [NSString stringWithFormat:@"WHERE  ID = %ld",(long)indexPath.section + 1];
-    NSArray* pAll = [TripsModel findByCriteria:SQL];
+    NSArray* pAll = [TripsModel bg_findWhere:SQL];
     for(TripsModel* model in pAll){
         switch (indexPath.row) {
             case 0:
@@ -166,16 +166,16 @@
     NSLog(@"%ld",(long)btn.tag);
     TripsModel *model;
     NSString *SQL  = [NSString stringWithFormat:@"where pk = %ld",btn.tag+1];
-    NSArray *pAll = [TripsModel findByCriteria:SQL];
+    NSArray *pAll = [TripsModel bg_findWhere:SQL];
     for(TripsModel* logsmodel in pAll){
-        NSLog(@"logsmodel.item1PID %d",logsmodel.pk  );
+        NSLog(@"logsmodel.item1PID %d",logsmodel.bg_id  );
         model = logsmodel;
     }
     
     model.distance = @"0.00";
     model.Fuel = @"0.00";
     model.FuelEconmy = @"0.00";
-    [model update];
+//    [model bg_updateWhere:<#(NSArray * _Nullable)#>];
     
             [mytableView reloadData];
 

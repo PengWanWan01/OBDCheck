@@ -59,9 +59,9 @@
 - (void)initWithHeadUI{
  
 //    NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
-    NSArray* pAll = [CustomDashboard findAll];
+    NSArray* pAll = [CustomDashboard bg_findAll];
     for(CustomDashboard * dashboard in pAll){
-        if (dashboard.pk ==  [DashboardSetting sharedInstance].Dashboardindex) {
+        if (dashboard.bg_id ==  [DashboardSetting sharedInstance].Dashboardindex) {
         model = dashboard.dashboardC;
     dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
             [self.view addSubview:dashViewC];
@@ -404,9 +404,9 @@
         {
              if (model.ValueVisible == YES) {
                  model.ValueColor = self.selectColor;
-                 if (model.pk == [indexID intValue]) {
+                 if (model.bg_id == [indexID intValue]) {
                      model.ValueColor = model.ValueColor;
-                     [model update];
+//                     [model bg_updateWhere:<#(NSArray * _Nullable)#>];
                  }
                
             [self upDateDashView];
@@ -447,9 +447,9 @@
 -(void)back{
     [self.navigationController popViewControllerAnimated:YES];
      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-         NSArray *array = [CustomDashboard findAll];
+         NSArray *array = [CustomDashboard bg_findAll];
          for (CustomDashboard *dash in array) {
-         if (dash.pk == [indexID integerValue]) {
+         if (dash.bg_id == [indexID integerValue]) {
              dash.dashboardC.ValueVisible = model.ValueVisible;
              dash.dashboardC.FrameColor = model.FrameColor;
              dash.dashboardC.UnitColor = model.UnitColor;
@@ -463,7 +463,7 @@
              dash.dashboardC.titlePositon = model.titlePositon;
              dash.dashboardC.titleFontScale = model.titleFontScale;
              dash.dashboardC.Gradientradius = model.Gradientradius;
-             [dash update];
+//             [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
          }
          }
 

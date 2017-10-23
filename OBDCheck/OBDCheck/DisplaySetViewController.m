@@ -136,7 +136,7 @@
         selectfield.textAlignment  = NSTextAlignmentCenter;
         selectfield.tag = indexPath.row;
         NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
-        NSArray* pAll = [CustomDashboard findByCriteria:findsql];
+        NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
         for(CustomDashboard *dashboard in pAll){
             model = dashboard;
             switch (indexPath.row) {
@@ -386,7 +386,7 @@
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
 //    NSString *SQL = @"where "
-    if(model.pk == [DashboardSetting sharedInstance].Dashboardindex ){
+    if(model.bg_id == [DashboardSetting sharedInstance].Dashboardindex ){
         CustomDashboard *dash = [CustomDashboard new];
         dash.dashboardC.maxNumber =model.dashboardC.maxNumber;
         dash.dashboardB.maxNumber =model.dashboardB.maxNumber;
@@ -394,7 +394,7 @@
         dash.dashboardA.minNumber =model.dashboardA.minNumber;
         dash.dashboardB.minNumber =model.dashboardB.minNumber;
         dash.dashboardC.minNumber =model.dashboardC.minNumber;
-        [dash update];
+//        [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
 
     }
 

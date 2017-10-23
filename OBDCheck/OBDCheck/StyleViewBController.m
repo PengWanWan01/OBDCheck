@@ -60,10 +60,10 @@
 }
 - (void)initWithHeadUI{
 
-    NSArray* pAll = [CustomDashboard findAll];
+    NSArray* pAll = [CustomDashboard bg_findAll];
   
     for(CustomDashboard * dashboard in pAll){
-     if (dashboard.pk  == [DashboardSetting sharedInstance].Dashboardindex ) {
+     if (dashboard.bg_id  == [DashboardSetting sharedInstance].Dashboardindex ) {
         NSLog(@"backColor %@",dashboard.dashboardB.backColor  );
         model = dashboard.dashboardB;
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
@@ -478,9 +478,9 @@
     
     [self.navigationController popViewControllerAnimated:YES];
  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-     NSArray *array = [CustomDashboard findAll];
+     NSArray *array = [CustomDashboard bg_findAll];
      for (CustomDashboard *dash in array) {
-         if (dash.pk == [indexID  intValue]) {
+         if (dash.bg_id == [indexID  intValue]) {
          CustomDashboard *dash =  [[CustomDashboard alloc]init];
          dash.dashboardB.titleFontScale = model.titleFontScale;
          dash.dashboardB.ValueFontScale = model.ValueFontScale;
@@ -495,7 +495,7 @@
          dash.dashboardB.ValueVisible = model.ValueVisible;
          dash.dashboardB.FillEnable = model.FillEnable;
          dash.dashboardB.GradientRadius = model.GradientRadius;
-         [dash update];
+//         [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
      }
      }
 

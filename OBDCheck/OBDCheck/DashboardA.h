@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Auptophix. All rights reserved.
 //
 
-#import "Tool_FMDBModel.h"
+#import <Foundation/Foundation.h>
 
-@interface DashboardA :Tool_FMDBModel<NSCoding>
+@interface DashboardA : NSObject
 @property (nonatomic,copy) NSString  *infoLabeltext; //名字
 
 @property (nonatomic,strong) NSNumber *StartAngle; //开始角度
@@ -55,7 +55,7 @@
 @property (nonatomic,strong) NSNumber * FillstartAngle; //填充开始角度
 @property (nonatomic,strong) NSNumber * FillEndAngle; //填充结束角度
 @property (nonatomic,copy) NSString *FillColor; //填充n颜色
-@property (nonatomic,copy) NSNumber *orignx; //坐标X轴
+@property (nonatomic,strong) NSNumber *orignx; //坐标X轴
 @property (nonatomic,strong) NSNumber *origny; //坐标Y轴
 @property (nonatomic,strong) NSNumber *orignwidth; //宽
 @property (nonatomic,strong) NSNumber *orignheight; //坐标X轴

@@ -103,7 +103,7 @@ static dispatch_source_t _timer;
     [contentScrollView addSubview:PlaybackLabel];
     
     NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, 1"];
-    NSArray *pAll = [LogsModel findByCriteria:SQL];
+    NSArray *pAll = [LogsModel bg_findWhere:SQL];
     for(LogsModel* logsmodel in pAll){
         NSLog(@"logsmodel.item1PID %@",logsmodel.item1PID  );
         model = logsmodel;

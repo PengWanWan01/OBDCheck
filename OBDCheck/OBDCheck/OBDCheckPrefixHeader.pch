@@ -14,7 +14,8 @@
 #define  MSHeight [UIScreen mainScreen].bounds.size.height
 #define    ViewWidth    self.frame.size.width
 #define    ViewHeight self.frame.size.height
-
+#define baseViewWidth  (MSWidth)/2 - 30
+#define baseViewHeight  baseViewWidth
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
@@ -135,9 +136,7 @@
 #import "UnitsController.h"
 #import "GeneralController.h"
 #import "PerformanceController.h"
-#import "Tool_FMDBModel.h"
-#import "Tool_FMDBGetDatabase.h"
-#import "FMDatabase.h"
-#import "fmdb/FMDB.h"
+#import "BGFMDB.h"
+
 
 #endif /* OBDCheckPrefixHeader_pch */

@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Auptophix. All rights reserved.
 //
 
-#import "Tool_FMDBModel.h"
+#import "TripsModel.h"
 
-@interface TripsModel : Tool_FMDBModel<NSCoding>
+@interface TripsModel : NSObject
 
 @property (nonatomic,copy) NSString *distance;
 @property (nonatomic,copy) NSString *Fuel;

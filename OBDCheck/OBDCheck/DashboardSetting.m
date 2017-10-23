@@ -7,8 +7,7 @@
 //
 
 #import "DashboardSetting.h"
-#define baseViewWidth  150
-#define baseViewHeight  150
+
 
 @implementation DashboardSetting
 #pragma mark - 单例
@@ -80,12 +79,12 @@
 - (void)initWithdashboardA{
     for (int i = 0; i<9; i++) {
         DashboardA *model =  [DashboardA new];
-        [self initADDdashboardA:model with:i ];
-        [model save];
+        [self initADDdashboardA:model withTag:i ];
+        [model bg_saveOrUpdate];
     }
     
 }
-- (void)initADDdashboardA:(DashboardA *)model with:(NSInteger )i {
+- (void)initADDdashboardA:(DashboardA *)model withTag:(NSInteger)i {
      model.titleColor = @"FE9002";
     model.titleFontScale = [NSNumber numberWithFloat:1];
     model.titlePosition = [NSNumber numberWithFloat:1];
@@ -158,13 +157,13 @@
 - (void)initWithdashboardB{
     for (int i = 0; i<9; i++) {
         DashboardB *model =  [DashboardB new];
-        [self initADDdashboardB:model with:i] ;
-         [model save];
+        [self initADDdashboardB:model withTag:i] ;
+         [model bg_saveOrUpdate];
     }
 
 
 }
-- (void)initADDdashboardB:(DashboardB *)model with:(NSInteger )i{
+- (void)initADDdashboardB:(DashboardB *)model withTag:(NSInteger)i{
     model.ValueColor  = @"#FFFFFF";
     model.ValueFontScale = [NSNumber numberWithFloat:1.f];
     model.ValuePositon = [NSNumber numberWithFloat:1.f];
@@ -218,13 +217,13 @@
 - (void)initWithdashboardC {
     for (int i = 0; i<9; i++) {
         DashboardC *model = [DashboardC new];
-        [self initADDdashboardC:model with:i];
-         [model save];
+        [self initADDdashboardC:model withTag:i];
+         [model bg_saveOrUpdate];
     }
     
     
 }
-- (void)initADDdashboardC:(DashboardC *)model with:(NSInteger )i{
+- (void)initADDdashboardC:(DashboardC *)model withTag:(NSInteger)i{
     model.UnitColor = @"FFFFFF";
     model.UnitFontScale = [NSNumber numberWithFloat:1.f];
     model.UnitPositon = [NSNumber numberWithFloat:1.f];
@@ -273,53 +272,61 @@
 }
 
 - (void)initwithCustomDashboard{
-   
+
     for (int i = 0; i< 9; i++) {
+        NSLog(@"%d",i);
         if (i<6) {
-            [self CustomDashboardType:AddStyleOne with:i];
+            
+        [self CustomDashboardType:1 withTag:i];
         }else if (i>=6 && i < 8){
-        
-        [self CustomDashboardType:AddStyleTwo with:i];
+        [self CustomDashboardType:2 withTag:i];
         }else{
-        [self CustomDashboardType:AddStyleThree with:i];
+        [self CustomDashboardType:3 withTag:i];
         }
     }
 
+    NSLog(@"你好你好nimei");
 }
-- (void)CustomDashboardType:(AddDashboardStyle)type with:(NSInteger)i{
+- (void)CustomDashboardType:(NSInteger)type withTag:(NSInteger)i{
     
-    CustomDashboard *model = [[CustomDashboard alloc]init];
+    CustomDashboard *model = [CustomDashboard new ];
     DashboardA *dashA = [DashboardA new];
-    [self initADDdashboardA:dashA with:i];
+    [self initADDdashboardA:dashA withTag:i ];
     model.dashboardA = dashA;
     
     DashboardB *dashB = [DashboardB new];
-    [self initADDdashboardB:dashB with:i];
+    [self initADDdashboardB:dashB withTag:i];
     model.dashboardB = dashB;
     
     DashboardC *dashC = [DashboardC new];
-    [self initADDdashboardC:dashC with:i];
+    [self initADDdashboardC:dashC withTag:i];
     model.dashboardC = dashC;
     
     switch (type) {
-        case AddStyleOne:
+        case 1:
         {
             model.dashboardType = 1;
+            [model bg_saveAsync:^(BOOL isSuccess) {
+                NSLog(@"存储成功");
+            }];
+//            [model bg_saveOrUpdate];
         }
             break;
-        case AddStyleTwo:
+        case 2:
         {
             model.dashboardType = 2;
+            [model bg_saveOrUpdate];
         }
             break;
-        case AddStyleThree:
+        case 3:
         {
             model.dashboardType = 3;
+            [model bg_saveOrUpdate];
         }
             break;
         default:
             break;
     }
-        [model save];
+    
 }
 @end

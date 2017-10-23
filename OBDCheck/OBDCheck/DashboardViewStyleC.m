@@ -109,8 +109,8 @@
         //求偏移量 = 手指当前点的X - 手指上一个点的X
         CGPoint curP = [touch locationInView:self];
         CGPoint preP = [touch previousLocationInView:self];
-        NSLog(@"curP====%@",NSStringFromCGPoint(curP));
-        NSLog(@"preP====%@",NSStringFromCGPoint(preP));
+//        NSLog(@"curP====%@",NSStringFromCGPoint(curP));
+//        NSLog(@"preP====%@",NSStringFromCGPoint(preP));
         
         CGFloat offsetX = curP.x - preP.x;
         CGFloat offsetY = curP.y - preP.y;

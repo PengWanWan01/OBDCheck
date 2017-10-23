@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *SQL  = [NSString stringWithFormat:@"LIMIT 0, 1"];
-    NSArray *pAll = [LogsModel findByCriteria:SQL];
+    NSArray *pAll = [LogsModel bg_findWhere:SQL];
     for(LogsModel* logsmodel in pAll){
         NSLog(@"logsmodel.item1PID %@",logsmodel.item1PID  );
         model = logsmodel;
@@ -220,7 +220,7 @@
         default:
             break;
     }
-    [model update];
+//    [model bg_updateWhere:<#(NSArray * _Nullable)#>];
 
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

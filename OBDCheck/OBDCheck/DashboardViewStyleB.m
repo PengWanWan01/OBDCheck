@@ -44,7 +44,7 @@
         switch ([DashboardSetting sharedInstance].dashboardMode) {
             case DashboardCustomMode:
             {
-                NSArray* pAll = [CustomDashboard findByCriteria:findsql];
+                NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
                 for(CustomDashboard* dashboard in pAll){
                     CGFloat Space =   (3*M_PI/2)/([dashboard.dashboardB.maxNumber floatValue] - [dashboard.dashboardB.minNumber floatValue]);
                     [self rotateImageView:(-M_PI/2-M_PI/4) + Space*start Withend:(-M_PI/2-M_PI/4) +Space*end];
@@ -54,7 +54,7 @@
                 break;
             case DashboardClassicMode:
             {
-                NSArray* pAll = [DashboardB findByCriteria:findsql];
+                NSArray* pAll = [DashboardB bg_findWhere:findsql];
                 for(DashboardB * dashboard in pAll){
                     CGFloat Space =   (3*M_PI/2)/([dashboard.maxNumber floatValue] - [dashboard.minNumber floatValue]);
                     [self rotateImageView:(-M_PI/2-M_PI/4) + Space*start Withend:(-M_PI/2-M_PI/4) +Space*end];
@@ -298,8 +298,8 @@
         //求偏移量 = 手指当前点的X - 手指上一个点的X
         CGPoint curP = [touch locationInView:self];
         CGPoint preP = [touch previousLocationInView:self];
-        NSLog(@"curP====%@",NSStringFromCGPoint(curP));
-        NSLog(@"preP====%@",NSStringFromCGPoint(preP));
+//        NSLog(@"curP====%@",NSStringFromCGPoint(curP));
+//        NSLog(@"preP====%@",NSStringFromCGPoint(preP));
         
         CGFloat offsetX = curP.x - preP.x;
         CGFloat offsetY = curP.y - preP.y;

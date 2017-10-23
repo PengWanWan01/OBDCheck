@@ -177,9 +177,9 @@
     if ([DashboardSetting sharedInstance].ischangeDashboard == YES) {
      
     NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
-    NSArray *AL =  [CustomDashboard findByCriteria:findsql];
+    NSArray *AL =  [CustomDashboard bg_findWhere:findsql];
     for (CustomDashboard *dash in AL ) {
-        if (dash.pk == self.indexID) {
+        if (dash.bg_id == self.indexID) {
             
       
         switch (dash.dashboardType) {
@@ -250,7 +250,7 @@
             default:
                 break;
         }
-            [dash update];
+//            [CustomDashboard bg_updateWhere:<#(NSArray * _Nullable)#>];
 
         }
     }
@@ -260,9 +260,9 @@
 }
 - (void)updateCustomType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(CGFloat)id{
 
-    NSArray *array = [CustomDashboard findAll];
+    NSArray *array = [CustomDashboard bg_findAll];
     for(CustomDashboard *dash in array){
-        if(dash.pk == id ){
+        if(dash.dashboardA.orignx == @(23) ){
            
     switch (Customtype) {
         case 1:
@@ -295,7 +295,7 @@
         default:
             break;
     }
-            [dash update];
+//            [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
         }
     }
    

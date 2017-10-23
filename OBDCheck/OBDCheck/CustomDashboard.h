@@ -6,12 +6,13 @@
 //  Copyright © 2017年 Auptophix. All rights reserved.
 //
 
-#import "Tool_FMDBModel.h"
+#import "CustomDashboard.h"
+
 @class DashboardA;
 @class DashboardB;
 @class DashboardC;
 
-@interface CustomDashboard : Tool_FMDBModel
+@interface CustomDashboard : NSObject
 @property (nonatomic,assign) NSInteger  dashboardType ;
 
 @property (nonatomic,strong) DashboardA * dashboardA ;
