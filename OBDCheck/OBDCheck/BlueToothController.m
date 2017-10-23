@@ -5,13 +5,15 @@
 //  Created by apple on 15/7/2.
 //  Copyright (c) 2015年 com.Autophix.T100. All rights reserved.
 //
-
-#define BLUENAME @"V100"
-
-#define BLUE_SERVER @"FFE0"
-#define BLUE_CHARACTERISTIC_READ @"FFE1"
-#define BLUE_CHARACTERISTIC_WRITE @"FFE1"
-
+#define BLUENAME @"Autophix"
+//OBD-ABC V100
+//FFE0 FFE1
+//49535343-FE7D-4AE5-8FA9-9FAFD205E455
+//49535343-6DAA-4D02-ABF6-19569ACA69FE
+#define BLUE_SERVER @"FFF0"
+#define BLUE_CHARACTERISTIC_READ @"FFF1"
+#define BLUE_CHARACTERISTIC_WRITE @"FFF2"
+//改变
 #import "BlueToothController.h"
 
 @interface BlueToothController ()
@@ -25,21 +27,13 @@
     CBService* MyServer;
     
     //发送数据处理数据的信号灯
-    NSCondition* condition;
-    
+    NSCondition* condition;    
     //发送数据处理的锁
     NSLock* lock;
-    
-    
-    //设置文件
-     XYRunSetting * RunSetting;
-    
-    //4.0适应控制器
-    XYData* Mydata;
-    
     //是否连接到蓝牙的计时器
     NSTimer* timer;
-    
+    NSString *sendDataStr;
+    NSMutableString *dataStr;
     
 }
 
@@ -77,9 +71,8 @@ static BlueToothController* instance;
         //初始化锁和信号灯
         condition = [[NSCondition alloc] init];
         lock = [[NSLock alloc] init];
-        
-        //初始化设置文件
-        RunSetting = [XYRunSetting Instance];
+       
+     
         
         
     }
@@ -93,10 +86,6 @@ static BlueToothController* instance;
     switch (central.state)
     {
         case CBCentralManagerStatePoweredOn:
-            //状态是好的的时候，记录本地设置文件蓝牙启动为yes
-            [RunSetting SetAttribute:@"yes" Key:XYRunSettingAttributeUpBlueTooth];
-            //先初始化连接状态为no
-            [RunSetting SetAttribute:@"no" Key:XYRunSettingAttributeIsConnect];
             
             [self.centralMgr scanForPeripheralsWithServices:nil options:dic];
             //开启计时器50秒内没有连接到蓝牙设备，停止搜索
@@ -119,7 +108,6 @@ static BlueToothController* instance;
             
         default:
             //否则记录为no
-            [RunSetting SetAttribute:@"no" Key:XYRunSettingAttributeUpBlueTooth];
             NSLog(@"设备存在问题，无法搜索蓝牙~");
             break;
     }
@@ -129,12 +117,12 @@ static BlueToothController* instance;
 //读取RSSI值
 -(void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error
 {
-    if (self.delegate) {
-        if ([[self.delegate class] instancesRespondToSelector:@selector(GetRSSI:)]) {
-            [self.delegate GetRSSI:[RSSI doubleValue]];
-        }
-        
-    }
+//    if (self.delegate) {
+//        if ([[self.delegate class] instancesRespondToSelector:@selector(GetRSSI:)]) {
+////            [self.delegate GetRSSI:[RSSI doubleValue]];
+//        }
+//        
+//    }
 }
 
 //处理搜索到的设备
@@ -162,7 +150,7 @@ static BlueToothController* instance;
     NSLog(@"发现设备%@:%@",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
     
     //如果名字为Autophix，则连接并且保存返回yes
-    if (/*[info.discoveredPeripheral.name isEqualToString:BLUENAME]*/[OEM isValidateName:info.discoveredPeripheral.name]) {
+    if ([info.discoveredPeripheral.name isEqualToString:BLUENAME]) {
         //连接蓝牙
         if (![self ConnectBlueTooth:info.discoveredPeripheral]) {
             NSLog(@"蓝牙连接失败！");
@@ -224,17 +212,13 @@ static BlueToothController* instance;
         }
         
     }
-    //显示吐司
-    Toast* toast = [Toast makeText:NSLocalizedString(@"您的蓝牙已断开连接，正在尝试重新为您连接设备...", @"")];
-    [toast showWithType:LongTime];
+
     //清除之前保存的所有信息
     [self.arrayBLE removeAllObjects];
     SendCharacteristic = nil;
     ReadCharacteristic = nil;
     
-    MyServer = nil;
-    //设置文件变为no
-    [RunSetting SetAttribute:@"no" Key:XYRunSettingAttributeIsConnect];
+ 
     
     //重新搜索
     [self Scan];
@@ -248,8 +232,8 @@ static BlueToothController* instance;
 
 -(void)Scan
 {
-    Toast* toast = [Toast makeText:NSLocalizedString(@"开始搜索附近的设备", @"")];
-    [toast showWithType:LongTime];
+//    Toast* toast = [Toast makeText:NSLocalizedString(@"开始搜索附近的设备", @"")];
+//    [toast showWithType:LongTime];
     
     NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:false],CBCentralManagerScanOptionAllowDuplicatesKey, nil];
     //重新搜索
@@ -274,8 +258,8 @@ static BlueToothController* instance;
 {
     [self.centralMgr stopScan];
     //显示吐司
-    Toast* toast = [Toast makeText:NSLocalizedString(@"蓝牙搜索已停止，如需搜索请点击开始连接按钮", @"")];
-    [toast showWithType:LongTime];
+//    Toast* toast = [Toast makeText:NSLocalizedString(@"蓝牙搜索已停止，如需搜索请点击开始连接按钮", @"")];
+//    [toast showWithType:LongTime];
     //改变状态
     if (self.delegate) {
         @try {
@@ -316,26 +300,17 @@ static BlueToothController* instance;
             
             //如果是写的特征，写入发送特征对象中
             if ([character.UUID.UUIDString isEqualToString:BLUE_CHARACTERISTIC_WRITE]) {
-                 NSLog(@"可以写入呀");
                 SendCharacteristic = character;
             }
             //如果是读特征，写入读特征对象中
             if ([character.UUID.UUIDString isEqualToString:BLUE_CHARACTERISTIC_READ]) {
-//                ReadCharacteristic = character;
               
                 //绑定监听
-                NSLog(@"可以读取呀");
-                [self.ConnectPeripheral setNotifyValue:YES forCharacteristic:character];
-            
+                    [self.ConnectPeripheral setNotifyValue:YES forCharacteristic:character];
             
             }
         }
-        //特征值全部扫描完成时，设置文件中连接状态为yes
-        [RunSetting SetAttribute:@"yes" Key:XYRunSettingAttributeIsConnect];
-        //显示吐司
-        Toast* toast = [Toast makeText:NSLocalizedString(@"蓝牙连接成功！请放心使用！", @"")];
-        [toast showWithType:LongTime];
-        //调用协议
+
         if (self.delegate) {
             @try {
                 [self.delegate BlueToothState:BlueToothStateConnect];
@@ -353,26 +328,31 @@ static BlueToothController* instance;
     {
         NSLog(@"搜索特征失败，失败提示：%@",error);
     }
+  
+}
+- (Byte)checkSumFun:(char[] )data withSum:(NSInteger)startIndex{
+    char sumChar = 0x00;
+    for (NSInteger i = startIndex; i < strlen(data)/2; i++) {
+        sumChar = sumChar + data[i];
+    }
+    return sumChar;
     
 }
-
 //通过特征值发送数据
 -(void)SendData:(NSData*)data
 {
-//    NSLog(@"开启了一个线程发送数据：%@",data);
-    
-//    NSThread* SendThread = [[NSThread alloc] initWithTarget:self selector:@selector(SenddataByOtherWay:) object:data];
-//
-//    
-//    
-//    [SendThread start];
 
-    NSLog(@"1发出数据：%@",data);
-    //需要响应的发送数据
+
+    NSLog(@"发出数据：%@",data);
+    
+    sendDataStr = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+    
     if (SendCharacteristic) {
-        [self.ConnectPeripheral writeValue:data forCharacteristic:SendCharacteristic type:CBCharacteristicWriteWithoutResponse];
+         
+        [self.ConnectPeripheral writeValue:data forCharacteristic:SendCharacteristic type:CBCharacteristicWriteWithResponse];
         // CBCharacteristicWriteWithResponse
     }
+    dataStr = [[NSMutableString alloc]init];
     
 }
 
@@ -431,89 +411,29 @@ static BlueToothController* instance;
 
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
+
     NSData* data = characteristic.value;
     NSLog(@"收到了一条源数据：%@",data);
+   
+    NSString *resultStr = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     
-    //    用来处理蓝牙4.0
     
-    //获取头
-    NSString* dataStr = [XHConvertUtil bytesToHexString:data];
-    //大于4继续，否则直接询问拼接
-    if (dataStr.length <= 4) {
-        goto ForNil;
-    }
-    else
-    {
-        if ([[dataStr substringToIndex:4] isEqualToString:AUTOPHIX_DATA_HEAD]) {
-            
-            NSInteger Length = [XHConvertUtil hexToInt:[dataStr substringWithRange:NSMakeRange(4, 2)]];
-            if (Length>17) {
-            
-                Mydata = [[XYData alloc] initWithHeadString:dataStr];
-                return;
-                
-            }
-            else
-            {
-                
-            PassToDeletage:
-                data = [XHConvertUtil hexStringToBytes:dataStr];
-                //调用协议的函数
-                if (self.delegate) {
-                    if ([self.delegate respondsToSelector:@selector(BlueToothEventWithReadData:Data:)]) {
-                        [self.delegate BlueToothEventWithReadData:peripheral Data:data];
-                    }
-                    
-                }
-                
-                //清空缓冲区
-                Mydata = nil;
-                
-                //处理完成数据后，开启信号灯
-                [condition signal];
-                return;
+    if ([sendDataStr isEqualToString:resultStr]) {
+       
+    }else{
+        [dataStr appendString:resultStr];
+        NSData* xmlData = [dataStr dataUsingEncoding:NSUTF8StringEncoding];
+        
+        //调用协议的函数
+        if (self.delegate) {
+            if ([self.delegate respondsToSelector:@selector(BlueToothEventWithReadData:Data:)]) {
+                [self.delegate BlueToothEventWithReadData:peripheral Data:xmlData];
             }
             
         }
-        else
-        {
-        ForNil:
-            if (!Mydata) {
-                return;
-            }
-            else
-            {
-                [Mydata AppendString:dataStr];
-                dataStr = [Mydata IsOverForGet];
-                if (dataStr) {
-                    goto PassToDeletage;
-                }
-                else
-                {
-                    return;
-                }
-            }
-        }
     }
-//    NSString* headStr = ;
-//    //
-//    //如果储存的字符串为空，且头不是55aa的时候，直接返回不作处理
-//    if ([[Mydata getMydata] isEqualToString:@""]&&![headStr isEqualToString:@"55aa"]) {
-//        
-//    }
-//    else
-//    {
-//        //如果一个包装不下，拼接字符串
-//        if (!Mydata) {
-//            Mydata = [[XYData alloc] initWithData:data];
-//        }
-//        data = [Mydata AddData:data];
-//        if (!data) {
-//            NSLog(@"数据未接收完全");
-//            return;
-//        }
-//    }
-//    NSLog(@"最后得到的数据：%@",data);
+    
+ 
     
 }
 
@@ -526,7 +446,18 @@ static BlueToothController* instance;
 
 -(void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    NSLog(@"发出了一条数据");
+    if (error) {
+        NSLog(@"=======%@",error.userInfo);
+//        [self updateLog:[error.userInfo JSONString]];
+    }else{
+        NSLog(@"发送数据成功");
+//        [self updateLog:@"发送数据成功"];
+    }
+    
+    /* When a write occurs, need to set off a re-read of the local CBCharacteristic to update its value */
+    NSLog(@"===%@",characteristic);
+    
+//    [peripheral readValueForCharacteristic:characteristic];
 }
 
 @end

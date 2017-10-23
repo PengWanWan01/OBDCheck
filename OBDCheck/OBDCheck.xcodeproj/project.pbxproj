@@ -95,9 +95,8 @@
 		CBCFDF6E1F42A4C5008329CF /* DashboardViewStyleB.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCFDF6D1F42A4C5008329CF /* DashboardViewStyleB.m */; };
 		CBCFDF711F42A4E6008329CF /* gradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCFDF701F42A4E6008329CF /* gradientView.m */; };
 		CBD8EB5A1F9DB83D00FDABBB /* DashboardSetting.h in Sources */ = {isa = PBXBuildFile; fileRef = CB0220871F43E9CC008773ED /* DashboardSetting.h */; };
-		CBD8EB6B1F9E086000FDABBB /* BlueToothController.h in Sources */ = {isa = PBXBuildFile; fileRef = CB2E3D6D1F9778C600685DC9 /* BlueToothController.h */; };
 		CBD8EB6C1F9E08AD00FDABBB /* ViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E22C1F2ED49200EEC755 /* ViewController.h */; };
-		CBD8EB6D1F9E08F000FDABBB /* BELInfo.h in Sources */ = {isa = PBXBuildFile; fileRef = CBD8EB681F9E035300FDABBB /* BELInfo.h */; };
+		CBD8EB711F9E0BEF00FDABBB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CB5642921F984151002EFB7E /* libc++.tbd */; };
 		CBE4AC031F442674003714A4 /* PIDSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AC021F442674003714A4 /* PIDSelectViewController.m */; };
 		CBE4AC061F4426BC003714A4 /* BasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AC051F4426BC003714A4 /* BasicViewController.m */; };
 		CBE4AC0A1F443432003714A4 /* DashboardViewStyleC.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE4AC091F443432003714A4 /* DashboardViewStyleC.m */; };
@@ -202,8 +201,6 @@
 		CB07EA261F41A370002894F9 /* UIColor+Wonderful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Wonderful.m"; sourceTree = "<group>"; };
 		CB21DA441F343F880080648E /* DashboardViewStyleA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewStyleA.h; sourceTree = "<group>"; };
 		CB21DA451F343F880080648E /* DashboardViewStyleA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewStyleA.m; sourceTree = "<group>"; };
-		CB2E3D6D1F9778C600685DC9 /* BlueToothController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlueToothController.h; sourceTree = "<group>"; };
-		CB2E3D6F1F9778C700685DC9 /* BlueToothController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueToothController.m; sourceTree = "<group>"; };
 		CB2E3D761F977D7900685DC9 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		CB3FAD181F6A1F0900B572FD /* FilesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesTableViewCell.h; sourceTree = "<group>"; };
 		CB3FAD191F6A1F0900B572FD /* FilesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilesTableViewCell.m; sourceTree = "<group>"; };
@@ -333,8 +330,10 @@
 		CBCFDF6D1F42A4C5008329CF /* DashboardViewStyleB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewStyleB.m; sourceTree = "<group>"; };
 		CBCFDF6F1F42A4E6008329CF /* gradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gradientView.h; sourceTree = "<group>"; };
 		CBCFDF701F42A4E6008329CF /* gradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gradientView.m; sourceTree = "<group>"; };
-		CBD8EB681F9E035300FDABBB /* BELInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BELInfo.h; sourceTree = "<group>"; };
-		CBD8EB6A1F9E035400FDABBB /* BELInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BELInfo.m; sourceTree = "<group>"; };
+		CBD8EB731F9E0C1E00FDABBB /* BlueToothController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlueToothController.h; sourceTree = "<group>"; };
+		CBD8EB741F9E0C1E00FDABBB /* BELInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BELInfo.h; sourceTree = "<group>"; };
+		CBD8EB751F9E0C1E00FDABBB /* BELInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BELInfo.m; sourceTree = "<group>"; };
+		CBD8EB761F9E0C1E00FDABBB /* BlueToothController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueToothController.m; sourceTree = "<group>"; };
 		CBE4AC011F442674003714A4 /* PIDSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIDSelectViewController.h; sourceTree = "<group>"; };
 		CBE4AC021F442674003714A4 /* PIDSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIDSelectViewController.m; sourceTree = "<group>"; };
 		CBE4AC041F4426BC003714A4 /* BasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicViewController.h; sourceTree = "<group>"; };
@@ -403,6 +402,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBD8EB711F9E0BEF00FDABBB /* libc++.tbd in Frameworks */,
 				CB2E3D771F977D7900685DC9 /* libsqlite3.tbd in Frameworks */,
 				CB99E1A21F66A6CE00A87DAF /* Charts.framework in Frameworks */,
 				68B0FEE83EC9AFD3217B8679 /* Pods_OBDCheck.framework in Frameworks */,
@@ -975,10 +975,10 @@
 		CBF1E28E1F30A14200EEC755 /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
-				CBD8EB681F9E035300FDABBB /* BELInfo.h */,
-				CBD8EB6A1F9E035400FDABBB /* BELInfo.m */,
-				CB2E3D6D1F9778C600685DC9 /* BlueToothController.h */,
-				CB2E3D6F1F9778C700685DC9 /* BlueToothController.m */,
+				CBD8EB741F9E0C1E00FDABBB /* BELInfo.h */,
+				CBD8EB751F9E0C1E00FDABBB /* BELInfo.m */,
+				CBD8EB731F9E0C1E00FDABBB /* BlueToothController.h */,
+				CBD8EB761F9E0C1E00FDABBB /* BlueToothController.m */,
 			);
 			name = Bluetooth;
 			sourceTree = "<group>";
@@ -1176,9 +1176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBD8EB6D1F9E08F000FDABBB /* BELInfo.h in Sources */,
 				CBD8EB6C1F9E08AD00FDABBB /* ViewController.h in Sources */,
-				CBD8EB6B1F9E086000FDABBB /* BlueToothController.h in Sources */,
 				CBD8EB5A1F9DB83D00FDABBB /* DashboardSetting.h in Sources */,
 				CB82247F1F46F30000E1E4BA /* HUDView.m in Sources */,
 				CB3FAD1B1F6A1F0900B572FD /* FilesTableViewCell.m in Sources */,

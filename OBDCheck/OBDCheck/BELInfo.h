@@ -14,5 +14,6 @@
 //储存搜索到的蓝牙设备
 @property (nonatomic, strong) CBPeripheral *discoveredPeripheral;
 @property (nonatomic, strong) NSNumber *rssi;
+//
 
 @end

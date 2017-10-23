@@ -10,5 +10,4 @@
 
 @implementation BELInfo
 
-
 @end

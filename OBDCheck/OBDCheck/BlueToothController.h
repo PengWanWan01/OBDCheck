@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "BELInfo.h"
+
 
 //蓝牙状态的枚举类型
 typedef NS_ENUM(NSUInteger, BlueToothState)
@@ -16,6 +18,8 @@ typedef NS_ENUM(NSUInteger, BlueToothState)
     BlueToothStateScan,                 //搜索状态
     BlueToothStateConnect,              //已连接状态
 };
+
+
 //蓝牙委托
 @protocol BlueToothControllerDelegate <NSObject>
 
@@ -26,21 +30,30 @@ typedef NS_ENUM(NSUInteger, BlueToothState)
 @optional
 //蓝牙状态改变时的接口
 -(void)BlueToothState:(BlueToothState)state;
+/*
+//蓝牙状态改变时的接口
+-(void)BlueToothState:(BlueToothState)state;
 //读取RSSI值时的接口
 -(void)GetRSSI:(CGFloat)RSSI;
-
+*/
 @end
 
 @interface BlueToothController : NSObject <CBCentralManagerDelegate,CBPeripheralDelegate>
+
+
+
 -(instancetype)init;
+
 //中心设备管理对象
-@property (nonatomic,strong) CBCentralManager *centralMgr;
+@property (nonatomic, strong) CBCentralManager *centralMgr;
 @property (nonatomic,strong) CBPeripheral* ConnectPeripheral;
 
 //蓝牙设备列表
 @property (nonatomic, strong) NSMutableArray *arrayBLE;
 
 @property (nonatomic , strong) id<BlueToothControllerDelegate> delegate;
+
+
 
 //单例
 +(BlueToothController*)Instance;
@@ -55,5 +68,6 @@ typedef NS_ENUM(NSUInteger, BlueToothState)
 
 //是否链接了设备
 -(BOOL)isConnectPeripheral;
+
 
 @end
