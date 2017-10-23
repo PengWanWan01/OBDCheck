@@ -1,17 +1,20 @@
 PODS:
-  - FMDB (2.7.2):
-    - FMDB/standard (= 2.7.2)
-  - FMDB/standard (2.7.2)
+  - BGFMDB (1.50):
+    - BGFMDB/BG (= 1.50)
+    - BGFMDB/FMDB (= 1.50)
+  - BGFMDB/BG (1.50):
+    - BGFMDB/FMDB
+  - BGFMDB/FMDB (1.50)
   - MBProgressHUD (0.9.2)
 
 DEPENDENCIES:
-  - FMDB
+  - BGFMDB (~> 1.50)
   - MBProgressHUD (~> 0.8)
 
 SPEC CHECKSUMS:
-  FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
+  BGFMDB: 7ec72dfdef6ff6444036b720ebbfd1d8dfb70de3
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
 
-PODFILE CHECKSUM: f8e2329a75715d310f6637300e63de5f7d99c5b9
+PODFILE CHECKSUM: ae0cdaaac867de5c7a8b0708d94d34e9cfc3d5ea
 
 COCOAPODS: 1.2.1
