@@ -12,6 +12,6 @@
 @interface ViewController : UIViewController
 
 //蓝牙管理类
-@property (nonatomic,strong) BlueToothController *blurTooth ;
+@property (nonatomic,strong) BlueToothController *blueTooth ;
 @end
 

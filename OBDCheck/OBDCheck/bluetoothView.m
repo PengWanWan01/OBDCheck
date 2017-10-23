@@ -7,7 +7,8 @@
 //
 
 #import "bluetoothView.h"
-
+@interface bluetoothView()<UITableViewDataSource,UITableViewDelegate>
+@end
 @implementation bluetoothView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -22,6 +23,15 @@
    
         self.backgroundColor = [ColorTools colorWithHexString:@"#1A1B1E"];
         self.alpha = 0.9;
+        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 8, self.bounds.size.width, self.bounds.size.height - 8)];
+        tableView.backgroundColor = [UIColor clearColor];
+        tableView.separatorInset = UIEdgeInsetsZero;
+        tableView.scrollEnabled = NO;
+        tableView.separatorColor = [ColorTools colorWithHexString:@"#212329"];
+        tableView.delegate = self;
+        tableView.dataSource = self;
+        [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
+        [self addSubview:tableView];
     }
     return self;
 }
@@ -48,5 +58,30 @@
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
     }];
+}
+#pragma mark UITableViewDelegate,UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.dataSource.count;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44.f;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];
+        
+    }
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        cell.layoutMargins = UIEdgeInsetsZero;
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//  /  cell.textLabel.text =  self.dataSource[indexPath.row];
+    cell.textLabel.text = @"121";
+    cell.backgroundColor = [UIColor redColor];
+    return cell;
 }
 @end

@@ -19,13 +19,11 @@ typedef NS_ENUM(NSUInteger, BlueToothState)
     BlueToothStateConnect,              //已连接状态
 };
 
-
 //蓝牙委托
 @protocol BlueToothControllerDelegate <NSObject>
 
 ///收到外围设备传输过来的数据时的接口
 -(void)BlueToothEventWithReadData:(CBPeripheral*)peripheral Data:(NSData*)data;
-
 
 @optional
 //蓝牙状态改变时的接口
@@ -37,10 +35,10 @@ typedef NS_ENUM(NSUInteger, BlueToothState)
 -(void)GetRSSI:(CGFloat)RSSI;
 */
 @end
+//typedef void (^DeviceNameBlock)(BELInfo *)info;
+typedef void(^DeviceNameBlock)(NSMutableArray *infoArray);
 
 @interface BlueToothController : NSObject <CBCentralManagerDelegate,CBPeripheralDelegate>
-
-
 
 -(instancetype)init;
 
@@ -52,6 +50,7 @@ typedef NS_ENUM(NSUInteger, BlueToothState)
 @property (nonatomic, strong) NSMutableArray *arrayBLE;
 
 @property (nonatomic , strong) id<BlueToothControllerDelegate> delegate;
+@property(nonatomic, copy) DeviceNameBlock deviceNameBlock;
 
 
 

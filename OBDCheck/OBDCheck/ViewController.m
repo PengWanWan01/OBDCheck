@@ -201,11 +201,16 @@
 - (void)LinkBlueTooth{
     if (isSelect) {
         NSLog(@"12");
+        self.blueTooth = [BlueToothController Instance];
+        self.blueTooth.delegate = self;
+        __weak __typeof(self) weakSelf = self;
+        self.blueTooth.deviceNameBlock = ^(NSMutableArray *infoArray) {
+            NSLog(@"得到的设备信息%@",infoArray);
+            [weakSelf.blueView.dataSource addObject: infoArray];
+        };
          self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
-      
-        self.blurTooth = [BlueToothController Instance];
-        self.blurTooth.delegate = self;
-     [ self.blueView show];
+        [ self.blueView show];
+        NSLog(@"%@",self.blueView.dataSource);
         isSelect = NO;
     }else{
         NSLog(@"13");
@@ -213,7 +218,10 @@
         isSelect = YES;
     }
 }
+#pragma mark 代理方法获取设备名称
+
 //代理协议，处理信息
+
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
     NSLog(@"收到收到%@",data);

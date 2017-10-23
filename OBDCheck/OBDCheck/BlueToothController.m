@@ -34,7 +34,7 @@
     NSTimer* timer;
     NSString *sendDataStr;
     NSMutableString *dataStr;
-    
+    NSMutableArray *SearchInfoarr;
 }
 
 @end
@@ -71,10 +71,7 @@ static BlueToothController* instance;
         //初始化锁和信号灯
         condition = [[NSCondition alloc] init];
         lock = [[NSLock alloc] init];
-       
-     
-        
-        
+        SearchInfoarr = [[NSMutableArray alloc]init];
     }
         return self;
 }
@@ -151,7 +148,10 @@ static BlueToothController* instance;
 -(BOOL)saveBLE:(BELInfo*)info
 {
     NSLog(@"发现设备%@:%@",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
-    
+    [SearchInfoarr addObject:info];
+    if (self.deviceNameBlock) {
+        self.deviceNameBlock(SearchInfoarr);
+    }
     //如果名字为Autophix，则连接并且保存返回yes
     if ([info.discoveredPeripheral.name isEqualToString:BLUENAME]) {
         //连接蓝牙

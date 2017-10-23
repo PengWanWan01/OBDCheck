@@ -12,5 +12,5 @@
 
 - (void)show;
 - (void)hide;
-
+@property (nonatomic,strong) NSMutableArray *dataSource;
 @end
