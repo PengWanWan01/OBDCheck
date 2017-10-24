@@ -23,7 +23,7 @@
    
         self.backgroundColor = [ColorTools colorWithHexString:@"#1A1B1E"];
         self.alpha = 0.9;
-        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 8, self.bounds.size.width, self.bounds.size.height - 8)];
+        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(btn.frame), self.bounds.size.width, self.bounds.size.height - 8)];
         tableView.backgroundColor = [UIColor clearColor];
         tableView.separatorInset = UIEdgeInsetsZero;
         tableView.scrollEnabled = NO;
@@ -79,9 +79,9 @@
         cell.layoutMargins = UIEdgeInsetsZero;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//  /  cell.textLabel.text =  self.dataSource[indexPath.row];
-    cell.textLabel.text = @"121";
-    cell.backgroundColor = [UIColor redColor];
+    cell.textLabel.text =  self.dataSource[indexPath.row];
+    cell.textLabel.textColor = [ColorTools colorWithHexString:@"FE9002"];
+    cell.backgroundColor = [UIColor clearColor];
     return cell;
 }
 @end

@@ -46,7 +46,6 @@
 }
 
 - (void)initWithUI{
-    
     RLBtn * titleBtn= [[RLBtn alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     [titleBtn setTitle:@"Connect" forState:UIControlStateNormal];
     titleBtn.titleLabel.font = [UIFont systemFontOfSize:18];
@@ -203,14 +202,6 @@
         NSLog(@"12");
         self.blueTooth = [BlueToothController Instance];
         self.blueTooth.delegate = self;
-        __weak __typeof(self) weakSelf = self;
-        self.blueTooth.deviceNameBlock = ^(NSMutableArray *infoArray) {
-            NSLog(@"得到的设备信息%@",infoArray);
-            [weakSelf.blueView.dataSource addObject: infoArray];
-        };
-         self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
-        [ self.blueView show];
-        NSLog(@"%@",self.blueView.dataSource);
         isSelect = NO;
     }else{
         NSLog(@"13");
@@ -221,17 +212,52 @@
 #pragma mark 代理方法获取设备名称
 
 //代理协议，处理信息
-
+- (void)getDeviceInfo:(BELInfo *)info{
+  
+     NSLog(@"得到的设备信息%@:%@",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
+    NSMutableArray *data = [[NSMutableArray alloc]init];
+    [data addObject:info.discoveredPeripheral.name];
+   
+    self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
+     self.blueView.dataSource = data;
+   
+    NSLog(@"得到数据%@",self.blueView.dataSource);
+}
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
     NSLog(@"收到收到%@",data);
     
     NSLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+   
+  
     
 }
+#pragma mark 得到蓝牙连接状态
 -(void)BlueToothState:(BlueToothState)state{
-    
-    
+    NSLog(@"得到蓝牙连接的状态%lu",(unsigned long)state);
+//    BlueToothStateDisScan = 0,          //停滞不搜索状态
+//    BlueToothStateScan,                 //搜索状态
+//    BlueToothStateConnect,
+    switch (state) {
+        case BlueToothStateDisScan:
+        {
+            NSLog(@"停滞不搜索状态");
+        }
+            break;
+        case BlueToothStateScan:
+        {
+            NSLog(@"搜索状态");
+        }
+            break;
+        case BlueToothStateConnect:
+        {
+            NSLog(@"连接成功状态");
+             [ self.blueView show];
+        }
+            break;
+        default:
+            break;
+    }
 }
 - (UIImage*)imageCompressWithSimple:(UIImage*)image{
     CGSize size = image.size;

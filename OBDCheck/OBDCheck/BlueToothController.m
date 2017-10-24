@@ -6,10 +6,14 @@
 //  Copyright (c) 2015年 com.Autophix.T100. All rights reserved.
 //
 #define BLUENAME @"Autophix"
-//OBD-ABC V100
+//OBD-ABC V100 Autophix
 //FFE0 FFE1
 //49535343-FE7D-4AE5-8FA9-9FAFD205E455
 //49535343-6DAA-4D02-ABF6-19569ACA69FE
+//49535343-ACA3-481C-91EC-D85E28A60318
+//FFF0
+//FFF1
+//FFF2
 #define BLUE_SERVER @"FFF0"
 #define BLUE_CHARACTERISTIC_READ @"FFF1"
 #define BLUE_CHARACTERISTIC_WRITE @"FFF2"
@@ -117,7 +121,7 @@ static BlueToothController* instance;
 {
 //    if (self.delegate) {
 //        if ([[self.delegate class] instancesRespondToSelector:@selector(GetRSSI:)]) {
-////            [self.delegate GetRSSI:[RSSI doubleValue]];
+//            [self.delegate GetRSSI:[RSSI doubleValue]];
 //        }
 //        
 //    }
@@ -149,8 +153,8 @@ static BlueToothController* instance;
 {
     NSLog(@"发现设备%@:%@",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
     [SearchInfoarr addObject:info];
-    if (self.deviceNameBlock) {
-        self.deviceNameBlock(SearchInfoarr);
+    if ([self.delegate respondsToSelector:@selector(getDeviceInfo:)]) {
+        [self.delegate getDeviceInfo:info];
     }
     //如果名字为Autophix，则连接并且保存返回yes
     if ([info.discoveredPeripheral.name isEqualToString:BLUENAME]) {

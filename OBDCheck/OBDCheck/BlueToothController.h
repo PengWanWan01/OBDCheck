@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, BlueToothState)
 
 ///收到外围设备传输过来的数据时的接口
 -(void)BlueToothEventWithReadData:(CBPeripheral*)peripheral Data:(NSData*)data;
-
+-(void)getDeviceInfo:(BELInfo*)info;
 @optional
 //蓝牙状态改变时的接口
 -(void)BlueToothState:(BlueToothState)state;
@@ -36,7 +36,6 @@ typedef NS_ENUM(NSUInteger, BlueToothState)
 */
 @end
 //typedef void (^DeviceNameBlock)(BELInfo *)info;
-typedef void(^DeviceNameBlock)(NSMutableArray *infoArray);
 
 @interface BlueToothController : NSObject <CBCentralManagerDelegate,CBPeripheralDelegate>
 
@@ -50,7 +49,6 @@ typedef void(^DeviceNameBlock)(NSMutableArray *infoArray);
 @property (nonatomic, strong) NSMutableArray *arrayBLE;
 
 @property (nonatomic , strong) id<BlueToothControllerDelegate> delegate;
-@property(nonatomic, copy) DeviceNameBlock deviceNameBlock;
 
 
 

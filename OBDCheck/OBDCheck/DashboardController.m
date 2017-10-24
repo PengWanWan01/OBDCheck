@@ -67,27 +67,6 @@ static dispatch_source_t _timer;
 
     [super viewDidLoad];
 }
-
-- (void)isFristLoadCustomDashboard{
-    for (NSInteger i = 0; i< 6; i++) {
-        NSInteger index = i % 2;
-        NSInteger page = i / 2;
-        CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
-        dashboardStyleAView  = [[DashboardView alloc] initWithFrame:CGRectMake(index * (space+ 150*KFontmultiple)+25,  page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple +20)];
-        [self updateCustomType:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:i+1];
-        
-    }
-    //第二页的仪表盘
-    //第二页的仪表盘
-    for (NSInteger i = 0; i< 2; i++) {
-        dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(MSWidth+ MSWidth/2 - 100,  i  * (220+ 30)+30, 220, 220)];
-         [self updateCustomType:2 OrignX:dashboardStyleBView.frame.origin.x OrignY:dashboardStyleBView.frame.origin.y Width:dashboardStyleBView.frame.size.width Height:dashboardStyleBView.frame.size.height ID:i+7];
-    }
-    dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(MSWidth*2+(MSWidth- 300)/2,  88,300, 300)];
-    [self updateCustomType:3 OrignX:dashboardStyleCView.frame.origin.x OrignY:dashboardStyleCView.frame.origin.y Width:dashboardStyleCView.frame.size.width Height:dashboardStyleCView.frame.size.height ID:9];
-
-}
-
 #pragma mark 对自定义不同风格进行更新
 - (void)updateCustomType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(NSInteger)id{
     NSLog(@"更新");
@@ -418,6 +397,7 @@ static dispatch_source_t _timer;
     
 }
 - (void)initWithcustomMode{
+    
     NSArray* pAllCount = [CustomDashboard bg_findAll];
     for (NSInteger i = 0;i<pAllCount.count;i++) {
         CustomDashboard *dash = pAllCount[i];
@@ -430,6 +410,10 @@ static dispatch_source_t _timer;
             [dashboardStyleAView addGradientView:dash.dashboardA.outerColor  GradientViewWidth:dashboardStyleAView.frame.size.width];
             dashboardStyleAView.delegate = self;
             [dashboardStyleAView initWithModel:dash.dashboardA];
+            dashboardStyleAView.infoLabel.text = _CustomLabelArray[[dash.bg_id integerValue]  - 1];
+            dashboardStyleAView.numberLabel.text = _CustomNumberArray[[dash.bg_id integerValue]  - 1];
+            dash.dashboardA.infoLabeltext = dashboardStyleAView.infoLabel.text;
+            [dash bg_saveOrUpdate];
             [scrollView addSubview:dashboardStyleAView];
              [self MoveDashboard: dashboardStyleAView.tag];
         }
@@ -439,6 +423,10 @@ static dispatch_source_t _timer;
             [dashboardStyleBView initWithModel:dash.dashboardB];
             DashBoardTag = dashboardStyleBView.tag ;
             dashboardStyleBView.delegate =self;
+            dashboardStyleBView.PIDLabel.text = _CustomLabelArray[DashBoardTag-1];
+            dashboardStyleBView.NumberLabel.text = _CustomNumberArray[DashBoardTag-1];
+            dash.dashboardB.infoLabeltext = dashboardStyleBView.PIDLabel.text;
+            [dash bg_saveOrUpdate];
             [scrollView addSubview:dashboardStyleBView];
              [self MoveDashboard: dashboardStyleBView.tag];
         }
@@ -448,64 +436,68 @@ static dispatch_source_t _timer;
             [dashboardStyleCView initWithModel:dash.dashboardC];
             DashBoardTag = dashboardStyleCView.tag ;
             dashboardStyleCView.delegate = self;
+            dashboardStyleCView.PIDLabel.text = _CustomLabelArray[DashBoardTag-1];
+            dashboardStyleCView.NumberLabel.text = _CustomNumberArray[DashBoardTag-1];
+            dash.dashboardC.infoLabeltext = dashboardStyleCView.PIDLabel.text;
+            [dash bg_saveOrUpdate];
             [scrollView addSubview:dashboardStyleCView];
             [self MoveDashboard: dashboardStyleAView.tag];
         }
     }
 }
-- (void)initWithChangeCustomType:(NSInteger)type withTag:(NSInteger)tag{
-    [self initWithData];
-    NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger:tag]];
-    NSArray *all = [DashboardA bg_findWhere:arr];
-    
-    for(CustomDashboard *dashboard in all){
-      
-        switch (dashboard.dashboardType) {
-            case 1:
-            {
-                //画底盘渐变色
-                [dashboardStyleAView addGradientView:@"18181C" GradientViewWidth:dashboardStyleAView.frame.size.width];
-                [dashboardStyleAView initWithModel:dashboard.dashboardA];
-                dashboardStyleAView.infoLabel.text = _CustomLabelArray[[dashboard.bg_id integerValue]  - 1];
-                dashboardStyleAView.numberLabel.text = _CustomNumberArray[[dashboard.bg_id integerValue]  - 1];
-                dashboard.dashboardA.infoLabeltext = dashboardStyleAView.infoLabel.text;
-//                [dashboard bg_updateWhere:<#(NSArray * _Nullable)#>];
-                dashboardStyleAView.delegate = self;
-            }
-                break;
-            case 2:
-            {
-                [dashboardStyleBView initWithModel:dashboard.dashboardB];
-                dashboardStyleBView.PIDLabel.text = _CustomLabelArray[tag-1];                
-                dashboardStyleBView.NumberLabel.text = _CustomNumberArray[tag-1];
-                dashboardStyleBView.delegate = self;
-                dashboard.dashboardB.infoLabeltext = dashboardStyleBView.PIDLabel.text;
-//                [dashboard bg_updateWhere:<#(NSArray * _Nullable)#>];
-                
-            }
-                break;
-            case 3:
-            {
-                [dashboardStyleCView initWithModel:dashboard.dashboardC];
-                dashboardStyleCView.delegate = self;
-                dashboardStyleCView.PIDLabel.text = _CustomLabelArray[tag-1];
-                dashboardStyleCView.NumberLabel.text = _CustomNumberArray[tag-1];
-                dashboard.dashboardC.infoLabeltext = dashboardStyleCView.PIDLabel.text;
-//                [dashboard bg_updateWhere];
-
-            }
-                break;
-            default:
-                break;
-        }
-       
-        
-        
-    }
-
-    
-    [self MoveDashboard:tag];
-}
+//- (void)initWithChangeCustomType:(NSInteger)type withTag:(NSInteger)tag{
+//
+//    NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger:tag]];
+//    NSArray *all = [DashboardA bg_findWhere:arr];
+//
+//    for(CustomDashboard *dashboard in all){
+//
+//        switch (dashboard.dashboardType) {
+//            case 1:
+//            {
+//                //画底盘渐变色
+//                [dashboardStyleAView addGradientView:@"18181C" GradientViewWidth:dashboardStyleAView.frame.size.width];
+//                [dashboardStyleAView initWithModel:dashboard.dashboardA];
+//                dashboardStyleAView.infoLabel.text = _CustomLabelArray[[dashboard.bg_id integerValue]  - 1];
+//                dashboardStyleAView.numberLabel.text = _CustomNumberArray[[dashboard.bg_id integerValue]  - 1];
+//                dashboard.dashboardA.infoLabeltext = dashboardStyleAView.infoLabel.text;
+////                [dashboard bg_updateWhere:<#(NSArray * _Nullable)#>];
+//                dashboardStyleAView.delegate = self;
+//            }
+//                break;
+//            case 2:
+//            {
+//                [dashboardStyleBView initWithModel:dashboard.dashboardB];
+//                dashboardStyleBView.PIDLabel.text = _CustomLabelArray[tag-1];
+//                dashboardStyleBView.NumberLabel.text = _CustomNumberArray[tag-1];
+//                dashboardStyleBView.delegate = self;
+//                dashboard.dashboardB.infoLabeltext = dashboardStyleBView.PIDLabel.text;
+////                [dashboard bg_updateWhere:<#(NSArray * _Nullable)#>];
+//
+//            }
+//                break;
+//            case 3:
+//            {
+//                [dashboardStyleCView initWithModel:dashboard.dashboardC];
+//                dashboardStyleCView.delegate = self;
+//                dashboardStyleCView.PIDLabel.text = _CustomLabelArray[tag-1];
+//                dashboardStyleCView.NumberLabel.text = _CustomNumberArray[tag-1];
+//                dashboard.dashboardC.infoLabeltext = dashboardStyleCView.PIDLabel.text;
+////                [dashboard bg_updateWhere];
+//
+//            }
+//                break;
+//            default:
+//                break;
+//        }
+//
+//
+//
+//    }
+//
+//
+//    [self MoveDashboard:tag];
+//}
 #pragma mark 初始化仪表盘风格
 - (void)initWithStyleA{
     DashBoardTag = 0;
@@ -518,41 +510,20 @@ static dispatch_source_t _timer;
                 //画底盘渐变色
                 [dashboardStyleAView addGradientView:dash.outerColor  GradientViewWidth:dashboardStyleAView.frame.size.width];
                 [dashboardStyleAView initWithModel:dash];
+                dashboardStyleAView.delegate = self;
                 DashBoardTag = dashboardStyleAView.tag ;
+                dashboardStyleAView.infoLabel.text = _LabelNameArray[DashBoardTag - 1];
+                dashboardStyleAView.numberLabel.text = _numberArray[DashBoardTag - 1];
+                dash.infoLabeltext = dashboardStyleAView.infoLabel.text;
+                [dash bg_saveOrUpdate];
                 [scrollView addSubview:dashboardStyleAView];
-//                [self initWithChangeStyleA:dashboardStyleAView : dashboardStyleAView.tag -1] ;
+
             
             }
 
   
 }
-- (void)initWithChangeStyleA:(DashboardView *)view :(NSInteger)index{
-    [self initWithData];
-    
-    
-    NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger: view.tag]];
-    NSArray *all = [DashboardA bg_findWhere:arr];
-    
-    for(DashboardA* dashboard in all){
-        
-        if ([dashboard.bg_id integerValue] == view.tag) {
-            NSLog(@"%ld -- %ld",(long)dashboard.bg_id ,(long)view.tag);
-            NSLog(@"orignwidth%f",[dashboard.orignwidth doubleValue]);
-            //画底盘渐变色
-            [dashboardStyleAView addGradientView:dashboard.outerColor  GradientViewWidth:view.frame.size.width];
-            [dashboardStyleAView initWithModel:dashboard];
-            dashboardStyleAView.infoLabel.text = _LabelNameArray[[dashboard.bg_id integerValue] - 1];
-            dashboardStyleAView.numberLabel.text = _numberArray[[dashboard.bg_id integerValue] - 1];
-            dashboard.infoLabeltext = dashboardStyleAView.infoLabel.text;
-//            [dashboard bg_updateWhere];
-        }
-    }
-    dashboardStyleAView.delegate = self;
- 
-    
-   
 
-}
 
 - (void)initWithStyleB{
     DashBoardTag = 0;
@@ -565,34 +536,16 @@ static dispatch_source_t _timer;
         [dashboardStyleBView initWithModel:dash];
         dashboardStyleBView.tag = [dash.bg_id integerValue] ;
         DashBoardTag = dashboardStyleBView.tag ;
+        dashboardStyleBView.delegate = self;
+        dashboardStyleBView.PIDLabel.text = _LabelNameArray[DashBoardTag-1];
+        dashboardStyleBView.NumberLabel.text = _numberArray[DashBoardTag-1];
+        dash.infoLabeltext = dashboardStyleBView.PIDLabel.text;
+        [dash bg_saveOrUpdate];
         [scrollView addSubview:dashboardStyleBView];
-//        [self initWithChangeStyleB:dashboardStyleBView : dashboardStyleBView.tag -1] ;
     }
    
 }
-- (void)initWithChangeStyleB:(DashboardViewStyleB *)view :(NSInteger)index{
-    [self initWithData];
 
-    NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger: view.tag]];
-    NSArray *all = [DashboardB bg_findWhere:arr];
-    
-    for(DashboardB* dashboard in all){
-      [view initWithModel:dashboard];
-    
-   
-    view.delegate = self;
-    //StyleB
-  
-    dashboardStyleBView.PIDLabel.text = _LabelNameArray[index];
-    dashboardStyleBView.NumberLabel.text = _numberArray[index];
-    dashboardStyleBView.delegate = self;
- 
-       [scrollView addSubview:dashboardStyleBView];
-        dashboard.infoLabeltext= dashboardStyleBView.PIDLabel.text;
-//        [dashboard bg_updateWhere:<#(NSArray * _Nullable)#>];
-    dashboardStyleBView.delegate = self;
-     }
-}
 
 - (void)initWithStyleC{
     DashBoardTag = 0;
@@ -604,28 +557,13 @@ static dispatch_source_t _timer;
         dashboardStyleCView.tag = [dash.bg_id integerValue];
         [dashboardStyleCView initWithModel:dash];
         DashBoardTag = dashboardStyleCView.tag ;
+        dashboardStyleCView.delegate = self;
+        dashboardStyleCView.PIDLabel.text = _LabelNameArray[DashBoardTag-1];
+        dashboardStyleCView.NumberLabel.text = _numberArray[DashBoardTag-1];
+        dash.infoLabeltext = dashboardStyleCView.PIDLabel.text;
         [scrollView addSubview:dashboardStyleCView];
-//        [self initWithChangeStyleC:dashboardStyleCView : dashboardStyleCView.tag -1] ;
+        [dash bg_saveOrUpdate];
     }
-
-}
-
-- (void)initWithChangeStyleC:(DashboardViewStyleC *)view :(NSInteger)index{
-    [self initWithData];
- 
-    NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger: view.tag]];
-    NSArray *all = [DashboardC bg_findWhere:arr];
-
-    for(DashboardC* dashboard in all){
-        [view initWithModel:dashboard];
-    view.delegate = self;
-    dashboardStyleCView.PIDLabel.text = _LabelNameArray[index];
-    dashboardStyleCView.NumberLabel.text = _numberArray[index];
-    
-    [scrollView addSubview:dashboardStyleCView];
-        dashboard.infoLabeltext = dashboardStyleCView.PIDLabel.text;
-//        [dashboard bg_updateWhere:<#(NSArray * _Nullable)#>];
- }
 
 }
 
@@ -1030,8 +968,9 @@ static dispatch_source_t _timer;
      NSInteger current = pageControl.currentPage;
     [pageControl removeFromSuperview];
     [scrollView removeFromSuperview];
-     [self initWithUI];
     [self initWithData];
+    [self initWithUI];
+   
 
      scrollView.contentOffset = CGPointMake(current*MSWidth, 0);
 }

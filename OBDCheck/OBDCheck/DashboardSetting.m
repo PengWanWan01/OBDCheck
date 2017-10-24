@@ -101,7 +101,6 @@
     
     model.PointerVisble = YES;
     model.PointerWidth = [NSNumber numberWithFloat:10];
-    model.PointerLength = [NSNumber numberWithFloat:(160/2) - 15 - 14];
     model.PointerColor = @"FE9002";
     
     model.KNOBRadius = [NSNumber numberWithFloat:10.f];
@@ -147,6 +146,7 @@
         model.orignwidth = [NSNumber numberWithFloat:150*KFontmultiple];
         model.orignheight = [NSNumber numberWithFloat:150*KFontmultiple +20];
     }
+    model.PointerLength = [NSNumber numberWithFloat:([model.orignwidth integerValue]/2) - 15 - 14];
     model.minNumber = @"0";
     model.maxNumber = @"100";
     model.infoLabeltext = @"add";

@@ -139,6 +139,7 @@
 #import "BGFMDB.h"
 #import "BlueToothController.h"
 #import "BELInfo.h"
+#import "BlueTool.h"
 
 
 #endif /* OBDCheckPrefixHeader_pch */
