@@ -110,23 +110,23 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      [self.view addSubview:chartViewTwo];
     [self initWithchartView:chartViewone Type:1];
     [self initWithchartView:chartViewTwo Type:2];
-    [self setDataCount:10 range:110 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
-    [self setDataCount:10 range:550 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
-    [self setDataCount:10 range:110 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item3PID withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:(model.item3Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item3PID withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:(model.item3Smoothing)];
     if (model.item4Enabled == YES) {
-    [self setDataCount:10 range:550 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item4PID withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:(model.item4Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item4PID withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:(model.item4Smoothing)];
     }
-    [chartViewone animateWithXAxisDuration:5];
-    //设置当前可以看到的个数
-    [chartViewone setVisibleXRangeMaximum:10];
-    //设置当前开始的位置
-    [chartViewone moveViewToX:0];
-
-    [chartViewTwo animateWithXAxisDuration:5];
-    //设置当前可以看到的个数
-    [chartViewTwo setVisibleXRangeMaximum:10];
-    //设置当前开始的位置
-    [chartViewTwo moveViewToX:0];
+//    [chartViewone animateWithXAxisDuration:5];
+//    //设置当前可以看到的个数
+//    [chartViewone setVisibleXRangeMaximum:10];
+//    //设置当前开始的位置
+//    [chartViewone moveViewToX:0];
+//
+//    [chartViewTwo animateWithXAxisDuration:5];
+//    //设置当前可以看到的个数
+//    [chartViewTwo setVisibleXRangeMaximum:10];
+//    //设置当前开始的位置
+//    [chartViewTwo moveViewToX:0];
 }
 //添加动态数据 index代表第几根折线
 - (void)updateChartData:(LineChartView *)view withData:(LineChartData *)linechartdata withIndex:(NSInteger)index  withX:(int)X withY:(int)Y
