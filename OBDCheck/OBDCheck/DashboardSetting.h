@@ -74,6 +74,7 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 @property (nonatomic,assign) BOOL ischangeDashboard;   //是否改变仪表盘风格
 
 @property (nonatomic,strong) NSMutableArray *DashboardViewFrame;    //是否可以移动
+@property (nonatomic,assign) NSInteger blueState;    //蓝牙连接状态
 
 
 @property (nonatomic,strong)   NSUserDefaults* defaults;

@@ -361,10 +361,10 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     [self setStartData];
   
     
-    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, -30, 200, 40)];
-    btn.backgroundColor = [UIColor redColor];
-    [btn addTarget:self action:@selector(btn) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
+//    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, -30, 200, 40)];
+//    btn.backgroundColor = [UIColor redColor];
+//    [btn addTarget:self action:@selector(btn) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:btn];
 }
 #pragma mark 发送开始的三条指令指令
 - (void)setStartData{

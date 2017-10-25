@@ -46,6 +46,7 @@
         self.ChangeStyle = ChangeDashboardStyleNone;
         self.CurrentPage = 0;
         self.HUDColourStr = @"44FF00";
+        self.blueState = 0;
 //         [self.defaults setObject:@"11" forKey:[NSString stringWithFormat:@"test%ld",[DashboardSetting sharedInstance].Dashboardindex]];
     
     }

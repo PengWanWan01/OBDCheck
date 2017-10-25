@@ -14,6 +14,7 @@
     UILabel  *statusLabel;
     UIImageView  *statusImageView;
     BOOL isSelect;
+    RLBtn * titleBtn;
 }
 
 @property (nonatomic,strong) NSMutableArray *btnTitleArray;
@@ -35,21 +36,22 @@
     [self initNavBarTitle:@"" andLeftItemImageName:@"Upload" andRightItemImageName:@"help"];
    
     NSLog(@"IS_IPHONE%d,%f",IS_IPHONE,SCREEN_MAX_LENGTH);
-    
+    [self initWithData];
+    [self initWithUI];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initWithData];
-    [self initWithUI];
-   
-
 }
 
 - (void)initWithUI{
-    RLBtn * titleBtn= [[RLBtn alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    titleBtn= [[RLBtn alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    if ([DashboardSetting sharedInstance].blueState == 1) {
+        [titleBtn setTitleColor:[ColorTools colorWithHexString:@"#FE9002"] forState:UIControlStateNormal];
+    }else{
+     [titleBtn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
+    }
     [titleBtn setTitle:@"Connect" forState:UIControlStateNormal];
     titleBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-    [titleBtn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
     [titleBtn setImage:[UIImage imageNamed:@"xiala"] forState:UIControlStateNormal];
     [titleBtn addTarget:self action:@selector(LinkBlueTooth) forControlEvents:UIControlEventTouchUpInside];
     isSelect = YES;
@@ -252,6 +254,8 @@
         case BlueToothStateConnect:
         {
             NSLog(@"连接成功状态");
+            [DashboardSetting sharedInstance].blueState = 1;
+            [titleBtn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
              [ self.blueView show];
         }
             break;
