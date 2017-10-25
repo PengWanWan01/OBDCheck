@@ -5,8 +5,8 @@
 //  Created by apple on 15/7/2.
 //  Copyright (c) 2015年 com.Autophix.T100. All rights reserved.
 //
-#define BLUENAME @"Autophix"
-//OBD-ABC V100 Autophix
+#define BLUENAME @"CARAPP V100"
+//CARAPP V100 Autophix
 //FFE0 FFE1
 //49535343-FE7D-4AE5-8FA9-9FAFD205E455
 //49535343-6DAA-4D02-ABF6-19569ACA69FE
@@ -357,7 +357,7 @@ static BlueToothController* instance;
     if (SendCharacteristic) {
          
         [self.ConnectPeripheral writeValue:data forCharacteristic:SendCharacteristic type:CBCharacteristicWriteWithResponse];
-        // CBCharacteristicWriteWithResponse
+        // CBCharacteristicWriteWithResponse ／／CBCharacteristicWriteWithoutResponse
     }
     dataStr = [[NSMutableString alloc]init];
     

@@ -93,7 +93,7 @@ static dispatch_source_t _timer;
             dash.dashboardB.origny = [NSNumber numberWithFloat:origny];
             dash.dashboardB.orignwidth = [NSNumber numberWithFloat:width];
             dash.dashboardB.orignheight = [NSNumber numberWithFloat:height];
-            dash.dashboardB.GradientRadius = [NSNumber numberWithFloat:width/2];
+          
 
         }
             break;
@@ -110,7 +110,7 @@ static dispatch_source_t _timer;
             break;
     }
 
-//    [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
+    [dash bg_saveOrUpdate];
         }
     }
 
@@ -860,6 +860,7 @@ static dispatch_source_t _timer;
                     NSLog(@"插入插入");
                     [dashboardStyleAView addGradientView:dashboard.dashboardA.outerColor GradientViewWidth:dashboardStyleAView.frame.size.width];
                     [dashboardStyleAView initWithModel:dashboard.dashboardA];
+                    
                     [scrollView addSubview:dashboardStyleAView];
                 }
              }
