@@ -10,7 +10,7 @@
 #define baseViewWidth  (MSWidth)/2 - 30
 #define baseViewHeight  baseViewWidth
 static dispatch_source_t _timer;
-@interface DashboardController ()<UIScrollViewDelegate,selectStyleDelegete,touchMoveDelegate,StyleBtouchMoveDelegate,StyleCtouchMoveDelegate>
+@interface DashboardController ()<UIScrollViewDelegate,selectStyleDelegete,touchMoveDelegate,StyleBtouchMoveDelegate,StyleCtouchMoveDelegate,BlueToothControllerDelegate>
 {
     
     editDashboardsView *editview;
@@ -60,12 +60,73 @@ static dispatch_source_t _timer;
         
     }
     [self updateView];
-//    [self startAnimation];
+    [self startAnimation];
    
 }
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+}
+#pragma mark 遵守蓝牙的协议
+-(void)BlueToothState:(BlueToothState)state{
+    
+}
+-(void)getDeviceInfo:(BELInfo*)info{
+    
+}
+-(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
+{
+    NSLog(@"收到收到%@",data);
+    
+    NSLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    
+    if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
+        
+        NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
+        CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
+        //车速添加到数组
+        if ([Commond isEqualToString:@"0D"]) {
+            //得到车速大小
+            NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getVehicleSpeed:thefloat]];
+            NSLog(@"车速%@",str);
+            //得到车速之后，发送转速
+            [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
+            
+        }
+        
+    }
+    if (string.length>16 && [[string substringToIndex:8] isEqualToString:@"84F11141"]){
+        NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
+        CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
+        CGFloat theNextfloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(12, 2)]]floatValue];
+        //转速添加到数组
+        if ([Commond isEqualToString:@"0C"]) {
+            //得到转速大小
+            NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getRotational:thefloat with:theNextfloat]];
+            NSLog(@"转速%@",str);
+            //发送水温
+            [self.blueTooth SendData:[BlueTool hexToBytes:@"303130350D"]];
+        }
+        
+    }
+    if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
+        //得到水温
+        NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
+        CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
+        //水温添加到数组
+        if ([Commond isEqualToString:@"05"]) {
+            
+            NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getWatertemperature:thefloat]];
+            NSLog(@"水温%@",str);
+            //得到水温之后，发送转速
+            [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
+        }
+        
+    }
 }
 #pragma mark 对自定义不同风格进行更新
 - (void)updateCustomType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(NSInteger)id{
@@ -115,80 +176,15 @@ static dispatch_source_t _timer;
     }
 
 }
-#pragma mark 对经典三个表格进行更新
-- (void)updatemodel:(NSInteger )tabletype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(CGFloat)id{
-   
-    switch (tabletype) {
-        case 1:
-        {
-            DashboardA *model = [DashboardA new];
 
-            NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithFloat:id]];
-            NSArray *all = [DashboardA bg_findWhere:arr];
-            for(DashboardA* dash in all){
-                model = dash;
-            }
-            model.orignx = [NSNumber numberWithFloat:orignx];
-            model.origny = [NSNumber numberWithFloat:origny];
-            model.orignwidth = [NSNumber numberWithFloat:width];
-            model.orignheight = [NSNumber numberWithFloat:height];
-
-//            [model bg_updateWhere:<#(NSArray * _Nullable)#>];
-           
-        }
-            break;
-        case 2:
-        {
-            DashboardB *model = [DashboardB new];
-            NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithFloat:id]];
-            NSArray *all = [DashboardB bg_findWhere:arr];
-
-            for(DashboardB* dash in all){
-                model = dash;
-            }
-            model.orignx = [NSNumber numberWithFloat:orignx];
-            model.origny = [NSNumber numberWithFloat:origny];
-            model.orignwidth = [NSNumber numberWithFloat:width];
-            model.orignheight = [NSNumber numberWithFloat:height];
-//            [model bg_updateWhere:<#(NSArray * _Nullable)#>];
-        }
-            break;
-        case 3:
-        {
-            DashboardC *model = [DashboardC new];
-            NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithFloat:id]];
-            NSArray *all = [DashboardC bg_findWhere:arr];
-
-            for(DashboardC* dash in all){
-                model = dash;
-            }
-            model.orignx = [NSNumber numberWithFloat:orignx];
-            model.origny = [NSNumber numberWithFloat:origny];
-            model.orignwidth = [NSNumber numberWithFloat:width];
-            model.orignheight = [NSNumber numberWithFloat:height];
-//            [model bg_updateWhere:<#(NSArray * _Nullable)#>];
-
-        }
-            break;
-        default:
-            break;
-    }
-//
-}
+//发送指令
 - (void)startAnimation{
-//    NSTimeInterval period = 1; //设置时间间隔
-//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//    _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-//    dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), period * NSEC_PER_SEC, 0); //每秒执行
-//    // 事件回调
-//    dispatch_source_set_event_handler(_timer, ^{
-//        dispatch_async(dispatch_get_main_queue(), ^{
-            [self startAnimationView];
-//        });
-//    });
-//    
-//    // 开启定时器
-//    dispatch_resume(_timer);
+    
+    self.blueTooth = [BlueToothController Instance];
+    self.blueTooth.delegate = self;
+    //发送车速
+    [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
+
     
     
 }
@@ -205,7 +201,6 @@ static dispatch_source_t _timer;
                 switch (dashboard.dashboardType) {
                     case 1:
                     {
-                        
                         NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleAViewTag",_CustomNumberArray[i],@"StyleAViewnumber",_PreNumberStr,@"PreStyleAViewnumber", nil];
                         
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
@@ -229,37 +224,37 @@ static dispatch_source_t _timer;
                 
             }
             
-
+            
         }else{
-       //经典模式
-        switch ([DashboardSetting sharedInstance].dashboardStyle) {
-            case DashboardStyleOne:
-            {
-
-                
-                NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleAViewTag",_numberArray[i],@"StyleAViewnumber",_PreNumberStr,@"PreStyleAViewnumber", nil];
-                
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
-
+            //经典模式
+            switch ([DashboardSetting sharedInstance].dashboardStyle) {
+                case DashboardStyleOne:
+                {
+                    
+                    
+                    NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleAViewTag",_numberArray[i],@"StyleAViewnumber",_PreNumberStr,@"PreStyleAViewnumber", nil];
+                    
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
+                    
+                }
+                    break;
+                case DashboardStyleTwo:
+                {
+                    NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleBViewTag",_numberArray[i],@"StyleBViewnumber",_PreNumberStr,@"PreStyleBViewnumber", nil];
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"StyleBupdateNumber" object:nil userInfo:dict];
+                }
+                    break;
+                case DashboardStyleThree:
+                {
+                    dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:i+1];
+                    dashboardStyleCView.NumberLabel.text = _numberArray[i];
+                }
+                    break;
+                default:
+                    break;
             }
-                break;
-            case DashboardStyleTwo:
-            {
-                NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleBViewTag",_numberArray[i],@"StyleBViewnumber",_PreNumberStr,@"PreStyleBViewnumber", nil];
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"StyleBupdateNumber" object:nil userInfo:dict];
-            }
-                break;
-            case DashboardStyleThree:
-            {
-                dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:i+1];
-                dashboardStyleCView.NumberLabel.text = _numberArray[i];
-            }
-                break;
-            default:
-                break;
+            
         }
-        
-    }
     }
     
 }
@@ -445,59 +440,7 @@ static dispatch_source_t _timer;
         }
     }
 }
-//- (void)initWithChangeCustomType:(NSInteger)type withTag:(NSInteger)tag{
-//
-//    NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger:tag]];
-//    NSArray *all = [DashboardA bg_findWhere:arr];
-//
-//    for(CustomDashboard *dashboard in all){
-//
-//        switch (dashboard.dashboardType) {
-//            case 1:
-//            {
-//                //画底盘渐变色
-//                [dashboardStyleAView addGradientView:@"18181C" GradientViewWidth:dashboardStyleAView.frame.size.width];
-//                [dashboardStyleAView initWithModel:dashboard.dashboardA];
-//                dashboardStyleAView.infoLabel.text = _CustomLabelArray[[dashboard.bg_id integerValue]  - 1];
-//                dashboardStyleAView.numberLabel.text = _CustomNumberArray[[dashboard.bg_id integerValue]  - 1];
-//                dashboard.dashboardA.infoLabeltext = dashboardStyleAView.infoLabel.text;
-////                [dashboard bg_updateWhere:<#(NSArray * _Nullable)#>];
-//                dashboardStyleAView.delegate = self;
-//            }
-//                break;
-//            case 2:
-//            {
-//                [dashboardStyleBView initWithModel:dashboard.dashboardB];
-//                dashboardStyleBView.PIDLabel.text = _CustomLabelArray[tag-1];
-//                dashboardStyleBView.NumberLabel.text = _CustomNumberArray[tag-1];
-//                dashboardStyleBView.delegate = self;
-//                dashboard.dashboardB.infoLabeltext = dashboardStyleBView.PIDLabel.text;
-////                [dashboard bg_updateWhere:<#(NSArray * _Nullable)#>];
-//
-//            }
-//                break;
-//            case 3:
-//            {
-//                [dashboardStyleCView initWithModel:dashboard.dashboardC];
-//                dashboardStyleCView.delegate = self;
-//                dashboardStyleCView.PIDLabel.text = _CustomLabelArray[tag-1];
-//                dashboardStyleCView.NumberLabel.text = _CustomNumberArray[tag-1];
-//                dashboard.dashboardC.infoLabeltext = dashboardStyleCView.PIDLabel.text;
-////                [dashboard bg_updateWhere];
-//
-//            }
-//                break;
-//            default:
-//                break;
-//        }
-//
-//
-//
-//    }
-//
-//
-//    [self MoveDashboard:tag];
-//}
+
 #pragma mark 初始化仪表盘风格
 - (void)initWithStyleA{
     DashBoardTag = 0;

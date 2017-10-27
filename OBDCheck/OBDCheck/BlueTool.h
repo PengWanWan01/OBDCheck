@@ -14,4 +14,5 @@
 +(CGFloat)getVehicleSpeed:(CGFloat)value;
 +(CGFloat)getRotational:(CGFloat)value with:(CGFloat)nextvalue;
 + (NSNumber *) numberHexString:(NSString *)aHexString;
++(NSData*) hexToBytes :(NSString*)hex;
 @end

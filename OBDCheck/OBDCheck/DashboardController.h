@@ -10,5 +10,6 @@
 
 @interface DashboardController : UIViewController
 
-
+//蓝牙管理类
+@property (nonatomic,strong) BlueToothController *blueTooth ;
 @end

@@ -13,53 +13,5 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Charts-master/Source/Charts/Renderers/YAxisRenderer.swift"
-            timestampString = "530614687.913573"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
-            landmarkName = "drawGridLine(context:position:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "function signature specialization &lt;Arg[0] = Owned To Guaranteed, Arg[1] = Exploded&gt; of Charts.YAxisRenderer.drawGridLine(context: __ObjC.CGContext, position: __C.CGPoint) -&gt; ()"
-                  moduleName = "Charts"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yutaozhao/Desktop/Charts-master/Source/Charts/Renderers/YAxisRenderer.swift"
-                  timestampString = "530614687.958393"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "226"
-                  endingLineNumber = "226"
-                  offsetFromSymbolStart = "176">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "function signature specialization &lt;Arg[0] = Owned To Guaranteed&gt; of Charts.YAxisRenderer.renderGridLines(context: __ObjC.CGContext) -&gt; ()"
-                  moduleName = "Charts"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yutaozhao/Desktop/Charts-master/Source/Charts/Renderers/YAxisRenderer.swift"
-                  timestampString = "530614687.95992"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "226"
-                  endingLineNumber = "226"
-                  offsetFromSymbolStart = "1524">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

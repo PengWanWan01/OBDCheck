@@ -15,6 +15,8 @@
     UIImageView  *statusImageView;
     BOOL isSelect;
     RLBtn * titleBtn;
+    NSInteger sendNumber;
+
 }
 
 @property (nonatomic,strong) NSMutableArray *btnTitleArray;
@@ -230,9 +232,22 @@
     NSLog(@"收到收到%@",data);
     
     NSLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
-   
+    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    if ([string isEqualToString:@"OK>"] && sendNumber ==0) {
+        
+        [self.blueTooth SendData:[BlueTool hexToBytes:@"41545350300D"]];
+        ++sendNumber;
+    }else if ([string isEqualToString:@"OK>"] && sendNumber ==1){
+        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130300D"]];
+    }else if ([string isEqualToString:@"SEARCHING...86F1114100FFFFFFFFC5>"]){
+        NSLog(@"可以发送了");
+       
+    }
   
-    
+  
 }
 #pragma mark 得到蓝牙连接状态
 -(void)BlueToothState:(BlueToothState)state{
@@ -257,6 +272,8 @@
             [DashboardSetting sharedInstance].blueState = 1;
             [titleBtn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
              [ self.blueView show];
+            sendNumber = 0;
+            [self.blueTooth SendData:[BlueTool hexToBytes:@"415448310D"]];
         }
             break;
         default:

@@ -28,7 +28,10 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     NSMutableArray *PID3dataSource;
     NSMutableArray *PID4dataSource;
     NSInteger sendNumber;
-    NSInteger indextag;
+    NSInteger PID1indextag;
+     NSInteger PID2indextag;
+     NSInteger PID3indextag;
+     NSInteger PID4indextag;
 }
 @end
 
@@ -52,7 +55,10 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
             [self initWithLogViewUI];
         }
     }
-    indextag =  0;
+    PID1indextag =  0;
+     PID2indextag =  0;
+     PID3indextag =  0;
+     PID4indextag =  0;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -198,14 +204,14 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 //设置左边的Y轴
     ChartYAxis *leftAxis = view.leftAxis;
     leftAxis.labelTextColor = [UIColor whiteColor];
-    leftAxis.axisMaximum = 200.0;
-    leftAxis.axisMinimum = 0.0;
+//    leftAxis.axisMaximum = 200.0;
+//    leftAxis.axisMinimum = 0.0;
     leftAxis.drawAxisLineEnabled = YES;
 // 设置右边的Y轴
     ChartYAxis *rightAxis = view.rightAxis;
     rightAxis.labelTextColor = [UIColor whiteColor];
-    rightAxis.axisMaximum = 900.0;
-    rightAxis.axisMinimum = -200.0;
+//    rightAxis.axisMaximum = 900.0;
+//    rightAxis.axisMinimum = -200.0;
     rightAxis.drawGridLinesEnabled = NO;
     rightAxis.drawAxisLineEnabled = YES;
     rightAxis.axisLineWidth = 2;
@@ -344,7 +350,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     PartOnedata = [[LineChartData alloc] initWithDataSet:set1];
     PartTwodata = [[LineChartData alloc] initWithDataSet:set1];
     PID1dataSource = [[NSMutableArray alloc]init];
-    indextag =  0; 
     NSArray *pAll = [LogsModel bg_findAll];
     for(LogsModel* logsmodel in pAll){
         NSLog(@"logsmodel.item1PID测试 %@",logsmodel.item1PID  );
@@ -355,10 +360,13 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
             [self initWithLogView];
         }
     }
-    indextag =  0;
- self.blueTooth = [BlueToothController Instance];
+    self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
-    [self setStartData];
+    //发送：ATH1=》发送：ATSP0=》发送：0100=》
+    NSLog(@"发送开始的三条指令");
+    sendNumber = 0;
+    //发送车速
+    [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
   
     
 //    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, -30, 200, 40)];
@@ -366,14 +374,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 //    [btn addTarget:self action:@selector(btn) forControlEvents:UIControlEventTouchUpInside];
 //    [self.view addSubview:btn];
 }
-#pragma mark 发送开始的三条指令指令
-- (void)setStartData{
-    //发送：ATH1=》发送：ATSP0=》发送：0100=》
-    NSLog(@"发送开始的三条指令");
-    sendNumber = 0;
-    [self.blueTooth SendData:[self hexToBytes:@"415448310D"]];
-   
-}
+
 //代理协议，处理信息
 - (void)getDeviceInfo:(BELInfo *)info{
     
@@ -389,100 +390,63 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
      string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
      NSLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
-    if ([string isEqualToString:@"OK>"] && sendNumber ==0) {
-        
-         [self.blueTooth SendData:[self hexToBytes:@"41545350300D"]];
-        ++sendNumber;
-    }else if ([string isEqualToString:@"OK>"] && sendNumber ==1){
-        [self.blueTooth SendData:[self hexToBytes:@"303130300D"]];
-    }else if ([string isEqualToString:@"SEARCHING...86F1114100FFFFFFFFC5>"]){
-        //定时器
-        NSTimeInterval period = 1; //设置时间间隔
-        //5S后执行；
-        int interval = 0;
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-        dispatch_source_set_timer(_timer, dispatch_walltime(DISPATCH_TIME_NOW, NSEC_PER_SEC * interval), period * NSEC_PER_SEC, 0); //每秒执行
-        // 事件回调
-        dispatch_source_set_event_handler(_timer, ^{
-        
-            dispatch_async(dispatch_get_main_queue(), ^{
-                          NSLog(@"发送车速转速水温数据");
-                [self.blueTooth SendData:[self hexToBytes:@"303130640D"]];
-//                            [self.blueTooth SendData:[self hexToBytes:@"303130630D"]];
-              
-                
-            });
-        });
-        // 开启定时器
-        dispatch_resume(_timer);
-    }else if (string.length>10 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
-        //            [self.blueTooth SendData:[self hexToBytes:@"303130350D"]];
+    if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
+
         NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
-        NSLog(@"Commond%@",Commond);
         CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
         //车速添加到数组
         if ([Commond isEqualToString:@"0D"]) {
-
+            //得到车速大小
             NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getVehicleSpeed:thefloat]];
             NSLog(@"车速%@",str);
             [PID1dataSource addObject:str];
             NSLog(@"%@",PID1dataSource);
-            
-            [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)indextag  withY:[PID1dataSource[indextag] intValue]];
-            ++indextag;
+            //得到车速之后，发送转速
+            [self.blueTooth SendData:[self hexToBytes:@"303130630D"]];
+           
         }
-        if ([[string substringToIndex:8] isEqualToString:@"83F11141"] && sendNumber == 2) {
-            NSLog(@"再次发送数据");
-         [self.blueTooth SendData:[self hexToBytes:@"303130640D"]];
-        }
+        
     }
-   
-//    if (string.length>8) {
-//        if([[string substringToIndex:8] isEqualToString:@"83F11141"]){
-//
-//            if (string.length>10) {
-//            NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
-//            CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
-//            //车速添加到数组
-//            if ([Commond isEqualToString:@"0D"]) {
-//
-//         NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getVehicleSpeed:thefloat]];
-//
-//             [PID1dataSource addObject:str];
-//            }else if ([Commond isEqualToString:@"0C"]){ //转速
-//                if(string.length>12){
-//         CGFloat theNextfloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(12, 2)]]floatValue];
-//         NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getRotational:thefloat with:theNextfloat]];
-//
-//              [PID2dataSource addObject:str];
-//                }
-//            }else if ([Commond isEqualToString:@"05"]){ //水温
-//            }
-//         NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getWatertemperature:thefloat]];
-//
-//                [PID3dataSource addObject:str];
-//            }
-//        NSLog(@"数据数据%@,%ld",PID1dataSource,(long)[PID1dataSource[indextag] integerValue]);
-//
-//     [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)[PID1dataSource[indextag] integerValue] withY:arc4random() % 900];
-//      [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)[PID2dataSource[indextag] integerValue] withY:arc4random() % 200];
-//       if (model.item3Enabled == YES) {
-//        NSLog(@"item3item3");
-//              [self updateChartData:chartViewTwo withData:PartTwodata withIndex:0 withX:(int)[PID3dataSource[indextag] integerValue] withY:arc4random() % 200];
-//                        }
-//          if (model.item4Enabled == YES) {
-//               [self updateChartData:chartViewTwo withData:PartTwodata withIndex:1 withX:(int)[PID4dataSource[indextag] integerValue] withY:arc4random() % 200];
-//                        }
-//                        ++indextag;
-//
-////                        if (indextag == XdataSource.count -1) {
-////                            dispatch_source_cancel(_timer);
-////
-////                        }
-//
-//        }
-//    }
+    if (string.length>16 && [[string substringToIndex:8] isEqualToString:@"84F11141"]){
+        NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
+        CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
+         CGFloat theNextfloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(12, 2)]]floatValue];
+        //转速添加到数组
+        if ([Commond isEqualToString:@"0C"]) {
+           //得到转速大小
+            NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getRotational:thefloat with:theNextfloat]];
+            NSLog(@"转速%@",str);
+            [PID2dataSource addObject:str];
+            NSLog(@"%@",PID2dataSource);
+            //发送水温
+            [self.blueTooth SendData:[self hexToBytes:@"303130350D"]];
+        }
+       
+    }
+    if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
+        //得到水温
+        NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
+        CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
+        //水温添加到数组
+        if ([Commond isEqualToString:@"05"]) {
+            
+            NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getWatertemperature:thefloat]];
+            NSLog(@"水温%@",str);
+            [PID3dataSource addObject:str];
+            NSLog(@"%@",PID3dataSource);
+            [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)PID1indextag  withY:[PID1dataSource[PID1indextag] intValue]];
+            [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)PID2indextag  withY:[PID2dataSource[PID2indextag] intValue]];
+            [self updateChartData:chartViewTwo withData:PartTwodata withIndex:0 withX:(int)PID3indextag  withY:[PID3dataSource[PID3indextag] intValue]];
+            ++PID1indextag;
+            ++PID2indextag;
+            ++PID3indextag;
+            //得到水温之后，发送转速
+            [self.blueTooth SendData:[self hexToBytes:@"303130640D"]];
+        }
+       
+    }
+ 
+
 }
 -(void)BlueToothState:(BlueToothState)state{
     
