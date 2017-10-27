@@ -12,6 +12,7 @@
 
 +(CGFloat)getWatertemperature:(CGFloat)value;
 +(CGFloat)getVehicleSpeed:(CGFloat)value;
++(CGFloat)getThrottlePosition:(CGFloat)value;
 +(CGFloat)getRotational:(CGFloat)value with:(CGFloat)nextvalue;
 + (NSNumber *) numberHexString:(NSString *)aHexString;
 +(NSData*) hexToBytes :(NSString*)hex;

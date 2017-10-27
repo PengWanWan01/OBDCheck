@@ -434,16 +434,32 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
             NSLog(@"水温%@",str);
             [PID3dataSource addObject:str];
             NSLog(@"%@",PID3dataSource);
+            //得到水温之后，发送TF
+            [self.blueTooth SendData:[self hexToBytes:@"303131310D"]];
+        }
+    }
+    if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
+        //得到水温
+        NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
+        CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
+        //TF添加到数组
+        if ([Commond isEqualToString:@"11"]) {
+            
+            NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getThrottlePosition:thefloat]];
+            NSLog(@"TF%@",str);
+            [PID4dataSource addObject:str];
+            NSLog(@"%@",PID4dataSource);
             [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)PID1indextag  withY:[PID1dataSource[PID1indextag] intValue]];
             [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)PID2indextag  withY:[PID2dataSource[PID2indextag] intValue]];
             [self updateChartData:chartViewTwo withData:PartTwodata withIndex:0 withX:(int)PID3indextag  withY:[PID3dataSource[PID3indextag] intValue]];
+             [self updateChartData:chartViewTwo withData:PartTwodata withIndex:1 withX:(int)PID4indextag  withY:[PID4dataSource[PID4indextag] intValue]];
             ++PID1indextag;
             ++PID2indextag;
             ++PID3indextag;
-            //得到水温之后，发送转速
+            ++PID4indextag;
+            //得到TF之后，发送车速
             [self.blueTooth SendData:[self hexToBytes:@"303130640D"]];
         }
-       
     }
  
 

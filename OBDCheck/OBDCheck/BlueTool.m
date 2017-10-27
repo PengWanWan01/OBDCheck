@@ -19,6 +19,10 @@
     return value-40;
     
 }
++(CGFloat)getThrottlePosition:(CGFloat)value{
+    return value*100/255;
+}
+
 // 16进制转10进制
 + (NSNumber *) numberHexString:(NSString *)aHexString
 {

@@ -57,12 +57,15 @@
     }
 }
 - (void)getNewNumber:(NSNotification *)text{
+//    NSLog(@"得到通知");
     NSString *presentStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"StyleAViewnumber"]];
     NSString *PreviouStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"PreStyleAViewnumber"]];
     
     CGFloat start = [PreviouStr doubleValue];
     CGFloat end = [presentStr doubleValue];
-    if ([text.userInfo[@"StyleAViewTag"] doubleValue] == self.tag) {
+//    NSLog(@"%@%@%ld",PreviouStr,presentStr,(long)[text.userInfo[@"StyleAViewTag"] integerValue]);
+    
+    if ([text.userInfo[@"StyleAViewTag"] integerValue] == self.tag) {
     
  
         NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger: self.tag]];

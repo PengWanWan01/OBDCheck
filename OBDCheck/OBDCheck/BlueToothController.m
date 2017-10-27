@@ -350,7 +350,7 @@ static BlueToothController* instance;
 {
 
 
-    NSLog(@"发出数据：%@",data);
+//    NSLog(@"发出数据：%@",data);
     
     sendDataStr = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     
@@ -420,7 +420,7 @@ static BlueToothController* instance;
 {
 
     NSData* data = characteristic.value;
-    NSLog(@"收到了一条源数据：%@",data);
+//    NSLog(@"收到了一条源数据：%@",data);
    
     NSString *resultStr = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     
@@ -457,7 +457,7 @@ static BlueToothController* instance;
         NSLog(@"=======%@",error.userInfo);
 //        [self updateLog:[error.userInfo JSONString]];
     }else{
-        NSLog(@"发送数据成功");
+//        NSLog(@"发送数据成功");
 //        [self updateLog:@"发送数据成功"];
     }
     
