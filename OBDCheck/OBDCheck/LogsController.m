@@ -19,7 +19,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 {
     LineChartView *chartViewone ;
     LineChartView *chartViewTwo ;
-    LogsModel *model;
     LineChartDataSet *set1;
     LineChartData *PartOnedata;
     LineChartData *PartTwodata;
@@ -43,18 +42,13 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     PartOnedata = [[LineChartData alloc] initWithDataSet:set1];
     PartTwodata = [[LineChartData alloc] initWithDataSet:set1];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
-    NSArray *pAll = [LogsModel bg_findAll];
-    NSLog(@"测试%ld",(unsigned long)pAll.count);
-    for(LogsModel* logsmodel in pAll){
-//        NSLog(@"logsmodel测试测试 %hhd =%hhd",logsmodel.item3Enabled,logsmodel.item4Enabled);
-        
-        model = logsmodel;
-        if (model.item3Enabled == YES || model.item4Enabled == YES ) {
+  
+        if ([LogsSetting sharedInstance].PID3Enable == YES || [LogsSetting sharedInstance].PID4Enable == YES ) {
             [self initWithLogViewTwoPartUI];
         }else{
             [self initWithLogViewUI];
         }
-    }
+   
     PID1indextag =  0;
      PID2indextag =  0;
      PID3indextag =  0;
@@ -88,8 +82,8 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      }
     [self.view addSubview:chartViewone];
     [self initWithchartView:chartViewone Type:1];
-    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
-     [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:@"" withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:([LogsSetting sharedInstance].PID1Smoothing)];
+     [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:@"" withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:([LogsSetting sharedInstance].PID2Smoothing)];
 //         [chartViewone animateWithXAxisDuration:5];
 //         //设置当前可以看到的个数
 //         [chartViewone setVisibleXRangeMaximum:10];
@@ -116,11 +110,11 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      [self.view addSubview:chartViewTwo];
     [self initWithchartView:chartViewone Type:1];
     [self initWithchartView:chartViewTwo Type:2];
-    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
-    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
-    [self setDataCount:0 range:0 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item3PID withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:(model.item3Smoothing)];
-    if (model.item4Enabled == YES) {
-    [self setDataCount:0 range:0 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item4PID withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:(model.item4Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:@"vehicle speed" withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:([LogsSetting sharedInstance].PID1Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:@"rotate speed" withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:([LogsSetting sharedInstance].PID2Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:@"water temperature" withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:([LogsSetting sharedInstance].PID3Smoothing)];
+    if ([LogsSetting sharedInstance].PID4Enable == YES) {
+    [self setDataCount:0 range:0 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:@"throttle position" withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:([LogsSetting sharedInstance].PID4Smoothing)];
     }
 //    [chartViewone animateWithXAxisDuration:5];
 //    //设置当前可以看到的个数
@@ -218,7 +212,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     if (type ==2) {
         [leftAxis setAxisLineColor:[ColorTools colorWithHexString:@"3F51B5"]];
         [rightAxis setAxisLineColor:[ColorTools colorWithHexString:@"FF9800"]];
-        if (model.item4Enabled == NO) {
+        if ([LogsSetting sharedInstance ].PID4Enable == NO) {
             [rightAxis setAxisLineColor:[UIColor clearColor]];
             rightAxis.labelTextColor = [UIColor clearColor];
         }
@@ -269,8 +263,8 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     }
     [self.view addSubview:chartViewone];
     [self initWithchartView:chartViewone Type:1];
-    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
-    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:@"vehicle speed" withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:([LogsSetting sharedInstance ].PID1Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:@"rotate speed" withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:([LogsSetting sharedInstance ].PID2Smoothing)];
     
 }
 - (void)initWithLogViewTwoPartUI{
@@ -289,11 +283,11 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     [self.view addSubview:chartViewTwo];
     [self initWithchartView:chartViewone Type:1];
     [self initWithchartView:chartViewTwo Type:2];
-    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
-    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
-    [self setDataCount:0 range:0 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item3PID withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:(model.item3Smoothing)];
-    if (model.item4Enabled == YES) {
-        [self setDataCount:0 range:0 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item4PID withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:(model.item4Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:@"vehicle speed" withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:([LogsSetting sharedInstance].PID1Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:@"rotate speed" withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:([LogsSetting sharedInstance].PID2Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:@"water temperature" withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:([LogsSetting sharedInstance].PID3Smoothing)];
+    if ([LogsSetting sharedInstance].PID4Enable == YES) {
+        [self setDataCount:0 range:0 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:@"throttle position" withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:([LogsSetting sharedInstance].PID4Smoothing)];
     }
 }
 - (void)back{
@@ -350,16 +344,13 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     PartOnedata = [[LineChartData alloc] initWithDataSet:set1];
     PartTwodata = [[LineChartData alloc] initWithDataSet:set1];
     PID1dataSource = [[NSMutableArray alloc]init];
-    NSArray *pAll = [LogsModel bg_findAll];
-    for(LogsModel* logsmodel in pAll){
-        NSLog(@"logsmodel.item1PID测试 %@",logsmodel.item1PID  );
-        model = logsmodel;
-        if (model.item3Enabled == YES || model.item4Enabled == YES ) {
+ 
+        if ([LogsSetting sharedInstance].PID3Enable == YES || [LogsSetting sharedInstance].PID4Enable == YES ) {
             [self initWithLogViewTwoPart];
         }else{
             [self initWithLogView];
         }
-    }
+   
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
     //发送：ATH1=》发送：ATSP0=》发送：0100=》

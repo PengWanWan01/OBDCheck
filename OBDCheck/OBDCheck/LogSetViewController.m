@@ -11,7 +11,7 @@
 @interface LogSetViewController ()<UITableViewDelegate,UITableViewDataSource,selectSwtichDelegete>
 {
     UITableView *MYtableView;
-    LogsModel *model;
+   
 }
 @property(nonatomic,strong)NSMutableArray *titleLabel;
 @property(nonatomic,strong)NSMutableArray *selectLabel;
@@ -26,10 +26,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSArray *arr = [LogsModel bg_findAll];
-    for (LogsModel *log in arr) {
-        model = log;
-    }
+
+   
     [self initWithUI];
 }
 - (void)initWithUI{
@@ -119,12 +117,12 @@
             switch (indexPath.section) {
                 case 0:
                 {
-                    StylethreeCell.SwitchBtn.on = model.item1Smoothing;
+                    StylethreeCell.SwitchBtn.on = [LogsSetting sharedInstance].PID1Smoothing;
                 }
                     break;
                 case 1:
                 {
-                    StylethreeCell.SwitchBtn.on = model.item2Smoothing;
+                    StylethreeCell.SwitchBtn.on = [LogsSetting sharedInstance].PID2Smoothing;
                 }
                     break;
                 default:
@@ -140,12 +138,12 @@
                     switch (indexPath.row) {
                         case 1:
                         {
-                            StylethreeCell.SwitchBtn.on = model.item3Enabled;
+                            StylethreeCell.SwitchBtn.on = [LogsSetting sharedInstance].PID3Enable;
                         }
                             break;
                         case 2:
                         {
-                            StylethreeCell.SwitchBtn.on = model.item3Smoothing;
+                            StylethreeCell.SwitchBtn.on = [LogsSetting sharedInstance].PID3Smoothing;
                         }
                             break;
                         default:
@@ -158,12 +156,12 @@
                     switch (indexPath.row) {
                         case 1:
                         {
-                            StylethreeCell.SwitchBtn.on = model.item4Enabled;
+                            StylethreeCell.SwitchBtn.on = [LogsSetting sharedInstance].PID4Enable;
                         }
                             break;
                         case 2:
                         {
-                            StylethreeCell.SwitchBtn.on = model.item4Smoothing;
+                            StylethreeCell.SwitchBtn.on = [LogsSetting sharedInstance].PID4Smoothing;
                         }
                             break;
                         default:
@@ -188,38 +186,38 @@
         case 1:
         {
           
-            model.item1Smoothing = switchBtn.on;
+            [LogsSetting sharedInstance].PID1Smoothing  = switchBtn.on;
         }
             break;
         case 11:{
-            model.item2Smoothing = switchBtn.on;
+             [LogsSetting sharedInstance].PID2Smoothing = switchBtn.on;
         }
             break;
         case 21:{
-               model.item3Enabled = switchBtn.on;
+               [LogsSetting sharedInstance].PID3Enable = switchBtn.on;
         }
             break;
 
         case 22:{
-            model.item3Smoothing = switchBtn.on;
+            [LogsSetting sharedInstance].PID3Smoothing = switchBtn.on;
 
         }
             break;
 
         case 31:{
-            model.item4Enabled = switchBtn.on;
+             [LogsSetting sharedInstance].PID4Enable = switchBtn.on;
         }
             break;
         case 32:{
 
-            model.item4Smoothing = switchBtn.on;
+             [LogsSetting sharedInstance].PID4Smoothing = switchBtn.on;
         }
             break;
         default:
             break;
             
     }
-     [model bg_saveOrUpdate];
+    
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {

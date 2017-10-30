@@ -120,7 +120,6 @@ static dispatch_source_t _timer;
             //发送水温
             [self.blueTooth SendData:[BlueTool hexToBytes:@"303130350D"]];
         }
-        
     }
     if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
         //得到水温
