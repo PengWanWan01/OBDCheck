@@ -45,6 +45,10 @@
     model.item4PID = @"throttle position";
     model.item4Enabled = self.PID4Enable;
     model.item4Smoothing = self.PID4Smoothing;
+    model.PID1dataSource = nil;
+    model.PID2dataSource = nil;
+    model.PID3dataSource = nil;
+    model.PID4dataSource = nil;
     [model bg_saveOrUpdate];
 }
 - (void)initWithTrips{

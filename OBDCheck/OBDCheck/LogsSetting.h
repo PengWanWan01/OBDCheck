@@ -16,7 +16,7 @@
 @property (nonatomic,assign) BOOL PID3Enable; //第三条PID是否可用
 @property (nonatomic,assign) BOOL PID4Smoothing; //第四条PID是否光滑
 @property (nonatomic,assign) BOOL PID4Enable; //第四条PID是否可用
-@property (nonatomic,strong) NSArray *dataSource; //保存的所有数据
+
 
 //单例模式，实例化对象
 +(instancetype )sharedInstance;
