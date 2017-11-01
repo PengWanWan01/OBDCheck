@@ -9,12 +9,5 @@
 #import "LogsModel.h"
 
 @implementation LogsModel
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        self.YdataSource = [[NSMutableArray alloc]init];
-    }
-    return self;
-}
+
 @end

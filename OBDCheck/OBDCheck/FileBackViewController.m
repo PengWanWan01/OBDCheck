@@ -16,7 +16,6 @@ static dispatch_source_t _timer;
     FileInfoView *InfoView ;
     LineChartView *chartViewone ;
     LineChartView *chartViewTwo ;
-    LogsModel *model;
     LineChartDataSet *set1;
     LineChartData *PartOnedata;
     LineChartData *PartTwodata;
@@ -106,8 +105,8 @@ static dispatch_source_t _timer;
     NSArray *pAll = [LogsModel bg_findAll];
     for(LogsModel* logsmodel in pAll){
         NSLog(@"logsmodel.item1PID %@",logsmodel.item1PID  );
-        model = logsmodel;
-        if (model.item3Enabled == YES || model.item4Enabled == YES ) {
+        self.model = logsmodel;
+        if (self.model.item3Enabled == YES || self.model.item4Enabled == YES ) {
             [self initWithLogViewTwoPart];
            InfoView = [[FileInfoView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewTwo.frame), MSWidth, 100)];
 
@@ -133,8 +132,8 @@ static dispatch_source_t _timer;
     [contentScrollView addSubview:chartViewone];
     [self initWithchartView:chartViewone Type:1];
     
-    [self setDataCount:10 range:110 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
-    [self setDataCount:10 range:550 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(self.model.item1Smoothing)];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(self.model.item2Smoothing)];
     NSLog(@"getDataSetByIndex%@",[PartOnedata getDataSetByIndex:10]);
     [chartViewone animateWithXAxisDuration:5];
     //设置当前可以看到的个数
@@ -144,7 +143,7 @@ static dispatch_source_t _timer;
     
 }
 - (void)initWithLogViewTwoPart{
-    NSLog(@"弹出两个图%@", model.item1PID);
+    NSLog(@"弹出两个图%@", self.model.item1PID);
    
     [chartViewone removeFromSuperview];
     [chartViewTwo removeFromSuperview];
@@ -158,11 +157,11 @@ static dispatch_source_t _timer;
     [contentScrollView addSubview:chartViewTwo];
     [self initWithchartView:chartViewone Type:1];
     [self initWithchartView:chartViewTwo Type:2];
-    [self setDataCount:100 range:110 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(model.item1Smoothing)];
-    [self setDataCount:100 range:550 withView:chartViewone withdata:PartOnedata withPIDTiltle:model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(model.item2Smoothing)];
-    [self setDataCount:100 range:110 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item3PID withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:(model.item3Smoothing)];
-    if (model.item4Enabled == YES) {
-        [self setDataCount:100 range:550 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:model.item4PID withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:(model.item4Smoothing)];
+    [self setDataCount:100 range:110 withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(self.model.item1Smoothing)];
+    [self setDataCount:100 range:550 withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(self.model.item2Smoothing)];
+    [self setDataCount:100 range:110 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:self.model.item3PID withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:(self.model.item3Smoothing)];
+    if (self.model.item4Enabled == YES) {
+        [self setDataCount:100 range:550 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:self.model.item4PID withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:(self.model.item4Smoothing)];
     }
     [chartViewone animateWithXAxisDuration:1];
     //设置当前可以看到的个数
@@ -317,7 +316,7 @@ static dispatch_source_t _timer;
     if (type ==2) {
         [leftAxis setAxisLineColor:[ColorTools colorWithHexString:@"3F51B5"]];
         [rightAxis setAxisLineColor:[ColorTools colorWithHexString:@"FF9800"]];
-        if (model.item4Enabled == NO) {
+        if (self.model.item4Enabled == NO) {
             [rightAxis setAxisLineColor:[UIColor clearColor]];
             rightAxis.labelTextColor = [UIColor clearColor];
         }
@@ -339,16 +338,17 @@ static dispatch_source_t _timer;
     // 事件回调
     dispatch_source_set_event_handler(_timer, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"%@,%ld",XdataSource,(long)[XdataSource[indextag] integerValue]);
+        
             
-            [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)[XdataSource[indextag] integerValue] withY:arc4random() % 900];
-            [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)[XdataSource[indextag] integerValue] withY:arc4random() % 200];
-            if (model.item3Enabled == YES) {
+            [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)indextag withY:[self.model.PID2dataSource[indextag] intValue]];
+            
+            [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)indextag withY:[self.model.PID1dataSource[indextag] intValue]];
+            if (self.model.item3Enabled == YES) {
                 NSLog(@"item3item3");
-                [self updateChartData:chartViewTwo withData:PartTwodata withIndex:0 withX:(int)[XdataSource[indextag] integerValue] withY:arc4random() % 200];
+                [self updateChartData:chartViewTwo withData:PartTwodata withIndex:0 withX:(int)indextag withY:[self.model.PID3dataSource[indextag] intValue]];
             }
-            if (model.item4Enabled == YES) {
-                [self updateChartData:chartViewTwo withData:PartTwodata withIndex:1 withX:(int)[XdataSource[indextag] integerValue] withY:arc4random() % 200];
+            if (self.model.item4Enabled == YES) {
+                [self updateChartData:chartViewTwo withData:PartTwodata withIndex:1 withX:(int)indextag withY:[self.model.PID4dataSource[indextag] intValue]];
             }
             ++indextag;
             if (indextag == XdataSource.count -1) {
@@ -366,8 +366,8 @@ static dispatch_source_t _timer;
     [linechartdata addEntry:[[ChartDataEntry alloc]initWithX:X y:Y] dataSetIndex:index];
     //设置当前可以看到的个数
     [view setVisibleXRangeMaximum:10];
-    //设置当前开始的位置
-    [view moveViewToX:X - 10];
+//    //设置当前开始的位置
+//    [view moveViewToX:X - 10];
     [linechartdata notifyDataChanged];
     [view notifyDataSetChanged];
     NSLog(@"updateChartData%ld",(long)linechartdata.entryCount);

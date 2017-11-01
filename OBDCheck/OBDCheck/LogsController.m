@@ -335,8 +335,20 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 #pragma mark 点击开始点击停止
 - (void)stopBtn{
-    dispatch_source_cancel(_timer);
-
+  
+        //发送ATDP指令；
+         [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
+        [[LogsSetting sharedInstance]initWithlogswith:PID1dataSource with:PID2dataSource with:PID3dataSource with:PID4dataSource];
+    
+        NSArray *arr = [LogsModel bg_findAll];
+   
+        NSLog(@"logs数据库%@", arr.lastObject);
+    LogsModel *model = arr.lastObject;
+    NSLog(@"数据%@%@%@%@",model.PID1dataSource,model.PID2dataSource,model.PID3dataSource,model.PID4dataSource);
+   
+  
+   
+    
 }
 #pragma mark 点击开始  //发送蓝牙指令
 - (void)startBtn{

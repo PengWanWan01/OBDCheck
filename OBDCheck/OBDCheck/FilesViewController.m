@@ -27,7 +27,12 @@
     [self initWithUI];
 }
 - (void)initWithData{
-    self.dataSource = [[NSMutableArray alloc]initWithObjects:@"File 1",@"File 2",@"File 3",@"File 5",@"File 4", nil];
+    NSArray *array = [LogsModel bg_findAll];
+    self.dataSource = [[NSMutableArray alloc]init];
+    for (NSInteger i = 1; i<=array.count; i++) {
+        [self.dataSource addObject:[NSString stringWithFormat:@"File%ld",(long)i]];
+    }
+    
     
 }
 - (void)initWithUI{
@@ -170,6 +175,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%ld",(long)indexPath.row);
     FileBackViewController *vc = [[FileBackViewController alloc]init];
+    NSArray *array = [LogsModel bg_findAll];
+    vc.model = array[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
 @end

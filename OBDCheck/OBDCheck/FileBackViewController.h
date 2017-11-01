@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface FileBackViewController : UIViewController
-
+@property (nonatomic,strong) LogsModel *model;
 @end
