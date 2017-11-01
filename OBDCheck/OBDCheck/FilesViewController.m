@@ -28,6 +28,7 @@
 }
 - (void)initWithData{
     NSArray *array = [LogsModel bg_findAll];
+    NSLog(@"%@",array);
     self.dataSource = [[NSMutableArray alloc]init];
     for (NSInteger i = 1; i<=array.count; i++) {
         [self.dataSource addObject:[NSString stringWithFormat:@"File%ld",(long)i]];
@@ -86,6 +87,8 @@
 
 - (void)deleteData:(NSInteger)tag{
     NSLog(@"%ld",(long)tag);
+    [LogsModel bg_deleteWhere:@[@"BG_ID",@"=",[NSNumber numberWithInteger: tag+1]]];
+
     [self.dataSource removeObjectAtIndex:tag]; //从模型中删除
     
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:tag inSection:0]]  withRowAnimation:UITableViewRowAnimationRight];
@@ -177,6 +180,8 @@
     FileBackViewController *vc = [[FileBackViewController alloc]init];
     NSArray *array = [LogsModel bg_findAll];
     vc.model = array[indexPath.row];
+    NSLog(@"%@%@%@%@",vc.model,vc.model.PID1dataSource,vc.model.PID2dataSource,vc.model.PID3dataSource);
+    
     [self.navigationController pushViewController:vc animated:YES];
 }
 @end

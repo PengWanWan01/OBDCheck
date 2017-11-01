@@ -26,9 +26,9 @@
     return self;
 }
 -(void)initWithData{
-  NSLog(@"numberBtn%ld",(long)self.numberBtn);
+//  NSLog(@"numberBtn%ld",(long)self.numberBtn);
     for (int i = 0; i<self.numberBtn; i++) {
-        NSLog(@"numberBtn%ld",(long)self.numberBtn);
+//        NSLog(@"numberBtn%ld",(long)self.numberBtn);
         JXButton *btn = [[JXButton alloc]initWithFrame:CGRectMake(i*(MSWidth/self.numberBtn), 0,MSWidth/self.numberBtn , ViewHeight)];
         [btn setTitle:@"12" forState:UIControlStateNormal];
         [btn setTitle:_titleData[i] forState:UIControlStateNormal];
