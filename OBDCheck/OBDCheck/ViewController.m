@@ -91,12 +91,14 @@
         NSLog(@"%f",btn.frame.size.width);
     }
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(EveryViewtap)] ];
-    
-    for (NSInteger i = 0; i< 3; i++) {
-        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(MSWidth/3), MSHeight - 45*KHeightmultiple-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height,MSWidth/3 , 45*KHeightmultiple)];
+  //设置底部的两个按钮
+    for (NSInteger i = 0; i< 2; i++) {
+        
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(MSWidth/2), MSHeight - 49-TopHigh,MSWidth/2 , 49)];
         if (IS_IPHONE_X) {
-             btn.frame = CGRectMake(i*(MSWidth/3), MSHeight - 45*KHeightmultiple-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height-34,MSWidth/3 , 45*KHeightmultiple);
+             btn.frame = CGRectMake(i*(MSWidth/2), MSHeight - 49-TopHigh-34,MSWidth/2 , 49);
         }
+        btn.backgroundColor = [UIColor redColor];
         [btn setBackgroundImage: [UIImage imageNamed:_normalImage[i]] forState:UIControlStateNormal];
         
         btn.tag = i;
@@ -112,6 +114,7 @@
     }
     
 }
+#pragma mark 底部按钮的点击事件
 - (void)Selectbtn:(UIButton *)btn{
     switch (btn.tag) {
         case 0:
@@ -122,13 +125,6 @@
         }
             break;
         case 1:
-        {
-            SpecialViewController *vc = [[SpecialViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        case 2:
         {
             PersonalViewController *vc = [[PersonalViewController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
@@ -142,8 +138,8 @@
 -(void)initWithData{
     self.btnImageArray = [[NSMutableArray alloc]initWithObjects:@"Dashboards",@"Diagnostics",@"Montiors",@"Logs",@"Performance",@"Settings", nil];
     self.btnTitleArray = [[NSMutableArray alloc]initWithObjects:@"Dashboards",@"Diagnostics",@"Montiors",@"Logs",@"Performance",@"Settings", nil];
-    self.normalImage = [[NSMutableArray alloc]initWithObjects:@"obd_normal",@"special_normal",@"personal_normal", nil];
-    self.selectImage = [[NSMutableArray alloc]initWithObjects:@"obd_highlight",@"special_highlight",@"personal_highlight", nil];
+    self.normalImage = [[NSMutableArray alloc]initWithObjects:@"OBD_normal",@"Vehicle_normal", nil];
+    self.selectImage = [[NSMutableArray alloc]initWithObjects:@"OBD_highlight",@"Vehicle_highlight", nil];
     
     NSLog(@"%f",4*MSWidth/15 );
     

@@ -19,6 +19,7 @@
 @property (nonatomic,assign) NSInteger numberBtn;
 @property (nonatomic,strong) NSMutableArray *highimageData;
 @property (nonatomic,strong) NSMutableArray *normalimageData;
+
 @property (nonatomic,strong) NSMutableArray *titleData;
 @property (nonatomic,assign) NSInteger isSelectNumber;
 @property (nonatomic,weak) id<TBarViewDelegate> delegate;

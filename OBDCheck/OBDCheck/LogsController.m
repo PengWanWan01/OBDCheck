@@ -238,9 +238,9 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         [topView addSubview:startBtn];
     self.navigationItem.titleView = topView;
     
-    TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 45*KHeightmultiple-64, MSWidth, 45*KHeightmultiple)];
+    TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
     if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 45*KHeightmultiple-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height-34,MSWidth , 45*KHeightmultiple);
+        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
     }
     tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     tbarView.numberBtn = 3;
@@ -291,18 +291,13 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     }
 }
 - (void)back{
-    //假如定时器存在，才把它停止
-    if (_timer) {
-        dispatch_source_cancel(_timer);
-    }
+    [self SaveDataSource];
     ViewController *vc = [[ViewController alloc
                            ]init];
     [self.navigationController pushViewController:vc animated:NO];
 }
 - (void)rightBarButtonClick{
-    if (_timer) {
-     dispatch_source_cancel(_timer);
-    }
+    [self SaveDataSource];
     LogSetViewController *vc = [[LogSetViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
     
@@ -336,19 +331,19 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 #pragma mark 点击开始点击停止
 - (void)stopBtn{
   
-        //发送ATDP指令；
-         [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
-        [[LogsSetting sharedInstance]initWithlogswith:PID1dataSource with:PID2dataSource with:PID3dataSource with:PID4dataSource];
+    [self SaveDataSource];
+}
+#pragma mark 保存内容LOGS到数据库
+-(void)SaveDataSource{
+    //发送ATDP指令；
+    [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
+    [[LogsSetting sharedInstance]initWithlogswith:PID1dataSource with:PID2dataSource with:PID3dataSource with:PID4dataSource];
     
-        NSArray *arr = [LogsModel bg_findAll];
-   
-        NSLog(@"logs数据库%@", arr.lastObject);
+    NSArray *arr = [LogsModel bg_findAll];
+    
+    NSLog(@"logs数据库%@", arr.lastObject);
     LogsModel *model = arr.lastObject;
     NSLog(@"数据%@%@%@%@",model.PID1dataSource,model.PID2dataSource,model.PID3dataSource,model.PID4dataSource);
-   
-  
-   
-    
 }
 #pragma mark 点击开始  //发送蓝牙指令
 - (void)startBtn{
@@ -369,16 +364,12 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
     //发送：ATH1=》发送：ATSP0=》发送：0100=》
-    NSLog(@"发送开始的三条指令");
+    NSLog(@"发送开始的车速指令");
     sendNumber = 0;
     //发送车速
     [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
   
-    
-//    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, -30, 200, 40)];
-//    btn.backgroundColor = [UIColor redColor];
-//    [btn addTarget:self action:@selector(btn) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:btn];
+
 }
 
 //代理协议，处理信息

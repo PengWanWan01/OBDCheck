@@ -34,7 +34,7 @@
 #define Kwidthmultiple MSWidth/375
 #define KHeightmultiple MSHeight/667
 #define KMultipleC   ViewWidth/320
-
+#define TopHigh self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height
 
 #
 // Include any system framework and library headers here that should be included in all compilation units.

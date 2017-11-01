@@ -35,8 +35,8 @@
     
 }
 - (void)initWithData{
-    self.normalImage = [[NSMutableArray alloc]initWithObjects:@"obd_normal",@"special_normal",@"personal_normal", nil];
-    self.selectImage = [[NSMutableArray alloc]initWithObjects:@"obd_highlight",@"special_highlight",@"personal_highlight", nil];
+    self.normalImage = [[NSMutableArray alloc]initWithObjects:@"OBD_normal",@"Vehicle_normal", nil];
+    self.selectImage = [[NSMutableArray alloc]initWithObjects:@"OBD_highlight",@"Vehicle_highlight", nil];
     self.sectionDatasource = [[NSMutableArray alloc]initWithObjects:@"NAME",@"VEHICLE IDENTIFICATION NUMBER",@"YEAR",@"MAKE",@"MODEL",@"OPTION",@"TYPE",@"FUEL TYPE",@"ENGINE SIZE(LITRES)",@"VOLUMETRIC EFFICIENCY(%)",@"BRAKE SPECIFIC FUEL CONSUMPTION(LB/HP·HR)",@"FUEL CALCULATION METHOD",@"FUEL TANK CAPACITY (GAL)",@"FUEL COST PER UNIT ($)",@"VEHICLE SPEED SCALE FACTOR", nil];
     self.texttitleDatasource = [[NSMutableArray alloc]initWithObjects:@"NAME",@"1A1J5444R7252367",@"1996",@"AC",@"Cobra",@"Option",@"Select",@"Select",@"2",@"65",@"0.45",@"Select",@"14.0",@"4.0",@"1", nil];
     
@@ -54,15 +54,15 @@
     [self.view addSubview:Mytableview];
     [Mytableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
     
-    for (NSInteger i = 0; i< 3; i++) {
-        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(MSWidth/3), MSHeight - 45*KHeightmultiple-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height,MSWidth/3 , 45*KHeightmultiple)];
+    for (NSInteger i = 0; i< 2; i++) {
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(MSWidth/2), MSHeight - 49-TopHigh,MSWidth/2 , 49)];
         if (IS_IPHONE_X) {
-            btn.frame = CGRectMake(i*(MSWidth/3), MSHeight - 45*KHeightmultiple-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height-34,MSWidth/3 , 45*KHeightmultiple);
+            btn.frame = CGRectMake(i*(MSWidth/2), MSHeight - 49-TopHigh-34,MSWidth/2 , 49);
         }
         [btn setBackgroundImage: [UIImage imageNamed:_normalImage[i]] forState:UIControlStateNormal];
         btn.tag = i;
         [btn.imageView setContentMode:UIViewContentModeScaleAspectFill];
-        if (i==2) {
+        if (i==1) {
             [btn setBackgroundImage: [UIImage imageNamed:_selectImage[i]] forState:UIControlStateNormal];
         }
         [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -80,13 +80,6 @@
         }
             break;
         case 1:
-        {
-            SpecialViewController *vc = [[SpecialViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        case 2:
         {
             PersonalViewController *vc = [[PersonalViewController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
