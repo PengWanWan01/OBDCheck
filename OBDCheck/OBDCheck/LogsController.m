@@ -356,7 +356,10 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     PartOnedata = [[LineChartData alloc] initWithDataSet:set1];
     PartTwodata = [[LineChartData alloc] initWithDataSet:set1];
     PID1dataSource = [[NSMutableArray alloc]init];
- 
+    PID2dataSource = [[NSMutableArray alloc]init];
+    PID3dataSource = [[NSMutableArray alloc]init];
+    PID4dataSource = [[NSMutableArray alloc]init];
+
         if ([LogsSetting sharedInstance].PID3Enable == YES || [LogsSetting sharedInstance].PID4Enable == YES ) {
             [self initWithLogViewTwoPart];
         }else{

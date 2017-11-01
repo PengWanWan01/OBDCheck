@@ -180,7 +180,7 @@
     FileBackViewController *vc = [[FileBackViewController alloc]init];
     NSArray *array = [LogsModel bg_findAll];
     vc.model = array[indexPath.row];
-    NSLog(@"%@%@%@%@",vc.model,vc.model.PID1dataSource,vc.model.PID2dataSource,vc.model.PID3dataSource);
+    NSLog(@"%@%@%@%@%d%d",vc.model,vc.model.PID1dataSource,vc.model.PID2dataSource,vc.model.PID3dataSource,vc.model.item3Enabled,vc.model.item3Enabled);
     
     [self.navigationController pushViewController:vc animated:YES];
 }

@@ -20,7 +20,7 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         _deleteBtn =  [UIButton buttonWithType:UIButtonTypeCustom];
-        _deleteBtn.frame=CGRectMake(-18, 13, 18, 18);
+        _deleteBtn.frame=CGRectMake(-40, 0, 40, 44);
         _deleteBtn.userInteractionEnabled = YES;
         [_deleteBtn setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
         [_deleteBtn addTarget:self action:@selector(test:) forControlEvents:UIControlEventTouchUpInside];
@@ -55,14 +55,14 @@
        switch (self.editstatus) {
         case EditstatusType1:
         {
-            _deleteBtn.frame=CGRectMake(-18, 13, 18, 18);
+            _deleteBtn.frame=CGRectMake(-40, 0, 40, 44);
             _nameLabel.frame=CGRectMake(15, 0, 200, 44);
         }
             break;
         case EditstatusType2:
         {
-            _deleteBtn.frame=CGRectMake(15, 13, 18, 18);
-            _nameLabel.frame=CGRectMake(15+18+10, 0, 200, 44);
+            _deleteBtn.frame=CGRectMake(10, 0, 55, 44);
+            _nameLabel.frame=CGRectMake(15+40+10, 0, 200, 44);
         }
             break;
         default:
