@@ -47,10 +47,12 @@
 
 - (void)initWithUI{
     titleBtn= [[RLBtn alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, MSWidth - 86, 40)];
+    statusLabel.font = [UIFont systemFontOfSize:16.f];
     if ([DashboardSetting sharedInstance].blueState == 1) {
-        [titleBtn setTitleColor:[ColorTools colorWithHexString:@"#FE9002"] forState:UIControlStateNormal];
+        [self IsConnectState];
     }else{
-     [titleBtn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
+        [self NonConnectState];
     }
     [titleBtn setTitle:@"Connect" forState:UIControlStateNormal];
     titleBtn.titleLabel.font = [UIFont systemFontOfSize:18];
@@ -58,26 +60,15 @@
     [titleBtn addTarget:self action:@selector(LinkBlueTooth) forControlEvents:UIControlEventTouchUpInside];
     isSelect = YES;
     self.navigationItem.titleView = titleBtn;
-//    [ColorTools colorWithHexString:@"#212329"];
     statusView = [[UIImageView alloc]initWithFrame:CGRectMake(22, 11, MSWidth - 44, 41)];
     statusView.image = [UIImage imageNamed:@"information"];
     statusView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:statusView];
-    //CGRectGetMaxX(statusView.frame)
     statusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(statusView.frame) - 50, 10, 24, 20)];
     statusImageView.image = [UIImage imageNamed:@"signal"];
     statusImageView.contentMode = UIViewContentModeScaleAspectFill;
     [statusView addSubview:statusImageView];
     
-    statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, MSWidth - 86, 40)];
-    statusLabel.font = [UIFont systemFontOfSize:16.f];
-    if ([DashboardSetting sharedInstance].blueState == 1) {
-        statusLabel.text = @"Connect to the device successfully";
-        [statusLabel setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
-    }else{
-        statusLabel.text = @"Please connect to the device...";
-        [statusLabel setTextColor:[ColorTools colorWithHexString:@"#FE9002"]];
-    }
     [statusView addSubview:statusLabel];
     
     UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(statusView.frame), MSWidth, MSHeight - 165)];
@@ -219,6 +210,8 @@
 //代理协议，处理信息
 - (void)getDeviceInfo:(BELInfo *)info{
   
+    if (!info == NULL) {
+        
      NSLog(@"得到的设备信息%@:%@",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
     NSMutableArray *data = [[NSMutableArray alloc]init];
     [data addObject:info.discoveredPeripheral.name];
@@ -227,6 +220,7 @@
      self.blueView.dataSource = data;
    
     NSLog(@"得到数据%@",self.blueView.dataSource);
+    }
 }
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
@@ -250,6 +244,18 @@
   
   
 }
+-(void)NonConnectState{
+    [DashboardSetting sharedInstance].blueState = 0;
+    statusLabel.text = @"Please connect to the device...";
+    [statusLabel setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
+    [titleBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+}
+- (void)IsConnectState{
+    [DashboardSetting sharedInstance].blueState = 1;
+    [titleBtn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
+    statusLabel.text = @"Connect to the device successfully";
+    [statusLabel setTextColor:[ColorTools colorWithHexString:@"#FE9002"]];
+}
 #pragma mark 得到蓝牙连接状态
 -(void)BlueToothState:(BlueToothState)state{
     NSLog(@"得到蓝牙连接的状态%lu",(unsigned long)state);
@@ -260,18 +266,19 @@
         case BlueToothStateDisScan:
         {
             NSLog(@"停滞不搜索状态");
+          
         }
             break;
         case BlueToothStateScan:
         {
             NSLog(@"搜索状态");
+            [self NonConnectState];
         }
             break;
         case BlueToothStateConnect:
         {
             NSLog(@"连接成功状态");
-            [DashboardSetting sharedInstance].blueState = 1;
-            [titleBtn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
+            [self IsConnectState];
              [ self.blueView show];
             sendNumber = 0;
             [self.blueTooth SendData:[BlueTool hexToBytes:@"415448310D"]];
