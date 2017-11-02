@@ -52,10 +52,7 @@
             vc4.tabBarItem.image= [[UIImage imageNamed:@"report_normal"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             vc4.tabBarItem.title  = @"Report";
             UINavigationController *nav4 = [[UINavigationController alloc]initWithRootViewController:vc4];
-            
             self.viewControllers = @[nav1,nav2,nav3,nav4];
-  
-    
   }
 
 

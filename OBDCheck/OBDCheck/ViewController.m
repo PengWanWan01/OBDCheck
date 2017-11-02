@@ -70,9 +70,14 @@
     [statusView addSubview:statusImageView];
     
     statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, MSWidth - 86, 40)];
-    statusLabel.text = @"Connect to the device successfully";
     statusLabel.font = [UIFont systemFontOfSize:16.f];
-    [statusLabel setTextColor:[ColorTools colorWithHexString:@"#FE9002"]];
+    if ([DashboardSetting sharedInstance].blueState == 1) {
+        statusLabel.text = @"Connect to the device successfully";
+        [statusLabel setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
+    }else{
+        statusLabel.text = @"Please connect to the device...";
+        [statusLabel setTextColor:[ColorTools colorWithHexString:@"#FE9002"]];
+    }
     [statusView addSubview:statusLabel];
     
     UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(statusView.frame), MSWidth, MSHeight - 165)];

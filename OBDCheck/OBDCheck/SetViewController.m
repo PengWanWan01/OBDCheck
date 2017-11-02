@@ -26,7 +26,7 @@
 - (void)initWithData{
 
     self.datasource = [[NSMutableArray alloc
-                       ]initWithObjects:@"Preferences",@"Information",@"Firmware Updates",@"Connection Help",@"License Agreement",@"Privacy Policy", nil];
+                        ]initWithObjects:@"Preferences",@"Information",@"Firmware Updates",@"Connection Help",@"License Agreement",@"Privacy Policy",@"Alarm settings",@"Feedback",@"Operation record", nil];
     
 }
 - (void)initWithUI{
