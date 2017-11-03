@@ -1,13 +1,13 @@
 //
-//  historyCode.m
+//  historyCodeModel.m
 //  OBDCheck
 //
 //  Created by yutaozhao on 2017/11/3.
 //  Copyright © 2017年 Auptophix. All rights reserved.
 //
 
-#import "historyCode.h"
+#import "historyCodeModel.h"
 
-@implementation historyCode
+@implementation historyCodeModel
 
 @end

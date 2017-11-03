@@ -42,7 +42,7 @@
 		CB45CBAE1F6B7B96003AA330 /* ResultsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB45CBAC1F6B7B96003AA330 /* ResultsTableViewCell.xib */; };
 		CB45CBB11F6B7DC2003AA330 /* SummaryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB45CBB01F6B7DC2003AA330 /* SummaryTableViewCell.m */; };
 		CB476C781FAC684200C54837 /* troubleCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB476C771FAC684200C54837 /* troubleCodeModel.m */; };
-		CB476C7B1FAC6F5500C54837 /* historyCode.m in Sources */ = {isa = PBXBuildFile; fileRef = CB476C7A1FAC6F5500C54837 /* historyCode.m */; };
+		CB476C7E1FAC715B00C54837 /* historyCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB476C7D1FAC715B00C54837 /* historyCodeModel.m */; };
 		CB47E2EC1F480C7000B23D8E /* UIFont+AdapFont.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */; };
 		CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EE1F4819C200B23D8E /* StyleViewController.m */; };
 		CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2F11F481B3200B23D8E /* StyleHeadView.m */; };
@@ -243,8 +243,8 @@
 		CB45CBB01F6B7DC2003AA330 /* SummaryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryTableViewCell.m; sourceTree = "<group>"; };
 		CB476C761FAC684200C54837 /* troubleCodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = troubleCodeModel.h; sourceTree = "<group>"; };
 		CB476C771FAC684200C54837 /* troubleCodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = troubleCodeModel.m; sourceTree = "<group>"; };
-		CB476C791FAC6F5500C54837 /* historyCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = historyCode.h; sourceTree = "<group>"; };
-		CB476C7A1FAC6F5500C54837 /* historyCode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = historyCode.m; sourceTree = "<group>"; };
+		CB476C7C1FAC715B00C54837 /* historyCodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = historyCodeModel.h; sourceTree = "<group>"; };
+		CB476C7D1FAC715B00C54837 /* historyCodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = historyCodeModel.m; sourceTree = "<group>"; };
 		CB47E2EA1F480C7000B23D8E /* UIFont+AdapFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+AdapFont.h"; sourceTree = "<group>"; };
 		CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+AdapFont.m"; sourceTree = "<group>"; };
 		CB47E2ED1F4819C200B23D8E /* StyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewController.h; sourceTree = "<group>"; };
@@ -526,8 +526,8 @@
 			children = (
 				CB476C761FAC684200C54837 /* troubleCodeModel.h */,
 				CB476C771FAC684200C54837 /* troubleCodeModel.m */,
-				CB476C791FAC6F5500C54837 /* historyCode.h */,
-				CB476C7A1FAC6F5500C54837 /* historyCode.m */,
+				CB476C7C1FAC715B00C54837 /* historyCodeModel.h */,
+				CB476C7D1FAC715B00C54837 /* historyCodeModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1251,6 +1251,7 @@
 				CBF1E24C1F30262E00EEC755 /* MyTabBarController.m in Sources */,
 				CB84B3D31F56A7FF00B454E6 /* ReportViewController.m in Sources */,
 				CBEBF1D51F3B2804006CCA8B /* DisplaySetViewController.m in Sources */,
+				CB476C7E1FAC715B00C54837 /* historyCodeModel.m in Sources */,
 				CB835D361F596994007C5A17 /* HistoryViewController.m in Sources */,
 				CB5A61971F7A20AA000D23D6 /* MakerViewController.m in Sources */,
 				CB82247C1F46EEC400E1E4BA /* HUDViewController.m in Sources */,
@@ -1294,7 +1295,6 @@
 				CBB1CC441F623C2B002EE7EB /* TBarView.m in Sources */,
 				CBF1E2731F30689B00EEC755 /* DiagController.m in Sources */,
 				CB7B8DB51F9D99B7009E4442 /* DashboardC.m in Sources */,
-				CB476C7B1FAC6F5500C54837 /* historyCode.m in Sources */,
 				CBF1E2511F30293100EEC755 /* PersonalViewController.m in Sources */,
 				CB848F151F4542F700C1A718 /* DecimalViewController.m in Sources */,
 				CB84B3E01F56DF0800B454E6 /* rotationView.m in Sources */,

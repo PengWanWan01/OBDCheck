@@ -141,6 +141,6 @@
 #import "BELInfo.h"
 #import "BlueTool.h"
 #import "troubleCodeModel.h"
-
+#import "historyCodeModel.h"
 
 #endif /* OBDCheckPrefixHeader_pch */
