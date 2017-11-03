@@ -20,6 +20,7 @@ static dispatch_source_t _timer;
     UILabel *importantLabel;
     UITableView *MYTableView;
     NSString *sendType;
+    UIView *showView;
 }
 @property (nonatomic,strong) NSMutableArray *typeimageData;
 @property (nonatomic,strong) NSMutableArray *titleDataSource;
@@ -38,15 +39,12 @@ static dispatch_source_t _timer;
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
     [self.blueTooth SendData:[BlueTool hexToBytes:@"30370D"]];
-    
+    [self initWithdata];
+    [self initWithheadUI];
+    [self initWithUI];
   }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initWithdata];
-
-    [self initWithUI];
-    [self initWithheadUI];
-  
 }
 - (void)initWithdata{
     _typeimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_highLight",@"troubleCode_important",nil];
@@ -56,7 +54,7 @@ static dispatch_source_t _timer;
 }
 - (void)initWithUI{
   
-    MYTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 205, MSWidth, MSHeight) style:UITableViewStylePlain];
+    MYTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(showView.frame), MSWidth, MSHeight-showView.frame.origin.y - showView.frame.size.height-70) style:UITableViewStylePlain];
     MYTableView.backgroundColor = [ColorTools colorWithHexString:@"18191D"];
     MYTableView.delegate =self;
     MYTableView.dataSource =self;
@@ -167,21 +165,21 @@ static dispatch_source_t _timer;
     
 
     for (NSInteger i = 0; i<2; i++) {
-        UIView *showView = [[UIView alloc]initWithFrame:CGRectMake(i*MSWidth/2, CGRectGetMaxY(progressView.frame)+20, MSWidth/2, 30)];
+        showView = [[UIView alloc]initWithFrame:CGRectMake(i*MSWidth/2, CGRectGetMaxY(progressView.frame)+10, MSWidth/2, 30)];
         showView.backgroundColor = [ColorTools colorWithHexString:@"#18191D"];
         [self.view addSubview:showView];
-        UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(showView.frame.size.width/4, 10, 24, 20)];
+        UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(showView.frame.size.width/4, 5, 24, 20)];
         view.image = [UIImage imageNamed:_typeimageData[i]];
         [showView addSubview:view];
       
         if (i == 1) {
-            importantLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 10,showView.frame.size.width -showView.frame.size.width/4- 24  , 20)];
+            importantLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 5,showView.frame.size.width -showView.frame.size.width/4- 24  , 20)];
             importantLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
             importantLabel.font = [UIFont ToAdapFont:16];
 //            importantLabel.text = @"Important：01";
             [showView addSubview:importantLabel];
         }else{
-          totalLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 10,showView.frame.size.width -showView.frame.size.width/4- 24  , 20)];
+          totalLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 5,showView.frame.size.width -showView.frame.size.width/4- 24  , 20)];
             totalLabel.font = [UIFont ToAdapFont:16];
 //            totalLabel.text = @"Total：01";
             totalLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
@@ -194,8 +192,9 @@ static dispatch_source_t _timer;
    
     
 }
+#pragma mark 清楚故障码
 - (void)clearBtn{
-
+    [self.blueTooth SendData:[BlueTool hexToBytes:@"30340D"]];
 }
 - (void)HistoricalBtn{
     HistoryViewController *vc = [[HistoryViewController alloc]init];
