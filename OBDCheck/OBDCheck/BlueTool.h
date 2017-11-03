@@ -16,4 +16,8 @@
 +(CGFloat)getRotational:(CGFloat)value with:(CGFloat)nextvalue;
 + (NSNumber *) numberHexString:(NSString *)aHexString;
 +(NSData*) hexToBytes :(NSString*)hex;
++ (NSInteger)getDecimalByBinary:(NSString *)binary;
++ (NSString *)getBinaryByHex:(NSString *)hex;
++ (NSString *)getHexByBinary:(NSString *)binary ;
+
 @end

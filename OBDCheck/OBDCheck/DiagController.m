@@ -9,7 +9,7 @@
 #import "DiagController.h"
 static dispatch_source_t _timer;
 
-@interface DiagController ()<UITableViewDelegate,UITableViewDataSource,TBarViewDelegate>
+@interface DiagController ()<UITableViewDelegate,UITableViewDataSource,TBarViewDelegate,BlueToothControllerDelegate>
 {
     rotationView *roView;
     UILabel *infoLabel;
@@ -19,10 +19,12 @@ static dispatch_source_t _timer;
     UILabel *totalLabel;
     UILabel *importantLabel;
     UITableView *MYTableView;
-    
+    NSString *sendType;
 }
 @property (nonatomic,strong) NSMutableArray *typeimageData;
 @property (nonatomic,strong) NSMutableArray *titleDataSource;
+@property (nonatomic,strong) NSMutableArray *totalDataSource;
+@property (nonatomic,strong) NSMutableArray *importantDataSource;
 
 @end
 
@@ -33,6 +35,10 @@ static dispatch_source_t _timer;
     [UIApplication sharedApplication].statusBarHidden = NO;
     [self initNavBarTitle:@"Diagnostics" andLeftItemImageName:@"back" andRightItemImageName:@"refresh"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    self.blueTooth = [BlueToothController Instance];
+    self.blueTooth.delegate = self;
+    [self.blueTooth SendData:[BlueTool hexToBytes:@"30370D"]];
+    
   }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,11 +46,13 @@ static dispatch_source_t _timer;
 
     [self initWithUI];
     [self initWithheadUI];
+  
 }
 - (void)initWithdata{
     _typeimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_highLight",@"troubleCode_important",nil];
     _titleDataSource = [[NSMutableArray alloc]initWithObjects:@"P0103",@"P0103",@"P0103",nil];
-
+    self.totalDataSource = [[NSMutableArray alloc]init];
+    self.importantDataSource = [[NSMutableArray alloc]init];
 }
 - (void)initWithUI{
   
@@ -170,12 +178,12 @@ static dispatch_source_t _timer;
             importantLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 10,showView.frame.size.width -showView.frame.size.width/4- 24  , 20)];
             importantLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
             importantLabel.font = [UIFont ToAdapFont:16];
-            importantLabel.text = @"Important：01";
+//            importantLabel.text = @"Important：01";
             [showView addSubview:importantLabel];
         }else{
           totalLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 10,showView.frame.size.width -showView.frame.size.width/4- 24  , 20)];
             totalLabel.font = [UIFont ToAdapFont:16];
-            totalLabel.text = @"Total：01";
+//            totalLabel.text = @"Total：01";
             totalLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
 
         [showView addSubview:totalLabel];
@@ -201,12 +209,118 @@ static dispatch_source_t _timer;
                            ]init];
     [self.navigationController pushViewController:vc animated:NO];
 }
+#pragma mark蓝牙代理协议，处理信息
+- (void)getDeviceInfo:(BELInfo *)info{
+    
+}
+-(void)BlueToothState:(BlueToothState)state{
+    
+    
+}
+#pragma mark 收到数据
+-(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
+{
+    NSLog(@"收到收到%@",data);
+    
+    NSLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    NSLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
+    if (string.length>8) {
+    NSLog(@"%@",[string substringWithRange:NSMakeRange(7, 1)]);
+      NSLog(@"%@",[string substringWithRange:NSMakeRange(string.length-1, 1)]);
+
+    if ([[string substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"7"] && [[string substringWithRange:NSMakeRange(string.length-1, 1)] isEqualToString:@">"]) {
+        //发送命令为07
+        sendType = @"07";
+        [self getTroubleCode:string];
+        [self.blueTooth SendData:[BlueTool hexToBytes:@"30330D"]];
+    }
+        if ([[string substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"3"] && [[string substringWithRange:NSMakeRange(string.length-1, 1)] isEqualToString:@">"]) {
+            //发送命令为07
+            sendType = @"03";
+            [self getTroubleCode:string];
+            [self.blueTooth SendData:[BlueTool hexToBytes:@"30410D"]];
+        }
+        
+        if ([[string substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"a"] && [[string substringWithRange:NSMakeRange(string.length-1, 1)] isEqualToString:@">"]) {
+            //发送命令为07
+            sendType = @"0a";
+            [self getTroubleCode:string];
+        }
+    }
+}
+- (void)getTroubleCode:(NSString *)strring{
+    NSString *numberStr = [strring substringWithRange:NSMakeRange(1, 1)];
+    //获取一条数据的故障码
+    [self getcode:strring];
+    
+    if (![[strring substringWithRange:NSMakeRange(8+([numberStr integerValue]*2), 1)] isEqualToString:@">"]) {
+        NSLog(@"如果发完第一条之后还没有结束");
+        NSString *nextStr = [strring substringWithRange:NSMakeRange(8+([numberStr integerValue]*2), strring.length- 1-8-([numberStr integerValue]*2))];
+        NSLog(@"剩下的内容%@",nextStr);
+        [self getcode:nextStr];
+        
+    }
+    
+}
+- (void)getcode:(NSString *)str{
+    NSString *numberStr = [str substringWithRange:NSMakeRange(1, 1)];
+    NSLog(@"%ldd",(long)([numberStr integerValue] - 1)/2);
+    for (NSInteger i = 0; i< ([numberStr integerValue] - 1)/2; i++) {
+        NSString *codeStr= [str substringWithRange:NSMakeRange(8+(4*i), 4)];
+        if (![codeStr isEqualToString:@"0000"]) {
+            NSLog(@"最终获取出去0000的故障码%@",codeStr);
+            [self getCodeType:codeStr];
+        }
+    }
+    
+}
+#pragma mark 得到最终故障码将故障码的十六进制变为二进制，取二进制的最高位，获得去P、C、B、U的哪一位；
+- (void)getCodeType:(NSString *)codeStr{
+    NSString *str = [BlueTool getBinaryByHex:codeStr];
+    
+    
+    //    NSLog(@"%@",str);
+    NSString *nextStr = [@"00" stringByAppendingString:[str substringFromIndex:2]];
+    //    NSLog(@"剩余二进制%@",nextStr);
+    
+    NSInteger index = [BlueTool getDecimalByBinary:[str substringToIndex:2]];
+    
+    //    NSLog(@"最终的类型%ld",(long)index );
+    
+    NSString *nextIndex = [BlueTool getHexByBinary:nextStr];
+    
+    //    NSLog(@"剩余最终的类型%@",nextIndex );
+    
+    NSArray *arr =  [[NSArray alloc]initWithObjects:@"P",@"C",@"B",@"U", nil];
+    NSString *resultCode = [NSString stringWithFormat:@"%@%@",arr[index],nextIndex];
+//    NSLog(@"最终的故障码为%@",resultCode);
+    if([sendType isEqualToString:@"03"]){
+        NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys:resultCode,@"important",nil];
+        [self.importantDataSource addObject:dict];
+        [self.totalDataSource addObject:dict];
+    }else{
+        NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys:resultCode,@"total",nil];
+        [self.totalDataSource addObject:dict];
+    }
+    NSLog(@"重要数组%@",self.importantDataSource);
+    NSLog(@"总共数组%@",self.totalDataSource);
+    [self refreshUI];
+}
+- (void)refreshUI{
+    importantLabel.text = [NSString stringWithFormat:@"Important:%lu",(unsigned long)self.importantDataSource.count];
+    totalLabel.text = [NSString stringWithFormat:@"Total:%lu",(unsigned long)self.totalDataSource.count];
+    [MYTableView reloadData];
+}
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _titleDataSource.count;
+    return self.totalDataSource.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44.f;
@@ -214,6 +328,15 @@ static dispatch_source_t _timer;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
      DiagnosticsTableViewCell *Cell = [tableView dequeueReusableCellWithIdentifier:@"DiagnosticsTableViewCell"];
     Cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    NSDictionary *dict = self.totalDataSource[indexPath.row];
+    NSLog(@"数组%@",[dict allKeys].lastObject);
+    if ( [[dict allKeys].lastObject isEqualToString:@"important"]) {
+        Cell.nameTitle.text = [dict objectForKey:@"important"];
+        Cell.toubleCodeType = toubleCodeTypeimportant;
+    }else if ( [ [dict allKeys].lastObject isEqualToString:@"total"]){
+         Cell.nameTitle.text = [dict objectForKey:@"total"];
+        Cell.toubleCodeType = toubleCodeTypenormal;
+    }
     return Cell;
 }
 @end

@@ -18,6 +18,7 @@
 @property (nonatomic,strong) NSMutableArray *selectImage;
 @property (nonatomic,strong) NSMutableArray *sectionDatasource;
 @property (nonatomic,strong) NSMutableArray *texttitleDatasource;
+@property (nonatomic,strong) NSMutableArray *titleBtnData;
 
 @end
 
@@ -39,7 +40,7 @@
     self.selectImage = [[NSMutableArray alloc]initWithObjects:@"OBD_highlight",@"Vehicle_highlight", nil];
     self.sectionDatasource = [[NSMutableArray alloc]initWithObjects:@"NAME",@"VEHICLE IDENTIFICATION NUMBER",@"YEAR",@"MAKE",@"MODEL",@"OPTION",@"TYPE",@"FUEL TYPE",@"ENGINE SIZE(LITRES)",@"VOLUMETRIC EFFICIENCY(%)",@"BRAKE SPECIFIC FUEL CONSUMPTION(LB/HP·HR)",@"FUEL CALCULATION METHOD",@"FUEL TANK CAPACITY (GAL)",@"FUEL COST PER UNIT ($)",@"VEHICLE SPEED SCALE FACTOR", nil];
     self.texttitleDatasource = [[NSMutableArray alloc]initWithObjects:@"NAME",@"1A1J5444R7252367",@"1996",@"AC",@"Cobra",@"Option",@"Select",@"Select",@"2",@"65",@"0.45",@"Select",@"14.0",@"4.0",@"1", nil];
-    
+    self.titleBtnData = [[NSMutableArray alloc]initWithObjects:@"OBD Features",@"Vehicle Information", nil];
 }
 - (void)initWithUI{
     Mytableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-64-10) style:UITableViewStyleGrouped];
@@ -66,7 +67,12 @@
             [btn setBackgroundImage: [UIImage imageNamed:_selectImage[i]] forState:UIControlStateNormal];
         }
         [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
-        
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(42*KFontmultiple, 0, btn.frame.size.width-42*KFontmultiple, 49)];
+        titleLabel.adjustsFontSizeToFitWidth = YES;
+        titleLabel.backgroundColor = [UIColor clearColor];
+        [titleLabel setText:_titleBtnData[i]];
+        [titleLabel setTextColor:[ColorTools colorWithHexString:@"#1E2026"]];
+        [btn addSubview:titleLabel];
         [self.view addSubview:btn];
     }
 }

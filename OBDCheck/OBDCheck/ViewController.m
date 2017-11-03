@@ -24,7 +24,7 @@
 @property (nonatomic,strong) bluetoothView *blueView;
 @property (nonatomic,strong) NSMutableArray *normalImage;
 @property (nonatomic,strong) NSMutableArray *selectImage;
-
+@property (nonatomic,strong) NSMutableArray *titleBtnData;
 @end
 
 @implementation ViewController
@@ -105,7 +105,12 @@
             
         }
         [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
-        
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(43*KFontmultiple, 0, btn.frame.size.width-43*KFontmultiple, 49)];
+        titleLabel.adjustsFontSizeToFitWidth = YES;
+        titleLabel.backgroundColor = [UIColor clearColor];
+        [titleLabel setText:_titleBtnData[i]];
+        [titleLabel setTextColor:[ColorTools colorWithHexString:@"#1E2026"]];
+        [btn addSubview:titleLabel];
         [self.view addSubview:btn];
     }
     
@@ -136,6 +141,8 @@
     self.btnTitleArray = [[NSMutableArray alloc]initWithObjects:@"Dashboards",@"Diagnostics",@"Montiors",@"Logs",@"Performance",@"Settings", nil];
     self.normalImage = [[NSMutableArray alloc]initWithObjects:@"OBD_normal",@"Vehicle_normal", nil];
     self.selectImage = [[NSMutableArray alloc]initWithObjects:@"OBD_highlight",@"Vehicle_highlight", nil];
+
+    self.titleBtnData = [[NSMutableArray alloc]initWithObjects:@"OBD Features",@"Vehicle Information", nil];
     
     NSLog(@"%f",4*MSWidth/15 );
     
@@ -210,8 +217,7 @@
 //代理协议，处理信息
 - (void)getDeviceInfo:(BELInfo *)info{
   
-    if (!info == NULL) {
-        
+    if (!(info.discoveredPeripheral.name == nil)) {
      NSLog(@"得到的设备信息%@:%@",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
     NSMutableArray *data = [[NSMutableArray alloc]init];
     [data addObject:info.discoveredPeripheral.name];
@@ -239,10 +245,7 @@
         [self.blueTooth SendData:[BlueTool hexToBytes:@"303130300D"]];
     }else if ([string isEqualToString:@"SEARCHING...86F1114100FFFFFFFFC5>"]){
         NSLog(@"可以发送了");
-       
     }
-  
-  
 }
 -(void)NonConnectState{
     [DashboardSetting sharedInstance].blueState = 0;
@@ -266,13 +269,15 @@
         case BlueToothStateDisScan:
         {
             NSLog(@"停滞不搜索状态");
-          
+            [self NonConnectState];
+            [self.blueView hide];
         }
             break;
         case BlueToothStateScan:
         {
             NSLog(@"搜索状态");
             [self NonConnectState];
+            [self.blueView hide];
         }
             break;
         case BlueToothStateConnect:

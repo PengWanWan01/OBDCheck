@@ -348,7 +348,7 @@ static BlueToothController* instance;
 #pragma mark 通过特征值发送数据
 -(void)SendData:(NSData*)data
 {
-
+   
 
 //    NSLog(@"发出数据：%@",data);
     

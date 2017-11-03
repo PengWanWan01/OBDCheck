@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      NSInteger PID2indextag;
      NSInteger PID3indextag;
      NSInteger PID4indextag;
+     BOOL isSave;
 }
 @end
 
@@ -49,10 +50,11 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
             [self initWithLogViewUI];
         }
    
-    PID1indextag =  0;
+     PID1indextag =  0;
      PID2indextag =  0;
      PID3indextag =  0;
      PID4indextag =  0;
+    isSave = NO;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -335,7 +337,8 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 #pragma mark 保存内容LOGS到数据库
 -(void)SaveDataSource{
-    //发送ATDP指令；
+    if (isSave == YES) {
+        //发送ATDP指令；
     [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
     [[LogsSetting sharedInstance]initWithlogswith:PID1dataSource with:PID2dataSource with:PID3dataSource with:PID4dataSource];
     
@@ -344,6 +347,8 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     NSLog(@"logs数据库%@", arr.lastObject);
     LogsModel *model = arr.lastObject;
     NSLog(@"数据%@%@%@%@",model.PID1dataSource,model.PID2dataSource,model.PID3dataSource,model.PID4dataSource);
+        isSave = NO;
+    }
 }
 #pragma mark 点击开始  //发送蓝牙指令
 - (void)startBtn{
@@ -372,7 +377,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 
 }
 
-//代理协议，处理信息
+#pragma mark蓝牙代理协议，处理信息
 - (void)getDeviceInfo:(BELInfo *)info{
     
 }
@@ -436,11 +441,26 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         }
     }
     if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
-        //得到水温
+        //得到TF
         NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
         CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
         //TF添加到数组
         if ([Commond isEqualToString:@"11"]) {
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            
+            // ----------设置你想要的格式,hh与HH的区别:分别表示12小时制,24小时制
+            
+            [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+            
+            //现在时间,你可以输出来看下是什么格式
+            
+            NSDate *datenow = [NSDate date];
+            
+            //----------将nsdate按formatter格式转成nsstring
+            
+            NSString *currentTimeString = [formatter stringFromDate:datenow];
+            
+            NSLog(@"currentTimeString =  %@",currentTimeString);
             
             NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getThrottlePosition:thefloat]];
             NSLog(@"TF%@",str);
@@ -454,6 +474,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
             ++PID2indextag;
             ++PID3indextag;
             ++PID4indextag;
+            isSave = YES;
             //得到TF之后，发送车速
             [self.blueTooth SendData:[self hexToBytes:@"303130640D"]];
         }

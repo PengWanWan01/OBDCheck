@@ -12,6 +12,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+}
+- (void)setNeedsLayout{
     switch (self.toubleCodeType) {
         case toubleCodeTypenormal:
         {
@@ -27,7 +30,6 @@
             break;
     }
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
