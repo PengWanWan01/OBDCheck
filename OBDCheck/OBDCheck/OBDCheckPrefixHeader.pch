@@ -140,6 +140,7 @@
 #import "BlueToothController.h"
 #import "BELInfo.h"
 #import "BlueTool.h"
+#import "troubleCodeModel.h"
 
 
 #endif /* OBDCheckPrefixHeader_pch */

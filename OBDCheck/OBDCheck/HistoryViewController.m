@@ -22,7 +22,6 @@
     [self initNavBarTitle:@"History Codes" andLeftItemImageName:@"back" andRightItemImageName:@"refresh"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     [UIApplication sharedApplication].statusBarHidden = NO;
-    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,8 +30,14 @@
 }
 - (void)initwithdata{
    
-    _sectiondatasource = [[NSMutableArray alloc]initWithObjects:@"FORD",@"FORD",@"FORD",@"FORD", nil];
-    
+    _sectiondatasource = [[NSMutableArray alloc]init];
+    NSArray *array = [troubleCodeModel bg_findAll];
+//    troubleCodeModel *model =
+    for (troubleCodeModel *model in array) {
+        NSLog(@"%@%@",model.currentTime,model.toubleCode);
+    }
+    NSLog(@"array%@",array);
+    [_sectiondatasource addObject:array];
     [self initWithtabUI];
 }
 - (void)initWithtabUI{
@@ -101,7 +106,7 @@
     return _sectiondatasource.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44.f;
@@ -113,7 +118,8 @@
     UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, MSWidth, 24.f)];
     headView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     UILabel *carlabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, MSWidth, 24.f)];
-    carlabel.text = self.sectiondatasource[section];
+//    troubleCodeModel *model = self.sectiondatasource[section];
+//    carlabel.text = model.currentTime;
     carlabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
     carlabel.font = [UIFont boldSystemFontOfSize:14.f];
     [headView addSubview:carlabel];

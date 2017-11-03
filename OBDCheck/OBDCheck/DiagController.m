@@ -21,12 +21,13 @@ static dispatch_source_t _timer;
     UITableView *MYTableView;
     NSString *sendType;
     UIView *showView;
+    BOOL isSave;
 }
 @property (nonatomic,strong) NSMutableArray *typeimageData;
-@property (nonatomic,strong) NSMutableArray *titleDataSource;
 @property (nonatomic,strong) NSMutableArray *totalDataSource;
 @property (nonatomic,strong) NSMutableArray *importantDataSource;
-
+@property (nonatomic,strong) NSMutableArray *troubleDataSource;
+@property (nonatomic,copy) NSString *currentTime;
 @end
 
 @implementation DiagController
@@ -48,9 +49,9 @@ static dispatch_source_t _timer;
 }
 - (void)initWithdata{
     _typeimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_highLight",@"troubleCode_important",nil];
-    _titleDataSource = [[NSMutableArray alloc]initWithObjects:@"P0103",@"P0103",@"P0103",nil];
     self.totalDataSource = [[NSMutableArray alloc]init];
     self.importantDataSource = [[NSMutableArray alloc]init];
+    self.troubleDataSource = [[NSMutableArray alloc]init];
 }
 - (void)initWithUI{
   
@@ -93,7 +94,7 @@ static dispatch_source_t _timer;
     [self.view addSubview:tbarView];
 }
 - (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
-    NSLog(@"1212touchSelectNumber = %ld",(long)touchSelectNumber);
+    [self save];
     switch (touchSelectNumber) {
         case 0:
         {
@@ -197,16 +198,25 @@ static dispatch_source_t _timer;
     [self.blueTooth SendData:[BlueTool hexToBytes:@"30340D"]];
 }
 - (void)HistoricalBtn{
+    
     HistoryViewController *vc = [[HistoryViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
-
+    [self save];
+}
+- (void)save{
+    if (isSave == YES) {
+        troubleCodeModel *model = [troubleCodeModel new];
+        model.toubleCode = self.troubleDataSource;
+        model.currentTime = self.currentTime;
+        [model bg_saveOrUpdate];
+        isSave = NO;
+    }
 }
 -(void)back{
-   
-  
     ViewController *vc = [[ViewController alloc
                            ]init];
     [self.navigationController pushViewController:vc animated:NO];
+    [self save];
 }
 #pragma mark蓝牙代理协议，处理信息
 - (void)getDeviceInfo:(BELInfo *)info{
@@ -227,6 +237,12 @@ static dispatch_source_t _timer;
     string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     NSLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    NSDate *datenow = [NSDate date];
+    isSave  = YES;
+    self.currentTime = [formatter stringFromDate:datenow];
+    [self.troubleDataSource addObject:string];
     if (string.length>8) {
     NSLog(@"%@",[string substringWithRange:NSMakeRange(7, 1)]);
       NSLog(@"%@",[string substringWithRange:NSMakeRange(string.length-1, 1)]);
@@ -280,23 +296,11 @@ static dispatch_source_t _timer;
 #pragma mark 得到最终故障码将故障码的十六进制变为二进制，取二进制的最高位，获得去P、C、B、U的哪一位；
 - (void)getCodeType:(NSString *)codeStr{
     NSString *str = [BlueTool getBinaryByHex:codeStr];
-    
-    
-    //    NSLog(@"%@",str);
     NSString *nextStr = [@"00" stringByAppendingString:[str substringFromIndex:2]];
-    //    NSLog(@"剩余二进制%@",nextStr);
-    
     NSInteger index = [BlueTool getDecimalByBinary:[str substringToIndex:2]];
-    
-    //    NSLog(@"最终的类型%ld",(long)index );
-    
     NSString *nextIndex = [BlueTool getHexByBinary:nextStr];
-    
-    //    NSLog(@"剩余最终的类型%@",nextIndex );
-    
     NSArray *arr =  [[NSArray alloc]initWithObjects:@"P",@"C",@"B",@"U", nil];
     NSString *resultCode = [NSString stringWithFormat:@"%@%@",arr[index],nextIndex];
-//    NSLog(@"最终的故障码为%@",resultCode);
     if([sendType isEqualToString:@"03"]){
         NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys:resultCode,@"important",nil];
         [self.importantDataSource addObject:dict];
@@ -305,8 +309,6 @@ static dispatch_source_t _timer;
         NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys:resultCode,@"total",nil];
         [self.totalDataSource addObject:dict];
     }
-    NSLog(@"重要数组%@",self.importantDataSource);
-    NSLog(@"总共数组%@",self.totalDataSource);
     [self refreshUI];
 }
 - (void)refreshUI{

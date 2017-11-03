@@ -41,7 +41,7 @@
 		CB45CBAD1F6B7B96003AA330 /* ResultsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB45CBAB1F6B7B96003AA330 /* ResultsTableViewCell.m */; };
 		CB45CBAE1F6B7B96003AA330 /* ResultsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB45CBAC1F6B7B96003AA330 /* ResultsTableViewCell.xib */; };
 		CB45CBB11F6B7DC2003AA330 /* SummaryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB45CBB01F6B7DC2003AA330 /* SummaryTableViewCell.m */; };
-		CB476C751FAC589D00C54837 /* troubleCode.m in Sources */ = {isa = PBXBuildFile; fileRef = CB476C741FAC589D00C54837 /* troubleCode.m */; };
+		CB476C781FAC684200C54837 /* troubleCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB476C771FAC684200C54837 /* troubleCodeModel.m */; };
 		CB47E2EC1F480C7000B23D8E /* UIFont+AdapFont.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */; };
 		CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EE1F4819C200B23D8E /* StyleViewController.m */; };
 		CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2F11F481B3200B23D8E /* StyleHeadView.m */; };
@@ -240,8 +240,8 @@
 		CB45CBAC1F6B7B96003AA330 /* ResultsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResultsTableViewCell.xib; sourceTree = "<group>"; };
 		CB45CBAF1F6B7DC2003AA330 /* SummaryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryTableViewCell.h; sourceTree = "<group>"; };
 		CB45CBB01F6B7DC2003AA330 /* SummaryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryTableViewCell.m; sourceTree = "<group>"; };
-		CB476C731FAC589D00C54837 /* troubleCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = troubleCode.h; sourceTree = "<group>"; };
-		CB476C741FAC589D00C54837 /* troubleCode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = troubleCode.m; sourceTree = "<group>"; };
+		CB476C761FAC684200C54837 /* troubleCodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = troubleCodeModel.h; sourceTree = "<group>"; };
+		CB476C771FAC684200C54837 /* troubleCodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = troubleCodeModel.m; sourceTree = "<group>"; };
 		CB47E2EA1F480C7000B23D8E /* UIFont+AdapFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+AdapFont.h"; sourceTree = "<group>"; };
 		CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+AdapFont.m"; sourceTree = "<group>"; };
 		CB47E2ED1F4819C200B23D8E /* StyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewController.h; sourceTree = "<group>"; };
@@ -521,8 +521,8 @@
 		CB476C711FAC586800C54837 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CB476C731FAC589D00C54837 /* troubleCode.h */,
-				CB476C741FAC589D00C54837 /* troubleCode.m */,
+				CB476C761FAC684200C54837 /* troubleCodeModel.h */,
+				CB476C771FAC684200C54837 /* troubleCodeModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1217,7 +1217,6 @@
 				CB5DAC621F78FA93009A8A19 /* ColorTableViewCell.m in Sources */,
 				CB5583601F51468C0010A1E5 /* StyleViewBController.m in Sources */,
 				CB5A61A31F7A210A000D23D6 /* FuelCaculationViewController.m in Sources */,
-				CB476C751FAC589D00C54837 /* troubleCode.m in Sources */,
 				CB048C321F8CE185006A2ED7 /* PreferencesController.m in Sources */,
 				CB5A61A01F7A20EE000D23D6 /* FuleTypeViewController.m in Sources */,
 				CB44DB311F4A823F00A24629 /* StyleTwoTableViewCell.m in Sources */,
@@ -1294,6 +1293,7 @@
 				CB848F151F4542F700C1A718 /* DecimalViewController.m in Sources */,
 				CB84B3E01F56DF0800B454E6 /* rotationView.m in Sources */,
 				CBB1CC4B1F6267F0002EE7EB /* TripsViewController.m in Sources */,
+				CB476C781FAC684200C54837 /* troubleCodeModel.m in Sources */,
 				CB5A619A1F7A20BE000D23D6 /* ModerViewController.m in Sources */,
 				CB835D321F595CD2007C5A17 /* DiagnosticsTableViewCell.m in Sources */,
 				CB07E6AB1F908BB600545A82 /* PerformanceController.m in Sources */,
