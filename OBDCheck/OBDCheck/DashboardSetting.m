@@ -285,7 +285,6 @@
         }
     }
 
-    NSLog(@"你好你好nimei");
 }
 - (void)CustomDashboardType:(AddDashboardStyle)type withTag:(NSInteger)i{
     

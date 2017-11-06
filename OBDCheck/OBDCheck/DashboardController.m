@@ -79,6 +79,7 @@ static dispatch_source_t _timer;
     NSString *number1 = _CustomNumberArray[0];
     NSString *number2 = _CustomNumberArray[1];
     NSString *number3 = _CustomNumberArray[2];
+    NSString *number4 = _CustomNumberArray[3];
 
 //    NSLog(@"收到收到%@",data);
     
@@ -95,10 +96,12 @@ static dispatch_source_t _timer;
         //车速添加到数组
         if ([Commond isEqualToString:@"0D"]) {
             //得到车速大小
-            NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getVehicleSpeed:thefloat]];
+            NSString *str = [NSString stringWithFormat:@"%.f",[BlueTool getVehicleSpeed:thefloat]];
             NSLog(@"车速%@",str);
             [_CustomNumberArray replaceObjectAtIndex:0 withObject:str];
+            NSLog(@"%@",_CustomNumberArray[0]);
             NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"1",@"StyleAViewTag",_CustomNumberArray[0],@"StyleAViewnumber",number1,@"PreStyleAViewnumber", nil];
+            NSLog(@"%@",dict);
             [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
             //得到车速之后，发送转速
             [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
@@ -112,7 +115,7 @@ static dispatch_source_t _timer;
         //转速添加到数组
         if ([Commond isEqualToString:@"0C"]) {
             //得到转速大小
-            NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getRotational:thefloat with:theNextfloat]];
+            NSString *str = [NSString stringWithFormat:@"%.f",[BlueTool getRotational:thefloat with:theNextfloat]];
 //            NSLog(@"转速%@",str);
             [_CustomNumberArray replaceObjectAtIndex:1 withObject:str];
             NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"2",@"StyleAViewTag",_CustomNumberArray[1],@"StyleAViewnumber",number2,@"PreStyleAViewnumber", nil];
@@ -128,7 +131,7 @@ static dispatch_source_t _timer;
         //水温添加到数组
         if ([Commond isEqualToString:@"05"]) {
             
-            NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getWatertemperature:thefloat]];
+            NSString *str = [NSString stringWithFormat:@"%.f",[BlueTool getWatertemperature:thefloat]];
             NSLog(@"水温%@",str);
             [_CustomNumberArray replaceObjectAtIndex:2 withObject:str];
             NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"3",@"StyleAViewTag",_CustomNumberArray[2],@"StyleAViewnumber",number3,@"PreStyleAViewnumber", nil];
@@ -139,14 +142,17 @@ static dispatch_source_t _timer;
         
     }
     if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
-        //得到水温
+        //得到TF
         NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
         CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
         //TF添加到数组
         if ([Commond isEqualToString:@"11"]) {
             
-            NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getThrottlePosition:thefloat]];
+            NSString *str = [NSString stringWithFormat:@"%.f",[BlueTool getThrottlePosition:thefloat]];
             NSLog(@"TF%@",str);
+            [_CustomNumberArray replaceObjectAtIndex:3 withObject:str];
+            NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"4",@"StyleAViewTag",_CustomNumberArray[3],@"StyleAViewnumber",number4,@"PreStyleAViewnumber", nil];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
             //得到TF之后，发送车速
             [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
         }
@@ -154,6 +160,11 @@ static dispatch_source_t _timer;
     
     
 }
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+}
+
 #pragma mark 对自定义不同风格进行更新
 - (void)updateCustomType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(NSInteger)id{
     NSLog(@"更新");
@@ -407,12 +418,17 @@ static dispatch_source_t _timer;
     
 }
 - (void)back{
-    // 关闭定时器
-//    dispatch_source_cancel(_timer);
-       [editview hide];
+    NSLog(@"停止停止");
+    [self stopSend];
+   [editview hide];
     ViewController *vc = [[ViewController alloc]init];
     [self.navigationController pushViewController:vc animated:NO];
     
+}
+- (void)stopSend{
+    NSLog(@"停止停止");
+    //发送ATDP指令；
+    [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
 }
 - (void)initWithcustomMode{
     
@@ -557,7 +573,8 @@ static dispatch_source_t _timer;
 #pragma mark 点击选择仪表盘模式和风格按钮
 - (void)selectStyleBtnBetouched:(NSInteger)index{
     NSLog(@"tettet==%ld",(long)index);
-    
+    [self stopSend];
+
     [editview hide];
     // 关闭定时器
 //    dispatch_source_cancel(_timer);
@@ -583,7 +600,8 @@ static dispatch_source_t _timer;
    }
 #pragma mark 点击设置列表的某一行2\3\4弹框
 -(void)AlertBetouched:(NSInteger)index{
-   
+    [self stopSend];
+
     switch (index) {
         case 2:
         {
@@ -662,6 +680,7 @@ static dispatch_source_t _timer;
 #pragma mark 长按仪表盘的手势
 - (void)tap:(UILongPressGestureRecognizer *)sender{
     NSLog(@" [sender view].tag %ld", (long)sender.view.tag);
+    [self stopSend];
       [DashboardSetting sharedInstance].Dashboardindex = sender.view.tag;
     NSLog(@"aaa%ld",(long)[DashboardSetting sharedInstance].Dashboardindex);
     switch (sender.state) {

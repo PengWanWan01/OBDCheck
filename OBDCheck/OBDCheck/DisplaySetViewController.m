@@ -24,7 +24,6 @@
 @implementation DisplaySetViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    NSLog(@"1212");
     [MyTableView reloadData];
     [self initNavBarTitle:@"Display Configuration" andLeftItemImageName:@"back" andRightItemName:@"Cancel"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
@@ -67,15 +66,40 @@
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
+    switch ([DashboardSetting sharedInstance].dashboardMode) {
+        case DashboardClassicMode:
+        {
+            return 1;
+        }
+            break;
+        case DashboardCustomMode:{
+             return 4;
+        }
+            break;
+        default:
+            break;
+    }
+  
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section == 1) {
-        return 2;
-    }else{
-
-    return 1;
+    switch ([DashboardSetting sharedInstance].dashboardMode) {
+        case DashboardClassicMode:
+        {
+            return 1;
+        }
+            break;
+        case DashboardCustomMode:{
+            if (section == 1) {
+                return 2;
+            }else{
+                return 1;
+            }
+        }
+            break;
+        default:
+            break;
     }
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44.f;
@@ -135,8 +159,8 @@
         //        selectBtn.backgroundColor = [UIColor redColor];
         selectfield.textAlignment  = NSTextAlignmentCenter;
         selectfield.tag = indexPath.row;
-        NSString *findsql = [NSString stringWithFormat:@"WHERE  ID = %@",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
-        NSArray* pAll = [CustomDashboard bg_findWhere:findsql];
+         NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
+        NSArray* pAll = [CustomDashboard bg_findWhere:arr];
         for(CustomDashboard *dashboard in pAll){
             model = dashboard;
             switch (indexPath.row) {
@@ -264,7 +288,7 @@
 }
 - (void)textFieldEditChanged:(UITextField *)textField
 {
-    NSLog(@"12121");
+
     switch (textField.tag) {
         case 0:
         {
@@ -385,18 +409,19 @@
 }
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
-//    NSString *SQL = @"where "
-    if(model.bg_id == [DashboardSetting sharedInstance].Dashboardindex ){
-        CustomDashboard *dash = [CustomDashboard new];
-        dash.dashboardC.maxNumber =model.dashboardC.maxNumber;
-        dash.dashboardB.maxNumber =model.dashboardB.maxNumber;
-        dash.dashboardA.maxNumber =model.dashboardA.maxNumber;
-        dash.dashboardA.minNumber =model.dashboardA.minNumber;
-        dash.dashboardB.minNumber =model.dashboardB.minNumber;
-        dash.dashboardC.minNumber =model.dashboardC.minNumber;
-//        [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
-
-    }
+    [model bg_saveOrUpdate];
+    
+//    if([model.bg_id integerValue] == [DashboardSetting sharedInstance].Dashboardindex ){
+//        CustomDashboard *dash = [CustomDashboard new];
+//        dash.dashboardC.maxNumber =model.dashboardC.maxNumber;
+//        dash.dashboardB.maxNumber =model.dashboardB.maxNumber;
+//        dash.dashboardA.maxNumber =model.dashboardA.maxNumber;
+//        dash.dashboardA.minNumber =model.dashboardA.minNumber;
+//        dash.dashboardB.minNumber =model.dashboardB.minNumber;
+//        dash.dashboardC.minNumber =model.dashboardC.minNumber;
+////        [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
+//
+//    }
 
 
 }

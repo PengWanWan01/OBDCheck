@@ -100,8 +100,7 @@
 
 }
 - (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:self];
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
 
 }
@@ -158,8 +157,7 @@
     self.unitLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.unitLabel];
     [self addSubview:self.unitLabel];
-    self.numberLabel = [[UILabel alloc]initWithFrame:CGRectMake((ViewWidth/3)*[model.ValuePosition doubleValue], ViewWidth + 5, ViewWidth/3, 20)];
-   
+    self.numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, ViewWidth + 5, ViewWidth, 20)];
     self.numberLabel.font = [UIFont boldSystemFontOfSize:[model.ValueFontScale doubleValue]*17];
     self.numberLabel.textColor = [ColorTools colorWithHexString: model.ValueColor];
     self.numberLabel.textAlignment = NSTextAlignmentCenter;

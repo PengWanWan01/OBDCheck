@@ -70,7 +70,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
   
 }
 - (void)btn{
-    NSLog(@"1212");
     [self.blueTooth SendData:[self hexToBytes:@"303130640D"]];
 //    [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:100 withY:100];
 }
