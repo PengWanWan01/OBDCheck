@@ -277,7 +277,6 @@
     for (int i = 0; i< 9; i++) {
         NSLog(@"%d",i);
         if (i<6) {
-            
         [self CustomDashboardType:AddStyleOne withTag:i];
         }else if (i>=6 && i < 8){
         [self CustomDashboardType:AddStyleTwo withTag:i];
@@ -291,43 +290,40 @@
 - (void)CustomDashboardType:(AddDashboardStyle)type withTag:(NSInteger)i{
     
     CustomDashboard *model = [CustomDashboard new ];
-    DashboardA *dashA = [DashboardA new];
-    [self initADDdashboardA:dashA withTag:i ];
-    model.dashboardA = dashA;
-    
-    DashboardB *dashB = [DashboardB new];
-    [self initADDdashboardB:dashB withTag:i];
-    model.dashboardB = dashB;
-    
-    DashboardC *dashC = [DashboardC new];
-    [self initADDdashboardC:dashC withTag:i];
-    model.dashboardC = dashC;
-    
     switch (type) {
         case AddStyleOne:
         {
+            DashboardA *dashA = [DashboardA new];
+            [self initADDdashboardA:dashA withTag:i ];
+            model.dashboardA = dashA;
             model.dashboardType = 1;
-            [model bg_saveAsync:^(BOOL isSuccess) {
-                NSLog(@"存储成功");
-            }];
-//            [model bg_saveOrUpdate];
+            [model bg_saveOrUpdate];
         }
             break;
         case AddStyleTwo:
         {
+            DashboardB *dashB = [DashboardB new];
+            [self initADDdashboardB:dashB withTag:i];
+            model.dashboardB = dashB;
             model.dashboardType = 2;
             [model bg_saveOrUpdate];
+
         }
             break;
         case AddStyleThree:
         {
+            DashboardC *dashC = [DashboardC new];
+            [self initADDdashboardC:dashC withTag:i];
+            model.dashboardC = dashC;
             model.dashboardType = 3;
             [model bg_saveOrUpdate];
+
         }
             break;
         default:
             break;
     }
+
     
 }
 @end

@@ -419,7 +419,7 @@ static dispatch_source_t _timer;
     NSArray* pAllCount = [CustomDashboard bg_findAll];
     for (NSInteger i = 0;i<pAllCount.count;i++) {
         CustomDashboard *dash = pAllCount[i];
-        NSLog(@"orignx%@%@",dash.bg_id,dash.dashboardA.orignx);
+        NSLog(@"orignx%@--%@",dash.bg_id,dash.dashboardA.orignx);
         if (dash.dashboardType == 1) {
       
             dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.orignx doubleValue], [dash.dashboardA.origny doubleValue], [dash.dashboardA.orignwidth doubleValue], [dash.dashboardA.orignheight doubleValue])];

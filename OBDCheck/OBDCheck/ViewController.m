@@ -16,7 +16,7 @@
     BOOL isSelect;
     RLBtn * titleBtn;
     NSInteger sendNumber;
-
+    rotationView *roView;
 }
 
 @property (nonatomic,strong) NSMutableArray *btnTitleArray;
@@ -67,8 +67,16 @@
     statusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(statusView.frame) - 50, 10, 24, 20)];
     statusImageView.image = [UIImage imageNamed:@"signal"];
     statusImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [statusView addSubview:statusImageView];
-    
+    roView = [[rotationView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(statusView.frame) - 50, 10, 21, 23)];
+    roView.rotationImage.image = [UIImage imageNamed:@"search"];
+    roView.numberLabel.hidden = YES;
+    if ([DashboardSetting sharedInstance].blueState == 1) {
+        [roView removeFromSuperview];
+        [statusView addSubview:statusImageView];
+    }else{
+        [statusImageView removeFromSuperview];
+        [statusView addSubview:roView];
+    }
     [statusView addSubview:statusLabel];
     
     UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(statusView.frame), MSWidth, MSHeight - 165)];
@@ -252,12 +260,16 @@
     statusLabel.text = @"Please connect to the device...";
     [statusLabel setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
     [titleBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+    [statusImageView removeFromSuperview];
+    [statusView addSubview:roView];
 }
 - (void)IsConnectState{
     [DashboardSetting sharedInstance].blueState = 1;
     [titleBtn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
     statusLabel.text = @"Connect to the device successfully";
     [statusLabel setTextColor:[ColorTools colorWithHexString:@"#FE9002"]];
+    [roView removeFromSuperview];
+    [statusView addSubview:statusImageView];
 }
 #pragma mark 得到蓝牙连接状态
 -(void)BlueToothState:(BlueToothState)state{
