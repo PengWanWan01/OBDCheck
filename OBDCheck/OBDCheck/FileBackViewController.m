@@ -129,7 +129,7 @@ static dispatch_source_t _timer;
     [self setDataCount:self.model.PID2dataSource.count range:self.model.PID2dataSource withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(self.model.item2Smoothing)];
     [chartViewone animateWithXAxisDuration:self.model.PID1dataSource.count-1];
     //设置当前可以看到的个数
-    [chartViewone setVisibleXRangeMaximum:10];
+//    [chartViewone setVisibleXRangeMaximum:10];
     //设置当前开始的位置
 //    [chartViewone moveViewToX:0];
     
@@ -143,7 +143,7 @@ static dispatch_source_t _timer;
    
     chartViewTwo = [[LineChartView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth,170)];
     if (IS_IPHONE_X) {
-        chartViewTwo.frame = CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth, (MSHeight - 45-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -34)/2);
+        chartViewTwo.frame = CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth, (MSHeight - 45-TopHigh -34)/2);
     }
     [contentScrollView addSubview:chartViewone];
     [contentScrollView addSubview:chartViewTwo];
@@ -151,23 +151,23 @@ static dispatch_source_t _timer;
     [self initWithchartView:chartViewTwo Type:2];
     
         
-    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(self.model.item1Smoothing)];
-    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(self.model.item2Smoothing)];
-    [self setDataCount:0 range:0 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:self.model.item3PID withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:(self.model.item3Smoothing)];
+    [self setDataCount:self.model.PID1dataSource.count range:self.model.PID1dataSource withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(self.model.item1Smoothing)];
+    [self setDataCount:self.model.PID2dataSource.count range:self.model.PID2dataSource withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(self.model.item2Smoothing)];
+    [self setDataCount:self.model.PID3dataSource.count range:self.model.PID3dataSource withView:chartViewTwo withdata:PartTwodata withPIDTiltle:self.model.item3PID withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:(self.model.item3Smoothing)];
     if (self.model.item4Enabled == YES) {
-        [self setDataCount:0 range:0 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:self.model.item4PID withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:(self.model.item4Smoothing)];
+        [self setDataCount:self.model.PID4dataSource.count range:self.model.PID4dataSource withView:chartViewTwo withdata:PartTwodata withPIDTiltle:self.model.item4PID withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:(self.model.item4Smoothing)];
     }
    
     [chartViewone animateWithXAxisDuration:self.model.PID1dataSource.count];
 //    //设置当前可以看到的个数
-    [chartViewone setVisibleXRangeMaximum:10];
+//    [chartViewone setVisibleXRangeMaximum:10];
     if (self.model.PID3dataSource.count >0) {
         [chartViewTwo animateWithXAxisDuration:self.model.PID3dataSource.count-1];
     }else{
         [chartViewTwo animateWithXAxisDuration:self.model.PID4dataSource.count-1];
     }
 //    //设置当前可以看到的个数
-    [chartViewTwo setVisibleXRangeMaximum:10];
+//    [chartViewTwo setVisibleXRangeMaximum:10];
     
 }
 #pragma mark 绘制右边Data界面

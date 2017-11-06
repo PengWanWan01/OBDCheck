@@ -99,9 +99,7 @@ static dispatch_source_t _timer;
             NSString *str = [NSString stringWithFormat:@"%.f",[BlueTool getVehicleSpeed:thefloat]];
             NSLog(@"车速%@",str);
             [_CustomNumberArray replaceObjectAtIndex:0 withObject:str];
-            NSLog(@"%@",_CustomNumberArray[0]);
             NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"1",@"StyleAViewTag",_CustomNumberArray[0],@"StyleAViewnumber",number1,@"PreStyleAViewnumber", nil];
-            NSLog(@"%@",dict);
             [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
             //得到车速之后，发送转速
             [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];

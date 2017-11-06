@@ -9,6 +9,9 @@
 #import "FilesViewController.h"
 
 @interface FilesViewController ()<TBarViewDelegate,UITableViewDelegate,UITableViewDataSource,deleteFileDelegate>
+{
+    LogsModel *model;
+}
 @property (nonatomic,strong) UITableView *tableView ;
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @end
@@ -86,9 +89,11 @@
 
 
 - (void)deleteData:(NSInteger)tag{
-    NSLog(@"%ld",(long)tag);
-    [LogsModel bg_deleteWhere:@[@"BG_ID",@"=",[NSNumber numberWithInteger: tag+1]]];
-
+    NSLog(@"%@",[NSNumber numberWithInteger:tag+1]);
+    NSArray *arr = [LogsModel bg_findAll];
+    model = arr[tag];
+     [LogsModel bg_deleteWhere:@[@"BG_ID",@"=",model.bg_id]];
+      NSLog(@"剩余%@",[LogsModel bg_findAll]);
     [self.dataSource removeObjectAtIndex:tag]; //从模型中删除
     
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:tag inSection:0]]  withRowAnimation:UITableViewRowAnimationRight];
@@ -181,6 +186,7 @@
     NSArray *array = [LogsModel bg_findAll];
     vc.model = array[indexPath.row];
     NSLog(@"%@%@%@%@%d%d",vc.model,vc.model.PID1dataSource,vc.model.PID2dataSource,vc.model.PID3dataSource,vc.model.item3Enabled,vc.model.item3Enabled);
+    NSLog(@"%@%@%@%@",vc.model.item1PID,vc.model.item2PID,vc.model.item3PID,vc.model.item4PID);
     
     [self.navigationController pushViewController:vc animated:YES];
 }

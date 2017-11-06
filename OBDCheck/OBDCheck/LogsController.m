@@ -304,6 +304,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     
 }
 - (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
+     [self SaveDataSource];
     switch (touchSelectNumber) {
         case 0:
         {
@@ -351,6 +352,13 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 #pragma mark 点击开始  //发送蓝牙指令
 - (void)startBtn{
+    self.blueTooth = [BlueToothController Instance];
+    self.blueTooth.delegate = self;
+    //发送：ATH1=》发送：ATSP0=》发送：0100=》
+    NSLog(@"发送开始的车速指令");
+    sendNumber = 0;
+    //发送车速
+    [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
     set1 = nil;
     PartOnedata = [[LineChartData alloc] initWithDataSet:set1];
     PartTwodata = [[LineChartData alloc] initWithDataSet:set1];
@@ -364,15 +372,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         }else{
             [self initWithLogView];
         }
-   
-    self.blueTooth = [BlueToothController Instance];
-    self.blueTooth.delegate = self;
-    //发送：ATH1=》发送：ATSP0=》发送：0100=》
-    NSLog(@"发送开始的车速指令");
-    sendNumber = 0;
-    //发送车速
-    [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
-  
 
 }
 

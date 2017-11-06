@@ -46,6 +46,8 @@
 		CB47E2EC1F480C7000B23D8E /* UIFont+AdapFont.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */; };
 		CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EE1F4819C200B23D8E /* StyleViewController.m */; };
 		CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2F11F481B3200B23D8E /* StyleHeadView.m */; };
+		CB49FB671FB04CFB00A6FEBB /* AlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB49FB661FB04CFB00A6FEBB /* AlarmViewController.m */; };
+		CB49FB6C1FB0521000A6FEBB /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB49FB6B1FB0521000A6FEBB /* FeedbackViewController.m */; };
 		CB5583601F51468C0010A1E5 /* StyleViewBController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB55835F1F51468C0010A1E5 /* StyleViewBController.m */; };
 		CB5583631F5146B70010A1E5 /* StyleCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5583621F5146B70010A1E5 /* StyleCViewController.m */; };
 		CB5A618F1F79FB62000D23D6 /* SeletVehicleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A618E1F79FB62000D23D6 /* SeletVehicleViewController.m */; };
@@ -251,6 +253,10 @@
 		CB47E2EE1F4819C200B23D8E /* StyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleViewController.m; sourceTree = "<group>"; };
 		CB47E2F01F481B3200B23D8E /* StyleHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleHeadView.h; sourceTree = "<group>"; };
 		CB47E2F11F481B3200B23D8E /* StyleHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleHeadView.m; sourceTree = "<group>"; };
+		CB49FB651FB04CFB00A6FEBB /* AlarmViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlarmViewController.h; sourceTree = "<group>"; };
+		CB49FB661FB04CFB00A6FEBB /* AlarmViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmViewController.m; sourceTree = "<group>"; };
+		CB49FB6A1FB0521000A6FEBB /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		CB49FB6B1FB0521000A6FEBB /* FeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		CB55835E1F51468C0010A1E5 /* StyleViewBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewBController.h; sourceTree = "<group>"; };
 		CB55835F1F51468C0010A1E5 /* StyleViewBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleViewBController.m; sourceTree = "<group>"; };
 		CB5583611F5146B70010A1E5 /* StyleCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleCViewController.h; sourceTree = "<group>"; };
@@ -471,6 +477,10 @@
 				CB048C431F8CE315006A2ED7 /* UnitsController.m */,
 				CB048C451F8CE32A006A2ED7 /* GeneralController.h */,
 				CB048C461F8CE32A006A2ED7 /* GeneralController.m */,
+				CB49FB651FB04CFB00A6FEBB /* AlarmViewController.h */,
+				CB49FB661FB04CFB00A6FEBB /* AlarmViewController.m */,
+				CB49FB6A1FB0521000A6FEBB /* FeedbackViewController.h */,
+				CB49FB6B1FB0521000A6FEBB /* FeedbackViewController.m */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -1238,6 +1248,7 @@
 				CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */,
 				CBF1E2761F3068C500EEC755 /* MonController.m in Sources */,
 				CB44DB2C1F4A822200A24629 /* StyleOneTableViewCell.m in Sources */,
+				CB49FB6C1FB0521000A6FEBB /* FeedbackViewController.m in Sources */,
 				CB99E1BC1F67ABC200A87DAF /* LogsSetting.m in Sources */,
 				CB5A618F1F79FB62000D23D6 /* SeletVehicleViewController.m in Sources */,
 				CB7B8DB61F9D99B7009E4442 /* DashboardA.m in Sources */,
@@ -1263,6 +1274,7 @@
 				CB0220891F43E9CC008773ED /* DashboardSetting.m in Sources */,
 				CBCD97961F7CE8F10002383F /* FileInfoView.m in Sources */,
 				CB5583631F5146B70010A1E5 /* StyleCViewController.m in Sources */,
+				CB49FB671FB04CFB00A6FEBB /* AlarmViewController.m in Sources */,
 				CB048C351F8CE199006A2ED7 /* informationController.m in Sources */,
 				CB99E1AA1F66A7C700A87DAF /* LogSetViewController.m in Sources */,
 				CBB1CC501F626809002EE7EB /* FilesViewController.m in Sources */,

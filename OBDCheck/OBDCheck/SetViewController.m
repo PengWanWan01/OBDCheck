@@ -30,45 +30,32 @@
     
 }
 - (void)initWithUI{
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight) style:UITableViewStyleGrouped];
+    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh) style:UITableViewStyleGrouped];
     tableview.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     tableview.delegate = self;
     tableview.dataSource =  self;
   [tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
-    
     tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:tableview];
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-
     return 44.f;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 5;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 44.f;
+    return 25;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSInteger result = 0;
-    switch (section) {
-        case 0:
-            {
-                
-              result =  1;
-            }
-            break;
-        case 1:
-        {
-            
-            result =  _datasource.count-1;
-        }
-            break;
-        default:
-            break;
+    if (section == 1) {
+        result = 5;
+    }else{
+        result = 1;
     }
     return  result;
     
@@ -83,19 +70,12 @@
     }
      cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-    switch (indexPath.section) {
-        case 0:
-            {
-                cell.textLabel.text = _datasource[indexPath.row];
-            }
-            break;
-        case 1:
-        {
-            cell.textLabel.text = _datasource[indexPath.row+1];
-        }
-            break;
-        default:
-            break;
+    if (indexPath.section == 0) {
+        cell.textLabel.text = _datasource[indexPath.row];
+    }else if (indexPath.section == 1){
+         cell.textLabel.text = _datasource[indexPath.row+1];
+    }else{
+        cell.textLabel.text = _datasource[indexPath.row+4+indexPath.section ];
     }
     cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
@@ -143,6 +123,18 @@
                 default:
                     break;
             }
+        }
+            break;
+        case 2:
+        {
+            AlarmViewController *vc = [[AlarmViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 3:
+        {
+            FeedbackViewController *vc = [[FeedbackViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         default:

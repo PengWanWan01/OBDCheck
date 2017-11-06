@@ -15,12 +15,12 @@
     if (self) {
         self.rotationImage.contentMode = UIViewContentModeScaleAspectFill;
         self.rotationImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ViewWidth,ViewHeight)];
-        [self rotate360WithDuration:0.1 repeatCount:100];
+        [self rotate360WithDuration:0.1 repeatCount:50];
         [self addSubview:self.rotationImage];
         self.numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, ViewWidth, ViewHeight)];
         self.numberLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
         self.numberLabel.textAlignment = NSTextAlignmentCenter;
-        self.numberLabel.text = @"50%";
+//        self.numberLabel.text = @"50%";
         self.numberLabel.font = [UIFont ToAdapFont:10.f];
         [self addSubview:self.numberLabel];
     }

@@ -142,5 +142,8 @@
 #import "BlueTool.h"
 #import "troubleCodeModel.h"
 #import "historyCodeModel.h"
+#import "AlarmViewController.h"
+#import "AlarmViewController.h"
+#import "FeedbackViewController.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

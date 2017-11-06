@@ -152,7 +152,7 @@ static dispatch_source_t _timer;
     // 事件回调
     dispatch_source_set_event_handler(_timer, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            progressView.progress =   progressView.progress+0.1;
+            progressView.progress =   progressView.progress+0.2;
             roView.numberLabel.text = [NSString stringWithFormat:@"%.f%%",progressView.progress*100];
             
             if (progressView.progress == 1) {
