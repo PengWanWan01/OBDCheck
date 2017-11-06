@@ -403,9 +403,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
             NSLog(@"%@",PID1dataSource);
             //得到车速之后，发送转速
             [self.blueTooth SendData:[self hexToBytes:@"303130630D"]];
-           
         }
-        
     }
     if (string.length>16 && [[string substringToIndex:8] isEqualToString:@"84F11141"]){
         NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
