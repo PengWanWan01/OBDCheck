@@ -163,7 +163,36 @@
     switch ([DashboardSetting sharedInstance].protocolType) {
         case CanProtocol:
         {
-            
+            if (string.length>14) {
+                if ([[string substringWithRange:NSMakeRange(13, 1)] isEqualToString:@"3"] && [[string substringWithRange:NSMakeRange(string.length-1, 1)] isEqualToString:@">"]) {
+                    NSInteger nummber = [[self numberHexString:[string substringWithRange:NSMakeRange(10, 2)]] integerValue];
+                    CGFloat lineNume = (CGFloat)nummber/6;
+                    NSInteger  reslutnumber = nummber/6;
+                    if ((lineNume - nummber/6)>0) {
+                        ++reslutnumber;
+                    }
+                    NSLog(@"nummber%ld",(long)reslutnumber);
+                    NSString *headStr;
+                    NSString *codeStr;
+                    for (NSInteger i = 0; i<reslutnumber; i++) {
+                        if (i== 0 ) {
+                            codeStr = [string substringWithRange:NSMakeRange(16,8)];
+                            headStr = [string substringToIndex:8];
+                            
+                        }else{
+                            NSString *nextHeadStr = [string substringWithRange:NSMakeRange((i)*24,8)];
+                            NSLog(@"%@",nextHeadStr);
+                            if ([nextHeadStr isEqualToString:headStr]) {
+                                codeStr = [codeStr stringByAppendingString:
+                                           [string substringWithRange:NSMakeRange((i)*24+10,14)]];
+                                NSLog(@"%@",codeStr);
+                            }
+                        }
+                        NSLog(@"最终%@",codeStr);
+                        resultStr = codeStr;
+                    }
+                }
+            }
         }
             break;
         case KWProtocol:
@@ -194,27 +223,25 @@
                         ++reslutnumber;
                     }
                     NSLog(@"nummber%ld",(long)reslutnumber);
+                    NSString *headStr;
+                    NSString *codeStr;
                     for (NSInteger i = 0; i<reslutnumber; i++) {
-                        NSString *headStr;
-                        NSString *codeStr;
                         if (i== 0 ) {
-                            codeStr = [string substringFromIndex:16];
+                            codeStr = [string substringWithRange:NSMakeRange(16,8)];
                             headStr = [string substringToIndex:8];
                             
                         }else{
                              NSString *nextHeadStr = [string substringWithRange:NSMakeRange((i)*24,8)];
+                            NSLog(@"%@",nextHeadStr);
                             if ([nextHeadStr isEqualToString:headStr]) {
-                            codeStr = [string substringWithRange:NSMakeRange((i+1)*24+10,14)];
+                                codeStr = [codeStr stringByAppendingString:
+[string substringWithRange:NSMakeRange((i)*24+10,14)]];
+                                NSLog(@"%@",codeStr);
                             }
                         }
-                        for (NSInteger i = 0; i<codeStr.length/4; i=i+4) {
-                            NSString *code = [codeStr substringWithRange:NSMakeRange(i,4)];
-                            NSLog(@"最终%@",code);
-                            
-                        }
+                            NSLog(@"最终%@",codeStr);
+                    resultStr = codeStr;
                     }
-                    
-                    resultStr = string;
                 }
             }
         }
@@ -253,7 +280,36 @@
     switch ([DashboardSetting sharedInstance].protocolType) {
         case CanProtocol:
         {
-            
+            if (string.length>14) {
+                if ([[string substringWithRange:NSMakeRange(13, 1)] isEqualToString:@"a"] && [[string substringWithRange:NSMakeRange(string.length-1, 1)] isEqualToString:@">"]) {
+                    NSInteger nummber = [[self numberHexString:[string substringWithRange:NSMakeRange(10, 2)]] integerValue];
+                    CGFloat lineNume = (CGFloat)nummber/6;
+                    NSInteger  reslutnumber = nummber/6;
+                    if ((lineNume - nummber/6)>0) {
+                        ++reslutnumber;
+                    }
+                    NSLog(@"nummber%ld",(long)reslutnumber);
+                    NSString *headStr;
+                    NSString *codeStr;
+                    for (NSInteger i = 0; i<reslutnumber; i++) {
+                        if (i== 0 ) {
+                            codeStr = [string substringWithRange:NSMakeRange(16,8)];
+                            headStr = [string substringToIndex:8];
+                            
+                        }else{
+                            NSString *nextHeadStr = [string substringWithRange:NSMakeRange((i)*24,8)];
+                            NSLog(@"%@",nextHeadStr);
+                            if ([nextHeadStr isEqualToString:headStr]) {
+                                codeStr = [codeStr stringByAppendingString:
+                                           [string substringWithRange:NSMakeRange((i)*24+10,14)]];
+                                NSLog(@"%@",codeStr);
+                            }
+                        }
+                        NSLog(@"最终%@",codeStr);
+                        resultStr = codeStr;
+                    }
+                }
+            }
         }
             break;
         case KWProtocol:

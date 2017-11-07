@@ -246,10 +246,9 @@ static dispatch_source_t _timer;
     NSString *code03Str = [BlueTool istroubleCode03:string];
     NSString *code07Str = [BlueTool istroubleCode07:string];
     NSString *code0aStr = [BlueTool istroubleCode0a:string];
-    NSLog(@"%@",code07Str);
-    NSLog(@"%@",code0aStr);
 
     if (!(code07Str == nil)) {
+         NSLog(@"得到%@",code07Str);
         //发送命令为07
         sendType = @"07";
         switch ([DashboardSetting sharedInstance].protocolType) {
@@ -269,6 +268,7 @@ static dispatch_source_t _timer;
         [self.blueTooth SendData:[BlueTool hexToBytes:@"30330D"]];
     }
         if (!(code03Str == nil)) {
+            NSLog(@"得到%@",code03Str);
             //发送命令为07
             sendType = @"03";
             switch ([DashboardSetting sharedInstance].protocolType) {
@@ -289,6 +289,7 @@ static dispatch_source_t _timer;
         }
         
         if (!(code0aStr == nil)) {
+               NSLog(@"得到%@",code0aStr);
             //发送命令为07
             sendType = @"0a";
             switch ([DashboardSetting sharedInstance].protocolType) {
