@@ -95,6 +95,12 @@
         NSLog(@"%f",btn.frame.size.width);
     }
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(EveryViewtap)] ];
+    //计算出底部按钮的最终字体大小；
+    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, MSWidth/2-43*KFontmultiple, 49)];
+    textLabel.text = @"Vehicle Information123";
+    textLabel.adjustsFontSizeToFitWidth = YES;
+    CGFloat textFont = textLabel.font.pointSize;
+    NSLog(@"字体%f",textFont);
   //设置底部的两个按钮
     for (NSInteger i = 0; i< 2; i++) {
         
@@ -104,17 +110,15 @@
         }
         btn.backgroundColor = [UIColor redColor];
         [btn setBackgroundImage: [UIImage imageNamed:_normalImage[i]] forState:UIControlStateNormal];
-        
         btn.tag = i;
         [btn.imageView setContentMode:UIViewContentModeScaleAspectFill];
         btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         if (i==0) {
             [btn setBackgroundImage: [UIImage imageNamed:_selectImage[i]] forState:UIControlStateNormal];
-            
         }
         [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
         UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(43*KFontmultiple, 0, btn.frame.size.width-43*KFontmultiple, 49)];
-        titleLabel.adjustsFontSizeToFitWidth = YES;
+        titleLabel.font = [UIFont ToAdapFont:16.f];
         titleLabel.backgroundColor = [UIColor clearColor];
         [titleLabel setText:_titleBtnData[i]];
         [titleLabel setTextColor:[ColorTools colorWithHexString:@"#1E2026"]];

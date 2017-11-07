@@ -68,7 +68,7 @@
         }
         [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
         UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(42*KFontmultiple, 0, btn.frame.size.width-42*KFontmultiple, 49)];
-        titleLabel.adjustsFontSizeToFitWidth = YES;
+        titleLabel.font = [UIFont ToAdapFont:16.f];
         titleLabel.backgroundColor = [UIColor clearColor];
         [titleLabel setText:_titleBtnData[i]];
         [titleLabel setTextColor:[ColorTools colorWithHexString:@"#1E2026"]];
