@@ -127,30 +127,71 @@
      return resultVehicleSpeed;
 }
 +(NSString *)istroubleCode03:(NSString *)string{
-    NSString * resultStr = nil;
-    if (string.length>8) {
-        if ([[string substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"3"] && [[string substringWithRange:NSMakeRange(string.length-1, 1)] isEqualToString:@">"]) {
-            resultStr = string;
+     NSString * resultStr = nil;
+    switch ([DashboardSetting sharedInstance].protocolType) {
+        case CanProtocol:
+        {
+            
         }
+            break;
+        case KWProtocol:
+        {
+            if (string.length>8) {
+                if ([[string substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"3"] && [[string substringWithRange:NSMakeRange(string.length-1, 1)] isEqualToString:@">"]) {
+                    resultStr = string;
+                }
+            }
+        }
+            break;
+        default:
+            break;
     }
     return resultStr;
 }
 +(NSString *)istroubleCode07:(NSString *)string{
     NSString * resultStr= nil;
-    if (string.length>8) {
-        if ([[string substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"7"] && [[string substringWithRange:NSMakeRange(string.length-1, 1)] isEqualToString:@">"]) {
-            resultStr = string;
+    switch ([DashboardSetting sharedInstance].protocolType) {
+        case CanProtocol:
+        {
+            
         }
+            break;
+        case KWProtocol:
+        {
+            if (string.length>8) {
+                if ([[string substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"7"] && [[string substringWithRange:NSMakeRange(string.length-1, 1)] isEqualToString:@">"]) {
+                    resultStr = string;
+                }
+            }
+        }
+            break;
+        default:
+            break;
     }
+   
     return resultStr;
 }
 +(NSString *)istroubleCode0a:(NSString *)string{
     NSString * resultStr = nil;
-     if (string.length>8) {
-       if ([[string substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"a"] && [[string substringWithRange:NSMakeRange(string.length-1, 1)] isEqualToString:@">"]) {
-           resultStr = string;
-       }
-     }
+    switch ([DashboardSetting sharedInstance].protocolType) {
+        case CanProtocol:
+        {
+            
+        }
+            break;
+        case KWProtocol:
+        {
+            if (string.length>8) {
+                if ([[string substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"a"] && [[string substringWithRange:NSMakeRange(string.length-1, 1)] isEqualToString:@">"]) {
+                    resultStr = string;
+                }
+            }
+        }
+            break;
+        default:
+            break;
+    }
+    
     return resultStr;
 }
 #pragma mark 16进制转10进制
