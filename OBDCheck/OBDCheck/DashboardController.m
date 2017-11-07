@@ -88,7 +88,7 @@ static dispatch_source_t _timer;
     string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    
+    NSLog(@"%@",string);
     NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
     NSString *RotationalStr = [BlueTool isRotational:string];
     NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];

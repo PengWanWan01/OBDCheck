@@ -27,7 +27,15 @@
     switch ([DashboardSetting sharedInstance].protocolType) {
         case CanProtocol:
             {
-                
+                if (string.length>16 && [[string substringToIndex:12] isEqualToString:@"18DAF1110341"]){
+                    //得到水温
+                    NSString* Commond = [string substringWithRange:NSMakeRange(12, 2)];
+                    CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(14, 2)]]floatValue];
+                    //水温添加到数组
+                    if ([Commond isEqualToString:@"05"]) {
+                        resultVehicleSpeed = [NSString stringWithFormat:@"%.f",[BlueTool getWatertemperature:thefloat]];
+                    }
+                }
             }
             break;
         case KWProtocol:
@@ -53,7 +61,15 @@
     switch ([DashboardSetting sharedInstance].protocolType) {
         case CanProtocol:
         {
-            
+            if (string.length>18 && [[string substringToIndex:12] isEqualToString:@"18DAF1110441"]){
+                NSString* Commond = [string substringWithRange:NSMakeRange(12, 2)];
+                CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(14, 2)]]floatValue];
+                CGFloat theNextfloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(16, 2)]]floatValue];
+                //转速添加到数组
+                if ([Commond isEqualToString:@"0C"]) {
+                    resultVehicleSpeed = [NSString stringWithFormat:@"%.f",[BlueTool getRotational:thefloat with:theNextfloat]];
+                }
+            }
         }
             break;
         case KWProtocol:
@@ -79,7 +95,15 @@
     switch ([DashboardSetting sharedInstance].protocolType) {
         case CanProtocol:
         {
-            
+            if (string.length>16 && [[string substringToIndex:12] isEqualToString:@"18DAF1110341"]){
+                
+                NSString* Commond = [string substringWithRange:NSMakeRange(12, 2)];
+                CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(14, 2)]]floatValue];
+                //车速添加到数组
+                if ([Commond isEqualToString:@"0D"]) {
+                    resultVehicleSpeed = [NSString stringWithFormat:@"%.f",[BlueTool getVehicleSpeed:thefloat]];
+                }
+            }
         }
             break;
         case KWProtocol:
@@ -105,7 +129,15 @@
     switch ([DashboardSetting sharedInstance].protocolType) {
         case CanProtocol:
         {
-            
+            if (string.length>16 && [[string substringToIndex:12] isEqualToString:@"18DAF1110341"]){
+                //得到TF
+                NSString* Commond = [string substringWithRange:NSMakeRange(12, 2)];
+                CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(14, 2)]]floatValue];
+                //TF添加到数组
+                if ([Commond isEqualToString:@"11"]) {
+                    resultVehicleSpeed =    [NSString stringWithFormat:@"%.f",[BlueTool getThrottlePosition:thefloat]];
+                }
+            }
         }
             break;
         case KWProtocol:
@@ -153,7 +185,38 @@
     switch ([DashboardSetting sharedInstance].protocolType) {
         case CanProtocol:
         {
-            
+            if (string.length>14) {
+                if ([[string substringWithRange:NSMakeRange(13, 1)] isEqualToString:@"7"] && [[string substringWithRange:NSMakeRange(string.length-1, 1)] isEqualToString:@">"]) {
+                    NSInteger nummber = [[self numberHexString:[string substringWithRange:NSMakeRange(10, 2)]] integerValue];
+                    CGFloat lineNume = (CGFloat)nummber/6;
+                    NSInteger  reslutnumber = nummber/6;
+                    if ((lineNume - nummber/6)>0) {
+                        ++reslutnumber;
+                    }
+                    NSLog(@"nummber%ld",(long)reslutnumber);
+                    for (NSInteger i = 0; i<reslutnumber; i++) {
+                        NSString *headStr;
+                        NSString *codeStr;
+                        if (i== 0 ) {
+                            codeStr = [string substringFromIndex:16];
+                            headStr = [string substringToIndex:8];
+                            
+                        }else{
+                             NSString *nextHeadStr = [string substringWithRange:NSMakeRange((i)*24,8)];
+                            if ([nextHeadStr isEqualToString:headStr]) {
+                            codeStr = [string substringWithRange:NSMakeRange((i+1)*24+10,14)];
+                            }
+                        }
+                        for (NSInteger i = 0; i<codeStr.length/4; i=i+4) {
+                            NSString *code = [codeStr substringWithRange:NSMakeRange(i,4)];
+                            NSLog(@"最终%@",code);
+                            
+                        }
+                    }
+                    
+                    resultStr = string;
+                }
+            }
         }
             break;
         case KWProtocol:
@@ -170,6 +233,20 @@
     }
    
     return resultStr;
+}
++ (NSString *)getcode:(NSString *)str{
+    NSString *reslut;
+    NSString *numberStr = [str substringWithRange:NSMakeRange(1, 1)];
+    NSLog(@"%ldd",(long)([numberStr integerValue] - 1)/2);
+    for (NSInteger i = 0; i< ([numberStr integerValue] - 1)/2; i++) {
+        NSString *codeStr= [str substringWithRange:NSMakeRange(8+(4*i), 4)];
+        if (![codeStr isEqualToString:@"0000"]) {
+            NSLog(@"最终获取出去0000的故障码%@",codeStr);
+            reslut = codeStr;
+        }
+    }
+    return reslut;
+    
 }
 +(NSString *)istroubleCode0a:(NSString *)string{
     NSString * resultStr = nil;

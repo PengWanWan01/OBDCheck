@@ -246,27 +246,66 @@ static dispatch_source_t _timer;
     NSString *code03Str = [BlueTool istroubleCode03:string];
     NSString *code07Str = [BlueTool istroubleCode07:string];
     NSString *code0aStr = [BlueTool istroubleCode0a:string];
-    NSLog(@"%@",code03Str);
     NSLog(@"%@",code07Str);
     NSLog(@"%@",code0aStr);
 
     if (!(code07Str == nil)) {
         //发送命令为07
         sendType = @"07";
-        [self getTroubleCode:string];
+        switch ([DashboardSetting sharedInstance].protocolType) {
+            case CanProtocol:
+                {
+                    
+                }
+                break;
+            case KWProtocol:
+            {
+                [self getTroubleCode:string];
+            }
+                break;
+            default:
+                break;
+        }
         [self.blueTooth SendData:[BlueTool hexToBytes:@"30330D"]];
     }
         if (!(code03Str == nil)) {
             //发送命令为07
             sendType = @"03";
-            [self getTroubleCode:string];
+            switch ([DashboardSetting sharedInstance].protocolType) {
+                case CanProtocol:
+                {
+                    
+                }
+                    break;
+                case KWProtocol:
+                {
+                [self getTroubleCode:string];
+                }
+                    break;
+                default:
+                    break;
+            }
             [self.blueTooth SendData:[BlueTool hexToBytes:@"30410D"]];
         }
         
         if (!(code0aStr == nil)) {
             //发送命令为07
             sendType = @"0a";
+            switch ([DashboardSetting sharedInstance].protocolType) {
+                case CanProtocol:
+                {
+                    
+                }
+                    break;
+                case KWProtocol:
+                {
             [self getTroubleCode:string];
+                }
+                    break;
+                default:
+                    break;
+            }
+          
         }
     
 }

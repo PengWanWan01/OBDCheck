@@ -26,5 +26,5 @@
 +(NSString *)istroubleCode03:(NSString *)string; //03故障码
 +(NSString *)istroubleCode07:(NSString *)string; //07故障码
 +(NSString *)istroubleCode0a:(NSString *)string; //0a故障码
-
++ (NSString *)getcode:(NSString *)str;
 @end

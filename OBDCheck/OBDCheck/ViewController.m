@@ -243,20 +243,25 @@
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
     NSLog(@"收到收到%@",data);
-    
     NSLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
     NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    NSLog(@"%@",string);
     if ([string isEqualToString:@"OK>"] && sendNumber ==0) {
-        
         [self.blueTooth SendData:[BlueTool hexToBytes:@"41545350300D"]];
         ++sendNumber;
     }else if ([string isEqualToString:@"OK>"] && sendNumber ==1){
         [self.blueTooth SendData:[BlueTool hexToBytes:@"303130300D"]];
     }else if ([string isEqualToString:@"SEARCHING...86F1114100FFFFFFFFC5>"]){
         NSLog(@"可以发送了");
+        [DashboardSetting sharedInstance].protocolType = KWProtocol;
+        [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
+    }else if ([string isEqualToString:@"SEARCHING...18DAF111064100FFFFFFFF>"]){
+        NSLog(@"可以发送了");
+        [DashboardSetting sharedInstance].protocolType = CanProtocol;
+        [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
     }
 }
 -(void)NonConnectState{
