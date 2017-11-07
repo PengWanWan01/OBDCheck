@@ -81,79 +81,52 @@ static dispatch_source_t _timer;
     NSString *number3 = _CustomNumberArray[2];
     NSString *number4 = _CustomNumberArray[3];
 
-//    NSLog(@"收到收到%@",data);
+    NSLog(@"收到收到%@",data);
     
-//    NSLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+    NSLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
     NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     
-    if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
-        
-        NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
-        CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
-        //车速添加到数组
-        if ([Commond isEqualToString:@"0D"]) {
-            //得到车速大小
-            NSString *str = [NSString stringWithFormat:@"%.f",[BlueTool getVehicleSpeed:thefloat]];
-            NSLog(@"车速%@",str);
-            [_CustomNumberArray replaceObjectAtIndex:0 withObject:str];
+    NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
+    NSString *RotationalStr = [BlueTool isRotational:string];
+    NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
+    NSString *ThrottlePositionStr = [BlueTool isThrottlePosition:string];
+    NSLog(@"车速%@",VehicleSpeedStr);
+    NSLog(@"转速%@",RotationalStr);
+    NSLog(@"水温%@",WatertemperatureStr);
+    NSLog(@"TF%@",ThrottlePositionStr);
+
+    if (!(VehicleSpeedStr == nil)) {
+    
+            [_CustomNumberArray replaceObjectAtIndex:0 withObject:VehicleSpeedStr];
             NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"1",@"StyleAViewTag",_CustomNumberArray[0],@"StyleAViewnumber",number1,@"PreStyleAViewnumber", nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
             //得到车速之后，发送转速
             [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
-        }
-        
     }
-    if (string.length>16 && [[string substringToIndex:8] isEqualToString:@"84F11141"]){
-        NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
-        CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
-        CGFloat theNextfloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(12, 2)]]floatValue];
-        //转速添加到数组
-        if ([Commond isEqualToString:@"0C"]) {
-            //得到转速大小
-            NSString *str = [NSString stringWithFormat:@"%.f",[BlueTool getRotational:thefloat with:theNextfloat]];
-//            NSLog(@"转速%@",str);
-            [_CustomNumberArray replaceObjectAtIndex:1 withObject:str];
+    if (!(RotationalStr == nil)) {
+            [_CustomNumberArray replaceObjectAtIndex:1 withObject:RotationalStr];
             NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"2",@"StyleAViewTag",_CustomNumberArray[1],@"StyleAViewnumber",number2,@"PreStyleAViewnumber", nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
             //发送水温
             [self.blueTooth SendData:[BlueTool hexToBytes:@"303130350D"]];
-        }
+        
     }
-    if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
-        //得到水温
-        NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
-        CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
-        //水温添加到数组
-        if ([Commond isEqualToString:@"05"]) {
-            
-            NSString *str = [NSString stringWithFormat:@"%.f",[BlueTool getWatertemperature:thefloat]];
-            NSLog(@"水温%@",str);
-            [_CustomNumberArray replaceObjectAtIndex:2 withObject:str];
+    if (!(WatertemperatureStr == nil)) {
+            [_CustomNumberArray replaceObjectAtIndex:2 withObject:WatertemperatureStr];
             NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"3",@"StyleAViewTag",_CustomNumberArray[2],@"StyleAViewnumber",number3,@"PreStyleAViewnumber", nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
             //得到水温之后，发送TF
             [self.blueTooth SendData:[BlueTool hexToBytes:@"303131310D"]];
-        }
-        
     }
-    if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
-        //得到TF
-        NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
-        CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
-        //TF添加到数组
-        if ([Commond isEqualToString:@"11"]) {
-            
-            NSString *str = [NSString stringWithFormat:@"%.f",[BlueTool getThrottlePosition:thefloat]];
-            NSLog(@"TF%@",str);
-            [_CustomNumberArray replaceObjectAtIndex:3 withObject:str];
+    if (!(ThrottlePositionStr == nil)) {
+            [_CustomNumberArray replaceObjectAtIndex:3 withObject:ThrottlePositionStr];
             NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"4",@"StyleAViewTag",_CustomNumberArray[3],@"StyleAViewnumber",number4,@"PreStyleAViewnumber", nil];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
             //得到TF之后，发送车速
             [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
-        }
     }
     
     

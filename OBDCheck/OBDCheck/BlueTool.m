@@ -22,7 +22,110 @@
 +(CGFloat)getThrottlePosition:(CGFloat)value{
     return value*100/255;
 }
-
++(NSString * )isWatertemperature:(NSString *)string{
+     NSString * resultVehicleSpeed= nil ;
+    switch ([DashboardSetting sharedInstance].protocolType) {
+        case CanProtocol:
+            {
+                
+            }
+            break;
+        case KWProtocol:
+        {
+            if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
+                //得到水温
+                NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
+                CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
+                //水温添加到数组
+                if ([Commond isEqualToString:@"05"]) {
+                    resultVehicleSpeed = [NSString stringWithFormat:@"%.f",[BlueTool getWatertemperature:thefloat]];
+                }
+            }
+        }
+            break;
+        default:
+            break;
+    }
+     return resultVehicleSpeed;
+}
++(NSString *)isRotational:(NSString *)string{
+     NSString * resultVehicleSpeed = nil;
+    switch ([DashboardSetting sharedInstance].protocolType) {
+        case CanProtocol:
+        {
+            
+        }
+            break;
+        case KWProtocol:
+        {
+            if (string.length>16 && [[string substringToIndex:8] isEqualToString:@"84F11141"]){
+                NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
+                CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
+                CGFloat theNextfloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(12, 2)]]floatValue];
+                //转速添加到数组
+                if ([Commond isEqualToString:@"0C"]) {
+                    resultVehicleSpeed = [NSString stringWithFormat:@"%.f",[BlueTool getRotational:thefloat with:theNextfloat]];
+                }
+            }
+        }
+            break;
+        default:
+            break;
+    }
+     return resultVehicleSpeed;
+}
++(NSString *)isVehicleSpeed:(NSString *)string{
+    NSString * resultVehicleSpeed = nil ;
+    switch ([DashboardSetting sharedInstance].protocolType) {
+        case CanProtocol:
+        {
+            
+        }
+            break;
+        case KWProtocol:
+        {
+            if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
+                
+                NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
+                CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
+                //车速添加到数组
+                if ([Commond isEqualToString:@"0D"]) {
+                resultVehicleSpeed = [NSString stringWithFormat:@"%.f",[BlueTool getVehicleSpeed:thefloat]];
+                }
+            }
+        }
+            break;
+        default:
+            break;
+    }
+    return resultVehicleSpeed;
+}
++(NSString *)isThrottlePosition:(NSString *)string{
+     NSString * resultVehicleSpeed = nil;
+    switch ([DashboardSetting sharedInstance].protocolType) {
+        case CanProtocol:
+        {
+            
+        }
+            break;
+        case KWProtocol:
+        {
+            if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
+                //得到TF
+                NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
+                CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
+                //TF添加到数组
+                if ([Commond isEqualToString:@"11"]) {
+                 resultVehicleSpeed =    [NSString stringWithFormat:@"%.f",[BlueTool getThrottlePosition:thefloat]];
+                }
+            }
+        }
+            break;
+        default:
+            break;
+    }
+     return resultVehicleSpeed;
+}
 #pragma mark 16进制转10进制
 + (NSNumber *) numberHexString:(NSString *)aHexString
 {

@@ -390,67 +390,37 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
      string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
      NSLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
-    if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
-
-        NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
-        CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
-        //车速添加到数组
-        if ([Commond isEqualToString:@"0D"]) {
-            //得到车速大小
-            NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getVehicleSpeed:thefloat]];
-            NSLog(@"车速%@",str);
-            [PID1dataSource addObject:str];
+    NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
+    NSString *RotationalStr = [BlueTool isRotational:string];
+    NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
+    NSString *ThrottlePositionStr = [BlueTool isThrottlePosition:string];
+    NSLog(@"车速%@",VehicleSpeedStr);
+    NSLog(@"转速%@",RotationalStr);
+    NSLog(@"水温%@",WatertemperatureStr);
+    NSLog(@"TF%@",ThrottlePositionStr);
+   if (!(VehicleSpeedStr == nil)) {
+            [PID1dataSource addObject:VehicleSpeedStr];
             NSLog(@"%@",PID1dataSource);
             //得到车速之后，发送转速
             [self.blueTooth SendData:[self hexToBytes:@"303130630D"]];
-        }
+       
     }
-    if (string.length>16 && [[string substringToIndex:8] isEqualToString:@"84F11141"]){
-        NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
-        CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
-         CGFloat theNextfloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(12, 2)]]floatValue];
-        //转速添加到数组
-        if ([Commond isEqualToString:@"0C"]) {
-           //得到转速大小
-            NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getRotational:thefloat with:theNextfloat]];
-            NSLog(@"转速%@",str);
-            [PID2dataSource addObject:str];
+    if (!(RotationalStr == nil)) {
+            [PID2dataSource addObject:RotationalStr];
             NSLog(@"%@",PID2dataSource);
             //发送水温
             [self.blueTooth SendData:[self hexToBytes:@"303130350D"]];
-        }
-       
+      
     }
-    if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
-        //得到水温
-        NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
-        CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
-        //水温添加到数组
-        if ([Commond isEqualToString:@"05"]) {
-            
-            NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getWatertemperature:thefloat]];
-            NSLog(@"水温%@",str);
-            [PID3dataSource addObject:str];
+    if (!(WatertemperatureStr == nil)) {
+            [PID3dataSource addObject:WatertemperatureStr];
             NSLog(@"%@",PID3dataSource);
             //得到水温之后，发送TF
             [self.blueTooth SendData:[self hexToBytes:@"303131310D"]];
-        }
+
     }
-    if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
-        //得到TF
-        NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
-        CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
-        //TF添加到数组
-        if ([Commond isEqualToString:@"11"]) {
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-            NSDate *datenow = [NSDate date];
-            NSString *currentTimeString = [formatter stringFromDate:datenow];
-            NSLog(@"currentTimeString =  %@",currentTimeString);
-            
-            NSString *str = [NSString stringWithFormat:@"%f",[BlueTool getThrottlePosition:thefloat]];
-            NSLog(@"TF%@",str);
-            [PID4dataSource addObject:str];
+   if (!(ThrottlePositionStr == nil)) {
+            [PID4dataSource addObject:ThrottlePositionStr];
             NSLog(@"%@",PID4dataSource);
             [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)PID1indextag  withY:[PID1dataSource[PID1indextag] intValue]];
             [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)PID2indextag  withY:[PID2dataSource[PID2indextag] intValue]];
@@ -463,7 +433,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
             isSave = YES;
             //得到TF之后，发送车速
             [self.blueTooth SendData:[self hexToBytes:@"303130640D"]];
-        }
+       
     }
  
 

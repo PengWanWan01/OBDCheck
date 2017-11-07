@@ -51,6 +51,11 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
     HUDModeTypeToHUD,   // 变成HUD类型
     HUDModeTypeToNormal    //变成正常类型
 };
+typedef NS_ENUM(NSInteger ,ProtocolType)
+{
+    CanProtocol,   // Can协议
+    KWProtocol    //KW协议
+};
 @class DashboardA;
 @class DashboardB;
 @class DashboardC;
@@ -75,7 +80,7 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 
 @property (nonatomic,strong) NSMutableArray *DashboardViewFrame;    //是否可以移动
 @property (nonatomic,assign) NSInteger blueState;    //蓝牙连接状态
-
+@property (nonatomic,assign) NSInteger protocolType;    //蓝牙连接协议
 
 @property (nonatomic,strong)   NSUserDefaults* defaults;
 @property (nonatomic,assign)   BOOL DashBoardFristLoad;
