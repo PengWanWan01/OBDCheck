@@ -243,29 +243,32 @@ static dispatch_source_t _timer;
     isSave  = YES;
     self.currentTime = [formatter stringFromDate:datenow];
     [self.troubleDataSource addObject:string];
-    if (string.length>8) {
-    NSLog(@"%@",[string substringWithRange:NSMakeRange(7, 1)]);
-      NSLog(@"%@",[string substringWithRange:NSMakeRange(string.length-1, 1)]);
+    NSString *code03Str = [BlueTool istroubleCode03:string];
+    NSString *code07Str = [BlueTool istroubleCode07:string];
+    NSString *code0aStr = [BlueTool istroubleCode0a:string];
+    NSLog(@"%@",code03Str);
+    NSLog(@"%@",code07Str);
+    NSLog(@"%@",code0aStr);
 
-    if ([[string substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"7"] && [[string substringWithRange:NSMakeRange(string.length-1, 1)] isEqualToString:@">"]) {
+    if (!(code07Str == nil)) {
         //发送命令为07
         sendType = @"07";
         [self getTroubleCode:string];
         [self.blueTooth SendData:[BlueTool hexToBytes:@"30330D"]];
     }
-        if ([[string substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"3"] && [[string substringWithRange:NSMakeRange(string.length-1, 1)] isEqualToString:@">"]) {
+        if (!(code03Str == nil)) {
             //发送命令为07
             sendType = @"03";
             [self getTroubleCode:string];
             [self.blueTooth SendData:[BlueTool hexToBytes:@"30410D"]];
         }
         
-        if ([[string substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"a"] && [[string substringWithRange:NSMakeRange(string.length-1, 1)] isEqualToString:@">"]) {
+        if (!(code0aStr == nil)) {
             //发送命令为07
             sendType = @"0a";
             [self getTroubleCode:string];
         }
-    }
+    
 }
 - (void)getTroubleCode:(NSString *)strring{
     NSString *numberStr = [strring substringWithRange:NSMakeRange(1, 1)];
