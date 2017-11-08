@@ -184,11 +184,10 @@
                             NSLog(@"%@",nextHeadStr);
                             if ([nextHeadStr isEqualToString:headStr]) {
                                 codeStr = [codeStr stringByAppendingString:
-                                           [string substringWithRange:NSMakeRange((i)*24+10,14)]];
-                                NSLog(@"%@",codeStr);
+                                           [string substringWithRange:NSMakeRange((i)*24+10,12)]];
                             }
                         }
-                        NSLog(@"最终%@",codeStr);
+                        codeStr = [codeStr stringByReplacingOccurrencesOfString:@"00" withString:@""];
                         resultStr = codeStr;
                     }
                 }
@@ -235,11 +234,11 @@
                             NSLog(@"%@",nextHeadStr);
                             if ([nextHeadStr isEqualToString:headStr]) {
                                 codeStr = [codeStr stringByAppendingString:
-[string substringWithRange:NSMakeRange((i)*24+10,14)]];
+[string substringWithRange:NSMakeRange((i)*24+10,12)]];
                                 NSLog(@"%@",codeStr);
                             }
                         }
-                            NSLog(@"最终%@",codeStr);
+                      codeStr = [codeStr stringByReplacingOccurrencesOfString:@"00" withString:@""];
                     resultStr = codeStr;
                     }
                 }
@@ -301,11 +300,11 @@
                             NSLog(@"%@",nextHeadStr);
                             if ([nextHeadStr isEqualToString:headStr]) {
                                 codeStr = [codeStr stringByAppendingString:
-                                           [string substringWithRange:NSMakeRange((i)*24+10,14)]];
+                                           [string substringWithRange:NSMakeRange((i)*24+10,12)]];
                                 NSLog(@"%@",codeStr);
                             }
                         }
-                        NSLog(@"最终%@",codeStr);
+                      codeStr = [codeStr stringByReplacingOccurrencesOfString:@"00" withString:@""];
                         resultStr = codeStr;
                     }
                 }

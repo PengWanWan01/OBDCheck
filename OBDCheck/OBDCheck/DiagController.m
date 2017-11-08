@@ -254,7 +254,11 @@ static dispatch_source_t _timer;
         switch ([DashboardSetting sharedInstance].protocolType) {
             case CanProtocol:
                 {
-                    
+                    for (NSInteger i = 0; i<code07Str.length/4; i++) {
+                        NSString *codeStr = [code07Str substringWithRange:NSMakeRange(i*4, 4)];
+                        [self getCodeType:codeStr];
+                        NSLog(@"四个数的故障码%@",codeStr);
+                    }
                 }
                 break;
             case KWProtocol:
@@ -274,7 +278,11 @@ static dispatch_source_t _timer;
             switch ([DashboardSetting sharedInstance].protocolType) {
                 case CanProtocol:
                 {
-                    
+                    for (NSInteger i = 0; i<code03Str.length/4; i++) {
+                        NSString *codeStr = [code03Str substringWithRange:NSMakeRange(i*4, 4)];
+                        [self getCodeType:codeStr];
+                        NSLog(@"四个数的故障码%@",codeStr);
+                    }
                 }
                     break;
                 case KWProtocol:
@@ -295,7 +303,11 @@ static dispatch_source_t _timer;
             switch ([DashboardSetting sharedInstance].protocolType) {
                 case CanProtocol:
                 {
-                    
+                    for (NSInteger i = 0; i<code0aStr.length/4; i++) {
+                        NSString *codeStr = [code0aStr substringWithRange:NSMakeRange(i*4, 4)];
+                        [self getCodeType:codeStr];
+                        NSLog(@"四个数的故障码%@",codeStr);
+                    }
                 }
                     break;
                 case KWProtocol:
