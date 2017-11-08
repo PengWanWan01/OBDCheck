@@ -294,7 +294,6 @@
                         if (i== 0 ) {
                             codeStr = [string substringWithRange:NSMakeRange(16,8)];
                             headStr = [string substringToIndex:8];
-                            
                         }else{
                             NSString *nextHeadStr = [string substringWithRange:NSMakeRange((i)*24,8)];
                             NSLog(@"%@",nextHeadStr);
