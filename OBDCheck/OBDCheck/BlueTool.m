@@ -9,6 +9,15 @@
 #import "BlueTool.h"
 
 @implementation BlueTool
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.CanHeadIDStr = @"18DAF1110341";
+        
+    }
+    return self;
+}
 +(CGFloat)getRotational:(CGFloat)value with:(CGFloat)nextvalue{
     return value*64+nextvalue*63.75/255;
 }
@@ -24,10 +33,13 @@
 }
 +(NSString * )isWatertemperature:(NSString *)string{
      NSString * resultVehicleSpeed= nil ;
+if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToString:@">"]) {
     switch ([DashboardSetting sharedInstance].protocolType) {
         case CanProtocol:
             {
-                if (string.length>16 && [[string substringToIndex:12] isEqualToString:@"18DAF1110341"]){
+                if (string.length>5 &&[[string substringToIndex:6] isEqualToString:@"18DAF1"]) {
+                NSRange range = [string rangeOfString:@"18DAF111"];
+                string = [string substringFromIndex:range.location]; //截取字符串
                     //得到水温
                     NSString* Commond = [string substringWithRange:NSMakeRange(12, 2)];
                     CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(14, 2)]]floatValue];
@@ -54,23 +66,28 @@
         default:
             break;
     }
+    }
      return resultVehicleSpeed;
 }
 +(NSString *)isRotational:(NSString *)string{
      NSString * resultVehicleSpeed = nil;
+     if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToString:@">"]) {
     switch ([DashboardSetting sharedInstance].protocolType) {
         case CanProtocol:
         {
-            if (string.length>18 && [[string substringToIndex:12] isEqualToString:@"18DAF1110441"]){
+            if (string.length>5 &&[[string substringToIndex:6] isEqualToString:@"18DAF1"]) {
+            NSRange range = [string rangeOfString:@"18DAF111"];
+            string = [string substringFromIndex:range.location]; //截取字符串
                 NSString* Commond = [string substringWithRange:NSMakeRange(12, 2)];
-                CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(14, 2)]]floatValue];
-                CGFloat theNextfloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(16, 2)]]floatValue];
                 //转速添加到数组
                 if ([Commond isEqualToString:@"0C"]) {
+                    CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(14, 2)]]floatValue];
+                    CGFloat theNextfloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(16, 2)]]floatValue];
                     resultVehicleSpeed = [NSString stringWithFormat:@"%.f",[BlueTool getRotational:thefloat with:theNextfloat]];
                 }
             }
         }
+        
             break;
         case KWProtocol:
         {
@@ -88,22 +105,27 @@
         default:
             break;
     }
+     }
      return resultVehicleSpeed;
 }
 +(NSString *)isVehicleSpeed:(NSString *)string{
     NSString * resultVehicleSpeed = nil ;
+     if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToString:@">"]) {
     switch ([DashboardSetting sharedInstance].protocolType) {
         case CanProtocol:
         {
-            if (string.length>16 && [[string substringToIndex:12] isEqualToString:@"18DAF1110341"]){
-                
+           if (string.length>5 &&[[string substringToIndex:6] isEqualToString:@"18DAF1"]) {
+            NSRange range = [string rangeOfString:@"18DAF111"];
+            string = [string substringFromIndex:range.location]; //截取字符串
+            NSLog(@"打印%@",string);
                 NSString* Commond = [string substringWithRange:NSMakeRange(12, 2)];
-                CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(14, 2)]]floatValue];
                 //车速添加到数组
                 if ([Commond isEqualToString:@"0D"]) {
+                       CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(14, 2)]]floatValue];
                     resultVehicleSpeed = [NSString stringWithFormat:@"%.f",[BlueTool getVehicleSpeed:thefloat]];
                 }
-            }
+           
+           }
         }
             break;
         case KWProtocol:
@@ -111,9 +133,9 @@
             if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
                 
                 NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
-                CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
                 //车速添加到数组
                 if ([Commond isEqualToString:@"0D"]) {
+                      CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
                 resultVehicleSpeed = [NSString stringWithFormat:@"%.f",[BlueTool getVehicleSpeed:thefloat]];
                 }
             }
@@ -122,19 +144,23 @@
         default:
             break;
     }
+     }
     return resultVehicleSpeed;
 }
 +(NSString *)isThrottlePosition:(NSString *)string{
      NSString * resultVehicleSpeed = nil;
+    if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToString:@">"]) {
     switch ([DashboardSetting sharedInstance].protocolType) {
         case CanProtocol:
         {
-            if (string.length>16 && [[string substringToIndex:12] isEqualToString:@"18DAF1110341"]){
+            if (string.length>5 &&[[string substringToIndex:6] isEqualToString:@"18DAF1"]) {
+            NSRange range = [string rangeOfString:@"18DAF111"];
+            string = [string substringFromIndex:range.location]; //截取字符串
                 //得到TF
                 NSString* Commond = [string substringWithRange:NSMakeRange(12, 2)];
-                CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(14, 2)]]floatValue];
                 //TF添加到数组
                 if ([Commond isEqualToString:@"11"]) {
+                     CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(14, 2)]]floatValue];
                     resultVehicleSpeed =    [NSString stringWithFormat:@"%.f",[BlueTool getThrottlePosition:thefloat]];
                 }
             }
@@ -145,9 +171,9 @@
             if (string.length>14 && [[string substringToIndex:8] isEqualToString:@"83F11141"]){
                 //得到TF
                 NSString* Commond = [string substringWithRange:NSMakeRange(8, 2)];
-                CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
                 //TF添加到数组
                 if ([Commond isEqualToString:@"11"]) {
+              CGFloat thefloat = [[BlueTool numberHexString:[string substringWithRange:NSMakeRange(10, 2)]]floatValue];
                  resultVehicleSpeed =    [NSString stringWithFormat:@"%.f",[BlueTool getThrottlePosition:thefloat]];
                 }
             }
@@ -155,6 +181,7 @@
             break;
         default:
             break;
+    }
     }
      return resultVehicleSpeed;
 }

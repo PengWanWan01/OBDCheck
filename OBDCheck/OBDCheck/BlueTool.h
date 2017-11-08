@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface BlueTool : NSObject
-
+@property (nonatomic,copy) NSString *CanHeadIDStr;
 +(CGFloat)getWatertemperature:(CGFloat)value;
 +(CGFloat)getVehicleSpeed:(CGFloat)value;
 +(CGFloat)getThrottlePosition:(CGFloat)value;

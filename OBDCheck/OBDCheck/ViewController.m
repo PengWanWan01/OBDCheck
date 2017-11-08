@@ -254,14 +254,18 @@
         ++sendNumber;
     }else if ([string isEqualToString:@"OK>"] && sendNumber ==1){
         [self.blueTooth SendData:[BlueTool hexToBytes:@"303130300D"]];
-    }else if ([string isEqualToString:@"SEARCHING...86F1114100FFFFFFFFC5>"]){
-        NSLog(@"可以发送了");
-        [DashboardSetting sharedInstance].protocolType = KWProtocol;
+    }else if (string.length>21){
+        if ([[string substringWithRange:NSMakeRange(0, 12)] isEqualToString:@"SEARCHING..."] && [[string substringWithRange:NSMakeRange(string.length -1 , 1)] isEqualToString:@">"]) {
+            
+        NSLog(@"可以发动了");
+//        SEARCHING...86F1114100FFFFFFFFC5>
+        if ([[string substringWithRange:NSMakeRange(12, 8)] isEqualToString:@"86F11141"]) {
+            [DashboardSetting sharedInstance].protocolType = KWProtocol;
+        }else if ([[string substringWithRange:NSMakeRange(12, 8)] isEqualToString:@"18DAF111"]){
+            [DashboardSetting sharedInstance].protocolType = CanProtocol;
+            }
         [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
-    }else if ([string isEqualToString:@"SEARCHING...18DAF111064100FFFFFFFF>"]){
-        NSLog(@"可以发送了");
-        [DashboardSetting sharedInstance].protocolType = CanProtocol;
-        [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
+    }
     }
 }
 -(void)NonConnectState{
