@@ -192,7 +192,7 @@
         }
             break;
         case 4:{
-            PerformanceController *vc = [[PerformanceController alloc]init];
+            PerformancesViewController *vc = [[PerformancesViewController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
         }
             break;

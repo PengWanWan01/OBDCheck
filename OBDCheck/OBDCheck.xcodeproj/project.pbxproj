@@ -46,6 +46,7 @@
 		CB47E2EC1F480C7000B23D8E /* UIFont+AdapFont.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */; };
 		CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EE1F4819C200B23D8E /* StyleViewController.m */; };
 		CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2F11F481B3200B23D8E /* StyleHeadView.m */; };
+		CB4852571FB3EEFC00E98902 /* PropertyReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4852561FB3EEFC00E98902 /* PropertyReportController.m */; };
 		CB49FB671FB04CFB00A6FEBB /* AlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB49FB661FB04CFB00A6FEBB /* AlarmViewController.m */; };
 		CB49FB6C1FB0521000A6FEBB /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB49FB6B1FB0521000A6FEBB /* FeedbackViewController.m */; };
 		CB5583601F51468C0010A1E5 /* StyleViewBController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB55835F1F51468C0010A1E5 /* StyleViewBController.m */; };
@@ -80,6 +81,7 @@
 		CB8E40E11F6144E6003E5024 /* CustomDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8E40E01F6144E6003E5024 /* CustomDashboard.m */; };
 		CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB97176E1F32C110009C47FD /* OBDBtn.m */; };
 		CB9717751F332515009C47FD /* RLBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9717741F332515009C47FD /* RLBtn.m */; };
+		CB99D7101FB328BB00ABAF4A /* PerformancesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB99D70F1FB328BB00ABAF4A /* PerformancesViewController.m */; };
 		CB99E1A21F66A6CE00A87DAF /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB99E19F1F66A6B300A87DAF /* Charts.framework */; };
 		CB99E1A31F66A6CE00A87DAF /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB99E19F1F66A6B300A87DAF /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CB99E1AA1F66A7C700A87DAF /* LogSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB99E1A91F66A7C700A87DAF /* LogSetViewController.m */; };
@@ -253,6 +255,8 @@
 		CB47E2EE1F4819C200B23D8E /* StyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleViewController.m; sourceTree = "<group>"; };
 		CB47E2F01F481B3200B23D8E /* StyleHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleHeadView.h; sourceTree = "<group>"; };
 		CB47E2F11F481B3200B23D8E /* StyleHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleHeadView.m; sourceTree = "<group>"; };
+		CB4852551FB3EEFC00E98902 /* PropertyReportController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PropertyReportController.h; sourceTree = "<group>"; };
+		CB4852561FB3EEFC00E98902 /* PropertyReportController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PropertyReportController.m; sourceTree = "<group>"; };
 		CB49FB651FB04CFB00A6FEBB /* AlarmViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlarmViewController.h; sourceTree = "<group>"; };
 		CB49FB661FB04CFB00A6FEBB /* AlarmViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmViewController.m; sourceTree = "<group>"; };
 		CB49FB6A1FB0521000A6FEBB /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
@@ -318,6 +322,8 @@
 		CB97176E1F32C110009C47FD /* OBDBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBDBtn.m; sourceTree = "<group>"; };
 		CB9717731F332515009C47FD /* RLBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLBtn.h; sourceTree = "<group>"; };
 		CB9717741F332515009C47FD /* RLBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RLBtn.m; sourceTree = "<group>"; };
+		CB99D70E1FB328BB00ABAF4A /* PerformancesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerformancesViewController.h; sourceTree = "<group>"; };
+		CB99D70F1FB328BB00ABAF4A /* PerformancesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerformancesViewController.m; sourceTree = "<group>"; };
 		CB99E1991F66A6B300A87DAF /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		CB99E1A81F66A7C700A87DAF /* LogSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogSetViewController.h; sourceTree = "<group>"; };
 		CB99E1A91F66A7C700A87DAF /* LogSetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogSetViewController.m; sourceTree = "<group>"; };
@@ -490,6 +496,10 @@
 			children = (
 				CB07E6A81F908BB600545A82 /* PerformanceController.h */,
 				CB07E6A91F908BB600545A82 /* PerformanceController.m */,
+				CB99D70E1FB328BB00ABAF4A /* PerformancesViewController.h */,
+				CB99D70F1FB328BB00ABAF4A /* PerformancesViewController.m */,
+				CB4852551FB3EEFC00E98902 /* PropertyReportController.h */,
+				CB4852561FB3EEFC00E98902 /* PropertyReportController.m */,
 			);
 			name = Performance;
 			sourceTree = "<group>";
@@ -1281,7 +1291,9 @@
 				CB3FAD291F6A6F1D00B572FD /* Mode06ViewController.m in Sources */,
 				CBCD978F1F7C94850002383F /* FileBackViewController.m in Sources */,
 				CB84B3CD1F56A7D500B454E6 /* FreezeViewController.m in Sources */,
+				CB4852571FB3EEFC00E98902 /* PropertyReportController.m in Sources */,
 				CB048C3B1F8CE1CD006A2ED7 /* FirmwareController.m in Sources */,
+				CB99D7101FB328BB00ABAF4A /* PerformancesViewController.m in Sources */,
 				CB3FAD231F6A5F0B00B572FD /* Filesmodel.m in Sources */,
 				CB5A61941F7A206C000D23D6 /* YearViewController.m in Sources */,
 				CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */,

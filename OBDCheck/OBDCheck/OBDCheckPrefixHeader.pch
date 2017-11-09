@@ -145,5 +145,7 @@
 #import "AlarmViewController.h"
 #import "AlarmViewController.h"
 #import "FeedbackViewController.h"
+#import "PerformancesViewController.h"
+#import "PropertyReportController.h"
 
 #endif /* OBDCheckPrefixHeader_pch */
