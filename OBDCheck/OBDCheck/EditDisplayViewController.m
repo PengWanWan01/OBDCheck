@@ -26,7 +26,7 @@
 }
 
 - (void)initWithUI{
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, MSHeight) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, MSHeight-TopHigh) style:UITableViewStylePlain];
     tableView.backgroundColor = [UIColor clearColor];
     tableView.separatorInset = UIEdgeInsetsZero;
     tableView.scrollEnabled = NO;

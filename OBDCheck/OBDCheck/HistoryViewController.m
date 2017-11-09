@@ -92,7 +92,7 @@
     }
 }
 - (void)initWithUI{
-    MYTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight) style:UITableViewStylePlain];
+    MYTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh) style:UITableViewStylePlain];
     MYTableView.backgroundColor = [ColorTools colorWithHexString:@"18191D"];
     MYTableView.delegate =self;
     MYTableView.dataSource =self;

@@ -53,7 +53,7 @@
     }
     
     
-    MyTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, MSHeight) style:UITableViewStylePlain];
+    MyTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, MSHeight-TopHigh) style:UITableViewStylePlain];
     MyTableView.backgroundColor = [UIColor clearColor];
     MyTableView.separatorInset = UIEdgeInsetsZero;
     MyTableView.scrollEnabled = NO;

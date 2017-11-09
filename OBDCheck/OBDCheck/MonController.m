@@ -24,7 +24,7 @@
 }
 - (void)initWithUI{
 
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

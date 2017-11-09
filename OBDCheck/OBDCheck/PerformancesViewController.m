@@ -17,6 +17,15 @@
     LineChartData *PartOnedata;
     NSMutableArray *PID1dataSource;
     NSInteger PID1indextag;
+    NSDate *VssUpbeforeDate;
+    NSDate *VssUpafterDate;
+    BOOL isVssUpStart;
+    NSDate *VssDownbeforeDate;
+    NSDate *VssDownafterDate;
+    BOOL isVssDownStart;
+    UIButton *UpBtn;
+    UIButton *DownBtn;
+    UIButton *TimeBtn;
 }
 @end
 
@@ -25,16 +34,20 @@
     [super viewWillAppear:animated];
     [self initNavBarTitle:@"Performance" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
-    [self initWithData];
-    [self initWithUI];
+   
+  
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+     [self initWithData];
+     [self initWithUI];
 }
 - (void)initWithData{
     set1 = nil;
+    isVssUpStart = NO;
+    isVssDownStart = NO;
     PartOnedata = [[LineChartData alloc] initWithDataSet:set1];
+    PID1dataSource = [[NSMutableArray alloc]init];
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
 }
@@ -43,13 +56,26 @@
     [self initWithchartView:chartViewone ];
     [self.view addSubview:chartViewone];
     [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:@"Speed" withLineColor:[ColorTools colorWithHexString:@"FFFF00"] withDependency:AxisDependencyLeft iSsmoothing:YES];
-    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:@"HP" withLineColor:[ColorTools colorWithHexString:@"FF0000"] withDependency:AxisDependencyRight iSsmoothing:YES];
-    startBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, MSHeight -TopHigh-120, 100, 40)];
+    UpBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewone.frame)+10, MSWidth, 20)];
+     DownBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(UpBtn.frame)+10, MSWidth, 20)];
+     TimeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(DownBtn.frame)+10, MSWidth, 20)];
+    [UpBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+     [DownBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+     [TimeBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+    [UpBtn setTitle:@"0-100KM/H" forState:UIControlStateNormal];
+    [DownBtn setTitle:@"100-0KM/H" forState:UIControlStateNormal];
+    [TimeBtn setTitle:@"0-100M" forState:UIControlStateNormal];
+
+    [self.view addSubview:UpBtn];
+    [self.view addSubview:DownBtn];
+    [self.view addSubview:TimeBtn];
+
+    startBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, MSHeight -TopHigh - 40, 100, 40)];
     [startBtn setTitle:@"Start" forState:UIControlStateNormal];
     [startBtn setTitleColor:[ColorTools colorWithHexString:@"101010"] forState:UIControlStateNormal];
     startBtn.backgroundColor = [ColorTools colorWithHexString:@"FE9002"];
     [startBtn addTarget:self action:@selector(startBtn) forControlEvents:UIControlEventTouchUpInside];
-    reportBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(startBtn.frame)+20, MSHeight -TopHigh-120, 100, 40)];
+    reportBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(startBtn.frame)+20, MSHeight -TopHigh - 40, 100, 40)];
     [reportBtn setTitle:@"Report" forState:UIControlStateNormal];
     [reportBtn setTitleColor:[ColorTools colorWithHexString:@"101010"] forState:UIControlStateNormal];
     reportBtn.backgroundColor = [ColorTools colorWithHexString:@"FE9002"];
@@ -73,6 +99,10 @@
     [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
 }
 -(void)reportBtn{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"停止停止");
+        [self stopSend];
+    });
     PropertyReportController *vc = [[PropertyReportController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -99,14 +129,32 @@
     NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
     NSLog(@"%@",VehicleSpeedStr);
     if (!(VehicleSpeedStr == nil)) {
-        NSLog(@"速度%@",VehicleSpeedStr);
-        
-    if ([VehicleSpeedStr integerValue]>0) {
-        NSLog(@"%@",VehicleSpeedStr);
-        [PID1dataSource addObject:VehicleSpeedStr];
-          [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)PID1indextag  withY:[PID1dataSource[PID1indextag] intValue]];
-        ++PID1indextag;
+//        NSDate *nowDate = [NSDate date]; // 当前日期
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyy-MM-dd HH-mm-ss";
+//        NSDate *creat = [formatter dateFromString:(任意时间)];// 将传入的字符串转化成时间
+//        NSTimeInterval delta = [nowDate timeIntervalSinceDate:creat]; // 计算出相差多少秒
 
+        
+        if ([VehicleSpeedStr isEqualToString:@"0"]) {
+             isVssUpStart = YES;
+            VssUpbeforeDate = [NSDate date]; // 当前日期
+        }
+        [PID1dataSource addObject:VehicleSpeedStr];
+        NSLog(@"数据%@",PID1dataSource);
+        [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)PID1indextag  withY:[PID1dataSource[PID1indextag] intValue]];
+        ++PID1indextag;
+        NSLog(@"速度%@",VehicleSpeedStr);
+    if ([VehicleSpeedStr integerValue]>0) {
+        if ([VehicleSpeedStr integerValue] >= 100) {
+           VssUpafterDate =  [NSDate date]; // 当前日期
+            NSTimeInterval delta = [VssUpafterDate timeIntervalSinceDate:VssUpbeforeDate]; // 计算出相差多少秒
+            if (isVssUpStart==YES) {
+                [self showjiasu:delta];
+                 NSLog(@"时间差%f",delta);
+                isVssUpStart = NO;
+            }
+        }
     }
         [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
 
@@ -116,6 +164,15 @@
 -(void)BlueToothState:(BlueToothState)state{
     
     
+}
+- (void)showjiasu:(CGFloat)number{
+    [UpBtn setTitle:[NSString stringWithFormat:@"0-100KM/H  :%.2fs",number] forState:UIControlStateNormal];
+}
+- (void)showDown:(CGFloat)number{
+    [DownBtn setTitle:[NSString stringWithFormat:@"100-0KM/H  :%.2fs",number] forState:UIControlStateNormal];
+}
+- (void)showTime:(CGFloat)number{
+    [TimeBtn setTitle:[NSString stringWithFormat:@"0-100m  :%.2fs",number] forState:UIControlStateNormal];
 }
 - (void)initWithchartView:(LineChartView *)view {
     view.delegate = self;
@@ -145,19 +202,22 @@
     //设置左边的Y轴
     ChartYAxis *leftAxis = view.leftAxis;
     leftAxis.labelTextColor = [UIColor whiteColor];
+    [leftAxis resetCustomAxisMax];
+    [leftAxis resetCustomAxisMin];
     //    leftAxis.axisMaximum = 200.0;
     //    leftAxis.axisMinimum = 0.0;
     leftAxis.drawAxisLineEnabled = YES;
     // 设置右边的Y轴
+    
     ChartYAxis *rightAxis = view.rightAxis;
-    rightAxis.labelTextColor = [UIColor whiteColor];
-    //    rightAxis.axisMaximum = 900.0;
-    //    rightAxis.axisMinimum = -200.0;
+    rightAxis.labelTextColor = [UIColor clearColor];
+//    //    rightAxis.axisMaximum = 900.0;
+//    //    rightAxis.axisMinimum = -200.0;
     rightAxis.drawGridLinesEnabled = NO;
     rightAxis.drawAxisLineEnabled = YES;
     rightAxis.axisLineWidth = 2;
         [leftAxis setAxisLineColor:[ColorTools colorWithHexString:@"FFFF00"]];
-        [rightAxis setAxisLineColor:[ColorTools colorWithHexString:@"FF0000"]];
+        [rightAxis setAxisLineColor: [UIColor clearColor]];
     leftAxis.axisLineWidth = 2;
     leftAxis.labelCount = 5;
 }

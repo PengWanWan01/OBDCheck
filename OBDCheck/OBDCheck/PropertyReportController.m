@@ -9,6 +9,7 @@
 #import "PropertyReportController.h"
 
 @interface PropertyReportController ()
+@property (nonatomic,strong) NSMutableArray *showDataSource;
 
 @end
 
@@ -21,10 +22,17 @@
     [self initWithUI];
 }
 - (void)initWithData{
-    
+    self.showDataSource = [[NSMutableArray alloc]initWithObjects:@"0-100KM/H",@"00.0s",@"100km/h-0km/h",@"00.0s",@"0-100m",@"00.0s", nil];
 }
 - (void)initWithUI{
-    
+    for (int i = 0; i<self.showDataSource.count; i++) {
+        NSLog(@"得到的数组%@",self.showDataSource);
+        
+        UIButton *btn =[[UIButton alloc]initWithFrame: CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], 120*MSWidth/375, 30*MSWidth/375)];
+        [btn setTitle:self.showDataSource[i] forState:UIControlStateNormal];
+        [btn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+              [self.view addSubview:btn];
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

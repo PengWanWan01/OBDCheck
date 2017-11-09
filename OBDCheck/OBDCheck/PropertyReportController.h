@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface PropertyReportController : UIViewController
+@property (nonatomic,copy) NSString *jiasuStr;
+@property (nonatomic,copy) NSString *jiansuStr;
+@property (nonatomic,copy) NSString *TimeStr;
 
 @end

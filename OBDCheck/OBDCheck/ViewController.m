@@ -129,6 +129,7 @@
 }
 #pragma mark 底部按钮的点击事件
 - (void)Selectbtn:(UIButton *)btn{
+    [self.blueView hide];
     switch (btn.tag) {
         case 0:
         {
