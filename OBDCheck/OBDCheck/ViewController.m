@@ -83,8 +83,8 @@
     [self.view addSubview:backView];
     
     for (int i = 0; i<_btnTitleArray.count; i++) {
-    
-        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], 100*MSWidth/375, 100*MSWidth/375 + 30)];
+        CGFloat space = IS_IPHONE_4_OR_LESS?20*MSHeight/667:30*MSHeight/667;
+        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], 100*MSWidth/375, 100*MSWidth/375 + space)];
         btn.Label.text = _btnTitleArray[i];
         btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
@@ -259,6 +259,7 @@
         if ([[string substringWithRange:NSMakeRange(0, 12)] isEqualToString:@"SEARCHING..."] && [[string substringWithRange:NSMakeRange(string.length -1 , 1)] isEqualToString:@">"]) {
             
         NSLog(@"可以发动了");
+           [self IsConnectState];
 //        SEARCHING...86F1114100FFFFFFFFC5>
         if ([[string substringWithRange:NSMakeRange(12, 8)] isEqualToString:@"86F11141"]) {
             [DashboardSetting sharedInstance].protocolType = KWProtocol;
@@ -309,7 +310,6 @@
         case BlueToothStateConnect:
         {
             NSLog(@"连接成功状态");
-            [self IsConnectState];
              [ self.blueView show];
             sendNumber = 0;
             [self.blueTooth SendData:[BlueTool hexToBytes:@"415448310D"]];

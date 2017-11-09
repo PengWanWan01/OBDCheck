@@ -23,9 +23,12 @@
     NSDate *VssDownbeforeDate;
     NSDate *VssDownafterDate;
     BOOL isVssDownStart;
+    BOOL isVssDowncountStart;
+    CGFloat DownDistance;
     UIButton *UpBtn;
     UIButton *DownBtn;
     UIButton *TimeBtn;
+    NSDate *adate;
 }
 @end
 
@@ -46,10 +49,12 @@
     set1 = nil;
     isVssUpStart = NO;
     isVssDownStart = NO;
+    isVssDowncountStart = YES;
     PartOnedata = [[LineChartData alloc] initWithDataSet:set1];
     PID1dataSource = [[NSMutableArray alloc]init];
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
+    DownDistance = 0;
 }
 - (void)initWithUI{
      chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 250)];
@@ -62,20 +67,20 @@
     [UpBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
      [DownBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
      [TimeBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
-    [UpBtn setTitle:@"0-100KM/H" forState:UIControlStateNormal];
-    [DownBtn setTitle:@"100-0KM/H" forState:UIControlStateNormal];
-    [TimeBtn setTitle:@"0-100M" forState:UIControlStateNormal];
+    [UpBtn setTitle:@"0-100KM/H:" forState:UIControlStateNormal];
+    [DownBtn setTitle:@"100-0KM/H:" forState:UIControlStateNormal];
+    [TimeBtn setTitle:@"0-100M:" forState:UIControlStateNormal];
 
     [self.view addSubview:UpBtn];
     [self.view addSubview:DownBtn];
     [self.view addSubview:TimeBtn];
 
-    startBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, MSHeight -TopHigh - 40, 100, 40)];
+    startBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, MSHeight -TopHigh -100 , 100, 40)];
     [startBtn setTitle:@"Start" forState:UIControlStateNormal];
     [startBtn setTitleColor:[ColorTools colorWithHexString:@"101010"] forState:UIControlStateNormal];
     startBtn.backgroundColor = [ColorTools colorWithHexString:@"FE9002"];
     [startBtn addTarget:self action:@selector(startBtn) forControlEvents:UIControlEventTouchUpInside];
-    reportBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(startBtn.frame)+20, MSHeight -TopHigh - 40, 100, 40)];
+    reportBtn = [[UIButton alloc]initWithFrame:CGRectMake(MSWidth-100- 20, MSHeight -TopHigh-100 , 100, 40)];
     [reportBtn setTitle:@"Report" forState:UIControlStateNormal];
     [reportBtn setTitleColor:[ColorTools colorWithHexString:@"101010"] forState:UIControlStateNormal];
     reportBtn.backgroundColor = [ColorTools colorWithHexString:@"FE9002"];
@@ -135,26 +140,69 @@
 //        NSDate *creat = [formatter dateFromString:(任意时间)];// 将传入的字符串转化成时间
 //        NSTimeInterval delta = [nowDate timeIntervalSinceDate:creat]; // 计算出相差多少秒
 
-        
-        if ([VehicleSpeedStr isEqualToString:@"0"]) {
-             isVssUpStart = YES;
-            VssUpbeforeDate = [NSDate date]; // 当前日期
-        }
         [PID1dataSource addObject:VehicleSpeedStr];
-        NSLog(@"数据%@",PID1dataSource);
+//        NSLog(@"数据%@",PID1dataSource);
         [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)PID1indextag  withY:[PID1dataSource[PID1indextag] intValue]];
         ++PID1indextag;
-        NSLog(@"速度%@",VehicleSpeedStr);
+         NSInteger index = PID1indextag;
+//        NSLog(@"速度%@",VehicleSpeedStr);
+        if ([VehicleSpeedStr isEqualToString:@"0"]) {
+            isVssUpStart = YES;
+            VssUpbeforeDate = [NSDate date]; // 当前日期
+            if (isVssDownStart == YES) {
+                VssDownafterDate =  [NSDate date]; // 当前日期
+                NSTimeInterval delta = [VssDownafterDate timeIntervalSinceDate:VssDownbeforeDate]; // 计算出相差多少秒
+//                NSLog(@"刹车时间差%f",delta);
+//                NSLog(@"%@",PID1dataSource);
+//                NSLog(@"速度%f--%f",[PID1dataSource[--index] doubleValue],[PID1dataSource[--index] doubleValue] );
+                double space = ([PID1dataSource[--index] doubleValue]+[PID1dataSource[--index] doubleValue])/(2*3.6);
+                DownDistance = DownDistance +space*delta;
+//                NSLog(@"路程%f",DownDistance);
+                  [self showDown:DownDistance];
+                isVssDownStart = NO;
+                isVssDowncountStart = YES;
+                DownDistance = 0;
+            }
+            
+        }
     if ([VehicleSpeedStr integerValue]>0) {
         if ([VehicleSpeedStr integerValue] >= 100) {
            VssUpafterDate =  [NSDate date]; // 当前日期
             NSTimeInterval delta = [VssUpafterDate timeIntervalSinceDate:VssUpbeforeDate]; // 计算出相差多少秒
             if (isVssUpStart==YES) {
                 [self showjiasu:delta];
-                 NSLog(@"时间差%f",delta);
+//                 NSLog(@"时间差%f",delta);
                 isVssUpStart = NO;
             }
+            //刹车速度大于100
+            isVssDownStart = YES;
+            isVssDowncountStart = YES;
+        }else{ //刹车速度小于100
+            if(isVssDownStart == YES){
+                NSInteger sendCount = 0;
+                if (isVssDowncountStart == YES) {//第一次得到100的速度就记录，之后就不记录
+                VssDownbeforeDate =  [NSDate date]; // 当前日期
+//                NSLog(@"计刹车时间开始");
+                isVssDowncountStart = NO;
+                 sendCount    = 1;
+                    DownDistance = 0;
+                }
+                
+                if (sendCount == 1) {
+                    adate = [NSDate date];
+                }else{
+                    NSDate *currentData =  [NSDate date]; // 当前日期
+                    NSTimeInterval delta = [currentData timeIntervalSinceDate:adate]; // 计算出相差多少秒
+//                    NSLog(@"两个时间间隔%f",delta);
+//                    NSLog(@"个数%ld",(long)index);
+                    double space = ([PID1dataSource[--index] doubleValue]+[PID1dataSource[--index] doubleValue])/(2*3.6);
+                    DownDistance = DownDistance +space*delta;
+//                    NSLog(@"路程%f",DownDistance);
+                    adate = currentData;
+                }
+            }
         }
+        
     }
         [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
 
@@ -166,13 +214,13 @@
     
 }
 - (void)showjiasu:(CGFloat)number{
-    [UpBtn setTitle:[NSString stringWithFormat:@"0-100KM/H  :%.2fs",number] forState:UIControlStateNormal];
+    [UpBtn setTitle:[NSString stringWithFormat:@"0-100KM/H  :%fs",number] forState:UIControlStateNormal];
 }
 - (void)showDown:(CGFloat)number{
-    [DownBtn setTitle:[NSString stringWithFormat:@"100-0KM/H  :%.2fs",number] forState:UIControlStateNormal];
+    [DownBtn setTitle:[NSString stringWithFormat:@"100-0KM/H  :%fm",number] forState:UIControlStateNormal];
 }
 - (void)showTime:(CGFloat)number{
-    [TimeBtn setTitle:[NSString stringWithFormat:@"0-100m  :%.2fs",number] forState:UIControlStateNormal];
+    [TimeBtn setTitle:[NSString stringWithFormat:@"0-100m  :%fs",number] forState:UIControlStateNormal];
 }
 - (void)initWithchartView:(LineChartView *)view {
     view.delegate = self;

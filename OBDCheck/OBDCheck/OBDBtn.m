@@ -16,7 +16,8 @@
     if (self) {
         self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 100*MSWidth/375, 100*MSWidth/375)];
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-        self.Label = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.imageView.frame)+10*MSHeight/667, 100*MSWidth/375, 20*MSHeight/667)];
+        CGFloat space = IS_IPHONE_4_OR_LESS?0:10*MSHeight/667;
+        self.Label = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.imageView.frame)+space, 100*MSWidth/375, 20*MSHeight/667)];
         [self.Label setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
         self.Label.textAlignment = NSTextAlignmentCenter;
         if (IS_IPHONE_5) {

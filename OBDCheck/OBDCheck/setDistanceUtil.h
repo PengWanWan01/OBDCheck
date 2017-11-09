@@ -10,7 +10,7 @@
 #define Start_Y 20*MSHeight/667           // 第一个按钮的Y坐标
 
 #define Button_Width 100*MSWidth/375
-#define Button_Height 100*MSWidth/375 + 30
+#define Button_Height  IS_IPHONE_4_OR_LESS?(100*MSWidth/375 + 20*MSHeight/667):(100*MSWidth/375 + 30*MSHeight/667)
 
 #define twoWidth_Space MSWidth-2*Button_Width - 126*MSWidth/375       // 两个按钮布局2个按钮之间的横间距
 
