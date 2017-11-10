@@ -38,6 +38,8 @@
     [self initNavBarTitle:@"" andLeftItemImageName:@"Upload" andRightItemImageName:@"help"];
    
     NSLog(@"IS_IPHONE%d,%f",IS_IPHONE,SCREEN_MAX_LENGTH);
+    self.blueTooth = [BlueToothController Instance];
+    self.blueTooth.delegate = self;
     [self initWithData];
     [self initWithUI];
 }
@@ -216,8 +218,7 @@
 - (void)LinkBlueTooth{
     if (isSelect) {
         NSLog(@"12");
-        self.blueTooth = [BlueToothController Instance];
-        self.blueTooth.delegate = self;
+       [ self.blueView show];
         isSelect = NO;
     }else{
         NSLog(@"13");
@@ -261,9 +262,9 @@
         NSLog(@"可以发动了");
            [self IsConnectState];
 //        SEARCHING...86F1114100FFFFFFFFC5>
-        if ([[string substringWithRange:NSMakeRange(12, 8)] isEqualToString:@"86F11141"]) {
+        if ([[string substringWithRange:NSMakeRange(12, 6)] isEqualToString:@"86F111"]) {
             [DashboardSetting sharedInstance].protocolType = KWProtocol;
-        }else if ([[string substringWithRange:NSMakeRange(12, 8)] isEqualToString:@"18DAF111"]){
+        }else if ([[string substringWithRange:NSMakeRange(12, 6)] isEqualToString:@"18DAF1"]){
             [DashboardSetting sharedInstance].protocolType = CanProtocol;
             }
         [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
@@ -310,7 +311,6 @@
         case BlueToothStateConnect:
         {
             NSLog(@"连接成功状态");
-             [ self.blueView show];
             sendNumber = 0;
             [self.blueTooth SendData:[BlueTool hexToBytes:@"415448310D"]];
         }

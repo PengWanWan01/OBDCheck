@@ -67,8 +67,8 @@
     [UpBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
      [DownBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
      [TimeBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
-    [UpBtn setTitle:@"0-100KM/H:" forState:UIControlStateNormal];
-    [DownBtn setTitle:@"100-0KM/H:" forState:UIControlStateNormal];
+    [UpBtn setTitle:@"0-50KM/H:" forState:UIControlStateNormal];
+    [DownBtn setTitle:@"50-0KM/H:" forState:UIControlStateNormal];
     [TimeBtn setTitle:@"0-100M:" forState:UIControlStateNormal];
 
     [self.view addSubview:UpBtn];
@@ -166,7 +166,7 @@
             
         }
     if ([VehicleSpeedStr integerValue]>0) {
-        if ([VehicleSpeedStr integerValue] >= 100) {
+        if ([VehicleSpeedStr integerValue] >= 30) {
            VssUpafterDate =  [NSDate date]; // 当前日期
             NSTimeInterval delta = [VssUpafterDate timeIntervalSinceDate:VssUpbeforeDate]; // 计算出相差多少秒
             if (isVssUpStart==YES) {
@@ -214,10 +214,10 @@
     
 }
 - (void)showjiasu:(CGFloat)number{
-    [UpBtn setTitle:[NSString stringWithFormat:@"0-100KM/H  :%fs",number] forState:UIControlStateNormal];
+    [UpBtn setTitle:[NSString stringWithFormat:@"0-50KM/H  :%fs",number] forState:UIControlStateNormal];
 }
 - (void)showDown:(CGFloat)number{
-    [DownBtn setTitle:[NSString stringWithFormat:@"100-0KM/H  :%fm",number] forState:UIControlStateNormal];
+    [DownBtn setTitle:[NSString stringWithFormat:@"50-0KM/H  :%fm",number] forState:UIControlStateNormal];
 }
 - (void)showTime:(CGFloat)number{
     [TimeBtn setTitle:[NSString stringWithFormat:@"0-100m  :%fs",number] forState:UIControlStateNormal];

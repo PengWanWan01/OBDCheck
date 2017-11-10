@@ -38,7 +38,7 @@ if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToStri
         case CanProtocol:
             {
                 if (string.length>5 &&[[string substringToIndex:6] isEqualToString:@"18DAF1"]) {
-                NSRange range = [string rangeOfString:@"18DAF111"];
+                NSRange range = [string rangeOfString:@"18DAF1"];
                 string = [string substringFromIndex:range.location]; //截取字符串
                     //得到水温
                     NSString* Commond = [string substringWithRange:NSMakeRange(12, 2)];
@@ -76,7 +76,7 @@ if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToStri
         case CanProtocol:
         {
             if (string.length>5 &&[[string substringToIndex:6] isEqualToString:@"18DAF1"]) {
-            NSRange range = [string rangeOfString:@"18DAF111"];
+            NSRange range = [string rangeOfString:@"18DAF1"];
             string = [string substringFromIndex:range.location]; //截取字符串
                 NSString* Commond = [string substringWithRange:NSMakeRange(12, 2)];
                 //转速添加到数组
@@ -111,11 +111,12 @@ if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToStri
 +(NSString *)isVehicleSpeed:(NSString *)string{
     NSString * resultVehicleSpeed = nil ;
      if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToString:@">"]) {
+         
     switch ([DashboardSetting sharedInstance].protocolType) {
         case CanProtocol:
         {
            if (string.length>5 &&[[string substringToIndex:6] isEqualToString:@"18DAF1"]) {
-            NSRange range = [string rangeOfString:@"18DAF111"];
+            NSRange range = [string rangeOfString:@"18DAF1"];
             string = [string substringFromIndex:range.location]; //截取字符串
             NSLog(@"打印%@",string);
                 NSString* Commond = [string substringWithRange:NSMakeRange(12, 2)];
@@ -154,7 +155,7 @@ if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToStri
         case CanProtocol:
         {
             if (string.length>5 &&[[string substringToIndex:6] isEqualToString:@"18DAF1"]) {
-            NSRange range = [string rangeOfString:@"18DAF111"];
+            NSRange range = [string rangeOfString:@"18DAF1"];
             string = [string substringFromIndex:range.location]; //截取字符串
                 //得到TF
                 NSString* Commond = [string substringWithRange:NSMakeRange(12, 2)];
