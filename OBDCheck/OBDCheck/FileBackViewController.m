@@ -33,7 +33,6 @@ static dispatch_source_t _timer;
 @implementation FileBackViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
     [self initNavBarTitle:@"Files" andLeftItemImageName:@"back" andRightItemName:@""];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
 }
@@ -127,7 +126,7 @@ static dispatch_source_t _timer;
     
     [self setDataCount:self.model.PID1dataSource.count  range:self.model.PID1dataSource withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(self.model.item1Smoothing)];
     [self setDataCount:self.model.PID2dataSource.count range:self.model.PID2dataSource withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(self.model.item2Smoothing)];
-    [chartViewone animateWithXAxisDuration:self.model.PID1dataSource.count-1];
+//    [chartViewone animateWithXAxisDuration:self.model.PID1dataSource.count-1];
     //设置当前可以看到的个数
 //    [chartViewone setVisibleXRangeMaximum:10];
     //设置当前开始的位置
