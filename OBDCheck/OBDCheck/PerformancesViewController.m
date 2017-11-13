@@ -15,6 +15,7 @@
      LineChartView *chartViewone ;
      LineChartDataSet *set1;
     LineChartData *PartOnedata;
+    
     NSMutableArray *PID1dataSource;
     NSInteger PID1indextag;
     NSDate *VssUpbeforeDate;
@@ -24,11 +25,21 @@
     NSDate *VssDownafterDate;
     BOOL isVssDownStart;
     BOOL isVssDowncountStart;
+    NSDate *Distance100Date;
+    BOOL isDistance100Start;
+    BOOL isDistance100End;
     CGFloat DownDistance;
+    CGFloat TotalDistance;
+    NSDate  *StartTime;
+    NSDate   *preDate;
     UIButton *UpBtn;
     UIButton *DownBtn;
     UIButton *TimeBtn;
     NSDate *adate;
+    NSInteger GetDataCount;
+    UILabel *totalTimeLabel;
+    UILabel *totalDistanceLabel;
+
 }
 @end
 
@@ -55,32 +66,40 @@
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
     DownDistance = 0;
+    TotalDistance = 0;
+    GetDataCount = 0;
+    isDistance100Start = YES;
+    isDistance100End = YES;
+}
+- (NSMutableAttributedString *)setAttributed:(NSString *)String withRange:(NSInteger)range{
+    NSMutableAttributedString *resultStr = [[NSMutableAttributedString alloc]initWithString:String];
+    NSRange theRange = NSMakeRange(range, resultStr.length - range);
+    [resultStr addAttribute:NSForegroundColorAttributeName value:[ColorTools colorWithHexString:@"C8C6C6"] range:theRange];
+    return resultStr;
 }
 - (void)initWithUI{
-     chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 250)];
-    [self initWithchartView:chartViewone ];
-    [self.view addSubview:chartViewone];
-    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:@"Speed" withLineColor:[ColorTools colorWithHexString:@"FFFF00"] withDependency:AxisDependencyLeft iSsmoothing:YES];
-    UpBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewone.frame)+10, MSWidth, 20)];
-     DownBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(UpBtn.frame)+10, MSWidth, 20)];
-     TimeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(DownBtn.frame)+10, MSWidth, 20)];
-    [UpBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
-     [DownBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
-     [TimeBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
-    [UpBtn setTitle:@"0-50KM/H:" forState:UIControlStateNormal];
-    [DownBtn setTitle:@"50-0KM/H:" forState:UIControlStateNormal];
-    [TimeBtn setTitle:@"0-100M:" forState:UIControlStateNormal];
+        totalTimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, TopHigh, MSWidth/2, 25)];
+         totalTimeLabel.textAlignment = NSTextAlignmentCenter;
+        [totalTimeLabel setTextColor:[ColorTools colorWithHexString:@"FE9002"]];
+        totalTimeLabel.adjustsFontSizeToFitWidth = YES;
+         [totalTimeLabel setAttributedText:[self setAttributed:@"Time:00:00:00" withRange:5]];
+         [self.view addSubview:totalTimeLabel];
+        
+        totalDistanceLabel = [[UILabel alloc]initWithFrame:CGRectMake((MSWidth/2)+15, TopHigh, MSWidth/2, 25)];
+    totalDistanceLabel.adjustsFontSizeToFitWidth = YES;
+    [totalDistanceLabel setTextColor:[ColorTools colorWithHexString:@"FE9002"]];
+        totalDistanceLabel.textAlignment = NSTextAlignmentCenter;
+        [totalDistanceLabel setAttributedText:[self setAttributed:@"Distance:0m" withRange:9]];
+        [self.view addSubview:totalDistanceLabel];
+  
+    [self initWithDataUI ];
 
-    [self.view addSubview:UpBtn];
-    [self.view addSubview:DownBtn];
-    [self.view addSubview:TimeBtn];
-
-    startBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, MSHeight -TopHigh -100 , 100, 40)];
+    startBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, MSHeight -110 , 100, 40)];
     [startBtn setTitle:@"Start" forState:UIControlStateNormal];
     [startBtn setTitleColor:[ColorTools colorWithHexString:@"101010"] forState:UIControlStateNormal];
     startBtn.backgroundColor = [ColorTools colorWithHexString:@"FE9002"];
     [startBtn addTarget:self action:@selector(startBtn) forControlEvents:UIControlEventTouchUpInside];
-    reportBtn = [[UIButton alloc]initWithFrame:CGRectMake(MSWidth-100- 20, MSHeight -TopHigh-100 , 100, 40)];
+    reportBtn = [[UIButton alloc]initWithFrame:CGRectMake(MSWidth-100- 20, MSHeight -110  , 100, 40)];
     [reportBtn setTitle:@"Report" forState:UIControlStateNormal];
     [reportBtn setTitleColor:[ColorTools colorWithHexString:@"101010"] forState:UIControlStateNormal];
     reportBtn.backgroundColor = [ColorTools colorWithHexString:@"FE9002"];
@@ -88,6 +107,27 @@
     [self.view addSubview:startBtn];
     [self.view addSubview:reportBtn];
     
+}
+- (void)initWithDataUI{
+    
+    
+    chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, TopHigh+35, MSWidth, 250)];
+    [self initWithchartView:chartViewone ];
+    [self.view addSubview:chartViewone];
+    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:@"Speed" withLineColor:[ColorTools colorWithHexString:@"FFFF00"] withDependency:AxisDependencyLeft iSsmoothing:YES];
+    UpBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewone.frame)+10, MSWidth, 20)];
+    DownBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(UpBtn.frame)+10, MSWidth, 20)];
+    TimeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(DownBtn.frame)+10, MSWidth, 20)];
+    [UpBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+    [DownBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+    [TimeBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+    [UpBtn setTitle:@"0-100KM/H:" forState:UIControlStateNormal];
+    [DownBtn setTitle:@"100-0KM/H:" forState:UIControlStateNormal];
+    [TimeBtn setTitle:@"0-100M:" forState:UIControlStateNormal];
+    
+    [self.view addSubview:UpBtn];
+    [self.view addSubview:DownBtn];
+    [self.view addSubview:TimeBtn];
 }
 - (void)back{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -112,9 +152,11 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)startBtn{
+//     [self initWithData];
     //发送车速
     [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
-
+    NSDate *currentDate = [NSDate date]; // 当前日期
+    StartTime = currentDate;
 }
 #pragma mark蓝牙代理协议，处理信息
 - (void)getDeviceInfo:(BELInfo *)info{
@@ -134,30 +176,49 @@
     NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
     NSLog(@"%@",VehicleSpeedStr);
     if (!(VehicleSpeedStr == nil)) {
-//        NSDate *nowDate = [NSDate date]; // 当前日期
+        NSDate *nowDate = [NSDate date]; // 当前日期
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"yyyy-MM-dd HH-mm-ss";
-//        NSDate *creat = [formatter dateFromString:(任意时间)];// 将传入的字符串转化成时间
-//        NSTimeInterval delta = [nowDate timeIntervalSinceDate:creat]; // 计算出相差多少秒
-
+        NSTimeInterval delta = [nowDate timeIntervalSinceDate:StartTime]; // 计算出相差多少秒
+        [self showTotalTime:delta]; //计算性能测试开始的时间
         [PID1dataSource addObject:VehicleSpeedStr];
-//        NSLog(@"数据%@",PID1dataSource);
         [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)PID1indextag  withY:[PID1dataSource[PID1indextag] intValue]];
         ++PID1indextag;
          NSInteger index = PID1indextag;
-//        NSLog(@"速度%@",VehicleSpeedStr);
+        if (GetDataCount == 0) {
+            double space = [VehicleSpeedStr doubleValue]/(3.6);
+            TotalDistance = delta*space;
+        [self showTotalDiatance:TotalDistance]; //计算性能测试开始的距离
+            preDate = nowDate;
+            ++GetDataCount;
+        }else{
+            NSInteger indextag = PID1indextag;
+            NSTimeInterval delta = [nowDate timeIntervalSinceDate:preDate]; // 计算出相差多少秒
+            double space = ([PID1dataSource[--indextag] doubleValue]+[PID1dataSource[--indextag] doubleValue])/(2*3.6);
+            TotalDistance = TotalDistance +space*delta;
+            [self showTotalDiatance:TotalDistance]; //计算性能测试开始的距离
+            preDate = nowDate;
+        }
+        //计算0-100m的时间
+        if (TotalDistance >0) {
+            if (isDistance100Start == YES) {
+                Distance100Date = preDate;
+                isDistance100Start = NO;
+            }
+            if (TotalDistance >= 100 && isDistance100End == YES) {
+               NSTimeInterval delta = [nowDate timeIntervalSinceDate:Distance100Date]; // 计算出相差多少秒
+                [self showTime:delta];
+                isDistance100End = NO;
+            }
+        }
         if ([VehicleSpeedStr isEqualToString:@"0"]) {
             isVssUpStart = YES;
             VssUpbeforeDate = [NSDate date]; // 当前日期
             if (isVssDownStart == YES) {
                 VssDownafterDate =  [NSDate date]; // 当前日期
                 NSTimeInterval delta = [VssDownafterDate timeIntervalSinceDate:VssDownbeforeDate]; // 计算出相差多少秒
-//                NSLog(@"刹车时间差%f",delta);
-//                NSLog(@"%@",PID1dataSource);
-//                NSLog(@"速度%f--%f",[PID1dataSource[--index] doubleValue],[PID1dataSource[--index] doubleValue] );
                 double space = ([PID1dataSource[--index] doubleValue]+[PID1dataSource[--index] doubleValue])/(2*3.6);
                 DownDistance = DownDistance +space*delta;
-//                NSLog(@"路程%f",DownDistance);
                   [self showDown:DownDistance];
                 isVssDownStart = NO;
                 isVssDowncountStart = YES;
@@ -166,7 +227,7 @@
             
         }
     if ([VehicleSpeedStr integerValue]>0) {
-        if ([VehicleSpeedStr integerValue] >= 30) {
+        if ([VehicleSpeedStr integerValue] >= 100) {
            VssUpafterDate =  [NSDate date]; // 当前日期
             NSTimeInterval delta = [VssUpafterDate timeIntervalSinceDate:VssUpbeforeDate]; // 计算出相差多少秒
             if (isVssUpStart==YES) {
@@ -211,16 +272,22 @@
 }
 -(void)BlueToothState:(BlueToothState)state{
     
-    
+}
+-(void)showTotalTime:(CGFloat)totalTime{
+    NSLog(@"时间时间%f",totalTime);
+    [totalTimeLabel setAttributedText:[self setAttributed:[NSString stringWithFormat:@"Time:%.2f",totalTime] withRange:5]];
+}
+- (void)showTotalDiatance:(CGFloat)totalDiatance{
+  [totalDistanceLabel setAttributedText:[self setAttributed:[NSString stringWithFormat:@"Distance:%.2f",totalDiatance] withRange:9]];
 }
 - (void)showjiasu:(CGFloat)number{
-    [UpBtn setTitle:[NSString stringWithFormat:@"0-50KM/H  :%fs",number] forState:UIControlStateNormal];
+    [UpBtn setTitle:[NSString stringWithFormat:@"0-100KM/H  :%fs",number] forState:UIControlStateNormal];
 }
 - (void)showDown:(CGFloat)number{
-    [DownBtn setTitle:[NSString stringWithFormat:@"50-0KM/H  :%fm",number] forState:UIControlStateNormal];
+    [DownBtn setTitle:[NSString stringWithFormat:@"100-0KM/H  :%fm",number] forState:UIControlStateNormal];
 }
 - (void)showTime:(CGFloat)number{
-    [TimeBtn setTitle:[NSString stringWithFormat:@"0-100m  :%fs",number] forState:UIControlStateNormal];
+    [TimeBtn setTitle:[NSString stringWithFormat:@"0-100m  :%.fs",number] forState:UIControlStateNormal];
 }
 - (void)initWithchartView:(LineChartView *)view {
     view.delegate = self;
