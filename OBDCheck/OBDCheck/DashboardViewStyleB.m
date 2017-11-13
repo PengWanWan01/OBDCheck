@@ -242,7 +242,7 @@
     _UnitLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleB*unitFontScale];
     _UnitLabel.textColor =  [ColorTools colorWithHexString:unitColor];
     _UnitLabel.textAlignment = NSTextAlignmentCenter;
-    _UnitLabel.text = @"R/MIN";
+    _UnitLabel.text = @"km/h";
 
     [innerimage addSubview:_UnitLabel];
 }

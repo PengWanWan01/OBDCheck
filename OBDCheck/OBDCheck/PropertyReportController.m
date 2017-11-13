@@ -22,16 +22,24 @@
     [self initWithUI];
 }
 - (void)initWithData{
-    self.showDataSource = [[NSMutableArray alloc]initWithObjects:@"0-100KM/H",@"00.0s",@"100km/h-0km/h",@"00.0s",@"0-100m",@"00.0s", nil];
+    self.showDataSource = [[NSMutableArray alloc]initWithObjects:@"0-100KM/H:",@"100km/h-0km/h:",@"0-100m:", nil];
 }
 - (void)initWithUI{
-    for (int i = 0; i<self.showDataSource.count; i++) {
+    for (int i = 0; i<3; i++) {
         NSLog(@"得到的数组%@",self.showDataSource);
-        
-        UIButton *btn =[[UIButton alloc]initWithFrame: CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], 120*MSWidth/375, 30*MSWidth/375)];
-        [btn setTitle:self.showDataSource[i] forState:UIControlStateNormal];
-        [btn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
-              [self.view addSubview:btn];
+        UILabel *showLabel =[[UILabel alloc]initWithFrame: CGRectMake(0, i*40,MSWidth/2, 25)];
+        showLabel.text = self.showDataSource[i];
+        showLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+        showLabel.textAlignment = NSTextAlignmentCenter;
+        [self.view addSubview:showLabel];
+    }
+    for (int i = 0; i<3; i++) {
+        NSLog(@"得到的数组%@",self.reportData);
+        UILabel *showLabel =[[UILabel alloc]initWithFrame: CGRectMake(MSWidth/2, i*40,MSWidth/2, 25)];
+        showLabel.text = self.reportData[i];
+        showLabel.textAlignment = NSTextAlignmentCenter;
+        showLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+        [self.view addSubview:showLabel];
     }
 }
 - (void)viewDidLoad {

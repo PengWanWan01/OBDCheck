@@ -39,8 +39,9 @@
     NSInteger GetDataCount;
     UILabel *totalTimeLabel;
     UILabel *totalDistanceLabel;
-
+    DashboardViewStyleB *dashViewB;
 }
+@property (nonatomic,strong) NSMutableArray *reportData;
 @end
 
 @implementation PerformancesViewController
@@ -70,6 +71,7 @@
     GetDataCount = 0;
     isDistance100Start = YES;
     isDistance100End = YES;
+    self.reportData = [[NSMutableArray alloc]initWithObjects:@"--",@"--",@"--", nil];
 }
 - (NSMutableAttributedString *)setAttributed:(NSString *)String withRange:(NSInteger)range{
     NSMutableAttributedString *resultStr = [[NSMutableAttributedString alloc]initWithString:String];
@@ -98,36 +100,75 @@
     [startBtn setTitle:@"Start" forState:UIControlStateNormal];
     [startBtn setTitleColor:[ColorTools colorWithHexString:@"101010"] forState:UIControlStateNormal];
     startBtn.backgroundColor = [ColorTools colorWithHexString:@"FE9002"];
+    startBtn.layer.cornerRadius = 5.f;
     [startBtn addTarget:self action:@selector(startBtn) forControlEvents:UIControlEventTouchUpInside];
     reportBtn = [[UIButton alloc]initWithFrame:CGRectMake(MSWidth-100- 20, MSHeight -110  , 100, 40)];
     [reportBtn setTitle:@"Report" forState:UIControlStateNormal];
     [reportBtn setTitleColor:[ColorTools colorWithHexString:@"101010"] forState:UIControlStateNormal];
     reportBtn.backgroundColor = [ColorTools colorWithHexString:@"FE9002"];
+    reportBtn.layer.cornerRadius = 5.f;
       [reportBtn addTarget:self action:@selector(reportBtn) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:startBtn];
     [self.view addSubview:reportBtn];
     
 }
 - (void)initWithDataUI{
-    
-    
-    chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, TopHigh+35, MSWidth, 250)];
+    if (IS_IPHONE_4_OR_LESS) {
+    dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake((MSWidth-160*Kwidthmultiple)/2,TopHigh+35 , 160*Kwidthmultiple, 160*Kwidthmultiple)];
+    }else{
+     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake((MSWidth-250*Kwidthmultiple)/2,TopHigh+35 , 250*Kwidthmultiple, 250*Kwidthmultiple)];
+    }
+    DashboardB *model = [DashboardB new];
+    [self initWithModel:model];
+    [dashViewB initWithModel:model];
+    dashViewB.PIDLabel.text = @"speed";
+    dashViewB.NumberLabel.text = @"0";
+    [self.view addSubview:dashViewB];
+   if (IS_IPHONE_5 || IS_IPHONE_4_OR_LESS) {
+         chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(dashViewB.frame)+5, MSWidth, 170)];
+    }else{
+         chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(dashViewB.frame)+5, MSWidth, 230*KHeightmultiple)];
+    }
+   
     [self initWithchartView:chartViewone ];
     [self.view addSubview:chartViewone];
     [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:@"Speed" withLineColor:[ColorTools colorWithHexString:@"FFFF00"] withDependency:AxisDependencyLeft iSsmoothing:YES];
-    UpBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewone.frame)+10, MSWidth, 20)];
-    DownBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(UpBtn.frame)+10, MSWidth, 20)];
-    TimeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(DownBtn.frame)+10, MSWidth, 20)];
-    [UpBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
-    [DownBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
-    [TimeBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
-    [UpBtn setTitle:@"0-100KM/H:" forState:UIControlStateNormal];
-    [DownBtn setTitle:@"100-0KM/H:" forState:UIControlStateNormal];
-    [TimeBtn setTitle:@"0-100M:" forState:UIControlStateNormal];
+//    UpBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewone.frame)+10, MSWidth, 20)];
+//    DownBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(UpBtn.frame)+10, MSWidth, 20)];
+//    TimeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(DownBtn.frame)+10, MSWidth, 20)];
+//    [UpBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+//    [DownBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+//    [TimeBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+//    [UpBtn setTitle:@"0-100KM/H:" forState:UIControlStateNormal];
+//    [DownBtn setTitle:@"100-0KM/H:" forState:UIControlStateNormal];
+//    [TimeBtn setTitle:@"0-100M:" forState:UIControlStateNormal];
+//
+//    [self.view addSubview:UpBtn];
+//    [self.view addSubview:DownBtn];
+//    [self.view addSubview:TimeBtn];
+}
+-(void)initWithModel:(DashboardB *)model{
+    model.ValueColor  = @"#FFFFFF";
+    model.ValueFontScale = [NSNumber numberWithFloat:1.f];
+    model.ValuePositon = [NSNumber numberWithFloat:1.f];
+    model.ValueVisible = YES;
+    model.titleColor  = @"#757476";
+    model.titleFontScale = [NSNumber numberWithFloat:1.f];
+    model.titlePositon = [NSNumber numberWithFloat:1.f];
     
-    [self.view addSubview:UpBtn];
-    [self.view addSubview:DownBtn];
-    [self.view addSubview:TimeBtn];
+    model.UnitColor = @"#757476";
+    model.UnitFontScale = [NSNumber numberWithFloat:1.f];
+    model.UnitPositon = [NSNumber numberWithFloat:1.f];
+    
+    
+    model.backColor = @"00a6ff";
+    model.GradientRadius = [NSNumber numberWithFloat:MSWidth/2];
+    
+    model.FillColor = @"FE9002";
+    model.FillEnable = YES;
+    
+    model.Pointerwidth = [NSNumber numberWithFloat:1.f];
+//    model.pointerColor = @"#FFFFFF";
 }
 - (void)back{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -149,6 +190,7 @@
         [self stopSend];
     });
     PropertyReportController *vc = [[PropertyReportController alloc]init];
+    vc.reportData = self.reportData;
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)startBtn{
@@ -181,6 +223,7 @@
         formatter.dateFormat = @"yyyy-MM-dd HH-mm-ss";
         NSTimeInterval delta = [nowDate timeIntervalSinceDate:StartTime]; // 计算出相差多少秒
         [self showTotalTime:delta]; //计算性能测试开始的时间
+        dashViewB.NumberLabel.text = VehicleSpeedStr ;
         [PID1dataSource addObject:VehicleSpeedStr];
         [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)PID1indextag  withY:[PID1dataSource[PID1indextag] intValue]];
         ++PID1indextag;
@@ -223,8 +266,7 @@
                 isVssDownStart = NO;
                 isVssDowncountStart = YES;
                 DownDistance = 0;
-            }
-            
+            }            
         }
     if ([VehicleSpeedStr integerValue]>0) {
         if ([VehicleSpeedStr integerValue] >= 100) {
@@ -232,7 +274,6 @@
             NSTimeInterval delta = [VssUpafterDate timeIntervalSinceDate:VssUpbeforeDate]; // 计算出相差多少秒
             if (isVssUpStart==YES) {
                 [self showjiasu:delta];
-//                 NSLog(@"时间差%f",delta);
                 isVssUpStart = NO;
             }
             //刹车速度大于100
@@ -243,7 +284,6 @@
                 NSInteger sendCount = 0;
                 if (isVssDowncountStart == YES) {//第一次得到100的速度就记录，之后就不记录
                 VssDownbeforeDate =  [NSDate date]; // 当前日期
-//                NSLog(@"计刹车时间开始");
                 isVssDowncountStart = NO;
                  sendCount    = 1;
                     DownDistance = 0;
@@ -254,11 +294,8 @@
                 }else{
                     NSDate *currentData =  [NSDate date]; // 当前日期
                     NSTimeInterval delta = [currentData timeIntervalSinceDate:adate]; // 计算出相差多少秒
-//                    NSLog(@"两个时间间隔%f",delta);
-//                    NSLog(@"个数%ld",(long)index);
                     double space = ([PID1dataSource[--index] doubleValue]+[PID1dataSource[--index] doubleValue])/(2*3.6);
                     DownDistance = DownDistance +space*delta;
-//                    NSLog(@"路程%f",DownDistance);
                     adate = currentData;
                 }
             }
@@ -281,13 +318,17 @@
   [totalDistanceLabel setAttributedText:[self setAttributed:[NSString stringWithFormat:@"Distance:%.2f",totalDiatance] withRange:9]];
 }
 - (void)showjiasu:(CGFloat)number{
-    [UpBtn setTitle:[NSString stringWithFormat:@"0-100KM/H  :%fs",number] forState:UIControlStateNormal];
+//    [UpBtn setTitle:[NSString stringWithFormat:@"0-100KM/H  :%fs",number] forState:UIControlStateNormal];
+    [self.reportData replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"%.2fs",number]];
+    
 }
 - (void)showDown:(CGFloat)number{
-    [DownBtn setTitle:[NSString stringWithFormat:@"100-0KM/H  :%fm",number] forState:UIControlStateNormal];
+//    [DownBtn setTitle:[NSString stringWithFormat:@"100-0KM/H  :%fm",number] forState:UIControlStateNormal];
+      [self.reportData replaceObjectAtIndex:1 withObject:[NSString stringWithFormat:@"%.2fm",number]];
 }
 - (void)showTime:(CGFloat)number{
-    [TimeBtn setTitle:[NSString stringWithFormat:@"0-100m  :%.fs",number] forState:UIControlStateNormal];
+//    [TimeBtn setTitle:[NSString stringWithFormat:@"0-100m  :%.fs",number] forState:UIControlStateNormal];
+       [self.reportData replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"%.2fs",number]];
 }
 - (void)initWithchartView:(LineChartView *)view {
     view.delegate = self;
