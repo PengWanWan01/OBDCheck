@@ -62,6 +62,7 @@
 		CB5AA4131F31A377002B3006 /* SetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */; };
 		CB5DAC621F78FA93009A8A19 /* ColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5DAC601F78FA93009A8A19 /* ColorTableViewCell.m */; };
 		CB5DAC631F78FA93009A8A19 /* ColorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5DAC611F78FA93009A8A19 /* ColorTableViewCell.xib */; };
+		CB6390101FB9A88E00C958E7 /* reportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB63900F1FB9A88E00C958E7 /* reportModel.m */; };
 		CB7B8DB41F9D99B7009E4442 /* DashboardB.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7B8DAF1F9D99B7009E4442 /* DashboardB.m */; };
 		CB7B8DB51F9D99B7009E4442 /* DashboardC.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7B8DB11F9D99B7009E4442 /* DashboardC.m */; };
 		CB7B8DB61F9D99B7009E4442 /* DashboardA.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7B8DB31F9D99B7009E4442 /* DashboardA.m */; };
@@ -286,6 +287,8 @@
 		CB5DAC5F1F78FA93009A8A19 /* ColorTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorTableViewCell.h; sourceTree = "<group>"; };
 		CB5DAC601F78FA93009A8A19 /* ColorTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorTableViewCell.m; sourceTree = "<group>"; };
 		CB5DAC611F78FA93009A8A19 /* ColorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorTableViewCell.xib; sourceTree = "<group>"; };
+		CB63900E1FB9A88E00C958E7 /* reportModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = reportModel.h; sourceTree = "<group>"; };
+		CB63900F1FB9A88E00C958E7 /* reportModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = reportModel.m; sourceTree = "<group>"; };
 		CB7B8DAE1F9D99B6009E4442 /* DashboardB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DashboardB.h; sourceTree = "<group>"; };
 		CB7B8DAF1F9D99B7009E4442 /* DashboardB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DashboardB.m; sourceTree = "<group>"; };
 		CB7B8DB01F9D99B7009E4442 /* DashboardC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DashboardC.h; sourceTree = "<group>"; };
@@ -494,6 +497,7 @@
 		CB07E6A61F908B8900545A82 /* Performance */ = {
 			isa = PBXGroup;
 			children = (
+				CB63900C1FB9A86B00C958E7 /* Model */,
 				CB07E6A81F908BB600545A82 /* PerformanceController.h */,
 				CB07E6A91F908BB600545A82 /* PerformanceController.m */,
 				CB99D70E1FB328BB00ABAF4A /* PerformancesViewController.h */,
@@ -641,6 +645,15 @@
 				CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		CB63900C1FB9A86B00C958E7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CB63900E1FB9A88E00C958E7 /* reportModel.h */,
+				CB63900F1FB9A88E00C958E7 /* reportModel.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		CB848F121F4541DB00C1A718 /* Controllers */ = {
@@ -1265,6 +1278,7 @@
 				CB07EA271F41A370002894F9 /* UIColor+Separate.m in Sources */,
 				CB048C471F8CE32A006A2ED7 /* GeneralController.m in Sources */,
 				CBE4AC061F4426BC003714A4 /* BasicViewController.m in Sources */,
+				CB6390101FB9A88E00C958E7 /* reportModel.m in Sources */,
 				CBB1CC471F6249B8002EE7EB /* JXButton.m in Sources */,
 				CBEBF1CC1F3B0E3F006CCA8B /* SelectStyleViewController.m in Sources */,
 				CBF334641F4B0FE6003C0548 /* ILColorPickerView.m in Sources */,

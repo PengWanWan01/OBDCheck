@@ -40,8 +40,8 @@
     UILabel *totalTimeLabel;
     UILabel *totalDistanceLabel;
     DashboardViewStyleB *dashViewB;
+    reportModel *reportmodel;
 }
-@property (nonatomic,strong) NSMutableArray *reportData;
 @end
 
 @implementation PerformancesViewController
@@ -71,7 +71,7 @@
     GetDataCount = 0;
     isDistance100Start = YES;
     isDistance100End = YES;
-    self.reportData = [[NSMutableArray alloc]initWithObjects:@"--",@"--",@"--", nil];
+    reportmodel = [[reportModel alloc]init];
 }
 - (NSMutableAttributedString *)setAttributed:(NSString *)String withRange:(NSInteger)range{
     NSMutableAttributedString *resultStr = [[NSMutableAttributedString alloc]initWithString:String];
@@ -190,7 +190,8 @@
         [self stopSend];
     });
     PropertyReportController *vc = [[PropertyReportController alloc]init];
-    vc.reportData = self.reportData;
+    NSLog(@"模型模型%@",reportmodel.reportUp100Time);
+    vc.model = reportmodel;
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)startBtn{
@@ -318,17 +319,13 @@
   [totalDistanceLabel setAttributedText:[self setAttributed:[NSString stringWithFormat:@"Distance:%.2f",totalDiatance] withRange:9]];
 }
 - (void)showjiasu:(CGFloat)number{
-//    [UpBtn setTitle:[NSString stringWithFormat:@"0-100KM/H  :%fs",number] forState:UIControlStateNormal];
-    [self.reportData replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"%.2fs",number]];
-    
+    reportmodel.reportSpeedUpTime = [NSString stringWithFormat:@"%.2fs",number];
 }
 - (void)showDown:(CGFloat)number{
-//    [DownBtn setTitle:[NSString stringWithFormat:@"100-0KM/H  :%fm",number] forState:UIControlStateNormal];
-      [self.reportData replaceObjectAtIndex:1 withObject:[NSString stringWithFormat:@"%.2fm",number]];
+    reportmodel.reportSpeedDownDistance = [NSString stringWithFormat:@"%.2fm",number];
 }
 - (void)showTime:(CGFloat)number{
-//    [TimeBtn setTitle:[NSString stringWithFormat:@"0-100m  :%.fs",number] forState:UIControlStateNormal];
-       [self.reportData replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"%.2fs",number]];
+    reportmodel.reportUp100Time =[NSString stringWithFormat:@"%.2fs",number];
 }
 - (void)initWithchartView:(LineChartView *)view {
     view.delegate = self;

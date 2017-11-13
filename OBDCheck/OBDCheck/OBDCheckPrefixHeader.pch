@@ -147,5 +147,5 @@
 #import "FeedbackViewController.h"
 #import "PerformancesViewController.h"
 #import "PropertyReportController.h"
-
+#import "reportModel.h"
 #endif /* OBDCheckPrefixHeader_pch */

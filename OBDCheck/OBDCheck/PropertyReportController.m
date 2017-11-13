@@ -25,22 +25,45 @@
     self.showDataSource = [[NSMutableArray alloc]initWithObjects:@"0-100KM/H:",@"100km/h-0km/h:",@"0-100m:", nil];
 }
 - (void)initWithUI{
+  
+    UILabel *firstTitle = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, MSWidth-20, 20)];
+    firstTitle.textColor = [ColorTools colorWithHexString:@"918E8E"];
+    firstTitle.text = @"Time/Max Speed";
+    firstTitle.font = [UIFont systemFontOfSize:14.f];
+    [self.view addSubview:firstTitle];
+    for (NSInteger i = 0; i<2; i++) {
+        UILabel *numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(i*(MSWidth/2), CGRectGetMaxY(firstTitle.frame)+10, MSWidth/2, 30)];
+        numberLabel.font = [UIFont systemFontOfSize:24.f];
+        numberLabel.textColor = [ColorTools colorWithHexString:@"FE9002"];
+        numberLabel.text = @"1212";
+        numberLabel.textAlignment = NSTextAlignmentCenter;
+        [self.view addSubview:numberLabel];
+       
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(i*(MSWidth/2), CGRectGetMaxY(numberLabel.frame), MSWidth/2, 30)];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.font = [UIFont systemFontOfSize:16.f];
+        titleLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+        titleLabel.text = @"1212";
+        [self.view addSubview:titleLabel];
+    }
     for (int i = 0; i<3; i++) {
-        NSLog(@"得到的数组%@",self.showDataSource);
-        UILabel *showLabel =[[UILabel alloc]initWithFrame: CGRectMake(0, i*40,MSWidth/2, 25)];
+//        NSLog(@"得到的数组%@",self.showDataSource);
+        UILabel *showLabel =[[UILabel alloc]initWithFrame: CGRectMake(0, CGRectGetMaxY(firstTitle.frame)+120+ i*40,MSWidth/2, 25)];
         showLabel.text = self.showDataSource[i];
         showLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
         showLabel.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:showLabel];
     }
+//    NSArray *dataArray = [[NSArray alloc]initWithObjects:self.model.reportSpeedUpTime,self.model.reportSpeedDownDistance,self.model.reportUp100Time, nil];
+    
     for (int i = 0; i<3; i++) {
-        NSLog(@"得到的数组%@",self.reportData);
-        UILabel *showLabel =[[UILabel alloc]initWithFrame: CGRectMake(MSWidth/2, i*40,MSWidth/2, 25)];
-        showLabel.text = self.reportData[i];
-        showLabel.textAlignment = NSTextAlignmentCenter;
-        showLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-        [self.view addSubview:showLabel];
+//        UILabel *showLabel =[[UILabel alloc]initWithFrame: CGRectMake(MSWidth/2, CGRectGetMaxY(firstTitle.frame)+120+ i*40,MSWidth/2, 25)];
+//        showLabel.text = dataArray[i];
+//        showLabel.textAlignment = NSTextAlignmentCenter;
+//        showLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+//        [self.view addSubview:showLabel];
     }
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

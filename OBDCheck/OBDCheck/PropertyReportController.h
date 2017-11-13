@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class reportModel;
 @interface PropertyReportController : UIViewController
-@property (nonatomic,copy) NSArray *reportData;
+@property (nonatomic,strong) reportModel *model;
 
 
 @end
