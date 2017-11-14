@@ -1,5 +1,5 @@
 //
-//  PerformanceSetController.h
+//  TestItemViewController.h
 //  OBDCheck
 //
 //  Created by yutaozhao on 2017/11/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PerformanceSetController : BasicViewController
+@interface TestItemViewController : BasicViewController
 
 @end

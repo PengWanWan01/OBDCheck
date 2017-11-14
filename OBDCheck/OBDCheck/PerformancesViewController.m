@@ -32,9 +32,6 @@
     CGFloat TotalDistance;
     NSDate  *StartTime;
     NSDate   *preDate;
-    UIButton *UpBtn;
-    UIButton *DownBtn;
-    UIButton *TimeBtn;
     NSDate *adate;
     NSInteger GetDataCount;
     UILabel *totalTimeLabel;
@@ -49,8 +46,6 @@
     [super viewWillAppear:animated];
     [self initNavBarTitle:@"Performance" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
-   
-  
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -133,19 +128,6 @@
     [self initWithchartView:chartViewone ];
     [self.view addSubview:chartViewone];
     [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:@"Speed" withLineColor:[ColorTools colorWithHexString:@"FFFF00"] withDependency:AxisDependencyLeft iSsmoothing:YES];
-//    UpBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewone.frame)+10, MSWidth, 20)];
-//    DownBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(UpBtn.frame)+10, MSWidth, 20)];
-//    TimeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(DownBtn.frame)+10, MSWidth, 20)];
-//    [UpBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
-//    [DownBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
-//    [TimeBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
-//    [UpBtn setTitle:@"0-100KM/H:" forState:UIControlStateNormal];
-//    [DownBtn setTitle:@"100-0KM/H:" forState:UIControlStateNormal];
-//    [TimeBtn setTitle:@"0-100M:" forState:UIControlStateNormal];
-//
-//    [self.view addSubview:UpBtn];
-//    [self.view addSubview:DownBtn];
-//    [self.view addSubview:TimeBtn];
 }
 -(void)initWithModel:(DashboardB *)model{
     model.ValueColor  = @"#FFFFFF";
@@ -178,6 +160,10 @@
     ViewController *vc = [[ViewController alloc]init];
     [self.navigationController pushViewController:vc animated:NO];
     
+}
+- (void)rightBarButtonClick{
+    PerformanceSetController *vc =  [[PerformanceSetController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)stopSend{
     NSLog(@"停止停止");
@@ -232,10 +218,15 @@
         if (GetDataCount == 0) {
             double space = [VehicleSpeedStr doubleValue]/(3.6);
             TotalDistance = delta*space;
+            reportmodel.reportMaxSpeed = VehicleSpeedStr;
         [self showTotalDiatance:TotalDistance]; //计算性能测试开始的距离
             preDate = nowDate;
             ++GetDataCount;
         }else{
+            //取得最大车速
+            if ([VehicleSpeedStr doubleValue] > [reportmodel.reportMaxSpeed doubleValue]) {
+                reportmodel.reportMaxSpeed = VehicleSpeedStr;
+            }
             NSInteger indextag = PID1indextag;
             NSTimeInterval delta = [nowDate timeIntervalSinceDate:preDate]; // 计算出相差多少秒
             double space = ([PID1dataSource[--indextag] doubleValue]+[PID1dataSource[--indextag] doubleValue])/(2*3.6);

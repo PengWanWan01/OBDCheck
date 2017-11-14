@@ -81,6 +81,7 @@
 		CB84F2AC1F74E73A0008F681 /* HUDColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB84F2AB1F74E73A0008F681 /* HUDColorViewController.m */; };
 		CB8E40E11F6144E6003E5024 /* CustomDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8E40E01F6144E6003E5024 /* CustomDashboard.m */; };
 		CB94DFCA1FBAC0830051E152 /* PerformanceSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB94DFC91FBAC0830051E152 /* PerformanceSetController.m */; };
+		CB94DFCD1FBAC4CB0051E152 /* TestItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB94DFCC1FBAC4CB0051E152 /* TestItemViewController.m */; };
 		CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB97176E1F32C110009C47FD /* OBDBtn.m */; };
 		CB9717751F332515009C47FD /* RLBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9717741F332515009C47FD /* RLBtn.m */; };
 		CB99D7101FB328BB00ABAF4A /* PerformancesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB99D70F1FB328BB00ABAF4A /* PerformancesViewController.m */; };
@@ -324,6 +325,8 @@
 		CB8E40E01F6144E6003E5024 /* CustomDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDashboard.m; sourceTree = "<group>"; };
 		CB94DFC81FBAC0830051E152 /* PerformanceSetController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerformanceSetController.h; sourceTree = "<group>"; };
 		CB94DFC91FBAC0830051E152 /* PerformanceSetController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerformanceSetController.m; sourceTree = "<group>"; };
+		CB94DFCB1FBAC4CB0051E152 /* TestItemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestItemViewController.h; sourceTree = "<group>"; };
+		CB94DFCC1FBAC4CB0051E152 /* TestItemViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestItemViewController.m; sourceTree = "<group>"; };
 		CB97176D1F32C110009C47FD /* OBDBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDBtn.h; sourceTree = "<group>"; };
 		CB97176E1F32C110009C47FD /* OBDBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBDBtn.m; sourceTree = "<group>"; };
 		CB9717731F332515009C47FD /* RLBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLBtn.h; sourceTree = "<group>"; };
@@ -509,6 +512,8 @@
 				CB4852561FB3EEFC00E98902 /* PropertyReportController.m */,
 				CB94DFC81FBAC0830051E152 /* PerformanceSetController.h */,
 				CB94DFC91FBAC0830051E152 /* PerformanceSetController.m */,
+				CB94DFCB1FBAC4CB0051E152 /* TestItemViewController.h */,
+				CB94DFCC1FBAC4CB0051E152 /* TestItemViewController.m */,
 			);
 			name = Performance;
 			sourceTree = "<group>";
@@ -1244,6 +1249,7 @@
 				CBD8EB7A1F9E0D1600FDABBB /* BELInfo.m in Sources */,
 				CBD8EB791F9E0D0700FDABBB /* BlueToothController.m in Sources */,
 				CBD8EB781F9E0CFD00FDABBB /* BlueToothController.h in Sources */,
+				CB94DFCD1FBAC4CB0051E152 /* TestItemViewController.m in Sources */,
 				CBD8EB771F9E0CF600FDABBB /* BELInfo.h in Sources */,
 				CBD8EB6C1F9E08AD00FDABBB /* ViewController.h in Sources */,
 				CBD8EB5A1F9DB83D00FDABBB /* DashboardSetting.h in Sources */,

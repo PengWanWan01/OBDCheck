@@ -16,7 +16,7 @@
 @implementation PropertyReportController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initNavBarTitle:@"Report" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
+    [self initNavBarTitle:@"Report" andLeftItemImageName:@"back" andRightItemImageName:@" "];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     [self initWithData];
     [self initWithUI];
