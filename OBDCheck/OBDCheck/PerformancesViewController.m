@@ -314,6 +314,7 @@
 -(void)showTotalTime:(CGFloat)totalTime{
     NSLog(@"时间时间%f",totalTime);
     [totalTimeLabel setAttributedText:[self setAttributed:[NSString stringWithFormat:@"Time:%.2f",totalTime] withRange:5]];
+    reportmodel.reportRunTime = [NSString stringWithFormat:@"%.2f",totalTime];
 }
 - (void)showTotalDiatance:(CGFloat)totalDiatance{
   [totalDistanceLabel setAttributedText:[self setAttributed:[NSString stringWithFormat:@"Distance:%.2f",totalDiatance] withRange:9]];

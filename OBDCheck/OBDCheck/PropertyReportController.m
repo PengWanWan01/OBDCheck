@@ -25,10 +25,7 @@
     self.showDataSource = [[NSMutableArray alloc]initWithObjects:@"0-100KM/H:",@"100km/h-0km/h:",@"0-100m:", nil];
 }
 - (void)initWithUI{
-//    self.model.reportSpeedDownDistance;
-    //    self.model.reportSpeedUpTime;
-//    self.model.reportRunTime;
-    NSLog(@"模型内容%@%@%@%@",self.model.reportSpeedDownDistance,self.model.reportUp100Time,self.model.reportSpeedUpTime,self.model.reportRunTime);
+
     UILabel *firstTitle = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, MSWidth-20, 20)];
     firstTitle.textColor = [ColorTools colorWithHexString:@"918E8E"];
     firstTitle.text = @"Time/Max Speed";
@@ -38,18 +35,24 @@
         UILabel *numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(i*(MSWidth/2), CGRectGetMaxY(firstTitle.frame)+10, MSWidth/2, 30)];
         numberLabel.font = [UIFont systemFontOfSize:24.f];
         numberLabel.textColor = [ColorTools colorWithHexString:@"FE9002"];
-        numberLabel.text = @"1212";
         numberLabel.textAlignment = NSTextAlignmentCenter;
-        [self.view addSubview:numberLabel];
+      
        
         UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(i*(MSWidth/2), CGRectGetMaxY(numberLabel.frame), MSWidth/2, 30)];
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.font = [UIFont systemFontOfSize:16.f];
         titleLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-        titleLabel.text = @"1212";
+        if (i==0) {
+            numberLabel.text = self.model.reportRunTime;
+            titleLabel.text = @"Time";
+        }else{
+            numberLabel.text = self.model.reportMaxSpeed;
+            titleLabel.text = @"Max Speed";
+        }
+          [self.view addSubview:numberLabel];
         [self.view addSubview:titleLabel];
     }
-    for (int i = 0; i<3; i++) {
+    for (int i = 0; i<3; i++) {//左边的三个内容
 //        NSLog(@"得到的数组%@",self.showDataSource);
         UILabel *showLabel =[[UILabel alloc]initWithFrame: CGRectMake(0, CGRectGetMaxY(firstTitle.frame)+120+ i*40,MSWidth/2, 25)];
         showLabel.text = self.showDataSource[i];
@@ -59,7 +62,7 @@
     }
     NSArray *dataArray = [[NSArray alloc]initWithObjects:self.model.reportSpeedUpTime,self.model.reportSpeedDownDistance,self.model.reportUp100Time, nil];
     
-    for (int i = 0; i<3; i++) {
+    for (int i = 0; i<3; i++) {//右边的三个内容
         UILabel *showLabel =[[UILabel alloc]initWithFrame: CGRectMake(MSWidth/2, CGRectGetMaxY(firstTitle.frame)+120+ i*40,MSWidth/2, 25)];
         showLabel.text = dataArray[i];
         showLabel.textAlignment = NSTextAlignmentCenter;
