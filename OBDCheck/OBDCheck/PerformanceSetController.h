@@ -1,5 +1,5 @@
 //
-//  prefromanceSetController.h
+//  PerformanceSetController.h
 //  OBDCheck
 //
 //  Created by yutaozhao on 2017/11/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface prefromanceSetController : UIViewController
+@interface PerformanceSetController : UIViewController
 
 @end

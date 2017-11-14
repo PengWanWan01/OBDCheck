@@ -80,7 +80,7 @@
 		CB84B3E01F56DF0800B454E6 /* rotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB84B3DF1F56DF0800B454E6 /* rotationView.m */; };
 		CB84F2AC1F74E73A0008F681 /* HUDColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB84F2AB1F74E73A0008F681 /* HUDColorViewController.m */; };
 		CB8E40E11F6144E6003E5024 /* CustomDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8E40E01F6144E6003E5024 /* CustomDashboard.m */; };
-		CB94DFC61FBAA2350051E152 /* prefromanceSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB94DFC51FBAA2350051E152 /* prefromanceSetController.m */; };
+		CB94DFCA1FBAC0830051E152 /* PerformanceSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB94DFC91FBAC0830051E152 /* PerformanceSetController.m */; };
 		CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB97176E1F32C110009C47FD /* OBDBtn.m */; };
 		CB9717751F332515009C47FD /* RLBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9717741F332515009C47FD /* RLBtn.m */; };
 		CB99D7101FB328BB00ABAF4A /* PerformancesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB99D70F1FB328BB00ABAF4A /* PerformancesViewController.m */; };
@@ -322,8 +322,8 @@
 		CB84F2AB1F74E73A0008F681 /* HUDColorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HUDColorViewController.m; sourceTree = "<group>"; };
 		CB8E40DF1F6144E6003E5024 /* CustomDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDashboard.h; sourceTree = "<group>"; };
 		CB8E40E01F6144E6003E5024 /* CustomDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDashboard.m; sourceTree = "<group>"; };
-		CB94DFC41FBAA2350051E152 /* prefromanceSetController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = prefromanceSetController.h; sourceTree = "<group>"; };
-		CB94DFC51FBAA2350051E152 /* prefromanceSetController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = prefromanceSetController.m; sourceTree = "<group>"; };
+		CB94DFC81FBAC0830051E152 /* PerformanceSetController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerformanceSetController.h; sourceTree = "<group>"; };
+		CB94DFC91FBAC0830051E152 /* PerformanceSetController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerformanceSetController.m; sourceTree = "<group>"; };
 		CB97176D1F32C110009C47FD /* OBDBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDBtn.h; sourceTree = "<group>"; };
 		CB97176E1F32C110009C47FD /* OBDBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBDBtn.m; sourceTree = "<group>"; };
 		CB9717731F332515009C47FD /* RLBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLBtn.h; sourceTree = "<group>"; };
@@ -507,8 +507,8 @@
 				CB99D70F1FB328BB00ABAF4A /* PerformancesViewController.m */,
 				CB4852551FB3EEFC00E98902 /* PropertyReportController.h */,
 				CB4852561FB3EEFC00E98902 /* PropertyReportController.m */,
-				CB94DFC41FBAA2350051E152 /* prefromanceSetController.h */,
-				CB94DFC51FBAA2350051E152 /* prefromanceSetController.m */,
+				CB94DFC81FBAC0830051E152 /* PerformanceSetController.h */,
+				CB94DFC91FBAC0830051E152 /* PerformanceSetController.m */,
 			);
 			name = Performance;
 			sourceTree = "<group>";
@@ -1280,7 +1280,6 @@
 				CB99E1BC1F67ABC200A87DAF /* LogsSetting.m in Sources */,
 				CB5A618F1F79FB62000D23D6 /* SeletVehicleViewController.m in Sources */,
 				CB7B8DB61F9D99B7009E4442 /* DashboardA.m in Sources */,
-				CB94DFC61FBAA2350051E152 /* prefromanceSetController.m in Sources */,
 				CB07EA271F41A370002894F9 /* UIColor+Separate.m in Sources */,
 				CB048C471F8CE32A006A2ED7 /* GeneralController.m in Sources */,
 				CBE4AC061F4426BC003714A4 /* BasicViewController.m in Sources */,
@@ -1313,6 +1312,7 @@
 				CB84B3CD1F56A7D500B454E6 /* FreezeViewController.m in Sources */,
 				CB4852571FB3EEFC00E98902 /* PropertyReportController.m in Sources */,
 				CB048C3B1F8CE1CD006A2ED7 /* FirmwareController.m in Sources */,
+				CB94DFCA1FBAC0830051E152 /* PerformanceSetController.m in Sources */,
 				CB99D7101FB328BB00ABAF4A /* PerformancesViewController.m in Sources */,
 				CB3FAD231F6A5F0B00B572FD /* Filesmodel.m in Sources */,
 				CB5A61941F7A206C000D23D6 /* YearViewController.m in Sources */,

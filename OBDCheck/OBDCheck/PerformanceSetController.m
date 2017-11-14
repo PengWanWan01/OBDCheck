@@ -1,18 +1,19 @@
+
 //
-//  prefromanceSetController.m
+//  PerformanceSetController.m
 //  OBDCheck
 //
 //  Created by yutaozhao on 2017/11/14.
 //  Copyright © 2017年 Auptophix. All rights reserved.
 //
 
-#import "prefromanceSetController.h"
+#import "PerformanceSetController.h"
 
-@interface prefromanceSetController ()
+@interface PerformanceSetController ()
 
 @end
 
-@implementation prefromanceSetController
+@implementation PerformanceSetController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
