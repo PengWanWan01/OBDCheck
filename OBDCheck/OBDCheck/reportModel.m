@@ -11,5 +11,16 @@
 #import "reportModel.h"
 
 @implementation reportModel
-
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.reportRunTime = @"--";
+        self.reportMaxSpeed = @"--";
+        self.reportSpeedDownDistance = @"--";
+        self.reportSpeedUpTime = @"--";
+        self.reportUp100Time  = @"--";
+    }
+    return self;
+}
 @end

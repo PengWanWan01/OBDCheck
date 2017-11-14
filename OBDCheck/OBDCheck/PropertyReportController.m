@@ -25,7 +25,10 @@
     self.showDataSource = [[NSMutableArray alloc]initWithObjects:@"0-100KM/H:",@"100km/h-0km/h:",@"0-100m:", nil];
 }
 - (void)initWithUI{
-  
+//    self.model.reportSpeedDownDistance;
+    //    self.model.reportSpeedUpTime;
+//    self.model.reportRunTime;
+    NSLog(@"模型内容%@%@%@%@",self.model.reportSpeedDownDistance,self.model.reportUp100Time,self.model.reportSpeedUpTime,self.model.reportRunTime);
     UILabel *firstTitle = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, MSWidth-20, 20)];
     firstTitle.textColor = [ColorTools colorWithHexString:@"918E8E"];
     firstTitle.text = @"Time/Max Speed";
@@ -54,14 +57,14 @@
         showLabel.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:showLabel];
     }
-//    NSArray *dataArray = [[NSArray alloc]initWithObjects:self.model.reportSpeedUpTime,self.model.reportSpeedDownDistance,self.model.reportUp100Time, nil];
+    NSArray *dataArray = [[NSArray alloc]initWithObjects:self.model.reportSpeedUpTime,self.model.reportSpeedDownDistance,self.model.reportUp100Time, nil];
     
     for (int i = 0; i<3; i++) {
-//        UILabel *showLabel =[[UILabel alloc]initWithFrame: CGRectMake(MSWidth/2, CGRectGetMaxY(firstTitle.frame)+120+ i*40,MSWidth/2, 25)];
-//        showLabel.text = dataArray[i];
-//        showLabel.textAlignment = NSTextAlignmentCenter;
-//        showLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-//        [self.view addSubview:showLabel];
+        UILabel *showLabel =[[UILabel alloc]initWithFrame: CGRectMake(MSWidth/2, CGRectGetMaxY(firstTitle.frame)+120+ i*40,MSWidth/2, 25)];
+        showLabel.text = dataArray[i];
+        showLabel.textAlignment = NSTextAlignmentCenter;
+        showLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+        [self.view addSubview:showLabel];
     }
     
 }
