@@ -24,8 +24,9 @@
 }
 - (void)initWithData{
     self.showDataSource = [[NSMutableArray alloc]initWithObjects:@"0-100KM/H:",@"100km/h-0km/h:",@"0-100m:", nil];
+    
     self.dataSource = [[NSMutableArray alloc]initWithObjects:@"0-100 km/h",@"Braking Distance",@"Braking Time",@"Max Speed",@"Max Acceleration",@"Peak Horsepower",@"0-100m time", nil];
-    self.headDataSource = [[NSMutableArray alloc]initWithObjects:@"Accelerated testing",@"Braking",@"Miscellaneous", nil];
+    self.headDataSource = [[NSMutableArray alloc]initWithObjects:@"Acceleration Test ",@"Braking(100-0km/h)",@"Miscellaneous", nil];
     self.detailDataSource = [[NSMutableArray alloc]initWithObjects:self.model.reportSpeedUpTime,self.model.reportSpeedDownDistance,self.model.reportSpeedDownTime,self.model.reportMaxSpeed,self.model.reportMaxAcceleration,self.model.reportPeakHorsepower,self.model.reportUp100Time, nil];
     
 }

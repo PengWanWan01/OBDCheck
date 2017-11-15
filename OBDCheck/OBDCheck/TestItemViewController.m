@@ -70,25 +70,7 @@
     }else{
         cell.accessoryView.hidden = YES;
     }
-//    switch (indexPath.section) {
-//        case 0:
-//        {
-//
-//        }
-//            break;
-//        case 1:
-//        {
-//            cell.accessoryView.hidden  = YES;
-//        }
-//            break;
-//        case 2:
-//        {
-//            cell.accessoryView.hidden  = YES;
-//        }
-//            break;
-//        default:
-//            break;
-//    }
+
 }
 
 @end

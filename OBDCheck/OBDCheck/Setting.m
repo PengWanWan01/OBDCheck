@@ -1,20 +1,20 @@
 //
-//  PerformanceSetting.m
+//  Setting.m
 //  OBDCheck
 //
 //  Created by yutaozhao on 2017/11/15.
 //  Copyright © 2017年 Auptophix. All rights reserved.
 //
 
-#import "PerformanceSetting.h"
+#import "Setting.h"
 
-@implementation PerformanceSetting
+@implementation Setting
 #pragma mark - 单例
 + (instancetype)sharedInstance {
-    static PerformanceSetting *_sharedClient = nil;
+    static Setting *_sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedClient = [[PerformanceSetting alloc] init];
+        _sharedClient = [[Setting alloc] init];
         
     });
     return _sharedClient;
@@ -24,10 +24,10 @@
     self = [super init];
     if (self) {
         self.defaults = [NSUserDefaults standardUserDefaults];
-        [self.defaults setObject:@"0" forKey:@"endSpeed"];
-        [self.defaults setObject:@"300" forKey:@"startSpeed"];
+        [self.defaults setObject:@"140" forKey:@"SpeedAlarm"];
+        [self.defaults setObject:@"110" forKey:@"WaterTemperatureAlarm"];
+        [self.defaults setObject:@"3" forKey:@"DriverFatigueAlarm"];
         [self.defaults synchronize];
-
     }
     return self;
 }

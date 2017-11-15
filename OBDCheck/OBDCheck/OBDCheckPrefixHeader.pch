@@ -151,5 +151,5 @@
 #import "PerformanceSetController.h"
 #import "TestItemViewController.h"
 #import "PerformanceSetting.h"
-
+#import "Setting.h"
 #endif /* OBDCheckPrefixHeader_pch */

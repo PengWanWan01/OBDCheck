@@ -44,6 +44,7 @@
 		CB476C781FAC684200C54837 /* troubleCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB476C771FAC684200C54837 /* troubleCodeModel.m */; };
 		CB476C7E1FAC715B00C54837 /* historyCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB476C7D1FAC715B00C54837 /* historyCodeModel.m */; };
 		CB47CE711FBBD99E00451244 /* PerformanceSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47CE701FBBD99E00451244 /* PerformanceSetting.m */; };
+		CB47CE751FBC267700451244 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47CE741FBC267700451244 /* Setting.m */; };
 		CB47E2EC1F480C7000B23D8E /* UIFont+AdapFont.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */; };
 		CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EE1F4819C200B23D8E /* StyleViewController.m */; };
 		CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2F11F481B3200B23D8E /* StyleHeadView.m */; };
@@ -255,6 +256,8 @@
 		CB476C7D1FAC715B00C54837 /* historyCodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = historyCodeModel.m; sourceTree = "<group>"; };
 		CB47CE6F1FBBD99E00451244 /* PerformanceSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerformanceSetting.h; sourceTree = "<group>"; };
 		CB47CE701FBBD99E00451244 /* PerformanceSetting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerformanceSetting.m; sourceTree = "<group>"; };
+		CB47CE731FBC267700451244 /* Setting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
+		CB47CE741FBC267700451244 /* Setting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
 		CB47E2EA1F480C7000B23D8E /* UIFont+AdapFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+AdapFont.h"; sourceTree = "<group>"; };
 		CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+AdapFont.m"; sourceTree = "<group>"; };
 		CB47E2ED1F4819C200B23D8E /* StyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewController.h; sourceTree = "<group>"; };
@@ -577,6 +580,15 @@
 				CB47CE701FBBD99E00451244 /* PerformanceSetting.m */,
 			);
 			name = Data;
+			sourceTree = "<group>";
+		};
+		CB47CE721FBC266100451244 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CB47CE731FBC267700451244 /* Setting.h */,
+				CB47CE741FBC267700451244 /* Setting.m */,
+			);
+			name = Common;
 			sourceTree = "<group>";
 		};
 		CB538A1E1F4E62B10095B4FE /* DashboardView */ = {
@@ -1023,6 +1035,7 @@
 		CBF1E2611F30678F00EEC755 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				CB47CE721FBC266100451244 /* Common */,
 				CB5AA40E1F31A321002B3006 /* View */,
 				CBF1E27A1F3068ED00EEC755 /* SetViewController.h */,
 				CBF1E27B1F3068ED00EEC755 /* SetViewController.m */,
@@ -1317,6 +1330,7 @@
 				CB848F181F45434E00C1A718 /* MultiplierViewController.m in Sources */,
 				CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */,
 				CBF334671F4B0FFC003C0548 /* UIColor+GetHSB.m in Sources */,
+				CB47CE751FBC267700451244 /* Setting.m in Sources */,
 				CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */,
 				CB99E1B81F67AABD00A87DAF /* LogsModel.m in Sources */,
 				CB0220891F43E9CC008773ED /* DashboardSetting.m in Sources */,
