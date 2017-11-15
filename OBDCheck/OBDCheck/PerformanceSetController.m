@@ -26,7 +26,7 @@
     // Do any additional setup after loading the view.
 }
 - (void)initWithData{
-    self.dataSource =  [[NSMutableArray alloc]initWithObjects:@"Test Items",@"Start speed",@"End the mileage",nil];
+    self.dataSource =  [[NSMutableArray alloc]initWithObjects:@"Test Items",@"Start speed",@"End speed",nil];
     
 }
 - (void)initWithUI{
@@ -36,6 +36,8 @@
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
+    self.tableView.backgroundColor = [ColorTools colorWithHexString:@"212329"];
+    [self.view addSubview:self.tableView];
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -71,16 +73,33 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }else{
         if (indexPath.section == 1) {
-            cell.detailTextLabel.text = @"0  km/h";
+           NSString *str = [[PerformanceSetting sharedInstance].defaults objectForKey:@"startSpeed"];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ km/h",str];
         }else{
-            cell.detailTextLabel.text =  @"300 m";
+            NSString *str = [[PerformanceSetting sharedInstance].defaults objectForKey:@"endSpeed"];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ m",str];
         }
     }
     return cell;
 }
 - (void)textFieldEditChanged:(UITextField *)textField
 {
-
+   
+    NSLog(@"得到内容%@ %ld",textField.text, (long)textField.tag);
+    switch (textField.tag) {
+        case 1:
+            {
+            [[PerformanceSetting sharedInstance].defaults setObject:textField.text forKey:@"startSpeed"];
+            }
+            break;
+        case 2:
+           {
+             [[PerformanceSetting sharedInstance].defaults setObject:textField.text forKey:@"endSpeed"];
+           }
+            break;
+        default:
+            break;
+    }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.section) {
@@ -94,25 +113,37 @@
         {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Start speed" message:@"Please enter the start speed!" preferredStyle:UIAlertControllerStyleAlert];
         [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-                textField.placeholder = @"请输入BUTTON名称";
+            textField.delegate = self;
+            textField.keyboardType = UIKeyboardTypeNumberPad;
+            textField.tag = indexPath.section;
+            [textField addTarget:self action:@selector(textFieldEditChanged:) forControlEvents:UIControlEventEditingChanged];
             }];
         [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil]];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
+        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSString *str = [[PerformanceSetting sharedInstance].defaults objectForKey:@"startSpeed"];
+            UITableViewCell * cell = (UITableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ km/h",str];
             }]];
-            //present出AlertView
+         
         [self presentViewController:alertController animated:true completion:nil];
         }
             break;
         case 2:
         {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"End the mileage" message:@"Please enter the End the mileage!" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"End speed" message:@"Please enter the End speed!" preferredStyle:UIAlertControllerStyleAlert];
         [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-                textField.placeholder = @"请输入BUTTON名称";
+            textField.delegate = self;
+            textField.keyboardType = UIKeyboardTypeNumberPad;
+            textField.tag = indexPath.section;
+            [textField addTarget:self action:@selector(textFieldEditChanged:) forControlEvents:UIControlEventEditingChanged];
             }];
         [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil]];
         [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 //点击确定按钮
+            NSString *str = [[PerformanceSetting sharedInstance].defaults objectForKey:@"endSpeed"];
+            UITableViewCell * cell = (UITableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ m",str];
+   
             }]];
         [self presentViewController:alertController animated:true completion:nil];
         }
@@ -121,4 +152,5 @@
             break;
     }
 }
+
 @end

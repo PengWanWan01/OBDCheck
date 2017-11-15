@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class reportModel;
-@interface PropertyReportController : UIViewController
+@interface PropertyReportController : BasicViewController
 @property (nonatomic,strong) reportModel *model;
 
 

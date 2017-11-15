@@ -43,6 +43,7 @@
 		CB45CBB11F6B7DC2003AA330 /* SummaryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB45CBB01F6B7DC2003AA330 /* SummaryTableViewCell.m */; };
 		CB476C781FAC684200C54837 /* troubleCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB476C771FAC684200C54837 /* troubleCodeModel.m */; };
 		CB476C7E1FAC715B00C54837 /* historyCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB476C7D1FAC715B00C54837 /* historyCodeModel.m */; };
+		CB47CE711FBBD99E00451244 /* PerformanceSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47CE701FBBD99E00451244 /* PerformanceSetting.m */; };
 		CB47E2EC1F480C7000B23D8E /* UIFont+AdapFont.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */; };
 		CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EE1F4819C200B23D8E /* StyleViewController.m */; };
 		CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2F11F481B3200B23D8E /* StyleHeadView.m */; };
@@ -252,6 +253,8 @@
 		CB476C771FAC684200C54837 /* troubleCodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = troubleCodeModel.m; sourceTree = "<group>"; };
 		CB476C7C1FAC715B00C54837 /* historyCodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = historyCodeModel.h; sourceTree = "<group>"; };
 		CB476C7D1FAC715B00C54837 /* historyCodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = historyCodeModel.m; sourceTree = "<group>"; };
+		CB47CE6F1FBBD99E00451244 /* PerformanceSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerformanceSetting.h; sourceTree = "<group>"; };
+		CB47CE701FBBD99E00451244 /* PerformanceSetting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerformanceSetting.m; sourceTree = "<group>"; };
 		CB47E2EA1F480C7000B23D8E /* UIFont+AdapFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+AdapFont.h"; sourceTree = "<group>"; };
 		CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+AdapFont.m"; sourceTree = "<group>"; };
 		CB47E2ED1F4819C200B23D8E /* StyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewController.h; sourceTree = "<group>"; };
@@ -503,6 +506,7 @@
 		CB07E6A61F908B8900545A82 /* Performance */ = {
 			isa = PBXGroup;
 			children = (
+				CB47CE6A1FBBD1D400451244 /* Data */,
 				CB63900C1FB9A86B00C958E7 /* Model */,
 				CB07E6A81F908BB600545A82 /* PerformanceController.h */,
 				CB07E6A91F908BB600545A82 /* PerformanceController.m */,
@@ -564,6 +568,15 @@
 				CB476C7D1FAC715B00C54837 /* historyCodeModel.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		CB47CE6A1FBBD1D400451244 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				CB47CE6F1FBBD99E00451244 /* PerformanceSetting.h */,
+				CB47CE701FBBD99E00451244 /* PerformanceSetting.m */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 		CB538A1E1F4E62B10095B4FE /* DashboardView */ = {
@@ -1353,6 +1366,7 @@
 				CB5A619A1F7A20BE000D23D6 /* ModerViewController.m in Sources */,
 				CB835D321F595CD2007C5A17 /* DiagnosticsTableViewCell.m in Sources */,
 				CB07E6AB1F908BB600545A82 /* PerformanceController.m in Sources */,
+				CB47CE711FBBD99E00451244 /* PerformanceSetting.m in Sources */,
 				CBF1E2281F2ED49200EEC755 /* main.m in Sources */,
 				CBF1E27C1F3068ED00EEC755 /* SetViewController.m in Sources */,
 				CB8E40E11F6144E6003E5024 /* CustomDashboard.m in Sources */,

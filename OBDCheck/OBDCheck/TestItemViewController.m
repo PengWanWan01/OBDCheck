@@ -31,6 +31,8 @@
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
+    self.tableView.backgroundColor = [ColorTools colorWithHexString:@"212329"];
+    [self.view addSubview:self.tableView];
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -62,25 +64,31 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    switch (indexPath.row) {
-        case 0:
-        {
-          
-        }
-            break;
-        case 1:
-        {
-            
-        }
-            break;
-        case 2:
-        {
-            
-        }
-            break;
-        default:
-            break;
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
+    if (cell.accessoryView.hidden == YES) {
+        cell.accessoryView.hidden = NO;
+    }else{
+        cell.accessoryView.hidden = YES;
     }
+//    switch (indexPath.section) {
+//        case 0:
+//        {
+//
+//        }
+//            break;
+//        case 1:
+//        {
+//            cell.accessoryView.hidden  = YES;
+//        }
+//            break;
+//        case 2:
+//        {
+//            cell.accessoryView.hidden  = YES;
+//        }
+//            break;
+//        default:
+//            break;
+//    }
 }
 
 @end
