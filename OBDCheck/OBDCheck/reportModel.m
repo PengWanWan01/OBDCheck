@@ -20,6 +20,9 @@
         self.reportSpeedDownDistance = @"--";
         self.reportSpeedUpTime = @"--";
         self.reportUp100Time  = @"--";
+        self.reportSpeedDownTime = @"--";
+        self.reportMaxAcceleration = @"--";
+        self.reportPeakHorsepower = @"--";
     }
     return self;
 }

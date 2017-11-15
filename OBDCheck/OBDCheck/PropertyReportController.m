@@ -10,7 +10,8 @@
 
 @interface PropertyReportController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) NSMutableArray *showDataSource;
-
+@property (nonatomic,strong) NSMutableArray *headDataSource;
+@property (nonatomic,strong) NSMutableArray *detailDataSource;
 @end
 
 @implementation PropertyReportController
@@ -23,6 +24,10 @@
 }
 - (void)initWithData{
     self.showDataSource = [[NSMutableArray alloc]initWithObjects:@"0-100KM/H:",@"100km/h-0km/h:",@"0-100m:", nil];
+    self.dataSource = [[NSMutableArray alloc]initWithObjects:@"0-100 km/h",@"Braking Distance",@"Braking Time",@"Max Speed",@"Max Acceleration",@"Peak Horsepower",@"0-100m time", nil];
+    self.headDataSource = [[NSMutableArray alloc]initWithObjects:@"Accelerated testing",@"Braking",@"Miscellaneous", nil];
+    self.detailDataSource = [[NSMutableArray alloc]initWithObjects:self.model.reportSpeedUpTime,self.model.reportSpeedDownDistance,self.model.reportSpeedDownTime,self.model.reportMaxSpeed,self.model.reportMaxAcceleration,self.model.reportPeakHorsepower,self.model.reportUp100Time, nil];
+    
 }
 - (void)initWithUI{
 
@@ -54,7 +59,7 @@
           [headView addSubview:numberLabel];
         [headView addSubview:titleLabel];
     }
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, TopHigh, MSWidth, MSHeight-TopHigh) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, TopHigh, MSWidth, MSHeight-TopHigh-44) style:UITableViewStylePlain];
     self.tableView.tableHeaderView = headView;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -88,20 +93,44 @@
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.dataSource.count;
+    return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    NSInteger result= 0 ;
+    switch (section) {
+        case 0:
+            {
+            result= 1;
+            }
+            break;
+        case 1:
+        {
+            result= 2;
+        }
+            break;
+        case 2:
+        {
+            result= 4;
+        }
+            break;
+        default:
+            break;
+    }
+    return  result;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44.f;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 34.f;
+    return 50.f;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 34)];
+    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 50)];
     headView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    UILabel *titileLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 25, MSWidth-20, 20)];
+    titileLabel.text = self.headDataSource[section];
+    titileLabel.textColor = [ColorTools colorWithHexString:@"FE9002"];
+    [headView addSubview:titileLabel];
     return headView;
     
 }
@@ -114,8 +143,29 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
     cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    cell.textLabel.text = self.dataSource[indexPath.section];
     cell.detailTextLabel.textColor =  [ColorTools colorWithHexString:@"#C8C6C6"];
+    switch (indexPath.section) {
+        case 0:
+            {
+            cell.textLabel.text = self.dataSource[indexPath.row];
+            cell.detailTextLabel.text = self.detailDataSource[indexPath.row];
+            }
+            break;
+        case 1:
+        {
+            cell.textLabel.text = self.dataSource[indexPath.row+1];
+              cell.detailTextLabel.text = self.detailDataSource[indexPath.row];
+        }
+            break;
+        case 2:
+        {
+            cell.textLabel.text = self.dataSource[indexPath.row+3];
+              cell.detailTextLabel.text = self.detailDataSource[indexPath.row];
+        }
+            break;
+        default:
+            break;
+    }
     return cell;
 }
 

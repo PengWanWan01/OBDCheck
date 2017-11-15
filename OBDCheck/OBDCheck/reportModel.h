@@ -13,6 +13,11 @@
 @property (nonatomic,copy) NSString *reportMaxSpeed;
 @property (nonatomic,copy) NSString *reportSpeedUpTime;
 @property (nonatomic,copy) NSString *reportSpeedDownDistance;
+@property (nonatomic,copy) NSString *reportSpeedDownTime;
+@property (nonatomic,copy) NSString *reportMaxAcceleration;
+@property (nonatomic,copy) NSString *reportPeakHorsepower;
+
+
 @property (nonatomic,copy) NSString *reportUp100Time;
 
 
