@@ -45,6 +45,7 @@
 		CB476C7E1FAC715B00C54837 /* historyCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB476C7D1FAC715B00C54837 /* historyCodeModel.m */; };
 		CB47CE711FBBD99E00451244 /* PerformanceSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47CE701FBBD99E00451244 /* PerformanceSetting.m */; };
 		CB47CE751FBC267700451244 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47CE741FBC267700451244 /* Setting.m */; };
+		CB47CE781FBC2A7500451244 /* FeedbackDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47CE771FBC2A7500451244 /* FeedbackDocumentController.m */; };
 		CB47E2EC1F480C7000B23D8E /* UIFont+AdapFont.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */; };
 		CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EE1F4819C200B23D8E /* StyleViewController.m */; };
 		CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2F11F481B3200B23D8E /* StyleHeadView.m */; };
@@ -258,6 +259,8 @@
 		CB47CE701FBBD99E00451244 /* PerformanceSetting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerformanceSetting.m; sourceTree = "<group>"; };
 		CB47CE731FBC267700451244 /* Setting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
 		CB47CE741FBC267700451244 /* Setting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
+		CB47CE761FBC2A7500451244 /* FeedbackDocumentController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackDocumentController.h; sourceTree = "<group>"; };
+		CB47CE771FBC2A7500451244 /* FeedbackDocumentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackDocumentController.m; sourceTree = "<group>"; };
 		CB47E2EA1F480C7000B23D8E /* UIFont+AdapFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+AdapFont.h"; sourceTree = "<group>"; };
 		CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+AdapFont.m"; sourceTree = "<group>"; };
 		CB47E2ED1F4819C200B23D8E /* StyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewController.h; sourceTree = "<group>"; };
@@ -502,6 +505,8 @@
 				CB49FB661FB04CFB00A6FEBB /* AlarmViewController.m */,
 				CB49FB6A1FB0521000A6FEBB /* FeedbackViewController.h */,
 				CB49FB6B1FB0521000A6FEBB /* FeedbackViewController.m */,
+				CB47CE761FBC2A7500451244 /* FeedbackDocumentController.h */,
+				CB47CE771FBC2A7500451244 /* FeedbackDocumentController.m */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -1339,6 +1344,7 @@
 				CB49FB671FB04CFB00A6FEBB /* AlarmViewController.m in Sources */,
 				CB048C351F8CE199006A2ED7 /* informationController.m in Sources */,
 				CB99E1AA1F66A7C700A87DAF /* LogSetViewController.m in Sources */,
+				CB47CE781FBC2A7500451244 /* FeedbackDocumentController.m in Sources */,
 				CBB1CC501F626809002EE7EB /* FilesViewController.m in Sources */,
 				CB3FAD291F6A6F1D00B572FD /* Mode06ViewController.m in Sources */,
 				CBCD978F1F7C94850002383F /* FileBackViewController.m in Sources */,

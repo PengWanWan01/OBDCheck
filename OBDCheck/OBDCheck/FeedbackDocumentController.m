@@ -1,22 +1,21 @@
-
 //
-//  FeedbackViewController.m
+//  FeedbackDocumentController.m
 //  OBDCheck
 //
-//  Created by yutaozhao on 2017/11/6.
+//  Created by yutaozhao on 2017/11/15.
 //  Copyright © 2017年 Auptophix. All rights reserved.
 //
 
-#import "FeedbackViewController.h"
+#import "FeedbackDocumentController.h"
 
-@interface FeedbackViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface FeedbackDocumentController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
 
-@implementation FeedbackViewController
+@implementation FeedbackDocumentController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-      [self initNavBarTitle:@"Feedback" andLeftItemImageName:@"back" andRightItemImageName:@""];
+    [self initNavBarTitle:@"Feedback document" andLeftItemImageName:@"back" andRightItemImageName:@"Upload"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     [self initWithData];
 }
@@ -33,17 +32,19 @@
 }
 
 -(void)initWithData{
-    self.dataSource = [[NSMutableArray alloc]initWithObjects:@"Feedback Switch",@"Feedback document",nil];
+    self.dataSource = [[NSMutableArray alloc]initWithObjects:@"bin.one",@"bin.two",nil];
     
 }
 
+
+
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-   
-    return 1;
+    
+    return self.dataSource.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44.f;
@@ -61,43 +62,23 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
     cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    cell.detailTextLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
-    switch (indexPath.section) {
-        case 0:
-        {
-            cell.textLabel.text = self.dataSource[indexPath.row];
-            UISwitch *selectSwitch = [[UISwitch alloc]init];
-            selectSwitch.on = YES;
-            cell.accessoryView = selectSwitch;
-        }
-            break;
-        case 1:
-        {
-            cell.textLabel.text = self.dataSource[indexPath.row+1];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            
-        }
-            break;
-        default:
-            break;
-    }
+    cell.textLabel.text = self.dataSource[indexPath.row];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
+    cell.accessoryView = imageView;
+    cell.accessoryView.hidden = YES;
+   
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    switch (indexPath.section) {
-        case 0:
-            {
-                
-            }
-            break;
-        case 1:
-        {
-            FeedbackDocumentController *vc = [[FeedbackDocumentController alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
+    for (NSInteger i = 0; i<self.dataSource.count; i++) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        if (i == indexPath.row) {
+            cell.accessoryView.hidden = NO;
+        }else{
+            cell.accessoryView.hidden = YES;
+
         }
-            break;
-        default:
-            break;
     }
 }
+
 @end

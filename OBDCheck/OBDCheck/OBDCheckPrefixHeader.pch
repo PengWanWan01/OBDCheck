@@ -152,4 +152,6 @@
 #import "TestItemViewController.h"
 #import "PerformanceSetting.h"
 #import "Setting.h"
+#import "FeedbackDocumentController.h"
+
 #endif /* OBDCheckPrefixHeader_pch */
