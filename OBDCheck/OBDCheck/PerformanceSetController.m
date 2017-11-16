@@ -77,7 +77,7 @@
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ km/h",str];
         }else{
             NSString *str = [[PerformanceSetting sharedInstance].defaults objectForKey:@"endSpeed"];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ m",str];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ km/h",str];
         }
     }
     return cell;
@@ -142,7 +142,7 @@
                 //点击确定按钮
             NSString *str = [[PerformanceSetting sharedInstance].defaults objectForKey:@"endSpeed"];
             UITableViewCell * cell = (UITableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ m",str];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ km/h",str];
    
             }]];
         [self presentViewController:alertController animated:true completion:nil];

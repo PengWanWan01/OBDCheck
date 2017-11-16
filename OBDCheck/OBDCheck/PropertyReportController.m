@@ -155,13 +155,13 @@
         case 1:
         {
             cell.textLabel.text = self.dataSource[indexPath.row+1];
-              cell.detailTextLabel.text = self.detailDataSource[indexPath.row];
+              cell.detailTextLabel.text = self.detailDataSource[indexPath.row+1];
         }
             break;
         case 2:
         {
             cell.textLabel.text = self.dataSource[indexPath.row+3];
-              cell.detailTextLabel.text = self.detailDataSource[indexPath.row];
+              cell.detailTextLabel.text = self.detailDataSource[indexPath.row+3];
         }
             break;
         default:

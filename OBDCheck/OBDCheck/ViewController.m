@@ -276,6 +276,7 @@
     [titleBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
     [statusImageView removeFromSuperview];
     [statusView addSubview:roView];
+    [roView rotate360WithDuration:1 repeatCount:600];
 }
 - (void)IsConnectState{
     [DashboardSetting sharedInstance].blueState = 1;

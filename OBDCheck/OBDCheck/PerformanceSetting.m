@@ -24,8 +24,8 @@
     self = [super init];
     if (self) {
         self.defaults = [NSUserDefaults standardUserDefaults];
-        [self.defaults setObject:@"0" forKey:@"endSpeed"];
-        [self.defaults setObject:@"300" forKey:@"startSpeed"];
+        [self.defaults setObject:@"100" forKey:@"endSpeed"];
+        [self.defaults setObject:@"0" forKey:@"startSpeed"];
         [self.defaults synchronize];
 
     }

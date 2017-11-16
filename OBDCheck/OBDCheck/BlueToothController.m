@@ -351,7 +351,7 @@ static BlueToothController* instance;
    
 
 //    NSLog(@"发出数据：%@",data);
-    
+
     sendDataStr = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     
     if (SendCharacteristic) {

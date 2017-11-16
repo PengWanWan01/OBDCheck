@@ -51,7 +51,6 @@ typedef NS_ENUM(NSUInteger, BlueToothState)
 @property (nonatomic , strong) id<BlueToothControllerDelegate> delegate;
 
 
-
 //单例
 +(BlueToothController*)Instance;
 
