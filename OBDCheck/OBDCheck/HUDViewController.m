@@ -8,7 +8,7 @@
 
 #import "HUDViewController.h"
 
-@interface HUDViewController ()
+@interface HUDViewController ()<BlueToothControllerDelegate>
 {
     UILabel *NumberLabel;
     UILabel *PIDNameLabel;
@@ -34,13 +34,14 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    NSLog(@"开始发送");
+    self.blueTooth = [BlueToothController Instance];
+    self.blueTooth.delegate = self;
+    //发送车速
+    [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
+
 }
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-   
-}
+
 - (void)initWithData{
     self.PIDDataSource = [[NSMutableArray alloc]initWithObjects:@"Speed",@"Rotational Speed",@"Average fuel consumption", nil];
      self.NumberDataSource = [[NSMutableArray alloc]initWithObjects:@"0",@"2500",@"7.6", nil];
@@ -64,7 +65,7 @@
         PIDNameLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
         PIDNameLabel.font = [UIFont systemFontOfSize:14.f];
         PIDNameLabel.text  = self.PIDDataSource[i];
-        
+        PIDNameLabel.tag = i;
         NumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, MSWidth,MSHeight/3 -  80)];
         NumberLabel.textAlignment = NSTextAlignmentCenter;
         NumberLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
@@ -177,5 +178,54 @@
     
     
 }
-
+#pragma mark 遵守蓝牙的协议
+-(void)BlueToothState:(BlueToothState)state{
+    
+}
+-(void)getDeviceInfo:(BELInfo*)info{
+    
+}
+-(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
+{
+ 
+    NSLog(@"收到收到%@",data);
+    
+    NSLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    NSLog(@"%@",string);
+    NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
+    NSString *RotationalStr = [BlueTool isRotational:string];
+    NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
+    NSLog(@"车速%@",VehicleSpeedStr);
+    NSLog(@"转速%@",RotationalStr);
+    NSLog(@"水温%@",WatertemperatureStr);
+    
+    if (!(VehicleSpeedStr == nil)) {
+        if (PIDNameLabel.tag == 0) {
+        PIDNameLabel.text = VehicleSpeedStr;
+        }
+        //得到车速之后，发送转速
+        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
+    }
+    if (!(RotationalStr == nil)) {
+        if (PIDNameLabel.tag == 1) {
+            PIDNameLabel.text = RotationalStr;
+        }
+        //发送水温
+        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130350D"]];
+        
+    }
+    if (!(WatertemperatureStr == nil)) {
+        if (PIDNameLabel.tag == 2) {
+            PIDNameLabel.text = WatertemperatureStr;
+        }
+        //得到水温之后，发送车速
+        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
+    }
+   
+    
+}
 @end

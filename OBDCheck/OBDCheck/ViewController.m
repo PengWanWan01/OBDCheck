@@ -70,6 +70,7 @@
     statusImageView.image = [UIImage imageNamed:@"signal"];
     statusImageView.contentMode = UIViewContentModeScaleAspectFill;
     roView = [[rotationView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(statusView.frame) - 50, 10, 21, 23)];
+    [roView rotate360WithDuration:1 repeatCount:600];
     roView.rotationImage.image = [UIImage imageNamed:@"search"];
     roView.numberLabel.hidden = YES;
     if ([DashboardSetting sharedInstance].blueState == 1) {
@@ -127,7 +128,6 @@
         [btn addSubview:titleLabel];
         [self.view addSubview:btn];
     }
-    
 }
 #pragma mark 底部按钮的点击事件
 - (void)Selectbtn:(UIButton *)btn{
@@ -137,14 +137,12 @@
         {
             ViewController *vc = [[ViewController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
-            
         }
             break;
         case 1:
         {
             PersonalViewController *vc = [[PersonalViewController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
-            
         }
             break;
         default:

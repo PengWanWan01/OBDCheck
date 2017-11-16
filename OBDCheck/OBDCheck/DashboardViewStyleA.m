@@ -75,7 +75,7 @@
                 NSArray* pAll = [CustomDashboard bg_findWhere:arr];
                 for(CustomDashboard* dashboard in pAll){
                     CGFloat Space =   ([dashboard.dashboardA.endAngle doubleValue]- [dashboard.dashboardA.StartAngle doubleValue])/([dashboard.dashboardA.maxNumber doubleValue] - [dashboard.dashboardA.minNumber doubleValue]);
-                    [self rotationWithStartAngle:[dashboard.dashboardA.StartAngle doubleValue] + start*Space  WithEndAngle:[dashboard.dashboardA.StartAngle doubleValue] + end*Space];
+                    [self rotationWithStartAngle:[dashboard.dashboardA.StartAngle doubleValue] + (int)start%[dashboard.dashboardA.maxNumber intValue]*Space  WithEndAngle:[dashboard.dashboardA.StartAngle doubleValue] + (int)end%[dashboard.dashboardA.maxNumber intValue]*Space];
                     self.numberLabel.text = presentStr;
                 }
             }

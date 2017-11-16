@@ -17,7 +17,6 @@
     [super viewWillAppear:animated];
     [self initNavBarTitle:@"Connection Help" andLeftItemImageName:@"back" andRightItemImageName:@""];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
-   
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -130,6 +130,7 @@ static dispatch_source_t _timer;
 }
 - (void)initWithheadUI{
     roView = [[rotationView alloc]initWithFrame:CGRectMake(10*Kwidthmultiple, 8*KHeightmultiple, 100*Kwidthmultiple, 100*Kwidthmultiple)];
+    [roView rotate360WithDuration:0.1 repeatCount:50];
     roView.rotationImage.image = [UIImage imageNamed:@"rotation"];
     [self.view addSubview:roView];
     
