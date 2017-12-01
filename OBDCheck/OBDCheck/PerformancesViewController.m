@@ -8,14 +8,13 @@
 
 #import "PerformancesViewController.h"
 
-@interface PerformancesViewController ()<ChartViewDelegate,BlueToothControllerDelegate>
+@interface PerformancesViewController ()<ChartViewDelegate,BlueToothControllerDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     UIButton *startBtn;
     UIButton *reportBtn;
-     LineChartView *chartViewone ;
-     LineChartDataSet *set1;
-    LineChartData *PartOnedata;
     
+    UILabel *vehicleLabel;
+    UILabel *rotateLabel;
     NSMutableArray *PID1dataSource;
     NSInteger PID1indextag;
     NSDate *VssUpbeforeDate;
@@ -36,15 +35,19 @@
     NSInteger GetDataCount;
     UILabel *totalTimeLabel;
     UILabel *totalDistanceLabel;
-    DashboardViewStyleB *dashViewB;
+//    DashboardViewStyleB *dashViewB;
     reportModel *reportmodel;
 }
+@property (nonatomic,strong) UITableView  *tableView;
+@property (nonatomic,strong) NSMutableArray  *dataSource;
+@property (nonatomic,strong) NSMutableArray  *detialDataSource;
+
 @end
 
 @implementation PerformancesViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initNavBarTitle:@"Performance" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
+    [self initNavBarTitle:@"Performance" andLeftItemImageName:@"back" andRightItemImageName:@""];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
 }
 - (void)viewDidLoad {
@@ -53,11 +56,10 @@
      [self initWithUI];
 }
 - (void)initWithData{
-    set1 = nil;
+ 
     isVssUpStart = NO;
     isVssDownStart = NO;
     isVssDowncountStart = YES;
-    PartOnedata = [[LineChartData alloc] initWithDataSet:set1];
     PID1dataSource = [[NSMutableArray alloc]init];
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
@@ -68,6 +70,8 @@
     isDistance100Start = YES;
     isDistance100End = YES;
     reportmodel = [[reportModel alloc]init];
+    self.dataSource = [[NSMutableArray alloc]init];
+    self.detialDataSource = [[NSMutableArray alloc]init];
 }
 - (NSMutableAttributedString *)setAttributed:(NSString *)String withRange:(NSInteger)range{
     NSMutableAttributedString *resultStr = [[NSMutableAttributedString alloc]initWithString:String];
@@ -83,75 +87,123 @@
          [totalTimeLabel setAttributedText:[self setAttributed:@"Time:00:00:00" withRange:5]];
          [self.view addSubview:totalTimeLabel];
         
-        totalDistanceLabel = [[UILabel alloc]initWithFrame:CGRectMake((MSWidth/2)+15, TopHigh, MSWidth/2, 25)];
-    totalDistanceLabel.adjustsFontSizeToFitWidth = YES;
-    [totalDistanceLabel setTextColor:[ColorTools colorWithHexString:@"FE9002"]];
-        totalDistanceLabel.textAlignment = NSTextAlignmentCenter;
-        [totalDistanceLabel setAttributedText:[self setAttributed:@"Distance:0m" withRange:9]];
-        [self.view addSubview:totalDistanceLabel];
+//        totalDistanceLabel = [[UILabel alloc]initWithFrame:CGRectMake((MSWidth/2)+15, TopHigh, MSWidth/2, 25)];
+//    totalDistanceLabel.adjustsFontSizeToFitWidth = YES;
+//    [totalDistanceLabel setTextColor:[ColorTools colorWithHexString:@"FE9002"]];
+//        totalDistanceLabel.textAlignment = NSTextAlignmentCenter;
+//        [totalDistanceLabel setAttributedText:[self setAttributed:@"Distance:0m" withRange:9]];
+//        [self.view addSubview:totalDistanceLabel];
   
     [self initWithDataUI ];
 
-    startBtn = [[UIButton alloc]initWithFrame:CGRectMake(20, MSHeight -110 , 100, 40)];
+   
+    
+}
+- (void)initWithDataUI{
+    //画圆圈
+    CGFloat startAngle = 0; // 开始角度
+    CGFloat endAngle = 2*M_PI; // 结束角度
+    BOOL clockwise = YES; // 顺时针
+    //    CALayer *containerLayer = [CALayer layer];
+    for (NSInteger i = 0 ; i<2; i++) {
+    // 环形Layer层
+    CAShapeLayer *circleLayer = [CAShapeLayer layer];
+    circleLayer.lineWidth = 5.f;
+    circleLayer.lineCap = kCALineCapRound;
+    circleLayer.lineJoin = kCALineJoinRound;
+    circleLayer.fillColor = [UIColor clearColor].CGColor;
+        //FE9002
+    circleLayer.strokeColor = [UIColor blackColor].CGColor;
+    UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(35+(MSWidth-100)/4+((MSWidth-100)/2 + 30)*i, (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame) + 20) radius:(MSWidth-100)/4 startAngle:startAngle endAngle:endAngle clockwise:clockwise];
+    circleLayer.path = circlePath.CGPath;
+    [self.view.layer addSublayer:circleLayer];
+        vehicleLabel = [[UILabel alloc]initWithFrame:CGRectMake(35, (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame) , (MSWidth-100)/2, 30)];
+        vehicleLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+        vehicleLabel.text = @"000";
+//        vehicleLabel.backgroundColor = [UIColor redColor];
+        vehicleLabel.textAlignment = NSTextAlignmentCenter;
+        vehicleLabel.font = [UIFont systemFontOfSize:30.f];
+        [self.view addSubview:vehicleLabel];
+        
+        rotateLabel =[[UILabel alloc]initWithFrame:CGRectMake(35+(MSWidth-100)/2 + 30, (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame) , (MSWidth-100)/2, 30)];
+        rotateLabel.text = @"000";
+//        rotateLabel.backgroundColor = [UIColor redColor];
+        rotateLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+        rotateLabel.textAlignment = NSTextAlignmentCenter;
+        rotateLabel.font = [UIFont systemFontOfSize:30.f];
+        [self.view addSubview:rotateLabel];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(35+((MSWidth-100)/2 + 30)*i, (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame)+30, (MSWidth-100)/2, 30 )];
+        label.textColor = [ColorTools colorWithHexString:@"FE9002"];
+        label.font = [UIFont systemFontOfSize:16.f];
+        label.textAlignment = NSTextAlignmentCenter;
+        if (i ==0) {
+            label.text=  @"km/h";
+        }else{
+            label.text=  @"r/min";
+        }
+        [self.view addSubview:label];
+    }
+    startBtn = [[UIButton alloc]initWithFrame:CGRectMake(40, (MSWidth-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 120 , (MSWidth-110)/2, 40)];
     [startBtn setTitle:@"Start" forState:UIControlStateNormal];
     [startBtn setTitleColor:[ColorTools colorWithHexString:@"101010"] forState:UIControlStateNormal];
     startBtn.backgroundColor = [ColorTools colorWithHexString:@"FE9002"];
     startBtn.layer.cornerRadius = 5.f;
     [startBtn addTarget:self action:@selector(startBtn) forControlEvents:UIControlEventTouchUpInside];
-    reportBtn = [[UIButton alloc]initWithFrame:CGRectMake(MSWidth-100- 20, MSHeight -110  , 100, 40)];
+    reportBtn = [[UIButton alloc]initWithFrame:CGRectMake((MSWidth-110)/2 +75, (MSWidth-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 120  , (MSWidth-110)/2, 40)];
     [reportBtn setTitle:@"Report" forState:UIControlStateNormal];
     [reportBtn setTitleColor:[ColorTools colorWithHexString:@"101010"] forState:UIControlStateNormal];
     reportBtn.backgroundColor = [ColorTools colorWithHexString:@"FE9002"];
     reportBtn.layer.cornerRadius = 5.f;
-      [reportBtn addTarget:self action:@selector(reportBtn) forControlEvents:UIControlEventTouchUpInside];
+    [reportBtn addTarget:self action:@selector(reportBtn) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:startBtn];
     [self.view addSubview:reportBtn];
     
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(reportBtn.frame)+50, MSWidth, MSHeight-CGRectGetMaxY(reportBtn.frame)+20) style:UITableViewStylePlain];
+    self.dataSource = [[NSMutableArray alloc]initWithObjects:@"Speed up the test range",@"Braking distance",@"Distance test", nil];
+    self.detialDataSource = [[NSMutableArray alloc]initWithObjects:@"0 -100  km/h",@"100 m",@"100 m", nil];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.backgroundColor= [UIColor clearColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
+    [self.view addSubview:self.tableView];
 }
-- (void)initWithDataUI{
-    if (IS_IPHONE_4_OR_LESS) {
-    dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake((MSWidth-160*Kwidthmultiple)/2,TopHigh+35 , 160*Kwidthmultiple, 160*Kwidthmultiple)];
-    }else{
-     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake((MSWidth-250*Kwidthmultiple)/2,TopHigh+35 , 250*Kwidthmultiple, 250*Kwidthmultiple)];
-    }
-    DashboardB *model = [DashboardB new];
-    [self initWithModel:model];
-    [dashViewB initWithModel:model];
-    dashViewB.PIDLabel.text = @"speed";
-    dashViewB.NumberLabel.text = @"0";
-    [self.view addSubview:dashViewB];
-   if (IS_IPHONE_5 || IS_IPHONE_4_OR_LESS) {
-         chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(dashViewB.frame)+5, MSWidth, 170)];
-    }else{
-         chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(dashViewB.frame)+5, MSWidth, 230*KHeightmultiple)];
-    }
-   
-    [self initWithchartView:chartViewone ];
-    [self.view addSubview:chartViewone];
-    [self setDataCount:0 range:0 withView:chartViewone withdata:PartOnedata withPIDTiltle:@"Speed" withLineColor:[ColorTools colorWithHexString:@"FFFF00"] withDependency:AxisDependencyLeft iSsmoothing:YES];
+#pragma mark UITableViewDelegate,UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
 }
--(void)initWithModel:(DashboardB *)model{
-    model.ValueColor  = @"#FFFFFF";
-    model.ValueFontScale = [NSNumber numberWithFloat:1.f];
-    model.ValuePositon = [NSNumber numberWithFloat:1.f];
-    model.ValueVisible = YES;
-    model.titleColor  = @"#757476";
-    model.titleFontScale = [NSNumber numberWithFloat:1.f];
-    model.titlePositon = [NSNumber numberWithFloat:1.f];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.dataSource.count;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44.f;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 34)];
+    headView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, MSWidth-20, 34)];
+    lable.text = @"Test Range";
+    lable.textColor = [ColorTools colorWithHexString:@"FE9002"];
+   [headView addSubview:lable];
+    return headView;
     
-    model.UnitColor = @"#757476";
-    model.UnitFontScale = [NSNumber numberWithFloat:1.f];
-    model.UnitPositon = [NSNumber numberWithFloat:1.f];
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
+    }
+    cell.textLabel.font = [UIFont systemFontOfSize:16.f];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+    cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    cell.textLabel.text = self.dataSource[indexPath.row];
+    cell.detailTextLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+    cell.detailTextLabel.text = self.detialDataSource[indexPath.row];
+    return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
-    model.backColor = @"00a6ff";
-    model.GradientRadius = [NSNumber numberWithFloat:MSWidth/2];
-    
-    model.FillColor = @"FE9002";
-    model.FillEnable = YES;
-    
-    model.Pointerwidth = [NSNumber numberWithFloat:1.f];
-//    model.pointerColor = @"#FFFFFF";
 }
 - (void)back{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -162,14 +214,14 @@
     [self.navigationController pushViewController:vc animated:NO];
     
 }
-- (void)rightBarButtonClick{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSLog(@"停止停止");
-        [self stopSend];
-    });
-    PerformanceSetController *vc =  [[PerformanceSetController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
+//- (void)rightBarButtonClick{
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        NSLog(@"停止停止");
+//        [self stopSend];
+//    });
+//    PerformanceSetController *vc =  [[PerformanceSetController alloc]init];
+//    [self.navigationController pushViewController:vc animated:YES];
+//}
 - (void)stopSend{
     NSLog(@"停止停止");
     self.blueTooth.stopSend = YES;
@@ -214,9 +266,7 @@
         formatter.dateFormat = @"yyyy-MM-dd HH-mm-ss";
         NSTimeInterval delta = [nowDate timeIntervalSinceDate:StartTime]; // 计算出相差多少秒
         [self showTotalTime:delta]; //计算性能测试开始的时间
-        dashViewB.NumberLabel.text = VehicleSpeedStr ;
-        [PID1dataSource addObject:VehicleSpeedStr];
-        [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)PID1indextag  withY:[PID1dataSource[PID1indextag] intValue]];
+        rotateLabel.text = VehicleSpeedStr ;
         ++PID1indextag;
          NSInteger index = PID1indextag;
         if (GetDataCount == 0) {
@@ -382,35 +432,6 @@
     [view notifyDataSetChanged];
     NSLog(@"updateChartData%ld",(long)linechartdata.entryCount);
     
-}
-
-// 设置其中一条折线的内容，数据，颜色，宽度
-- (void)setDataCount:(int)count range:(double)range withView:(LineChartView *)view withdata:(LineChartData *)linechartdata withPIDTiltle:(NSString *)title withLineColor:(UIColor *)color withDependency:(AxisDependency)Dependency  iSsmoothing:(BOOL)smoothing
-{
-    NSMutableArray *yVals = [[NSMutableArray alloc] init];
-    
-    for (int i = 0; i < count; i++)
-    {
-        double mult = range / 2.0;
-        double val = (double) (arc4random_uniform(mult)) + 50;
-        [yVals addObject:[[ChartDataEntry alloc] initWithX:i y:val]];
-    }
-    set1 = [[LineChartDataSet alloc] initWithValues:yVals label:title];
-    set1.axisDependency = Dependency;
-    [set1 setColor:color];
-    set1.highlightColor = [UIColor clearColor]; //点击时候的颜色
-    set1.drawCircleHoleEnabled = NO;
-    set1.lineWidth = 2.0;//折线宽度
-    //折线拐点样式
-    set1.drawCirclesEnabled = NO;//是否绘制拐点
-    if (smoothing == YES) {
-        [set1 setDrawCubicEnabled:YES];
-    }
-    [linechartdata addDataSet:set1];
-    
-    [linechartdata setValueTextColor:UIColor.clearColor];
-    [linechartdata setValueFont:[UIFont systemFontOfSize:9.f]];
-    view.data = linechartdata;
 }
 
 @end

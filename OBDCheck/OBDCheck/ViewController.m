@@ -41,8 +41,7 @@
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
     [self initWithData];
-   
-   
+    [self initWithUI];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 
 }

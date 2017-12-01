@@ -413,15 +413,13 @@ static dispatch_source_t _timer;
 }
 - (void)back{
    
-
-   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     NSLog(@"停止停止");
        [self stopSend];
    });
    [editview hide];
     ViewController *vc = [[ViewController alloc]init];
     [self.navigationController pushViewController:vc animated:NO];
-    
 }
 - (void)stopSend{
     NSLog(@"停止停止");
