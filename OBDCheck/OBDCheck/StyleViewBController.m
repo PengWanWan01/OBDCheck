@@ -45,6 +45,21 @@
     _rowTitleSource = [[NSMutableArray alloc]initWithObjects:@"Color",@"Gradient Radius",@"Title Color",@"Font Scale",@"Position",@"Value Visible",@"Value Color",@"Font Scale",@"Position",@"Units Color",@"Font Scale",@"Position",@"Color",@"Width",@"Fill Enabled",@"Color",nil];
     
 }
+//设置样式
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+//设置是否隐藏
+- (BOOL)prefersStatusBarHidden {
+    //    [super prefersStatusBarHidden];
+    return NO;
+}
+
+//设置隐藏动画
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationNone;
+}
 - (void)initWithUI{
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 186, MSWidth, MSHeight - 186 - 44 -TopHigh) style:UITableViewStyleGrouped];

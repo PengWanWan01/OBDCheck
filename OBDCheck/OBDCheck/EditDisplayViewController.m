@@ -24,7 +24,21 @@
     _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Dispaly Configuration",@"Style",@"Change Dashboards Style",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];
     [self initWithUI];
 }
+//设置样式
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
 
+//设置是否隐藏
+- (BOOL)prefersStatusBarHidden {
+    //    [super prefersStatusBarHidden];
+    return NO;
+}
+
+//设置隐藏动画
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationNone;
+}
 - (void)initWithUI{
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, MSHeight-TopHigh) style:UITableViewStylePlain];
     tableView.backgroundColor = [UIColor clearColor];

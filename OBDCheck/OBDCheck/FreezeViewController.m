@@ -26,6 +26,21 @@
     
     [self initWithData];
 }
+//设置样式
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+//设置是否隐藏
+- (BOOL)prefersStatusBarHidden {
+    //    [super prefersStatusBarHidden];
+    return NO;
+}
+
+//设置隐藏动画
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationNone;
+}
 - (void)initWithData{
     self.dataSource = [[NSMutableArray alloc]initWithObjects:@"FREEZE FRAME DTC",@"FREEZE FRAME", nil];
     self.FreezeDataDTCsource = [[NSMutableArray alloc]initWithObjects:@"P0103",nil];

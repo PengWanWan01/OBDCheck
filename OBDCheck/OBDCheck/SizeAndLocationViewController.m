@@ -24,6 +24,21 @@
     [super viewDidLoad];
     [self initWithUI];
 }
+//设置样式
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+//设置是否隐藏
+- (BOOL)prefersStatusBarHidden {
+    //    [super prefersStatusBarHidden];
+    return NO;
+}
+
+//设置隐藏动画
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationNone;
+}
 - (void)initWithUI{
     //     diameterPercent = (CGFloat)sender.view.frame.size.width/375;
     

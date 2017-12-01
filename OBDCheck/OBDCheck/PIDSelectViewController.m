@@ -17,6 +17,21 @@
     [super viewWillAppear:animated];
     [self initNavBarTitle:@"PID" andLeftItemImageName:@"back" andRightItemName:@"Cancel"];
 }
+//设置样式
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+//设置是否隐藏
+- (BOOL)prefersStatusBarHidden {
+    //    [super prefersStatusBarHidden];
+    return NO;
+}
+
+//设置隐藏动画
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationNone;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.dataSource = [[NSMutableArray alloc]initWithObjects:@"Fuel",@"Sensors",@"SAE PIDs",@"Calculated PIDs",@"GPS", nil];

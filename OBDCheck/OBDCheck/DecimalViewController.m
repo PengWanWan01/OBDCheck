@@ -17,7 +17,21 @@
     [super viewWillAppear:animated];
     [self initNavBarTitle:@"Number of Decimals" andLeftItemImageName:@"back" andRightItemName:@"Cancel"];
 }
+//设置样式
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
 
+//设置是否隐藏
+- (BOOL)prefersStatusBarHidden {
+    //    [super prefersStatusBarHidden];
+    return NO;
+}
+
+//设置隐藏动画
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationNone;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     _DecimalDataSource = [[NSMutableArray alloc]initWithObjects:@"Zero",@"One",@"Two", nil];

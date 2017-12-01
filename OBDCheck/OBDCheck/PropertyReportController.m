@@ -30,6 +30,21 @@
     self.detailDataSource = [[NSMutableArray alloc]initWithObjects:self.model.reportSpeedUpTime,self.model.reportSpeedDownDistance,self.model.reportSpeedDownTime,self.model.reportMaxSpeed,self.model.reportMaxAcceleration,self.model.reportPeakHorsepower,self.model.reportUp100Time, nil];
     
 }
+//设置样式
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+//设置是否隐藏
+- (BOOL)prefersStatusBarHidden {
+    //    [super prefersStatusBarHidden];
+    return NO;
+}
+
+//设置隐藏动画
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationNone;
+}
 - (void)initWithUI{
 
     UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, TopHigh, MSWidth, 100)];

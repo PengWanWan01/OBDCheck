@@ -73,6 +73,21 @@
     self.dataSource = [[NSMutableArray alloc]init];
     self.detialDataSource = [[NSMutableArray alloc]init];
 }
+//设置样式
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+//设置是否隐藏
+- (BOOL)prefersStatusBarHidden {
+    //    [super prefersStatusBarHidden];
+    return NO;
+}
+
+//设置隐藏动画
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationNone;
+}
 - (NSMutableAttributedString *)setAttributed:(NSString *)String withRange:(NSInteger)range{
     NSMutableAttributedString *resultStr = [[NSMutableAttributedString alloc]initWithString:String];
     NSRange theRange = NSMakeRange(range, resultStr.length - range);
