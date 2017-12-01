@@ -345,13 +345,15 @@ static BlueToothController* instance;
     return sumChar;
     
 }
+
 #pragma mark 通过特征值发送数据
 -(void)SendData:(NSData*)data
 {
    
 
 //    NSLog(@"发出数据：%@",data);
-
+    if (self.stopSend == NO) {
+        
     sendDataStr = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     
     if (SendCharacteristic) {
@@ -360,7 +362,7 @@ static BlueToothController* instance;
         // CBCharacteristicWriteWithResponse ／／CBCharacteristicWriteWithoutResponse
     }
     dataStr = [[NSMutableString alloc]init];
-    
+    }
 }
 
 

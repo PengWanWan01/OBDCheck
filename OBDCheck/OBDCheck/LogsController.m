@@ -338,8 +338,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 #pragma mark 保存内容LOGS到数据库
 -(void)SaveDataSource{
     if (isSave == YES) {
-        //发送ATDP指令；
-    [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
+    self.blueTooth.stopSend = YES;
     [[LogsSetting sharedInstance]initWithlogswith:PID1dataSource with:PID2dataSource with:PID3dataSource with:PID4dataSource];
     
     NSArray *arr = [LogsModel bg_findAll];
@@ -354,6 +353,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 - (void)startBtn{
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
+    self.blueTooth.stopSend = NO;
     //发送：ATH1=》发送：ATSP0=》发送：0100=》
     NSLog(@"发送开始的车速指令");
     sendNumber = 0;

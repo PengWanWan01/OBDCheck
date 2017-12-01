@@ -41,10 +41,40 @@
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
     [self initWithData];
-    [self initWithUI];
+   
+   
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+
 }
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+- (void)orientChange:(NSNotification *)notification{
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat  index = 0 ;
+    UIDeviceOrientation  orient = [UIDevice currentDevice].orientation;
+    if (orient == UIDeviceOrientationPortrait) {
+        NSLog(@"竖屏");
+//        index = width;
+//        width = height;
+//        height = index;
+    }else  if (orient == UIDeviceOrientationLandscapeLeft){
+        NSLog(@"横屏");
+        index = width;
+        width = height;
+        height = index;
+       
+        
+    }
+    [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+
+     [self initWithUI];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+   
 }
 
 - (void)initWithUI{

@@ -37,6 +37,7 @@
     NSLog(@"开始发送");
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
+    self.blueTooth.stopSend = NO;
     //发送车速
     [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
 
@@ -209,6 +210,8 @@
         }
         //得到车速之后，发送转速
         [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
+    }else{
+//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
     }
     if (!(RotationalStr == nil)) {
         if (PIDNameLabel.tag == 1) {

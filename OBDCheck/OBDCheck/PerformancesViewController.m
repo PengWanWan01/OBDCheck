@@ -61,6 +61,7 @@
     PID1dataSource = [[NSMutableArray alloc]init];
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
+    self.blueTooth.stopSend = NO;
     DownDistance = 0;
     TotalDistance = 0;
     GetDataCount = 0;
@@ -162,13 +163,16 @@
     
 }
 - (void)rightBarButtonClick{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"停止停止");
+        [self stopSend];
+    });
     PerformanceSetController *vc =  [[PerformanceSetController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)stopSend{
     NSLog(@"停止停止");
-    //发送ATDP指令；
-    [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
+    self.blueTooth.stopSend = YES;
 }
 -(void)reportBtn{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

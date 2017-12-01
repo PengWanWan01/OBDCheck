@@ -59,9 +59,35 @@ static dispatch_source_t _timer;
         [invocation invoke];
         
     }
+   
+
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+
+}
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+- (void)orientChange:(NSNotification *)notification{
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat  index = 0 ;
+    UIDeviceOrientation  orient = [UIDevice currentDevice].orientation;
+    if (orient == UIDeviceOrientationPortrait) {
+        NSLog(@"竖屏");
+        //        index = width;
+        //        width = height;
+        //        height = index;
+    }else  if (orient == UIDeviceOrientationLandscapeLeft){
+        NSLog(@"横屏");
+        index = width;
+        width = height;
+        height = index;
+        
+        
+    }
+    [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self updateView];
     [self startAnimation];
-   
 }
 - (void)viewDidLoad {
 
@@ -131,10 +157,6 @@ static dispatch_source_t _timer;
     
     
 }
-- (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-}
 
 #pragma mark 对自定义不同风格进行更新
 - (void)updateCustomType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(NSInteger)id{
@@ -190,6 +212,7 @@ static dispatch_source_t _timer;
     
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
+    self.blueTooth.stopSend = NO;
     //发送车速
     [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
 }
@@ -402,8 +425,7 @@ static dispatch_source_t _timer;
 }
 - (void)stopSend{
     NSLog(@"停止停止");
-    //发送ATDP指令；
-    [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
+   self.blueTooth.stopSend = YES;
 }
 - (void)initWithcustomMode{
     
@@ -608,8 +630,10 @@ static dispatch_source_t _timer;
             break;
         case 4:
         {
-            // 关闭定时器
-//            dispatch_source_cancel(_timer);
+//     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                NSLog(@"停止停止");
+                [self stopSend];
+//        });
             HUDViewController *vc = [[HUDViewController alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -622,8 +646,6 @@ static dispatch_source_t _timer;
     }
 #pragma mark 捏合手势代理
 - (void)pinchtap:(UIPinchGestureRecognizer *)sender OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height{
-    
-   
     NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger: sender.view.tag]];
     NSArray *all = [CustomDashboard bg_findWhere:arr];
     

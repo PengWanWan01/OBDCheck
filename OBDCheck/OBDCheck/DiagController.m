@@ -39,6 +39,7 @@ static dispatch_source_t _timer;
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
+    self.blueTooth.stopSend = NO;
     [self.blueTooth SendData:[BlueTool hexToBytes:@"30370D"]];
     [self initWithdata];
     [self initWithheadUI];

@@ -49,6 +49,7 @@ typedef NS_ENUM(NSUInteger, BlueToothState)
 @property (nonatomic, strong) NSMutableArray *arrayBLE;
 
 @property (nonatomic , strong) id<BlueToothControllerDelegate> delegate;
+@property (nonatomic,assign ) BOOL  stopSend;   //是否停止发动
 
 
 //单例
