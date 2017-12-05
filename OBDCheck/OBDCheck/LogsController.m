@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         }else{
             [self initWithLogViewUI];
         }
-   
+       [self initWithUI];
      PID1indextag =  0;
      PID2indextag =  0;
      PID3indextag =  0;
@@ -66,7 +66,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 //    for (NSInteger i = 11; i < 3600; i++) {
 //        [XdataSource addObject:[NSString stringWithFormat:@"%ld",(long)i]];
 //    }
-    [self initWithUI];
+ 
   
 }
 - (void)btn{

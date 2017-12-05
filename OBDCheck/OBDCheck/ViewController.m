@@ -49,20 +49,25 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)orientChange:(NSNotification *)notification{
-    CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGFloat  index = 0 ;
+//    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+//    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+//    CGFloat  index = 0 ;
     UIDeviceOrientation  orient = [UIDevice currentDevice].orientation;
     if (orient == UIDeviceOrientationPortrait) {
         NSLog(@"竖屏");
+        NSLog(@"高%f",self.navigationController.navigationBar.frame.size.height);
+        NSLog(@"宽%f", self.navigationController.navigationBar.frame.size.width);
+        
 //        index = width;
 //        width = height;
 //        height = index;
     }else  if (orient == UIDeviceOrientationLandscapeLeft){
         NSLog(@"横屏");
-        index = width;
-        width = height;
-        height = index;
+        NSLog(@"高%f",self.navigationController.navigationBar.frame.size.height);
+        NSLog(@"宽%f", self.navigationController.navigationBar.frame.size.width);
+//        index = width;
+//        width = height;
+//        height = index;
        
         
     }
@@ -172,6 +177,9 @@
         [btn addSubview:titleLabel];
         [self.view addSubview:btn];
     }
+}
+- (void)initWithLandscapeUI{
+    
 }
 #pragma mark 底部按钮的点击事件
 - (void)Selectbtn:(UIButton *)btn{

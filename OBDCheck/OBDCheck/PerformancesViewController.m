@@ -8,7 +8,7 @@
 
 #import "PerformancesViewController.h"
 
-@interface PerformancesViewController ()<ChartViewDelegate,BlueToothControllerDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface PerformancesViewController ()<ChartViewDelegate,BlueToothControllerDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {
     UIButton *startBtn;
     UIButton *reportBtn;
@@ -127,8 +127,11 @@
     circleLayer.lineCap = kCALineCapRound;
     circleLayer.lineJoin = kCALineJoinRound;
     circleLayer.fillColor = [UIColor clearColor].CGColor;
-        //FE9002
-    circleLayer.strokeColor = [UIColor blackColor].CGColor;
+        if (i == 0) {
+            circleLayer.strokeColor = [ColorTools colorWithHexString:@"FE9002"].CGColor;
+        }else{
+            circleLayer.strokeColor = [UIColor blackColor].CGColor;
+        }
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(35+(MSWidth-100)/4+((MSWidth-100)/2 + 30)*i, (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame) + 20) radius:(MSWidth-100)/4 startAngle:startAngle endAngle:endAngle clockwise:clockwise];
     circleLayer.path = circlePath.CGPath;
     [self.view.layer addSublayer:circleLayer];
@@ -213,9 +216,81 @@
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
     cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     cell.textLabel.text = self.dataSource[indexPath.row];
-    cell.detailTextLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
-    cell.detailTextLabel.text = self.detialDataSource[indexPath.row];
+//    cell.detailTextLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+//    cell.detailTextLabel.text = self.detialDataSource[indexPath.row];
+    
+    if (indexPath.row == 0) {
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(200, 0, 150, 44)];
+        UITextField *StartTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
+        StartTextFiled.tag = indexPath.row;
+        StartTextFiled.text = @"0";
+        StartTextFiled.textColor = [UIColor whiteColor];
+        StartTextFiled.textAlignment = NSTextAlignmentCenter;
+        StartTextFiled.delegate = self;
+        StartTextFiled.keyboardType = UIKeyboardTypeNumberPad;
+        [StartTextFiled addTarget:self action:@selector(textFieldEditChanged:) forControlEvents:UIControlEventEditingChanged];
+        [view addSubview:StartTextFiled];
+        UILabel *lineLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 10, 44)];
+        lineLabel.textColor = [UIColor whiteColor];
+        lineLabel.text = @"-";
+        lineLabel.textAlignment = NSTextAlignmentCenter;
+        [view addSubview:lineLabel];
+        UITextField *EndTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(60, 0, 50, 44)];
+        EndTextFiled.tag = indexPath.row + 1;
+        EndTextFiled.text = @"100";
+        StartTextFiled.tag = 1;
+        EndTextFiled.textColor = [UIColor whiteColor];
+        EndTextFiled.textAlignment = NSTextAlignmentCenter;
+        EndTextFiled.delegate = self;
+        EndTextFiled.keyboardType = UIKeyboardTypeNumberPad;
+        [EndTextFiled addTarget:self action:@selector(textFieldEditChanged:) forControlEvents:UIControlEventEditingChanged];
+        [view addSubview:EndTextFiled];
+        
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(110, 0, 40, 44)];
+        label.text =  @"km/h";
+        label.textColor = [UIColor whiteColor];
+        [view addSubview:label];
+        
+          cell.accessoryView = view;
+    }else{
+        UITextField *distanceTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(200, 0, 100, 44)];
+        distanceTextFiled.tag = indexPath.row + 1;
+        distanceTextFiled.text = @"100m";
+        distanceTextFiled.textColor = [UIColor whiteColor];
+        distanceTextFiled.textAlignment = NSTextAlignmentRight;
+        distanceTextFiled.delegate = self;
+        distanceTextFiled.keyboardType = UIKeyboardTypeNumberPad;
+        [distanceTextFiled addTarget:self action:@selector(textFieldEditChanged:) forControlEvents:UIControlEventEditingChanged];
+        cell.accessoryView = distanceTextFiled;
+    }
     return cell;
+}
+- (void)textFieldEditChanged:(UITextField *)textField
+{
+    switch (textField.tag) {
+        case 0:
+            {
+                NSLog(@"开始时间");
+            }
+            break;
+        case 1:
+        {
+            NSLog(@"结束时间");
+        }
+            break;
+        case 2:
+        {
+            NSLog(@"刹车时间");
+        }
+            break;
+        case 3:
+        {
+            NSLog(@"开始时间");
+        }
+            break;
+        default:
+            break;
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -274,8 +349,11 @@
     string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     NSLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
     NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
+   NSString *RotationalStr = [BlueTool isRotational:string];
     NSLog(@"%@",VehicleSpeedStr);
     if (!(VehicleSpeedStr == nil)) {
+        //得到车速之后，发送转速
+        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
         NSDate *nowDate = [NSDate date]; // 当前日期
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"yyyy-MM-dd HH-mm-ss";
@@ -363,10 +441,11 @@
         }
         
     }
-        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
-
     }
-    
+    if (!(RotationalStr == nil)) {
+      [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
+        rotateLabel.text = RotationalStr;
+    }
 }
 -(void)BlueToothState:(BlueToothState)state{
     

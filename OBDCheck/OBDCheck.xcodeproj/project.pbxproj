@@ -517,6 +517,7 @@
 		CB07E6A61F908B8900545A82 /* Performance */ = {
 			isa = PBXGroup;
 			children = (
+				CB6497D61FD5517F00AB128E /* View */,
 				CB47CE6A1FBBD1D400451244 /* Data */,
 				CB63900C1FB9A86B00C958E7 /* Model */,
 				CB07E6A81F908BB600545A82 /* PerformanceController.h */,
@@ -697,6 +698,13 @@
 				CB63900F1FB9A88E00C958E7 /* reportModel.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		CB6497D61FD5517F00AB128E /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		CB848F121F4541DB00C1A718 /* Controllers */ = {
