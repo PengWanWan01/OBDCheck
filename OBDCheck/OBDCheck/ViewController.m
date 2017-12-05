@@ -110,8 +110,20 @@
 }
 
 - (void)initWithUI{
-  
-  
+    NSLog(@"大：%f",SCREEN_MAX);
+    NSLog(@"小：%f",SCREEN_MIN);
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
+        NSLog(@"竖屏");
+        [self setVerticalFrame];
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+        NSLog(@"横屏");
+        [self setHorizontalFrame];
+        
+        
+    }
     self.titleBtn= [[RLBtn alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
      self.statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, MSWidth - 86, 40)];
      self.statusLabel.font = [UIFont systemFontOfSize:16.f];
@@ -146,12 +158,12 @@
     }
     [self.statusView addSubview:self.statusLabel];
     
-    self.backView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame), MSWidth, MSHeight - 165)];
+    self.backView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame), SCREEN_MIN, SCREEN_MAX - 165)];
     [self.view addSubview:self.backView];
 
     for (int i = 0; i<_btnTitleArray.count; i++) {
-        CGFloat space = IS_IPHONE_4_OR_LESS?20*MSHeight/667:30*MSHeight/667;
-        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], 100*MSWidth/375, 100*MSWidth/375 + space)];
+        CGFloat space = IS_IPHONE_4_OR_LESS?20*SCREEN_MAX/667:30*SCREEN_MAX/667;
+        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], 100*SCREEN_MIN/375, 100*SCREEN_MIN/375 + space)];
         btn.Label.text = _btnTitleArray[i];
         btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
@@ -161,15 +173,16 @@
         [self.backView addSubview:btn];
         NSLog(@"%f",btn.frame.size.width);
     }
-    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame) + 20, MSHeight, 100*MSWidth/375 + 40)];
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame) + 20, SCREEN_MAX, 100*SCREEN_MIN/375 + 40)];
     self.scrollView.backgroundColor = [UIColor blueColor];
-    self.scrollView.contentSize = CGSizeMake(60+(100*MSWidth/375 + 40)*6,0);
+    self.scrollView.contentSize = CGSizeMake(60+(100*SCREEN_MIN/375 + 40)*6,0);
     self.scrollView.pagingEnabled = YES;
     [self.view addSubview:self.scrollView];
     for (int i = 0; i<_btnTitleArray.count; i++) {
-        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake(30+(100*MSWidth/375 + 40)*i,0, 100*MSWidth/375, 100*MSWidth/375 +40)];
+        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake(30+(100*SCREEN_MIN/375 + 40)*i,0, 100*SCREEN_MIN/375 - 20, 100*SCREEN_MIN/375 - 20 +40)];
         btn.Label.text = _btnTitleArray[i];
         btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
+        [btn.imageView setContentMode:UIViewContentModeScaleToFill];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
         [btn addGestureRecognizer:tap];
         UIView *singleTapView  = [tap view];

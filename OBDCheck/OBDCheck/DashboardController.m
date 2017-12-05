@@ -60,35 +60,11 @@ static dispatch_source_t _timer;
         
     }
    
-
-[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-
-}
-- (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-- (void)orientChange:(NSNotification *)notification{
-    CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGFloat  index = 0 ;
-    UIDeviceOrientation  orient = [UIDevice currentDevice].orientation;
-    if (orient == UIDeviceOrientationPortrait) {
-        NSLog(@"竖屏");
-        //        index = width;
-        //        width = height;
-        //        height = index;
-    }else  if (orient == UIDeviceOrientationLandscapeLeft){
-        NSLog(@"横屏");
-        index = width;
-        width = height;
-        height = index;
-        
-        
-    }
-    [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self updateView];
     [self startAnimation];
+
 }
+
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
