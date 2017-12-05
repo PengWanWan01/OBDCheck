@@ -12,6 +12,8 @@
 
 #define  MSWidth [UIScreen mainScreen].bounds.size.width
 #define  MSHeight [UIScreen mainScreen].bounds.size.height
+#define SCREEN_MIN MIN(MSHeight,MSWidth)
+#define SCREEN_MAX MAX(MSHeight,MSWidth)
 #define    ViewWidth    self.frame.size.width
 #define    ViewHeight self.frame.size.height
 #define baseViewWidth  (MSWidth)/2 - 30

@@ -46,15 +46,12 @@
     self.navigationItem.title=titleName;
     self.navigationController.navigationBar.translucent = NO; //导航栏颜色不会发生变化
     [self.navigationController.navigationBar setBarTintColor:[ColorTools colorWithHexString:@"#212329"]];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-  
+ 
     
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[ColorTools colorWithHexString:@"#FE9002"],NSForegroundColorAttributeName,[UIFont systemFontOfSize:18.0f],NSFontAttributeName, nil]];
     
 }
-- (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+
 - (void)orientChange:(NSNotification *)notification{
 //    CGFloat height = [UIScreen mainScreen].bounds.size.height;
 //    CGFloat width = [UIScreen mainScreen].bounds.size.width;

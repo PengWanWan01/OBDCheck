@@ -10,13 +10,9 @@
 
 @interface ViewController ()<BlueToothControllerDelegate>
 {
-    UIImageView *statusView;
-    UILabel  *statusLabel;
-    UIImageView  *statusImageView;
+
     BOOL isSelect;
-    RLBtn * titleBtn;
     NSInteger sendNumber;
-    rotationView *roView;
 }
 
 @property (nonatomic,strong) NSMutableArray *btnTitleArray;
@@ -25,6 +21,14 @@
 @property (nonatomic,strong) NSMutableArray *normalImage;
 @property (nonatomic,strong) NSMutableArray *selectImage;
 @property (nonatomic,strong) NSMutableArray *titleBtnData;
+@property (nonatomic,strong)  UIImageView *statusView;
+@property (nonatomic,strong)  UILabel  *statusLabel;
+@property (nonatomic,strong)   UIImageView  *statusImageView;
+@property (nonatomic,strong)  RLBtn * titleBtn;
+@property (nonatomic,strong)  rotationView *roView;
+@property (nonatomic,strong)  UIView *backView;
+@property (nonatomic,strong)  UIScrollView *scrollView;
+
 @end
 
 @implementation ViewController
@@ -42,39 +46,48 @@
     self.blueTooth.delegate = self;
     [self initWithData];
     [self initWithUI];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+   
 
 }
-- (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-- (void)orientChange:(NSNotification *)notification{
-//    CGFloat height = [UIScreen mainScreen].bounds.size.height;
-//    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-//    CGFloat  index = 0 ;
-    UIDeviceOrientation  orient = [UIDevice currentDevice].orientation;
-    if (orient == UIDeviceOrientationPortrait) {
+
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
         NSLog(@"竖屏");
-        NSLog(@"高%f",self.navigationController.navigationBar.frame.size.height);
-        NSLog(@"宽%f", self.navigationController.navigationBar.frame.size.width);
-        
-//        index = width;
-//        width = height;
-//        height = index;
-    }else  if (orient == UIDeviceOrientationLandscapeLeft){
-        NSLog(@"横屏");
-        NSLog(@"高%f",self.navigationController.navigationBar.frame.size.height);
-        NSLog(@"宽%f", self.navigationController.navigationBar.frame.size.width);
-//        index = width;
-//        width = height;
-//        height = index;
-       
+          [self setVerticalFrame];
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+          NSLog(@"横屏");
+        [self setHorizontalFrame];
+      
         
     }
-    [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-
-     [self initWithUI];
 }
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+    
+    self.titleBtn.frame = CGRectMake(0, 0, 100, 44);
+    self.statusView.frame = CGRectMake(22, 11, MSWidth - 44, 41);
+    self.statusLabel.frame = CGRectMake(10, 0, MSWidth - 86, 40);
+    self.statusImageView.frame = CGRectMake(self.statusView.frame.size.width - 70, 10, 24, 20);
+    self.roView.frame = CGRectMake(CGRectGetMaxX(self.statusView.frame) - 50, 10, 21, 23);
+    self.backView.hidden = NO;
+    self.scrollView.hidden = YES;
+    
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
+    self.backView.hidden = YES;
+    self.scrollView.hidden = NO;
+    self.statusView.frame = CGRectMake(50, 16, MSWidth - 100, 41);
+    self.statusView.image = [UIImage imageNamed:@"information"];
+    self.statusView.contentMode = UIViewContentModeScaleToFill;
+    
+    
+}
+
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
@@ -93,47 +106,49 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+  
 }
 
 - (void)initWithUI{
-    titleBtn= [[RLBtn alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-    statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, MSWidth - 86, 40)];
-    statusLabel.font = [UIFont systemFontOfSize:16.f];
+  
+  
+    self.titleBtn= [[RLBtn alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+     self.statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, MSWidth - 86, 40)];
+     self.statusLabel.font = [UIFont systemFontOfSize:16.f];
     if ([DashboardSetting sharedInstance].blueState == 1) {
         [self IsConnectState];
     }else{
         [self NonConnectState];
     }
-    [titleBtn setTitle:@"Connect" forState:UIControlStateNormal];
-    titleBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-    [titleBtn setImage:[UIImage imageNamed:@"xiala"] forState:UIControlStateNormal];
-    [titleBtn addTarget:self action:@selector(LinkBlueTooth) forControlEvents:UIControlEventTouchUpInside];
+    [self.titleBtn setTitle:@"Connect" forState:UIControlStateNormal];
+    self.titleBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    [self.titleBtn setImage:[UIImage imageNamed:@"xiala"] forState:UIControlStateNormal];
+    [self.titleBtn addTarget:self action:@selector(LinkBlueTooth) forControlEvents:UIControlEventTouchUpInside];
     isSelect = YES;
-    self.navigationItem.titleView = titleBtn;
-    statusView = [[UIImageView alloc]initWithFrame:CGRectMake(22, 11, MSWidth - 44, 41)];
-    statusView.image = [UIImage imageNamed:@"information"];
-    statusView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.view addSubview:statusView];
-    statusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(statusView.frame) - 50, 10, 24, 20)];
-    statusImageView.image = [UIImage imageNamed:@"signal"];
-    statusImageView.contentMode = UIViewContentModeScaleAspectFill;
-    roView = [[rotationView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(statusView.frame) - 50, 10, 21, 23)];
-    [roView rotate360WithDuration:1 repeatCount:600];
-    roView.rotationImage.image = [UIImage imageNamed:@"search"];
-    roView.numberLabel.hidden = YES;
+    self.navigationItem.titleView = self.titleBtn;
+    self.statusView = [[UIImageView alloc]initWithFrame:CGRectMake(22, 11, MSWidth - 44, 41)];
+    self.statusView.image = [UIImage imageNamed:@"information"];
+    self.statusView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view addSubview:self.statusView];
+    self.statusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.statusView.frame) - 50, 10, 24, 20)];
+    self.statusImageView.image = [UIImage imageNamed:@"signal"];
+    self.statusImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.roView = [[rotationView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.statusView.frame) - 50, 10, 21, 23)];
+    [self.roView rotate360WithDuration:1 repeatCount:600];
+    self.roView.rotationImage.image = [UIImage imageNamed:@"search"];
+    self.roView.numberLabel.hidden = YES;
     if ([DashboardSetting sharedInstance].blueState == 1) {
-        [roView removeFromSuperview];
-        [statusView addSubview:statusImageView];
+        [self.roView removeFromSuperview];
+        [self.statusView addSubview:self.statusImageView];
     }else{
-        [statusImageView removeFromSuperview];
-        [statusView addSubview:roView];
+        [self.statusImageView removeFromSuperview];
+        [self.statusView addSubview:self.roView];
     }
-    [statusView addSubview:statusLabel];
+    [self.statusView addSubview:self.statusLabel];
     
-    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(statusView.frame), MSWidth, MSHeight - 165)];
-    [self.view addSubview:backView];
-    
+    self.backView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame), MSWidth, MSHeight - 165)];
+    [self.view addSubview:self.backView];
+
     for (int i = 0; i<_btnTitleArray.count; i++) {
         CGFloat space = IS_IPHONE_4_OR_LESS?20*MSHeight/667:30*MSHeight/667;
         OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], 100*MSWidth/375, 100*MSWidth/375 + space)];
@@ -143,8 +158,24 @@
         [btn addGestureRecognizer:tap];
       UIView *singleTapView  = [tap view];
         singleTapView.tag = i;
-        [backView addSubview:btn];
+        [self.backView addSubview:btn];
         NSLog(@"%f",btn.frame.size.width);
+    }
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame) + 20, MSHeight, 100*MSWidth/375 + 40)];
+    self.scrollView.backgroundColor = [UIColor blueColor];
+    self.scrollView.contentSize = CGSizeMake(60+(100*MSWidth/375 + 40)*6,0);
+    self.scrollView.pagingEnabled = YES;
+    [self.view addSubview:self.scrollView];
+    for (int i = 0; i<_btnTitleArray.count; i++) {
+        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake(30+(100*MSWidth/375 + 40)*i,0, 100*MSWidth/375, 100*MSWidth/375 +40)];
+        btn.Label.text = _btnTitleArray[i];
+        btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+        [btn addGestureRecognizer:tap];
+        UIView *singleTapView  = [tap view];
+        singleTapView.tag = i;
+        [self.scrollView addSubview:btn];
+        
     }
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(EveryViewtap)] ];
     //计算出底部按钮的最终字体大小；
@@ -179,7 +210,89 @@
     }
 }
 - (void)initWithLandscapeUI{
+    self.titleBtn= [[RLBtn alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    self.statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, MSWidth - 86, 40)];
+    self.statusLabel.textAlignment = NSTextAlignmentCenter;
+    self.statusLabel.font = [UIFont systemFontOfSize:16.f];
+    if ([DashboardSetting sharedInstance].blueState == 1) {
+        [self IsConnectState];
+    }else{
+        [self NonConnectState];
+    }
+    [self.titleBtn setTitle:@"Connect" forState:UIControlStateNormal];
+    self.titleBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    [self.titleBtn setImage:[UIImage imageNamed:@"xiala"] forState:UIControlStateNormal];
+    [self.titleBtn addTarget:self action:@selector(LinkBlueTooth) forControlEvents:UIControlEventTouchUpInside];
+    isSelect = YES;
+    self.navigationItem.titleView = self.titleBtn;
+    self.statusView = [[UIImageView alloc]initWithFrame:CGRectMake(50, 16, MSWidth - 100, 41)];
+    self.statusView.image = [UIImage imageNamed:@"information"];
+    self.statusView.contentMode = UIViewContentModeScaleToFill;
+    [self.view addSubview:self.statusView];
+    self.statusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(self.statusView.frame.size.width - 70, 10, 24, 20)];
+    self.statusImageView.image = [UIImage imageNamed:@"signal"];
+    self.statusImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.roView = [[rotationView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.statusView.frame) - 50, 10, 21, 23)];
+    [self.roView rotate360WithDuration:1 repeatCount:600];
+    self.roView.rotationImage.image = [UIImage imageNamed:@"search"];
+    self.roView.numberLabel.hidden = YES;
+    if ([DashboardSetting sharedInstance].blueState == 1) {
+        [self.roView removeFromSuperview];
+        [self.statusView addSubview:self.statusImageView];
+    }else{
+        [self.statusImageView removeFromSuperview];
+        [self.statusView addSubview:self.roView];
+    }
+    [self.statusView addSubview:self.statusLabel];
+
+     self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame) + 20, MSWidth, 100*MSWidth/375)];
+    self.scrollView.contentSize = CGSizeMake(60+(100*MSWidth/375 + 40)*6,0);
+    self.scrollView.pagingEnabled = YES;
+    [self.view addSubview:self.scrollView];
+    for (int i = 0; i<_btnTitleArray.count; i++) {
+        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake(30+(100*MSWidth/375 + 40)*i,0, 100*MSWidth/375, 100*MSWidth/375)];
+        btn.Label.text = _btnTitleArray[i];
+        btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+        [btn addGestureRecognizer:tap];
+        UIView *singleTapView  = [tap view];
+        singleTapView.tag = i;
+        [self.scrollView addSubview:btn];
+       
+    }
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(EveryViewtap)] ];
+    //计算出底部按钮的最终字体大小；
+    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, MSWidth/2-43*KFontmultiple, 49)];
+    textLabel.text = @"Vehicle Information123";
+    textLabel.adjustsFontSizeToFitWidth = YES;
+    CGFloat textFont = textLabel.font.pointSize;
+    NSLog(@"字体%f",textFont);
+   
     
+    //设置底部的两个按钮
+    for (NSInteger i = 0; i< 2; i++) {
+        
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(MSWidth/2), MSHeight - 49-TopHigh,MSWidth/2 , 49)];
+        if (IS_IPHONE_X) {
+            btn.frame = CGRectMake(i*(MSWidth/2), MSHeight - 49-TopHigh-34,MSWidth/2 , 49);
+        }
+        btn.backgroundColor = [UIColor redColor];
+        [btn setBackgroundImage: [UIImage imageNamed:_normalImage[i]] forState:UIControlStateNormal];
+        btn.tag = i;
+        [btn.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        if (i==0) {
+            [btn setBackgroundImage: [UIImage imageNamed:_selectImage[i]] forState:UIControlStateNormal];
+        }
+        [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(43*KFontmultiple, 0, btn.frame.size.width-43*KFontmultiple, 49)];
+        titleLabel.font = [UIFont ToAdapFont:16.f];
+        titleLabel.backgroundColor = [UIColor clearColor];
+        [titleLabel setText:_titleBtnData[i]];
+        [titleLabel setTextColor:[ColorTools colorWithHexString:@"#1E2026"]];
+        [btn addSubview:titleLabel];
+        [self.view addSubview:btn];
+    }
 }
 #pragma mark 底部按钮的点击事件
 - (void)Selectbtn:(UIButton *)btn{
@@ -323,20 +436,20 @@
 }
 -(void)NonConnectState{
     [DashboardSetting sharedInstance].blueState = 0;
-    statusLabel.text = @"Please connect to the device...";
-    [statusLabel setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
-    [titleBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
-    [statusImageView removeFromSuperview];
-    [statusView addSubview:roView];
-    [roView rotate360WithDuration:1 repeatCount:600];
+    self.statusLabel.text = @"Please connect to the device...";
+    [self.statusLabel setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
+    [self.titleBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+    [self.statusImageView removeFromSuperview];
+    [self.statusView addSubview:self.roView];
+    [self.roView rotate360WithDuration:1 repeatCount:600];
 }
 - (void)IsConnectState{
     [DashboardSetting sharedInstance].blueState = 1;
-    [titleBtn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
-    statusLabel.text = @"Connect to the device successfully";
-    [statusLabel setTextColor:[ColorTools colorWithHexString:@"#FE9002"]];
-    [roView removeFromSuperview];
-    [statusView addSubview:statusImageView];
+    [self.titleBtn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
+    self.statusLabel.text = @"Connect to the device successfully";
+    [self.statusLabel setTextColor:[ColorTools colorWithHexString:@"#FE9002"]];
+    [self.roView removeFromSuperview];
+    [self.statusView addSubview:self.statusImageView];
 }
 #pragma mark 得到蓝牙连接状态
 -(void)BlueToothState:(BlueToothState)state{
