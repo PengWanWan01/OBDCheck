@@ -20,6 +20,8 @@
 @property (nonatomic,strong) bluetoothView *blueView;
 @property (nonatomic,strong) NSMutableArray *normalImage;
 @property (nonatomic,strong) NSMutableArray *selectImage;
+@property (nonatomic,strong) NSMutableArray *landNormalImage;
+@property (nonatomic,strong) NSMutableArray *landSelectImage;
 @property (nonatomic,strong) NSMutableArray *titleBtnData;
 @property (nonatomic,strong)  UIImageView *statusView;
 @property (nonatomic,strong)  UILabel  *statusLabel;
@@ -28,6 +30,7 @@
 @property (nonatomic,strong)  rotationView *roView;
 @property (nonatomic,strong)  UIView *backView;
 @property (nonatomic,strong)  UIScrollView *scrollView;
+@property (nonatomic,strong)  UIView *tabarView;
 
 @end
 
@@ -69,22 +72,97 @@
 - (void)setVerticalFrame{
     
     self.titleBtn.frame = CGRectMake(0, 0, 100, 44);
-    self.statusView.frame = CGRectMake(22, 11, MSWidth - 44, 41);
-    self.statusLabel.frame = CGRectMake(10, 0, MSWidth - 86, 40);
+    self.statusView.frame = CGRectMake(22, 11, SCREEN_MIN - 44, 41);
+    self.statusLabel.frame = CGRectMake(10, 0, SCREEN_MIN - 86, 40);
+    self.statusLabel.textAlignment = NSTextAlignmentLeft;
     self.statusImageView.frame = CGRectMake(self.statusView.frame.size.width - 70, 10, 24, 20);
     self.roView.frame = CGRectMake(CGRectGetMaxX(self.statusView.frame) - 50, 10, 21, 23);
     self.backView.hidden = NO;
     self.scrollView.hidden = YES;
-    
+    [self.tabarView removeFromSuperview];
+    self.tabarView =  [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_MAX - 49-TopHigh, SCREEN_MIN, 49)];
+    if (IS_IPHONE_X) {
+        self.tabarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh-34,SCREEN_MIN , 49);
+    }
+    [self.view addSubview:self.tabarView];
+    //计算出底部按钮的最终字体大小；
+    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_MIN/2-43*KFontmultiple, 49)];
+    textLabel.text = @"Vehicle Information123";
+    textLabel.adjustsFontSizeToFitWidth = YES;
+    CGFloat textFont = textLabel.font.pointSize;
+    NSLog(@"字体%f",textFont);
+    //设置底部的两个按钮
+    for (NSInteger i = 0; i< 2; i++) {
+        
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(SCREEN_MIN/2), 0,SCREEN_MIN/2 , 49)];
+        if (IS_IPHONE_X) {
+            btn.frame = CGRectMake(i*(SCREEN_MIN/2), 0,SCREEN_MIN/2 , 49);
+        }
+        btn.backgroundColor = [UIColor redColor];
+        [btn setBackgroundImage: [UIImage imageNamed:_normalImage[i]] forState:UIControlStateNormal];
+        btn.tag = i;
+        [btn.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        if (i==0) {
+            [btn setBackgroundImage: [UIImage imageNamed:_selectImage[i]] forState:UIControlStateNormal];
+        }
+        [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(43*KFontmultiple, 0, btn.frame.size.width-43*KFontmultiple, 49)];
+        titleLabel.font = [UIFont ToAdapFont:16.f];
+        titleLabel.backgroundColor = [UIColor clearColor];
+        [titleLabel setText:_titleBtnData[i]];
+        [titleLabel setTextColor:[ColorTools colorWithHexString:@"#1E2026"]];
+        [btn addSubview:titleLabel];
+        [self.tabarView addSubview:btn];
+    }
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
     self.backView.hidden = YES;
     self.scrollView.hidden = NO;
-    self.statusView.frame = CGRectMake(50, 16, MSWidth - 100, 41);
+    self.statusView.frame = CGRectMake(50, 16, SCREEN_MAX - 100, 41);
+    self.statusLabel.frame =CGRectMake(10, 0, SCREEN_MAX - 100, 40);
+    self.statusLabel.textAlignment = NSTextAlignmentCenter;
     self.statusView.image = [UIImage imageNamed:@"information"];
     self.statusView.contentMode = UIViewContentModeScaleToFill;
-    
+    self.statusImageView.frame = CGRectMake(SCREEN_MAX - 100 - 50, 10, 24, 20);
+    self.roView.frame =CGRectMake(SCREEN_MAX - 100 - 50, 10, 24, 20);
+    [self.tabarView removeFromSuperview];
+    self.tabarView =  [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_MIN - 49-TopHigh, SCREEN_MAX, 49)];
+    if (IS_IPHONE_X) {
+        self.tabarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh-34,SCREEN_MAX , 49);
+    }
+    [self.view addSubview:self.tabarView];
+    //计算出底部按钮的最终字体大小；
+    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_MAX/2-139*KFontmultiple, 49)];
+    textLabel.text = @"Vehicle Information123";
+    textLabel.adjustsFontSizeToFitWidth = YES;
+    CGFloat textFont = textLabel.font.pointSize;
+    NSLog(@"字体%f",textFont);
+    //设置底部的两个按钮
+    for (NSInteger i = 0; i< 2; i++) {
+        
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(SCREEN_MAX/2), 0,SCREEN_MAX/2 , 49)];
+        if (IS_IPHONE_X) {
+            btn.frame = CGRectMake(i*(SCREEN_MAX/2), 0,SCREEN_MAX/2 , 49);
+        }
+        btn.backgroundColor = [UIColor redColor];
+        [btn setBackgroundImage: [UIImage imageNamed:self.landNormalImage[i]] forState:UIControlStateNormal];
+        btn.tag = i;
+        [btn.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        if (i==0) {
+            [btn setBackgroundImage: [UIImage imageNamed:self.landSelectImage[i]] forState:UIControlStateNormal];
+        }
+        [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(139*KFontmultiple, 0, btn.frame.size.width-139*KFontmultiple, 49)];
+        titleLabel.font = [UIFont ToAdapFont:16.f];
+        titleLabel.backgroundColor = [UIColor clearColor];
+        [titleLabel setText:_titleBtnData[i]];
+        [titleLabel setTextColor:[ColorTools colorWithHexString:@"#1E2026"]];
+        [btn addSubview:titleLabel];
+        [self.tabarView addSubview:btn];
+    }
     
 }
 
@@ -142,10 +220,10 @@
     self.statusView.image = [UIImage imageNamed:@"information"];
     self.statusView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:self.statusView];
-    self.statusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.statusView.frame) - 50, 10, 24, 20)];
+    self.statusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(self.statusView.frame.size.width - 50, 10, 24, 20)];
     self.statusImageView.image = [UIImage imageNamed:@"signal"];
     self.statusImageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.roView = [[rotationView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.statusView.frame) - 50, 10, 21, 23)];
+    self.roView = [[rotationView alloc]initWithFrame:CGRectMake(self.statusView.frame.size.width - 50, 10, 21, 23)];
     [self.roView rotate360WithDuration:1 repeatCount:600];
     self.roView.rotationImage.image = [UIImage imageNamed:@"search"];
     self.roView.numberLabel.hidden = YES;
@@ -191,122 +269,9 @@
         
     }
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(EveryViewtap)] ];
-    //计算出底部按钮的最终字体大小；
-    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, MSWidth/2-43*KFontmultiple, 49)];
-    textLabel.text = @"Vehicle Information123";
-    textLabel.adjustsFontSizeToFitWidth = YES;
-    CGFloat textFont = textLabel.font.pointSize;
-    NSLog(@"字体%f",textFont);
-  //设置底部的两个按钮
-    for (NSInteger i = 0; i< 2; i++) {
-        
-        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(MSWidth/2), MSHeight - 49-TopHigh,MSWidth/2 , 49)];
-        if (IS_IPHONE_X) {
-             btn.frame = CGRectMake(i*(MSWidth/2), MSHeight - 49-TopHigh-34,MSWidth/2 , 49);
-        }
-        btn.backgroundColor = [UIColor redColor];
-        [btn setBackgroundImage: [UIImage imageNamed:_normalImage[i]] forState:UIControlStateNormal];
-        btn.tag = i;
-        [btn.imageView setContentMode:UIViewContentModeScaleAspectFill];
-        btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-        if (i==0) {
-            [btn setBackgroundImage: [UIImage imageNamed:_selectImage[i]] forState:UIControlStateNormal];
-        }
-        [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(43*KFontmultiple, 0, btn.frame.size.width-43*KFontmultiple, 49)];
-        titleLabel.font = [UIFont ToAdapFont:16.f];
-        titleLabel.backgroundColor = [UIColor clearColor];
-        [titleLabel setText:_titleBtnData[i]];
-        [titleLabel setTextColor:[ColorTools colorWithHexString:@"#1E2026"]];
-        [btn addSubview:titleLabel];
-        [self.view addSubview:btn];
-    }
-}
-- (void)initWithLandscapeUI{
-    self.titleBtn= [[RLBtn alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-    self.statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, MSWidth - 86, 40)];
-    self.statusLabel.textAlignment = NSTextAlignmentCenter;
-    self.statusLabel.font = [UIFont systemFontOfSize:16.f];
-    if ([DashboardSetting sharedInstance].blueState == 1) {
-        [self IsConnectState];
-    }else{
-        [self NonConnectState];
-    }
-    [self.titleBtn setTitle:@"Connect" forState:UIControlStateNormal];
-    self.titleBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-    [self.titleBtn setImage:[UIImage imageNamed:@"xiala"] forState:UIControlStateNormal];
-    [self.titleBtn addTarget:self action:@selector(LinkBlueTooth) forControlEvents:UIControlEventTouchUpInside];
-    isSelect = YES;
-    self.navigationItem.titleView = self.titleBtn;
-    self.statusView = [[UIImageView alloc]initWithFrame:CGRectMake(50, 16, MSWidth - 100, 41)];
-    self.statusView.image = [UIImage imageNamed:@"information"];
-    self.statusView.contentMode = UIViewContentModeScaleToFill;
-    [self.view addSubview:self.statusView];
-    self.statusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(self.statusView.frame.size.width - 70, 10, 24, 20)];
-    self.statusImageView.image = [UIImage imageNamed:@"signal"];
-    self.statusImageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.roView = [[rotationView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.statusView.frame) - 50, 10, 21, 23)];
-    [self.roView rotate360WithDuration:1 repeatCount:600];
-    self.roView.rotationImage.image = [UIImage imageNamed:@"search"];
-    self.roView.numberLabel.hidden = YES;
-    if ([DashboardSetting sharedInstance].blueState == 1) {
-        [self.roView removeFromSuperview];
-        [self.statusView addSubview:self.statusImageView];
-    }else{
-        [self.statusImageView removeFromSuperview];
-        [self.statusView addSubview:self.roView];
-    }
-    [self.statusView addSubview:self.statusLabel];
-
-     self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame) + 20, MSWidth, 100*MSWidth/375)];
-    self.scrollView.contentSize = CGSizeMake(60+(100*MSWidth/375 + 40)*6,0);
-    self.scrollView.pagingEnabled = YES;
-    [self.view addSubview:self.scrollView];
-    for (int i = 0; i<_btnTitleArray.count; i++) {
-        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake(30+(100*MSWidth/375 + 40)*i,0, 100*MSWidth/375, 100*MSWidth/375)];
-        btn.Label.text = _btnTitleArray[i];
-        btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
-        [btn addGestureRecognizer:tap];
-        UIView *singleTapView  = [tap view];
-        singleTapView.tag = i;
-        [self.scrollView addSubview:btn];
-       
-    }
-    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(EveryViewtap)] ];
-    //计算出底部按钮的最终字体大小；
-    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, MSWidth/2-43*KFontmultiple, 49)];
-    textLabel.text = @"Vehicle Information123";
-    textLabel.adjustsFontSizeToFitWidth = YES;
-    CGFloat textFont = textLabel.font.pointSize;
-    NSLog(@"字体%f",textFont);
-   
     
-    //设置底部的两个按钮
-    for (NSInteger i = 0; i< 2; i++) {
-        
-        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(MSWidth/2), MSHeight - 49-TopHigh,MSWidth/2 , 49)];
-        if (IS_IPHONE_X) {
-            btn.frame = CGRectMake(i*(MSWidth/2), MSHeight - 49-TopHigh-34,MSWidth/2 , 49);
-        }
-        btn.backgroundColor = [UIColor redColor];
-        [btn setBackgroundImage: [UIImage imageNamed:_normalImage[i]] forState:UIControlStateNormal];
-        btn.tag = i;
-        [btn.imageView setContentMode:UIViewContentModeScaleAspectFill];
-        btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-        if (i==0) {
-            [btn setBackgroundImage: [UIImage imageNamed:_selectImage[i]] forState:UIControlStateNormal];
-        }
-        [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(43*KFontmultiple, 0, btn.frame.size.width-43*KFontmultiple, 49)];
-        titleLabel.font = [UIFont ToAdapFont:16.f];
-        titleLabel.backgroundColor = [UIColor clearColor];
-        [titleLabel setText:_titleBtnData[i]];
-        [titleLabel setTextColor:[ColorTools colorWithHexString:@"#1E2026"]];
-        [btn addSubview:titleLabel];
-        [self.view addSubview:btn];
-    }
 }
+
 #pragma mark 底部按钮的点击事件
 - (void)Selectbtn:(UIButton *)btn{
     [self.blueView hide];
@@ -334,6 +299,8 @@
     self.selectImage = [[NSMutableArray alloc]initWithObjects:@"OBD_highlight",@"Vehicle_highlight", nil];
 
     self.titleBtnData = [[NSMutableArray alloc]initWithObjects:@"OBD Features",@"Vehicle Information", nil];
+    self.landNormalImage = [[NSMutableArray alloc]initWithObjects:@"OBD_normal_land",@"Vehicle_normal_land", nil];
+    self.landSelectImage = [[NSMutableArray alloc]initWithObjects:@"OBD_highlight_land",@"Vehicle_highlight_land", nil];
     
     NSLog(@"%f",4*MSWidth/15 );
     

@@ -16,7 +16,7 @@
     CGFloat resultX;
    NSInteger index = i % 2;
     CGFloat Space = (CGFloat)(twoWidth_Space) ;
-        resultX = index * (Button_Width + Space) + 63*MSWidth/375;
+        resultX = index * (Button_Width + Space) + 63*SCREEN_MIN/375;
    
     return resultX;
 
