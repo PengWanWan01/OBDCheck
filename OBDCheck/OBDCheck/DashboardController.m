@@ -7,7 +7,7 @@
 //
 
 #import "DashboardController.h"
-#define baseViewWidth  (MSWidth)/2 - 30
+#define baseViewWidth  (SCREEN_MIN)/2 - 30
 #define baseViewHeight  baseViewWidth
 static dispatch_source_t _timer;
 @interface DashboardController ()<UIScrollViewDelegate,selectStyleDelegete,touchMoveDelegate,StyleBtouchMoveDelegate,StyleCtouchMoveDelegate,BlueToothControllerDelegate>
@@ -64,7 +64,255 @@ static dispatch_source_t _timer;
     [self startAnimation];
 
 }
+#pragma mark 设置横竖屏布局
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
+        NSLog(@"竖屏");
+        [self setVerticalFrame];
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+        NSLog(@"横屏");
+        [self setHorizontalFrame];
+        
+        
+    }
+}
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+    scrollView.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX);
+     scrollView.contentSize = CGSizeMake(SCREEN_MIN*[DashboardSetting sharedInstance].KPageNumer,0);
+     pageControl.frame = CGRectMake(0, SCREEN_MAX- self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -40, SCREEN_MIN, 30);
 
+   
+    if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
+        NSArray* pAllCount = [CustomDashboard bg_findAll];
+        for (CustomDashboard *dash in pAllCount) {
+            if ([dash.bg_id integerValue ]>6 && [dash.bg_id integerValue ]<=8) {
+                dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[dash.bg_id intValue]];
+                dashboardStyleBView.frame = CGRectMake(SCREEN_MIN+ SCREEN_MIN/2 - 100,([dash.bg_id integerValue ] -7) * (220+ 30)+30, 220, 220);
+            }else if ([dash.bg_id integerValue ]==9){
+                dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
+                dashboardStyleCView.frame = CGRectMake(SCREEN_MIN*2+(MSWidth- 300)/2,88, 300, 300+20);
+            }else{
+                NSInteger index = ([dash.bg_id integerValue ]-1) % 2;
+                NSInteger page = ([dash.bg_id integerValue ] -1) / 2;
+                CGFloat  space = SCREEN_MIN - 150*KFontmultiple*2 - 50;
+                dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
+                 dashboardStyleAView.frame = CGRectMake(index * (space+ 150*KFontmultiple)+25, page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple+20);
+            }
+        }
+        
+    }else{
+        switch ([DashboardSetting sharedInstance].dashboardStyle) {
+            case DashboardStyleOne:
+            {
+                [self setVerticalDashboardFrame:DashboardStyleOne];
+            }
+                break;
+            case DashboardStyleTwo:
+            {
+                [self setVerticalDashboardFrame:DashboardStyleTwo];
+            }
+                break;
+            case DashboardStyleThree:
+            {
+                [self setVerticalDashboardFrame:DashboardStyleThree];
+            }
+                break;
+            default:
+                break;
+        }
+    }
+    
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
+   
+    scrollView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN);
+    scrollView.contentSize = CGSizeMake(SCREEN_MAX*[DashboardSetting sharedInstance].KPageNumer,0);
+     pageControl.frame = CGRectMake(0, SCREEN_MIN- self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -40, SCREEN_MAX, 30);
+   
+    if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
+        NSArray* pAllCount = [CustomDashboard bg_findAll];
+        for (CustomDashboard *dash in pAllCount) {
+            if ([dash.bg_id integerValue ]>6 && [dash.bg_id integerValue ]<=8) {
+                 dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[dash.bg_id intValue]];
+                dashboardStyleBView.frame = CGRectMake(SCREEN_MAX+ (SCREEN_MAX - 440 - 50+220)*([dash.bg_id integerValue ] -7) +25,110, 220, 220);
+            }else if ([dash.bg_id integerValue ]==9){
+                dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
+                dashboardStyleCView.frame = CGRectMake(SCREEN_MAX*2+(SCREEN_MAX- 300)/2, 88, 300, 300+20);
+            }else{
+                dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
+                NSInteger index = ([dash.bg_id intValue] -1)% 3;
+                NSInteger page = ([dash.bg_id intValue]-1) / 3;
+                CGFloat  space = (SCREEN_MAX - 120*KFontmultiple*3 - 70)/2;
+                dashboardStyleAView.frame = CGRectMake(index * (space+ 120*KFontmultiple)+35, page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple+20);
+            }
+        }
+        
+    }else{
+        switch ([DashboardSetting sharedInstance].dashboardStyle) {
+            case DashboardStyleOne:
+            {
+                [self setHorizontalDashboardFrame:DashboardStyleOne];
+            }
+                break;
+            case DashboardStyleTwo:
+            {
+                [self setHorizontalDashboardFrame:DashboardStyleTwo];
+            }
+                break;
+            case DashboardStyleThree:
+            {
+                [self setHorizontalDashboardFrame:DashboardStyleThree];
+            }
+                break;
+            default:
+                break;
+        }
+    }
+    
+}
+#pragma mark 设置横屏仪表盘Frame
+- (void)setHorizontalDashboardFrame:(DashboardStyle)type {
+    switch (type) {
+        case DashboardStyleOne:
+            {
+                NSArray* pAllCount = [DashboardA bg_findAll];
+                for (DashboardA *dash in pAllCount) {
+                    dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
+                    if ([dash.bg_id intValue]>6 && [dash.bg_id intValue]<=8) {
+                        NSLog(@"1111111111111111111异常得%d",[dash.bg_id intValue]-1);
+                        dashboardStyleAView.frame = CGRectMake(SCREEN_MAX+ SCREEN_MAX/4 +(SCREEN_MAX/2)*([dash.bg_id intValue] -7), 80, 120*KFontmultiple, 120*KFontmultiple+20);
+                        
+                    } else if ([dash.bg_id intValue]==9){
+                        dashboardStyleAView.frame = CGRectMake(SCREEN_MAX*2+(SCREEN_MAX- 300)/2, 88, 150*KFontmultiple, 150*KFontmultiple);
+                    }else{
+                        NSLog(@"1111111111111111111获得%d",[dash.bg_id intValue]-1);
+                        NSInteger index = ([dash.bg_id intValue] -1)% 3;
+                        NSInteger page = ([dash.bg_id intValue]-1) / 3;
+                        CGFloat  space = (SCREEN_MAX - 120*KFontmultiple*3 - 70)/2;
+                        dashboardStyleAView.frame = CGRectMake(index * (space+ 120*KFontmultiple)+35, page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple+20);
+                    }
+                }
+            }
+            break;
+        case DashboardStyleTwo:
+        {
+            NSArray* pAllCount = [DashboardB bg_findAll];
+            for (DashboardB *dash in pAllCount) {
+                dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[dash.bg_id intValue]];
+                if ([dash.bg_id intValue]>6 && [dash.bg_id intValue]<=8) {
+                    dashboardStyleBView.frame = CGRectMake(SCREEN_MAX+ SCREEN_MAX/4 +(SCREEN_MAX/2)*([dash.bg_id intValue] -7), 80, 120*KFontmultiple, 120*KFontmultiple);
+                } else if ([dash.bg_id intValue]==9){
+                     dashboardStyleBView.frame = CGRectMake(SCREEN_MAX*2+(SCREEN_MAX- 300)/2, 88, 150*KFontmultiple, 150*KFontmultiple);
+                }else{
+                    NSInteger index = ([dash.bg_id intValue] -1)% 3;
+                    NSInteger page = ([dash.bg_id intValue]-1) / 3;
+                    CGFloat  space = (SCREEN_MAX - 120*KFontmultiple*3 - 70)/2;
+                  dashboardStyleBView.frame = CGRectMake(index * (space+ 120*KFontmultiple)+35, page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple);
+                }
+            }
+        }
+            break;
+        case DashboardStyleThree:
+        {
+            NSArray* pAllCount = [DashboardC bg_findAll];
+            for (DashboardC *dash in pAllCount) {
+                dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
+                if ([dash.bg_id intValue]>6 && [dash.bg_id intValue]<=8) {
+                    dashboardStyleCView.frame = CGRectMake(SCREEN_MAX+ SCREEN_MAX/4 +(SCREEN_MAX/2)*([dash.bg_id intValue] -7), 80, 120*KFontmultiple, 120*KFontmultiple+20);
+                    
+                } else if ([dash.bg_id intValue]==9){
+                    dashboardStyleCView.frame =  CGRectMake(SCREEN_MAX*2+(SCREEN_MAX- 300)/2, 88, 150*KFontmultiple, 150*KFontmultiple);
+                }else{
+                    NSInteger index = ([dash.bg_id intValue] -1)% 3;
+                    NSInteger page = ([dash.bg_id intValue]-1) / 3;
+                    CGFloat  space = (SCREEN_MAX - 120*KFontmultiple*3 - 70)/2;
+                   dashboardStyleCView.frame = CGRectMake(index * (space+ 120*KFontmultiple)+35, page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple+20);
+                }
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
+#pragma mark 设置竖屏仪表盘Frame
+- (void)setVerticalDashboardFrame:(DashboardStyle)type {
+    switch (type) {
+        case DashboardStyleOne:
+            {
+                NSArray* pAllCount = [DashboardA bg_findAll];
+                for (DashboardA *dash in pAllCount) {
+                    NSLog(@"222%@",dash.bg_id);
+                    dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
+                    if ([dash.bg_id intValue]>6 && [dash.bg_id intValue]<=8) {
+                        dashboardStyleAView.frame = CGRectMake(SCREEN_MIN+ SCREEN_MIN/2 - 100, ([dash.bg_id intValue] -7) * (220+ 30)+30, 220,220);
+                        //                      [self updateClassicType:1 OrignX:SCREEN_MIN+ SCREEN_MIN/2 - 100 OrignY:(CGFloat)([dash.bg_id intValue] -6) * (220+ 30)+30 Width:220 Height:220 ID:[dash.bg_id intValue]];
+                        
+                    } else if ([dash.bg_id intValue]==9){
+                        dashboardStyleAView.frame = CGRectMake(SCREEN_MIN*2+(SCREEN_MIN- 300)/2, 88, 220,220);
+                        //                          [self updateClassicType:1 OrignX:SCREEN_MIN*2+(SCREEN_MIN- 300)/2 OrignY:88 Width:220 Height:220 ID:[dash.bg_id intValue]];
+                    }else{
+                        NSLog(@"2221到6%@",dash.bg_id);
+                        NSInteger index = ([dash.bg_id intValue]-1) % 2;
+                        NSInteger page = ([dash.bg_id intValue]-1) / 2;
+                        CGFloat  space = SCREEN_MIN - 150*KFontmultiple*2 - 50;
+                        dashboardStyleAView.frame = CGRectMake(index * (space+ 150*KFontmultiple)+25, page  * (baseViewHeight + 40)+10, 150*KFontmultiple,150*KFontmultiple+20);
+                        //                        [self updateClassicType:1 OrignX:index * (space+ 150*KFontmultiple)+25 OrignY: page  * (baseViewHeight + 40)+10 Width:150*KFontmultiple Height:150*KFontmultiple+20 ID:[dash.bg_id intValue]];
+                    }
+                }
+            }
+            break;
+        case DashboardStyleTwo:
+        {
+            NSArray* pAllCount = [DashboardB bg_findAll];
+
+            for (DashboardB *dash in pAllCount) {
+                dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[dash.bg_id intValue]];
+
+                if ([dash.bg_id intValue]>6 && [dash.bg_id intValue]<=8) {
+                    dashboardStyleBView.frame = CGRectMake(SCREEN_MIN+ SCREEN_MIN/2 - 100, ([dash.bg_id intValue] -7) * (220+ 30)+30, 220,220);
+                    
+                } else if ([dash.bg_id intValue]==9){
+                      dashboardStyleBView.frame = CGRectMake(SCREEN_MIN*2+(SCREEN_MIN- 300)/2, 88, 220,220);
+                }else{
+                    NSInteger index = ([dash.bg_id intValue]-1) % 2;
+                    NSInteger page = ([dash.bg_id intValue]-1) / 2;
+                    CGFloat  space = SCREEN_MIN - 150*KFontmultiple*2 - 50;
+                    dashboardStyleBView.frame = CGRectMake(index * (space+ 150*KFontmultiple)+25, page  * (baseViewHeight + 40)+10, 150*KFontmultiple,150*KFontmultiple);
+                }
+            }
+        }
+            break;
+        case DashboardStyleThree:
+        {
+            NSArray* pAllCount = [DashboardC bg_findAll];
+            for (DashboardC *dash in pAllCount) {
+                if ([dash.bg_id intValue]>6 && [dash.bg_id intValue]<=8) {
+                    NSLog(@"竖屏竖屏%@",dash.bg_id );
+                    dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
+                    dashboardStyleCView.frame = CGRectMake(SCREEN_MIN+ SCREEN_MIN/2 - 100, ([dash.bg_id intValue] -7) * (220+ 30), 220,220);
+                    
+                } else if ([dash.bg_id intValue]==9){
+                      dashboardStyleCView.frame = CGRectMake(SCREEN_MIN*2+(SCREEN_MIN- 300)/2, 88, 220,220);
+                }else{
+                    NSInteger index = [dash.bg_id intValue] % 2;
+                    NSInteger page = [dash.bg_id intValue] / 2;
+                    CGFloat  space = SCREEN_MIN - 150*KFontmultiple*2 - 50;
+                   dashboardStyleCView.frame = CGRectMake(index * (space+ 150*KFontmultiple)+25, page  * (baseViewHeight + 40)+10, 150*KFontmultiple,150*KFontmultiple+20);
+                }
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
@@ -191,13 +439,70 @@ static dispatch_source_t _timer;
         default:
             break;
     }
-
     [dash bg_saveOrUpdate];
         }
     }
-
 }
-
+#pragma mark 对经典不同风格进行更新
+- (void)updateClassicType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(NSInteger)id{
+    NSLog(@"更新");
+  
+            switch (Customtype) {
+                case 1:
+                {
+                    NSArray *he = [DashboardA bg_findAll];
+                    for (int i = 0; i<he.count; i++) {
+                        DashboardA *dash =he[i];
+                        
+                    if ([dash.bg_id integerValue] == id ) {
+                            NSLog(@"orignx%ld",(long)dash.bg_id);
+                    dash.orignx = [NSNumber numberWithFloat:orignx];
+                    dash.origny = [NSNumber numberWithFloat:origny];
+                    dash.orignwidth = [NSNumber numberWithFloat:width];
+                    dash.orignheight = [NSNumber numberWithFloat:height];
+                            [dash bg_saveOrUpdate];
+                        }
+                    }
+                }
+                    break;
+                case 2:
+                {
+                    NSArray *he = [DashboardB bg_findAll];
+                    for (int i = 0; i<he.count; i++) {
+                        DashboardB *dash =he[i];
+                   if ([dash.bg_id integerValue] == id ) {
+                            NSLog(@"orignx%ld",(long)dash.bg_id);
+                    dash.orignx = [NSNumber numberWithFloat:orignx];
+                    dash.origny = [NSNumber numberWithFloat:origny];
+                    dash.orignwidth = [NSNumber numberWithFloat:width];
+                    dash.orignheight = [NSNumber numberWithFloat:height];
+                       [dash bg_saveOrUpdate];
+                        }
+                    }
+                }
+                    break;
+                case 3:
+                {
+                    NSArray *he = [DashboardC bg_findAll];
+                    for (int i = 0; i<he.count; i++) {
+                        DashboardC *dash =he[i];
+                        
+                        if ([dash.bg_id integerValue] == id ) {
+                            NSLog(@"orignx%ld",(long)dash.bg_id);
+                    dash.orignx = [NSNumber numberWithFloat:orignx];
+                    dash.origny = [NSNumber numberWithFloat:origny];
+                    dash.orignwidth = [NSNumber numberWithFloat:width];
+                    dash.orignheight = [NSNumber numberWithFloat:height];
+                    dash.Gradientradius = [NSNumber numberWithFloat:width/2];
+                    [dash bg_saveOrUpdate];
+                }
+                    }
+                }
+                    break;
+                default:
+                    break;
+            }
+    }
 //发送指令
 - (void)startAnimation{
     
@@ -469,7 +774,6 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 #pragma mark 初始化仪表盘风格
 - (void)initWithStyleA{
     DashBoardTag = 0;
-   
     NSArray* pAllCount = [DashboardA bg_findAll];
             for (DashboardA *dash in pAllCount) {
                 NSLog(@"总共%@,orignx=%f",dash.bg_id, [dash.orignx doubleValue]);
@@ -485,11 +789,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 dash.infoLabeltext = dashboardStyleAView.infoLabel.text;
                 [dash bg_saveOrUpdate];
                 [scrollView addSubview:dashboardStyleAView];
-
-            
             }
-
-  
 }
 
 

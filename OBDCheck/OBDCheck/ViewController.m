@@ -52,7 +52,7 @@
    
 
 }
-
+#pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
