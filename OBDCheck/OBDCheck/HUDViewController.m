@@ -166,6 +166,9 @@
             NSInteger index = i % 2;
             NSInteger page = i / 2;
             HUDView *View  = [[HUDView alloc]initWithFrame:CGRectMake(index * ((SCREEN_MAX/2)-1 ), page  * ( (SCREEN_MIN-2)/3), SCREEN_MAX/2, (SCREEN_MIN-2)/3)];
+            View.NumberLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
+            View.PIDLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
+            View.UnitLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
             [landscapeBackView addSubview:View];
            }
     
