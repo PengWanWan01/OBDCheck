@@ -15,7 +15,9 @@
     UILabel *UnitLabel;
     UIView *lineView;
     NSTimer* timer;
-    
+    UIView *PortraitBackView;
+    UIView *landscapeBackView;
+
 }
 @property (nonatomic,strong) NSMutableArray *PIDDataSource;
 @property (nonatomic,strong) NSMutableArray *NumberDataSource;
@@ -31,6 +33,32 @@
     [self hideNavi];
     [self initWithData];
     [self initWithUI];
+}
+#pragma mark 设置横竖屏布局
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
+        NSLog(@"竖屏");
+        [self setVerticalFrame];
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+        NSLog(@"横屏");
+        [self setHorizontalFrame];
+        
+        
+    }
+}
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+    PortraitBackView.hidden = NO;
+    landscapeBackView.hidden = YES;
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
+    PortraitBackView.hidden = YES;
+    landscapeBackView.hidden = NO;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -65,30 +93,35 @@
     return UIStatusBarAnimationNone;
 }
 - (void)initWithUI{
-    [self initWithlandscapeUI];
-//    [self initWithPortraitUI];
+    [self initWithLandscapeUI];
+    [self initWithPortraitUI];
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
     
     [self.view addGestureRecognizer:tap];
 }
-- (void)initWithlandscapeUI
+#pragma mark 竖屏
+- (void)initWithPortraitUI
 {
+    PortraitBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX)];
+    PortraitBackView.backgroundColor = [ColorTools colorWithHexString:@"212329"];
+
+    [self.view addSubview:PortraitBackView];
     for (NSInteger i = 0; i<3; i++) {
-        UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, i*(MSHeight/3), MSWidth, (MSHeight/3))];
-        [self.view addSubview:backView];
-        PIDNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, MSWidth - 20, 23)];
+        UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, i*(SCREEN_MAX/3), SCREEN_MIN, (SCREEN_MAX/3))];
+        [PortraitBackView addSubview:backView];
+        PIDNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, SCREEN_MIN - 20, 23)];
         PIDNameLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
         PIDNameLabel.font = [UIFont systemFontOfSize:14.f];
         PIDNameLabel.text  = self.PIDDataSource[i];
         PIDNameLabel.tag = i;
-        NumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, MSWidth,MSHeight/3 -  80)];
+        NumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, SCREEN_MIN,SCREEN_MAX/3 -  80)];
         NumberLabel.textAlignment = NSTextAlignmentCenter;
         NumberLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
         NumberLabel.font = [UIFont systemFontOfSize:70];
         NumberLabel.text  = self.NumberDataSource[i];
 
-        UnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,backView.frame.size.height-23 , MSWidth - 20, 23)];
+        UnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,backView.frame.size.height-23 , SCREEN_MAX - 20, 23)];
         UnitLabel.textAlignment = NSTextAlignmentRight;
         UnitLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
         UnitLabel.font  = [UIFont systemFontOfSize:14.f];
@@ -97,41 +130,44 @@
         [backView addSubview:PIDNameLabel];
         [backView addSubview:NumberLabel];
         [backView addSubview:UnitLabel];
-        lineView = [[UIView alloc]initWithFrame:CGRectMake(0, (i+1)*MSHeight/3, MSWidth, 0.5)];
+        lineView = [[UIView alloc]initWithFrame:CGRectMake(0, (i+1)*SCREEN_MAX/3, SCREEN_MIN, 0.5)];
         lineView.backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
-        [self.view addSubview:lineView];
+        [PortraitBackView addSubview:lineView];
 
         
     }
     
     
 }
-- (void)initWithPortraitUI{
+#pragma mark 横屏
+- (void)initWithLandscapeUI{
+    landscapeBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN)];
+    landscapeBackView.backgroundColor =  [ColorTools colorWithHexString:@"212329"];
+    [self.view addSubview:landscapeBackView];
+        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(SCREEN_MAX/2 - 1, 0, 1, SCREEN_MIN)];
+        lineView.backgroundColor = [UIColor whiteColor];
+        [landscapeBackView addSubview:lineView];
+        for (NSInteger i = 0; i< 2; i++) {
+            UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, (i +1) * (SCREEN_MIN/3), SCREEN_MAX, 1)];
+            lineView.backgroundColor = [UIColor whiteColor];
+       [landscapeBackView addSubview:lineView];
+        }
+        UIView *FristView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_MAX/2 - 1, (SCREEN_MIN - 2)/3 )];
+        [landscapeBackView addSubview:FristView];
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(FristView.frame.size.width/2 - 20, FristView.frame.size.height/2 - 22.5, 40, 45)];
+        imageView.image = [UIImage imageNamed:@"HUDBtn"];
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *Clicktap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickToHUD:)];
+          [imageView addGestureRecognizer:Clicktap];
+        [FristView addSubview:imageView];
     
-    //    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(MSHeight/2 - 1, 0, 1, MSWidth)];
-    //    lineView.backgroundColor = [UIColor whiteColor];
-    //    [self.view addSubview:lineView];
-    //    for (NSInteger i = 0; i< 2; i++) {
-    //        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, (i +1) * (MSWidth/3), MSHeight, 1)];
-    //        lineView.backgroundColor = [UIColor whiteColor];
-    //   [self.view addSubview:lineView];
-    //    }
-    //    UIView *FristView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSHeight/2 - 1, (MSWidth - 2)/3 )];
-    //    [self.view addSubview:FristView];
-    //    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(FristView.frame.size.width/2 - 20, FristView.frame.size.height/2 - 22.5, 40, 45)];
-    //    imageView.image = [UIImage imageNamed:@"HUDBtn"];
-    //    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    //    imageView.userInteractionEnabled = YES;
-    //    UITapGestureRecognizer *Clicktap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickToHUD:)];
-    //      [imageView addGestureRecognizer:Clicktap];
-    //    [FristView addSubview:imageView];
-    //
-    //    for (NSInteger i = 1; i< 6; i++) {
-    //        NSInteger index = i % 2;
-    //        NSInteger page = i / 2;
-    //        HUDView *View  = [[HUDView alloc]initWithFrame:CGRectMake(index * ((MSHeight/2)-1 ), page  * ( (MSWidth-2)/3), MSHeight/2, (MSWidth-2)/3)];
-    //        [self.view addSubview:View];
-    //       }
+        for (NSInteger i = 1; i< 6; i++) {
+            NSInteger index = i % 2;
+            NSInteger page = i / 2;
+            HUDView *View  = [[HUDView alloc]initWithFrame:CGRectMake(index * ((SCREEN_MAX/2)-1 ), page  * ( (SCREEN_MIN-2)/3), SCREEN_MAX/2, (SCREEN_MIN-2)/3)];
+            [landscapeBackView addSubview:View];
+           }
     
     
 }
