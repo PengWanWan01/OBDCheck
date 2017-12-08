@@ -9,7 +9,9 @@
 #import "SelectStyleViewController.h"
 
 @interface SelectStyleViewController ()<UITableViewDelegate,UITableViewDataSource>
-
+{
+    UITableView *MyTableView;
+}
 @property (nonatomic,strong) NSMutableArray *styleDataArray;
 @property (nonatomic,assign)  NSInteger indexID;
 @end
@@ -28,6 +30,7 @@
     
     [self initWithUI];
 }
+
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
@@ -46,15 +49,15 @@
 - (void)initWithUI{
     _styleDataArray = [[NSMutableArray alloc]initWithObjects:@"One",@"Two",@"Three",nil];
     
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, _styleDataArray.count*44) style:UITableViewStylePlain];
-    tableView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    tableView.separatorInset = UIEdgeInsetsZero;
-    tableView.scrollEnabled = NO;
-    tableView.separatorColor = [ColorTools colorWithHexString:@"#212329"];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
-    [self.view addSubview:tableView];
+    MyTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, _styleDataArray.count*44) style:UITableViewStylePlain];
+    MyTableView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    MyTableView.separatorInset = UIEdgeInsetsZero;
+    MyTableView.scrollEnabled = NO;
+    MyTableView.separatorColor = [ColorTools colorWithHexString:@"#212329"];
+    MyTableView.delegate = self;
+    MyTableView.dataSource = self;
+    [MyTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
+    [self.view addSubview:MyTableView];
     
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource

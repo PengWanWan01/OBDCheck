@@ -54,6 +54,41 @@
     [self initWithUI];
 
 }
+#pragma mark 设置横竖屏布局
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
+        NSLog(@"竖屏");
+        [self setVerticalFrame];
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+        NSLog(@"横屏");
+        [self setHorizontalFrame];
+        
+        
+    }
+}
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+    self.DashViewA.frame = CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple);
+    btnView.frame = CGRectMake(29, CGRectGetMaxY(self.DashView.frame) + 40, MSWidth - 58, 24);
+  scrollView.frame =CGRectMake(0, CGRectGetMaxY(btnView.frame)+20, SCREEN_MIN, SCREEN_MAX);
+    scrollView.contentSize = CGSizeMake(SCREEN_MIN*4,SCREEN_MAX - 237);
+
+//    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashView.frame) + 10, CGRectGetMaxY(label.frame )+10, MSWidth - self.DashViewA.frame.size.width-50*KFontmultiple , 20)];
+  
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
+    self.DashViewA.frame = CGRectMake(66*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple);
+    btnView.frame = CGRectMake(SCREEN_MAX -(SCREEN_MIN - 58) - 20 , 25, (SCREEN_MIN - 58), 24);
+    btnView.backgroundColor  = [UIColor redColor];
+    scrollView.frame =CGRectMake(SCREEN_MAX -(SCREEN_MIN - 58) - 40, CGRectGetMaxY(btnView.frame)+20, SCREEN_MAX -(SCREEN_MIN - 58), SCREEN_MAX);
+    scrollView.contentSize = CGSizeMake((SCREEN_MAX -(SCREEN_MIN - 58))*4,SCREEN_MAX);
+
+}
 - (void)initWithData{
     _FrameSectionSource = [[NSMutableArray alloc]initWithObjects:@"ANGLES",@"BACKGROUND COLOR",@"TITLE LABEL",@"VALUE LABEL",@"UNITS LABEL", nil];
     
@@ -93,6 +128,7 @@
     label.font = [UIFont ToAdapFont:14.f];
     
     self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashView.frame) + 10, CGRectGetMaxY(label.frame )+10, MSWidth - self.DashViewA.frame.size.width-50*KFontmultiple , 20)];
+   
     self.slider.minimumValue = [model.minNumber floatValue];
     self.slider.maximumValue = [model.maxNumber floatValue];
      [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];

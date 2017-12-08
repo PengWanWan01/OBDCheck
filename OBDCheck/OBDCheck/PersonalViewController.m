@@ -18,7 +18,10 @@
 @property (nonatomic,strong) NSMutableArray *selectImage;
 @property (nonatomic,strong) NSMutableArray *sectionDatasource;
 @property (nonatomic,strong) NSMutableArray *texttitleDatasource;
+@property (nonatomic,strong) NSMutableArray *landNormalImage;
+@property (nonatomic,strong) NSMutableArray *landSelectImage;
 @property (nonatomic,strong) NSMutableArray *titleBtnData;
+@property (nonatomic,strong)  UIView *tabarView;
 
 @end
 
@@ -34,6 +37,102 @@
     [self initWithUI];
  
     
+}
+#pragma mark 设置横竖屏布局
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
+        NSLog(@"竖屏");
+        [self setVerticalFrame];
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+        NSLog(@"横屏");
+        [self setHorizontalFrame];
+        
+        
+    }
+}
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+    [self.tabarView removeFromSuperview];
+    self.tabarView =  [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_MAX - 49-TopHigh, SCREEN_MIN, 49)];
+    if (IS_IPHONE_X) {
+        self.tabarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh-34,SCREEN_MIN , 49);
+    }
+    [self.view addSubview:self.tabarView];
+    //计算出底部按钮的最终字体大小；
+    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_MIN/2-43*KFontmultiple, 49)];
+    textLabel.text = @"Vehicle Information123";
+    textLabel.adjustsFontSizeToFitWidth = YES;
+    CGFloat textFont = textLabel.font.pointSize;
+    NSLog(@"字体%f",textFont);
+    //设置底部的两个按钮
+    for (NSInteger i = 0; i< 2; i++) {
+        
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(SCREEN_MIN/2), 0,SCREEN_MIN/2 , 49)];
+        if (IS_IPHONE_X) {
+            btn.frame = CGRectMake(i*(SCREEN_MIN/2), 0,SCREEN_MIN/2 , 49);
+        }
+        btn.backgroundColor = [UIColor redColor];
+        [btn setBackgroundImage: [UIImage imageNamed:_normalImage[i]] forState:UIControlStateNormal];
+        btn.tag = i;
+        [btn.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        if (i==1) {
+        [btn setBackgroundImage: [UIImage imageNamed:_selectImage[i]] forState:UIControlStateNormal];
+         }
+        [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(43*KFontmultiple, 0, btn.frame.size.width-43*KFontmultiple, 49)];
+        titleLabel.font = [UIFont ToAdapFont:16.f];
+        titleLabel.backgroundColor = [UIColor clearColor];
+        [titleLabel setText:_titleBtnData[i]];
+        [titleLabel setTextColor:[ColorTools colorWithHexString:@"#1E2026"]];
+        [btn addSubview:titleLabel];
+        [self.tabarView addSubview:btn];
+    }
+    
+    
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
+    [self.tabarView removeFromSuperview];
+    self.tabarView =  [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_MIN - 49-TopHigh, SCREEN_MAX, 49)];
+    if (IS_IPHONE_X) {
+        self.tabarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh-34,SCREEN_MAX , 49);
+    }
+    [self.view addSubview:self.tabarView];
+    //计算出底部按钮的最终字体大小；
+    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_MAX/2-139*KFontmultiple, 49)];
+    textLabel.text = @"Vehicle Information123";
+    textLabel.adjustsFontSizeToFitWidth = YES;
+    CGFloat textFont = textLabel.font.pointSize;
+    NSLog(@"字体%f",textFont);
+    //设置底部的两个按钮
+    for (NSInteger i = 0; i< 2; i++) {
+        
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(SCREEN_MAX/2), 0,SCREEN_MAX/2 , 49)];
+        if (IS_IPHONE_X) {
+            btn.frame = CGRectMake(i*(SCREEN_MAX/2), 0,SCREEN_MAX/2 , 49);
+        }
+        btn.backgroundColor = [UIColor redColor];
+        [btn setBackgroundImage: [UIImage imageNamed:self.landNormalImage[i]] forState:UIControlStateNormal];
+        btn.tag = i;
+        [btn.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        if (i==1) {
+            [btn setBackgroundImage: [UIImage imageNamed:_selectImage[i]] forState:UIControlStateNormal];
+        }
+        [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(139*KFontmultiple, 0, btn.frame.size.width-139*KFontmultiple, 49)];
+        titleLabel.font = [UIFont ToAdapFont:16.f];
+        titleLabel.backgroundColor = [UIColor clearColor];
+        [titleLabel setText:_titleBtnData[i]];
+        [titleLabel setTextColor:[ColorTools colorWithHexString:@"#1E2026"]];
+        [btn addSubview:titleLabel];
+        [self.tabarView addSubview:btn];
+    }
 }
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -56,6 +155,8 @@
     self.sectionDatasource = [[NSMutableArray alloc]initWithObjects:@"NAME",@"VEHICLE IDENTIFICATION NUMBER",@"YEAR",@"MAKE",@"MODEL",@"OPTION",@"TYPE",@"FUEL TYPE",@"ENGINE SIZE(LITRES)",@"VOLUMETRIC EFFICIENCY(%)",@"BRAKE SPECIFIC FUEL CONSUMPTION(LB/HP·HR)",@"FUEL CALCULATION METHOD",@"FUEL TANK CAPACITY (GAL)",@"FUEL COST PER UNIT ($)",@"VEHICLE SPEED SCALE FACTOR", nil];
     self.texttitleDatasource = [[NSMutableArray alloc]initWithObjects:@"NAME",@"1A1J5444R7252367",@"1996",@"AC",@"Cobra",@"Option",@"Select",@"Select",@"2",@"65",@"0.45",@"Select",@"14.0",@"4.0",@"1", nil];
     self.titleBtnData = [[NSMutableArray alloc]initWithObjects:@"OBD Features",@"Vehicle Information", nil];
+    self.landNormalImage = [[NSMutableArray alloc]initWithObjects:@"OBD_normal_land",@"Vehicle_normal_land", nil];
+    self.landSelectImage = [[NSMutableArray alloc]initWithObjects:@"OBD_highlight_land",@"Vehicle_highlight_land", nil];
 }
 - (void)initWithUI{
     Mytableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-10) style:UITableViewStyleGrouped];
@@ -69,27 +170,7 @@
     Mytableview.separatorColor = [ColorTools colorWithHexString:@"#212329"];
     [self.view addSubview:Mytableview];
     [Mytableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
-    
-    for (NSInteger i = 0; i< 2; i++) {
-        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(MSWidth/2), MSHeight - 49-TopHigh,MSWidth/2 , 49)];
-        if (IS_IPHONE_X) {
-            btn.frame = CGRectMake(i*(MSWidth/2), MSHeight - 49-TopHigh-34,MSWidth/2 , 49);
-        }
-        [btn setBackgroundImage: [UIImage imageNamed:_normalImage[i]] forState:UIControlStateNormal];
-        btn.tag = i;
-        [btn.imageView setContentMode:UIViewContentModeScaleAspectFill];
-        if (i==1) {
-            [btn setBackgroundImage: [UIImage imageNamed:_selectImage[i]] forState:UIControlStateNormal];
-        }
-        [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(42*KFontmultiple, 0, btn.frame.size.width-42*KFontmultiple, 49)];
-        titleLabel.font = [UIFont ToAdapFont:16.f];
-        titleLabel.backgroundColor = [UIColor clearColor];
-        [titleLabel setText:_titleBtnData[i]];
-        [titleLabel setTextColor:[ColorTools colorWithHexString:@"#1E2026"]];
-        [btn addSubview:titleLabel];
-        [self.view addSubview:btn];
-    }
+
 }
 - (void)Selectbtn:(UIButton *)btn{
     switch (btn.tag) {
