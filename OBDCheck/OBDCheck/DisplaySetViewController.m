@@ -33,6 +33,32 @@
     [super viewDidLoad];
     [self initWithUI];
 }
+#pragma mark 设置横竖屏布局
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
+        NSLog(@"竖屏");
+        [self setVerticalFrame];
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+        NSLog(@"横屏");
+        [self setHorizontalFrame];
+        
+        
+    }
+}
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+    MyTableView.frame = CGRectMake(0, 34, SCREEN_MIN, SCREEN_MAX-TopHigh) ;
+    
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
+    MyTableView.frame = CGRectMake(0, 34, SCREEN_MAX, SCREEN_MIN-TopHigh) ;
+    
+}
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;

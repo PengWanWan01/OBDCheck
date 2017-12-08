@@ -9,6 +9,9 @@
 #import "EditDisplayViewController.h"
 
 @interface EditDisplayViewController ()<UITableViewDelegate,UITableViewDataSource>
+{
+    UITableView *tableView;
+}
 @property (nonatomic,strong) NSMutableArray *titleNameArray;
 
 @end
@@ -23,6 +26,32 @@
     [super viewDidLoad];
     _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Dispaly Configuration",@"Style",@"Change Dashboards Style",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];
     [self initWithUI];
+}
+#pragma mark 设置横竖屏布局
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
+        NSLog(@"竖屏");
+        [self setVerticalFrame];
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+        NSLog(@"横屏");
+        [self setHorizontalFrame];
+        
+        
+    }
+}
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+ tableView.frame = CGRectMake(0, 34, SCREEN_MIN, SCREEN_MAX-TopHigh) ;
+    
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
+ tableView.frame = CGRectMake(0, 34, SCREEN_MAX, SCREEN_MIN-TopHigh) ;
+    
 }
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -40,7 +69,7 @@
     return UIStatusBarAnimationNone;
 }
 - (void)initWithUI{
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, MSHeight-TopHigh) style:UITableViewStylePlain];
+    tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 34, MSWidth, MSHeight-TopHigh) style:UITableViewStylePlain];
     tableView.backgroundColor = [UIColor clearColor];
     tableView.separatorInset = UIEdgeInsetsZero;
     tableView.scrollEnabled = NO;

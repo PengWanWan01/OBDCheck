@@ -22,6 +22,7 @@ static dispatch_source_t _timer;
     NSString *sendType;
     UIView *showView;
     BOOL isSave;
+    TBarView *tbarView;
 }
 @property (nonatomic,strong) NSMutableArray *typeimageData;
 @property (nonatomic,strong) NSMutableArray *totalDataSource;
@@ -47,6 +48,103 @@ static dispatch_source_t _timer;
   }
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+#pragma mark 设置横竖屏布局
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
+        NSLog(@"竖屏");
+        [self setVerticalFrame];
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+        NSLog(@"横屏");
+        [self setHorizontalFrame];
+        
+        
+    }
+}
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+      roView.frame = CGRectMake(10*Kwidthmultiple, 8*KHeightmultiple, 100*Kwidthmultiple, 100*Kwidthmultiple);
+    infoLabel.frame = CGRectMake(CGRectGetMaxX(roView.frame)+25*Kwidthmultiple, 32, 210*Kwidthmultiple, 46);
+     progressView.frame  = CGRectMake(0, 116*KHeightmultiple,MSWidth, 4);
+    [showView removeFromSuperview];
+    showView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(progressView.frame)+10, SCREEN_MIN, 30)];
+    [self.view addSubview:showView];
+    for (NSInteger i = 0; i<2; i++) {
+        UIView *itemView = [[UIView alloc]initWithFrame:CGRectMake(i*MSWidth/2, 0, MSWidth/2, 30)];
+        itemView.backgroundColor = [ColorTools colorWithHexString:@"#18191D"];
+        
+        [showView addSubview:itemView];
+        UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(itemView.frame.size.width/4, 5, 24, 20)];
+        view.image = [UIImage imageNamed:_typeimageData[i]];
+        [itemView addSubview:view];
+        
+        if (i == 1) {
+            importantLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 5,itemView.frame.size.width -view.frame.size.width/4- 24  , 20)];
+            importantLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+            importantLabel.font = [UIFont ToAdapFont:16];
+            //            importantLabel.text = @"Important：01";
+            [itemView addSubview:importantLabel];
+        }else{
+            totalLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 5,itemView.frame.size.width -view.frame.size.width/4- 24  , 20)];
+            totalLabel.font = [UIFont ToAdapFont:16];
+            //            totalLabel.text = @"Total：01";
+            totalLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+            
+            [itemView addSubview:totalLabel];
+        }
+    }
+    MYTableView.frame = CGRectMake(0, CGRectGetMaxY(showView.frame), MSWidth, MSHeight-showView.frame.origin.y - showView.frame.size.height-70);
+    
+    tbarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh, SCREEN_MIN, 49);
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh-34,SCREEN_MIN , 49);
+    }
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
+//    MYTableView.frame = CGRectMake(0, 34, SCREEN_MAX, _styleDataArray.count*44) ;
+    roView.frame = CGRectMake(10*Kwidthmultiple, 8*KHeightmultiple, 100*Kwidthmultiple, 100*Kwidthmultiple);
+    infoLabel.frame = CGRectMake(CGRectGetMaxX(roView.frame)+25*Kwidthmultiple, 32, 210*Kwidthmultiple, 46);
+    progressView.frame  = CGRectMake(0, 116*KHeightmultiple,MSWidth, 4);
+    
+    [showView removeFromSuperview];
+    showView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(progressView.frame)+10, SCREEN_MAX, 30)];
+//    showView.backgroundColor = [UIColor redColor];
+    [self.view addSubview:showView];
+    for (NSInteger i = 0; i<2; i++) {
+         UIView *itemView = [[UIView alloc]initWithFrame:CGRectMake(i*SCREEN_MAX/2, 0, SCREEN_MAX/2, 30)];
+        itemView.backgroundColor = [ColorTools colorWithHexString:@"#18191D"];
+        
+        [showView addSubview:itemView];
+        UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(itemView.frame.size.width/4, 5, 24, 20)];
+        view.image = [UIImage imageNamed:_typeimageData[i]];
+        [itemView addSubview:view];
+        
+        if (i == 1) {
+            importantLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 5,itemView.frame.size.width -view.frame.size.width/4- 24  , 20)];
+            importantLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+            importantLabel.font = [UIFont ToAdapFont:16];
+                        importantLabel.text = @"Important：01";
+            [itemView addSubview:importantLabel];
+        }else{
+            totalLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 5,itemView.frame.size.width -view.frame.size.width/4- 24  , 20)];
+            totalLabel.font = [UIFont ToAdapFont:16];
+                        totalLabel.text = @"Total：01";
+            totalLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+            
+            [itemView addSubview:totalLabel];
+        }
+    }
+       MYTableView.frame = CGRectMake(0, CGRectGetMaxY(showView.frame), SCREEN_MAX, SCREEN_MIN-showView.frame.origin.y - showView.frame.size.height-70);
+    tbarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh, SCREEN_MAX, 49);
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh-34,SCREEN_MAX , 49);
+    }
+    
 }
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -94,7 +192,7 @@ static dispatch_source_t _timer;
      [HistoricalBtn addTarget:self action:@selector(HistoricalBtn) forControlEvents:UIControlEventTouchUpInside];
     MYTableView.tableFooterView = footView;
     
-    TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
+    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
     if (IS_IPHONE_X) {
         tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
     }
@@ -182,31 +280,7 @@ static dispatch_source_t _timer;
     dispatch_resume(_timer);
     
 
-    for (NSInteger i = 0; i<2; i++) {
-        showView = [[UIView alloc]initWithFrame:CGRectMake(i*MSWidth/2, CGRectGetMaxY(progressView.frame)+10, MSWidth/2, 30)];
-        showView.backgroundColor = [ColorTools colorWithHexString:@"#18191D"];
-        [self.view addSubview:showView];
-        UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(showView.frame.size.width/4, 5, 24, 20)];
-        view.image = [UIImage imageNamed:_typeimageData[i]];
-        [showView addSubview:view];
-      
-        if (i == 1) {
-            importantLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 5,showView.frame.size.width -showView.frame.size.width/4- 24  , 20)];
-            importantLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-            importantLabel.font = [UIFont ToAdapFont:16];
-//            importantLabel.text = @"Important：01";
-            [showView addSubview:importantLabel];
-        }else{
-          totalLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 5,showView.frame.size.width -showView.frame.size.width/4- 24  , 20)];
-            totalLabel.font = [UIFont ToAdapFont:16];
-//            totalLabel.text = @"Total：01";
-            totalLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-
-        [showView addSubview:totalLabel];
-        }
-        
-        
-    }
+   
    
     
 }
