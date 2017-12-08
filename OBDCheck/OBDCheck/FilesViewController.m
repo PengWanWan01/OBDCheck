@@ -11,6 +11,7 @@
 @interface FilesViewController ()<TBarViewDelegate,UITableViewDelegate,UITableViewDataSource,deleteFileDelegate>
 {
     LogsModel *model;
+    TBarView *tbarView ;
 }
 @property (nonatomic,strong) UITableView *tableView ;
 @property (nonatomic,strong) NSMutableArray *dataSource;
@@ -39,6 +40,55 @@
     
     
 }
+//设置样式
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+//设置是否隐藏
+- (BOOL)prefersStatusBarHidden {
+    //    [super prefersStatusBarHidden];
+    return NO;
+}
+
+//设置隐藏动画
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationNone;
+}
+#pragma mark 设置横竖屏布局
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
+        //        UIInterfaceOrientation
+        NSLog(@"竖屏");
+        [self setVerticalFrame];
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+        NSLog(@"横屏");
+        [self setHorizontalFrame];
+        
+        
+    }
+}
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+      self.tableView.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX-TopHigh-49);
+    tbarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh, SCREEN_MIN, 49);
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh-34,SCREEN_MIN ,49);
+    }
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
+    
+    self.tableView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN-TopHigh-49);
+    tbarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh, SCREEN_MAX, 49);
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh-34,SCREEN_MAX ,49);
+    }
+}
 - (void)initWithUI{
    
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-49) style:UITableViewStylePlain];
@@ -53,7 +103,7 @@
     //FilesTableViewCell
     [self.tableView registerClass:[FilesTableViewCell class] forCellReuseIdentifier:@"FilesTableViewCell"];
     
-    TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
+    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
     if (IS_IPHONE_X) {
         tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
     }

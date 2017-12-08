@@ -55,6 +55,48 @@
      [self initWithData];
      [self initWithUI];
 }
+//设置样式
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+//设置是否隐藏
+- (BOOL)prefersStatusBarHidden {
+    //    [super prefersStatusBarHidden];
+    return NO;
+}
+
+//设置隐藏动画
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationNone;
+}
+#pragma mark 设置横竖屏布局
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
+        //        UIInterfaceOrientation
+        NSLog(@"竖屏");
+        [self setVerticalFrame];
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+        NSLog(@"横屏");
+        [self setHorizontalFrame];
+        
+        
+    }
+}
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+    
+    
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
+    
+    
+}
 - (void)initWithData{
  
     isVssUpStart = NO;
@@ -73,21 +115,7 @@
     self.dataSource = [[NSMutableArray alloc]init];
     self.detialDataSource = [[NSMutableArray alloc]init];
 }
-//设置样式
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
 
-//设置是否隐藏
-- (BOOL)prefersStatusBarHidden {
-    //    [super prefersStatusBarHidden];
-    return NO;
-}
-
-//设置隐藏动画
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationNone;
-}
 - (NSMutableAttributedString *)setAttributed:(NSString *)String withRange:(NSInteger)range{
     NSMutableAttributedString *resultStr = [[NSMutableAttributedString alloc]initWithString:String];
     NSRange theRange = NSMakeRange(range, resultStr.length - range);

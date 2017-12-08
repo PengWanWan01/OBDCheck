@@ -58,6 +58,7 @@
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
+//        UIInterfaceOrientation
         NSLog(@"竖屏");
           [self setVerticalFrame];
     }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {

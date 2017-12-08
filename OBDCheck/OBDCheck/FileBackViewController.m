@@ -42,6 +42,48 @@ static dispatch_source_t _timer;
      [self initWithData];
     [self initWithTitleView];
 }
+//设置样式
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+//设置是否隐藏
+- (BOOL)prefersStatusBarHidden {
+    //    [super prefersStatusBarHidden];
+    return NO;
+}
+
+//设置隐藏动画
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationNone;
+}
+#pragma mark 设置横竖屏布局
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
+        //        UIInterfaceOrientation
+        NSLog(@"竖屏");
+        [self setVerticalFrame];
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+        NSLog(@"横屏");
+        [self setHorizontalFrame];
+        
+        
+    }
+}
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+    
+    
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
+    
+    
+}
 - (void)initWithData{
     self.btnDatasource = [[NSMutableArray alloc]initWithObjects:@"Chart",@"Data", nil];
     self.Datasource = [[NSMutableArray alloc]initWithObjects:@"Beginning Time",@"End Time",@"Drive Time",@"Mileage",@"Fuel Cost",@"Charge",@"Max Speed",@"Average Speed",@"Overspeed Times",@"Overspeed Time",@"Idle Time",@"Score", nil];

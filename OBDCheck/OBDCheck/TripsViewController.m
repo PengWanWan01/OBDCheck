@@ -11,6 +11,7 @@
 @interface TripsViewController ()<TBarViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *mytableView;
+    TBarView *tbarView ;
 }
 @property (nonatomic,strong) NSMutableArray *SectionHeadArray;
 @property (nonatomic,strong) NSMutableArray *dataSource;
@@ -32,6 +33,55 @@
     self.dataSource = [[NSMutableArray alloc]initWithObjects:@"Distance",@"Fuel",@"Fuel Economy", nil];
     self.SectionHeadArray = [[NSMutableArray alloc]initWithObjects:@"Trip one",@"Trip two",@"Trip three",@"Trip four", nil];
 }
+//设置样式
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+//设置是否隐藏
+- (BOOL)prefersStatusBarHidden {
+    //    [super prefersStatusBarHidden];
+    return NO;
+}
+
+//设置隐藏动画
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationNone;
+}
+#pragma mark 设置横竖屏布局
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
+        //        UIInterfaceOrientation
+        NSLog(@"竖屏");
+        [self setVerticalFrame];
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+        NSLog(@"横屏");
+        [self setHorizontalFrame];
+        
+        
+    }
+}
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+    mytableView.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX-74-44);
+    tbarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh, SCREEN_MIN, 49);
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh-34,SCREEN_MIN ,49);
+    }
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
+    
+    mytableView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN-74-44);
+    tbarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh, SCREEN_MAX, 49);
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh-34,SCREEN_MAX ,49);
+    }
+}
 - (void)initWithUI{
      mytableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-74-44) style:UITableViewStyleGrouped];
     mytableView.dataSource =self;
@@ -40,7 +90,7 @@
     mytableView.separatorColor = [ColorTools colorWithHexString:@"212329"];
     mytableView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     [self.view addSubview:mytableView];
-    TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
+    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
     if (IS_IPHONE_X) {
         tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
     }

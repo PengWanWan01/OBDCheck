@@ -13,6 +13,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 {
     chartViewnumberone=0,   // 一种图表
     chartViewnumberTwo,    // 2种图表
+   
 };
 
 @interface LogsController ()<TBarViewDelegate,ChartViewDelegate,BlueToothControllerDelegate>
@@ -32,6 +33,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      NSInteger PID3indextag;
      NSInteger PID4indextag;
      BOOL isSave;
+     TBarView *tbarView;
 }
 @end
 
@@ -68,6 +70,73 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 //    }
  
   
+}
+//设置样式
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+//设置是否隐藏
+- (BOOL)prefersStatusBarHidden {
+    //    [super prefersStatusBarHidden];
+    return NO;
+}
+
+//设置隐藏动画
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationNone;
+}
+#pragma mark 设置横竖屏布局
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
+        //        UIInterfaceOrientation
+        NSLog(@"竖屏");
+        [self setVerticalFrame];
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+        NSLog(@"横屏");
+        [self setHorizontalFrame];
+        
+        
+    }
+}
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+    [tbarView removeFromSuperview];
+    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, SCREEN_MAX - 49-TopHigh, SCREEN_MIN, 49)];
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh-34,SCREEN_MIN ,49);
+    }
+    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    tbarView.numberBtn = 3;
+    tbarView.isSelectNumber = 0;
+    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_normal",@"trips_normal",@"file_normal",nil];
+    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_highlight",@"trips_highlight",@"file_highlight",nil];
+    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Graphs",@"Trips",@"Files", nil];
+    tbarView.delegate = self;
+    [tbarView initWithData];
+    [self.view addSubview:tbarView];
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
+    [tbarView removeFromSuperview];
+    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, SCREEN_MIN - 49-TopHigh, SCREEN_MAX, 49)];
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh-34,SCREEN_MAX ,49);
+    }
+    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    tbarView.numberBtn = 3;
+    tbarView.isSelectNumber = 0;
+    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_normal",@"trips_normal",@"file_normal",nil];
+    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_highlight",@"trips_highlight",@"file_highlight",nil];
+    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Graphs",@"Trips",@"Files", nil];
+    tbarView.delegate = self;
+    [tbarView initWithData];
+    [self.view addSubview:tbarView];
+    
 }
 - (void)btn{
     [self.blueTooth SendData:[self hexToBytes:@"303130640D"]];
@@ -239,19 +308,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         [topView addSubview:startBtn];
     self.navigationItem.titleView = topView;
     
-    TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
-    }
-    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    tbarView.numberBtn = 3;
-    tbarView.isSelectNumber = 0;
-    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_normal",@"trips_normal",@"file_normal",nil];
-    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_highlight",@"trips_highlight",@"file_highlight",nil];
-    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Graphs",@"Trips",@"Files", nil];
-    tbarView.delegate = self;
-    [tbarView initWithData];
-    [self.view addSubview:tbarView];
+  
     
 }
 - (void)initWithLogViewUI{

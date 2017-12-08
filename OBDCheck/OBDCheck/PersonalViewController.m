@@ -62,6 +62,7 @@
         self.tabarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh-34,SCREEN_MIN , 49);
     }
     [self.view addSubview:self.tabarView];
+     Mytableview.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX-TopHigh-10);
     //计算出底部按钮的最终字体大小；
     UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_MIN/2-43*KFontmultiple, 49)];
     textLabel.text = @"Vehicle Information123";
@@ -103,6 +104,7 @@
         self.tabarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh-34,SCREEN_MAX , 49);
     }
     [self.view addSubview:self.tabarView];
+    Mytableview.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN-TopHigh-10);
     //计算出底部按钮的最终字体大小；
     UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_MAX/2-139*KFontmultiple, 49)];
     textLabel.text = @"Vehicle Information123";
@@ -122,7 +124,7 @@
         [btn.imageView setContentMode:UIViewContentModeScaleAspectFill];
         btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         if (i==1) {
-            [btn setBackgroundImage: [UIImage imageNamed:_selectImage[i]] forState:UIControlStateNormal];
+            [btn setBackgroundImage: [UIImage imageNamed:_landSelectImage[i]] forState:UIControlStateNormal];
         }
         [btn addTarget:self action:@selector(Selectbtn:) forControlEvents:UIControlEventTouchUpInside];
         UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(139*KFontmultiple, 0, btn.frame.size.width-139*KFontmultiple, 49)];

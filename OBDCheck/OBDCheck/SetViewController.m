@@ -9,6 +9,9 @@
 #import "SetViewController.h"
 
 @interface SetViewController ()<UITableViewDelegate,UITableViewDataSource>
+{
+    UITableView *tableview;
+}
 @property (nonatomic,strong) NSMutableArray *datasource;
 @end
 
@@ -22,6 +25,31 @@
     [super viewDidLoad];
     [self initWithData];
     [self initWithUI];
+}
+#pragma mark 设置横竖屏布局
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
+        //        UIInterfaceOrientation
+        NSLog(@"竖屏");
+        [self setVerticalFrame];
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+        NSLog(@"横屏");
+        [self setHorizontalFrame];
+        
+        
+    }
+}
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+    tableview.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX-TopHigh);
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
+     tableview.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN-TopHigh);
 }
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -45,7 +73,7 @@
     
 }
 - (void)initWithUI{
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh) style:UITableViewStyleGrouped];
+    tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh) style:UITableViewStyleGrouped];
     tableview.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     tableview.delegate = self;
     tableview.dataSource =  self;
