@@ -21,8 +21,11 @@ static dispatch_source_t _timer;
     UITableView *MYTableView;
     NSString *sendType;
     UIView *showView;
+    UIView *footView;
     BOOL isSave;
     TBarView *tbarView;
+    UIButton *clearBtn;
+    UIButton *HistoricalBtn;
 }
 @property (nonatomic,strong) NSMutableArray *typeimageData;
 @property (nonatomic,strong) NSMutableArray *totalDataSource;
@@ -97,6 +100,9 @@ static dispatch_source_t _timer;
             [itemView addSubview:totalLabel];
         }
     }
+    footView.frame = CGRectMake(0, 0, SCREEN_MIN, 180);
+    clearBtn.frame = CGRectMake(57, 40, SCREEN_MIN - 114, 30);
+    HistoricalBtn.frame = CGRectMake(57,CGRectGetMaxY(clearBtn.frame)+10,  MSWidth - 114, 30);
     MYTableView.frame = CGRectMake(0, CGRectGetMaxY(showView.frame), MSWidth, MSHeight-showView.frame.origin.y - showView.frame.size.height-70);
     
     tbarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh, SCREEN_MIN, 49);
@@ -139,6 +145,9 @@ static dispatch_source_t _timer;
             [itemView addSubview:totalLabel];
         }
     }
+    footView.frame = CGRectMake(0, 0, SCREEN_MAX, 180);
+    clearBtn.frame = CGRectMake(57, 40, SCREEN_MAX - 114, 30);
+    HistoricalBtn.frame = CGRectMake(57,CGRectGetMaxY(clearBtn.frame)+10,  SCREEN_MAX - 114, 30);
        MYTableView.frame = CGRectMake(0, CGRectGetMaxY(showView.frame), SCREEN_MAX, SCREEN_MIN-showView.frame.origin.y - showView.frame.size.height-70);
     tbarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh, SCREEN_MAX, 49);
     if (IS_IPHONE_X) {
@@ -176,20 +185,19 @@ static dispatch_source_t _timer;
     MYTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:MYTableView];
       [MYTableView registerNib:[UINib nibWithNibName:@"DiagnosticsTableViewCell" bundle:nil] forCellReuseIdentifier:@"DiagnosticsTableViewCell"];
-    UIView *footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 180)];
-    UIButton *clearBtn = [[UIButton alloc]initWithFrame:CGRectMake(57, 40, MSWidth - 114, 30)];
+    footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 180)];
+    clearBtn = [[UIButton alloc]initWithFrame:CGRectMake(57, 40, MSWidth - 114, 30)];
     clearBtn.backgroundColor = [ColorTools colorWithHexString:@"008EE5"];
     [clearBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [clearBtn setTitle:@"Clear fault codes" forState:UIControlStateNormal];
     [footView addSubview:clearBtn];
     [clearBtn addTarget:self action:@selector(clearBtn) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *HistoricalBtn = [[UIButton alloc]initWithFrame:CGRectMake(57,CGRectGetMaxY(clearBtn.frame)+10,  MSWidth - 114, 30)];
+    HistoricalBtn = [[UIButton alloc]initWithFrame:CGRectMake(57,CGRectGetMaxY(clearBtn.frame)+10,  MSWidth - 114, 30)];
     HistoricalBtn.backgroundColor = [ColorTools colorWithHexString:@"9E9E9E"];
     [HistoricalBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [HistoricalBtn setTitle:@"Historical trouble code" forState:UIControlStateNormal];
     [footView addSubview:HistoricalBtn];
-     [HistoricalBtn addTarget:self action:@selector(HistoricalBtn) forControlEvents:UIControlEventTouchUpInside];
+    [HistoricalBtn addTarget:self action:@selector(HistoricalBtn) forControlEvents:UIControlEventTouchUpInside];
     MYTableView.tableFooterView = footView;
     
     tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
@@ -278,11 +286,7 @@ static dispatch_source_t _timer;
     
     // 开启定时器
     dispatch_resume(_timer);
-    
 
-   
-   
-    
 }
 #pragma mark 清楚故障码
 - (void)clearBtn{
