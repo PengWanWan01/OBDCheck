@@ -105,6 +105,24 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
+    if ([LogsSetting sharedInstance].PID3Enable == YES || [LogsSetting sharedInstance].PID4Enable == YES ) {
+        chartViewone.frame = CGRectMake(0, 0, SCREEN_MIN, (SCREEN_MAX - 45-64)/2);
+        if (IS_IPHONE_X) {
+            chartViewone.frame = CGRectMake(0, 0, SCREEN_MIN, (SCREEN_MAX - 45-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -34)/2);
+        }
+        chartViewTwo.frame =CGRectMake(0, CGRectGetMaxY(chartViewone.frame), SCREEN_MIN, (SCREEN_MAX - 45-64)/2);
+        if (IS_IPHONE_X) {
+            chartViewTwo.frame = CGRectMake(0, CGRectGetMaxY(chartViewone.frame), SCREEN_MIN, (SCREEN_MAX - 45-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -34)/2);
+        }
+    }else{
+        chartViewone.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX - 45-64);
+        if (IS_IPHONE_X) {
+            chartViewone.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX - 45-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -34);
+        }
+    }
+    
+  
+  
     [tbarView removeFromSuperview];
     tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, SCREEN_MAX - 49-TopHigh, SCREEN_MIN, 49)];
     if (IS_IPHONE_X) {
@@ -122,6 +140,23 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
+    if ([LogsSetting sharedInstance].PID3Enable == YES || [LogsSetting sharedInstance].PID4Enable == YES ) {
+        chartViewone.frame = CGRectMake(0, 0, SCREEN_MAX, (SCREEN_MIN - 45-64)/2);
+        if (IS_IPHONE_X) {
+            chartViewone.frame = CGRectMake(0, 0, SCREEN_MAX, (SCREEN_MIN - 45-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -34)/2);
+        }
+        chartViewTwo.frame =CGRectMake(0, CGRectGetMaxY(chartViewone.frame), SCREEN_MAX, (SCREEN_MIN - 45-64)/2);
+        if (IS_IPHONE_X) {
+            chartViewTwo.frame = CGRectMake(0, CGRectGetMaxY(chartViewone.frame), SCREEN_MAX, (SCREEN_MIN - 45-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -34)/2);
+        }
+    }else{
+        chartViewone.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN - 45-64);
+        if (IS_IPHONE_X) {
+            chartViewone.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN - 45-self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -34);
+        }
+    }
+    
+    
     [tbarView removeFromSuperview];
     tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, SCREEN_MIN - 49-TopHigh, SCREEN_MAX, 49)];
     if (IS_IPHONE_X) {

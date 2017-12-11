@@ -49,6 +49,15 @@
  
     
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[ColorTools colorWithHexString:@"#FE9002"],NSForegroundColorAttributeName,[UIFont systemFontOfSize:18.0f],NSFontAttributeName, nil]];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
+}
+//- (void)viewDidLayoutSubviews{
+//    [sup]
+//}
+- (void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
 
@@ -59,10 +68,14 @@
     UIDeviceOrientation  orient = [UIDevice currentDevice].orientation;
     if (orient == UIDeviceOrientationPortrait) {
         NSLog(@"竖屏2");
+//        [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height-1, self.navigationController.navigationBar.frame.size.width, 1)];
         line.backgroundColor = [ColorTools colorWithHexString:@"#36373d"];
         [self.navigationController.navigationBar addSubview:line];
         [self.navigationController.navigationBar bringSubviewToFront:line];
+        [self.view addSubview:line];
+
     }else  if (orient == UIDeviceOrientationLandscapeLeft){
         NSLog(@"横屏2");
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height-1, self.navigationController.navigationBar.frame.size.width, 1)];

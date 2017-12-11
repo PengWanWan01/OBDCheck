@@ -21,7 +21,7 @@
 - (void)rightBarButtonClick;
 
 - (void)back;
-
+-(void)viewDidLayoutSubviews;
 
 - (UIViewController *)getCurrentVC;
 
