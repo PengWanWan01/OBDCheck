@@ -15,6 +15,10 @@
     
     UILabel *vehicleLabel;
     UILabel *rotateLabel;
+    UILabel *vehicleUnitLabel;
+    UILabel *rotateUnitLabel;
+    UIBezierPath *vehicleCirclePath;
+    UIBezierPath *rotateCirclePath;
     NSMutableArray *PID1dataSource;
     NSInteger PID1indextag;
     NSDate *VssUpbeforeDate;
@@ -83,19 +87,33 @@
         //翻转为横屏时
         NSLog(@"横屏");
         [self setHorizontalFrame];
-        
-        
     }
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
+     totalTimeLabel.frame = CGRectMake(0, TopHigh, SCREEN_MIN/2, 25);
+    vehicleLabel.frame = CGRectMake(35, (SCREEN_MIN-100)/4+CGRectGetMaxY(totalTimeLabel.frame) , (SCREEN_MIN-100)/2, 30);
+    rotateLabel.frame =CGRectMake(35+(SCREEN_MIN-100)/2 + 30, (SCREEN_MIN-100)/4+CGRectGetMaxY(totalTimeLabel.frame) , (SCREEN_MIN-100)/2, 30);
     
+//    vehicleCirclePath.CGPath = CGPointMake(35+(MSWidth-100)/4, (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame) + 20);
+       vehicleUnitLabel.frame = CGRectMake(35, (SCREEN_MIN-100)/4+CGRectGetMaxY(totalTimeLabel.frame)+30, (SCREEN_MIN-100)/2, 30 );
+      rotateUnitLabel.frame = CGRectMake(35+((SCREEN_MIN-100)/2 + 30), (SCREEN_MIN-100)/4+CGRectGetMaxY(totalTimeLabel.frame)+30, (SCREEN_MIN-100)/2, 30 );
+    
+      startBtn.frame = CGRectMake(40, (SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 120 , (SCREEN_MIN-110)/2, 40);
+      reportBtn.frame = CGRectMake((SCREEN_MIN-110)/2 +75, (SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 120  , (SCREEN_MIN-110)/2, 40);
+      self.tableView.frame = CGRectMake(0, CGRectGetMaxY(reportBtn.frame)+50, SCREEN_MIN, SCREEN_MAX-CGRectGetMaxY(reportBtn.frame)+20);
     
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
-    
-    
+    totalTimeLabel.frame = CGRectMake(0, TopHigh, SCREEN_MAX/2, 25);
+  vehicleLabel.frame = CGRectMake(35, (SCREEN_MIN-100)/4+CGRectGetMaxY(totalTimeLabel.frame) , (SCREEN_MAX-100)/2, 30);
+   rotateLabel.frame =CGRectMake(35+(SCREEN_MAX-100)/2 + 30, (SCREEN_MIN-100)/4+CGRectGetMaxY(totalTimeLabel.frame) , (SCREEN_MAX-100)/2, 30);
+    vehicleUnitLabel.frame = CGRectMake(35, (SCREEN_MIN-100)/4+CGRectGetMaxY(totalTimeLabel.frame)+30, (SCREEN_MAX-100)/2, 30 );
+    rotateUnitLabel.frame = CGRectMake(35+((SCREEN_MAX-100)/2 + 30), (SCREEN_MIN-100)/4+CGRectGetMaxY(totalTimeLabel.frame)+30, (SCREEN_MAX-100)/2, 30 );
+     startBtn.frame = CGRectMake(40, (SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 120 , (SCREEN_MAX-110)/2, 40);
+      reportBtn.frame = CGRectMake((SCREEN_MAX-110)/2 +75, (SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 120  , (SCREEN_MAX-110)/2, 40);
+      self.tableView.frame = CGRectMake(0, CGRectGetMaxY(reportBtn.frame)+50, SCREEN_MAX, SCREEN_MIN-CGRectGetMaxY(reportBtn.frame)+20);
 }
 - (void)initWithData{
  
@@ -155,39 +173,49 @@
     circleLayer.lineCap = kCALineCapRound;
     circleLayer.lineJoin = kCALineJoinRound;
     circleLayer.fillColor = [UIColor clearColor].CGColor;
-        if (i == 0) {
-            circleLayer.strokeColor = [ColorTools colorWithHexString:@"FE9002"].CGColor;
-        }else{
-            circleLayer.strokeColor = [UIColor blackColor].CGColor;
-        }
-    UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(35+(MSWidth-100)/4+((MSWidth-100)/2 + 30)*i, (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame) + 20) radius:(MSWidth-100)/4 startAngle:startAngle endAngle:endAngle clockwise:clockwise];
-    circleLayer.path = circlePath.CGPath;
-    [self.view.layer addSublayer:circleLayer];
-        vehicleLabel = [[UILabel alloc]initWithFrame:CGRectMake(35, (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame) , (MSWidth-100)/2, 30)];
-        vehicleLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-        vehicleLabel.text = @"000";
-//        vehicleLabel.backgroundColor = [UIColor redColor];
-        vehicleLabel.textAlignment = NSTextAlignmentCenter;
-        vehicleLabel.font = [UIFont systemFontOfSize:30.f];
-        [self.view addSubview:vehicleLabel];
         
-        rotateLabel =[[UILabel alloc]initWithFrame:CGRectMake(35+(MSWidth-100)/2 + 30, (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame) , (MSWidth-100)/2, 30)];
-        rotateLabel.text = @"000";
-//        rotateLabel.backgroundColor = [UIColor redColor];
-        rotateLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-        rotateLabel.textAlignment = NSTextAlignmentCenter;
-        rotateLabel.font = [UIFont systemFontOfSize:30.f];
-        [self.view addSubview:rotateLabel];
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(35+((MSWidth-100)/2 + 30)*i, (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame)+30, (MSWidth-100)/2, 30 )];
-        label.textColor = [ColorTools colorWithHexString:@"FE9002"];
-        label.font = [UIFont systemFontOfSize:16.f];
-        label.textAlignment = NSTextAlignmentCenter;
+     
         if (i ==0) {
-            label.text=  @"km/h";
+             circleLayer.strokeColor = [ColorTools colorWithHexString:@"FE9002"].CGColor;
+            vehicleCirclePath =[UIBezierPath bezierPathWithArcCenter:CGPointMake(35+(MSWidth-100)/4+((MSWidth-100)/2 + 30)*i, (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame) + 20) radius:(MSWidth-100)/4 startAngle:startAngle endAngle:endAngle clockwise:clockwise];
+            
+            circleLayer.path = vehicleCirclePath.CGPath;
+            [self.view.layer addSublayer:circleLayer];
+            
+            vehicleLabel = [[UILabel alloc]initWithFrame:CGRectMake(35, (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame) , (MSWidth-100)/2, 30)];
+            vehicleLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+            vehicleLabel.text = @"000";
+            //        vehicleLabel.backgroundColor = [UIColor redColor];
+            vehicleLabel.textAlignment = NSTextAlignmentCenter;
+            vehicleLabel.font = [UIFont systemFontOfSize:30.f];
+            [self.view addSubview:vehicleLabel];
+             vehicleUnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(35, (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame)+30, (MSWidth-100)/2, 30 )];
+            vehicleUnitLabel.textColor = [ColorTools colorWithHexString:@"FE9002"];
+            vehicleUnitLabel.font = [UIFont systemFontOfSize:16.f];
+            vehicleUnitLabel.textAlignment = NSTextAlignmentCenter;
+            vehicleUnitLabel.text=  @"km/h";
+              [self.view addSubview:vehicleUnitLabel];
         }else{
-            label.text=  @"r/min";
+               circleLayer.strokeColor = [UIColor blackColor].CGColor;
+            rotateCirclePath =[UIBezierPath bezierPathWithArcCenter:CGPointMake(35+(MSWidth-100)/4+((MSWidth-100)/2 + 30), (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame) + 20) radius:(MSWidth-100)/4 startAngle:startAngle endAngle:endAngle clockwise:clockwise];
+            circleLayer.path = rotateCirclePath.CGPath;
+            [self.view.layer addSublayer:circleLayer];
+            
+            rotateLabel =[[UILabel alloc]initWithFrame:CGRectMake(35+(MSWidth-100)/2 + 30, (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame) , (MSWidth-100)/2, 30)];
+            rotateLabel.text = @"000";
+            //        rotateLabel.backgroundColor = [UIColor redColor];
+            rotateLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+            rotateLabel.textAlignment = NSTextAlignmentCenter;
+            rotateLabel.font = [UIFont systemFontOfSize:30.f];
+            [self.view addSubview:rotateLabel];
+             rotateUnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(35+((MSWidth-100)/2 + 30), (MSWidth-100)/4+CGRectGetMaxY(totalTimeLabel.frame)+30, (MSWidth-100)/2, 30 )];
+            rotateUnitLabel.textColor = [ColorTools colorWithHexString:@"FE9002"];
+            rotateUnitLabel.font = [UIFont systemFontOfSize:16.f];
+            rotateUnitLabel.textAlignment = NSTextAlignmentCenter;
+            rotateUnitLabel.text=  @"r/min";
+            [self.view addSubview:rotateUnitLabel];
         }
-        [self.view addSubview:label];
+      
     }
     startBtn = [[UIButton alloc]initWithFrame:CGRectMake(40, (MSWidth-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 120 , (MSWidth-110)/2, 40)];
     [startBtn setTitle:@"Start" forState:UIControlStateNormal];

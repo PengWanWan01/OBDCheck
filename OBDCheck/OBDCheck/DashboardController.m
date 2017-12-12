@@ -90,12 +90,13 @@ static dispatch_source_t _timer;
     if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
         NSArray* pAllCount = [CustomDashboard bg_findAll];
         for (CustomDashboard *dash in pAllCount) {
+            NSLog(@"$$$$$$$$$$%ld",(long)[dash.bg_id integerValue ]);
             if ([dash.bg_id integerValue ]>6 && [dash.bg_id integerValue ]<=8) {
                 dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[dash.bg_id intValue]];
                 dashboardStyleBView.frame = CGRectMake(SCREEN_MIN+ SCREEN_MIN/2 - 100,([dash.bg_id integerValue ] -7) * (220+ 30)+30, 220, 220);
             }else if ([dash.bg_id integerValue ]==9){
                 dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
-                dashboardStyleCView.frame = CGRectMake(SCREEN_MIN*2+(MSWidth- 300)/2,88, 300, 300+20);
+                dashboardStyleCView.frame = CGRectMake(SCREEN_MIN*2+(SCREEN_MIN- 300)/2,88, 300, 300+20);
             }else{
                 NSInteger index = ([dash.bg_id integerValue ]-1) % 2;
                 NSInteger page = ([dash.bg_id integerValue ] -1) / 2;
@@ -104,7 +105,6 @@ static dispatch_source_t _timer;
                  dashboardStyleAView.frame = CGRectMake(index * (space+ 150*KFontmultiple)+25, page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple+20);
             }
         }
-        
     }else{
         switch ([DashboardSetting sharedInstance].dashboardStyle) {
             case DashboardStyleOne:
@@ -657,8 +657,6 @@ static dispatch_source_t _timer;
     scrollView.delegate = self;
     pageControl.tag = 1000;
     [self LoadUI];
-
-
 }
 - (void)LoadUI{
     //判断仪表盘模式：
