@@ -190,6 +190,7 @@ typedef NS_ENUM(NSInteger ,testMode)
     lineLayer.fillColor = nil; // 默认为blackColor
     
     [view.layer addSublayer:lineLayer];
+   
 }
 - (void)btn:(UIButton *)btn{
     switch (btn.tag) {
