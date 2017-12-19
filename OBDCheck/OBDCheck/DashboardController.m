@@ -72,11 +72,13 @@ static dispatch_source_t _timer;
         //翻转为竖屏时
         NSLog(@"竖屏");
         [self setVerticalFrame];
+//           self.view.transform = CGAffineTransformMakeRotation(-M_PI/2);
     }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
         NSLog(@"横屏");
         [self setHorizontalFrame];
-        
+//        self.view.transform = CGAffineTransformMakeRotation(M_PI/2);
+
         
     }
 }
@@ -85,14 +87,13 @@ static dispatch_source_t _timer;
     scrollView.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX);
      scrollView.contentSize = CGSizeMake(SCREEN_MIN*[DashboardSetting sharedInstance].KPageNumer,0);
      pageControl.frame = CGRectMake(0, SCREEN_MAX- self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -40, SCREEN_MIN, 30);
-
-   
     if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
         NSArray* pAllCount = [CustomDashboard bg_findAll];
         for (CustomDashboard *dash in pAllCount) {
             NSLog(@"$$$$$$$$$$%ld",(long)[dash.bg_id integerValue ]);
             if ([dash.bg_id integerValue ]>6 && [dash.bg_id integerValue ]<=8) {
                 dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[dash.bg_id intValue]];
+                
                 dashboardStyleBView.frame = CGRectMake(SCREEN_MIN+ SCREEN_MIN/2 - 100,([dash.bg_id integerValue ] -7) * (220+ 30)+30, 220, 220);
             }else if ([dash.bg_id integerValue ]==9){
                 dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
