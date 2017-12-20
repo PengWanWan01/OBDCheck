@@ -97,7 +97,9 @@ static dispatch_source_t _timer;
                  [dashboardStyleBView setNeedsLayout];
             }else if ([dash.bg_id integerValue ]==9){
                 dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
-                dashboardStyleCView.frame = CGRectMake(SCREEN_MIN*2+(SCREEN_MIN- 300)/2,88, 300, 300+20);
+                dashboardStyleCView.frame = CGRectMake([dash.dashboardC.orignx doubleValue],[dash.dashboardC.origny doubleValue], [dash.dashboardC.orignwidth doubleValue], [dash.dashboardC.orignheight doubleValue]);
+                [dashboardStyleCView setNeedsLayout];
+                
             }else{
                  dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
                 [dashboardStyleAView removeFromSuperview];
@@ -147,7 +149,8 @@ static dispatch_source_t _timer;
                 [dashboardStyleBView setNeedsLayout];
             }else if ([dash.bg_id integerValue ]==9){
                 dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
-                dashboardStyleCView.frame = CGRectMake([dash.dashboardC.origny floatValue]+2*SCREEN_MAX, [dash.dashboardC.orignx floatValue]-2*SCREEN_MIN, 300, 300+20);
+                dashboardStyleCView.frame = CGRectMake([dash.dashboardC.origny floatValue]+2*SCREEN_MAX, [dash.dashboardC.orignx floatValue]-2*SCREEN_MIN, 200, 200+20);
+                [dashboardStyleCView setNeedsLayout];
             }else{
             dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
                 [dashboardStyleAView removeFromSuperview];
@@ -227,11 +230,9 @@ static dispatch_source_t _timer;
                 } else if ([dash.bg_id intValue]==9){
                     dashboardStyleCView.frame =  CGRectMake(SCREEN_MAX*2+[dash.origny floatValue]+self.navigationController.navigationBar.frame.size.height, [dash.orignx floatValue]-SCREEN_MIN*2, 150*KFontmultiple, 150*KFontmultiple);
                 }else{
-//                    NSInteger index = ([dash.bg_id intValue] -1)% 3;
-//                    NSInteger page = ([dash.bg_id intValue]-1) / 3;
-//                    CGFloat  space = (SCREEN_MAX - 120*KFontmultiple*3 - 70)/2;
                    dashboardStyleCView.frame = CGRectMake([dash.origny floatValue]+self.navigationController.navigationBar.frame.size.height,[dash.orignx floatValue], 150*KFontmultiple, 150*KFontmultiple+20);
                 }
+                [dashboardStyleCView setNeedsLayout];
             }
         }
             break;
@@ -270,19 +271,9 @@ static dispatch_source_t _timer;
         {
             NSArray* pAllCount = [DashboardC bg_findAll];
             for (DashboardC *dash in pAllCount) {
-                if ([dash.bg_id intValue]>6 && [dash.bg_id intValue]<=8) {
-                    NSLog(@"竖屏竖屏%@",dash.bg_id );
-                    dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
-                    dashboardStyleCView.frame = CGRectMake(SCREEN_MIN+ SCREEN_MIN/2 - 100, ([dash.bg_id intValue] -7) * (220+ 30), 220,220);
-                    
-                } else if ([dash.bg_id intValue]==9){
-                      dashboardStyleCView.frame = CGRectMake(SCREEN_MIN*2+(SCREEN_MIN- 300)/2, 88, 220,220);
-                }else{
-                    NSInteger index = [dash.bg_id intValue] % 2;
-                    NSInteger page = [dash.bg_id intValue] / 2;
-                    CGFloat  space = SCREEN_MIN - 150*KFontmultiple*2 - 50;
-                   dashboardStyleCView.frame = CGRectMake(index * (space+ 150*KFontmultiple)+25, page  * (baseViewHeight + 40)+10, 150*KFontmultiple,150*KFontmultiple+20);
-                }
+                dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
+                dashboardStyleCView.frame = CGRectMake([dash.orignx doubleValue], [dash.origny doubleValue], [dash.orignwidth doubleValue],[dash.orignheight doubleValue]);
+                [dashboardStyleCView setNeedsLayout];
             }
         }
             break;

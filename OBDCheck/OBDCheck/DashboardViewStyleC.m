@@ -19,12 +19,20 @@
     }
     return self;
 }
+-(void)setNeedsLayout{
+    [super setNeedsLayout];
+     view.frame = CGRectMake(21*KMultipleC, 21*KMultipleC, self.bounds.size.width - 42*KMultipleC, self.bounds.size.width - 42*KMultipleC);
+    self.NumberLabel.frame =  CGRectMake(0, (view.bounds.size.height/2 - 35.0*KMultipleC) , view.bounds.size.width, 80.f*KMultipleC);
+     self.PIDLabel.frame = CGRectMake(0,(53*KMultipleC), view.bounds.size.width, 35.0*KMultipleC);
+     self.UnitLabel.frame = CGRectMake(0,( view.bounds.size.height - 78*KMultipleC), view.bounds.size.width, 35.0*KMultipleC);
+    
+}
 - (void)initWithModel:(DashboardC *)model{
   
     self.backgroundColor = [ColorTools colorWithHexString:model.outerColor];
     self.layer.borderColor=[ColorTools colorWithHexString:model.outerColor].CGColor;
     self.layer.borderWidth=1;
-    gradientView *view = [[gradientView alloc]initWithFrame:CGRectMake(21*KMultipleC, 21*KMultipleC, self.bounds.size.width - 42*KMultipleC, self.bounds.size.width - 42*KMultipleC)];
+    view = [[gradientView alloc]initWithFrame:CGRectMake(21*KMultipleC, 21*KMultipleC, self.bounds.size.width - 42*KMultipleC, self.bounds.size.width - 42*KMultipleC)];
     view.gradientRadius = [model.Gradientradius floatValue];
      view.startGradientColor =   [UIColor clearColor];
     view.endGradientColor =  [ColorTools colorWithHexString:model.innerColor];

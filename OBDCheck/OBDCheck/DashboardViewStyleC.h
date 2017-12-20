@@ -18,6 +18,7 @@
 @interface DashboardViewStyleC : UIView
 {
     CGPoint startPoint;
+    gradientView *view;
 }
 @property (nonatomic,weak) id<StyleCtouchMoveDelegate> delegate;
 
