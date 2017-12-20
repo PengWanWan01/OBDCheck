@@ -200,7 +200,9 @@
             //默认label的大小14 * 14
 //            NSLog(@"%f",_center.x);
 //            NSLog(@"point%f%f",point.x,point.y);
-          
+//            if (point.x [is nan]) {
+//        
+//            }
             UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake((point.x - 15), (point.y - 15), 30, 30)];
             
             text.text = tickText;
