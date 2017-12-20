@@ -182,10 +182,9 @@
     for (int i = 0; i<= _dialCount; i++) {
         CGFloat startAngel = (- M_PI + perAngle * i+[model.StartAngle doubleValue]);
         CGFloat endAngel = startAngel + perAngle/[model.miWidth doubleValue];
-  
+//    _center = CGPointMake([model.orignwidth doubleValue]/2, [model.orignwidth doubleValue]/2);
         if (i % 5 == 0) {
             CGFloat endAngel = startAngel + perAngle/[model.maWidth doubleValue];
-
          UIBezierPath *LongtickPath    =   [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.ringWidth doubleValue]- [model.miLength doubleValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
          CAShapeLayer *LongperLayer    = [CAShapeLayer layer];
             
@@ -193,8 +192,6 @@
             LongperLayer.lineWidth = [model.maLength doubleValue];
             //添加刻度
 //            NSLog(@"%@",model.orignwidth);
-            
-             _center = CGPointMake([model.orignwidth doubleValue]/2, [model.orignwidth doubleValue]/2);
             
             CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:(_radius-[model.ringWidth doubleValue]- [model.maLength doubleValue]- 5)*[model.LabelOffest doubleValue] Rotate:model.LabelRotate];
             //四舍五入

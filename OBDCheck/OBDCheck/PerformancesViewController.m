@@ -94,6 +94,7 @@
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
+    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
       headView.frame =CGRectMake(0, 0, MSWidth, 80+130+ (SCREEN_MIN-110)/2);
      totalTimeLabel.frame = CGRectMake(0, TopHigh, SCREEN_MIN/2, 25);
     vehicleLabel.frame = CGRectMake(35, (SCREEN_MIN-100)/4+CGRectGetMaxY(totalTimeLabel.frame) , (SCREEN_MIN-100)/2, 30);
@@ -109,6 +110,7 @@
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
+    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     headView.frame =CGRectMake(0, 0, SCREEN_MAX, 80+40+ (SCREEN_MIN-110)/2);
     totalTimeLabel.frame = CGRectMake(0, TopHigh, SCREEN_MAX/2, 25);
 //  CGRectGetMaxY(totalTimeLabel.frame) + 20

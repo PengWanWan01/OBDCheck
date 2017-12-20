@@ -67,13 +67,11 @@
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
-    
-    
+    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
-    
-    
+    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
 }
 - (void)initWithUI{
     lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];

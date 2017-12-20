@@ -15,6 +15,11 @@
     //添加仪表盘 底部的内容
     UIImageView *image2;
     UIImageView *innerimage;
+    CALayer *containerLayer;
+    CAShapeLayer *circleLayer;
+    UIBezierPath *polygonPath;
+    CAShapeLayer *polygonLayer;
+    CAShapeLayer *lineLayer;
 }
 @end
 @implementation DashboardViewStyleB
@@ -48,7 +53,68 @@
     _PIDLabel.frame = CGRectMake(0, (25*KMultipleB), innerimage.bounds.size.width, 30.0*KMultipleB);
     _UnitLabel.frame = CGRectMake(0, (CGRectGetMaxY(_NumberLabel.frame) + 10*KMultipleB), innerimage.bounds.size.width, 24.0*KMultipleB);
     _UnitLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleB];
+    [_triangleView removeFromSuperview];
+    _triangleView = [[UIView alloc]initWithFrame:CGRectMake(ViewWidth/2 - 30*KMultipleB/2, 7*KMultipleB, 30*KMultipleB, (ViewWidth/2)-7*KMultipleB)];
+//    _triangleView.backgroundColor = [UIColor redColor];
+    CGPoint oldOrigin = _triangleView.frame.origin;
+    //设置triangleView的角度与开始位置一直
+    _triangleView.layer.anchorPoint = CGPointMake(0.5, 1);
+    CGPoint newOrigin = _triangleView.layer.frame.origin;
     
+    CGPoint transition;
+    transition.x = newOrigin.x - oldOrigin.x;
+    transition.y = newOrigin.y - oldOrigin.y;
+    _triangleView.center = CGPointMake (_triangleView.center.x - transition.x, _triangleView.center.y - transition.y);
+    _triangleView.transform = CGAffineTransformMakeRotation(-M_PI/2-M_PI/4);
+    [self addSubview:_triangleView];
+    
+    // 线的路径 三角形
+    polygonPath = [UIBezierPath bezierPath];
+    
+    [polygonPath moveToPoint:CGPointMake(15*KMultipleB, 36.0*KMultipleB/2)];
+    // 其他点
+    [polygonPath addLineToPoint:CGPointMake(0, 0)];
+    [polygonPath addLineToPoint:CGPointMake(30*KMultipleB, 0)];
+    
+    [polygonPath closePath]; // 添加一个结尾点和起点相同
+    
+    polygonLayer = [CAShapeLayer layer];
+    polygonLayer.lineWidth = 2;
+    
+    [_triangleView.layer addSublayer:polygonLayer];
+    //画直线
+    // 线的路径
+    UIBezierPath *linePath = [UIBezierPath bezierPath];
+    // 起点
+    [linePath moveToPoint:CGPointMake(15*KMultipleB, 36.0*KMultipleB/2)];
+    // 其他点
+    [linePath addLineToPoint:CGPointMake(15*KMultipleB, 36.0*KMultipleB)];
+    
+    lineLayer = [CAShapeLayer layer];
+    
+    lineLayer.lineWidth = 2;
+
+    lineLayer.path = linePath.CGPath;
+    lineLayer.fillColor = nil; // 默认为blackColor
+    
+    [_triangleView.layer addSublayer:lineLayer];
+    NSArray* pAllCount = [CustomDashboard bg_findAll];
+    for (NSInteger i = 0;i<pAllCount.count;i++) {
+        CustomDashboard *dash = pAllCount[i];
+        if ([dash.bg_id integerValue] == self.tag) {
+            polygonLayer.strokeColor = [ColorTools colorWithHexString:dash.dashboardB.pointerColor].CGColor;
+            polygonLayer.path = polygonPath.CGPath;
+            polygonLayer.fillColor = [ColorTools colorWithHexString:dash.dashboardB.pointerColor].CGColor; //
+            lineLayer.strokeColor = [ColorTools colorWithHexString:dash.dashboardB.pointerColor].CGColor;
+        }
+    }
+
+    
+    CGPoint _c = CGPointMake(self.bounds.size.width/2   , self.bounds.size.width/2 );
+    CGFloat _r = self.bounds.size.width/2 - (23.0/300)*self.frame.size.width;
+    BOOL clockwise = YES; // 顺时针
+    UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_c radius:_r startAngle:(M_PI / 2) endAngle:M_PI *3/4-M_PI/18 clockwise:clockwise];
+    circleLayer.path = circlePath.CGPath;
 }
 - (void)getNewNumber:(NSNotification *)text{
     
@@ -111,7 +177,8 @@
     [self addSubview:image2];
 
     //添加进度条
-    [self draw:self.bounds.size.width/2 - 23.0*KMultipleB lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:@"1d2027"] startAngle:(M_PI / 4) +(M_PI/18) endAngle: M_PI *3/4-M_PI/18];
+//    [self draw:self.bounds.size.width/2 - 23.0*KMultipleB lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:@"1d2027"] startAngle:(M_PI / 4) +(M_PI/18) endAngle: M_PI *3/4-M_PI/18];
+    
     [self draw:self.bounds.size.width/2 - (23.0/300)*self.frame.size.width lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:model.FillColor] startAngle:(M_PI / 2) endAngle: M_PI *3/4-M_PI/18];
     [self adddrawPointColor:model.pointerColor PointWidth:[model.Pointerwidth floatValue] Fillenable:model.FillEnable   FillColor:model.FillColor];
     UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
@@ -177,56 +244,10 @@
 }
 - (void)adddrawPointColor:(NSString *)PointColor PointWidth:(CGFloat )PointWidth Fillenable:(BOOL)fillenable   FillColor:(NSString *)fillColor{
     
-    _triangleView = [[UIView alloc]initWithFrame:CGRectMake(ViewWidth/2 - 30*KMultipleB/2, 7*KMultipleB, 30*KMultipleB, (ViewWidth/2)-7*KMultipleB)];
-//    _triangleView.backgroundColor = [UIColor redColor];
-    CGPoint oldOrigin = _triangleView.frame.origin;
-    //设置triangleView的角度与开始位置一直
-    _triangleView.layer.anchorPoint = CGPointMake(0.5, 1);
-    CGPoint newOrigin = _triangleView.layer.frame.origin;
-    
-    CGPoint transition;
-    transition.x = newOrigin.x - oldOrigin.x;
-    transition.y = newOrigin.y - oldOrigin.y;
-    
-    _triangleView.center = CGPointMake (_triangleView.center.x - transition.x, _triangleView.center.y - transition.y);
-    
-    _triangleView.transform = CGAffineTransformMakeRotation(-M_PI/2-M_PI/4);
-    
-    [self addSubview:_triangleView];
-
-    // 线的路径 三角形
-    UIBezierPath *polygonPath = [UIBezierPath bezierPath];
-    
-    [polygonPath moveToPoint:CGPointMake(15*KMultipleB, 36.0*KMultipleB/2)];
-    // 其他点
-    [polygonPath addLineToPoint:CGPointMake(0, 0)];
-    [polygonPath addLineToPoint:CGPointMake(30*KMultipleB, 0)];
-    
-    [polygonPath closePath]; // 添加一个结尾点和起点相同
-    
-    CAShapeLayer *polygonLayer = [CAShapeLayer layer];
-    polygonLayer.lineWidth = 2;
-    
     polygonLayer.strokeColor = [ColorTools colorWithHexString:PointColor].CGColor;
     polygonLayer.path = polygonPath.CGPath;
     polygonLayer.fillColor = [ColorTools colorWithHexString:PointColor].CGColor; //
-    [_triangleView.layer addSublayer:polygonLayer];
-    //画直线
-    // 线的路径
-    UIBezierPath *linePath = [UIBezierPath bezierPath];
-    // 起点
-    [linePath moveToPoint:CGPointMake(15*KMultipleB, 36.0*KMultipleB/2)];
-    // 其他点
-    [linePath addLineToPoint:CGPointMake(15*KMultipleB, 36.0*KMultipleB)];
-    
-    CAShapeLayer *lineLayer = [CAShapeLayer layer];
-    
-    lineLayer.lineWidth = 2;
     lineLayer.strokeColor = [ColorTools colorWithHexString:PointColor].CGColor;
-    lineLayer.path = linePath.CGPath;
-    lineLayer.fillColor = nil; // 默认为blackColor
-    
-    [_triangleView.layer addSublayer:lineLayer];
     
 }
 
@@ -271,10 +292,10 @@
     CGFloat endAngle = end; // 结束角度
     BOOL clockwise = YES; // 顺时针
     
-    CALayer *containerLayer = [CALayer layer];
+    containerLayer = [CALayer layer];
     
     // 环形Layer层
-    CAShapeLayer *circleLayer = [CAShapeLayer layer];
+    circleLayer = [CAShapeLayer layer];
     circleLayer.lineWidth = width;
     //    circleLayer.lineCap = kCALineCapRound;
     //    circleLayer.lineJoin = kCALineJoinMiter;

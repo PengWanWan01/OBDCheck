@@ -47,10 +47,12 @@
 #pragma mark 竖屏
 - (void)setVerticalFrame{
     tableview.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX-TopHigh);
+    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
      tableview.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN-TopHigh);
+    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
 }
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {

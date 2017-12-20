@@ -75,6 +75,7 @@
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
+    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
       self.tableView.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX-TopHigh-49);
     tbarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh, SCREEN_MIN, 49);
     if (IS_IPHONE_X) {
@@ -83,7 +84,7 @@
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
-    
+    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     self.tableView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN-TopHigh-49);
     tbarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh, SCREEN_MAX, 49);
     if (IS_IPHONE_X) {

@@ -83,6 +83,7 @@ static dispatch_source_t _timer;
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
+    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     scrollView.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX);
      scrollView.contentSize = CGSizeMake(SCREEN_MIN*[DashboardSetting sharedInstance].KPageNumer,0);
      pageControl.frame = CGRectMake(0, SCREEN_MAX- self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -40, SCREEN_MIN, 30);
@@ -98,13 +99,10 @@ static dispatch_source_t _timer;
                 dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
                 dashboardStyleCView.frame = CGRectMake(SCREEN_MIN*2+(SCREEN_MIN- 300)/2,88, 300, 300+20);
             }else{
-                NSInteger index = ([dash.bg_id integerValue ]-1) % 2;
-                NSInteger page = ([dash.bg_id integerValue ] -1) / 2;
-                CGFloat  space = SCREEN_MIN - 150*KFontmultiple*2 - 50;
-                dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
-                 dashboardStyleAView.frame = CGRectMake(index * (space+ 150*KFontmultiple)+25, page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple+20);
-               
-                
+                 dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
+                [dashboardStyleAView removeFromSuperview];
+                dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.orignx doubleValue], [dash.dashboardA.origny doubleValue], [dash.dashboardA.orignwidth doubleValue], [dash.dashboardA.orignheight doubleValue])];
+                [self initWithDashboardAFrame:dash];
             }
         }
     }else{
@@ -131,8 +129,11 @@ static dispatch_source_t _timer;
     
 }
 #pragma mark 横屏
+//风格一的仪表盘在controller中实现，通过移除先前的，再重建一个仪表盘
+//风格二的仪表盘在 仪表盘View的自定义类中实现
+//
 - (void)setHorizontalFrame{
-   
+    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     scrollView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN);
     scrollView.contentSize = CGSizeMake(SCREEN_MAX*[DashboardSetting sharedInstance].KPageNumer,0);
      pageControl.frame = CGRectMake(0, SCREEN_MIN- self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -40, SCREEN_MAX, 30);
@@ -148,12 +149,11 @@ static dispatch_source_t _timer;
                 dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
                 dashboardStyleCView.frame = CGRectMake([dash.dashboardC.origny floatValue]+2*SCREEN_MAX, [dash.dashboardC.orignx floatValue]-2*SCREEN_MIN, 300, 300+20);
             }else{
-                dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
-//                NSInteger index = ([dash.bg_id intValue] -1)% 3;
-//                NSInteger page = ([dash.bg_id intValue]-1) / 3;
-//                CGFloat  space = (SCREEN_MAX - 120*KFontmultiple*3 - 70)/2;
-//                dashboardStyleAView.frame = CGRectMake(index * (space+ 120*KFontmultiple)+35, page  * (baseViewHeight + 40)+10, 150*KFontmultiple, 150*KFontmultiple+20);
-             dashboardStyleAView.frame = CGRectMake([dash.dashboardA.origny floatValue]+self.navigationController.navigationBar.frame.size.height, [dash.dashboardA.orignx floatValue]-self.navigationController.navigationBar.frame.size.height, 100*KFontmultiple, 100*KFontmultiple+20);
+            dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
+                [dashboardStyleAView removeFromSuperview];
+                dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+self.navigationController.navigationBar.frame.size.height, [dash.dashboardA.orignx floatValue]-self.navigationController.navigationBar.frame.size.height, 130*KFontmultiple, 130*KFontmultiple+20)];
+                [self initWithDashboardAFrame:dash];
+
             }
         }
         
@@ -248,6 +248,19 @@ static dispatch_source_t _timer;
         default:
             break;
     }
+}
+-(void)initWithDashboardAFrame:(CustomDashboard *)customDashboard{
+    dashboardStyleAView.tag = [customDashboard.bg_id integerValue];
+    DashBoardTag = dashboardStyleAView.tag ;
+    [dashboardStyleAView addGradientView:customDashboard.dashboardA.outerColor  GradientViewWidth:dashboardStyleAView.frame.size.width];
+    dashboardStyleAView.delegate = self;
+    [dashboardStyleAView initWithModel:customDashboard.dashboardA];
+    dashboardStyleAView.infoLabel.text = _CustomLabelArray[[customDashboard.bg_id integerValue]  - 1];
+    dashboardStyleAView.numberLabel.text = _CustomNumberArray[[customDashboard.bg_id integerValue]  - 1];
+    customDashboard.dashboardA.infoLabeltext = dashboardStyleAView.infoLabel.text;
+    [customDashboard bg_saveOrUpdate];
+    [scrollView addSubview:dashboardStyleAView];
+    [self MoveDashboard: dashboardStyleAView.tag];
 }
 #pragma mark 设置竖屏仪表盘Frame
 - (void)setVerticalDashboardFrame:(DashboardStyle)type {
@@ -739,17 +752,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if (dash.dashboardType == 1) {
       
             dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.orignx doubleValue], [dash.dashboardA.origny doubleValue], [dash.dashboardA.orignwidth doubleValue], [dash.dashboardA.orignheight doubleValue])];
-            dashboardStyleAView.tag = [dash.bg_id integerValue];
-            DashBoardTag = dashboardStyleAView.tag ;
-            [dashboardStyleAView addGradientView:dash.dashboardA.outerColor  GradientViewWidth:dashboardStyleAView.frame.size.width];
-            dashboardStyleAView.delegate = self;
-            [dashboardStyleAView initWithModel:dash.dashboardA];
-            dashboardStyleAView.infoLabel.text = _CustomLabelArray[[dash.bg_id integerValue]  - 1];
-            dashboardStyleAView.numberLabel.text = _CustomNumberArray[[dash.bg_id integerValue]  - 1];
-            dash.dashboardA.infoLabeltext = dashboardStyleAView.infoLabel.text;
-            [dash bg_saveOrUpdate];
-            [scrollView addSubview:dashboardStyleAView];
-             [self MoveDashboard: dashboardStyleAView.tag];
+            [self initWithDashboardAFrame:dash];
         }
         if (dash.dashboardType == 2){
             dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake([dash.dashboardB.orignx doubleValue], [dash.dashboardB.origny doubleValue], [dash.dashboardB.orignwidth doubleValue], [dash.dashboardB.orignheight doubleValue])];
