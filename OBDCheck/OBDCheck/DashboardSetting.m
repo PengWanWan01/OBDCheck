@@ -130,21 +130,21 @@
     model.innerColor = @"18191C";
     model.outerColor = @"18191C";
     if (i>=6 && i<8) {
-        model.orignx = [NSNumber numberWithFloat:MSWidth+ MSWidth/2 - 100];
+        model.orignx = [NSNumber numberWithFloat:SCREEN_MIN+ SCREEN_MIN/2 - 100];
         model.origny = [NSNumber numberWithFloat:(i -6) * (220+ 30)+30];
         model.orignwidth = [NSNumber numberWithFloat:220];
         model.orignheight = [NSNumber numberWithFloat:220+20];
     }else if (i==8){
-        model.orignx = [NSNumber numberWithFloat:MSWidth*2+(MSWidth- 300)/2];
+        model.orignx = [NSNumber numberWithFloat:SCREEN_MIN*2+(SCREEN_MIN- 300)/2];
         model.origny = [NSNumber numberWithFloat:88];
         model.orignwidth = [NSNumber numberWithFloat:300];
         model.orignheight = [NSNumber numberWithFloat:300+20];
     }else{
         NSInteger index = i % 2;
         NSInteger page = i / 2;
-        CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
+        CGFloat  space = SCREEN_MIN - 150*KFontmultiple*2 - 50;
         model.orignx = [NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25];
-        model.origny = [NSNumber numberWithFloat: page  * (baseViewHeight + 40)+10];
+        model.origny = [NSNumber numberWithFloat: page  * (((SCREEN_MIN)/2 - 30) + 40)+10];
         model.orignwidth = [NSNumber numberWithFloat:150*KFontmultiple];
         model.orignheight = [NSNumber numberWithFloat:150*KFontmultiple +20];
     }
@@ -156,6 +156,7 @@
      存储.
      */
 }
+
 - (void)initWithdashboardB{
     for (int i = 0; i<9; i++) {
         DashboardB *model =  [DashboardB new];
@@ -180,7 +181,7 @@
     
     
     model.backColor = @"00a6ff";
-    model.GradientRadius = [NSNumber numberWithFloat:MSWidth/2];
+    model.GradientRadius = [NSNumber numberWithFloat:SCREEN_MIN/2];
     
     model.FillColor = @"FE9002";
     model.FillEnable = YES;
@@ -188,19 +189,19 @@
     model.Pointerwidth = [NSNumber numberWithFloat:1.f];
     model.pointerColor = @"#FFFFFF";
    if (i>=6 && i<8)  {
-       model.orignx = [NSNumber numberWithFloat:MSWidth+ MSWidth/2 - 100];
+       model.orignx = [NSNumber numberWithFloat:SCREEN_MIN+ SCREEN_MIN/2 - 100];
        model.origny = [NSNumber numberWithFloat:(i-6)  * (220+ 30)+30];
        model.orignwidth = [NSNumber numberWithFloat:220];
        model.orignheight = [NSNumber numberWithFloat:220];
    }else if(i==8){
-       model.orignx = [NSNumber numberWithFloat:MSWidth*2+(MSWidth- 300)/2];
+       model.orignx = [NSNumber numberWithFloat:SCREEN_MIN*2+(SCREEN_MIN- 300)/2];
        model.origny = [NSNumber numberWithFloat:88];
        model.orignwidth = [NSNumber numberWithFloat:300];
        model.orignheight = [NSNumber numberWithFloat:300];
    }else{
        NSInteger index = i % 2;
        NSInteger page = i / 2;
-       CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
+       CGFloat  space = SCREEN_MIN - 150*KFontmultiple*2 - 50;
        model.orignx = [NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25];
        model.origny = [NSNumber numberWithFloat:page  * (baseViewHeight + 40)+20];
        model.orignwidth = [NSNumber numberWithFloat:150*KFontmultiple];
@@ -241,21 +242,21 @@
     model.ValueVisible = YES;
     model.innerColor = @"000000";
     model.outerColor = @"000000";
-    model.Gradientradius = [NSNumber numberWithFloat:MSWidth/2];
+    model.Gradientradius = [NSNumber numberWithFloat:SCREEN_MIN/2];
     if (i>=6 && i<8)  {
-        model.orignx = [NSNumber numberWithFloat:MSWidth+ MSWidth/2 - 100];
+        model.orignx = [NSNumber numberWithFloat:SCREEN_MIN+ SCREEN_MIN/2 - 100];
         model.origny = [NSNumber numberWithFloat:(i -6) * (220+ 30)+30];
         model.orignwidth = [NSNumber numberWithFloat:220];
         model.orignheight = [NSNumber numberWithFloat:220];
     }else if (i==8){
-        model.orignx = [NSNumber numberWithFloat:MSWidth*2+(MSWidth- 300)/2];
+        model.orignx = [NSNumber numberWithFloat:SCREEN_MIN*2+(SCREEN_MIN- 300)/2];
         model.origny = [NSNumber numberWithFloat:88];
         model.orignwidth = [NSNumber numberWithFloat:300];
         model.orignheight = [NSNumber numberWithFloat:300];
     }else{
         NSInteger index = i % 2;
         NSInteger page = i / 2;
-        CGFloat  space = MSWidth - 150*KFontmultiple*2 - 50;
+        CGFloat  space = SCREEN_MIN - 150*KFontmultiple*2 - 50;
         model.orignx = [NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25];
         model.origny = [NSNumber numberWithFloat:page  * (baseViewHeight + 40)+10];
         model.orignwidth = [NSNumber numberWithFloat:150*KFontmultiple];
