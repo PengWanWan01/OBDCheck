@@ -34,6 +34,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      NSInteger PID4indextag;
      BOOL isSave;
      TBarView *tbarView;
+    UIView *lineView;
 }
 @end
 
@@ -330,6 +331,9 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 
 - (void)initWithUI{
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:lineView];
     UIView * topView= [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, self.navigationController.navigationBar.frame.size.height)];
     UIButton *startBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, topView.frame.size.height)];
     [startBtn setImage:[UIImage imageNamed:@"start"] forState:UIControlStateNormal];

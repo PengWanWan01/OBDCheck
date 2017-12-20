@@ -26,6 +26,7 @@ static dispatch_source_t _timer;
     TBarView *tbarView;
     UIButton *clearBtn;
     UIButton *HistoricalBtn;
+    UIView *lineView;
 }
 @property (nonatomic,strong) NSMutableArray *typeimageData;
 @property (nonatomic,strong) NSMutableArray *totalDataSource;
@@ -177,7 +178,9 @@ static dispatch_source_t _timer;
     self.troubleDataSource = [[NSMutableArray alloc]init];
 }
 - (void)initWithUI{
-  
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:lineView];
     MYTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(showView.frame), MSWidth, MSHeight-showView.frame.origin.y - showView.frame.size.height-70) style:UITableViewStylePlain];
     MYTableView.backgroundColor = [ColorTools colorWithHexString:@"18191D"];
     MYTableView.delegate =self;

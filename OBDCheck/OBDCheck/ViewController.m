@@ -73,7 +73,7 @@
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
-//   lineView.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height-1, self.navigationController.navigationBar.frame.size.width, 1);
+    lineView.frame =  CGRectMake(0, 0, MSWidth, 0.5);
     self.titleBtn.frame = CGRectMake(0, 0, 100, 44);
     self.statusView.frame = CGRectMake(22, 11, SCREEN_MIN - 44, 41);
     self.statusLabel.frame = CGRectMake(10, 0, SCREEN_MIN - 86, 40);
@@ -121,8 +121,7 @@
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
-//    CGRect rectStatus = [[UIApplication sharedApplication] statusBarFrame];
-//     lineView.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height+rectStatus.size.height-1, self.navigationController.navigationBar.frame.size.width, 1);
+    lineView.frame =  CGRectMake(0, 0, MSWidth, 0.5);
     self.backView.hidden = YES;
     self.scrollView.hidden = NO;
     self.statusView.frame = CGRectMake(50, 16, SCREEN_MAX - 100, 41);
@@ -195,10 +194,9 @@
 - (void)initWithUI{
     NSLog(@"大：%f",SCREEN_MAX);
     NSLog(@"小：%f",SCREEN_MIN);
-    
-//    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height-1, self.navigationController.navigationBar.frame.size.width, 1)];
-//    lineView.backgroundColor = [ColorTools colorWithHexString:@"#36373d"];
-//    [self.navigationController.navigationBar addSubview:lineView];
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:lineView];
 //    [self.navigationController.navigationBar bringSubviewToFront:lineView];
     
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;

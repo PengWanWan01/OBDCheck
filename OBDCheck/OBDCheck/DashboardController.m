@@ -25,7 +25,7 @@ static dispatch_source_t _timer;
     NSInteger DashBoardTag; //仪表的Tag标志
     UIView *coverView;  //遮盖层
     UILabel *contentLabel; //提示当前是有Label
-    
+    UIView  *lineView;
 }
 @property (nonatomic,strong) NSMutableArray *LabelNameArray;
 @property (nonatomic,strong) NSMutableArray *numberArray;
@@ -625,6 +625,9 @@ static dispatch_source_t _timer;
     }
 }
 - (void)initWithUI{
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:lineView];
     switch ([DashboardSetting sharedInstance].dashboardMode) {
         case DashboardClassicMode:
         {

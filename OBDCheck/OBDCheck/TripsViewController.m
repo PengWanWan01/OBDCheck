@@ -12,6 +12,7 @@
 {
     UITableView *mytableView;
     TBarView *tbarView ;
+    UIView *lineView ;
 }
 @property (nonatomic,strong) NSMutableArray *SectionHeadArray;
 @property (nonatomic,strong) NSMutableArray *dataSource;
@@ -83,6 +84,9 @@
     }
 }
 - (void)initWithUI{
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:lineView];
      mytableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-74-44) style:UITableViewStyleGrouped];
     mytableView.dataSource =self;
     mytableView.delegate = self;

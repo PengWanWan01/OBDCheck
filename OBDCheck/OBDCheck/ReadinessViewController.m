@@ -8,7 +8,9 @@
 
 #import "ReadinessViewController.h"
 
-@interface ReadinessViewController ()<TBarViewDelegate>
+@interface ReadinessViewController ()<TBarViewDelegate>{
+    UIView *lineView ;
+}
 @property(nonatomic,strong)NSMutableArray *completeDatasource;
 @property(nonatomic,strong)NSMutableArray *UndfinishedDatasource;
 @property(nonatomic,strong)NSMutableArray *NotsupportDatasource;
@@ -58,6 +60,9 @@
     return UIStatusBarAnimationNone;
 }
 - (void)initWithUI{
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:lineView];
     TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
     if (IS_IPHONE_X) {
         tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);

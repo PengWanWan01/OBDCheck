@@ -11,6 +11,7 @@
 @interface SetViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableview;
+    UIView *lineView ;
 }
 @property (nonatomic,strong) NSMutableArray *datasource;
 @end
@@ -73,6 +74,9 @@
     
 }
 - (void)initWithUI{
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:lineView];
     tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh) style:UITableViewStyleGrouped];
     tableview.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     tableview.delegate = self;

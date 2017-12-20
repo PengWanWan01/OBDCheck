@@ -11,6 +11,7 @@
 @interface Mode09ViewController ()<TBarViewDelegate>
 {
     TBarView *tbarView ;
+    UIView *lineView ;
 }
 @end
 
@@ -73,6 +74,9 @@
     }
 }
 - (void)initWithUI{
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:lineView];
      [self.tableView registerNib:[UINib nibWithNibName:@"MonitorsTableViewCell" bundle:nil] forCellReuseIdentifier:@"MonitorsTableViewCell"];
     tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
     if (IS_IPHONE_X) {

@@ -12,6 +12,7 @@
 {
     LogsModel *model;
     TBarView *tbarView ;
+    UIView *lineView ;
 }
 @property (nonatomic,strong) UITableView *tableView ;
 @property (nonatomic,strong) NSMutableArray *dataSource;
@@ -90,7 +91,9 @@
     }
 }
 - (void)initWithUI{
-   
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:lineView];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-49) style:UITableViewStylePlain];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;

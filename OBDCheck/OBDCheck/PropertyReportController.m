@@ -9,6 +9,9 @@
 #import "PropertyReportController.h"
 
 @interface PropertyReportController ()<UITableViewDelegate,UITableViewDataSource>
+{
+    UIView *lineView ;
+}
 @property (nonatomic,strong) NSMutableArray *showDataSource;
 @property (nonatomic,strong) NSMutableArray *headDataSource;
 @property (nonatomic,strong) NSMutableArray *detailDataSource;
@@ -73,7 +76,9 @@
     
 }
 - (void)initWithUI{
-
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:lineView];
     UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, TopHigh, MSWidth, 100)];
     [self.view addSubview:headView];
     UILabel *firstTitle = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, MSWidth-20, 20)];

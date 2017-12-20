@@ -11,7 +11,7 @@
 @interface HistoryViewController ()<UITableViewDelegate,UITableViewDataSource,TBarViewDelegate>
 {
     UITableView *MYTableView;
-
+    UIView *lineView ;
 }
 @property (nonatomic,strong) NSMutableArray *sectiondatasource;
 @end
@@ -41,6 +41,7 @@
     [self initWithtabUI];
 }
 - (void)initWithtabUI{
+    
     TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
     if (IS_IPHONE_X) {
         tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
@@ -107,6 +108,9 @@
     return UIStatusBarAnimationNone;
 }
 - (void)initWithUI{
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:lineView];
     MYTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh) style:UITableViewStylePlain];
     MYTableView.backgroundColor = [ColorTools colorWithHexString:@"18191D"];
     MYTableView.delegate =self;

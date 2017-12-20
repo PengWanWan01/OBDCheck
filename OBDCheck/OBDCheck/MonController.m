@@ -11,6 +11,7 @@
 @interface MonController ()<TBarViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     TBarView *tbarView;
+    UIView *lineView;
 }
 @property (nonatomic,strong) UITableView *tableView;
 @end
@@ -74,7 +75,9 @@
     }
 }
 - (void)initWithUI{
-
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:lineView];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     self.tableView.dataSource = self;

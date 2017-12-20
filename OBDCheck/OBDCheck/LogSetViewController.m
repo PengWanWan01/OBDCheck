@@ -11,7 +11,7 @@
 @interface LogSetViewController ()<UITableViewDelegate,UITableViewDataSource,selectSwtichDelegete>
 {
     UITableView *MYtableView;
-   
+    UIView *lineView ;
 }
 @property(nonatomic,strong)NSMutableArray *titleLabel;
 @property(nonatomic,strong)NSMutableArray *selectLabel;
@@ -74,6 +74,9 @@
     
 }
 - (void)initWithUI{
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:lineView];
     MYtableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-74) style:UITableViewStyleGrouped];
     MYtableView.backgroundColor = [UIColor clearColor];
     MYtableView.dataSource = self;

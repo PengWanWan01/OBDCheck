@@ -43,6 +43,7 @@
     UILabel *totalDistanceLabel;
 //    DashboardViewStyleB *dashViewB;
     reportModel *reportmodel;
+    UIView *lineView ;
 }
 @property (nonatomic,strong) UITableView  *tableView;
 @property (nonatomic,strong) NSMutableArray  *dataSource;
@@ -209,6 +210,9 @@
     return resultStr;
 }
 - (void)initWithUI{
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:lineView];
     headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 80+130+ (SCREEN_MIN-110)/2)];
 //    headView.backgroundColor = [UIColor goldColor];
     [self.view addSubview:headView];
