@@ -11,6 +11,10 @@
 @interface DashboardViewStyleB()
 {
     CGPoint _center; // 中心点
+    gradientView *view;
+    //添加仪表盘 底部的内容
+    UIImageView *image2;
+    UIImageView *innerimage;
 }
 @end
 @implementation DashboardViewStyleB
@@ -30,6 +34,21 @@
 
     }
     return self;
+}
+- (void)setNeedsLayout{
+    [super setNeedsLayout];
+    NSLog(@"你好👋");
+    view.frame = self.bounds;
+    view.layer.cornerRadius = self.bounds.size.width/2;
+    image2.frame = CGRectMake(self.bounds.size.width/2 - 100*KMultipleB, self.bounds.size.width -73.0*KMultipleB , 200.0*KMultipleB,  70.0*KMultipleB);
+    view.gradientRadius = self.bounds.size.width;
+     innerimage.frame = CGRectMake(43.0*KMultipleB, 43.0*KMultipleB, self.bounds.size.width - 86.0*KMultipleB,  self.bounds.size.width - 86.0*KMultipleB);
+    _NumberLabel.frame = CGRectMake(0,(innerimage.bounds.size.width/2 - 25.0*KMultipleB) , innerimage.bounds.size.width, 60.0);
+    _NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:56.0*KMultipleB];
+    _PIDLabel.frame = CGRectMake(0, (25*KMultipleB), innerimage.bounds.size.width, 30.0*KMultipleB);
+    _UnitLabel.frame = CGRectMake(0, (CGRectGetMaxY(_NumberLabel.frame) + 10*KMultipleB), innerimage.bounds.size.width, 24.0*KMultipleB);
+    _UnitLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleB];
+    
 }
 - (void)getNewNumber:(NSNotification *)text{
     
@@ -76,7 +95,7 @@
  
 }
 - (void)initWithModel:(DashboardB *)model{
-    gradientView *view = [[gradientView alloc]initWithFrame:self.bounds];
+    view = [[gradientView alloc]initWithFrame:self.bounds];
     view.gradientRadius = [model.GradientRadius floatValue];
     view.startGradientColor =  [ColorTools colorWithHexString:model.backColor];
     view.endGradientColor =  [UIColor clearColor];
@@ -85,7 +104,7 @@
     [self addmiddle:model.titleColor TitlteFontScale:[model.titleFontScale floatValue] TitlePositon:[model.titlePositon floatValue] ValueVisible:model.ValueVisible Valuecolor:model.ValueColor ValueFontScale:[model.ValueFontScale floatValue] ValuePositon:[model.ValuePositon floatValue] UnitColor:model.UnitColor UnitFontScale:[model.UnitFontScale floatValue] UnitPositon:[model.UnitPositon floatValue] withmoel:(DashboardB *)model  ];
 
     //添加仪表盘 底部的内容
-    UIImageView *image2 = [[UIImageView alloc]initWithFrame:CGRectMake(self.bounds.size.width/2 - 100*KMultipleB, self.bounds.size.width -73.0*KMultipleB , 200.0*KMultipleB,  70.0*KMultipleB)];
+    image2 = [[UIImageView alloc]initWithFrame:CGRectMake(self.bounds.size.width/2 - 100*KMultipleB, self.bounds.size.width -73.0*KMultipleB , 200.0*KMultipleB,  70.0*KMultipleB)];
     image2.image = [UIImage imageNamed:@"yuanhu"];
     image2.contentMode = UIViewContentModeScaleAspectFill;
     
@@ -213,7 +232,7 @@
 
 - (void)addmiddle:(NSString *)titlteColor TitlteFontScale:(CGFloat )titlteFontScale TitlePositon:(CGFloat)titlePositon ValueVisible:(BOOL )valueVisible Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon withmoel:(DashboardB *)model {
     
-    UIImageView *innerimage = [[UIImageView alloc]initWithFrame:CGRectMake(43.0*KMultipleB, 43.0*KMultipleB, self.bounds.size.width - 86.0*KMultipleB,  self.bounds.size.width - 86.0*KMultipleB)];
+   innerimage = [[UIImageView alloc]initWithFrame:CGRectMake(43.0*KMultipleB, 43.0*KMultipleB, self.bounds.size.width - 86.0*KMultipleB,  self.bounds.size.width - 86.0*KMultipleB)];
     innerimage.image = [UIImage imageNamed:@"circle-top"];
     innerimage.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:innerimage];
@@ -237,7 +256,6 @@
     _PIDLabel.textAlignment = NSTextAlignmentCenter;
     _PIDLabel.text = @"MPH";
        [innerimage addSubview:_PIDLabel];
-
     _UnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (CGRectGetMaxY(_NumberLabel.frame) + 10*KMultipleB)*unitPositon, innerimage.bounds.size.width, 24.0*KMultipleB)];
     _UnitLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleB*unitFontScale];
     _UnitLabel.textColor =  [ColorTools colorWithHexString:unitColor];
