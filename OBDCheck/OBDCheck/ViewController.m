@@ -192,12 +192,13 @@
 }
 
 - (void)initWithUI{
+    
     NSLog(@"大：%f",SCREEN_MAX);
     NSLog(@"小：%f",SCREEN_MIN);
     lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
     lineView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:lineView];
-//    [self.navigationController.navigationBar bringSubviewToFront:lineView];
+    self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
     
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
@@ -317,7 +318,8 @@
 #pragma mark 整个屏幕的点击事件
 - (void)EveryViewtap{
 
-    [self.blueView hide];
+//    [self.blueView hide];
+    self.blueView.hidden = YES;
 }
 #pragma mark 六个按钮的点击
 - (void)tap:(UITapGestureRecognizer *)sender{
@@ -368,15 +370,17 @@
 #pragma mark 点击连接蓝牙
 
 - (void)LinkBlueTooth{
-    if (isSelect) {
-        NSLog(@"12");
+//    if (isSelect) {
+//        NSLog(@"12");
        [ self.blueView show];
-        isSelect = NO;
-    }else{
-        NSLog(@"13");
-        [ self.blueView hide];
-        isSelect = YES;
-    }
+     self.blueView.hidden = NO;
+//        isSelect = NO;
+//    }else{
+//        NSLog(@"13");
+//        [ self.blueView hide];
+//        isSelect = YES;
+//    }
+    
 }
 #pragma mark 代理方法获取设备名称
 
@@ -387,8 +391,6 @@
      NSLog(@"得到的设备信息%@:%@",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
     NSMutableArray *data = [[NSMutableArray alloc]init];
     [data addObject:info.discoveredPeripheral.name];
-   
-    self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
      self.blueView.dataSource = data;
    
     NSLog(@"得到数据%@",self.blueView.dataSource);

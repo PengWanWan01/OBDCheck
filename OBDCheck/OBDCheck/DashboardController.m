@@ -150,7 +150,7 @@ static dispatch_source_t _timer;
     lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     scrollView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN);
     scrollView.contentSize = CGSizeMake(SCREEN_MAX*[DashboardSetting sharedInstance].KPageNumer,0);
-     pageControl.frame = CGRectMake(0, SCREEN_MIN- self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -40, SCREEN_MAX, 30);
+     pageControl.frame = CGRectMake(0, SCREEN_MIN- TopHigh -40, SCREEN_MAX, 30);
    
     if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
         NSArray* pAllCount = [CustomDashboard bg_findAll];
@@ -162,11 +162,7 @@ static dispatch_source_t _timer;
                         NSLog(@"333====%d",page);
                         dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
                         [dashboardStyleAView removeFromSuperview];
-                        if (([dash.dashboardA.orignx floatValue]-page*SCREEN_MIN-15)>SCREEN_MIN/2) {
-                            dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+self.navigationController.navigationBar.frame.size.height+page*SCREEN_MAX+20*KFontmultiple, [dash.dashboardA.orignx floatValue]-page*SCREEN_MIN-40*KFontmultiple, [dash.dashboardA.orignheight doubleValue], [dash.dashboardA.orignheight doubleValue])];
-                        }else{
-                            dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+self.navigationController.navigationBar.frame.size.height+page*SCREEN_MAX+20*KFontmultiple, [dash.dashboardA.orignx floatValue]-page*SCREEN_MIN-15*KFontmultiple, 120*KFontmultiple, 120*KFontmultiple+20*KFontmultiple)];
-                        }
+                            dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+TopHigh+page*SCREEN_MAX, [dash.dashboardA.orignx floatValue]-page*SCREEN_MIN-TopHigh, [dash.dashboardA.orignwidth doubleValue], [dash.dashboardA.orignheight doubleValue])];
                         [self initWithCustomDashboardAFrame:dash];
                         
                     }
@@ -227,13 +223,8 @@ static dispatch_source_t _timer;
                 for (DashboardA *dash in pAllCount) {
                     dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
                     [dashboardStyleAView removeFromSuperview];
-                    if ([dash.bg_id intValue]>6 && [dash.bg_id intValue]<=8) {
-                    dashboardStyleAView =  [[DashboardView alloc]initWithFrame:CGRectMake(SCREEN_MAX+[dash.origny  floatValue]+self.navigationController.navigationBar.frame.size.height, [dash.orignx floatValue]-SCREEN_MIN,[dash.orignwidth doubleValue ]-20, [dash.orignheight doubleValue ]-20)];
-                    } else if ([dash.bg_id intValue]==9){
-                         dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake(SCREEN_MAX*2+[dash.origny floatValue]+self.navigationController.navigationBar.frame.size.height,[dash.orignx floatValue]-2*SCREEN_MIN, [dash.orignwidth doubleValue ]-20, [dash.orignheight doubleValue ]-20)];
-                    }else{
-                          dashboardStyleAView =[[DashboardView alloc]initWithFrame: CGRectMake([dash.origny floatValue]+self.navigationController.navigationBar.frame.size.height,[dash.orignx floatValue],[dash.orignwidth doubleValue ]-20, [dash.orignheight doubleValue ]-20)];
-                    }
+                      int page =  [dash.orignx doubleValue]/SCREEN_MIN;
+                   dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh, [dash.orignwidth doubleValue], [dash.orignheight doubleValue])];
                      [self initwithDashboardAFrame:dash];
                 }
             }
@@ -243,13 +234,8 @@ static dispatch_source_t _timer;
             NSArray* pAllCount = [DashboardB bg_findAll];
             for (DashboardB *dash in pAllCount) {
                 dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[dash.bg_id intValue]];
-                if ([dash.bg_id intValue]>6 && [dash.bg_id intValue]<=8) {
-                      dashboardStyleBView.frame = CGRectMake(SCREEN_MAX+ [dash.origny floatValue]+self.navigationController.navigationBar.frame.size.height, [dash.orignx floatValue ]-SCREEN_MIN, 150*KFontmultiple, 150*KFontmultiple);
-                } else if ([dash.bg_id intValue]==9){
-                    dashboardStyleBView.frame = CGRectMake([dash.origny floatValue]+2*SCREEN_MAX+self.navigationController.navigationBar.frame.size.height,[dash.orignx floatValue]-2*SCREEN_MIN, 220*KFontmultiple, 220*KFontmultiple);
-                }else{
-                      dashboardStyleBView.frame = CGRectMake([dash.origny floatValue]+self.navigationController.navigationBar.frame.size.height,[dash.orignx floatValue], 130*KFontmultiple, 130*KFontmultiple);
-                }
+                int page =  [dash.orignx doubleValue]/SCREEN_MIN;
+                dashboardStyleBView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh, [dash.orignwidth doubleValue], [dash.orignheight doubleValue]);
                 [dashboardStyleBView setNeedsLayout];
             }
         }
@@ -259,14 +245,8 @@ static dispatch_source_t _timer;
             NSArray* pAllCount = [DashboardC bg_findAll];
             for (DashboardC *dash in pAllCount) {
                 dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
-                if ([dash.bg_id intValue]>6 && [dash.bg_id intValue]<=8) {
-                    dashboardStyleCView.frame = CGRectMake(SCREEN_MAX+[dash.origny floatValue]+self.navigationController.navigationBar.frame.size.height, [dash.orignx floatValue]-SCREEN_MIN, 120*KFontmultiple, 120*KFontmultiple+20);
-                    
-                } else if ([dash.bg_id intValue]==9){
-                    dashboardStyleCView.frame =  CGRectMake(SCREEN_MAX*2+[dash.origny floatValue]+self.navigationController.navigationBar.frame.size.height, [dash.orignx floatValue]-SCREEN_MIN*2, 150*KFontmultiple, 150*KFontmultiple);
-                }else{
-                   dashboardStyleCView.frame = CGRectMake([dash.origny floatValue]+self.navigationController.navigationBar.frame.size.height,[dash.orignx floatValue], 150*KFontmultiple, 150*KFontmultiple+20);
-                }
+                int page =  [dash.orignx doubleValue]/SCREEN_MIN;
+                dashboardStyleCView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh,  [dash.orignwidth doubleValue] , [dash.orignheight doubleValue]);
                 [dashboardStyleCView setNeedsLayout];
             }
         }
