@@ -1019,9 +1019,9 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 #pragma mark 全部恢复默认仪表盘
 - (void)LoadDefaultDashboards{
     NSLog(@"LoadLoad");
-    [DashboardA bg_drop];
-    [DashboardB bg_drop];
-    [DashboardC bg_drop];
+//    [DashboardA bg_drop];
+//    [DashboardB bg_drop];
+//    [DashboardC bg_drop];
     [CustomDashboard bg_drop];
 //    [[DashboardSetting sharedInstance] initWithdashboardA];
 //    [[DashboardSetting sharedInstance] initWithdashboardB];
