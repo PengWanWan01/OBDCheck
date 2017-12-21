@@ -162,7 +162,7 @@ static dispatch_source_t _timer;
                         NSLog(@"333====%d",page);
                         dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
                         [dashboardStyleAView removeFromSuperview];
-                        dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+self.navigationController.navigationBar.frame.size.height+page*SCREEN_MAX, [dash.dashboardA.orignx floatValue]-self.navigationController.navigationBar.frame.size.height, 130*KFontmultiple-page*SCREEN_MIN, 130*KFontmultiple+20)];
+                        dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+self.navigationController.navigationBar.frame.size.height+page*SCREEN_MAX, [dash.dashboardA.orignx floatValue]-page*SCREEN_MIN, 130*KFontmultiple, 130*KFontmultiple+20)];
                         [self initWithCustomDashboardAFrame:dash];
                         
                     }

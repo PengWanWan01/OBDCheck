@@ -7,7 +7,7 @@
 //
 
 #import "DashboardSetting.h"
-
+#define ScreenHeight (SCREEN_MAX - 110)
 
 @implementation DashboardSetting
 #pragma mark - 单例
@@ -131,12 +131,12 @@
     model.outerColor = @"18191C";
     if (i>=6 && i<8) {
         model.orignx = [NSNumber numberWithFloat:SCREEN_MIN+ SCREEN_MIN/2 - 100];
-        model.origny = [NSNumber numberWithFloat:(i -6) * (220+ 30)+30];
+        model.origny = [NSNumber numberWithFloat:(i -6) * (ScreenHeight/2)+(ScreenHeight/2 - 240)];
         model.orignwidth = [NSNumber numberWithFloat:220];
         model.orignheight = [NSNumber numberWithFloat:220+20];
     }else if (i==8){
         model.orignx = [NSNumber numberWithFloat:SCREEN_MIN*2+(SCREEN_MIN- 300)/2];
-        model.origny = [NSNumber numberWithFloat:88];
+        model.origny = [NSNumber numberWithFloat:ScreenHeight/2 - 160];
         model.orignwidth = [NSNumber numberWithFloat:300];
         model.orignheight = [NSNumber numberWithFloat:300+20];
     }else{
@@ -190,12 +190,12 @@
     model.pointerColor = @"#FFFFFF";
    if (i>=6 && i<8)  {
        model.orignx = [NSNumber numberWithFloat:SCREEN_MIN+ SCREEN_MIN/2 - 100];
-       model.origny = [NSNumber numberWithFloat:(i-6)  * (220+ 30)+30];
+       model.origny = [NSNumber numberWithFloat:(i -6) * (ScreenHeight/2)+(ScreenHeight/2 - 220)];
        model.orignwidth = [NSNumber numberWithFloat:220];
        model.orignheight = [NSNumber numberWithFloat:220];
    }else if(i==8){
        model.orignx = [NSNumber numberWithFloat:SCREEN_MIN*2+(SCREEN_MIN- 300)/2];
-       model.origny = [NSNumber numberWithFloat:88];
+       model.origny = [NSNumber numberWithFloat:ScreenHeight/2 - 150];
        model.orignwidth = [NSNumber numberWithFloat:300];
        model.orignheight = [NSNumber numberWithFloat:300];
    }else{
@@ -245,12 +245,12 @@
     model.Gradientradius = [NSNumber numberWithFloat:SCREEN_MIN/2];
     if (i>=6 && i<8)  {
         model.orignx = [NSNumber numberWithFloat:SCREEN_MIN+ SCREEN_MIN/2 - 100];
-        model.origny = [NSNumber numberWithFloat:(i -6) * (220+ 30)+30];
+        model.origny = [NSNumber numberWithFloat:(i -6) * (ScreenHeight/2)+(ScreenHeight/2 - 220)];
         model.orignwidth = [NSNumber numberWithFloat:220];
         model.orignheight = [NSNumber numberWithFloat:220];
     }else if (i==8){
         model.orignx = [NSNumber numberWithFloat:SCREEN_MIN*2+(SCREEN_MIN- 300)/2];
-        model.origny = [NSNumber numberWithFloat:88];
+        model.origny = [NSNumber numberWithFloat:ScreenHeight/2 - 160];
         model.orignwidth = [NSNumber numberWithFloat:300];
         model.orignheight = [NSNumber numberWithFloat:300];
     }else{

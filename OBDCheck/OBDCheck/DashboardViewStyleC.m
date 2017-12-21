@@ -23,9 +23,11 @@
     [super setNeedsLayout];
      view.frame = CGRectMake(21*KMultipleC, 21*KMultipleC, self.bounds.size.width - 42*KMultipleC, self.bounds.size.width - 42*KMultipleC);
     self.NumberLabel.frame =  CGRectMake(0, (view.bounds.size.height/2 - 35.0*KMultipleC) , view.bounds.size.width, 80.f*KMultipleC);
+    self.NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size: 74.f*KMultipleC];
      self.PIDLabel.frame = CGRectMake(0,(53*KMultipleC), view.bounds.size.width, 35.0*KMultipleC);
+     self.PIDLabel.font = [UIFont systemFontOfSize: 36.f*KMultipleC];
      self.UnitLabel.frame = CGRectMake(0,( view.bounds.size.height - 78*KMultipleC), view.bounds.size.width, 35.0*KMultipleC);
-    
+    self.UnitLabel.font = [UIFont systemFontOfSize:36.f*KMultipleC];
 }
 - (void)initWithModel:(DashboardC *)model{
   
