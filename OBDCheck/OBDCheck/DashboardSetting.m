@@ -7,7 +7,7 @@
 //
 
 #import "DashboardSetting.h"
-#define ScreenHeight (SCREEN_MAX - 110)
+#define ScreenHeight (SCREEN_MAX - 100)
 
 @implementation DashboardSetting
 #pragma mark - 单例

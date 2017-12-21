@@ -7,8 +7,8 @@
 //
 
 #import "DashboardController.h"
-#define baseViewWidth  (SCREEN_MIN)/2 - 30
-#define baseViewHeight  baseViewWidth
+//#define baseViewWidth  (SCREEN_MIN)/2 - 30
+//#define baseViewHeight  baseViewWidth
 static dispatch_source_t _timer;
 @interface DashboardController ()<UIScrollViewDelegate,selectStyleDelegete,touchMoveDelegate,StyleBtouchMoveDelegate,StyleCtouchMoveDelegate,BlueToothControllerDelegate>
 {
@@ -162,7 +162,11 @@ static dispatch_source_t _timer;
                         NSLog(@"333====%d",page);
                         dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
                         [dashboardStyleAView removeFromSuperview];
-                        dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+self.navigationController.navigationBar.frame.size.height+page*SCREEN_MAX, [dash.dashboardA.orignx floatValue]-page*SCREEN_MIN, 130*KFontmultiple, 130*KFontmultiple+20)];
+                        if (([dash.dashboardA.orignx floatValue]-page*SCREEN_MIN-15)>SCREEN_MIN/2) {
+                            dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+self.navigationController.navigationBar.frame.size.height+page*SCREEN_MAX+20*KFontmultiple, [dash.dashboardA.orignx floatValue]-page*SCREEN_MIN-40*KFontmultiple, [dash.dashboardA.orignheight doubleValue], [dash.dashboardA.orignheight doubleValue])];
+                        }else{
+                            dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+self.navigationController.navigationBar.frame.size.height+page*SCREEN_MAX+20*KFontmultiple, [dash.dashboardA.orignx floatValue]-page*SCREEN_MIN-15*KFontmultiple, 120*KFontmultiple, 120*KFontmultiple+20*KFontmultiple)];
+                        }
                         [self initWithCustomDashboardAFrame:dash];
                         
                     }
@@ -172,7 +176,7 @@ static dispatch_source_t _timer;
                      int page =  [dash.dashboardB.orignx doubleValue]/SCREEN_MIN;
                     NSLog(@"333====%d",page);
                     dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[dash.bg_id intValue]];
-                    dashboardStyleBView.frame = CGRectMake([dash.dashboardB.origny floatValue]+page*SCREEN_MAX,[dash.dashboardB.orignx floatValue]-page*SCREEN_MIN, 180,180);
+                    dashboardStyleBView.frame = CGRectMake([dash.dashboardB.origny floatValue]+page*SCREEN_MAX+TopHigh,[dash.dashboardB.orignx floatValue]-page*SCREEN_MIN-TopHigh, [dash.dashboardB.orignwidth doubleValue] ,[dash.dashboardB.orignheight doubleValue]);
                     [dashboardStyleBView setNeedsLayout];
                 }
                     break;
@@ -181,7 +185,7 @@ static dispatch_source_t _timer;
                     int page =  [dash.dashboardC.orignx doubleValue]/SCREEN_MIN;
                     NSLog(@"333====%d",page);
                     dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
-                    dashboardStyleCView.frame = CGRectMake([dash.dashboardC.origny floatValue]+page*SCREEN_MAX, [dash.dashboardC.orignx floatValue]-page*SCREEN_MIN, 200, 200+20);
+                    dashboardStyleCView.frame = CGRectMake([dash.dashboardC.origny floatValue]+page*SCREEN_MAX+TopHigh, [dash.dashboardC.orignx floatValue]-page*SCREEN_MIN-TopHigh,  [dash.dashboardC.orignwidth doubleValue] , [dash.dashboardC.orignheight doubleValue]);
                     [dashboardStyleCView setNeedsLayout];
                     
                 }

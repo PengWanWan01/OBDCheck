@@ -36,7 +36,7 @@
 #define Kwidthmultiple SCREEN_MIN/375
 #define KHeightmultiple SCREEN_MAX/667
 #define KMultipleC   SCREEN_MIN/320
-#define TopHigh self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height
+#define TopHigh (self.navigationController.navigationBar.frame.size.height +[UIApplication sharedApplication].statusBarFrame.size.height)
 
 #
 
