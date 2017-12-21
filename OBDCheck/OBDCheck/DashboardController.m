@@ -68,6 +68,7 @@ static dispatch_source_t _timer;
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     [self initWithData];
+      NSLog(@"000--%f",TopHigh);
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
@@ -84,6 +85,8 @@ static dispatch_source_t _timer;
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
+  
+    
     lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     scrollView.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX);
      scrollView.contentSize = CGSizeMake(SCREEN_MIN*[DashboardSetting sharedInstance].KPageNumer,0);
@@ -150,7 +153,7 @@ static dispatch_source_t _timer;
     lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     scrollView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN);
     scrollView.contentSize = CGSizeMake(SCREEN_MAX*[DashboardSetting sharedInstance].KPageNumer,0);
-     pageControl.frame = CGRectMake(0, SCREEN_MIN- TopHigh -40, SCREEN_MAX, 30);
+     pageControl.frame = CGRectMake(0, SCREEN_MIN- TopHigh -20, SCREEN_MAX, 30);
    
     if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
         NSArray* pAllCount = [CustomDashboard bg_findAll];
@@ -162,7 +165,12 @@ static dispatch_source_t _timer;
                         NSLog(@"333====%d",page);
                         dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
                         [dashboardStyleAView removeFromSuperview];
-                            dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+TopHigh+page*SCREEN_MAX, [dash.dashboardA.orignx floatValue]-page*SCREEN_MIN-TopHigh, [dash.dashboardA.orignwidth doubleValue], [dash.dashboardA.orignheight doubleValue])];
+                if (([dash.dashboardA.orignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
+                    NSLog(@"111111");
+                   dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, [dash.dashboardA.orignx floatValue]-page*SCREEN_MIN-TopHigh+20*KFontmultiple, [dash.dashboardA.orignwidth doubleValue]-30*KFontmultiple, [dash.dashboardA.orignheight doubleValue]-30*KFontmultiple)];
+                        }else{
+                             dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, [dash.dashboardA.orignx floatValue]-page*SCREEN_MIN-TopHigh+40*KFontmultiple, [dash.dashboardA.orignwidth doubleValue]-30*KFontmultiple, [dash.dashboardA.orignheight doubleValue]-30*KFontmultiple)];
+                        }
                         [self initWithCustomDashboardAFrame:dash];
                         
                     }
@@ -224,7 +232,12 @@ static dispatch_source_t _timer;
                     dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
                     [dashboardStyleAView removeFromSuperview];
                       int page =  [dash.orignx doubleValue]/SCREEN_MIN;
-                   dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh, [dash.orignwidth doubleValue], [dash.orignheight doubleValue])];
+                    if (([dash.orignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
+                        NSLog(@"111111");
+                        dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh+20*KFontmultiple, [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple)];
+                    }else{
+                        dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh+40*KFontmultiple, [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple)];
+                    }
                      [self initwithDashboardAFrame:dash];
                 }
             }
