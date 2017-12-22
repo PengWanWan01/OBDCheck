@@ -8,6 +8,9 @@
 
 #import "bluetoothView.h"
 @interface bluetoothView()<UITableViewDataSource,UITableViewDelegate>
+{
+    RLBtn *btn;
+}
 @end
 @implementation bluetoothView
 
@@ -15,7 +18,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        RLBtn *btn = [[RLBtn alloc]initWithFrame:CGRectMake(MSWidth- 110, 0, 90, 44)];
+        btn = [[RLBtn alloc]initWithFrame:CGRectMake(MSWidth- 110, 0, 90, 44)];
         [btn setTitle:@"Rescan" forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:@"矢量智能对象"] forState:UIControlStateNormal];
         btn.alpha = 1;
@@ -34,6 +37,12 @@
         [self addSubview:tableView];
     }
     return self;
+}
+-(void)setNeedsLayout{
+    [super setNeedsLayout];
+    self.frame = CGRectMake(0, 64, MSWidth, 140);
+    btn.frame = CGRectMake(MSWidth- 110, 0, 90, 44);
+
 }
 - (void)show{
     
@@ -79,7 +88,8 @@
         cell.layoutMargins = UIEdgeInsetsZero;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.text =  self.dataSource[indexPath.row];
+    cell.textLabel.text =  [NSString stringWithFormat:@"%@",self.dataSource[indexPath.row]];
+    DLog(@"---%@",[NSString stringWithFormat:@"%@",self.dataSource[indexPath.row]]);
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"FE9002"];
     cell.backgroundColor = [UIColor clearColor];
     return cell;
