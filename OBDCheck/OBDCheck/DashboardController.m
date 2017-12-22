@@ -68,16 +68,16 @@ static dispatch_source_t _timer;
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     [self initWithData];
-      NSLog(@"000--%f",TopHigh);
+      DLog(@"000--%f",TopHigh);
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
-        NSLog(@"竖屏");
+        DLog(@"竖屏");
         [self setVerticalFrame];
 //           self.view.transform = CGAffineTransformMakeRotation(-M_PI/2);
     }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
-        NSLog(@"横屏");
+        DLog(@"横屏");
         [self setHorizontalFrame];
 
         
@@ -94,7 +94,7 @@ static dispatch_source_t _timer;
     if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
         NSArray* pAllCount = [CustomDashboard bg_findAll];
         for (CustomDashboard *dash in pAllCount) {
-            NSLog(@"$$$$$$$$$$%ld",(long)dash.dashboardType);
+            DLog(@"$$$$$$$$$$%ld",(long)dash.dashboardType);
             switch (dash.dashboardType) {
                 case 1:
                     {
@@ -162,11 +162,11 @@ static dispatch_source_t _timer;
                 case 1:
                     {
                         int page =  [dash.dashboardA.orignx doubleValue]/SCREEN_MIN;
-                        NSLog(@"333====%d",page);
+                        DLog(@"333====%d",page);
                         dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
                         [dashboardStyleAView removeFromSuperview];
                 if (([dash.dashboardA.orignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
-                    NSLog(@"111111");
+                    DLog(@"111111");
                    dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, [dash.dashboardA.orignx floatValue]-page*SCREEN_MIN-TopHigh+20*KFontmultiple, [dash.dashboardA.orignwidth doubleValue]-30*KFontmultiple, [dash.dashboardA.orignheight doubleValue]-30*KFontmultiple)];
                         }else{
                              dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, [dash.dashboardA.orignx floatValue]-page*SCREEN_MIN-TopHigh+40*KFontmultiple, [dash.dashboardA.orignwidth doubleValue]-30*KFontmultiple, [dash.dashboardA.orignheight doubleValue]-30*KFontmultiple)];
@@ -178,7 +178,7 @@ static dispatch_source_t _timer;
                 case 2:
                 {
                      int page =  [dash.dashboardB.orignx doubleValue]/SCREEN_MIN;
-                    NSLog(@"333====%d",page);
+                    DLog(@"333====%d",page);
                     dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[dash.bg_id intValue]];
                     dashboardStyleBView.frame = CGRectMake([dash.dashboardB.origny floatValue]+page*SCREEN_MAX+TopHigh,[dash.dashboardB.orignx floatValue]-page*SCREEN_MIN-TopHigh, [dash.dashboardB.orignwidth doubleValue] ,[dash.dashboardB.orignheight doubleValue]);
                     [dashboardStyleBView setNeedsLayout];
@@ -187,7 +187,7 @@ static dispatch_source_t _timer;
                 case 3:
                 {
                     int page =  [dash.dashboardC.orignx doubleValue]/SCREEN_MIN;
-                    NSLog(@"333====%d",page);
+                    DLog(@"333====%d",page);
                     dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
                     dashboardStyleCView.frame = CGRectMake([dash.dashboardC.origny floatValue]+page*SCREEN_MAX+TopHigh, [dash.dashboardC.orignx floatValue]-page*SCREEN_MIN-TopHigh,  [dash.dashboardC.orignwidth doubleValue] , [dash.dashboardC.orignheight doubleValue]);
                     [dashboardStyleCView setNeedsLayout];
@@ -233,7 +233,7 @@ static dispatch_source_t _timer;
                     [dashboardStyleAView removeFromSuperview];
                       int page =  [dash.orignx doubleValue]/SCREEN_MIN;
                     if (([dash.orignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
-                        NSLog(@"111111");
+                        DLog(@"111111");
                         dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh+20*KFontmultiple, [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple)];
                     }else{
                         dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh+40*KFontmultiple, [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple)];
@@ -276,7 +276,7 @@ static dispatch_source_t _timer;
             {
                 NSArray* pAllCount = [DashboardA bg_findAll];
                 for (DashboardA *dash in pAllCount) {
-                    NSLog(@"222%@",dash.bg_id);
+                    DLog(@"222%@",dash.bg_id);
                     dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[dash.bg_id intValue]];
                     [dashboardStyleAView removeFromSuperview];
                     dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.orignx doubleValue], [dash.origny doubleValue], [dash.orignwidth doubleValue], [dash.orignheight doubleValue])];
@@ -371,22 +371,22 @@ static dispatch_source_t _timer;
     NSString *number3 = _CustomNumberArray[2];
     NSString *number4 = _CustomNumberArray[3];
 
-    NSLog(@"收到收到%@",data);
+    DLog(@"收到收到%@",data);
     
-    NSLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
     NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    NSLog(@"%@",string);
+    DLog(@"%@",string);
     NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
     NSString *RotationalStr = [BlueTool isRotational:string];
     NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
     NSString *ThrottlePositionStr = [BlueTool isThrottlePosition:string];
-    NSLog(@"车速%@",VehicleSpeedStr);
-    NSLog(@"转速%@",RotationalStr);
-    NSLog(@"水温%@",WatertemperatureStr);
-    NSLog(@"TF%@",ThrottlePositionStr);
+    DLog(@"车速%@",VehicleSpeedStr);
+    DLog(@"转速%@",RotationalStr);
+    DLog(@"水温%@",WatertemperatureStr);
+    DLog(@"TF%@",ThrottlePositionStr);
 
     if (!(VehicleSpeedStr == nil)) {
     
@@ -424,13 +424,13 @@ static dispatch_source_t _timer;
 
 #pragma mark 对自定义不同风格进行更新
 - (void)updateCustomType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(NSInteger)id{
-    NSLog(@"更新");
+    DLog(@"更新");
     NSArray *he = [CustomDashboard bg_findAll];
     for (int i = 0; i<he.count; i++) {
         CustomDashboard *dash =he[i];
         
         if ([dash.bg_id integerValue] == id ) {
-               NSLog(@"orignx%ld",(long)dash.bg_id);
+               DLog(@"orignx%ld",(long)dash.bg_id);
     switch (Customtype) {
         case 1:
         {
@@ -470,7 +470,7 @@ static dispatch_source_t _timer;
 }
 #pragma mark 对经典不同风格进行更新
 - (void)updateClassicType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(NSInteger)id{
-    NSLog(@"更新");
+    DLog(@"更新");
   
             switch (Customtype) {
                 case 1:
@@ -480,7 +480,7 @@ static dispatch_source_t _timer;
                         DashboardA *dash =he[i];
                         
                     if ([dash.bg_id integerValue] == id ) {
-                            NSLog(@"orignx%ld",(long)dash.bg_id);
+                            DLog(@"orignx%ld",(long)dash.bg_id);
                     dash.orignx = [NSNumber numberWithFloat:orignx];
                     dash.origny = [NSNumber numberWithFloat:origny];
                     dash.orignwidth = [NSNumber numberWithFloat:width];
@@ -496,7 +496,7 @@ static dispatch_source_t _timer;
                     for (int i = 0; i<he.count; i++) {
                         DashboardB *dash =he[i];
                    if ([dash.bg_id integerValue] == id ) {
-                            NSLog(@"orignx%ld",(long)dash.bg_id);
+                            DLog(@"orignx%ld",(long)dash.bg_id);
                     dash.orignx = [NSNumber numberWithFloat:orignx];
                     dash.origny = [NSNumber numberWithFloat:origny];
                     dash.orignwidth = [NSNumber numberWithFloat:width];
@@ -513,7 +513,7 @@ static dispatch_source_t _timer;
                         DashboardC *dash =he[i];
                         
                         if ([dash.bg_id integerValue] == id ) {
-                            NSLog(@"orignx%ld",(long)dash.bg_id);
+                            DLog(@"orignx%ld",(long)dash.bg_id);
                     dash.orignx = [NSNumber numberWithFloat:orignx];
                     dash.origny = [NSNumber numberWithFloat:origny];
                     dash.orignwidth = [NSNumber numberWithFloat:width];
@@ -736,7 +736,7 @@ static dispatch_source_t _timer;
 - (void)back{
    
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    NSLog(@"停止停止");
+    DLog(@"停止停止");
        [self stopSend];
    });
    [editview hide];
@@ -744,7 +744,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     [self.navigationController pushViewController:vc animated:NO];
 }
 - (void)stopSend{
-    NSLog(@"停止停止");
+    DLog(@"停止停止");
    self.blueTooth.stopSend = YES;
 }
 - (void)initWithcustomMode{
@@ -752,7 +752,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     NSArray* pAllCount = [CustomDashboard bg_findAll];
     for (NSInteger i = 0;i<pAllCount.count;i++) {
         CustomDashboard *dash = pAllCount[i];
-        NSLog(@"orignx%@--%@",dash.bg_id,dash.dashboardA.orignx);
+        DLog(@"orignx%@--%@",dash.bg_id,dash.dashboardA.orignx);
         if (dash.dashboardType == 1) {
       
             dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.orignx doubleValue], [dash.dashboardA.origny doubleValue], [dash.dashboardA.orignwidth doubleValue], [dash.dashboardA.orignheight doubleValue])];
@@ -792,7 +792,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     DashBoardTag = 0;
     NSArray* pAllCount = [DashboardA bg_findAll];
             for (DashboardA *dash in pAllCount) {
-                NSLog(@"总共%@,orignx=%f",dash.bg_id, [dash.orignx doubleValue]);
+                DLog(@"总共%@,orignx=%f",dash.bg_id, [dash.orignx doubleValue]);
                 dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.orignx doubleValue], [dash.origny doubleValue], [dash.orignwidth doubleValue], [dash.orignheight doubleValue])];
                 [self initwithDashboardAFrame:dash];
             }
@@ -803,8 +803,8 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     DashBoardTag = 0;
     NSArray* pAllCount = [DashboardB bg_findAll];
     for (DashboardB *dash in pAllCount) {
-        NSLog(@"总共%@",dash.bg_id);
-        NSLog(@"_LabelNameArray%@",_LabelNameArray);
+        DLog(@"总共%@",dash.bg_id);
+        DLog(@"_LabelNameArray%@",_LabelNameArray);
         
         dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake([dash.orignx doubleValue], [dash.origny doubleValue], [dash.orignwidth doubleValue], [dash.orignheight doubleValue])];
         [dashboardStyleBView initWithModel:dash];
@@ -864,7 +864,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 }
 #pragma mark 点击选择仪表盘模式和风格按钮
 - (void)selectStyleBtnBetouched:(NSInteger)index{
-    NSLog(@"tettet==%ld",(long)index);
+    DLog(@"tettet==%ld",(long)index);
     [self stopSend];
 
     [editview hide];
@@ -926,7 +926,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         case 4:
         {
 //     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                NSLog(@"停止停止");
+//                DLog(@"停止停止");
                 [self stopSend];
 //        });
             HUDViewController *vc = [[HUDViewController alloc]init];
@@ -971,10 +971,10 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 }
 #pragma mark 长按仪表盘的手势
 - (void)tap:(UILongPressGestureRecognizer *)sender{
-    NSLog(@" [sender view].tag %ld", (long)sender.view.tag);
+    DLog(@" [sender view].tag %ld", (long)sender.view.tag);
     [self stopSend];
       [DashboardSetting sharedInstance].Dashboardindex = sender.view.tag;
-    NSLog(@"aaa%ld",(long)[DashboardSetting sharedInstance].Dashboardindex);
+    DLog(@"aaa%ld",(long)[DashboardSetting sharedInstance].Dashboardindex);
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
             switch ([DashboardSetting sharedInstance].dashboardMode) {
@@ -1011,7 +1011,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
 #pragma mark 全部恢复默认仪表盘
 - (void)LoadDefaultDashboards{
-    NSLog(@"LoadLoad");
+    DLog(@"LoadLoad");
 //    [DashboardA bg_drop];
 //    [DashboardB bg_drop];
 //    [DashboardC bg_drop];
@@ -1032,7 +1032,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
    
     //让仪表盘到最前面
     if ([DashboardSetting sharedInstance].isDashboardFont == YES ) {
-        NSLog(@"CCqianm");
+        DLog(@"CCqianm");
 
         NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger: [DashboardSetting sharedInstance].Dashboardindex]];
         NSArray *all = [CustomDashboard bg_findWhere:arr];
@@ -1069,7 +1069,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 - (void)MoveDashboard:(NSInteger)indexTag{
     //让仪表盘移动
     if ([DashboardSetting sharedInstance].Dashboardindex == indexTag &&  [DashboardSetting sharedInstance].isDashboardMove == YES ) {
-        NSLog(@"CCC");
+        DLog(@"CCC");
         scrollView.scrollEnabled = NO;
         NSArray *arr = @[@"BG_ID",@"=",@([DashboardSetting sharedInstance].Dashboardindex)];
         NSArray *all = [CustomDashboard bg_findWhere:arr];    
@@ -1117,8 +1117,8 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
 #pragma mark 点击添加
 - (void)addDashboard{
-    NSLog(@"点击添加one,%ld",(long)[DashboardSetting sharedInstance].CurrentPage );
-    NSLog(@"点击,%ld",(long)[DashboardSetting sharedInstance].addStyle );
+    DLog(@"点击添加one,%ld",(long)[DashboardSetting sharedInstance].CurrentPage );
+    DLog(@"点击,%ld",(long)[DashboardSetting sharedInstance].addStyle );
 
     
     switch ([DashboardSetting sharedInstance].addStyle) {
@@ -1129,12 +1129,12 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             dashboardStyleAView = [[DashboardView alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage *MSWidth +(arc4random() % (int)200), (arc4random() % (int)300), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardStyleAView.tag = ++ DashBoardTag;
             dashboardStyleAView.delegate =self;
-            NSLog(@"插入插入%ld",(long)dashboardStyleAView.tag);
+            DLog(@"插入插入%ld",(long)dashboardStyleAView.tag);
          NSArray* pAll = [CustomDashboard bg_findAll];
              for(CustomDashboard *dashboard in pAll){
-                 NSLog(@"插入dashboarddashboard%@",dashboard);
+                 DLog(@"插入dashboarddashboard%@",dashboard);
                 if ([dashboard.bg_id integerValue] == dashboardStyleAView.tag) {
-                    NSLog(@"插入插入");
+                    DLog(@"插入插入");
                     [dashboardStyleAView addGradientView:dashboard.dashboardA.outerColor GradientViewWidth:dashboardStyleAView.frame.size.width];
                     [dashboardStyleAView initWithModel:dashboard.dashboardA];
                     [scrollView addSubview:dashboardStyleAView];
@@ -1188,7 +1188,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
     NSArray *dash = [CustomDashboard bg_findAll];
     for (CustomDashboard *model in dash) {
-        NSLog(@"主键逐渐%@",model.bg_id);
+        DLog(@"主键逐渐%@",model.bg_id);
     }
     
 }
@@ -1204,10 +1204,10 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             case 1:
             {
                 dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-                NSLog(@"bg_id%@",dashboard.bg_id);
+                DLog(@"bg_id%@",dashboard.bg_id);
                 
                 [CustomDashboard bg_deleteAsync:arr complete:^(BOOL isSuccess) {
-                    NSLog(@"删除成功");
+                    DLog(@"删除成功");
                   
                 }];
                  [dashboardStyleAView removeFromSuperview];
@@ -1235,7 +1235,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
     NSArray *dash = [CustomDashboard bg_findAll];
     for (CustomDashboard *model in dash) {
-        NSLog(@"主键逐渐%@",model.bg_id);
+        DLog(@"主键逐渐%@",model.bg_id);
     }
   
 }
@@ -1260,7 +1260,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         switch (dashboard.dashboardType) {
             case 1:
             {
-                NSLog(@"111");
+                DLog(@"111");
                 dashboard.dashboardA.orignx = [NSNumber numberWithFloat:centerX];
                 dashboard.dashboardA.origny = [NSNumber numberWithFloat:WithcenterY];
                

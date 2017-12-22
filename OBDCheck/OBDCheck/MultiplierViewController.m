@@ -98,7 +98,7 @@
                 default:
                     break;
             }
-            NSLog(@"122,%ld",(long)[DashboardSetting sharedInstance].multiplierType);
+            DLog(@"122,%ld",(long)[DashboardSetting sharedInstance].multiplierType);
             
         }else{
             cell.accessoryView.hidden = YES;

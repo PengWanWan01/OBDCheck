@@ -84,11 +84,11 @@
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
         //        UIInterfaceOrientation
-        NSLog(@"竖屏");
+        DLog(@"竖屏");
         [self setVerticalFrame];
     }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
-        NSLog(@"横屏");
+        DLog(@"横屏");
         [self setHorizontalFrame];
     }
 }
@@ -383,22 +383,22 @@
     switch (textField.tag) {
         case 0:
             {
-                NSLog(@"开始时间");
+                DLog(@"开始时间");
             }
             break;
         case 1:
         {
-            NSLog(@"结束时间");
+            DLog(@"结束时间");
         }
             break;
         case 2:
         {
-            NSLog(@"刹车时间");
+            DLog(@"刹车时间");
         }
             break;
         case 3:
         {
-            NSLog(@"开始时间");
+            DLog(@"开始时间");
         }
             break;
         default:
@@ -410,7 +410,7 @@
 }
 - (void)back{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSLog(@"停止停止");
+        DLog(@"停止停止");
         [self stopSend];
     });
     ViewController *vc = [[ViewController alloc]init];
@@ -419,23 +419,23 @@
 }
 //- (void)rightBarButtonClick{
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        NSLog(@"停止停止");
+//        DLog(@"停止停止");
 //        [self stopSend];
 //    });
 //    PerformanceSetController *vc =  [[PerformanceSetController alloc]init];
 //    [self.navigationController pushViewController:vc animated:YES];
 //}
 - (void)stopSend{
-    NSLog(@"停止停止");
+    DLog(@"停止停止");
     self.blueTooth.stopSend = YES;
 }
 -(void)reportBtn{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSLog(@"停止停止");
+        DLog(@"停止停止");
         [self stopSend];
     });
     PropertyReportController *vc = [[PropertyReportController alloc]init];
-    NSLog(@"模型模型%@",reportmodel.reportUp100Time);
+    DLog(@"模型模型%@",reportmodel.reportUp100Time);
     vc.model = reportmodel;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -453,17 +453,17 @@
 #pragma mark 收到数据
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
-    NSLog(@"收到收到%@",data);
+    DLog(@"收到收到%@",data);
     
-    NSLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
     NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    NSLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
+    DLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
     NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
    NSString *RotationalStr = [BlueTool isRotational:string];
-    NSLog(@"%@",VehicleSpeedStr);
+    DLog(@"%@",VehicleSpeedStr);
     if (!(VehicleSpeedStr == nil)) {
         //得到车速之后，发送转速
         [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
@@ -564,7 +564,7 @@
     
 }
 -(void)showTotalTime:(CGFloat)totalTime{
-    NSLog(@"时间时间%f",totalTime);
+    DLog(@"时间时间%f",totalTime);
     [totalTimeLabel setAttributedText:[self setAttributed:[NSString stringWithFormat:@"Time:%.2f",totalTime] withRange:5]];
     reportmodel.reportRunTime = [NSString stringWithFormat:@"%.2f",totalTime];
 }
@@ -637,7 +637,7 @@
     //    [view moveViewToX:X - 10];
     [linechartdata notifyDataChanged];
     [view notifyDataSetChanged];
-    NSLog(@"updateChartData%ld",(long)linechartdata.entryCount);
+    DLog(@"updateChartData%ld",(long)linechartdata.entryCount);
     
 }
 

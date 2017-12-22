@@ -64,11 +64,11 @@ static dispatch_source_t _timer;
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
         //        UIInterfaceOrientation
-        NSLog(@"竖屏");
+        DLog(@"竖屏");
         [self setVerticalFrame];
     }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
-        NSLog(@"横屏");
+        DLog(@"横屏");
         [self setHorizontalFrame];
         
         
@@ -138,7 +138,7 @@ static dispatch_source_t _timer;
     PlaybackLabel.text = @"Playback";
     [contentScrollView addSubview:PlaybackLabel];
     if (self.model.PID1dataSource.count >0) {
-        NSLog(@"%d%d",self.model.item3Enabled,self.model.item4Enabled);
+        DLog(@"%d%d",self.model.item3Enabled,self.model.item4Enabled);
         if (self.model.item3Enabled == YES || self.model.item4Enabled == YES ) {
             
             [self initWithLogViewTwoPart];
@@ -159,7 +159,7 @@ static dispatch_source_t _timer;
 }
 
 - (void)initWithLogView{
-    NSLog(@"弹出一个图");
+    DLog(@"弹出一个图");
     [chartViewone removeFromSuperview];
     [chartViewTwo removeFromSuperview];
     chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(PlaybackLabel.frame)+10, MSWidth,170)];
@@ -176,7 +176,7 @@ static dispatch_source_t _timer;
     
 }
 - (void)initWithLogViewTwoPart{
-    NSLog(@"弹出两个图%@", self.model.item1PID);
+    DLog(@"弹出两个图%@", self.model.item1PID);
    
     [chartViewone removeFromSuperview];
     [chartViewTwo removeFromSuperview];
@@ -295,7 +295,8 @@ static dispatch_source_t _timer;
     //折线拐点样式
     set1.drawCirclesEnabled = NO;//是否绘制拐点
     if (smoothing == YES) {
-        [set1 setDrawCubicEnabled:YES];
+//        [set1 setDrawCubicEnabled:YES];
+        [set1 setDrawCirclesEnabled:YES];
     }
     [linechartdata addDataSet:set1];
     [linechartdata setValueTextColor:UIColor.clearColor];
@@ -374,7 +375,7 @@ static dispatch_source_t _timer;
             
             [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)indextag withY:[self.model.PID1dataSource[indextag] intValue]];
             if (self.model.item3Enabled == YES) {
-                NSLog(@"item3item3");
+                DLog(@"item3item3");
                 [self updateChartData:chartViewTwo withData:PartTwodata withIndex:0 withX:(int)indextag withY:[self.model.PID3dataSource[indextag] intValue]];
             }
             if (self.model.item4Enabled == YES) {
@@ -400,7 +401,7 @@ static dispatch_source_t _timer;
 //    [view moveViewToX:X - 10];
     [linechartdata notifyDataChanged];
     [view notifyDataSetChanged];
-    NSLog(@"updateChartData%ld",(long)linechartdata.entryCount);
+    DLog(@"updateChartData%ld",(long)linechartdata.entryCount);
     
 }
 

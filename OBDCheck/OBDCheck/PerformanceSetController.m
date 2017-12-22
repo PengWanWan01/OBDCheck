@@ -100,7 +100,7 @@
 - (void)textFieldEditChanged:(UITextField *)textField
 {
    
-    NSLog(@"得到内容%@ %ld",textField.text, (long)textField.tag);
+    DLog(@"得到内容%@ %ld",textField.text, (long)textField.tag);
     switch (textField.tag) {
         case 1:
             {

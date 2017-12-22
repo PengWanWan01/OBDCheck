@@ -49,7 +49,7 @@
     model.PID2dataSource = PID2data;
     model.PID3dataSource = PID3data;
     model.PID4dataSource = PID4data;
-    NSLog(@"建立数据库");
+    DLog(@"建立数据库");
     [model bg_saveOrUpdate];
 }
 - (void)initWithTrips{

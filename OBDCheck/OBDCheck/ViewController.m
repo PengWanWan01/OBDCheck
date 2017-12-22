@@ -45,7 +45,7 @@
      self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     [self initNavBarTitle:@"" andLeftItemImageName:@"Upload" andRightItemImageName:@"help"];
    
-    NSLog(@"IS_IPHONE%d,%f",IS_IPHONE,SCREEN_MAX_LENGTH);
+    DLog(@"IS_IPHONE%d,%f",IS_IPHONE,SCREEN_MAX_LENGTH);
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
     [self initWithData];
@@ -60,11 +60,11 @@
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
 //        UIInterfaceOrientation
-        NSLog(@"竖屏");
+        DLog(@"竖屏");
           [self setVerticalFrame];
     }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
-          NSLog(@"横屏");
+          DLog(@"横屏");
         [self setHorizontalFrame];
       
      
@@ -93,7 +93,7 @@
     textLabel.text = @"Vehicle Information123";
     textLabel.adjustsFontSizeToFitWidth = YES;
     CGFloat textFont = textLabel.font.pointSize;
-    NSLog(@"字体%f",textFont);
+    DLog(@"字体%f",textFont);
     //设置底部的两个按钮
     for (NSInteger i = 0; i< 2; i++) {
         
@@ -142,7 +142,7 @@
     textLabel.text = @"Vehicle Information123";
     textLabel.adjustsFontSizeToFitWidth = YES;
     CGFloat textFont = textLabel.font.pointSize;
-    NSLog(@"字体%f",textFont);
+    DLog(@"字体%f",textFont);
     //设置底部的两个按钮
     for (NSInteger i = 0; i< 2; i++) {
         
@@ -193,8 +193,8 @@
 
 - (void)initWithUI{
     
-    NSLog(@"大：%f",SCREEN_MAX);
-    NSLog(@"小：%f",SCREEN_MIN);
+    DLog(@"大：%f",SCREEN_MAX);
+    DLog(@"小：%f",SCREEN_MIN);
     lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
     lineView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:lineView];
@@ -203,11 +203,11 @@
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
-        NSLog(@"竖屏");
+        DLog(@"竖屏");
         [self setVerticalFrame];
     }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
-        NSLog(@"横屏");
+        DLog(@"横屏");
         [self setHorizontalFrame];
         
         
@@ -259,7 +259,7 @@
       UIView *singleTapView  = [tap view];
         singleTapView.tag = i;
         [self.backView addSubview:btn];
-        NSLog(@"%f",btn.frame.size.width);
+        DLog(@"%f",btn.frame.size.width);
     }
     self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame) + 20, SCREEN_MAX, 100*SCREEN_MIN/375 + 40)];
     self.scrollView.backgroundColor = [UIColor blueColor];
@@ -312,7 +312,7 @@
     self.landNormalImage = [[NSMutableArray alloc]initWithObjects:@"OBD_normal_land",@"Vehicle_normal_land", nil];
     self.landSelectImage = [[NSMutableArray alloc]initWithObjects:@"OBD_highlight_land",@"Vehicle_highlight_land", nil];
     
-    NSLog(@"%f",4*MSWidth/15 );
+    DLog(@"%f",4*MSWidth/15 );
     
 }
 #pragma mark 整个屏幕的点击事件
@@ -323,7 +323,7 @@
 }
 #pragma mark 六个按钮的点击
 - (void)tap:(UITapGestureRecognizer *)sender{
-    NSLog(@"点击一个");
+    DLog(@"点击一个");
     [self.blueView hide];
  self.tabBarController.tabBar.hidden = YES;
     switch ([sender view].tag) {
@@ -365,18 +365,18 @@
 }
 
 - (void)back{
-    NSLog(@"上传内容");
+    DLog(@"上传内容");
 }
 #pragma mark 点击连接蓝牙
 
 - (void)LinkBlueTooth{
 //    if (isSelect) {
-//        NSLog(@"12");
+//        DLog(@"12");
        [ self.blueView show];
      self.blueView.hidden = NO;
 //        isSelect = NO;
 //    }else{
-//        NSLog(@"13");
+//        DLog(@"13");
 //        [ self.blueView hide];
 //        isSelect = YES;
 //    }
@@ -388,23 +388,23 @@
 - (void)getDeviceInfo:(BELInfo *)info{
   
     if (!(info.discoveredPeripheral.name == nil)) {
-     NSLog(@"得到的设备信息%@:%@",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
+     DLog(@"得到的设备信息%@:%@",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
     NSMutableArray *data = [[NSMutableArray alloc]init];
     [data addObject:info.discoveredPeripheral.name];
      self.blueView.dataSource = data;
    
-    NSLog(@"得到数据%@",self.blueView.dataSource);
+    DLog(@"得到数据%@",self.blueView.dataSource);
     }
 }
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
-    NSLog(@"收到收到%@",data);
-    NSLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+    DLog(@"收到收到%@",data);
+    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
     NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    NSLog(@"%@",string);
+    DLog(@"%@",string);
     if ([string isEqualToString:@"OK>"] && sendNumber ==0) {
         [self.blueTooth SendData:[BlueTool hexToBytes:@"41545350300D"]];
         ++sendNumber;
@@ -413,7 +413,7 @@
     }else if (string.length>21){
         if ([[string substringWithRange:NSMakeRange(0, 12)] isEqualToString:@"SEARCHING..."] && [[string substringWithRange:NSMakeRange(string.length -1 , 1)] isEqualToString:@">"]) {
             
-        NSLog(@"可以发动了");
+        DLog(@"可以发动了");
            [self IsConnectState];
 //        SEARCHING...86F1114100FFFFFFFFC5>
         if ([[string substringWithRange:NSMakeRange(12, 6)] isEqualToString:@"86F111"]) {
@@ -444,28 +444,28 @@
 }
 #pragma mark 得到蓝牙连接状态
 -(void)BlueToothState:(BlueToothState)state{
-    NSLog(@"得到蓝牙连接的状态%lu",(unsigned long)state);
+    DLog(@"得到蓝牙连接的状态%lu",(unsigned long)state);
 //    BlueToothStateDisScan = 0,          //停滞不搜索状态
 //    BlueToothStateScan,                 //搜索状态
 //    BlueToothStateConnect,
     switch (state) {
         case BlueToothStateDisScan:
         {
-            NSLog(@"停滞不搜索状态");
+            DLog(@"停滞不搜索状态");
             [self NonConnectState];
             [self.blueView hide];
         }
             break;
         case BlueToothStateScan:
         {
-            NSLog(@"搜索状态");
+            DLog(@"搜索状态");
             [self NonConnectState];
             [self.blueView hide];
         }
             break;
         case BlueToothStateConnect:
         {
-            NSLog(@"连接成功状态");
+            DLog(@"连接成功状态");
             sendNumber = 0;
             [self.blueTooth SendData:[BlueTool hexToBytes:@"415448310D"]];
         }

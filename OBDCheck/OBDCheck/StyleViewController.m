@@ -44,7 +44,7 @@
     [self initNavBarTitle:@"Style" andLeftItemImageName:@"back" andRightItemName:@"Cancel"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
    self.indexID =  [NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex] ;
-    NSLog(@"1231%@",self.indexID);
+    DLog(@"1231%@",self.indexID);
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -60,11 +60,11 @@
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
-        NSLog(@"竖屏");
+        DLog(@"竖屏");
         [self setVerticalFrame];
     }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
-        NSLog(@"横屏");
+        DLog(@"横屏");
         [self setHorizontalFrame];
         
         
@@ -106,14 +106,14 @@
     
 }
 - (void)initWithHeadUI{
-    NSLog(@"headU");
+    DLog(@"headU");
     NSArray *all =@[@"BG_ID",@"=",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
     NSArray *findArr = [CustomDashboard bg_findWhere:all];
     for(CustomDashboard* dashboard in findArr){
         CustomDashModel = dashboard;
     model = dashboard.dashboardA;
     self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
-        NSLog(@"%@",dashboard);
+        DLog(@"%@",dashboard);
       [self.DashViewA addGradientView:dashboard.dashboardA.outerColor  GradientViewWidth:self.DashViewA.frame.size.width];
         [self.DashViewA initWithModel:dashboard.dashboardA];
             self.DashViewA.infoLabel.text =  self.infoLabeltext;
@@ -423,7 +423,7 @@
     StyleTwoCell.delegate = self;
     StyleTwoCell.selectionStyle = UITableViewCellSelectionStyleNone;
     StyleTwoCell.colorClick = ^(NSString *color){
-        NSLog(@"diandiandianji%@",color);
+        DLog(@"diandiandianji%@",color);
         self.selectColor = color;
     };
     
@@ -869,7 +869,7 @@
 
 
 - (void)btn:(UIButton *)btn{
-    NSLog(@"111===%ld",(long)btn.tag);
+    DLog(@"111===%ld",(long)btn.tag);
     scrollView.contentOffset = CGPointMake(MSWidth*btn.tag,0);
     switch (btn.tag) {
         case 0:
@@ -903,7 +903,7 @@
             break;
     }
     if (btn.tag != 0 && selectTag == 0) {
-        NSLog(@"yyyyy");
+        DLog(@"yyyyy");
         [Fristbtn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
         Fristbtn.backgroundColor = [UIColor clearColor];
         
@@ -935,7 +935,7 @@
 - (void)sliderValueChanged:(id)sender {
     if ([sender isKindOfClass:[UISlider class]]) {
         UISlider * slider = (UISlider *)sender;
-        NSLog(@"slide.tag%ld",(long)slider.tag);
+        DLog(@"slide.tag%ld",(long)slider.tag);
         switch (slider.tag) {
             case 0:
             {
@@ -1102,7 +1102,7 @@
 }
 #pragma mark 外径颜色的变化
 - (void)selectColorBetouched:(NSInteger)indexTag{
-    NSLog(@"indexTag==%ld",(long)indexTag);
+    DLog(@"indexTag==%ld",(long)indexTag);
     
     switch (indexTag) {
         case 0:
@@ -1180,8 +1180,8 @@
 }
 #pragma mark 开关按钮
 - (void)selectSwtichBetouched:(UISwitch *)switchBtn{
-    NSLog(@"开关tag%ld",  (long)switchBtn.tag);
-     NSLog(@"开关on%d",  switchBtn.on);
+    DLog(@"开关tag%ld",  (long)switchBtn.tag);
+     DLog(@"开关on%d",  switchBtn.on);
     switch (switchBtn.tag) {
         case 0:
         {
@@ -1231,14 +1231,14 @@
     
 //    NSArray *dashArray = [CustomDashboard findAll];
 //    for (CustomDashboard *dash in dashArray) {
-//        NSLog(@" 测试测试%@ ",dash.dashboardA.StartAngle);
+//        DLog(@" 测试测试%@ ",dash.dashboardA.StartAngle);
 //    }
 
 }
 #pragma mark 返回仪表盘更新数据库
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
-    NSLog(@"121");
+    DLog(@"121");
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       NSArray *all =@[@"BG_ID",@"=",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
             CustomDashModel.dashboardA.StartAngle = model.StartAngle;

@@ -63,6 +63,8 @@
 		CB5A61A31F7A210A000D23D6 /* FuelCaculationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A61A21F7A210A000D23D6 /* FuelCaculationViewController.m */; };
 		CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5AA4101F31A377002B3006 /* SetTableViewCell.m */; };
 		CB5AA4131F31A377002B3006 /* SetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */; };
+		CB5B83F51FECFBB300ACE126 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB5B83F21FECFB8D00ACE126 /* Charts.framework */; };
+		CB5B83F61FECFBB300ACE126 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB5B83F21FECFB8D00ACE126 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CB5DAC621F78FA93009A8A19 /* ColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5DAC601F78FA93009A8A19 /* ColorTableViewCell.m */; };
 		CB5DAC631F78FA93009A8A19 /* ColorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5DAC611F78FA93009A8A19 /* ColorTableViewCell.xib */; };
 		CB6390101FB9A88E00C958E7 /* reportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB63900F1FB9A88E00C958E7 /* reportModel.m */; };
@@ -148,19 +150,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CB4F34DA1FEB9CB600AE1CF5 /* PBXContainerItemProxy */ = {
+		CB5B83F11FECFB8D00ACE126 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CB4F34D51FEB9CB600AE1CF5 /* Charts.xcodeproj */;
+			containerPortal = CB5B83EC1FECFB8D00ACE126 /* Charts.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
 			remoteInfo = Charts;
 		};
-		CB4F34DC1FEB9CB600AE1CF5 /* PBXContainerItemProxy */ = {
+		CB5B83F31FECFB8D00ACE126 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CB4F34D51FEB9CB600AE1CF5 /* Charts.xcodeproj */;
+			containerPortal = CB5B83EC1FECFB8D00ACE126 /* Charts.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
 			remoteInfo = ChartsTests;
+		};
+		CB5B83F71FECFBB300ACE126 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB5B83EC1FECFB8D00ACE126 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A58A4ED274A941CA248EA921;
+			remoteInfo = Charts;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -171,6 +180,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				CB5B83F61FECFBB300ACE126 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,7 +274,6 @@
 		CB49FB661FB04CFB00A6FEBB /* AlarmViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmViewController.m; sourceTree = "<group>"; };
 		CB49FB6A1FB0521000A6FEBB /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		CB49FB6B1FB0521000A6FEBB /* FeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
-		CB4F34D51FEB9CB600AE1CF5 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../../Downloads/Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		CB55835E1F51468C0010A1E5 /* StyleViewBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewBController.h; sourceTree = "<group>"; };
 		CB55835F1F51468C0010A1E5 /* StyleViewBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleViewBController.m; sourceTree = "<group>"; };
 		CB5583611F5146B70010A1E5 /* StyleCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleCViewController.h; sourceTree = "<group>"; };
@@ -287,6 +296,7 @@
 		CB5AA40F1F31A377002B3006 /* SetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTableViewCell.h; sourceTree = "<group>"; };
 		CB5AA4101F31A377002B3006 /* SetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTableViewCell.m; sourceTree = "<group>"; };
 		CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetTableViewCell.xib; sourceTree = "<group>"; };
+		CB5B83EC1FECFB8D00ACE126 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		CB5DAC5F1F78FA93009A8A19 /* ColorTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorTableViewCell.h; sourceTree = "<group>"; };
 		CB5DAC601F78FA93009A8A19 /* ColorTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorTableViewCell.m; sourceTree = "<group>"; };
 		CB5DAC611F78FA93009A8A19 /* ColorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorTableViewCell.xib; sourceTree = "<group>"; };
@@ -439,6 +449,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBD8EB711F9E0BEF00FDABBB /* libc++.tbd in Frameworks */,
+				CB5B83F51FECFBB300ACE126 /* Charts.framework in Frameworks */,
 				CB2E3D771F977D7900685DC9 /* libsqlite3.tbd in Frameworks */,
 				68B0FEE83EC9AFD3217B8679 /* Pods_OBDCheck.framework in Frameworks */,
 			);
@@ -589,15 +600,6 @@
 			name = Common;
 			sourceTree = "<group>";
 		};
-		CB4F34D61FEB9CB600AE1CF5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CB4F34DB1FEB9CB600AE1CF5 /* Charts.framework */,
-				CB4F34DD1FEB9CB600AE1CF5 /* ChartsTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		CB538A1E1F4E62B10095B4FE /* DashboardView */ = {
 			isa = PBXGroup;
 			children = (
@@ -687,6 +689,15 @@
 				CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		CB5B83ED1FECFB8D00ACE126 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CB5B83F21FECFB8D00ACE126 /* Charts.framework */,
+				CB5B83F41FECFB8D00ACE126 /* ChartsTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		CB63900C1FB9A86B00C958E7 /* Model */ = {
@@ -829,7 +840,7 @@
 		CBB1CCD81F66A4FD002EE7EB /* iOSCharts */ = {
 			isa = PBXGroup;
 			children = (
-				CB4F34D51FEB9CB600AE1CF5 /* Charts.xcodeproj */,
+				CB5B83EC1FECFB8D00ACE126 /* Charts.xcodeproj */,
 				CBB1CCE31F66A52C002EE7EB /* BridgHeader.swift */,
 				CBB1CCE21F66A52B002EE7EB /* OBDCheck-Bridging-Header.h */,
 			);
@@ -1133,6 +1144,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				CB5B83F81FECFBB300ACE126 /* PBXTargetDependency */,
 			);
 			name = OBDCheck;
 			productName = OBDCheck;
@@ -1169,8 +1181,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = CB4F34D61FEB9CB600AE1CF5 /* Products */;
-					ProjectRef = CB4F34D51FEB9CB600AE1CF5 /* Charts.xcodeproj */;
+					ProductGroup = CB5B83ED1FECFB8D00ACE126 /* Products */;
+					ProjectRef = CB5B83EC1FECFB8D00ACE126 /* Charts.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1181,18 +1193,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		CB4F34DB1FEB9CB600AE1CF5 /* Charts.framework */ = {
+		CB5B83F21FECFB8D00ACE126 /* Charts.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Charts.framework;
-			remoteRef = CB4F34DA1FEB9CB600AE1CF5 /* PBXContainerItemProxy */;
+			remoteRef = CB5B83F11FECFB8D00ACE126 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		CB4F34DD1FEB9CB600AE1CF5 /* ChartsTests.xctest */ = {
+		CB5B83F41FECFB8D00ACE126 /* ChartsTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = ChartsTests.xctest;
-			remoteRef = CB4F34DC1FEB9CB600AE1CF5 /* PBXContainerItemProxy */;
+			remoteRef = CB5B83F31FECFB8D00ACE126 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1399,6 +1411,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CB5B83F81FECFBB300ACE126 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = CB5B83F71FECFBB300ACE126 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CBF1E22F1F2ED49200EEC755 /* Main.storyboard */ = {

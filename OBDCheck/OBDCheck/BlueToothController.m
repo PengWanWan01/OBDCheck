@@ -97,20 +97,20 @@ static BlueToothController* instance;
                     [self.delegate BlueToothState:BlueToothStateScan];
                 }
                 @catch (NSException *exception) {
-                    NSLog(@"%@",exception);
+                    DLog(@"%@",exception);
                 }
                 @finally {
                     
                 }
             }
             
-            NSLog(@"开始搜索蓝牙～～～");
+            DLog(@"开始搜索蓝牙～～～");
             
             break;
             
         default:
             //否则记录为no
-            NSLog(@"设备存在问题，无法搜索蓝牙~");
+            DLog(@"设备存在问题，无法搜索蓝牙~");
             break;
     }
 }
@@ -143,7 +143,7 @@ static BlueToothController* instance;
     
     // 储存连接搜索到的蓝牙设备
     if (![self saveBLE:discoveredBLEInfo]) {
-        NSLog(@"蓝牙设备保存连接失败！～～");
+        DLog(@"蓝牙设备保存连接失败！～～");
     };
 }
 //保存蓝牙设备
@@ -151,7 +151,7 @@ static BlueToothController* instance;
 #pragma mark step4搜索为查找的蓝牙时候，并进行连接
 -(BOOL)saveBLE:(BELInfo*)info
 {
-    NSLog(@"发现设备%@:%@",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
+    DLog(@"发现设备%@:%@",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
     [SearchInfoarr addObject:info];
     if ([self.delegate respondsToSelector:@selector(getDeviceInfo:)]) {
         [self.delegate getDeviceInfo:info];
@@ -160,13 +160,13 @@ static BlueToothController* instance;
     if ([info.discoveredPeripheral.name isEqualToString:BLUENAME]) {
         //连接蓝牙
         if (![self ConnectBlueTooth:info.discoveredPeripheral]) {
-            NSLog(@"蓝牙连接失败！");
+            DLog(@"蓝牙连接失败！");
             return NO;
         }
         else
         {
             [self.arrayBLE addObject:info];
-            NSLog(@"蓝牙连接成功！连接上设备名为：%@，UUID为%@的设备",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
+            DLog(@"蓝牙连接成功！连接上设备名为：%@，UUID为%@的设备",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
         }
     }
     
@@ -198,21 +198,21 @@ static BlueToothController* instance;
     NSArray* uuida = [NSArray arrayWithObject:MyServerUUID];
     //搜索该UUID服务
     [peripheral discoverServices:uuida];
-    NSLog(@"开始搜索蓝牙的服务！！");
+    DLog(@"开始搜索蓝牙的服务！！");
 
 }
 
 #pragma mark没连上的时候的响应函数
 -(void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    NSLog(@"蓝牙断开了链接！！开始重新搜索!!");
+    DLog(@"蓝牙断开了链接！！开始重新搜索!!");
     //断开连接协议
     if (self.delegate) {
         @try {
             [self.delegate BlueToothState:BlueToothStateScan];
         }
         @catch (NSException *exception) {
-            NSLog(@"%@",exception);
+            DLog(@"%@",exception);
         }
         @finally {
             
@@ -234,7 +234,7 @@ static BlueToothController* instance;
 }
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error{
    
-    NSLog(@"通知%@",characteristic.value );
+    DLog(@"通知%@",characteristic.value );
 }
 #pragma mark重新搜索
 -(void)Scan
@@ -250,7 +250,7 @@ static BlueToothController* instance;
             [self.delegate BlueToothState:BlueToothStateScan];
         }
         @catch (NSException *exception) {
-            NSLog(@"%@",exception);
+            DLog(@"%@",exception);
         }
         @finally {
             
@@ -272,7 +272,7 @@ static BlueToothController* instance;
             [self.delegate BlueToothState:BlueToothStateConnect];
         }
         @catch (NSException *exception) {
-            NSLog(@"%@",exception);
+            DLog(@"%@",exception);
         }
         @finally {
             
@@ -287,12 +287,12 @@ static BlueToothController* instance;
         for (CBService* server in peripheral.services) {
             //搜索该服务的特征值
             [peripheral discoverCharacteristics:nil forService:server];
-            NSLog(@"搜索到了一个服务：%@",server.UUID.UUIDString);
+            DLog(@"搜索到了一个服务：%@",server.UUID.UUIDString);
         }
     }
     else
     {
-        NSLog(@"搜索服务失败，失败提示：%@",error);
+        DLog(@"搜索服务失败，失败提示：%@",error);
     }
 }
 #pragma mark 扫描完每一个特征值之后调用该函数
@@ -302,7 +302,7 @@ static BlueToothController* instance;
         //扫描每一个特征
         for (CBCharacteristic* character in service.characteristics) {
             
-            NSLog(@"搜索到一个特征：%@",character.UUID.UUIDString);
+            DLog(@"搜索到一个特征：%@",character.UUID.UUIDString);
             
             //如果是写的特征，写入发送特征对象中
             if ([character.UUID.UUIDString isEqualToString:BLUE_CHARACTERISTIC_WRITE]) {
@@ -322,7 +322,7 @@ static BlueToothController* instance;
                 [self.delegate BlueToothState:BlueToothStateConnect];
             }
             @catch (NSException *exception) {
-                NSLog(@"%@",exception);
+                DLog(@"%@",exception);
             }
             @finally {
                 
@@ -332,7 +332,7 @@ static BlueToothController* instance;
     }
     else
     {
-        NSLog(@"搜索特征失败，失败提示：%@",error);
+        DLog(@"搜索特征失败，失败提示：%@",error);
     }
   
 }
@@ -351,7 +351,7 @@ static BlueToothController* instance;
 {
    
 
-//    NSLog(@"发出数据：%@",data);
+//    DLog(@"发出数据：%@",data);
     if (self.stopSend == NO) {
         
     sendDataStr = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
@@ -371,7 +371,7 @@ static BlueToothController* instance;
 -(void)SenddataByOtherWay:(NSData*)data
 {
     [lock lock];
-    NSLog(@"2发出数据：%@",data);
+    DLog(@"2发出数据：%@",data);
     //需要响应的发送数据
     if (SendCharacteristic) {
         [self.ConnectPeripheral writeValue:data forCharacteristic:SendCharacteristic type:CBCharacteristicWriteWithResponse];
@@ -422,7 +422,7 @@ static BlueToothController* instance;
 {
 
     NSData* data = characteristic.value;
-//    NSLog(@"收到了一条源数据：%@",data);
+//    DLog(@"收到了一条源数据：%@",data);
    
     NSString *resultStr = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     
@@ -456,15 +456,15 @@ static BlueToothController* instance;
 -(void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
     if (error) {
-        NSLog(@"=======%@",error.userInfo);
+        DLog(@"=======%@",error.userInfo);
 //        [self updateLog:[error.userInfo JSONString]];
     }else{
-//        NSLog(@"发送数据成功");
+//        DLog(@"发送数据成功");
 //        [self updateLog:@"发送数据成功"];
     }
     
     /* When a write occurs, need to set off a re-read of the local CBCharacteristic to update its value */
-    NSLog(@"===%@",characteristic);
+    DLog(@"===%@",characteristic);
     
 //    [peripheral readValueForCharacteristic:characteristic];
 }

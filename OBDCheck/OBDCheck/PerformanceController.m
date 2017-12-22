@@ -116,9 +116,9 @@ typedef NS_ENUM(NSInteger ,testMode)
         btn.layer.masksToBounds  =YES;
         btn.layer.borderWidth = 1.f;
         btn.backgroundColor = [ColorTools colorWithHexString:@"18181C"];
-        NSLog(@"叉叉叉%ld",(long)i);
+        DLog(@"叉叉叉%ld",(long)i);
         if (i == 2) {
-            NSLog(@"%ld",(long)i);
+            DLog(@"%ld",(long)i);
            [btn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
              btn.layer.borderColor = [ColorTools colorWithHexString:@"C8C6C6"].CGColor;
         }else{
@@ -207,7 +207,7 @@ typedef NS_ENUM(NSInteger ,testMode)
                     [alert dismissViewControllerAnimated:YES completion:nil];
                 }];
                 UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    NSLog(@"ok");
+                    DLog(@"ok");
                 }];
                 [alert addAction:defaultAction];
                 [alert addAction:cancelAction];

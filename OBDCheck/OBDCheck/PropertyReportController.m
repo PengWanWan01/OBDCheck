@@ -55,11 +55,11 @@
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
         //        UIInterfaceOrientation
-        NSLog(@"竖屏");
+        DLog(@"竖屏");
         [self setVerticalFrame];
     }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
-        NSLog(@"横屏");
+        DLog(@"横屏");
         [self setHorizontalFrame];
         
         
@@ -115,7 +115,7 @@
     [self.view addSubview:self.tableView];
     
 //    for (int i = 0; i<3; i++) {//左边的三个内容
-////        NSLog(@"得到的数组%@",self.showDataSource);
+////        DLog(@"得到的数组%@",self.showDataSource);
 //        UILabel *showLabel =[[UILabel alloc]initWithFrame: CGRectMake(0, CGRectGetMaxY(firstTitle.frame)+120+ i*40,MSWidth/2, 25)];
 //        showLabel.text = self.showDataSource[i];
 //        showLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];

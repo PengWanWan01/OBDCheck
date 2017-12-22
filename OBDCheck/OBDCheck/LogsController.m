@@ -94,11 +94,11 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
         //        UIInterfaceOrientation
-        NSLog(@"竖屏");
+        DLog(@"竖屏");
         [self setVerticalFrame];
     }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
-        NSLog(@"横屏");
+        DLog(@"横屏");
         [self setHorizontalFrame];
         
         
@@ -162,6 +162,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     
     [tbarView removeFromSuperview];
     tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, SCREEN_MIN - 49-TopHigh, SCREEN_MAX, 49)];
+    
     if (IS_IPHONE_X) {
         tbarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh-34,SCREEN_MAX ,49);
     }
@@ -181,7 +182,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 //    [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:100 withY:100];
 }
  - (void)initWithLogView{
-     NSLog(@"弹出一个图");
+     DLog(@"弹出一个图");
      [chartViewone removeFromSuperview];
      [chartViewTwo removeFromSuperview];
      chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight - 45-64)];
@@ -203,7 +204,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 //     [chartViewone addSubview:btn];
 }
 - (void)initWithLogViewTwoPart{
-    NSLog(@"弹出2个图");
+    DLog(@"弹出2个图");
     [chartViewone removeFromSuperview];
     [chartViewTwo removeFromSuperview];
     chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, (MSHeight - 45-64)/2)];
@@ -246,7 +247,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 //    [view moveViewToX:X - 10];
       [linechartdata notifyDataChanged];
     [view notifyDataSetChanged];
-    NSLog(@"updateChartData%ld",(long)linechartdata.entryCount);
+    DLog(@"updateChartData%ld",(long)linechartdata.entryCount);
 
 }
 // 设置其中一条折线的内容，数据，颜色，宽度
@@ -269,7 +270,8 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         //折线拐点样式
         set1.drawCirclesEnabled = NO;//是否绘制拐点
     if (smoothing == YES) {
-         [set1 setDrawCubicEnabled:YES];
+//         [set1 setDrawCubicEnabled:YES];
+        [set1 setDrawCirclesEnabled:YES];
     }
        [linechartdata addDataSet:set1];
     
@@ -353,7 +355,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     
 }
 - (void)initWithLogViewUI{
-    NSLog(@"弹出一个图");
+    DLog(@"弹出一个图");
     [chartViewone removeFromSuperview];
     [chartViewTwo removeFromSuperview];
     chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight - 45-64)];
@@ -367,7 +369,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     
 }
 - (void)initWithLogViewTwoPartUI{
-    NSLog(@"弹出2个图");
+    DLog(@"弹出2个图");
     [chartViewone removeFromSuperview];
     [chartViewTwo removeFromSuperview];
     chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, (MSHeight - 45-64)/2)];
@@ -441,9 +443,9 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     
     NSArray *arr = [LogsModel bg_findAll];
     
-    NSLog(@"logs数据库%@", arr.lastObject);
+    DLog(@"logs数据库%@", arr.lastObject);
     LogsModel *model = arr.lastObject;
-    NSLog(@"数据%@%@%@%@",model.PID1dataSource,model.PID2dataSource,model.PID3dataSource,model.PID4dataSource);
+    DLog(@"数据%@%@%@%@",model.PID1dataSource,model.PID2dataSource,model.PID3dataSource,model.PID4dataSource);
         isSave = NO;
     }
 }
@@ -453,7 +455,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     self.blueTooth.delegate = self;
     self.blueTooth.stopSend = NO;
     //发送：ATH1=》发送：ATSP0=》发送：0100=》
-    NSLog(@"发送开始的车速指令");
+    DLog(@"发送开始的车速指令");
     sendNumber = 0;
     //发送车速
     [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
@@ -480,46 +482,46 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 #pragma mark 收到数据
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
-    NSLog(@"收到收到%@",data);
+    DLog(@"收到收到%@",data);
     
-    NSLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
     NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
      string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
      string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-     NSLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
+     DLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
     NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
     NSString *RotationalStr = [BlueTool isRotational:string];
     NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
     NSString *ThrottlePositionStr = [BlueTool isThrottlePosition:string];
-    NSLog(@"车速%@",VehicleSpeedStr);
-    NSLog(@"转速%@",RotationalStr);
-    NSLog(@"水温%@",WatertemperatureStr);
-    NSLog(@"TF%@",ThrottlePositionStr);
+    DLog(@"车速%@",VehicleSpeedStr);
+    DLog(@"转速%@",RotationalStr);
+    DLog(@"水温%@",WatertemperatureStr);
+    DLog(@"TF%@",ThrottlePositionStr);
    if (!(VehicleSpeedStr == nil)) {
             [PID1dataSource addObject:VehicleSpeedStr];
-            NSLog(@"%@",PID1dataSource);
+            DLog(@"%@",PID1dataSource);
             //得到车速之后，发送转速
             [self.blueTooth SendData:[self hexToBytes:@"303130630D"]];
        
     }
     if (!(RotationalStr == nil)) {
             [PID2dataSource addObject:RotationalStr];
-            NSLog(@"%@",PID2dataSource);
+            DLog(@"%@",PID2dataSource);
             //发送水温
             [self.blueTooth SendData:[self hexToBytes:@"303130350D"]];
       
     }
     if (!(WatertemperatureStr == nil)) {
             [PID3dataSource addObject:WatertemperatureStr];
-            NSLog(@"%@",PID3dataSource);
+            DLog(@"%@",PID3dataSource);
             //得到水温之后，发送TF
             [self.blueTooth SendData:[self hexToBytes:@"303131310D"]];
 
     }
    if (!(ThrottlePositionStr == nil)) {
             [PID4dataSource addObject:ThrottlePositionStr];
-            NSLog(@"%@",PID4dataSource);
+            DLog(@"%@",PID4dataSource);
             [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)PID1indextag  withY:[PID1dataSource[PID1indextag] intValue]];
             [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)PID2indextag  withY:[PID2dataSource[PID2indextag] intValue]];
             [self updateChartData:chartViewTwo withData:PartTwodata withIndex:0 withX:(int)PID3indextag  withY:[PID3dataSource[PID3indextag] intValue]];

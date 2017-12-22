@@ -44,11 +44,11 @@
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
-        NSLog(@"竖屏");
+        DLog(@"竖屏");
         [self setVerticalFrame];
     }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
-        NSLog(@"横屏");
+        DLog(@"横屏");
         [self setHorizontalFrame];
         
         
@@ -68,7 +68,7 @@
     textLabel.text = @"Vehicle Information123";
     textLabel.adjustsFontSizeToFitWidth = YES;
     CGFloat textFont = textLabel.font.pointSize;
-    NSLog(@"字体%f",textFont);
+    DLog(@"字体%f",textFont);
     //设置底部的两个按钮
     for (NSInteger i = 0; i< 2; i++) {
         
@@ -110,7 +110,7 @@
     textLabel.text = @"Vehicle Information123";
     textLabel.adjustsFontSizeToFitWidth = YES;
     CGFloat textFont = textLabel.font.pointSize;
-    NSLog(@"字体%f",textFont);
+    DLog(@"字体%f",textFont);
     //设置底部的两个按钮
     for (NSInteger i = 0; i< 2; i++) {
         
@@ -201,16 +201,16 @@
     UIAlertController *actionSheetController = [UIAlertController alertControllerWithTitle:nil message:@"MENU" preferredStyle:UIAlertControllerStyleActionSheet];
     // 响应方法-取消
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"点击了取消按钮");
+        DLog(@"点击了取消按钮");
     }];
     // 响应方法-相册
     UIAlertAction *takeAction = [UIAlertAction actionWithTitle:@"Delete Vehicle" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"点击了删除按钮");
+        DLog(@"点击了删除按钮");
         [self deleteVehicle];
     }];
     // 响应方法-拍照
     UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"Select Vehicle" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"点击了选择按钮");
+        DLog(@"点击了选择按钮");
          [self selectVehicle];
     }];
     // 添加响应方式
@@ -238,7 +238,7 @@
     
 }
 - (void)SureDeleteVehicle{
-    NSLog(@"确认删除");
+    DLog(@"确认删除");
     
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource

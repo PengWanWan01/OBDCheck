@@ -112,7 +112,7 @@
 
 - (void)btn:(UIButton *)btn{
     if (btn.tag != 0 && selectTag == 0) {
-        NSLog(@"yyyyy");
+        DLog(@"yyyyy");
         [Fristbtn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
         Fristbtn.backgroundColor = [UIColor clearColor];
        

@@ -32,11 +32,11 @@
         UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
         if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
             //翻转为竖屏时
-            NSLog(@"竖屏");
+            DLog(@"竖屏");
             [self setVerticalFrame];
         }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
             //翻转为横屏时
-            NSLog(@"横屏");
+            DLog(@"横屏");
             [self setHorizontalFrame];
             
             
@@ -47,7 +47,7 @@
 - (void)setVerticalFrame{
    [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     for (int i = 0; i<self.numberBtn; i++) {
-        //        NSLog(@"numberBtn%ld",(long)self.numberBtn);
+        //        DLog(@"numberBtn%ld",(long)self.numberBtn);
         JXButton *btn = [[JXButton alloc]initWithFrame:CGRectMake(i*(SCREEN_MIN/self.numberBtn), 0,SCREEN_MIN/self.numberBtn , ViewHeight)];
         [btn setTitle:@"12" forState:UIControlStateNormal];
         [btn setTitle:_titleData[i] forState:UIControlStateNormal];
@@ -67,7 +67,7 @@
 - (void)setHorizontalFrame{
     [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     for (int i = 0; i<self.numberBtn; i++) {
-        //        NSLog(@"numberBtn%ld",(long)self.numberBtn);
+        //        DLog(@"numberBtn%ld",(long)self.numberBtn);
         JXButton *btn = [[JXButton alloc]initWithFrame:CGRectMake(i*(SCREEN_MAX/self.numberBtn), 0,SCREEN_MAX/self.numberBtn , ViewHeight)];
         [btn setTitle:@"12" forState:UIControlStateNormal];
         [btn setTitle:_titleData[i] forState:UIControlStateNormal];
@@ -84,7 +84,7 @@
     }
 }
 -(void)initWithData{
-//  NSLog(@"numberBtn%ld",(long)self.numberBtn);
+//  DLog(@"numberBtn%ld",(long)self.numberBtn);
    
   
 }

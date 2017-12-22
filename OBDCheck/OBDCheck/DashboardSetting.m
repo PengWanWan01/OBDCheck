@@ -277,7 +277,7 @@
 - (void)initwithCustomDashboard{
 
     for (int i = 0; i< 9; i++) {
-        NSLog(@"%d",i);
+        DLog(@"%d",i);
         if (i<6) {
         [self CustomDashboardType:AddStyleOne withTag:i];
         }else if (i>=6 && i < 8){

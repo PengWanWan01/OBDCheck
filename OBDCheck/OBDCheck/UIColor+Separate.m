@@ -88,7 +88,7 @@
     float alpha= [self alpha];
     
     NSString *str = [NSString stringWithFormat:@"\nThis Color's Red:%.0f, Green:%.0f, Blue:%.0f, Alpha:%.0f\nDecimal red:%.4f green:%.4f blue:%.4f \nHexadecimal 0x%x%x%x",R,G,B,alpha,r,g,b,(int)R,(int)G,(int)B];
-    NSLog(@"%@",str);
+    DLog(@"%@",str);
     return str;
 }
 

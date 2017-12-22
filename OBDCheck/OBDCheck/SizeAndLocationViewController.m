@@ -96,7 +96,7 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"%lu",(unsigned long)_titleNameArray.count);
+    DLog(@"%lu",(unsigned long)_titleNameArray.count);
     return _titleNameArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -134,7 +134,7 @@
 }
 - (void)textFieldEditChanged:(UITextField *)textField
 {
-    NSLog(@"textfield text %@",textField.text);
+    DLog(@"textfield text %@",textField.text);
     if ([textField.text integerValue] > 100) {
         textField.text = @"100";
     }

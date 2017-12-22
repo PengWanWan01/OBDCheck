@@ -119,8 +119,8 @@
         //求偏移量 = 手指当前点的X - 手指上一个点的X
         CGPoint curP = [touch locationInView:self];
         CGPoint preP = [touch previousLocationInView:self];
-//        NSLog(@"curP====%@",NSStringFromCGPoint(curP));
-//        NSLog(@"preP====%@",NSStringFromCGPoint(preP));
+//        DLog(@"curP====%@",NSStringFromCGPoint(curP));
+//        DLog(@"preP====%@",NSStringFromCGPoint(preP));
         
         CGFloat offsetX = curP.x - preP.x;
         CGFloat offsetY = curP.y - preP.y;
@@ -135,7 +135,7 @@
     if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
         
         if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
-            NSLog(@"origin%f,%f",self.frame.origin.x,self.frame.origin.y );
+            DLog(@"origin%f,%f",self.frame.origin.x,self.frame.origin.y );
             [self.delegate touchMoveWithcenterX:self.frame.origin.x WithcenterY:self.frame.origin.y];
             //移动view
         }

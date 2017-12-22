@@ -40,11 +40,11 @@
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
-        NSLog(@"竖屏");
+        DLog(@"竖屏");
         [self setVerticalFrame];
     }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
-        NSLog(@"横屏");
+        DLog(@"横屏");
         [self setHorizontalFrame];
         
         
@@ -62,7 +62,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"开始发送");
+    DLog(@"开始发送");
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
     self.blueTooth.stopSend = NO;
@@ -210,7 +210,7 @@
 }
 #pragma mark 切换变成HUD模式
 - (void)ClickToHUD:(UITapGestureRecognizer *)sender{
-    NSLog(@"切换变成HUD模式");
+    DLog(@"切换变成HUD模式");
     switch ([DashboardSetting sharedInstance].hudModeType) {
         case HUDModeTypeToHUD:{
             self.view.transform = CGAffineTransformIdentity;
@@ -243,20 +243,20 @@
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
  
-    NSLog(@"收到收到%@",data);
+    DLog(@"收到收到%@",data);
     
-    NSLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
     NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    NSLog(@"%@",string);
+    DLog(@"%@",string);
     NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
     NSString *RotationalStr = [BlueTool isRotational:string];
     NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
-    NSLog(@"车速%@",VehicleSpeedStr);
-    NSLog(@"转速%@",RotationalStr);
-    NSLog(@"水温%@",WatertemperatureStr);
+    DLog(@"车速%@",VehicleSpeedStr);
+    DLog(@"转速%@",RotationalStr);
+    DLog(@"水温%@",WatertemperatureStr);
     
     if (!(VehicleSpeedStr == nil)) {
         if (PIDNameLabel.tag == 0) {

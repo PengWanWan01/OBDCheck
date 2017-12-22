@@ -57,13 +57,13 @@
     }
 }
 - (void)getNewNumber:(NSNotification *)text{
-//    NSLog(@"得到通知");
+//    DLog(@"得到通知");
     NSString *presentStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"StyleAViewnumber"]];
     NSString *PreviouStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"PreStyleAViewnumber"]];
     
     CGFloat start = [PreviouStr doubleValue];
     CGFloat end = [presentStr doubleValue];
-//    NSLog(@"%@%@%ld",PreviouStr,presentStr,(long)[text.userInfo[@"StyleAViewTag"] integerValue]);
+//    DLog(@"%@%@%ld",PreviouStr,presentStr,(long)[text.userInfo[@"StyleAViewTag"] integerValue]);
     
     if ([text.userInfo[@"StyleAViewTag"] integerValue] == self.tag) {
     
@@ -138,8 +138,8 @@
 - (void)initWithModel:(DashboardA *)model{
 
 
-//       NSLog(@"innerColor%@",model);
-//    NSLog(@"innerColor%@%@",model,model.innerColor);
+//       DLog(@"innerColor%@",model);
+//    DLog(@"innerColor%@%@",model,model.innerColor);
      [self addCircleLayer:[model.ringWidth doubleValue] withInnerColor:model.innerColor];
     
     [self adddrawPointerVisble:model.PointerVisble PointerWidth:[model.PointerWidth  doubleValue] PointerLength:[model.PointerLength  doubleValue] PointerColor:model.PointerColor KNOBRadius:[model.KNOBRadius doubleValue] KNOBColor:model.KNOBColor withStartAngle:[model.StartAngle doubleValue] withModel:(DashboardA *)model];
@@ -191,15 +191,15 @@
             LongperLayer.strokeColor = [ColorTools colorWithHexString:model.maColor].CGColor;
             LongperLayer.lineWidth = [model.maLength doubleValue];
             //添加刻度
-//            NSLog(@"%@",model.orignwidth);
+//            DLog(@"%@",model.orignwidth);
             
             CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:(_radius-[model.ringWidth doubleValue]- [model.maLength doubleValue]- 5)*[model.LabelOffest doubleValue] Rotate:model.LabelRotate];
             //四舍五入
             NSString *tickText = [NSString stringWithFormat:@"%.f",((roundf([model.maxNumber doubleValue]- [model.minNumber doubleValue])/8)*(i/5) +[model.minNumber doubleValue])];
             
             //默认label的大小14 * 14
-//            NSLog(@"%f",_center.x);
-//            NSLog(@"point%f%f",point.x,point.y);
+//            DLog(@"%f",_center.x);
+//            DLog(@"point%f%f",point.x,point.y);
 //            if (point.x [is nan]) {
 //        
 //            }
@@ -452,8 +452,8 @@
           //求偏移量 = 手指当前点的X - 手指上一个点的X
           CGPoint curP = [touch locationInView:self];
           CGPoint preP = [touch previousLocationInView:self];
-//          NSLog(@"curP====%@",NSStringFromCGPoint(curP));
-//          NSLog(@"preP====%@",NSStringFromCGPoint(preP));
+//          DLog(@"curP====%@",NSStringFromCGPoint(curP));
+//          DLog(@"preP====%@",NSStringFromCGPoint(preP));
 //          
           CGFloat offsetX = curP.x - preP.x;
           CGFloat offsetY = curP.y - preP.y;
@@ -468,7 +468,7 @@
       if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
       
           if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
-//               NSLog(@"origin%f,%f",self.frame.origin.x,self.frame.origin.y );
+//               DLog(@"origin%f,%f",self.frame.origin.x,self.frame.origin.y );
               [self.delegate touchMoveWithcenterX:self.frame.origin.x WithcenterY:self.frame.origin.y];
               //移动view
           }

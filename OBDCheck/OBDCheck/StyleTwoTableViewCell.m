@@ -20,7 +20,7 @@
 }
 - (void)tap{
 
-    NSLog(@"self.ColorView.tag %ld",(long)self.ColorView.tag);
+    DLog(@"self.ColorView.tag %ld",(long)self.ColorView.tag);
     
     ILColorPickerView *vc = [[ILColorPickerView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight)];
     vc.delegate = self;

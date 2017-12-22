@@ -33,7 +33,7 @@
 }
 - (void)initWithData{
     NSArray *array = [LogsModel bg_findAll];
-    NSLog(@"%@",array);
+    DLog(@"%@",array);
     self.dataSource = [[NSMutableArray alloc]init];
     for (NSInteger i = 1; i<=array.count; i++) {
         [self.dataSource addObject:[NSString stringWithFormat:@"File%ld",(long)i]];
@@ -63,11 +63,11 @@
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
         //        UIInterfaceOrientation
-        NSLog(@"竖屏");
+        DLog(@"竖屏");
         [self setVerticalFrame];
     }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
-        NSLog(@"横屏");
+        DLog(@"横屏");
         [self setHorizontalFrame];
         
         
@@ -143,11 +143,11 @@
 
 
 - (void)deleteData:(NSInteger)tag{
-    NSLog(@"%@",[NSNumber numberWithInteger:tag+1]);
+    DLog(@"%@",[NSNumber numberWithInteger:tag+1]);
     NSArray *arr = [LogsModel bg_findAll];
     model = arr[tag];
      [LogsModel bg_deleteWhere:@[@"BG_ID",@"=",model.bg_id]];
-      NSLog(@"剩余%@",[LogsModel bg_findAll]);
+      DLog(@"剩余%@",[LogsModel bg_findAll]);
     [self.dataSource removeObjectAtIndex:tag]; //从模型中删除
     
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:tag inSection:0]]  withRowAnimation:UITableViewRowAnimationRight];
@@ -209,7 +209,7 @@
       return cell;
 }
 - (void)deletewithRow:(NSInteger)index{
-    NSLog(@"121%ld",(long)index);
+    DLog(@"121%ld",(long)index);
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete" message:@"Are you sure you want to delete all log files?" preferredStyle:  UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSArray *arr = [self.tableView indexPathsForVisibleRows];
@@ -235,12 +235,12 @@
     [self presentViewController:alert animated:true completion:nil];
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%ld",(long)indexPath.row);
+    DLog(@"%ld",(long)indexPath.row);
     FileBackViewController *vc = [[FileBackViewController alloc]init];
     NSArray *array = [LogsModel bg_findAll];
     vc.model = array[indexPath.row];
-    NSLog(@"%@%@%@%@%d%d",vc.model,vc.model.PID1dataSource,vc.model.PID2dataSource,vc.model.PID3dataSource,vc.model.item3Enabled,vc.model.item3Enabled);
-    NSLog(@"%@%@%@%@",vc.model.item1PID,vc.model.item2PID,vc.model.item3PID,vc.model.item4PID);
+    DLog(@"%@%@%@%@%d%d",vc.model,vc.model.PID1dataSource,vc.model.PID2dataSource,vc.model.PID3dataSource,vc.model.item3Enabled,vc.model.item3Enabled);
+    DLog(@"%@%@%@%@",vc.model.item1PID,vc.model.item2PID,vc.model.item3PID,vc.model.item4PID);
     
     [self.navigationController pushViewController:vc animated:YES];
 }

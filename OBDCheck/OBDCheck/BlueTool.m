@@ -118,7 +118,7 @@ if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToStri
            if (string.length>5 &&[[string substringToIndex:6] isEqualToString:@"18DAF1"]) {
             NSRange range = [string rangeOfString:@"18DAF1"];
             string = [string substringFromIndex:range.location]; //截取字符串
-            NSLog(@"打印%@",string);
+            DLog(@"打印%@",string);
                 NSString* Commond = [string substringWithRange:NSMakeRange(12, 2)];
                 //车速添加到数组
                 if ([Commond isEqualToString:@"0D"]) {
@@ -199,7 +199,7 @@ if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToStri
                     if ((lineNume - nummber/6)>0) {
                         ++reslutnumber;
                     }
-                    NSLog(@"nummber%ld",(long)reslutnumber);
+                    DLog(@"nummber%ld",(long)reslutnumber);
                     NSString *headStr;
                     NSString *codeStr;
                     for (NSInteger i = 0; i<reslutnumber; i++) {
@@ -209,7 +209,7 @@ if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToStri
                             
                         }else{
                             NSString *nextHeadStr = [string substringWithRange:NSMakeRange((i)*24,8)];
-                            NSLog(@"%@",nextHeadStr);
+                            DLog(@"%@",nextHeadStr);
                             if ([nextHeadStr isEqualToString:headStr]) {
                                 codeStr = [codeStr stringByAppendingString:
                                            [string substringWithRange:NSMakeRange((i)*24+10,12)]];
@@ -249,7 +249,7 @@ if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToStri
                     if ((lineNume - nummber/6)>0) {
                         ++reslutnumber;
                     }
-                    NSLog(@"nummber%ld",(long)reslutnumber);
+                    DLog(@"nummber%ld",(long)reslutnumber);
                     NSString *headStr;
                     NSString *codeStr;
                     for (NSInteger i = 0; i<reslutnumber; i++) {
@@ -259,11 +259,11 @@ if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToStri
                             
                         }else{
                              NSString *nextHeadStr = [string substringWithRange:NSMakeRange((i)*24,8)];
-                            NSLog(@"%@",nextHeadStr);
+                            DLog(@"%@",nextHeadStr);
                             if ([nextHeadStr isEqualToString:headStr]) {
                                 codeStr = [codeStr stringByAppendingString:
 [string substringWithRange:NSMakeRange((i)*24+10,12)]];
-                                NSLog(@"%@",codeStr);
+                                DLog(@"%@",codeStr);
                             }
                         }
                       codeStr = [codeStr stringByReplacingOccurrencesOfString:@"00" withString:@""];
@@ -291,11 +291,11 @@ if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToStri
 + (NSString *)getcode:(NSString *)str{
     NSString *reslut;
     NSString *numberStr = [str substringWithRange:NSMakeRange(1, 1)];
-    NSLog(@"%ldd",(long)([numberStr integerValue] - 1)/2);
+    DLog(@"%ldd",(long)([numberStr integerValue] - 1)/2);
     for (NSInteger i = 0; i< ([numberStr integerValue] - 1)/2; i++) {
         NSString *codeStr= [str substringWithRange:NSMakeRange(8+(4*i), 4)];
         if (![codeStr isEqualToString:@"0000"]) {
-            NSLog(@"最终获取出去0000的故障码%@",codeStr);
+            DLog(@"最终获取出去0000的故障码%@",codeStr);
             reslut = codeStr;
         }
     }
@@ -315,7 +315,7 @@ if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToStri
                     if ((lineNume - nummber/6)>0) {
                         ++reslutnumber;
                     }
-                    NSLog(@"nummber%ld",(long)reslutnumber);
+                    DLog(@"nummber%ld",(long)reslutnumber);
                     NSString *headStr;
                     NSString *codeStr;
                     for (NSInteger i = 0; i<reslutnumber; i++) {
@@ -324,11 +324,11 @@ if ([[string substringWithRange:NSMakeRange(string.length - 1, 1)] isEqualToStri
                             headStr = [string substringToIndex:8];
                         }else{
                             NSString *nextHeadStr = [string substringWithRange:NSMakeRange((i)*24,8)];
-                            NSLog(@"%@",nextHeadStr);
+                            DLog(@"%@",nextHeadStr);
                             if ([nextHeadStr isEqualToString:headStr]) {
                                 codeStr = [codeStr stringByAppendingString:
                                            [string substringWithRange:NSMakeRange((i)*24+10,12)]];
-                                NSLog(@"%@",codeStr);
+                                DLog(@"%@",codeStr);
                             }
                         }
                       codeStr = [codeStr stringByReplacingOccurrencesOfString:@"00" withString:@""];

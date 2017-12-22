@@ -9,7 +9,12 @@
 #ifndef OBDCheckPrefixHeader_pch
  #pragma clang diagnostic ignored "-Wmissing-selector-name"
 #define OBDCheckPrefixHeader_pch
-
+#ifdef DEBUG
+//# define DLog(fmt, ...) NSLog((@"[文件名:%s]\n" "[函数名:%s]\n" "[行号:%d] \n" fmt), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
+# define DLog(fmt, ...) NSLog((@"" fmt), ##__VA_ARGS__);
+#else
+# define DLog(...);
+#endif
 #define  MSWidth [UIScreen mainScreen].bounds.size.width
 #define  MSHeight [UIScreen mainScreen].bounds.size.height
 #define SCREEN_MIN MIN(MSHeight,MSWidth)

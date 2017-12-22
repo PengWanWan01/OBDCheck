@@ -107,7 +107,7 @@
                 default:
                     break;
             }
-            NSLog(@"122,%ld",(long)[DashboardSetting sharedInstance].numberDecimals);
+            DLog(@"122,%ld",(long)[DashboardSetting sharedInstance].numberDecimals);
             
         }else{
             cell.accessoryView.hidden = YES;

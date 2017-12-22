@@ -34,9 +34,9 @@
     NSArray *array = [troubleCodeModel bg_findAll];
 //    troubleCodeModel *model =
     for (troubleCodeModel *model in array) {
-        NSLog(@"%@%@",model.currentTime,model.toubleCode);
+        DLog(@"%@%@",model.currentTime,model.toubleCode);
     }
-    NSLog(@"array%@",array);
+    DLog(@"array%@",array);
     [_sectiondatasource addObject:array];
     [self initWithtabUI];
 }

@@ -20,15 +20,15 @@
     NSUserDefaults *TimeOfBootCount = [NSUserDefaults standardUserDefaults];
     if (![TimeOfBootCount valueForKey:@"time"]) {
         [TimeOfBootCount setValue:@"sd" forKey:@"time"];
-        NSLog(@"第一次启动");
+        DLog(@"第一次启动");
         [self initWithdatabase];
     }else{
-//        NSLog(@"不是第一次启动");
-//        NSLog(@"11%ld",(long)[DashboardA bg_version]);
+//        DLog(@"不是第一次启动");
+//        DLog(@"11%ld",(long)[DashboardA bg_version]);
 
     }
     
-    NSLog(@"启动成功");
+    DLog(@"启动成功");
 
     
     // Override point for customization after application launch.

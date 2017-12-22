@@ -44,11 +44,11 @@
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
-        NSLog(@"竖屏");
+        DLog(@"竖屏");
         [self setVerticalFrame];
     }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
-        NSLog(@"横屏");
+        DLog(@"横屏");
         [self setHorizontalFrame];
         
         
@@ -186,7 +186,7 @@
     StyleTwoCell.delegate = self;
     StyleTwoCell.selectionStyle = UITableViewCellSelectionStyleNone;
     StyleTwoCell.colorClick = ^(NSString *color){
-        NSLog(@"diandiandianji%@",color);
+        DLog(@"diandiandianji%@",color);
         self.selectColor = color;
     };
     
@@ -349,7 +349,7 @@
 - (void)sliderValueChanged:(id)sender {
     if ([sender isKindOfClass:[UISlider class]]) {
         UISlider * slider = (UISlider *)sender;
-        NSLog(@"slide.tag%ld",(long)slider.tag );
+        DLog(@"slide.tag%ld",(long)slider.tag );
         
         switch (slider.tag) {
             case 0:
@@ -418,7 +418,7 @@
 }
 #pragma mark 外径颜色的变化
 - (void)selectColorBetouched:(NSInteger)indexTag{
-    NSLog(@"indexTag==%ld",(long)indexTag);
+    DLog(@"indexTag==%ld",(long)indexTag);
     switch (indexTag) {
         case 0:
         {
@@ -469,7 +469,7 @@
 }
 #pragma mark 开关按钮
 - (void)selectSwtichBetouched:(UISwitch *)switchBtn{
-    NSLog(@"开关tag%ld",(long)switchBtn.tag);
+    DLog(@"开关tag%ld",(long)switchBtn.tag);
 
     switch (switchBtn.tag) {
         case 0:

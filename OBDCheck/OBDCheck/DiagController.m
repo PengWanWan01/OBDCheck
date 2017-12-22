@@ -59,11 +59,11 @@ static dispatch_source_t _timer;
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
-        NSLog(@"竖屏");
+        DLog(@"竖屏");
         [self setVerticalFrame];
     }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
-        NSLog(@"横屏");
+        DLog(@"横屏");
         [self setHorizontalFrame];
         
         
@@ -327,14 +327,14 @@ static dispatch_source_t _timer;
 #pragma mark 收到数据
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
-    NSLog(@"收到收到%@",data);
+    DLog(@"收到收到%@",data);
     
-    NSLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
     NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    NSLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
+    DLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
     NSDate *datenow = [NSDate date];
@@ -346,7 +346,7 @@ static dispatch_source_t _timer;
     NSString *code0aStr = [BlueTool istroubleCode0a:string];
 
     if (!(code07Str == nil)) {
-         NSLog(@"得到%@",code07Str);
+         DLog(@"得到%@",code07Str);
         //发送命令为07
         sendType = @"07";
         switch ([DashboardSetting sharedInstance].protocolType) {
@@ -355,7 +355,7 @@ static dispatch_source_t _timer;
                     for (NSInteger i = 0; i<code07Str.length/4; i++) {
                         NSString *codeStr = [code07Str substringWithRange:NSMakeRange(i*4, 4)];
                         [self getCodeType:codeStr];
-                        NSLog(@"四个数的故障码%@",codeStr);
+                        DLog(@"四个数的故障码%@",codeStr);
                     }
                 }
                 break;
@@ -370,7 +370,7 @@ static dispatch_source_t _timer;
         [self.blueTooth SendData:[BlueTool hexToBytes:@"30330D"]];
     }
         if (!(code03Str == nil)) {
-            NSLog(@"得到%@",code03Str);
+            DLog(@"得到%@",code03Str);
             //发送命令为07
             sendType = @"03";
             switch ([DashboardSetting sharedInstance].protocolType) {
@@ -379,7 +379,7 @@ static dispatch_source_t _timer;
                     for (NSInteger i = 0; i<code03Str.length/4; i++) {
                         NSString *codeStr = [code03Str substringWithRange:NSMakeRange(i*4, 4)];
                         [self getCodeType:codeStr];
-                        NSLog(@"四个数的故障码%@",codeStr);
+                        DLog(@"四个数的故障码%@",codeStr);
                     }
                 }
                     break;
@@ -395,7 +395,7 @@ static dispatch_source_t _timer;
         }
         
         if (!(code0aStr == nil)) {
-               NSLog(@"得到%@",code0aStr);
+               DLog(@"得到%@",code0aStr);
             //发送命令为07
             sendType = @"0a";
             switch ([DashboardSetting sharedInstance].protocolType) {
@@ -404,7 +404,7 @@ static dispatch_source_t _timer;
                     for (NSInteger i = 0; i<code0aStr.length/4; i++) {
                         NSString *codeStr = [code0aStr substringWithRange:NSMakeRange(i*4, 4)];
                         [self getCodeType:codeStr];
-                        NSLog(@"四个数的故障码%@",codeStr);
+                        DLog(@"四个数的故障码%@",codeStr);
                     }
                 }
                     break;
@@ -426,9 +426,9 @@ static dispatch_source_t _timer;
     [self getcode:strring];
     
     if (![[strring substringWithRange:NSMakeRange(8+([numberStr integerValue]*2), 1)] isEqualToString:@">"]) {
-        NSLog(@"如果发完第一条之后还没有结束");
+        DLog(@"如果发完第一条之后还没有结束");
         NSString *nextStr = [strring substringWithRange:NSMakeRange(8+([numberStr integerValue]*2), strring.length- 1-8-([numberStr integerValue]*2))];
-        NSLog(@"剩下的内容%@",nextStr);
+        DLog(@"剩下的内容%@",nextStr);
         [self getcode:nextStr];
         
     }
@@ -436,11 +436,11 @@ static dispatch_source_t _timer;
 }
 - (void)getcode:(NSString *)str{
     NSString *numberStr = [str substringWithRange:NSMakeRange(1, 1)];
-    NSLog(@"%ldd",(long)([numberStr integerValue] - 1)/2);
+    DLog(@"%ldd",(long)([numberStr integerValue] - 1)/2);
     for (NSInteger i = 0; i< ([numberStr integerValue] - 1)/2; i++) {
         NSString *codeStr= [str substringWithRange:NSMakeRange(8+(4*i), 4)];
         if (![codeStr isEqualToString:@"0000"]) {
-            NSLog(@"最终获取出去0000的故障码%@",codeStr);
+            DLog(@"最终获取出去0000的故障码%@",codeStr);
             [self getCodeType:codeStr];
         }
     }
@@ -483,7 +483,7 @@ static dispatch_source_t _timer;
      DiagnosticsTableViewCell *Cell = [tableView dequeueReusableCellWithIdentifier:@"DiagnosticsTableViewCell"];
     Cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSDictionary *dict = self.totalDataSource[indexPath.row];
-    NSLog(@"数组%@",[dict allKeys].lastObject);
+    DLog(@"数组%@",[dict allKeys].lastObject);
     if ( [[dict allKeys].lastObject isEqualToString:@"important"]) {
         Cell.nameTitle.text = [dict objectForKey:@"important"];
         Cell.toubleCodeType = toubleCodeTypeimportant;
