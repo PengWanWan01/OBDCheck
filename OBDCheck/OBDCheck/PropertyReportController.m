@@ -11,6 +11,7 @@
 @interface PropertyReportController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UIView *lineView ;
+    UIView *headView;
 }
 @property (nonatomic,strong) NSMutableArray *showDataSource;
 @property (nonatomic,strong) NSMutableArray *headDataSource;
@@ -23,6 +24,7 @@
     [self initNavBarTitle:@"Report" andLeftItemImageName:@"back" andRightItemImageName:@" "];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     [self initWithData];
+    [self initWithHeadUI];
     [self initWithUI];
 }
 - (void)initWithData{
@@ -51,6 +53,8 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
+    [self initWithHeadUI];
+    self.tableView.frame =  CGRectMake(0, 0, MSWidth, MSHeight-50);
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
@@ -73,11 +77,9 @@
 - (void)setHorizontalFrame{
     lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
 }
-- (void)initWithUI{
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:lineView];
-    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, TopHigh, MSWidth, 100)];
+- (void)initWithHeadUI{
+    [headView removeFromSuperview];
+    headView = [[UIView alloc]initWithFrame:CGRectMake(0, TopHigh, MSWidth, 100)];
     [self.view addSubview:headView];
     UILabel *firstTitle = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, MSWidth-20, 20)];
     firstTitle.textColor = [ColorTools colorWithHexString:@"918E8E"];
@@ -89,8 +91,8 @@
         numberLabel.font = [UIFont systemFontOfSize:24.f];
         numberLabel.textColor = [ColorTools colorWithHexString:@"FE9002"];
         numberLabel.textAlignment = NSTextAlignmentCenter;
-       
-       
+        
+        
         UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(i*(MSWidth/2), CGRectGetMaxY(numberLabel.frame), MSWidth/2, 30)];
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.font = [UIFont systemFontOfSize:16.f];
@@ -102,11 +104,18 @@
             numberLabel.text = self.model.reportMaxSpeed;
             titleLabel.text = @"Max Speed";
         }
-          [headView addSubview:numberLabel];
+        [headView addSubview:numberLabel];
         [headView addSubview:titleLabel];
     }
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-44) style:UITableViewStyleGrouped];
     self.tableView.tableHeaderView = headView;
+
+}
+
+- (void)initWithUI{
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:lineView];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-44) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

@@ -95,8 +95,8 @@
 #pragma mark 竖屏
 - (void)setVerticalFrame{
     lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
-      headView.frame =CGRectMake(0, 0, MSWidth, 80+130+ (SCREEN_MIN-110)/2);
-     totalTimeLabel.frame = CGRectMake(0, TopHigh, SCREEN_MIN/2, 25);
+      headView.frame =CGRectMake(0, 0, MSWidth, 60+130+ (SCREEN_MIN-110)/2);
+     totalTimeLabel.frame = CGRectMake(0, 15, SCREEN_MIN/2, 25);
     vehicleLabel.frame = CGRectMake(35, (SCREEN_MIN-100)/4+CGRectGetMaxY(totalTimeLabel.frame) , (SCREEN_MIN-100)/2, 30);
     rotateLabel.frame =CGRectMake(35+(SCREEN_MIN-100)/2 + 30, (SCREEN_MIN-100)/4+CGRectGetMaxY(totalTimeLabel.frame) , (SCREEN_MIN-100)/2, 30);
     [self initWithVerticalCircleUI];
@@ -111,8 +111,8 @@
 #pragma mark 横屏
 - (void)setHorizontalFrame{
     lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
-    headView.frame =CGRectMake(0, 0, SCREEN_MAX, 80+40+ (SCREEN_MIN-110)/2);
-    totalTimeLabel.frame = CGRectMake(0, TopHigh, SCREEN_MAX/2, 25);
+    headView.frame =CGRectMake(0, 0, SCREEN_MAX, 80+40+ (SCREEN_MIN-110)/2+20);
+    totalTimeLabel.frame = CGRectMake(0, 15, SCREEN_MAX/2, 25);
 //  CGRectGetMaxY(totalTimeLabel.frame) + 20
   vehicleLabel.frame = CGRectMake(100, CGRectGetMaxY(totalTimeLabel.frame)+(SCREEN_MIN-100)/4 , (SCREEN_MIN-100)/2, 30);
    rotateLabel.frame =CGRectMake(SCREEN_MAX-100-(SCREEN_MIN-100)/2, CGRectGetMaxY(totalTimeLabel.frame)+(SCREEN_MIN-100)/4 ,  (SCREEN_MIN-100)/2, 30);
@@ -127,7 +127,7 @@
 //    rotateUnitLabel.backgroundColor = [UIColor redColor];
      startBtn.frame = CGRectMake(100, (SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 80 , (SCREEN_MIN-110)/2, 40);
       reportBtn.frame = CGRectMake(SCREEN_MAX-100-(SCREEN_MIN-110)/2,(SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 80  , (SCREEN_MIN-110)/2, 40);
-      self.tableView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN);
+      self.tableView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN-40);
 }
 #pragma mark 竖屏的圆圈
 - (void)initWithVerticalCircleUI{
