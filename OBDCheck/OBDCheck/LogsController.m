@@ -269,11 +269,9 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         //折线拐点样式
         set1.drawCirclesEnabled = NO;//是否绘制拐点
     if (smoothing == YES) {
-//         [set1 setDrawCubicEnabled:YES];
-        [set1 setDrawCirclesEnabled:YES];
+        [set1 setMode:LineChartModeCubicBezier];
     }
-       [linechartdata addDataSet:set1];
-    
+    [linechartdata addDataSet:set1];
         [linechartdata setValueTextColor:UIColor.clearColor];
         [linechartdata setValueFont:[UIFont systemFontOfSize:9.f]];
         view.data = linechartdata;

@@ -295,8 +295,7 @@ static dispatch_source_t _timer;
     //折线拐点样式
     set1.drawCirclesEnabled = NO;//是否绘制拐点
     if (smoothing == YES) {
-//        [set1 setDrawCubicEnabled:YES];
-        [set1 setDrawCirclesEnabled:YES];
+        [set1 setMode:LineChartModeCubicBezier];
     }
     [linechartdata addDataSet:set1];
     [linechartdata setValueTextColor:UIColor.clearColor];

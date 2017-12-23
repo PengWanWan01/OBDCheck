@@ -390,8 +390,10 @@
 //        [data addObject:[NSString stringWithFormat:@"%@",info.discoveredPeripheral.name]];
         [self.blueView hide];
     self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
-     [self.blueDataSource addObject: [NSString stringWithFormat:@"%@",info.discoveredPeripheral.name]];
-        self.blueView.dataSource = self.blueDataSource;
+        if (![self.blueDataSource containsObject: info.discoveredPeripheral.name]) {
+            [self.blueDataSource addObject: [NSString stringWithFormat:@"%@",info.discoveredPeripheral.name]];
+        }
+         self.blueView.dataSource = self.blueDataSource;
         [self.blueView show];
         DLog(@"得到数据%@",self.blueView.dataSource);
     }
