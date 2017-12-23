@@ -90,6 +90,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
@@ -106,7 +107,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
-     lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
     if ([LogsSetting sharedInstance].PID3Enable == YES || [LogsSetting sharedInstance].PID4Enable == YES ) {
         chartViewone.frame = CGRectMake(0, 0, SCREEN_MIN, (SCREEN_MAX - 45-64)/2);
         if (IS_IPHONE_X) {
@@ -142,7 +142,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
-     lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
     if ([LogsSetting sharedInstance].PID3Enable == YES || [LogsSetting sharedInstance].PID4Enable == YES ) {
         chartViewone.frame = CGRectMake(10, 0, (SCREEN_MAX-30)/2, (SCREEN_MIN - 45-64));
         if (IS_IPHONE_X) {

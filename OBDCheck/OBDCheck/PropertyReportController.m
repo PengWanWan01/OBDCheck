@@ -105,7 +105,7 @@
           [headView addSubview:numberLabel];
         [headView addSubview:titleLabel];
     }
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, TopHigh, MSWidth, MSHeight-TopHigh-44) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-44) style:UITableViewStyleGrouped];
     self.tableView.tableHeaderView = headView;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

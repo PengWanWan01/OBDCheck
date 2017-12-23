@@ -67,9 +67,6 @@
         //翻转为横屏时
           DLog(@"横屏");
         [self setHorizontalFrame];
-      
-     
-
     }
 }
 #pragma mark 竖屏
