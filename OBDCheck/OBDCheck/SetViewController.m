@@ -48,12 +48,12 @@
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
-    tableview.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX-TopHigh);
+    tableview.frame = CGRectMake(0, 1, SCREEN_MIN, SCREEN_MAX-TopHigh);
     lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
-     tableview.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN-TopHigh);
+     tableview.frame = CGRectMake(0, 1, SCREEN_MAX, SCREEN_MIN-TopHigh);
     lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
 }
 //设置样式
@@ -81,7 +81,7 @@
     lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
     lineView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:lineView];
-    tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh) style:UITableViewStyleGrouped];
+    tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 1, MSWidth, MSHeight-TopHigh) style:UITableViewStyleGrouped];
     tableview.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     tableview.delegate = self;
     tableview.dataSource =  self;

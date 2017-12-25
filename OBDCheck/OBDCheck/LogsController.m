@@ -90,14 +90,8 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
+    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
-//    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
-//        //翻转为竖屏时
-//        //        UIInterfaceOrientation
-//        DLog(@"竖屏");
-//        [self setVerticalFrame];
-//    }else
         if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
         DLog(@"横屏");

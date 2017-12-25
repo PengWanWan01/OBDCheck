@@ -11,6 +11,7 @@
 @interface ReportViewController ()<TBarViewDelegate>
 {
     UIView *lineView ;
+    TBarView *tbarView;
 }
 @end
 
@@ -24,6 +25,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initWithData];
+    
+}
+#pragma mark 设置横竖屏布局
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
+     tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
+    }
+    self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight);
+    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
+    if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        //翻转为横屏时
+        DLog(@"横屏");
+        [self setHorizontalFrame];
+    }else{
+        DLog(@"竖屏");
+        [self setVerticalFrame];
+    }
+}
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+    
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
     
 }
 - (void)initWithData{
@@ -53,7 +81,7 @@
     lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
     lineView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:lineView];
-    TBarView *tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
+    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
     if (IS_IPHONE_X) {
         tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
     }
