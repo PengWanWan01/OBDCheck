@@ -70,18 +70,21 @@ static dispatch_source_t _timer;
     [self initWithData];
       DLog(@"000--%f",TopHigh);
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
-    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
-        //翻转为竖屏时
-        DLog(@"竖屏");
-        [self setVerticalFrame];
-//           self.view.transform = CGAffineTransformMakeRotation(-M_PI/2);
-    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+//    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+//        //翻转为竖屏时
+//        DLog(@"竖屏");
+//        [self setVerticalFrame];
+////           self.view.transform = CGAffineTransformMakeRotation(-M_PI/2);
+//    }else
+        if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
         DLog(@"横屏");
         [self setHorizontalFrame];
-
-        
-    }
+        }else{
+            //翻转为竖屏时
+            DLog(@"竖屏");
+            [self setVerticalFrame];
+        }
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{

@@ -49,24 +49,26 @@
     [self initWithData];
     [self initWithUI];
     self.blueTooth = [BlueToothController Instance];
-    self.blueTooth.delegate = self;
-   
-
+    self.blueTooth.delegate = self;   
 }
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     [self.blueView setNeedsLayout];
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
-    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
-        //翻转为竖屏时
-//        UIInterfaceOrientation
-        DLog(@"竖屏");
-          [self setVerticalFrame];
-    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+      DLog(@"**%ld",(long)interfaceOrientation);
+//    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+//        //翻转为竖屏时
+////        UIInterfaceOrientation
+//
+//    }
+    if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
           DLog(@"横屏");
         [self setHorizontalFrame];
+    }else{
+        DLog(@"竖屏");
+        [self setVerticalFrame];
     }
 }
 #pragma mark 竖屏
@@ -199,17 +201,21 @@
     self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
     self.blueView.delegate = self;
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
-    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
-        //翻转为竖屏时
-        DLog(@"竖屏");
-        [self setVerticalFrame];
-    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+//    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+//        //翻转为竖屏时
+//        DLog(@"竖屏");
+//        [self setVerticalFrame];
+//    }else
+        if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
         DLog(@"横屏");
         [self setHorizontalFrame];
-        
-        
-    }
+        }else{
+            //翻转为竖屏时
+            DLog(@"竖屏");
+            [self setVerticalFrame];
+        }
+    
     self.titleBtn= [[RLBtn alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
      self.statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, MSWidth - 86, 40)];
      self.statusLabel.font = [UIFont systemFontOfSize:16.f];

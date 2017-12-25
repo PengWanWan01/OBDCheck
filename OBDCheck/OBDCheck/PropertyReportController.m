@@ -56,18 +56,20 @@
     [self initWithHeadUI];
     self.tableView.frame =  CGRectMake(0, 0, MSWidth, MSHeight-50);
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
-    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
-        //翻转为竖屏时
-        //        UIInterfaceOrientation
-        DLog(@"竖屏");
-        [self setVerticalFrame];
-    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+//    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
+//        //翻转为竖屏时
+//        //        UIInterfaceOrientation
+//        DLog(@"竖屏");
+//        [self setVerticalFrame];
+//    }else
+        if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
         DLog(@"横屏");
         [self setHorizontalFrame];
-        
-        
-    }
+        }else{
+            DLog(@"竖屏");
+            [self setVerticalFrame];
+        }
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
