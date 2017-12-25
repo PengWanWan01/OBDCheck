@@ -30,9 +30,9 @@
     NSDate *VssDownafterDate;
     BOOL isVssDownStart;
     BOOL isVssDowncountStart;
-    NSDate *Distance100Date;
-    BOOL isDistance100Start;
-    BOOL isDistance100End;
+    NSDate *DistanceTestDate;
+    BOOL isDistanceTestStart;
+    BOOL isDistanceTestEnd;
     CGFloat DownDistance;
     CGFloat TotalDistance;
     NSDate  *StartTime;
@@ -44,6 +44,10 @@
 //    DashboardViewStyleB *dashViewB;
     reportModel *reportmodel;
     UIView *lineView ;
+    CGFloat AcceleratedStartSpeed;
+    CGFloat AcceleratedEndSpeed;
+    CGFloat BrakingSpeed;
+    CGFloat DistanceTest;
 }
 @property (nonatomic,strong) UITableView  *tableView;
 @property (nonatomic,strong) NSMutableArray  *dataSource;
@@ -61,6 +65,16 @@
     [super viewDidLoad];
      [self initWithData];
      [self initWithUI];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped)];
+    tap.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tap];
+}
+
+-(void)viewTapped
+{
+    
+    [self.view endEditing:YES];
+
 }
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -80,13 +94,9 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
+    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
+    self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-50);
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
-//    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
-//        //翻转为竖屏时
-//        //        UIInterfaceOrientation
-//        DLog(@"竖屏");
-//        [self setVerticalFrame];
-//    }else
     if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
         DLog(@"横屏");
@@ -98,7 +108,6 @@
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
-    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
       headView.frame =CGRectMake(0, 0, MSWidth, 60+130+ (SCREEN_MIN-110)/2);
      totalTimeLabel.frame = CGRectMake(0, 15, SCREEN_MIN/2, 25);
     vehicleLabel.frame = CGRectMake(35, (SCREEN_MIN-100)/4+CGRectGetMaxY(totalTimeLabel.frame) , (SCREEN_MIN-100)/2, 30);
@@ -109,29 +118,20 @@
     
       startBtn.frame = CGRectMake(40, (SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 120 , (SCREEN_MIN-110)/2, 40);
       reportBtn.frame = CGRectMake((SCREEN_MIN-110)/2 +75, (SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 120  , (SCREEN_MIN-110)/2, 40);
-      self.tableView.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX);
     
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
-    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     headView.frame =CGRectMake(0, 0, SCREEN_MAX, 80+40+ (SCREEN_MIN-110)/2+20);
     totalTimeLabel.frame = CGRectMake(0, 15, SCREEN_MAX/2, 25);
-//  CGRectGetMaxY(totalTimeLabel.frame) + 20
   vehicleLabel.frame = CGRectMake(100, CGRectGetMaxY(totalTimeLabel.frame)+(SCREEN_MIN-100)/4 , (SCREEN_MIN-100)/2, 30);
    rotateLabel.frame =CGRectMake(SCREEN_MAX-100-(SCREEN_MIN-100)/2, CGRectGetMaxY(totalTimeLabel.frame)+(SCREEN_MIN-100)/4 ,  (SCREEN_MIN-100)/2, 30);
-//    [vehicleCirclePath applyTransform:CGAffineTransformMakeTranslation(0, 0)];
-//    vehicleLabel.backgroundColor = [UIColor redColor];
-//    rotateLabel.backgroundColor = [UIColor redColor];
     [self initWithHorizontalCircleUI];
 
     vehicleUnitLabel.frame = CGRectMake(100, CGRectGetMaxY(vehicleLabel.frame), (SCREEN_MIN-100)/2, 30 );
-//    vehicleUnitLabel.backgroundColor = [UIColor redColor];
     rotateUnitLabel.frame = CGRectMake(SCREEN_MAX-100-(SCREEN_MIN-100)/2, CGRectGetMaxY(rotateLabel.frame), (SCREEN_MIN-100)/2, 30 );
-//    rotateUnitLabel.backgroundColor = [UIColor redColor];
      startBtn.frame = CGRectMake(100, (SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 80 , (SCREEN_MIN-110)/2, 40);
       reportBtn.frame = CGRectMake(SCREEN_MAX-100-(SCREEN_MIN-110)/2,(SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 80  , (SCREEN_MIN-110)/2, 40);
-      self.tableView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN-40);
 }
 #pragma mark 竖屏的圆圈
 - (void)initWithVerticalCircleUI{
@@ -202,11 +202,15 @@
     DownDistance = 0;
     TotalDistance = 0;
     GetDataCount = 0;
-    isDistance100Start = YES;
-    isDistance100End = YES;
+    isDistanceTestStart = YES;
+    isDistanceTestEnd = YES;
     reportmodel = [[reportModel alloc]init];
     self.dataSource = [[NSMutableArray alloc]init];
     self.detialDataSource = [[NSMutableArray alloc]init];
+    AcceleratedStartSpeed = 0;
+    AcceleratedEndSpeed = 100;
+    BrakingSpeed = 100;
+    DistanceTest = 100;
 }
 
 - (NSMutableAttributedString *)setAttributed:(NSString *)String withRange:(NSInteger)range{
@@ -253,8 +257,8 @@
     [headView addSubview:startBtn];
     [headView addSubview:reportBtn];
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight) style:UITableViewStylePlain];
-    self.dataSource = [[NSMutableArray alloc]initWithObjects:@"Speed up the test range",@"Braking distance",@"Distance test", nil];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-50) style:UITableViewStylePlain];
+    self.dataSource = [[NSMutableArray alloc]initWithObjects:@"Speed up the test range",@"Braking Speed",@"Distance test", nil];
     self.detialDataSource = [[NSMutableArray alloc]initWithObjects:@"0 -100  km/h",@"100 m",@"100 m", nil];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -340,7 +344,7 @@
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(200, 0, 150, 44)];
         UITextField *StartTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
         StartTextFiled.tag = indexPath.row;
-        StartTextFiled.text = @"0";
+        StartTextFiled.text = [NSString stringWithFormat:@"%.f",AcceleratedStartSpeed];
         StartTextFiled.textColor = [UIColor whiteColor];
         StartTextFiled.textAlignment = NSTextAlignmentCenter;
         StartTextFiled.delegate = self;
@@ -354,7 +358,7 @@
         [view addSubview:lineLabel];
         UITextField *EndTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(60, 0, 50, 44)];
         EndTextFiled.tag = indexPath.row + 1;
-        EndTextFiled.text = @"100";
+        EndTextFiled.text = [NSString stringWithFormat:@"%.f",AcceleratedEndSpeed];
         StartTextFiled.tag = 1;
         EndTextFiled.textColor = [UIColor whiteColor];
         EndTextFiled.textAlignment = NSTextAlignmentCenter;
@@ -372,7 +376,11 @@
     }else{
         UITextField *distanceTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(200, 0, 100, 44)];
         distanceTextFiled.tag = indexPath.row + 1;
-        distanceTextFiled.text = @"100m";
+        if (indexPath.row == 1) {
+            distanceTextFiled.text = [NSString stringWithFormat:@"%.fm",BrakingSpeed];
+        }else{
+           distanceTextFiled.text =  [NSString stringWithFormat:@"%.fm",DistanceTest];
+        }
         distanceTextFiled.textColor = [UIColor whiteColor];
         distanceTextFiled.textAlignment = NSTextAlignmentRight;
         distanceTextFiled.delegate = self;
@@ -469,6 +477,7 @@
    NSString *RotationalStr = [BlueTool isRotational:string];
     DLog(@"%@",VehicleSpeedStr);
     if (!(VehicleSpeedStr == nil)) {
+        vehicleLabel.text = VehicleSpeedStr;
         //得到车速之后，发送转速
         [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
         NSDate *nowDate = [NSDate date]; // 当前日期
@@ -477,6 +486,7 @@
         NSTimeInterval delta = [nowDate timeIntervalSinceDate:StartTime]; // 计算出相差多少秒
         [self showTotalTime:delta]; //计算性能测试开始的时间
         rotateLabel.text = VehicleSpeedStr ;
+        [PID1dataSource addObject:VehicleSpeedStr];
         ++PID1indextag;
          NSInteger index = PID1indextag;
         if (GetDataCount == 0) {
@@ -498,40 +508,52 @@
             [self showTotalDiatance:TotalDistance]; //计算性能测试开始的距离
             preDate = nowDate;
         }
-        //计算0-100m的时间
-        if (TotalDistance >0) {
-            if (isDistance100Start == YES) {
-                Distance100Date = preDate;
-                isDistance100Start = NO;
+        
+ //计算设置的结束距离，0-例如：100m（结束距离） 的时间
+        if (TotalDistance > 0) {
+            if (isDistanceTestStart == YES) {
+                DistanceTestDate = preDate;
+                isDistanceTestStart = NO;
             }
-            if (TotalDistance >= 100 && isDistance100End == YES) {
-               NSTimeInterval delta = [nowDate timeIntervalSinceDate:Distance100Date]; // 计算出相差多少秒
+            if (TotalDistance >= DistanceTest && isDistanceTestEnd == YES) {
+               NSTimeInterval delta = [nowDate timeIntervalSinceDate:DistanceTestDate]; // 计算出相差多少秒
                 [self showTime:delta];
-                isDistance100End = NO;
+                isDistanceTestEnd = NO;
             }
         }
-        if ([VehicleSpeedStr isEqualToString:@"0"]) {
+//计算加速度的开始速度到结束速度的加速度
+        if ([VehicleSpeedStr doubleValue] == AcceleratedStartSpeed) {
             isVssUpStart = YES;
             VssUpbeforeDate = [NSDate date]; // 当前日期
+        }
+        if ([VehicleSpeedStr integerValue]>0) {
+            if ([VehicleSpeedStr doubleValue] >= AcceleratedEndSpeed) {
+                VssUpafterDate =  [NSDate date]; // 当前日期
+                NSTimeInterval delta = [VssUpafterDate timeIntervalSinceDate:VssUpbeforeDate]; // 计算出相差多少秒
+                if (isVssUpStart==YES) {
+                    [self showjiasu:delta];
+                    isVssUpStart = NO;
+                }
+            }
+        }
+        
+    
+        
+//计算刹车的结束速度 到0的 刹车距离与时间
+        if ([VehicleSpeedStr isEqualToString:@"0"]) {
             if (isVssDownStart == YES) {
                 VssDownafterDate =  [NSDate date]; // 当前日期
                 NSTimeInterval delta = [VssDownafterDate timeIntervalSinceDate:VssDownbeforeDate]; // 计算出相差多少秒
                 double space = ([PID1dataSource[--index] doubleValue]+[PID1dataSource[--index] doubleValue])/(2*3.6);
                 DownDistance = DownDistance +space*delta;
-                  [self showDown:DownDistance];
+                  [self showDownDistance:DownDistance];
                 isVssDownStart = NO;
                 isVssDowncountStart = YES;
                 DownDistance = 0;
             }            
         }
     if ([VehicleSpeedStr integerValue]>0) {
-        if ([VehicleSpeedStr integerValue] >= 100) {
-           VssUpafterDate =  [NSDate date]; // 当前日期
-            NSTimeInterval delta = [VssUpafterDate timeIntervalSinceDate:VssUpbeforeDate]; // 计算出相差多少秒
-            if (isVssUpStart==YES) {
-                [self showjiasu:delta];
-                isVssUpStart = NO;
-            }
+        if ([VehicleSpeedStr doubleValue] >= BrakingSpeed) {
             //刹车速度大于100
             isVssDownStart = YES;
             isVssDowncountStart = YES;
@@ -558,6 +580,8 @@
         }
         
     }
+        
+        
     }
     if (!(RotationalStr == nil)) {
       [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
@@ -578,7 +602,7 @@
 - (void)showjiasu:(CGFloat)number{
     reportmodel.reportSpeedUpTime = [NSString stringWithFormat:@"%.2fs",number];
 }
-- (void)showDown:(CGFloat)number{
+- (void)showDownDistance:(CGFloat)number{
     reportmodel.reportSpeedDownDistance = [NSString stringWithFormat:@"%.2fm",number];
 }
 - (void)showTime:(CGFloat)number{
