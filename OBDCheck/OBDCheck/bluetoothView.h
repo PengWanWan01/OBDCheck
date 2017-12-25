@@ -8,9 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface bluetoothView : UIView
+//代理
+@protocol reconnectionDelegate <NSObject>
+@optional
+///重写连接蓝牙
+-(void)reconnectionBlueTooth;
+@end;
 
+@interface bluetoothView : UIView
 - (void)show;
 - (void)hide;
 @property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic , strong) id<reconnectionDelegate> delegate;
+
 @end

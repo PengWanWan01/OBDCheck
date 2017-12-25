@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()<BlueToothControllerDelegate>
+@interface ViewController ()<BlueToothControllerDelegate,reconnectionDelegate>
 {
 
     BOOL isSelect;
@@ -72,29 +72,14 @@
 #pragma mark 竖屏
 - (void)setVerticalFrame{
     lineView.frame =  CGRectMake(0, 0, MSWidth, 0.5);
+    self.backView.hidden = NO;
+    self.scrollView.hidden = YES;
     self.titleBtn.frame = CGRectMake(0, 0, 100, 44);
     self.statusView.frame = CGRectMake(22, 11, SCREEN_MIN - 44, 41);
     self.statusLabel.frame = CGRectMake(10, 0, SCREEN_MIN - 86, 40);
     self.statusLabel.textAlignment = NSTextAlignmentLeft;
     self.statusImageView.frame = CGRectMake(self.statusView.frame.size.width - 70, 10, 24, 20);
     self.roView.frame = CGRectMake(CGRectGetMaxX(self.statusView.frame) - 50, 10, 21, 23);
-    [self.backView removeFromSuperview];
-    [self.scrollView removeFromSuperview];
-    self.backView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame), SCREEN_MIN, SCREEN_MAX - 165)];
-    [self.view addSubview:self.backView];
-    
-    for (int i = 0; i<_btnTitleArray.count; i++) {
-        CGFloat space = IS_IPHONE_4_OR_LESS?20*SCREEN_MAX/667:30*SCREEN_MAX/667;
-        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], 100*SCREEN_MIN/375, 100*SCREEN_MIN/375 + space)];
-        btn.Label.text = _btnTitleArray[i];
-        btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
-        [btn addGestureRecognizer:tap];
-        UIView *singleTapView  = [tap view];
-        singleTapView.tag = i;
-        [self.backView addSubview:btn];
-        DLog(@"%f",btn.frame.size.width);
-    }
     [self.tabarView removeFromSuperview];
     self.tabarView =  [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_MAX - 49-TopHigh, SCREEN_MIN, 49)];
     if (IS_IPHONE_X) {
@@ -135,25 +120,8 @@
 #pragma mark 横屏
 - (void)setHorizontalFrame{
     lineView.frame =  CGRectMake(0, 0, MSWidth, 0.5);
-    [self.backView removeFromSuperview];
-    [self.scrollView removeFromSuperview];
-    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame) + 20, SCREEN_MAX, 100*SCREEN_MIN/375 + 40)];
-    self.scrollView.backgroundColor = [UIColor blueColor];
-    self.scrollView.contentSize = CGSizeMake(60+(100*SCREEN_MIN/375 + 40)*6,0);
-    self.scrollView.pagingEnabled = YES;
-    [self.view addSubview:self.scrollView];
-    for (int i = 0; i<_btnTitleArray.count; i++) {
-        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake(30+(100*SCREEN_MIN/375 + 40)*i,0, 100*SCREEN_MIN/375 - 20, 100*SCREEN_MIN/375 - 20 +40)];
-        btn.Label.text = _btnTitleArray[i];
-        btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
-        [btn.imageView setContentMode:UIViewContentModeScaleToFill];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
-        [btn addGestureRecognizer:tap];
-        UIView *singleTapView  = [tap view];
-        singleTapView.tag = i;
-        [self.scrollView addSubview:btn];
-    }
-    
+    self.backView.hidden = YES;
+    self.scrollView.hidden = NO;
     self.statusView.frame = CGRectMake(50, 16, SCREEN_MAX - 100, 41);
     self.statusLabel.frame =CGRectMake(10, 0, SCREEN_MAX - 100, 40);
     self.statusLabel.textAlignment = NSTextAlignmentCenter;
@@ -229,6 +197,7 @@
     lineView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:lineView];
     self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
+    self.blueView.delegate = self;
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
     if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
         //翻转为竖屏时
@@ -276,7 +245,39 @@
     [self.statusView addSubview:self.statusLabel];
     
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(EveryViewtap)] ];
+    self.backView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame), SCREEN_MIN, SCREEN_MAX - 165)];
+    [self.view addSubview:self.backView];
     
+    for (int i = 0; i<_btnTitleArray.count; i++) {
+        CGFloat space = IS_IPHONE_4_OR_LESS?20*SCREEN_MAX/667:30*SCREEN_MAX/667;
+        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], 100*SCREEN_MIN/375, 100*SCREEN_MIN/375 + space)];
+        btn.Label.text = _btnTitleArray[i];
+        btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+        [btn addGestureRecognizer:tap];
+        UIView *singleTapView  = [tap view];
+        singleTapView.tag = i;
+        [self.backView addSubview:btn];
+        DLog(@"%f",btn.frame.size.width);
+    }
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame) + 20, SCREEN_MAX, 100*SCREEN_MIN/375 + 40)];
+    self.scrollView.backgroundColor = [UIColor blueColor];
+    self.scrollView.contentSize = CGSizeMake(60+(100*SCREEN_MIN/375 + 40)*6,0);
+    self.scrollView.pagingEnabled = YES;
+    [self.view addSubview:self.scrollView];
+    for (int i = 0; i<_btnTitleArray.count; i++) {
+        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake(30+(100*SCREEN_MIN/375 + 40)*i,0, 100*SCREEN_MIN/375 - 20, 100*SCREEN_MIN/375 - 20 +40)];
+        btn.Label.text = _btnTitleArray[i];
+        btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
+        [btn.imageView setContentMode:UIViewContentModeScaleToFill];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+        [btn addGestureRecognizer:tap];
+        UIView *singleTapView  = [tap view];
+        singleTapView.tag = i;
+        [self.scrollView addSubview:btn];
+    }
+    self.backView.hidden = YES;
+    self.scrollView.hidden = YES;
 }
 
 #pragma mark 底部按钮的点击事件
@@ -379,6 +380,13 @@
 //    }
     
 }
+#pragma mark 重新连接蓝牙
+- (void)reconnectionBlueTooth{
+    DLog(@"重链接");
+    [self.blueDataSource removeAllObjects];
+    self.blueTooth = [BlueToothController Instance];
+    self.blueTooth.delegate = self;
+}
 #pragma mark 代理方法获取设备名称
 
 //代理协议，处理信息
@@ -390,6 +398,7 @@
 //        [data addObject:[NSString stringWithFormat:@"%@",info.discoveredPeripheral.name]];
         [self.blueView hide];
     self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
+        self.blueView.delegate = self;
         if (![self.blueDataSource containsObject: info.discoveredPeripheral.name]) {
             [self.blueDataSource addObject: [NSString stringWithFormat:@"%@",info.discoveredPeripheral.name]];
         }

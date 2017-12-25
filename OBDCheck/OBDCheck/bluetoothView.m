@@ -21,6 +21,7 @@
         btn = [[RLBtn alloc]initWithFrame:CGRectMake(MSWidth- 110, 0, 90, 44)];
         [btn setTitle:@"Rescan" forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:@"矢量智能对象"] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(reconnectionBtn) forControlEvents:UIControlEventTouchUpInside];
         btn.alpha = 1;
         [self addSubview:btn];
    
@@ -37,6 +38,12 @@
         [self addSubview:tableView];
     }
     return self;
+}
+- (void)reconnectionBtn{
+    DLog(@"重链接1");
+    if ([self.delegate respondsToSelector:@selector(reconnectionBlueTooth)]) {
+        [self.delegate reconnectionBlueTooth];
+    }
 }
 -(void)setNeedsLayout{
     [super setNeedsLayout];
