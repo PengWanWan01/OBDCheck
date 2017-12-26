@@ -54,7 +54,8 @@
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     [self initWithHeadUI];
-    self.tableView.frame =  CGRectMake(0, 0, MSWidth, MSHeight-50);
+    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
+    self.tableView.frame =  CGRectMake(0, 1, MSWidth, MSHeight-60);
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
         if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
@@ -67,11 +68,9 @@
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
-    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
-    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
 }
 - (void)initWithHeadUI{
     [headView removeFromSuperview];

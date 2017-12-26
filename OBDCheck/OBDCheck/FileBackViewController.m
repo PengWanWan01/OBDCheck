@@ -11,6 +11,7 @@ static dispatch_source_t _timer;
 
 @interface FileBackViewController ()<UITableViewDelegate,UITableViewDataSource,ChartViewDelegate>{
     UIView *LineView;
+    UIView *headView;
     UIScrollView *contentScrollView;
     NSInteger PIDNumber;
     FileInfoView *InfoView ;
@@ -22,6 +23,9 @@ static dispatch_source_t _timer;
     NSInteger indextag;
     UITableView *mytableView;
     UILabel *PlaybackLabel;
+    FileInfoView *TimeView;
+    UIButton *ChartBtn;
+    UIButton *DataBtn;
 }
 @property(nonatomic,strong)NSMutableArray *btnDatasource;
 @property(nonatomic,strong)NSMutableArray *Datasource;
@@ -60,13 +64,15 @@ static dispatch_source_t _timer;
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
+    headView.frame = CGRectMake(0, 0, MSWidth, 40);
+    LineView.frame = CGRectMake(0, 38, MSWidth/2, 2);
+     ChartBtn.frame = CGRectMake(0, 0, MSWidth/2, 40);
+      DataBtn.frame =CGRectMake(MSWidth/2, 0, MSWidth/2, 40);
+ contentScrollView.frame = CGRectMake(0, 40, MSWidth*2, MSHeight);
+    TimeView.frame = CGRectMake(0, 0, MSWidth, 100);
+    PlaybackLabel.frame = CGRectMake(15, CGRectGetMaxY(TimeView.frame)+30, MSWidth-15, 20);
+     mytableView.frame = CGRectMake(MSWidth, 0, MSWidth, MSHeight-100);
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
-//    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
-//        //翻转为竖屏时
-//        //        UIInterfaceOrientation
-//        DLog(@"竖屏");
-//        [self setVerticalFrame];
-//    }else
         if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
         DLog(@"横屏");
@@ -78,13 +84,35 @@ static dispatch_source_t _timer;
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
-    
-    
+    if (self.model.PID1dataSource.count >0) {
+        if (self.model.item3Enabled == YES || self.model.item4Enabled == YES ) {
+            chartViewone.frame =CGRectMake(0, CGRectGetMaxY(PlaybackLabel.frame)+10, MSWidth,170);
+            contentScrollView.contentSize = CGSizeMake(MSWidth,MSHeight+300);
+            chartViewTwo.frame = CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth,170);
+            InfoView.frame = CGRectMake(0, CGRectGetMaxY(chartViewTwo.frame), MSWidth, 100);
+            
+        }else{
+            contentScrollView.contentSize = CGSizeMake(MSWidth,MSHeight+100);
+            chartViewone.frame = CGRectMake(0, CGRectGetMaxY(PlaybackLabel.frame)+10, MSWidth,170);
+            InfoView.frame = CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth, 100);
+        }
+    }
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
-    
-    
+    if (self.model.PID1dataSource.count >0) {
+        if (self.model.item3Enabled == YES || self.model.item4Enabled == YES ) {
+            chartViewone.frame =CGRectMake(0, CGRectGetMaxY(PlaybackLabel.frame)+10, MSWidth,170);
+            contentScrollView.contentSize = CGSizeMake(MSWidth,MSHeight+300);
+            chartViewTwo.frame = CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth,170);
+            InfoView.frame = CGRectMake(0, CGRectGetMaxY(chartViewTwo.frame), MSWidth, 100);
+            contentScrollView.contentSize = CGSizeMake(MSWidth,MSHeight+450);
+        }else{
+            contentScrollView.contentSize = CGSizeMake(MSWidth,MSHeight+250);
+            chartViewone.frame = CGRectMake(0, CGRectGetMaxY(PlaybackLabel.frame)+10, MSWidth,170);
+            InfoView.frame = CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth, 100);
+        }
+    }
 }
 - (void)initWithData{
     self.btnDatasource = [[NSMutableArray alloc]initWithObjects:@"Chart",@"Data", nil];
@@ -97,17 +125,23 @@ static dispatch_source_t _timer;
   
 }
 - (void)initWithTitleView{
-    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 40)];
+    headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 40)];
     headView.backgroundColor = [ColorTools colorWithHexString:@"101010"];
     [self.view addSubview:headView];
-    for (NSInteger i = 0; i< 2; i++) {
-        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*MSWidth/2, 0, MSWidth/2, 40)];
-        [btn setTitle:self.btnDatasource[i] forState:UIControlStateNormal];
-        [btn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
-        btn.tag = i;
-        [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
-        [headView addSubview:btn];
-    }
+    ChartBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, MSWidth/2, 40)];
+    [ChartBtn setTitle:self.btnDatasource[0] forState:UIControlStateNormal];
+    [ChartBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+    ChartBtn.tag = 0;
+    [ChartBtn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
+    [headView addSubview:ChartBtn];
+    
+    DataBtn = [[UIButton alloc]initWithFrame:CGRectMake(MSWidth/2, 0, MSWidth/2, 40)];
+    [DataBtn setTitle:self.btnDatasource[1] forState:UIControlStateNormal];
+    [DataBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+    DataBtn.tag = 1;
+    [DataBtn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
+    [headView addSubview:DataBtn];
+    
     LineView = [[UIView alloc]initWithFrame:CGRectMake(0, 38, MSWidth/2, 2)];
       LineView.backgroundColor = [ColorTools colorWithHexString:@"FE9002"];
     [headView addSubview:LineView];
@@ -126,7 +160,8 @@ static dispatch_source_t _timer;
 #pragma mark 绘制左边Chart界面
 - (void)initWithChartUI{
     //设置Time/Mileage的内容；
-    FileInfoView *TimeView = [[FileInfoView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 100)];
+    
+    TimeView = [[FileInfoView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 100)];
     TimeView.titileLabel.text = @"Time/Mileage";
     TimeView.leftNumberLabel.text = @"0:00:16";
     TimeView.leftNameLabel.text = @"Time";
@@ -144,8 +179,8 @@ static dispatch_source_t _timer;
         if (self.model.item3Enabled == YES || self.model.item4Enabled == YES ) {
             
             [self initWithLogViewTwoPart];
-           InfoView = [[FileInfoView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewTwo.frame), MSWidth, 100)];
-
+            InfoView = [[FileInfoView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewTwo.frame), MSWidth, 100)];
+            
         }else{
             [self initWithLogView];
             InfoView = [[FileInfoView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(chartViewone.frame), MSWidth, 100)];

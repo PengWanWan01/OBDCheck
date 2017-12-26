@@ -57,11 +57,6 @@
     [self.blueView setNeedsLayout];
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
       DLog(@"**%ld",(long)interfaceOrientation);
-//    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
-//        //翻转为竖屏时
-////        UIInterfaceOrientation
-//
-//    }
     if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时
           DLog(@"横屏");
@@ -400,8 +395,6 @@
   
     if (!(info.discoveredPeripheral.name == nil)) {
      DLog(@"得到的设备信息%@:%@",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
-//    NSMutableArray *data = [[NSMutableArray alloc]init];
-//        [data addObject:[NSString stringWithFormat:@"%@",info.discoveredPeripheral.name]];
         [self.blueView hide];
     self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
         self.blueView.delegate = self;
@@ -410,6 +403,7 @@
         }
          self.blueView.dataSource = self.blueDataSource;
         [self.blueView show];
+        self.blueView.hidden = YES;
         DLog(@"得到数据%@",self.blueView.dataSource);
     }
 }

@@ -72,9 +72,7 @@
 
 -(void)viewTapped
 {
-    
-    [self.view endEditing:YES];
-
+        [self.view endEditing:YES];
 }
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -95,7 +93,7 @@
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
-    self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-50);
+    self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-60);
     UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
     if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
         //翻转为横屏时

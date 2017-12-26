@@ -47,7 +47,11 @@
     return self;
 }
 -(void)setNeedsDisplay{
-  [self initView];
+    DLog(@"改变改变改变");
+    
+    _detailLabel.frame=CGRectMake(MSWidth - 110, 0, 80, 44);
+    _accView.frame = CGRectMake(CGRectGetMaxX(_detailLabel.frame)+10 , 15.5, 8, 13);
+    [self initView];
 }
 -(void)initView
 {
