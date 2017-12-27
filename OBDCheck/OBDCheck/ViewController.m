@@ -55,6 +55,7 @@
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     [self.blueView setNeedsLayout];
+    
     if (isLandscape) {
         //翻转为横屏时
           DLog(@"横屏");

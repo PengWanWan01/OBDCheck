@@ -134,8 +134,14 @@
 
     vehicleUnitLabel.frame = CGRectMake(100, CGRectGetMaxY(vehicleLabel.frame), (SCREEN_MIN-100)/2, 30 );
     rotateUnitLabel.frame = CGRectMake(SCREEN_MAX-100-(SCREEN_MIN-100)/2, CGRectGetMaxY(rotateLabel.frame), (SCREEN_MIN-100)/2, 30 );
-     startBtn.frame = CGRectMake(100, (SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 80 , (SCREEN_MIN-110)/2, 40);
-      reportBtn.frame = CGRectMake(SCREEN_MAX-100-(SCREEN_MIN-110)/2,(SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 80  , (SCREEN_MIN-110)/2, 40);
+    if (IS_IPHONE_6P_OR_MORE) {
+        startBtn.frame = CGRectMake(100, (SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 100 , (SCREEN_MIN-110)/2, 40);
+        reportBtn.frame = CGRectMake(SCREEN_MAX-100-(SCREEN_MIN-110)/2,(SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 100  , (SCREEN_MIN-110)/2, 40);
+    }else{
+        startBtn.frame = CGRectMake(100, (SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 80 , (SCREEN_MIN-110)/2, 40);
+        reportBtn.frame = CGRectMake(SCREEN_MAX-100-(SCREEN_MIN-110)/2,(SCREEN_MIN-30)/4+CGRectGetMaxY(totalTimeLabel.frame) + 80  , (SCREEN_MIN-110)/2, 40);
+    }
+   
 }
 #pragma mark 竖屏的圆圈
 - (void)initWithVerticalCircleUI{

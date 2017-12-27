@@ -244,7 +244,11 @@ static dispatch_source_t _timer;
             for (DashboardB *dash in pAllCount) {
                 dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[dash.bg_id intValue]];
                 int page =  [dash.orignx doubleValue]/SCREEN_MIN;
-                dashboardStyleBView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh, [dash.orignwidth doubleValue], [dash.orignheight doubleValue]);
+                if (([dash.orignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
+                dashboardStyleBView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh+15*KFontmultiple, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh+20*KFontmultiple, [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple);
+                }else{
+                    dashboardStyleBView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh+15*KFontmultiple, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh+40*KFontmultiple, [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple);
+                }
                 [dashboardStyleBView setNeedsLayout];
             }
         }
@@ -255,7 +259,11 @@ static dispatch_source_t _timer;
             for (DashboardC *dash in pAllCount) {
                 dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
                 int page =  [dash.orignx doubleValue]/SCREEN_MIN;
-                dashboardStyleCView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh,  [dash.orignwidth doubleValue] , [dash.orignheight doubleValue]);
+                  if (([dash.orignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
+                      dashboardStyleCView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh+15*KFontmultiple, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh+20*KFontmultiple,  [dash.orignwidth doubleValue]-30*KFontmultiple , [dash.orignheight doubleValue]-30*KFontmultiple);
+                  }else{
+                        dashboardStyleCView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh+15*KFontmultiple, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh+40*KFontmultiple,  [dash.orignwidth doubleValue]-30*KFontmultiple , [dash.orignheight doubleValue]-30*KFontmultiple);
+                  }
                 [dashboardStyleCView setNeedsLayout];
             }
         }
