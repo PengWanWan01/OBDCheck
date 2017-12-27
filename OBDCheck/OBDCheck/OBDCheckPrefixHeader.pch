@@ -42,7 +42,7 @@
 #define KHeightmultiple SCREEN_MAX/667
 #define KMultipleC   SCREEN_MIN/320
 #define TopHigh (self.navigationController.navigationBar.frame.size.height +[UIApplication sharedApplication].statusBarFrame.size.height)
-
+#define isLandscape MSHeight<MSWidth
 #
 
 // Include any system framework and library headers here that should be included in all compilation units.

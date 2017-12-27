@@ -72,8 +72,8 @@ static dispatch_source_t _timer;
     TimeView.frame = CGRectMake(0, 0, MSWidth, 100);
     PlaybackLabel.frame = CGRectMake(15, CGRectGetMaxY(TimeView.frame)+30, MSWidth-15, 20);
      mytableView.frame = CGRectMake(MSWidth, 0, MSWidth, MSHeight-100);
-    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
-        if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+  
+        if (isLandscape) {
         //翻转为横屏时
         DLog(@"横屏");
         [self setHorizontalFrame];

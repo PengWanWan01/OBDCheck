@@ -57,8 +57,7 @@ static dispatch_source_t _timer;
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
-    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
-        if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+        if (isLandscape) {
         //翻转为横屏时
         DLog(@"横屏");
         [self setHorizontalFrame];

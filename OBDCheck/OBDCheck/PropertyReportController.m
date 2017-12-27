@@ -56,8 +56,8 @@
     [self initWithHeadUI];
     lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     self.tableView.frame =  CGRectMake(0, 1, MSWidth, MSHeight-60);
-    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
-        if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+
+        if (isLandscape) {
         //翻转为横屏时
         DLog(@"横屏");
         [self setHorizontalFrame];

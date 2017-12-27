@@ -432,18 +432,13 @@ static BlueToothController* instance;
     }else{
         [dataStr appendString:resultStr];
         NSData* xmlData = [dataStr dataUsingEncoding:NSUTF8StringEncoding];
-        
         //调用协议的函数
         if (self.delegate) {
             if ([self.delegate respondsToSelector:@selector(BlueToothEventWithReadData:Data:)]) {
                 [self.delegate BlueToothEventWithReadData:peripheral Data:xmlData];
             }
-            
         }
     }
-    
- 
-    
 }
 
 #pragma mark断开连接

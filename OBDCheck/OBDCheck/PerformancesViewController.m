@@ -48,6 +48,10 @@
     CGFloat AcceleratedEndSpeed;
     CGFloat BrakingSpeed;
     CGFloat DistanceTest;
+    UITextField *StartTextFiled;
+    UITextField *EndTextFiled;
+    UITextField *distanceTextFiled;
+    UITextField *speedTextFiled;
 }
 @property (nonatomic,strong) UITableView  *tableView;
 @property (nonatomic,strong) NSMutableArray  *dataSource;
@@ -60,6 +64,8 @@
     [super viewWillAppear:animated];
     [self initNavBarTitle:@"Performance" andLeftItemImageName:@"back" andRightItemImageName:@""];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -94,8 +100,8 @@
     [super viewDidLayoutSubviews];
     lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-60);
-    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
-    if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+
+    if (isLandscape) {
         //翻转为横屏时
         DLog(@"横屏");
         [self setHorizontalFrame];
@@ -340,7 +346,7 @@
     
     if (indexPath.row == 0) {
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(200, 0, 150, 44)];
-        UITextField *StartTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
+        StartTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
         StartTextFiled.tag = indexPath.row;
         StartTextFiled.text = [NSString stringWithFormat:@"%.f",AcceleratedStartSpeed];
         StartTextFiled.textColor = [UIColor whiteColor];
@@ -354,7 +360,7 @@
         lineLabel.text = @"-";
         lineLabel.textAlignment = NSTextAlignmentCenter;
         [view addSubview:lineLabel];
-        UITextField *EndTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(60, 0, 50, 44)];
+        EndTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(60, 0, 50, 44)];
         EndTextFiled.tag = indexPath.row + 1;
         EndTextFiled.text = [NSString stringWithFormat:@"%.f",AcceleratedEndSpeed];
         StartTextFiled.tag = 1;
@@ -372,19 +378,39 @@
         
           cell.accessoryView = view;
     }else{
-        UITextField *distanceTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(200, 0, 100, 44)];
-        distanceTextFiled.tag = indexPath.row + 1;
+         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(200, 0, 150, 44)];
         if (indexPath.row == 1) {
-            distanceTextFiled.text = [NSString stringWithFormat:@"%.fm",BrakingSpeed];
+            speedTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 110, 44)];
+            speedTextFiled.tag = indexPath.row + 1;
+            speedTextFiled.text = [NSString stringWithFormat:@"%.f",BrakingSpeed];
+            speedTextFiled.textColor = [UIColor whiteColor];
+            speedTextFiled.textAlignment = NSTextAlignmentRight;
+            speedTextFiled.delegate = self;
+            speedTextFiled.keyboardType = UIKeyboardTypeNumberPad;
+            [speedTextFiled addTarget:self action:@selector(textFieldEditChanged:) forControlEvents:UIControlEventEditingChanged];
+            [view addSubview:speedTextFiled];
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(110, 0, 40, 44)];
+            label.text =  @"km/h";
+            label.textColor = [UIColor whiteColor];
+            [view addSubview:label];
+            cell.accessoryView = view;
         }else{
-           distanceTextFiled.text =  [NSString stringWithFormat:@"%.fm",DistanceTest];
+            distanceTextFiled = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 130, 44)];
+            distanceTextFiled.tag = indexPath.row + 1;
+            distanceTextFiled.text =  [NSString stringWithFormat:@"%.f",DistanceTest];
+            distanceTextFiled.textColor = [UIColor whiteColor];
+            distanceTextFiled.textAlignment = NSTextAlignmentRight;
+            distanceTextFiled.delegate = self;
+            distanceTextFiled.keyboardType = UIKeyboardTypeNumberPad;
+            [distanceTextFiled addTarget:self action:@selector(textFieldEditChanged:) forControlEvents:UIControlEventEditingChanged];
+            [view addSubview:distanceTextFiled];
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(130, 0, 20, 44)];
+            label.text =  @"m";
+            label.textColor = [UIColor whiteColor];
+            [view addSubview:label];
+            cell.accessoryView = view;
         }
-        distanceTextFiled.textColor = [UIColor whiteColor];
-        distanceTextFiled.textAlignment = NSTextAlignmentRight;
-        distanceTextFiled.delegate = self;
-        distanceTextFiled.keyboardType = UIKeyboardTypeNumberPad;
-        [distanceTextFiled addTarget:self action:@selector(textFieldEditChanged:) forControlEvents:UIControlEventEditingChanged];
-        cell.accessoryView = distanceTextFiled;
+      
     }
     return cell;
 }
@@ -665,6 +691,49 @@
     [view notifyDataSetChanged];
     DLog(@"updateChartData%ld",(long)linechartdata.entryCount);
     
+}
+#pragma mark 键盘弹出隐藏 界面上移／恢复
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    //获取处于焦点中的view
+    NSArray *textFields = @[StartTextFiled, EndTextFiled,speedTextFiled,distanceTextFiled];
+    UIView *focusView = nil;
+    for (UITextField *view in textFields) {
+        if ([view isFirstResponder]) {
+            focusView = view;
+            break;
+        }
+    }
+    if (focusView) {
+        //获取键盘弹出的时间
+        double duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+        //获取键盘上端Y坐标
+        NSDictionary *userInfo = [notification userInfo];
+        CGFloat keyboardY = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
+        //获取输入框下端相对于window的Y坐标
+        CGRect rect = [focusView convertRect:focusView.bounds toView:[[[UIApplication sharedApplication] delegate] window]];
+        CGPoint tmp = rect.origin;
+        CGFloat inputBoxY = tmp.y + focusView.frame.size.height;
+        //计算二者差值
+        CGFloat ty = keyboardY - inputBoxY;
+        DLog(@"position keyboard: %f, inputbox: %f, ty: %f", keyboardY, inputBoxY, ty);
+        //差值小于0，做平移变换
+        [UIView animateWithDuration:duration animations:^{
+            if (ty < 0) {
+                self.view.transform = CGAffineTransformMakeTranslation(0, ty);
+            }
+        }];
+    }
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    //获取键盘弹出的时间
+    double duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    //还原
+    [UIView animateWithDuration:duration animations:^{
+        self.view.transform = CGAffineTransformMakeTranslation(0, 0);
+    }];
 }
 
 @end

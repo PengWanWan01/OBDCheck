@@ -55,9 +55,7 @@
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     [self.blueView setNeedsLayout];
-    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
-      DLog(@"**%ld",(long)interfaceOrientation);
-    if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+    if (isLandscape) {
         //翻转为横屏时
           DLog(@"横屏");
         [self setHorizontalFrame];
@@ -194,23 +192,7 @@
     lineView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:lineView];
     self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
-    self.blueView.delegate = self;
-    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
-//    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
-//        //翻转为竖屏时
-//        DLog(@"竖屏");
-//        [self setVerticalFrame];
-//    }else
-        if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
-        //翻转为横屏时
-        DLog(@"横屏");
-        [self setHorizontalFrame];
-        }else{
-            //翻转为竖屏时
-            DLog(@"竖屏");
-            [self setVerticalFrame];
-        }
-    
+    self.blueView.delegate = self;    
     self.titleBtn= [[RLBtn alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
      self.statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, MSWidth - 86, 40)];
      self.statusLabel.font = [UIFont systemFontOfSize:16.f];

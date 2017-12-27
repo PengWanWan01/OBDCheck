@@ -64,12 +64,28 @@
     [super viewDidLayoutSubviews];
     lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     self.tableView.frame = CGRectMake(0, 1, MSWidth, MSHeight-TopHigh-49);
+   
+    
+    NSMutableArray *arr = [[NSMutableArray alloc]init];
+    NSInteger sections = self.tableView .numberOfSections;
+    for (int section = 0; section < sections; section++) {
+        NSInteger rows =  [self.tableView  numberOfRowsInSection:section];
+        
+        for (int row = 0; row < rows; row++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+            [arr addObject:indexPath];
+            [self.tableView reloadRowsAtIndexPaths:arr withRowAnimation:UITableViewRowAnimationNone];
+
+        }
+    }
+    
+    
     tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
     if (IS_IPHONE_X) {
         tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
     }
-    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
-    if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
+  
+    if (isLandscape) {
         //翻转为横屏时
         DLog(@"横屏");
         [self setHorizontalFrame];

@@ -33,22 +33,15 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    UIDeviceOrientation interfaceOrientation= [UIDevice currentDevice].orientation;
-//    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
-//        //翻转为竖屏时
-//        DLog(@"竖屏");
-//        [self setVerticalFrame];
-//    }else
-        if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation ==UIDeviceOrientationLandscapeRight) {
-        //翻转为横屏时
-        DLog(@"横屏");
-        [self setHorizontalFrame];
+
+        if (isLandscape) {
+                //翻转为横屏时
+                DLog(@"横屏");
+                [self setHorizontalFrame];
         }else{
-            if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation ==UIDeviceOrientationPortraitUpsideDown) {
                 //翻转为竖屏时
                 DLog(@"竖屏");
                 [self setVerticalFrame];
-            }
         }
 }
 #pragma mark 竖屏
