@@ -48,10 +48,13 @@
     image2.frame = CGRectMake(self.bounds.size.width/2 - 100*KMultipleB, self.bounds.size.width -73.0*KMultipleB , 200.0*KMultipleB,  70.0*KMultipleB);
     view.gradientRadius = self.bounds.size.width;
      innerimage.frame = CGRectMake(43.0*KMultipleB, 43.0*KMultipleB, self.bounds.size.width - 86.0*KMultipleB,  self.bounds.size.width - 86.0*KMultipleB);
-    _NumberLabel.frame = CGRectMake(0,(innerimage.bounds.size.width/2 - 25.0*KMultipleB) , innerimage.bounds.size.width, 60.0);
+    _UnitLabel.frame = CGRectMake(0, 2*innerimage.bounds.size.height/3, innerimage.bounds.size.width, innerimage.bounds.size.height/3);
+    
+    _NumberLabel.frame = CGRectMake(0,innerimage.bounds.size.height/3, innerimage.bounds.size.width, innerimage.bounds.size.height/3);
+    
+    _PIDLabel.frame = CGRectMake(0, 0, innerimage.bounds.size.width, innerimage.bounds.size.height/3);
+    
     _NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:56.0*KMultipleB];
-    _PIDLabel.frame = CGRectMake(0, (25*KMultipleB), innerimage.bounds.size.width, 30.0*KMultipleB);
-    _UnitLabel.frame = CGRectMake(0, (CGRectGetMaxY(_NumberLabel.frame) + 10*KMultipleB), innerimage.bounds.size.width, 24.0*KMultipleB);
     _UnitLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleB];
     [_triangleView removeFromSuperview];
     _triangleView = [[UIView alloc]initWithFrame:CGRectMake(ViewWidth/2 - 30*KMultipleB/2, 7*KMultipleB, 30*KMultipleB, (ViewWidth/2)-7*KMultipleB)];
@@ -258,7 +261,7 @@
     innerimage.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:innerimage];
     
-    _NumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,(innerimage.bounds.size.width/2 - 25.0*KMultipleB)*valuePositon , innerimage.bounds.size.width, 60.0*KMultipleB)];
+    _NumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,innerimage.bounds.size.height/3, innerimage.bounds.size.width, innerimage.bounds.size.height/3)];
      _NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:56.0*KMultipleB*valueFontScale];
   
     _NumberLabel.textColor = [ColorTools colorWithHexString: ValueColor];
@@ -271,13 +274,14 @@
     }else{
     
     }
-    _PIDLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (25*KMultipleB)*titlePositon, innerimage.bounds.size.width, 30.0*KMultipleB)];
+    
+    _PIDLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, innerimage.bounds.size.width, innerimage.bounds.size.height/3)];
     _PIDLabel.font = [UIFont boldSystemFontOfSize:24.0*KMultipleB*titlteFontScale];
     _PIDLabel.textColor =[ColorTools colorWithHexString: titlteColor];
     _PIDLabel.textAlignment = NSTextAlignmentCenter;
     _PIDLabel.text = @"MPH";
        [innerimage addSubview:_PIDLabel];
-    _UnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (CGRectGetMaxY(_NumberLabel.frame) + 10*KMultipleB)*unitPositon, innerimage.bounds.size.width, 24.0*KMultipleB)];
+    _UnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2*innerimage.bounds.size.height/3, innerimage.bounds.size.width, innerimage.bounds.size.height/3)];
     _UnitLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleB*unitFontScale];
     _UnitLabel.textColor =  [ColorTools colorWithHexString:unitColor];
     _UnitLabel.textAlignment = NSTextAlignmentCenter;

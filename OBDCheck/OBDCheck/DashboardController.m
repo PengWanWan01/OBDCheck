@@ -168,7 +168,6 @@ static dispatch_source_t _timer;
                              dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, [dash.dashboardA.orignx floatValue]-page*SCREEN_MIN-TopHigh+40*KFontmultiple, [dash.dashboardA.orignwidth doubleValue]-30*KFontmultiple, [dash.dashboardA.orignheight doubleValue]-30*KFontmultiple)];
                         }
                         [self initWithCustomDashboardAFrame:dash];
-                        
                     }
                     break;
                 case 2:
