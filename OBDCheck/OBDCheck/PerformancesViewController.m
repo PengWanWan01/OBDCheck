@@ -420,21 +420,25 @@
         case 0:
             {
                 DLog(@"开始时间");
+                AcceleratedStartSpeed = [textField.text doubleValue];
             }
             break;
         case 1:
         {
             DLog(@"结束时间");
+               AcceleratedEndSpeed= [textField.text doubleValue];
         }
             break;
         case 2:
         {
-            DLog(@"刹车时间");
+            DLog(@"刹车速度");
+               BrakingSpeed = [textField.text doubleValue];
         }
             break;
         case 3:
         {
-            DLog(@"开始时间");
+            DLog(@"奔跑路程");
+               DistanceTest = [textField.text doubleValue];
         }
             break;
         default:
