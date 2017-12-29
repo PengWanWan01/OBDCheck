@@ -140,35 +140,8 @@
 
 //       DLog(@"innerColor%@",model);
 //    DLog(@"innerColor%@%@",model,model.innerColor);
-     [self addCircleLayer:[model.ringWidth doubleValue] withInnerColor:model.innerColor];
-    
-    [self adddrawPointerVisble:model.PointerVisble PointerWidth:[model.PointerWidth  doubleValue] PointerLength:[model.PointerLength  doubleValue] PointerColor:model.PointerColor KNOBRadius:[model.KNOBRadius doubleValue] KNOBColor:model.KNOBColor withStartAngle:[model.StartAngle doubleValue] withModel:(DashboardA *)model];
-    
-    self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KFontmultiple, (_center.y- 40*KFontmultiple)*[model.titlePosition doubleValue], 120*KFontmultiple, 30*KFontmultiple)];
-    self.infoLabel.textColor = [ColorTools colorWithHexString:model.titleColor];
-    self.infoLabel.textAlignment = NSTextAlignmentCenter;
-    self.infoLabel.font = [UIFont ToAdapFont:[model.titleFontScale doubleValue]*16.f];
-    [self addSubview:self.infoLabel];
-    
-    self.unitLabel = [[UILabel alloc]initWithFrame:CGRectMake(((ViewWidth/2) - 20*KFontmultiple)*[model.UnitHorizontalPosition doubleValue], ((ViewWidth/2)+ 10)*[model.UnitVerticalPosition doubleValue], 40*KFontmultiple, 20*KFontmultiple)];
-    self.unitLabel.text = @"F";
-    self.unitLabel.font = [UIFont ToAdapFont:[model.UnitFontScale doubleValue]*16.f];
-    self.unitLabel.textColor = [ColorTools colorWithHexString:model.UnitColor];
-    self.unitLabel.textAlignment = NSTextAlignmentCenter;
-    [self addSubview:self.unitLabel];
-    [self addSubview:self.unitLabel];
-    self.numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, ViewWidth + 5, ViewWidth, 20)];
-    self.numberLabel.font = [UIFont boldSystemFontOfSize:[model.ValueFontScale doubleValue]*17];
-    self.numberLabel.textColor = [ColorTools colorWithHexString: model.ValueColor];
-    self.numberLabel.textAlignment = NSTextAlignmentCenter;
-    self.numberLabel.text = @"N/A";
-   
-    if (model.ValueVisble==YES) {
-         [self addSubview:self.numberLabel];
-    }else{
-    }
+        [self addCircleLayer:[model.ringWidth doubleValue] withInnerColor:model.innerColor];
 
-    
     CGFloat perAngle = ([model.endAngle doubleValue] - [model.StartAngle doubleValue])  / _dialCount;
     
     if (perAngle< 0) {
@@ -204,7 +177,7 @@
 //        
 //            }
             UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake((point.x - 15), (point.y - 15), 30, 30)];
-            
+            text.backgroundColor  =  [ColorTools colorWithHexString:model.innerColor];
             text.text = tickText;
             text.font = [UIFont systemFontOfSize:[model.LabelFontScale doubleValue]*10.f];
             text.textColor = [UIColor whiteColor];
@@ -238,6 +211,34 @@
         
         
     }
+    
+    [self adddrawPointerVisble:model.PointerVisble PointerWidth:[model.PointerWidth  doubleValue] PointerLength:[model.PointerLength  doubleValue] PointerColor:model.PointerColor KNOBRadius:[model.KNOBRadius doubleValue] KNOBColor:model.KNOBColor withStartAngle:[model.StartAngle doubleValue] withModel:(DashboardA *)model];
+    
+    self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KFontmultiple, (_center.y- 40*KFontmultiple)*[model.titlePosition doubleValue], 120*KFontmultiple, 30*KFontmultiple)];
+    self.infoLabel.textColor = [ColorTools colorWithHexString:model.titleColor];
+    self.infoLabel.textAlignment = NSTextAlignmentCenter;
+    self.infoLabel.font = [UIFont ToAdapFont:[model.titleFontScale doubleValue]*16.f];
+    [self addSubview:self.infoLabel];
+    
+    self.unitLabel = [[UILabel alloc]initWithFrame:CGRectMake(((ViewWidth/2) - 20*KFontmultiple)*[model.UnitHorizontalPosition doubleValue], ((ViewWidth/2)+ 10)*[model.UnitVerticalPosition doubleValue], 40*KFontmultiple, 20*KFontmultiple)];
+    self.unitLabel.text = @"F";
+    self.unitLabel.font = [UIFont ToAdapFont:[model.UnitFontScale doubleValue]*16.f];
+    self.unitLabel.textColor = [ColorTools colorWithHexString:model.UnitColor];
+    self.unitLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:self.unitLabel];
+    [self addSubview:self.unitLabel];
+    self.numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, ViewWidth + 5, ViewWidth, 20)];
+    self.numberLabel.font = [UIFont boldSystemFontOfSize:[model.ValueFontScale doubleValue]*17];
+    self.numberLabel.textColor = [ColorTools colorWithHexString: model.ValueColor];
+    self.numberLabel.textAlignment = NSTextAlignmentCenter;
+    self.numberLabel.text = @"N/A";
+    
+    if (model.ValueVisble==YES) {
+        [self addSubview:self.numberLabel];
+    }else{
+        
+    }
+    
     [self addDrawFillstartAngle:[model.FillstartAngle doubleValue] FillendAngle:[model.FillEndAngle doubleValue] FillColor:model.FillColor withRingWidth:[model.ringWidth doubleValue] withModel:(DashboardA *)model];
     UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:LongPress];

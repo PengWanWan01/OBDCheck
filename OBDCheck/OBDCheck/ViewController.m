@@ -419,7 +419,6 @@
     }
 }
 -(void)NonConnectState{
-    [DashboardSetting sharedInstance].blueState = 0;
     self.statusLabel.text = @"Please connect to the device...";
     [self.statusLabel setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
     [self.titleBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
@@ -428,7 +427,6 @@
     [self.roView rotate360WithDuration:1 repeatCount:600];
 }
 - (void)IsConnectState{
-    [DashboardSetting sharedInstance].blueState = 1;
     [self.titleBtn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
     self.statusLabel.text = @"Connect to the device successfully";
     [self.statusLabel setTextColor:[ColorTools colorWithHexString:@"#FE9002"]];

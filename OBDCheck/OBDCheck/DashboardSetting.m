@@ -129,6 +129,7 @@
     model.miColor = @"FFFFFF";
     model.innerColor = @"18191C";
     model.outerColor = @"18191C";
+    model.PID = @"";
     if (i>=6 && i<8) {
         model.orignx = [NSNumber numberWithFloat:SCREEN_MIN+ SCREEN_MIN/2 - 100];
         model.origny = [NSNumber numberWithFloat:(i -6) * (ScreenHeight/2)+(ScreenHeight/2 - 240)];
@@ -208,7 +209,7 @@
        model.orignheight = [NSNumber numberWithFloat:150*KFontmultiple];
    }
    
-    
+    model.PID = @"";
     model.minNumber = @"0";
     model.maxNumber = @"100";
     model.infoLabeltext = @"add";
@@ -263,7 +264,7 @@
         model.orignheight = [NSNumber numberWithFloat:150*KFontmultiple];
     }
    
-    
+    model.PID = @"";
     model.minNumber = @"0";
     model.maxNumber = @"100";
     model.infoLabeltext = @"add";

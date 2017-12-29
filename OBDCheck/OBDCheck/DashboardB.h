@@ -37,4 +37,6 @@
 @property (nonatomic,strong) NSNumber *orignheight; //坐标X轴
 @property (nonatomic,copy) NSString *minNumber;  //最小值
 @property (nonatomic,copy) NSString *maxNumber;  //最大值
+@property (nonatomic,copy) NSString *PID;  //PID的值
+
 @end

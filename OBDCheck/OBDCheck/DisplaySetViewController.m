@@ -99,6 +99,14 @@
     [MyTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
     [self.view addSubview:MyTableView];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped)];
+    tap.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tap];
+}
+
+-(void)viewTapped
+{
+    [self.view endEditing:YES];
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

@@ -149,6 +149,7 @@ static dispatch_source_t _timer;
     lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     scrollView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN);
     scrollView.contentSize = CGSizeMake(SCREEN_MAX*[DashboardSetting sharedInstance].KPageNumer,0);
+    scrollView.pagingEnabled = YES;
      pageControl.frame = CGRectMake(0, SCREEN_MIN- TopHigh -20, SCREEN_MAX, 30);
    
     if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
@@ -184,7 +185,7 @@ static dispatch_source_t _timer;
                     int page =  [dash.dashboardC.orignx doubleValue]/SCREEN_MIN;
                     DLog(@"333====%d",page);
                     dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
-                    dashboardStyleCView.frame = CGRectMake([dash.dashboardC.origny floatValue]+page*SCREEN_MAX+TopHigh, [dash.dashboardC.orignx floatValue]-page*SCREEN_MIN-TopHigh,  [dash.dashboardC.orignwidth doubleValue] , [dash.dashboardC.orignheight doubleValue]);
+                    dashboardStyleCView.frame = CGRectMake([dash.dashboardC.origny floatValue]+page*SCREEN_MAX+TopHigh+15*KFontmultiple, [dash.dashboardC.orignx floatValue]-page*SCREEN_MIN-TopHigh+20*KFontmultiple,  [dash.dashboardC.orignwidth doubleValue]-30*KFontmultiple , [dash.dashboardC.orignheight doubleValue]-30*KFontmultiple);
                     [dashboardStyleCView setNeedsLayout];
                     
                 }
@@ -324,6 +325,9 @@ static dispatch_source_t _timer;
     dashboardStyleAView.infoLabel.text = _CustomLabelArray[[customDashboard.bg_id integerValue]  - 1];
     dashboardStyleAView.numberLabel.text = _CustomNumberArray[[customDashboard.bg_id integerValue]  - 1];
     customDashboard.dashboardA.infoLabeltext = dashboardStyleAView.infoLabel.text;
+    if ([customDashboard.dashboardA.infoLabeltext isEqualToString:@"RPM"]) {
+        customDashboard.dashboardA.maxNumber = [NSString stringWithFormat:@"1000"] ;
+    }
     [customDashboard bg_saveOrUpdate];
     [scrollView addSubview:dashboardStyleAView];
     [self MoveDashboard: dashboardStyleAView.tag];
@@ -770,6 +774,9 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             dashboardStyleBView.PIDLabel.text = _CustomLabelArray[DashBoardTag-1];
             dashboardStyleBView.NumberLabel.text = _CustomNumberArray[DashBoardTag-1];
             dash.dashboardB.infoLabeltext = dashboardStyleBView.PIDLabel.text;
+            if ([dash.dashboardB.infoLabeltext isEqualToString:@"RPM"]) {
+                dash.dashboardB.maxNumber = [NSString stringWithFormat:@"1000"] ;
+            }
             [dash bg_saveOrUpdate];
             [scrollView addSubview:dashboardStyleBView];
             [self MoveDashboard: dashboardStyleBView.tag];
@@ -783,6 +790,9 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             dashboardStyleCView.PIDLabel.text = _CustomLabelArray[DashBoardTag-1];
             dashboardStyleCView.NumberLabel.text = _CustomNumberArray[DashBoardTag-1];
             dash.dashboardC.infoLabeltext = dashboardStyleCView.PIDLabel.text;
+            if ([dash.dashboardA.infoLabeltext isEqualToString:@"RPM"]) {
+                dash.dashboardA.maxNumber = [NSString stringWithFormat:@"1000"] ;
+            }
             [dash bg_saveOrUpdate];
             [scrollView addSubview:dashboardStyleCView];
             [self MoveDashboard: dashboardStyleAView.tag];
