@@ -23,6 +23,9 @@
         self.reportSpeedDownTime = @"--";
         self.reportMaxAcceleration = @"--";
         self.reportPeakHorsepower = @"--";
+        self.reportAccelerationTest = @"0-100 km/h";
+        self.reportDistanceTest = @"0-100m Time";
+        self.reportBrakingSpeed = @"Braking(100-0km/h)";
     }
     return self;
 }

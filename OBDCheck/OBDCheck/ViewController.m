@@ -49,13 +49,18 @@
     [self initWithData];
     [self initWithUI];
     self.blueTooth = [BlueToothController Instance];
-    self.blueTooth.delegate = self;   
+    self.blueTooth.delegate = self;
+  
 }
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     [self.blueView setNeedsLayout];
-    
+    if ([DashboardSetting sharedInstance].blueState == 1) {
+        [self IsConnectState];
+    }else{
+        [self NonConnectState];
+    }
     if (isLandscape) {
         //翻转为横屏时
           DLog(@"横屏");
@@ -244,10 +249,12 @@
         [self.backView addSubview:btn];
         DLog(@"%f",btn.frame.size.width);
     }
-    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame) + 20, SCREEN_MAX, 100*SCREEN_MIN/375 + 40)];
-    self.scrollView.backgroundColor = [UIColor blueColor];
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame) + 30, SCREEN_MAX, 100*SCREEN_MIN/375 + 40)];
+//    self.scrollView.backgroundColor = [UIColor blueColor];
     self.scrollView.contentSize = CGSizeMake(60+(100*SCREEN_MIN/375 + 40)*6,0);
-    self.scrollView.pagingEnabled = YES;
+//    self.scrollView.pagingEnabled = YES;
+    self.scrollView.showsVerticalScrollIndicator = NO;
+    self.scrollView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:self.scrollView];
     for (int i = 0; i<_btnTitleArray.count; i++) {
         OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake(30+(100*SCREEN_MIN/375 + 40)*i,0, 100*SCREEN_MIN/375 - 20, 100*SCREEN_MIN/375 - 20 +40)];
@@ -354,15 +361,12 @@
 - (void)LinkBlueTooth{
 //    if (isSelect) {
 //        DLog(@"12");
-       [ self.blueView show];
-     self.blueView.hidden = NO;
-//        isSelect = NO;
-//    }else{
-//        DLog(@"13");
-//        [ self.blueView hide];
-//        isSelect = YES;
-//    }
-    
+    DLog(@"%@",self.blueTooth.arrayBLE)
+    [self.blueView hide];
+    self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
+    self.blueView.delegate = self;
+     self.blueView.dataSource = self.blueTooth.arrayBLE;
+        [self.blueView show];    
 }
 #pragma mark 重新连接蓝牙
 - (void)reconnectionBlueTooth{
@@ -378,16 +382,11 @@
   
     if (!(info.discoveredPeripheral.name == nil)) {
      DLog(@"得到的设备信息%@:%@",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
-        [self.blueView hide];
-    self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
-        self.blueView.delegate = self;
-        if (![self.blueDataSource containsObject: info.discoveredPeripheral.name]) {
-            [self.blueDataSource addObject: [NSString stringWithFormat:@"%@",info.discoveredPeripheral.name]];
-        }
-         self.blueView.dataSource = self.blueDataSource;
-        [self.blueView show];
-        self.blueView.hidden = YES;
-        DLog(@"得到数据%@",self.blueView.dataSource);
+//        if (![self.blueDataSource containsObject: info.discoveredPeripheral.name]) {
+//            [self.blueDataSource addObject: [NSString stringWithFormat:@"%@",info.discoveredPeripheral.name]];
+//        }
+//         self.blueView.dataSource = self.blueDataSource;
+//        DLog(@"得到数据%@",self.blueView.dataSource);
     }
 }
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
@@ -455,6 +454,7 @@
         case BlueToothStateConnect:
         {
             DLog(@"连接成功状态");
+            [self IsConnectState];
             sendNumber = 0;
             [self.blueTooth SendData:[BlueTool hexToBytes:@"415448310D"]];
         }

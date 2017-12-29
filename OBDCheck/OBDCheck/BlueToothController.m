@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 com.Autophix.T100. All rights reserved.
 //
 #define BLUENAME @"CARAPP V100"
+#define BLUENAME2 @"Autophix"
 //CARAPP V100 Autophix
 //FFE0 FFE1
 //49535343-FE7D-4AE5-8FA9-9FAFD205E455
@@ -157,7 +158,7 @@ static BlueToothController* instance;
         [self.delegate getDeviceInfo:info];
     }
     //如果名字为Autophix，则连接并且保存返回yes
-    if ([info.discoveredPeripheral.name isEqualToString:BLUENAME]) {
+    if ([info.discoveredPeripheral.name isEqualToString:BLUENAME] || [info.discoveredPeripheral.name isEqualToString:BLUENAME2] ) {
         //连接蓝牙
         if (![self ConnectBlueTooth:info.discoveredPeripheral]) {
             DLog(@"蓝牙连接失败！");
@@ -165,12 +166,11 @@ static BlueToothController* instance;
         }
         else
         {
-            [self.arrayBLE addObject:info];
+            [self.arrayBLE addObject:info.discoveredPeripheral.name];
+            [DashboardSetting sharedInstance].blueState = 1;
             DLog(@"蓝牙连接成功！连接上设备名为：%@，UUID为%@的设备",info.discoveredPeripheral.name,info.discoveredPeripheral.identifier.UUIDString);
         }
     }
-    
-    
     return YES;
     
 }
@@ -206,6 +206,7 @@ static BlueToothController* instance;
 -(void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     DLog(@"蓝牙断开了链接！！开始重新搜索!!");
+    [DashboardSetting sharedInstance].blueState = 0;
     //断开连接协议
     if (self.delegate) {
         @try {

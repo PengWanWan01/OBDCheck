@@ -48,12 +48,9 @@
     image2.frame = CGRectMake(self.bounds.size.width/2 - 100*KMultipleB, self.bounds.size.width -73.0*KMultipleB , 200.0*KMultipleB,  70.0*KMultipleB);
     view.gradientRadius = self.bounds.size.width;
      innerimage.frame = CGRectMake(43.0*KMultipleB, 43.0*KMultipleB, self.bounds.size.width - 86.0*KMultipleB,  self.bounds.size.width - 86.0*KMultipleB);
-    _UnitLabel.frame = CGRectMake(0, 2*innerimage.bounds.size.height/3, innerimage.bounds.size.width, innerimage.bounds.size.height/3);
-    
+    _UnitLabel.frame = CGRectMake(0, 2*innerimage.bounds.size.height/3, innerimage.bounds.size.width, innerimage.bounds.size.height/3);    
     _NumberLabel.frame = CGRectMake(0,innerimage.bounds.size.height/3, innerimage.bounds.size.width, innerimage.bounds.size.height/3);
-    
     _PIDLabel.frame = CGRectMake(0, 0, innerimage.bounds.size.width, innerimage.bounds.size.height/3);
-    
     _NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:56.0*KMultipleB];
     _UnitLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleB];
     [_triangleView removeFromSuperview];

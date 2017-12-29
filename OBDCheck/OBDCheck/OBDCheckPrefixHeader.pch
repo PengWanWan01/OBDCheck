@@ -162,5 +162,6 @@
 #import "Setting.h"
 #import "FeedbackDocumentController.h"
 #import "TheBasicViewController.h"
+#import <Bugly/Bugly.h>
 
 #endif /* OBDCheckPrefixHeader_pch */

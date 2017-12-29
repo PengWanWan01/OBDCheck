@@ -11,12 +11,12 @@
 @interface AppDelegate ()
 
 @end
-
+//30db6bc187  App ID
+//b4d0a0f7-15a6-468a-9e80-753e6367a249 App Key
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+      [Bugly startWithAppId:@"30db6bc187"];
     NSUserDefaults *TimeOfBootCount = [NSUserDefaults standardUserDefaults];
     if (![TimeOfBootCount valueForKey:@"time"]) {
         [TimeOfBootCount setValue:@"sd" forKey:@"time"];
