@@ -149,7 +149,8 @@
         model.orignwidth = [NSNumber numberWithFloat:150*KFontmultiple];
         model.orignheight = [NSNumber numberWithFloat:150*KFontmultiple +20];
     }
-    model.PointerLength = [NSNumber numberWithFloat:([model.orignwidth integerValue]/2) - 15 - 14];
+//    model.PointerLength = [NSNumber numberWithFloat:([model.orignwidth integerValue]/2) - 15 - 14];
+      model.PointerLength = [NSNumber numberWithFloat:1];
     model.minNumber = @"0";
     model.maxNumber = @"100";
     model.infoLabeltext = @"add";
@@ -292,40 +293,36 @@
 - (void)CustomDashboardType:(AddDashboardStyle)type withTag:(NSInteger)i{
     
     CustomDashboard *model = [CustomDashboard new ];
+    DashboardA *dashA = [DashboardA new];
+    [self initADDdashboardA:dashA withTag:i ];
+    DashboardB *dashB = [DashboardB new];
+    [self initADDdashboardB:dashB withTag:i];
+    model.dashboardB = dashB;
+    model.dashboardA = dashA;
+    DashboardC *dashC = [DashboardC new];
+    [self initADDdashboardC:dashC withTag:i];
+    model.dashboardC = dashC;
+    
     switch (type) {
         case AddStyleOne:
         {
-            DashboardA *dashA = [DashboardA new];
-            [self initADDdashboardA:dashA withTag:i ];
-            model.dashboardA = dashA;
             model.dashboardType = 1;
-            [model bg_saveOrUpdate];
         }
             break;
         case AddStyleTwo:
         {
-            DashboardB *dashB = [DashboardB new];
-            [self initADDdashboardB:dashB withTag:i];
-            model.dashboardB = dashB;
             model.dashboardType = 2;
-            [model bg_saveOrUpdate];
-
         }
             break;
         case AddStyleThree:
         {
-            DashboardC *dashC = [DashboardC new];
-            [self initADDdashboardC:dashC withTag:i];
-            model.dashboardC = dashC;
             model.dashboardType = 3;
-            [model bg_saveOrUpdate];
-
         }
             break;
         default:
             break;
     }
-
+    [model bg_saveOrUpdate];
     
 }
 @end

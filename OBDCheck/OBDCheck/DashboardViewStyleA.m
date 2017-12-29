@@ -217,7 +217,8 @@
     self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KFontmultiple, (_center.y- 40*KFontmultiple)*[model.titlePosition doubleValue], 120*KFontmultiple, 30*KFontmultiple)];
     self.infoLabel.textColor = [ColorTools colorWithHexString:model.titleColor];
     self.infoLabel.textAlignment = NSTextAlignmentCenter;
-    self.infoLabel.font = [UIFont ToAdapFont:[model.titleFontScale doubleValue]*16.f];
+//    self.infoLabel.font = [UIFont ToAdapFont:[model.titleFontScale doubleValue]*16.f];
+    self.infoLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:self.infoLabel];
     
     self.unitLabel = [[UILabel alloc]initWithFrame:CGRectMake(((ViewWidth/2) - 20*KFontmultiple)*[model.UnitHorizontalPosition doubleValue], ((ViewWidth/2)+ 10)*[model.UnitVerticalPosition doubleValue], 40*KFontmultiple, 20*KFontmultiple)];
@@ -291,7 +292,7 @@
 - (void)adddrawPointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor withStartAngle:(CGFloat )TheAngle withModel:(DashboardA *)model{
 
     
-    _triangleView= [[UIView alloc]initWithFrame:CGRectMake(((ViewWidth/2) - (pointerWidth/2)), (ViewWidth/2), pointerWidth,pointerLength)];
+    _triangleView= [[UIView alloc]initWithFrame:CGRectMake(((ViewWidth/2) - (pointerWidth/2)), (ViewWidth/2), pointerWidth,((ViewWidth/2)-20)*pointerLength)];
     CGPoint oldOrigin = _triangleView.frame.origin;
     //设置triangleView的角度与开始位置一直
     _triangleView.layer.anchorPoint = CGPointMake(0.5, 0);
@@ -310,7 +311,7 @@
     
     // 这些点的位置都是相对于所在视图的
     // 起点
-    [polygonPath moveToPoint:CGPointMake(pointerWidth/2,pointerLength)];
+    [polygonPath moveToPoint:CGPointMake(pointerWidth/2,((ViewWidth/2)-20)*pointerLength)];
     // 其他点
     [polygonPath addLineToPoint:CGPointMake(0, 0)];
     [polygonPath addLineToPoint:CGPointMake(pointerWidth, 0)];

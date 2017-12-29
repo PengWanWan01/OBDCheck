@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 com.Autophix.T100. All rights reserved.
 //
 #define BLUENAME @"CARAPP V100"
-#define BLUENAME2 @"Autophix"
+#define BLUENAME2 @""
 //CARAPP V100 Autophix
 //FFE0 FFE1
 //49535343-FE7D-4AE5-8FA9-9FAFD205E455

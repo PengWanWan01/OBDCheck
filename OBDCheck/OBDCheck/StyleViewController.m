@@ -764,7 +764,7 @@
                         case 2:
                         {
                             StyleOneCell.NumberSider.minimumValue = 0;
-                            StyleOneCell.NumberSider.maximumValue =  75*KFontmultiple;
+                            StyleOneCell.NumberSider.maximumValue =  1;
                             StyleOneCell.NumberSider.value  = [model.PointerLength floatValue];
                             StyleOneCell.NumberSider.tag = 16;
 

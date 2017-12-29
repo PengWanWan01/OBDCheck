@@ -78,6 +78,7 @@ static dispatch_source_t _timer;
             DLog(@"竖屏");
             [self setVerticalFrame];
         }
+      [self moveFoneView];
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
@@ -701,7 +702,6 @@ static dispatch_source_t _timer;
             [self addDashboard];
             [DashboardSetting sharedInstance].isAddDashboard = NO;
         }
-        [self moveFoneView];
 
     }else{
         switch ([DashboardSetting sharedInstance].dashboardStyle) {
@@ -1055,8 +1055,9 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             switch (dashboard.dashboardType) {
                 case 1:
                 {
+                    NSLog(@"1212");
                     DashboardView *view = (DashboardView *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-                    [[view superview] bringSubviewToFront:view];
+                       [scrollView bringSubviewToFront:view];                    
                 }
                     break;
                 case 2:
@@ -1074,7 +1075,7 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 default:
                     break;
             }
-            [DashboardSetting sharedInstance].isDashboardFont = NO;
+//            [DashboardSetting sharedInstance].isDashboardFont = NO;
     }
     }
 }
