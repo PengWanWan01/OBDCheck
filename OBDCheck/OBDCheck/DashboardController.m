@@ -40,26 +40,7 @@ static dispatch_source_t _timer;
     [self initNavBarTitle:@"Dashboards" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     self.navigationController.navigationBar.hidden = NO;
-    [UIApplication sharedApplication].statusBarHidden = NO;
-
-    if([[UIDevice currentDevice]respondsToSelector:@selector(setOrientation:)]) {
-        
-        SEL selector = NSSelectorFromString(@"setOrientation:");
-        
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
-        
-        [invocation setSelector:selector];
-        
-        [invocation setTarget:[UIDevice currentDevice]];
-        
-        int val = UIInterfaceOrientationPortrait;//竖屏
-        
-        [invocation setArgument:&val atIndex:2];
-        
-        [invocation invoke];
-        
-    }
-   
+    [UIApplication sharedApplication].statusBarHidden = NO;   
     [self updateView];
     [self startAnimation];
 
