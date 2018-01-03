@@ -146,9 +146,16 @@ static dispatch_source_t _timer;
                         [dashboardStyleAView removeFromSuperview];
                 if (([dash.dashboardA.orignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
                     DLog(@"111111");
-                   dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, [dash.dashboardA.orignx floatValue]-page*SCREEN_MIN-TopHigh+20*KFontmultiple, [dash.dashboardA.orignwidth doubleValue]-30*KFontmultiple, [dash.dashboardA.orignheight doubleValue]-30*KFontmultiple)];
+                    //竖屏时候左边的一排仪表盘
+                           dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.dashboardA.orignx floatValue]-page*SCREEN_MIN+20*KFontmultiple)-([dash.dashboardA.orignheight doubleValue]-30*KFontmultiple), [dash.dashboardA.orignwidth doubleValue]-30*KFontmultiple, [dash.dashboardA.orignheight doubleValue]-30*KFontmultiple)];
                         }else{
-                             dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, [dash.dashboardA.orignx floatValue]-page*SCREEN_MIN-TopHigh+40*KFontmultiple, [dash.dashboardA.orignwidth doubleValue]-30*KFontmultiple, [dash.dashboardA.orignheight doubleValue]-30*KFontmultiple)];
+                    //  //竖屏时候左边的一排仪表盘，6P以上的大屏进行特殊适配
+                            if (IS_IPHONE_6P_OR_MORE) {
+                                DLog(@"121");
+                                 dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.dashboardA.orignx floatValue]-page*SCREEN_MIN+45*KFontmultiple)-([dash.dashboardA.orignheight doubleValue]-30*KFontmultiple), [dash.dashboardA.orignwidth doubleValue]-30*KFontmultiple, [dash.dashboardA.orignheight doubleValue]-30*KFontmultiple)];
+                            }else{
+                                dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.dashboardA.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.dashboardA.orignx floatValue]-page*SCREEN_MIN+40*KFontmultiple)-([dash.dashboardA.orignheight doubleValue]-30*KFontmultiple), [dash.dashboardA.orignwidth doubleValue]-30*KFontmultiple, [dash.dashboardA.orignheight doubleValue]-30*KFontmultiple)];
+                            }
                         }
                         [self initWithCustomDashboardAFrame:dash];
                     }
@@ -212,9 +219,16 @@ static dispatch_source_t _timer;
                       int page =  [dash.orignx doubleValue]/SCREEN_MIN;
                     if (([dash.orignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
                         DLog(@"111111");
-                        dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh+20*KFontmultiple, [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple)];
+                          //竖屏时候左边的一排仪表盘
+                        dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -( [dash.orignx floatValue]-page*SCREEN_MIN+20*KFontmultiple)-([dash.orignheight doubleValue]-30*KFontmultiple), [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple)];
                     }else{
-                        dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh+40*KFontmultiple, [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple)];
+                        //  //竖屏时候左边的一排仪表盘，6P以上的大屏进行特殊适配
+                        if (IS_IPHONE_6P_OR_MORE) {
+                            DLog(@"121");
+                              dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.orignx floatValue]-page*SCREEN_MIN+45*KFontmultiple)-([dash.orignheight doubleValue]-30*KFontmultiple), [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple)];
+                        }else{
+                            dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.origny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN-([dash.orignx floatValue]-page*SCREEN_MIN+40*KFontmultiple)-([dash.orignheight doubleValue]-30*KFontmultiple), [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple)];
+                        }
                     }
                      [self initwithDashboardAFrame:dash];
                 }
@@ -227,9 +241,14 @@ static dispatch_source_t _timer;
                 dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[dash.bg_id intValue]];
                 int page =  [dash.orignx doubleValue]/SCREEN_MIN;
                 if (([dash.orignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
-                dashboardStyleBView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh+15*KFontmultiple, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh+20*KFontmultiple, [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple);
+                dashboardStyleBView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh+15*KFontmultiple, SCREEN_MIN-([dash.orignx floatValue]-page*SCREEN_MIN+25*KFontmultiple)-( [dash.orignheight doubleValue]-30*KFontmultiple), [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple);
                 }else{
-                    dashboardStyleBView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh+15*KFontmultiple, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh+40*KFontmultiple, [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple);
+                    if (IS_IPHONE_6P_OR_MORE) {
+                        DLog(@"121");
+                          dashboardStyleBView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh+15*KFontmultiple, SCREEN_MIN-([dash.orignx floatValue]-page*SCREEN_MIN+50*KFontmultiple)-([dash.orignheight doubleValue]-30*KFontmultiple), [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple);
+                    }else{
+                        dashboardStyleBView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh+15*KFontmultiple, SCREEN_MIN-([dash.orignx floatValue]-page*SCREEN_MIN+45*KFontmultiple)-([dash.orignheight doubleValue]-30*KFontmultiple), [dash.orignwidth doubleValue]-30*KFontmultiple, [dash.orignheight doubleValue]-30*KFontmultiple);
+                    }
                 }
                 [dashboardStyleBView setNeedsLayout];
             }
@@ -242,9 +261,15 @@ static dispatch_source_t _timer;
                 dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[dash.bg_id intValue]];
                 int page =  [dash.orignx doubleValue]/SCREEN_MIN;
                   if (([dash.orignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
-                      dashboardStyleCView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh+15*KFontmultiple, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh+20*KFontmultiple,  [dash.orignwidth doubleValue]-30*KFontmultiple , [dash.orignheight doubleValue]-30*KFontmultiple);
+                      dashboardStyleCView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh+15*KFontmultiple, SCREEN_MIN-([dash.orignx floatValue]-page*SCREEN_MIN+25*KFontmultiple)-([dash.orignheight doubleValue]-30*KFontmultiple),  [dash.orignwidth doubleValue]-30*KFontmultiple , [dash.orignheight doubleValue]-30*KFontmultiple);
                   }else{
-                        dashboardStyleCView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh+15*KFontmultiple, [dash.orignx floatValue]-page*SCREEN_MIN-TopHigh+40*KFontmultiple,  [dash.orignwidth doubleValue]-30*KFontmultiple , [dash.orignheight doubleValue]-30*KFontmultiple);
+                      if (IS_IPHONE_6P_OR_MORE) {
+                          DLog(@"121");
+                           dashboardStyleCView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh+15*KFontmultiple, SCREEN_MIN-([dash.orignx floatValue]-page*SCREEN_MIN+50*KFontmultiple)-([dash.orignheight doubleValue]-30*KFontmultiple),  [dash.orignwidth doubleValue]-30*KFontmultiple , [dash.orignheight doubleValue]-30*KFontmultiple);
+                      }
+                      else{
+                          dashboardStyleCView.frame = CGRectMake([dash.origny floatValue]+page*SCREEN_MAX+TopHigh+15*KFontmultiple, SCREEN_MIN-([dash.orignx floatValue]-page*SCREEN_MIN+45*KFontmultiple)-([dash.orignheight doubleValue]-30*KFontmultiple),  [dash.orignwidth doubleValue]-30*KFontmultiple , [dash.orignheight doubleValue]-30*KFontmultiple);
+                      }
                   }
                 [dashboardStyleCView setNeedsLayout];
             }

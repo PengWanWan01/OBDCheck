@@ -60,7 +60,10 @@
     //    [super prefersStatusBarHidden];
     return NO;
 }
-
+- (void)back{
+    ViewController *vc = [[ViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 //设置隐藏动画
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
     return UIStatusBarAnimationNone;
