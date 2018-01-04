@@ -12,7 +12,7 @@
 
 - (void)initNavBarTitle:(NSString *)titleName andLeftItemImageName:(NSString *)leftItemImageName andRightItemImageName:(NSString *)rightItemImageName
 {
-  
+    [self backGesture];
     [self initNavBarTitle:titleName andLeftItemImageName:leftItemImageName andRightItemName:@""];
     
     if (![rightItemImageName isEqualToString:@""]) {
@@ -28,6 +28,7 @@
 
 - (void)initNavBarTitle:(NSString *)titleName andLeftItemImageName:(NSString *)leftItemImageName andRightItemName:(NSString *)rightItemName
 {
+      [self backGesture];
     if (![leftItemImageName isEqualToString:@""]) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
 
