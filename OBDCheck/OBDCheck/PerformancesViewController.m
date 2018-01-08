@@ -7,6 +7,7 @@
 //
 
 #import "PerformancesViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface PerformancesViewController ()<ChartViewDelegate,BlueToothControllerDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {
@@ -43,7 +44,6 @@
     UILabel *totalDistanceLabel;
 //    DashboardViewStyleB *dashViewB;
     reportModel *reportmodel;
-    UIView *lineView ;
     CGFloat AcceleratedStartSpeed;
     CGFloat AcceleratedEndSpeed;
     CGFloat BrakingSpeed;
@@ -98,7 +98,6 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-60);
 
     if (isLandscape) {
@@ -230,9 +229,6 @@
     return resultStr;
 }
 - (void)initWithUI{
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:lineView];
     headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, 80+130+ (SCREEN_MIN-110)/2)];
 //    headView.backgroundColor = [UIColor goldColor];
     [self.view addSubview:headView];
@@ -468,6 +464,7 @@
     [self.navigationController pushViewController:vc animated:NO];
     
 }
+
 //- (void)rightBarButtonClick{
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //        DLog(@"停止停止");

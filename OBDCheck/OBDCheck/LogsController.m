@@ -34,7 +34,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      NSInteger PID4indextag;
      BOOL isSave;
      TBarView *tbarView;
-    UIView *lineView;
 }
 @end
 
@@ -90,7 +89,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
         if (isLandscape) {
         //翻转为横屏时
         DLog(@"横屏");
@@ -327,9 +325,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 
 - (void)initWithUI{
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:lineView];
     UIView * topView= [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, self.navigationController.navigationBar.frame.size.height)];
     UIButton *startBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, topView.frame.size.height)];
     [startBtn setImage:[UIImage imageNamed:@"start"] forState:UIControlStateNormal];

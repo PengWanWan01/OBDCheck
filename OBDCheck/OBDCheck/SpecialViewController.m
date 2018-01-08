@@ -7,6 +7,7 @@
 //
 
 #import "SpecialViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface SpecialViewController ()
 @property (nonatomic,strong) NSMutableArray *normalImage;

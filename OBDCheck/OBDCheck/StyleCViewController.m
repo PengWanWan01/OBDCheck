@@ -7,6 +7,7 @@
 //
 
 #import "StyleCViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface StyleCViewController ()<UITableViewDataSource,UITableViewDelegate,selectColorDelegete,selectSwtichDelegete>
 {

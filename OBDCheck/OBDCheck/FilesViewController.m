@@ -12,7 +12,6 @@
 {
     LogsModel *model;
     TBarView *tbarView ;
-    UIView *lineView ;
     FilesTableViewCell *cell;
   
     
@@ -62,7 +61,6 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     self.tableView.frame = CGRectMake(0, 1, MSWidth, MSHeight-TopHigh-49);
    
     
@@ -101,9 +99,6 @@
 - (void)setHorizontalFrame{
 }
 - (void)initWithUI{
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:lineView];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-49) style:UITableViewStylePlain];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;

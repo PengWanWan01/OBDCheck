@@ -8,6 +8,8 @@
 //
 
 #import "PerformanceController.h"
+#import "UIViewController+NavBar.h"
+
 typedef NS_ENUM(NSInteger ,testMode)
 {
     testMPH=0,   //测试速度

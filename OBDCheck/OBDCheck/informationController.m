@@ -7,6 +7,7 @@
 //
 
 #import "informationController.h"
+#import "UIViewController+NavBar.h"
 
 @interface informationController ()
 @property (nonatomic,strong) NSMutableArray *detialdataSource;

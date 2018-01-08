@@ -7,6 +7,7 @@
 //
 
 #import "ModerViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface ModerViewController ()
 

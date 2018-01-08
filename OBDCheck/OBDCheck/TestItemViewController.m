@@ -7,6 +7,7 @@
 //
 
 #import "TestItemViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface TestItemViewController ()<UITableViewDataSource,UITableViewDelegate>
 

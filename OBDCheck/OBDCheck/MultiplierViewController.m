@@ -7,6 +7,7 @@
 //
 
 #import "MultiplierViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface MultiplierViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) NSMutableArray *MultiplierDatasource;

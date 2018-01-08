@@ -8,6 +8,7 @@
 //
 
 #import "FeedbackViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface FeedbackViewController ()<UITableViewDataSource,UITableViewDelegate>
 

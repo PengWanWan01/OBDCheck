@@ -7,6 +7,7 @@
 //
 
 #import "HUDColorViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface HUDColorViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)NSMutableArray *Colordatasource;

@@ -7,12 +7,12 @@
 //
 
 #import "PersonalViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface PersonalViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     
     UITableView *Mytableview;
-    UIView   *lineView ;
 }
 @property (nonatomic,strong) NSMutableArray *normalImage;
 @property (nonatomic,strong) NSMutableArray *selectImage;
@@ -158,9 +158,6 @@
     self.landSelectImage = [[NSMutableArray alloc]initWithObjects:@"OBD_highlight_land",@"Vehicle_highlight_land", nil];
 }
 - (void)initWithUI{
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:lineView];
     Mytableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-10) style:UITableViewStyleGrouped];
     if (IS_IPHONE_X) {
         Mytableview.frame  = CGRectMake(0, 0, MSWidth, MSHeight-132);

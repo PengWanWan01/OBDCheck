@@ -34,7 +34,8 @@
     // Override point for customization after application launch.
     ViewController *ROOTVC = [[ViewController alloc]init];
     UINavigationController *NAC = [[UINavigationController alloc]initWithRootViewController:ROOTVC];
-    
+    NAC.navigationBar.shadowImage=[ColorTools imageWithColor:[UIColor whiteColor] size:CGSizeMake(MSWidth, 1)];
+      
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window setRootViewController:NAC];
     [self.window makeKeyAndVisible];
@@ -44,6 +45,7 @@
     
     return YES;
 }
+
 - (void)initWithdatabase{
     [CustomDashboard bg_drop];
     [DashboardA bg_drop];

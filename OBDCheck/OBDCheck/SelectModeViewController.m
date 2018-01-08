@@ -7,6 +7,7 @@
 //
 
 #import "SelectModeViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface SelectModeViewController ()<UITableViewDelegate,UITableViewDataSource>
 

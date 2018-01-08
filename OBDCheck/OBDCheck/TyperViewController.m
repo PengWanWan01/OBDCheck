@@ -7,6 +7,7 @@
 //
 
 #import "TyperViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface TyperViewController ()
 

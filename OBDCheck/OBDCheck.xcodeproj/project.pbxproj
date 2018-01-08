@@ -54,6 +54,7 @@
 		CB49FB6C1FB0521000A6FEBB /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB49FB6B1FB0521000A6FEBB /* FeedbackViewController.m */; };
 		CB5583601F51468C0010A1E5 /* StyleViewBController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB55835F1F51468C0010A1E5 /* StyleViewBController.m */; };
 		CB5583631F5146B70010A1E5 /* StyleCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5583621F5146B70010A1E5 /* StyleCViewController.m */; };
+		CB574E0C1FFF581F00A50C89 /* UIViewController+NavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CB574E0B1FFF581F00A50C89 /* UIViewController+NavBar.m */; };
 		CB5A618F1F79FB62000D23D6 /* SeletVehicleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A618E1F79FB62000D23D6 /* SeletVehicleViewController.m */; };
 		CB5A61941F7A206C000D23D6 /* YearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A61931F7A206C000D23D6 /* YearViewController.m */; };
 		CB5A61971F7A20AA000D23D6 /* MakerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A61961F7A20AA000D23D6 /* MakerViewController.m */; };
@@ -141,7 +142,6 @@
 		CBF1E2761F3068C500EEC755 /* MonController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2751F3068C500EEC755 /* MonController.m */; };
 		CBF1E2791F3068E000EEC755 /* LogsController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2781F3068E000EEC755 /* LogsController.m */; };
 		CBF1E27C1F3068ED00EEC755 /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E27B1F3068ED00EEC755 /* SetViewController.m */; };
-		CBF1E2861F306C6200EEC755 /* UIViewController+NavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2851F306C6200EEC755 /* UIViewController+NavBar.m */; };
 		CBF1E2891F30796400EEC755 /* ColorTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2881F30796400EEC755 /* ColorTools.m */; };
 		CBF1E28D1F30A06500EEC755 /* bluetoothView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E28C1F30A06500EEC755 /* bluetoothView.m */; };
 		CBF334621F4B0FE6003C0548 /* ILHuePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF3345D1F4B0FE6003C0548 /* ILHuePickerView.m */; };
@@ -280,6 +280,8 @@
 		CB5583611F5146B70010A1E5 /* StyleCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleCViewController.h; sourceTree = "<group>"; };
 		CB5583621F5146B70010A1E5 /* StyleCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleCViewController.m; sourceTree = "<group>"; };
 		CB5642921F984151002EFB7E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		CB574E0A1FFF581F00A50C89 /* UIViewController+NavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavBar.h"; sourceTree = "<group>"; };
+		CB574E0B1FFF581F00A50C89 /* UIViewController+NavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavBar.m"; sourceTree = "<group>"; };
 		CB5A618D1F79FB62000D23D6 /* SeletVehicleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeletVehicleViewController.h; sourceTree = "<group>"; };
 		CB5A618E1F79FB62000D23D6 /* SeletVehicleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeletVehicleViewController.m; sourceTree = "<group>"; };
 		CB5A61921F7A206C000D23D6 /* YearViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YearViewController.h; sourceTree = "<group>"; };
@@ -430,8 +432,6 @@
 		CBF1E2781F3068E000EEC755 /* LogsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogsController.m; sourceTree = "<group>"; };
 		CBF1E27A1F3068ED00EEC755 /* SetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetViewController.h; sourceTree = "<group>"; };
 		CBF1E27B1F3068ED00EEC755 /* SetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetViewController.m; sourceTree = "<group>"; };
-		CBF1E2841F306C6200EEC755 /* UIViewController+NavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavBar.h"; sourceTree = "<group>"; };
-		CBF1E2851F306C6200EEC755 /* UIViewController+NavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavBar.m"; sourceTree = "<group>"; };
 		CBF1E2871F30796400EEC755 /* ColorTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorTools.h; sourceTree = "<group>"; };
 		CBF1E2881F30796400EEC755 /* ColorTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorTools.m; sourceTree = "<group>"; };
 		CBF1E28B1F30A06500EEC755 /* bluetoothView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bluetoothView.h; sourceTree = "<group>"; };
@@ -1070,10 +1070,10 @@
 		CBF1E2831F306C4900EEC755 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				CB574E0A1FFF581F00A50C89 /* UIViewController+NavBar.h */,
+				CB574E0B1FFF581F00A50C89 /* UIViewController+NavBar.m */,
 				CBF334651F4B0FFC003C0548 /* UIColor+GetHSB.h */,
 				CBF334661F4B0FFC003C0548 /* UIColor+GetHSB.m */,
-				CBF1E2841F306C6200EEC755 /* UIViewController+NavBar.h */,
-				CBF1E2851F306C6200EEC755 /* UIViewController+NavBar.m */,
 				CB47E2EA1F480C7000B23D8E /* UIFont+AdapFont.h */,
 				CB47E2EB1F480C7000B23D8E /* UIFont+AdapFont.m */,
 			);
@@ -1335,13 +1335,13 @@
 				CB44DB361F4A825900A24629 /* StyleThreeTableViewCell.m in Sources */,
 				CBF1E25B1F305CF800EEC755 /* setDistanceUtil.m in Sources */,
 				CBEBF1D21F3B27E1006CCA8B /* SizeAndLocationViewController.m in Sources */,
-				CBF1E2861F306C6200EEC755 /* UIViewController+NavBar.m in Sources */,
 				CB07EA281F41A370002894F9 /* UIColor+Wonderful.m in Sources */,
 				CB048C3E1F8CE1E3006A2ED7 /* ConnectionController.m in Sources */,
 				CBF1E22E1F2ED49200EEC755 /* ViewController.m in Sources */,
 				CBE4AC0A1F443432003714A4 /* DashboardViewStyleC.m in Sources */,
 				CB47E2EC1F480C7000B23D8E /* UIFont+AdapFont.m in Sources */,
 				CB84F2AC1F74E73A0008F681 /* HUDColorViewController.m in Sources */,
+				CB574E0C1FFF581F00A50C89 /* UIViewController+NavBar.m in Sources */,
 				CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */,
 				CBF1E2761F3068C500EEC755 /* MonController.m in Sources */,
 				CB44DB2C1F4A822200A24629 /* StyleOneTableViewCell.m in Sources */,

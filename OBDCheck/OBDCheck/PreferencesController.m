@@ -7,6 +7,7 @@
 //
 
 #import "PreferencesController.h"
+#import "UIViewController+NavBar.h"
 
 @interface PreferencesController ()
 

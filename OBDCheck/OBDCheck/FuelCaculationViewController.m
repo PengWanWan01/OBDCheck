@@ -7,7 +7,7 @@
 //
 
 #import "FuelCaculationViewController.h"
-
+#import "UIViewController+NavBar.h"
 @interface FuelCaculationViewController ()
 
 @end

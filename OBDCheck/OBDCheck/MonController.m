@@ -11,7 +11,6 @@
 @interface MonController ()<TBarViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     TBarView *tbarView;
-    UIView *lineView;
 }
 @property (nonatomic,strong) UITableView *tableView;
 @end
@@ -44,7 +43,6 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     self.tableView.frame = CGRectMake(0, 1, MSWidth, MSHeight-TopHigh) ;
     tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
     if (IS_IPHONE_X) {
@@ -66,9 +64,6 @@
 - (void)setHorizontalFrame{
 }
 - (void)initWithUI{
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:lineView];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 1, MSWidth, MSHeight-TopHigh) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     self.tableView.dataSource = self;

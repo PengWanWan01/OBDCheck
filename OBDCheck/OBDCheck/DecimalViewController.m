@@ -7,6 +7,7 @@
 //
 
 #import "DecimalViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface DecimalViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) NSMutableArray *DecimalDataSource;

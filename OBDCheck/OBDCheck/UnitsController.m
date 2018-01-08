@@ -7,6 +7,7 @@
 //
 
 #import "UnitsController.h"
+#import "UIViewController+NavBar.h"
 
 @interface UnitsController ()
 

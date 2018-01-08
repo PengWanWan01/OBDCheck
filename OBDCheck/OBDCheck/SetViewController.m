@@ -7,11 +7,11 @@
 //
 
 #import "SetViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface SetViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *tableview;
-    UIView *lineView ;
 }
 @property (nonatomic,strong) NSMutableArray *datasource;
 @end
@@ -43,12 +43,10 @@
 #pragma mark 竖屏
 - (void)setVerticalFrame{
     tableview.frame = CGRectMake(0, 1, SCREEN_MIN, SCREEN_MAX-TopHigh);
-    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
      tableview.frame = CGRectMake(0, 1, SCREEN_MAX, SCREEN_MIN-TopHigh);
-    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
 }
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -61,8 +59,7 @@
     return NO;
 }
 - (void)back{
-    ViewController *vc = [[ViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+      [self.navigationController popToRootViewControllerAnimated:YES];
 }
 //设置隐藏动画
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
@@ -75,9 +72,6 @@
     
 }
 - (void)initWithUI{
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:lineView];
     tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 1, MSWidth, MSHeight-TopHigh) style:UITableViewStyleGrouped];
     tableview.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     tableview.delegate = self;

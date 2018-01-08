@@ -7,6 +7,7 @@
 //
 
 #import "FirmwareController.h"
+#import "UIViewController+NavBar.h"
 
 @interface FirmwareController ()
 

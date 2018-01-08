@@ -7,6 +7,7 @@
 //
 
 #import "SelectStyleViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface SelectStyleViewController ()<UITableViewDelegate,UITableViewDataSource>
 {

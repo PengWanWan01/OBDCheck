@@ -7,6 +7,7 @@
 //
 
 #import "AlarmViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface AlarmViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @property (nonatomic,strong) NSMutableArray *detialDatasource;

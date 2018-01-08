@@ -7,6 +7,7 @@
 //
 
 #import "ConnectionController.h"
+#import "UIViewController+NavBar.h"
 
 @interface ConnectionController ()
 

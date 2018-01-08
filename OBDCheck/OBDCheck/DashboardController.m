@@ -7,6 +7,8 @@
 //
 
 #import "DashboardController.h"
+#import "UIViewController+NavBar.h"
+
 //#define baseViewWidth  (SCREEN_MIN)/2 - 30
 //#define baseViewHeight  baseViewWidth
 static dispatch_source_t _timer;
@@ -25,7 +27,6 @@ static dispatch_source_t _timer;
     NSInteger DashBoardTag; //仪表的Tag标志
     UIView *coverView;  //遮盖层
     UILabel *contentLabel; //提示当前是有Label
-    UIView  *lineView;
 }
 @property (nonatomic,strong) NSMutableArray *LabelNameArray;
 @property (nonatomic,strong) NSMutableArray *numberArray;
@@ -65,7 +66,6 @@ static dispatch_source_t _timer;
 - (void)setVerticalFrame{
   
     
-    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     scrollView.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX);
      scrollView.contentSize = CGSizeMake(SCREEN_MIN*[DashboardSetting sharedInstance].KPageNumer,0);
      pageControl.frame = CGRectMake(0, SCREEN_MAX- self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -40, SCREEN_MIN, 30);
@@ -128,7 +128,6 @@ static dispatch_source_t _timer;
 //风格二的仪表盘在 仪表盘View的自定义类中实现
 //
 - (void)setHorizontalFrame{
-    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     scrollView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN);
     scrollView.contentSize = CGSizeMake(SCREEN_MAX*[DashboardSetting sharedInstance].KPageNumer,0);
     scrollView.pagingEnabled = YES;
@@ -656,9 +655,6 @@ static dispatch_source_t _timer;
     }
 }
 - (void)initWithUI{
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:lineView];
     switch ([DashboardSetting sharedInstance].dashboardMode) {
         case DashboardClassicMode:
         {
@@ -753,8 +749,8 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
        [self stopSend];
    });
    [editview hide];
-    ViewController *vc = [[ViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:NO];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+
 }
 - (void)stopSend{
     DLog(@"停止停止");

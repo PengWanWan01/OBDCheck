@@ -7,6 +7,7 @@
 //
 
 #import "EditDisplayViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface EditDisplayViewController ()<UITableViewDelegate,UITableViewDataSource>
 {

@@ -7,6 +7,7 @@
 //
 
 #import "PIDSelectViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface PIDSelectViewController ()<UITableViewDataSource,UITableViewDelegate>
 

@@ -7,6 +7,7 @@
 //
 
 #import "SeletVehicleViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface SeletVehicleViewController ()
 

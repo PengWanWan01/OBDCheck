@@ -7,6 +7,7 @@
 //
 
 #import "StyleViewBController.h"
+#import "UIViewController+NavBar.h"
 
 @interface StyleViewBController ()<UITableViewDelegate,UITableViewDataSource,selectColorDelegete,selectSwtichDelegete>
 {

@@ -7,10 +7,10 @@
 //
 
 #import "PropertyReportController.h"
+#import "UIViewController+NavBar.h"
 
 @interface PropertyReportController ()<UITableViewDelegate,UITableViewDataSource>
 {
-    UIView *lineView ;
     UIView *headView;
 }
 @property (nonatomic,strong) NSMutableArray *showDataSource;
@@ -54,7 +54,6 @@
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     [self initWithHeadUI];
-    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     self.tableView.frame =  CGRectMake(0, 1, MSWidth, MSHeight-60);
 
         if (isLandscape) {
@@ -107,9 +106,6 @@
 }
 
 - (void)initWithUI{
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:lineView];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-44) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

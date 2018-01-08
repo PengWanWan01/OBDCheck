@@ -21,8 +21,7 @@
 - (void)rightBarButtonClick;
 
 - (void)back;
--(void)viewDidLayoutSubviews;
 
 - (UIViewController *)getCurrentVC;
-
+- (UIImageView *)findHairlineImageViewUnder:(UIView *)view ;
 @end

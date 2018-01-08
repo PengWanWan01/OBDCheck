@@ -7,6 +7,7 @@
 //
 
 #import "HUDViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface HUDViewController ()<BlueToothControllerDelegate>
 {

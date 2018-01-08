@@ -9,7 +9,6 @@
 #import "ReadinessViewController.h"
 
 @interface ReadinessViewController ()<TBarViewDelegate>{
-    UIView *lineView ;
     TBarView *tbarView;
 }
 @property(nonatomic,strong)NSMutableArray *completeDatasource;
@@ -42,7 +41,6 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    lineView.frame = CGRectMake(0, 0, MSWidth, 0.5);
     tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
     if (IS_IPHONE_X) {
         tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
@@ -87,9 +85,6 @@
     return UIStatusBarAnimationNone;
 }
 - (void)initWithUI{
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:lineView];
     tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
     if (IS_IPHONE_X) {
         tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);

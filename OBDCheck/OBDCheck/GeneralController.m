@@ -7,6 +7,7 @@
 //
 
 #import "GeneralController.h"
+#import "UIViewController+NavBar.h"
 
 @interface GeneralController ()
 @property (nonatomic,strong) NSMutableArray *detialdataSource;

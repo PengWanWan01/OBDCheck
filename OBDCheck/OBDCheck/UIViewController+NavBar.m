@@ -7,12 +7,14 @@
 //
 
 #import "UIViewController+NavBar.h"
+#import "UIViewController+NavBar.h"
 
 @implementation UIViewController (NavBar)
 
 - (void)initNavBarTitle:(NSString *)titleName andLeftItemImageName:(NSString *)leftItemImageName andRightItemImageName:(NSString *)rightItemImageName
 {
-    [self backGesture];
+//    [self backGesture];
+    self.navigationItem.hidesBackButton = NO;
     [self initNavBarTitle:titleName andLeftItemImageName:leftItemImageName andRightItemName:@""];
     
     if (![rightItemImageName isEqualToString:@""]) {
@@ -28,7 +30,7 @@
 
 - (void)initNavBarTitle:(NSString *)titleName andLeftItemImageName:(NSString *)leftItemImageName andRightItemName:(NSString *)rightItemName
 {
-      [self backGesture];
+//      [self backGesture];
     if (![leftItemImageName isEqualToString:@""]) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
 
@@ -103,9 +105,8 @@
  *  解决右滑返回手势不可用
  */
 - (void)backGesture {
-    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
 }
-
 
 //获取当前屏幕显示的viewcontroller
 - (UIViewController *)getCurrentVC
@@ -135,6 +136,18 @@
         result = window.rootViewController;
     
     return result;
+}
+- (UIImageView *)findHairlineImageViewUnder:(UIView *)view {
+    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
+        return (UIImageView *)view;
+    }
+    for (UIView *subview in view.subviews) {
+        UIImageView *imageView = [self findHairlineImageViewUnder:subview];
+        if (imageView) {
+            return imageView;
+        }
+    }
+    return nil;
 }
 
 

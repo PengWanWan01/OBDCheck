@@ -7,6 +7,7 @@
 //
 
 #import "SizeAndLocationViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface SizeAndLocationViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 @property (nonatomic,strong) NSMutableArray *titleNameArray;

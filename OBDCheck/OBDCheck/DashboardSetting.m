@@ -278,16 +278,19 @@
 
 - (void)initwithCustomDashboard{
 
-    for (int i = 0; i< 9; i++) {
-        DLog(@"%d",i);
-        if (i<6) {
-        [self CustomDashboardType:AddStyleOne withTag:i];
-        }else if (i>=6 && i < 8){
-        [self CustomDashboardType:AddStyleTwo withTag:i];
-        }else{
-        [self CustomDashboardType:AddStyleThree withTag:i];
+    dispatch_async(dispatch_get_global_queue(0, 0),^{
+        for (int i = 0; i< 9; i++) {
+            DLog(@"%d",i);
+            if (i<6) {
+                [self CustomDashboardType:AddStyleOne withTag:i];
+            }else if (i>=6 && i < 8){
+                [self CustomDashboardType:AddStyleTwo withTag:i];
+            }else{
+                [self CustomDashboardType:AddStyleThree withTag:i];
+            }
         }
-    }
+    });
+   
 
 }
 - (void)CustomDashboardType:(AddDashboardStyle)type withTag:(NSInteger)i{

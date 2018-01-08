@@ -7,6 +7,7 @@
 //
 
 #import "FuleTypeViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface FuleTypeViewController ()
 

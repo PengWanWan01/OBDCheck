@@ -7,13 +7,13 @@
 //
 
 #import "ViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface ViewController ()<BlueToothControllerDelegate,reconnectionDelegate>
 {
 
     BOOL isSelect;
     NSInteger sendNumber;
-    UIView *lineView;
 }
 
 @property (nonatomic,strong) NSMutableArray *btnTitleArray;
@@ -39,19 +39,27 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-//    [self setStatusBarBackgroundColor:[UIColor blackColor]];
      [UIApplication sharedApplication].statusBarStyle=UIStatusBarStyleLightContent;
      self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    [self.navigationController.navigationBar setHidden:NO];
+    [self.tabBarController.tabBar setHidden:NO];
+ 
+    
     [self initNavBarTitle:@"" andLeftItemImageName:@"Upload" andRightItemImageName:@"help"];
    
     DLog(@"IS_IPHONE%d,%f",IS_IPHONE,SCREEN_MAX_LENGTH);
+}
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
     [self initWithData];
     [self initWithUI];
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
-  
 }
+
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
@@ -69,10 +77,10 @@
         DLog(@"竖屏");
         [self setVerticalFrame];
     }
+    
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
-    lineView.frame =  CGRectMake(0, 0, MSWidth, 0.5);
     self.backView.hidden = NO;
     self.scrollView.hidden = YES;
     self.titleBtn.frame = CGRectMake(0, 0, 100, 44);
@@ -120,7 +128,6 @@
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
-    lineView.frame =  CGRectMake(0, 0, MSWidth, 0.5);
     self.backView.hidden = YES;
     self.scrollView.hidden = NO;
     self.statusView.frame = CGRectMake(50, 16, SCREEN_MAX - 100, 41);
@@ -185,18 +192,11 @@
     return UIStatusBarAnimationNone;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-  
-}
 
 - (void)initWithUI{
     
     DLog(@"大：%f",SCREEN_MAX);
     DLog(@"小：%f",SCREEN_MIN);
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, 0.5)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:lineView];
     self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
     self.blueView.delegate = self;    
     self.titleBtn= [[RLBtn alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
@@ -314,42 +314,60 @@
 - (void)tap:(UITapGestureRecognizer *)sender{
     DLog(@"点击一个");
     [self.blueView hide];
- self.tabBarController.tabBar.hidden = YES;
     switch ([sender view].tag) {
         case 0:{
             DashboardController *vc = [[DashboardController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
+
         }
             break;
         case 1:{
+//            [self.navigationController.navigationBar setHidden:YES];
+//            [self.tabBarController.tabBar setHidden:YES];
+//            CusTabBar * CusVc = [[CusTabBar alloc] init];
+//            CusVc.tabbarType = 0;
+//            [CusVc initWithView];
             DiagController *vc = [[DiagController alloc]init];
-           
             [self.navigationController pushViewController:vc animated:NO];
+           
         }
             break;
         case 2:{
-            MonController *vc = [[MonController alloc]init];
+//            [self.navigationController.navigationBar setHidden:YES];
+//            [self.tabBarController.tabBar setHidden:YES];
+//            CusTabBar * CusVc = [[CusTabBar alloc] init];
+//            CusVc.tabbarType = 1;
+//            [CusVc initWithView];
+            MonController *vc = [[ MonController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
         }
             break;
         case 3:{
-            LogsController *vc = [[LogsController alloc]init];
+//            [self.navigationController.navigationBar setHidden:YES];
+//            [self.tabBarController.tabBar setHidden:YES];
+//            CusTabBar * CusVc = [[CusTabBar alloc] init];
+//            CusVc.tabbarType = 2;
+//            [CusVc initWithView];
+            LogsController *vc = [[ LogsController alloc] init];
             [self.navigationController pushViewController:vc animated:NO];
         }
             break;
         case 4:{
             PerformancesViewController *vc = [[PerformancesViewController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
+
         }
             break;
         case 5:{
             SetViewController *vc = [[SetViewController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
+
         }
             break;
         default:
             break;
     }
+
 
 }
 

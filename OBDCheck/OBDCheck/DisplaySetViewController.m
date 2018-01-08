@@ -7,6 +7,7 @@
 //
 
 #import "DisplaySetViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface DisplaySetViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {

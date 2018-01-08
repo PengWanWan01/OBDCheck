@@ -7,6 +7,7 @@
 //
 
 #import "MakerViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface MakerViewController ()
 

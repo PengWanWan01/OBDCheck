@@ -7,6 +7,7 @@
 //
 
 #import "YearViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface YearViewController ()
 

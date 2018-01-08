@@ -7,6 +7,7 @@
 //
 
 #import "CommunicationController.h"
+#import "UIViewController+NavBar.h"
 
 @interface CommunicationController ()
 @property(nonatomic,strong)NSMutableArray *sectionDataSource;

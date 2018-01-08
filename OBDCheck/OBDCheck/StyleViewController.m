@@ -10,6 +10,7 @@
 //
 
 #import "StyleViewController.h"
+#import "UIViewController+NavBar.h"
 
 @interface StyleViewController ()<switchCommonDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,selectColorDelegete,selectSwtichDelegete>
 {

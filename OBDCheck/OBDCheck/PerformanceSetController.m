@@ -8,6 +8,7 @@
 //
 
 #import "PerformanceSetController.h"
+#import "UIViewController+NavBar.h"
 
 @interface PerformanceSetController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
