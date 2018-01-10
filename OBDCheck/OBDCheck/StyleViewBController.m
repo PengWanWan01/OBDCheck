@@ -15,9 +15,9 @@
     NSInteger selectTag;
     UIButton *Fristbtn;
     UIButton *selectBtn;
-    DashboardB * model;
+    CustomDashboard * model;
     NSNumber *indexID;
- CGFloat slideValue;  //slide的前一个
+    CGFloat slideValue;  //slide的前一个
 }
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSMutableArray *sectionSource;
@@ -49,23 +49,23 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-        if (isLandscape) {
+    if (isLandscape) {
         //翻转为横屏时
         DLog(@"横屏");
         [self setHorizontalFrame];
-        }else{
-            //翻转为竖屏时
-            DLog(@"竖屏");
-            [self setVerticalFrame];
-        }
+    }else{
+        //翻转为竖屏时
+        DLog(@"竖屏");
+        [self setVerticalFrame];
+    }
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
- self.tableView.frame = CGRectMake(0, 186, SCREEN_MIN, SCREEN_MAX - 186 - 44 -TopHigh);
+    self.tableView.frame = CGRectMake(0, 186, SCREEN_MIN, SCREEN_MAX - 186 - 44 -TopHigh);
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
-     self.tableView.frame = CGRectMake(292, 0, SCREEN_MAX -292, SCREEN_MIN);
+    self.tableView.frame = CGRectMake(292, 0, SCREEN_MAX -292, SCREEN_MIN);
 }
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -96,18 +96,14 @@
     
 }
 - (void)initWithHeadUI{
-
-    NSArray *arr = @[@"BG_ID",@"=",@([DashboardSetting sharedInstance].Dashboardindex)];
-    NSArray *all = [CustomDashboard bg_findWhere:arr];
-    for(CustomDashboard * dashboard in all){
-   
-        model = dashboard.dashboardB;
+    CustomDashboard * dashboard = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
+    
+    model = dashboard;
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
-    [dashViewB initWithModel:dashboard.dashboardB];
-        dashViewB.PIDLabel.text = dashboard.dashboardB.infoLabeltext;
-            [self.view addSubview:dashViewB];
-       
-    }
+    [dashViewB initWithModel:dashboard];
+    dashViewB.PIDLabel.text = dashboard.DashboardBinfoLabeltext;
+    [self.view addSubview:dashViewB];
+    
     
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
     label.text = @"Value";
@@ -115,16 +111,17 @@
     label.font = [UIFont ToAdapFont:14.f];
     
     self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(dashViewB.frame) + 10, CGRectGetMaxY(label.frame )+10, MSWidth - dashViewB.frame.size.width-50*KFontmultiple , 20)];
-    self.slider.minimumValue = [model.minNumber floatValue];
-    self.slider.maximumValue = [model.maxNumber floatValue];
+    self.slider.minimumValue = [model.DashboardBminNumber floatValue];
+    
+    self.slider.maximumValue = [model.DashboardBmaxNumber floatValue];
     [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     self.slider.minimumTrackTintColor = [ColorTools colorWithHexString:@"FE9002"];
     self.slider.tag = 9;
     slideValue = self.slider.value;
-   
+    
     _datasource = [[NSMutableArray alloc]initWithObjects:@"Frame",@"Axis",@"Needle",@"Range", nil];
     
-   
+    
     [self.view addSubview:label];
     [self.view  addSubview:self.slider];
     [self.view  addSubview:self.NumberLabel];
@@ -143,12 +140,12 @@
     }else{
         return 2;
     }
-
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (((indexPath.section == 0 || indexPath.section == 1|| indexPath.section == 3 ||indexPath.section == 4 )&&indexPath.row == 0)) {
-       return 44.f;
+        return 44.f;
     }else if (indexPath.section == 2 &&  indexPath.row == 1 ){
         return 44.f;
     }else if ((indexPath.section == 2 ||indexPath.section == 5 ) && indexPath.row == 0)
@@ -199,7 +196,7 @@
     if (((indexPath.section == 0 || indexPath.section == 1|| indexPath.section == 3 ||indexPath.section == 4 )&&indexPath.row == 0)) {
         resultCell = StyleTwoCell;
     }else if (indexPath.section == 2 &&  indexPath.row == 1 ){
-      resultCell = StyleTwoCell;
+        resultCell = StyleTwoCell;
     }else if ((indexPath.section == 2 ||indexPath.section == 5 ) && indexPath.row == 0)
     {
         resultCell = StyleThreeCell;
@@ -212,23 +209,25 @@
     switch (indexPath.section) {
         case 0:
         {
+            
             StyleTwoCell.titleName.text = _rowTitleSource[0];
-            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.backColor];
-            StyleTwoCell.ColorLabel.text = model.backColor;
+            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model. DashboardBbackColor];
+            StyleTwoCell.ColorLabel.text = model.DashboardBbackColor;
+            
             StyleOneCell.titleName.text = _rowTitleSource[1];
             StyleTwoCell.ColorView.tag = 0;
             StyleOneCell.NumberSider.tag = 0;
-            StyleOneCell.NumberSider.minimumValue = [model.orignwidth floatValue]/2 ;
-            StyleOneCell.NumberSider.maximumValue = [model.orignwidth floatValue];
-            StyleOneCell.NumberSider.value  = [model.GradientRadius floatValue];
-
+            StyleOneCell.NumberSider.minimumValue = [model.DashboardBorignwidth floatValue]/2 ;
+            StyleOneCell.NumberSider.maximumValue = [model.DashboardBorignwidth floatValue];
+            StyleOneCell.NumberSider.value  = [model.DashboardBGradientRadius floatValue];
+            
         }
             break;
         case 1:
         {
             StyleTwoCell.titleName.text = _rowTitleSource[2];
-            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.titleColor];
-            StyleTwoCell.ColorLabel.text = model.titleColor;
+            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.DashboardBtitleColor];
+            StyleTwoCell.ColorLabel.text = model.DashboardBtitleColor;
             StyleOneCell.titleName.text = _rowTitleSource[indexPath.row +2];
             StyleTwoCell.ColorView.tag = 1;
             switch (indexPath.row) {
@@ -237,7 +236,7 @@
                     StyleOneCell.NumberSider.tag = 1;
                     StyleOneCell.NumberSider.minimumValue = 0;
                     StyleOneCell.NumberSider.maximumValue = 2;
-                    StyleOneCell.NumberSider.value  = [model.titleFontScale floatValue];
+                    StyleOneCell.NumberSider.value  = [model.DashboardBtitleFontScale floatValue];
                 }
                     break;
                 case 2:
@@ -245,7 +244,7 @@
                     StyleOneCell.NumberSider.tag = 2;
                     StyleOneCell.NumberSider.minimumValue = 0;
                     StyleOneCell.NumberSider.maximumValue = 2;
-                    StyleOneCell.NumberSider.value  = [model.titlePositon floatValue];
+                    StyleOneCell.NumberSider.value  = [model.DashboardBtitlePositon floatValue];
                 }
                     break;
                 default:
@@ -256,11 +255,11 @@
         case 2:
         {
             StyleThreeCell.titleName.text = _rowTitleSource[5];
-            StyleThreeCell.SwitchBtn.on = model.ValueVisible;
+            StyleThreeCell.SwitchBtn.on = model.DashboardBValueVisible;
             StyleThreeCell.SwitchBtn.tag = 0;
             StyleTwoCell.titleName.text = _rowTitleSource[6];
-            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.ValueColor];
-            StyleTwoCell.ColorLabel.text = model.ValueColor;
+            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.DashboardBValueColor];
+            StyleTwoCell.ColorLabel.text = model.DashboardBValueColor;
             StyleOneCell.titleName.text = _rowTitleSource[indexPath.row +5];
             StyleTwoCell.ColorView.tag = 2;
             switch (indexPath.row) {
@@ -269,8 +268,8 @@
                     StyleOneCell.NumberSider.tag = 3;
                     StyleOneCell.NumberSider.minimumValue = 0;
                     StyleOneCell.NumberSider.maximumValue = 2;
-                    StyleOneCell.NumberSider.value  = [model.ValueFontScale floatValue];
-
+                    StyleOneCell.NumberSider.value  = [model.DashboardBValueFontScale floatValue];
+                    
                 }
                     break;
                 case 3:
@@ -278,8 +277,8 @@
                     StyleOneCell.NumberSider.tag = 4;
                     StyleOneCell.NumberSider.minimumValue = 0;
                     StyleOneCell.NumberSider.maximumValue = 2;
-                    StyleOneCell.NumberSider.value  = [model.ValuePositon floatValue];
-
+                    StyleOneCell.NumberSider.value  = [model.DashboardBValuePositon floatValue];
+                    
                 }
                     break;
                 default:
@@ -293,16 +292,16 @@
             StyleOneCell.titleName.text = _rowTitleSource[indexPath.row +9];
             
             StyleTwoCell.ColorView.tag = 3;
-            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.UnitColor ];
-            StyleTwoCell.ColorLabel.text = model.UnitColor;
-
+            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.DashboardBUnitColor ];
+            StyleTwoCell.ColorLabel.text = model.DashboardBUnitColor;
+            
             switch (indexPath.row) {
                 case 1:
                 {
                     StyleOneCell.NumberSider.tag = 5;
                     StyleOneCell.NumberSider.minimumValue = 0;
                     StyleOneCell.NumberSider.maximumValue = 2;
-                    StyleOneCell.NumberSider.value  = [model.UnitFontScale floatValue];
+                    StyleOneCell.NumberSider.value  = [model.DashboardBUnitFontScale floatValue];
                 }
                     break;
                 case 2:
@@ -310,7 +309,7 @@
                     StyleOneCell.NumberSider.tag = 6;
                     StyleOneCell.NumberSider.minimumValue = 0;
                     StyleOneCell.NumberSider.maximumValue = 2;
-                    StyleOneCell.NumberSider.value  = [model.UnitPositon floatValue];
+                    StyleOneCell.NumberSider.value  = [model.DashboardBUnitPositon floatValue];
                 }
                     break;
                 default:
@@ -320,28 +319,28 @@
             break;
         case 4:
         {
-             StyleTwoCell.titleName.text = _rowTitleSource[12];
+            StyleTwoCell.titleName.text = _rowTitleSource[12];
             StyleOneCell.titleName.text = _rowTitleSource[13];
             StyleTwoCell.ColorView.tag = 4;
             StyleOneCell.NumberSider.tag = 7;
-            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.pointerColor ];
-            StyleTwoCell.ColorLabel.text = model.pointerColor;
+            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.DashboardBpointerColor ];
+            StyleTwoCell.ColorLabel.text = model.DashboardBpointerColor;
             StyleOneCell.NumberSider.minimumValue = 0;
             StyleOneCell.NumberSider.maximumValue = 2;
-            StyleOneCell.NumberSider.value  = [model.Pointerwidth floatValue];
+            StyleOneCell.NumberSider.value  = [model.DashboardBPointerwidth floatValue];
         }
             break;
         case 5:
         {
             StyleThreeCell.titleName.text = _rowTitleSource[14];
             StyleThreeCell.SwitchBtn.tag = 1;
-            StyleThreeCell.SwitchBtn.on = model.FillEnable;
+            StyleThreeCell.SwitchBtn.on = model.DashboardBFillEnable;
             StyleTwoCell.titleName.text = _rowTitleSource[15];
             StyleTwoCell.ColorView.tag = 5;
-            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.FillColor];
-            StyleTwoCell.ColorLabel.text =model.FillColor;
-          
-
+            StyleTwoCell.ColorView.backgroundColor = [ColorTools colorWithHexString:model.DashboardBFillColor];
+            StyleTwoCell.ColorLabel.text =model.DashboardBFillColor;
+            
+            
         }
             break;
         default:
@@ -360,68 +359,68 @@
         switch (slider.tag) {
             case 0:
             {
-                model.GradientRadius =[NSNumber numberWithFloat: slider.value] ;
+                model.DashboardBGradientRadius =[NSString stringWithFormat:@"%f", slider.value] ;
                 [self upDateDashView];
             }
                 break;
             case 1:
             {
-                model.titleFontScale = [NSNumber numberWithFloat: slider.value] ;
-                  [self upDateDashView];
+                model.DashboardBtitleFontScale = [NSString stringWithFormat:@"%f", slider.value] ;
+                [self upDateDashView];
             }
                 break;
             case 2:
             {
-               
-                model.titlePositon = [NSNumber numberWithFloat: slider.value] ;
+                
+                model.DashboardBtitlePositon = [NSString stringWithFormat:@"%f", slider.value] ;
                 [self upDateDashView];
             }
                 break;
             case 3:
             {
-                if (model.ValueVisible == YES) {
-                    model.ValueFontScale = [NSNumber numberWithFloat: slider.value] ;                [self upDateDashView];
+                if (model.DashboardBValueVisible == YES) {
+                    model.DashboardBValueFontScale = [NSString stringWithFormat:@"%f", slider.value] ;                [self upDateDashView];
                 }
-
+                
             }
                 break;
             case 4:
             {
-                 if (model.ValueVisible == YES) {
-                      model.ValuePositon = [NSNumber numberWithFloat: slider.value] ;
-                     [self upDateDashView];
-                 }
-
+                if (model.DashboardBValueVisible == YES) {
+                    model.DashboardBValuePositon = [NSString stringWithFormat:@"%f", slider.value] ;
+                    [self upDateDashView];
+                }
+                
             }
                 break;
             case 5:
             {
-                model.UnitFontScale = [NSNumber numberWithFloat: slider.value] ;
+                model.DashboardBUnitFontScale = [NSString stringWithFormat:@"%f", slider.value] ;
                 [self upDateDashView];
             }
                 break;
             case 6:
             {
-                model.UnitPositon = [NSNumber numberWithFloat: slider.value] ;
+                model.DashboardBUnitPositon = [NSString stringWithFormat:@"%f", slider.value] ;
                 [self upDateDashView];
             }
                 break;
             case 7:
             {
-                model.Pointerwidth = [NSNumber numberWithFloat: slider.value] ;
+                model.DashboardBPointerwidth = [NSString stringWithFormat:@"%f", slider.value] ;
                 [self upDateDashView];
             }
                 break;
             case 8:
             {
-                if (model.FillEnable == YES) {
-                    model.Pointerwidth = [NSNumber numberWithFloat: slider.value] ;
+                if (model.DashboardBFillEnable == YES) {
+                    model.DashboardBPointerwidth = [NSString stringWithFormat:@"%f", slider.value] ;
                 }
             }
                 break;
             case 9:
             {
-               dashViewB.NumberLabel.text = [NSString stringWithFormat:@"%.f",roundf(slider.value)];
+                dashViewB.NumberLabel.text = [NSString stringWithFormat:@"%.f",roundf(slider.value)];
                 slideValue = slider.value;
                 [self rotationWithView];
             }
@@ -429,11 +428,11 @@
             default:
                 break;
         }
-    
+        
     }
 }
 - (void)rotationWithView{
-    CGFloat Space =   (3*M_PI/2)/([model.maxNumber floatValue] - [model.minNumber floatValue]);
+    CGFloat Space =   (3*M_PI/2)/([model.DashboardBmaxNumber floatValue] - [model.DashboardBminNumber floatValue]);
     [dashViewB rotateImageView:(-M_PI/2-M_PI/4)+Space*slideValue  Withend:(-M_PI/2-M_PI/4) ];
 }
 #pragma mark 外径颜色的变化
@@ -442,66 +441,66 @@
     switch (indexTag) {
         case 0:
         {
-            model.backColor = self.selectColor;
+            model.DashboardBbackColor = self.selectColor;
             [self upDateDashView];
         }
             break;
         case 1:
         {
-            model.titleColor = self.selectColor;
+            model.DashboardBtitleColor = self.selectColor;
             [self upDateDashView];
         }
             break;
         case 2:
         {
-             if (model.ValueVisible == YES) {
-                 model.ValueColor = self.selectColor;
-                 [self upDateDashView];
-             }
+            if (model.DashboardBValueVisible == YES) {
+                model.DashboardBValueColor = self.selectColor;
+                [self upDateDashView];
+            }
         }
             break;
         case 3:
         {
-            model.backColor = self.selectColor;
-             [self upDateDashView];
+            model.DashboardBbackColor = self.selectColor;
+            [self upDateDashView];
             
         }
             break;
         case 4:
         {
             
-            model.pointerColor = self.selectColor;
+            model.DashboardBpointerColor = self.selectColor;
             [self upDateDashView];
         }
             break;
         case 5:
         {
-            if (model.FillEnable == YES) {
+            if (model.DashboardBFillEnable == YES) {
                 
-                model.backColor = self.selectColor;
-            [self upDateDashView];
+                model.DashboardBbackColor = self.selectColor;
+                [self upDateDashView];
             }
         }
             break;
-               default:
+        default:
             break;
     }
 }
 #pragma mark 开关按钮
 - (void)selectSwtichBetouched:(UISwitch *)switchBtn{
     DLog(@"开关tag%ld",(long)switchBtn.tag);
-
+    
     switch (switchBtn.tag) {
         case 0:
         {
-           
-            model.ValueVisible = switchBtn.on;
+            
+            model.DashboardBValueVisible = switchBtn.on;
             [self upDateDashView];
         }
             break;
         case 1:
         {
-            model.FillEnable = switchBtn.on;
+            model.DashboardBFillEnable = switchBtn.on;
             [self upDateDashView];
         }
             break;
@@ -512,31 +511,31 @@
 }
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
- dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-     NSArray *all =@[@"BG_ID",@"=",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
-     NSArray *array = [CustomDashboard bg_findWhere:all];
-     for (CustomDashboard *dash in array) {
-         dash.dashboardB.titleFontScale = model.titleFontScale;
-         dash.dashboardB.ValueFontScale = model.ValueFontScale;
-         dash.dashboardB.ValuePositon = model.ValuePositon;
-         dash.dashboardB.UnitPositon = model.UnitPositon;
-         dash.dashboardB.titleColor = model.titleColor;
-         dash.dashboardB.ValueColor = model.ValueColor;
-         
-         dash.dashboardB.UnitColor = model.UnitColor;
-         dash.dashboardB.pointerColor = model.pointerColor;
-         dash.dashboardB.backColor = model.backColor;
-         dash.dashboardB.ValueVisible = model.ValueVisible;
-         dash.dashboardB.FillEnable = model.FillEnable;
-         dash.dashboardB.GradientRadius = model.GradientRadius;
-         [dash bg_updateWhere:all];
-    
-     }
- });
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray *list = [CustomDashboard findAll];
+        
+        for (CustomDashboard *dash in list) {
+            dash.DashboardBtitleFontScale = model.DashboardBtitleFontScale;
+            dash.DashboardBValueFontScale = model.DashboardBValueFontScale;
+            dash.DashboardBValuePositon = model.DashboardBValuePositon;
+            dash.DashboardBUnitPositon = model.DashboardBUnitPositon;
+            dash.DashboardBtitleColor = model.DashboardBtitleColor;
+            dash.DashboardBValueColor = model.DashboardBValueColor;
+            
+            dash.DashboardBUnitColor = model.DashboardBUnitColor;
+            dash.DashboardBpointerColor = model.DashboardBpointerColor;
+            dash.DashboardBbackColor = model.DashboardBbackColor;
+            dash.DashboardBValueVisible = model.DashboardBValueVisible;
+            dash.DashboardBFillEnable = model.DashboardBFillEnable;
+            dash.DashboardBGradientRadius = model.DashboardBGradientRadius;
+            [dash update];
+            
+        }
+    });
 }
 -(void)rightBarButtonClick{
     [self.navigationController popViewControllerAnimated:YES];
-
+    
 }
 #pragma mark 更新仪表盘
 - (void)upDateDashView{
@@ -544,7 +543,7 @@
     
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
     [dashViewB initWithModel:model];
-    dashViewB.PIDLabel.text = model.infoLabeltext;
+    dashViewB.PIDLabel.text = model.DashboardBinfoLabeltext;
     [self.view addSubview:dashViewB];
     
 }

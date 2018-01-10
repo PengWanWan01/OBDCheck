@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class DashboardB;
+@class CustomDashboard;
 @protocol StyleBtouchMoveDelegate <NSObject>
 
 - (void)touchMoveWithcenterX:(CGFloat)centerX WithcenterY:(CGFloat)WithcenterY;
@@ -25,7 +25,7 @@
 @property (nonatomic,strong)UILabel *NumberLabel;
 @property (nonatomic,strong)UILabel *UnitLabel;
 
-- (void)initWithModel:(DashboardB *)model;
+- (void)initWithModel:(CustomDashboard *)model;
 
 - (void)rotateImageView:(CGFloat)StartAngle Withend:(CGFloat)endAngle ;
 

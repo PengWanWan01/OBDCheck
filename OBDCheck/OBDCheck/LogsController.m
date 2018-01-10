@@ -428,7 +428,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     self.blueTooth.stopSend = YES;
     [[LogsSetting sharedInstance]initWithlogswith:PID1dataSource with:PID2dataSource with:PID3dataSource with:PID4dataSource];
     
-    NSArray *arr = [LogsModel bg_findAll];
+    NSArray *arr = [LogsModel findAll];
     
     DLog(@"logs数据库%@", arr.lastObject);
     LogsModel *model = arr.lastObject;

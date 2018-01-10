@@ -29,7 +29,7 @@
         return nil;
     }
     self.backgroundColor = [UIColor clearColor];
-   
+    
     self.userInteractionEnabled = YES;
     _center = CGPointMake(ViewWidth / 2, ViewWidth / 2);
     _radius = ViewWidth/ 2 ;
@@ -39,10 +39,10 @@
     self.infoLabeltext = self.infoLabel.text;
     //注册通知
     
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNewNumber:) name:@"updateNumber"object:nil];
-
-     
+    
+    
     return self;
 }
 - (void)setNeedsDisplay{
@@ -57,52 +57,46 @@
     }
 }
 - (void)getNewNumber:(NSNotification *)text{
-//    DLog(@"得到通知");
+    //    DLog(@"得到通知");
     NSString *presentStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"StyleAViewnumber"]];
     NSString *PreviouStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"PreStyleAViewnumber"]];
     
     CGFloat start = [PreviouStr doubleValue];
     CGFloat end = [presentStr doubleValue];
-//    DLog(@"%@%@%ld",PreviouStr,presentStr,(long)[text.userInfo[@"StyleAViewTag"] integerValue]);
+    //    DLog(@"%@%@%ld",PreviouStr,presentStr,(long)[text.userInfo[@"StyleAViewTag"] integerValue]);
     
     if ([text.userInfo[@"StyleAViewTag"] integerValue] == self.tag) {
-    
- 
-        NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger: self.tag]];
+        
+        
         switch ([ DashboardSetting sharedInstance].dashboardMode) {
             case DashboardCustomMode:
             {
-                NSArray* pAll = [CustomDashboard bg_findWhere:arr];
-                for(CustomDashboard* dashboard in pAll){
-                    CGFloat Space =   ([dashboard.dashboardA.endAngle doubleValue]- [dashboard.dashboardA.StartAngle doubleValue])/([dashboard.dashboardA.maxNumber doubleValue] - [dashboard.dashboardA.minNumber doubleValue]);
-                    [self rotationWithStartAngle:[dashboard.dashboardA.StartAngle doubleValue] + (int)start%[dashboard.dashboardA.maxNumber intValue]*Space  WithEndAngle:[dashboard.dashboardA.StartAngle doubleValue] + (int)end%[dashboard.dashboardA.maxNumber intValue]*Space];
-                    self.numberLabel.text = presentStr;
-                }
+                CustomDashboard *dashboard  = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
+                CGFloat Space =   ([dashboard.DashboardAendAngle floatValue]- [dashboard.DashboardAendAngle floatValue])/([dashboard.DashboardAmaxNumber  doubleValue]- [dashboard.DashboardAminNumber doubleValue]);
+                [self rotationWithStartAngle:[dashboard.DashboardAStartAngle doubleValue] + (int)start%[dashboard.DashboardAmaxNumber intValue]*Space  WithEndAngle:[dashboard.DashboardAStartAngle doubleValue] + (int)end%[dashboard.DashboardAmaxNumber intValue]*Space];
+                self.numberLabel.text = presentStr;
             }
                 break;
             case DashboardClassicMode:
             {
-                NSArray* pAll = [DashboardA bg_findWhere:arr];
-                for(DashboardA* dashboard in pAll){
-                    CGFloat Space =   ([dashboard.endAngle doubleValue]- [dashboard.StartAngle doubleValue])/([dashboard.maxNumber doubleValue] - [dashboard.minNumber doubleValue]);
-                    [self rotationWithStartAngle:[dashboard.StartAngle doubleValue] + start*Space  WithEndAngle:[dashboard.StartAngle doubleValue] + end*Space];
-                     self.numberLabel.text = presentStr;
-                }
+                //                for(DashboardA* dashboard in list){
+                //                    CGFloat Space =   ([dashboard.endAngle doubleValue]- [dashboard.StartAngle doubleValue])/([dashboard.maxNumber doubleValue] - [dashboard.minNumber doubleValue]);
+                //                    [self rotationWithStartAngle:[dashboard.StartAngle doubleValue] + start*Space  WithEndAngle:[dashboard.StartAngle doubleValue] + end*Space];
+                //                     self.numberLabel.text = presentStr;
+                //                }
             }
                 break;
             default:
                 break;
         }
-   
-                   
-      
     }
-
+    
+    
 }
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-
+    
+    
 }
 //[ColorTools colorWithHexString:@"18191C"].CGColor
 - (void)addGradientView:(NSString *)gradientColor GradientViewWidth:(CGFloat)gradientViewWidth{
@@ -112,14 +106,14 @@
     gradientview.endGradientColor =  [ColorTools colorWithHexString:gradientColor];
     [self addSubview:gradientview];
     
-
+    
 }
 #pragma mark 画圆
 - (void)addCircleLayer:(CGFloat)RingWidth withInnerColor:(NSString *)color {
     CGFloat startAngle = 0; // 开始角度
     CGFloat endAngle = 2*M_PI; // 结束角度
     BOOL clockwise = YES; // 顺时针
-//    CALayer *containerLayer = [CALayer layer];
+    //    CALayer *containerLayer = [CALayer layer];
     
     // 环形Layer层
     CAShapeLayer *circleLayer = [CAShapeLayer layer];
@@ -131,80 +125,80 @@
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-RingWidth startAngle:startAngle endAngle:endAngle clockwise:clockwise];
     circleLayer.path = circlePath.CGPath;
     [self.layer addSublayer:circleLayer];
-   
-   
+    
+    
 }
 // 画刻度
-- (void)initWithModel:(DashboardA *)model{
-
-
-//       DLog(@"innerColor%@",model);
-//    DLog(@"innerColor%@%@",model,model.innerColor);
-        [self addCircleLayer:[model.ringWidth doubleValue] withInnerColor:model.innerColor];
-
-    CGFloat perAngle = ([model.endAngle doubleValue] - [model.StartAngle doubleValue])  / _dialCount;
+- (void)initWithModel:(CustomDashboard *)model{
+    
+    
+    //       DLog(@"innerColor%@",model);
+    DLog(@"**********innerColor%@%@",model.DashboardAStartAngle,model.DashboardAendAngle);
+    [self addCircleLayer:[model.DashboardAringWidth doubleValue] withInnerColor:model.DashboardAinnerColor];
+    
+    CGFloat perAngle = ([model.DashboardAendAngle floatValue]  - [model.DashboardAStartAngle floatValue])  / _dialCount;
     
     if (perAngle< 0) {
-     perAngle=    -([model.endAngle doubleValue] - [model.StartAngle doubleValue])/_dialCount;
+        perAngle=    -([model.DashboardAendAngle floatValue] - [model.DashboardAStartAngle floatValue] )/_dialCount;
     }else
     {
-    perAngle = ([model.endAngle doubleValue] - [model.StartAngle doubleValue])  / _dialCount;
+        perAngle = ([model.DashboardAendAngle floatValue] - [model.DashboardAStartAngle floatValue])  / _dialCount;
     }
-   
-   
+    
+    
     for (int i = 0; i<= _dialCount; i++) {
-        CGFloat startAngel = (- M_PI + perAngle * i+[model.StartAngle doubleValue]);
-        CGFloat endAngel = startAngel + perAngle/[model.miWidth doubleValue];
-//    _center = CGPointMake([model.orignwidth doubleValue]/2, [model.orignwidth doubleValue]/2);
+        CGFloat startAngel = (- M_PI + perAngle * i+[model.DashboardAStartAngle floatValue]);
+        CGFloat endAngel = startAngel + perAngle/[model.DashboardAmiWidth doubleValue];
+        //    _center = CGPointMake([model.DashboardAorignwidth doubleValue]/2, [model.DashboardAorignwidth doubleValue]/2);
         if (i % 5 == 0) {
-            CGFloat endAngel = startAngel + perAngle/[model.maWidth doubleValue];
-         UIBezierPath *LongtickPath    =   [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.ringWidth doubleValue]- [model.miLength doubleValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
-         CAShapeLayer *LongperLayer    = [CAShapeLayer layer];
+            CGFloat endAngel = startAngel + perAngle/[model.DashboardAmaWidth doubleValue];
+            UIBezierPath *LongtickPath    =   [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.DashboardAringWidth doubleValue]- [model.DashboardAmiLength doubleValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
+            CAShapeLayer *LongperLayer    = [CAShapeLayer layer];
             
-            LongperLayer.strokeColor = [ColorTools colorWithHexString:model.maColor].CGColor;
-            LongperLayer.lineWidth = [model.maLength doubleValue];
+            LongperLayer.strokeColor = [ColorTools colorWithHexString:model.DashboardAmaColor].CGColor;
+            LongperLayer.lineWidth = [model.DashboardAmaLength doubleValue];
             //添加刻度
-//            DLog(@"%@",model.orignwidth);
+            //            DLog(@"%@",model.DashboardAorignwidth);
             
-            CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:(_radius-[model.ringWidth doubleValue]- [model.maLength doubleValue]- 5)*[model.LabelOffest doubleValue] Rotate:model.LabelRotate];
+            CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:(_radius-[model.DashboardAringWidth doubleValue]- [model.DashboardAmaLength doubleValue]- 5)*[model.DashboardALabelOffest doubleValue] Rotate:model.DashboardALabelRotate];
             //四舍五入
-            NSString *tickText = [NSString stringWithFormat:@"%.f",((roundf([model.maxNumber doubleValue]- [model.minNumber doubleValue])/8)*(i/5) +[model.minNumber doubleValue])];
+            NSString *tickText = [NSString stringWithFormat:@"%.f",((roundf([model.DashboardAmaxNumber doubleValue]- [model.DashboardAminNumber doubleValue])/8)*(i/5) +[model.DashboardAminNumber doubleValue])];
             
             //默认label的大小14 * 14
-//            DLog(@"%f",_center.x);
-//            DLog(@"point%f%f",point.x,point.y);
-//            if (point.x [is nan]) {
-//        
-//            }
+            //            DLog(@"%f",_center.x);
+            //            DLog(@"point%f%f",point.x,point.y);
+            //            if (point.x [is nan]) {
+            //
+            //            }
             UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake((point.x - 15), (point.y - 15), 30, 30)];
-            text.backgroundColor  =  [ColorTools colorWithHexString:model.innerColor];
+            text.backgroundColor  =  [ColorTools colorWithHexString:model.DashboardAinnerColor];
             text.text = tickText;
-            text.font = [UIFont systemFontOfSize:[model.LabelFontScale doubleValue]*10.f];
+            text.font = [UIFont systemFontOfSize:[model.DashboardALabelFontScale doubleValue]*10.f];
             text.textColor = [UIColor whiteColor];
             text.textAlignment = NSTextAlignmentCenter;
             
             LongperLayer.path = LongtickPath.CGPath;
             [self.layer addSublayer:LongperLayer];
             //让文字刻度显示
-            if (model.LabelVisble == YES) {
+            if (model.DashboardALabelVisble == YES) {
                 [self addSubview:text];
             }else{
-               
+                
             }
             
             //让文字显示的形式，是正的还是斜的
-            if (model.LabelRotate == YES) {
+            if (model.DashboardALabelRotate == YES) {
                 
             }else{
-            
+                
             }
             
         }else{
-            UIBezierPath *tickPath  = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.ringWidth doubleValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
+            UIBezierPath *tickPath  = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius-[model.DashboardAringWidth doubleValue] startAngle:startAngel endAngle:endAngel clockwise:YES];
             CAShapeLayer *perLayer = [CAShapeLayer layer];
             
-            perLayer.strokeColor = [ColorTools colorWithHexString:model.miColor].CGColor;
-            perLayer.lineWidth = [model.miLength doubleValue];
+            perLayer.strokeColor = [ColorTools colorWithHexString:model.DashboardAmiColor].CGColor;
+            perLayer.lineWidth = [model.DashboardAmiLength doubleValue];
             perLayer.path = tickPath.CGPath;
             [self.layer addSublayer:perLayer];
         }
@@ -212,44 +206,44 @@
         
     }
     
-    [self adddrawPointerVisble:model.PointerVisble PointerWidth:[model.PointerWidth  doubleValue] PointerLength:[model.PointerLength  doubleValue] PointerColor:model.PointerColor KNOBRadius:[model.KNOBRadius doubleValue] KNOBColor:model.KNOBColor withStartAngle:[model.StartAngle doubleValue] withModel:(DashboardA *)model];
+    [self adddrawPointerVisble:model.DashboardAPointerVisble PointerWidth:[model.DashboardAPointerWidth  doubleValue] PointerLength:[model.DashboardAPointerLength  doubleValue] PointerColor:model.DashboardAPointerColor KNOBRadius:[model.DashboardAKNOBRadius doubleValue] KNOBColor:model.DashboardAKNOBColor withStartAngle:[model.DashboardAStartAngle floatValue]  withModel:(CustomDashboard *)model];
     
-    self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KFontmultiple, (_center.y- 40*KFontmultiple)*[model.titlePosition doubleValue], 120*KFontmultiple, 30*KFontmultiple)];
-    self.infoLabel.textColor = [ColorTools colorWithHexString:model.titleColor];
+    self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KFontmultiple, (_center.y- 40*KFontmultiple)*[model.DashboardAtitlePosition doubleValue], 120*KFontmultiple, 30*KFontmultiple)];
+    self.infoLabel.textColor = [ColorTools colorWithHexString:model.DashboardAtitleColor];
     self.infoLabel.textAlignment = NSTextAlignmentCenter;
-//    self.infoLabel.font = [UIFont ToAdapFont:[model.titleFontScale doubleValue]*16.f];
+    //    self.infoLabel.font = [UIFont ToAdapFont:[model.DashboardAtitleFontScale doubleValue]*16.f];
     self.infoLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:self.infoLabel];
     
-    self.unitLabel = [[UILabel alloc]initWithFrame:CGRectMake(((ViewWidth/2) - 20*KFontmultiple)*[model.UnitHorizontalPosition doubleValue], ((ViewWidth/2)+ 10)*[model.UnitVerticalPosition doubleValue], 40*KFontmultiple, 20*KFontmultiple)];
+    self.unitLabel = [[UILabel alloc]initWithFrame:CGRectMake(((ViewWidth/2) - 20*KFontmultiple)*[model.DashboardAUnitHorizontalPosition doubleValue], ((ViewWidth/2)+ 10)*[model.DashboardAUnitVerticalPosition doubleValue], 40*KFontmultiple, 20*KFontmultiple)];
     self.unitLabel.text = @"F";
-    self.unitLabel.font = [UIFont ToAdapFont:[model.UnitFontScale doubleValue]*16.f];
-    self.unitLabel.textColor = [ColorTools colorWithHexString:model.UnitColor];
+    self.unitLabel.font = [UIFont ToAdapFont:[model.DashboardAUnitFontScale doubleValue]*16.f];
+    self.unitLabel.textColor = [ColorTools colorWithHexString:model.DashboardAUnitColor];
     self.unitLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.unitLabel];
     [self addSubview:self.unitLabel];
     self.numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, ViewWidth + 5, ViewWidth, 20)];
-    self.numberLabel.font = [UIFont boldSystemFontOfSize:[model.ValueFontScale doubleValue]*17];
-    self.numberLabel.textColor = [ColorTools colorWithHexString: model.ValueColor];
+    self.numberLabel.font = [UIFont boldSystemFontOfSize:[model.DashboardAValueFontScale doubleValue]*17];
+    self.numberLabel.textColor = [ColorTools colorWithHexString: model.DashboardAValueColor];
     self.numberLabel.textAlignment = NSTextAlignmentCenter;
     self.numberLabel.text = @"N/A";
     
-    if (model.ValueVisble==YES) {
+    if (model.DashboardAValueVisble==YES) {
         [self addSubview:self.numberLabel];
     }else{
         
     }
     
-    [self addDrawFillstartAngle:[model.FillstartAngle doubleValue] FillendAngle:[model.FillEndAngle doubleValue] FillColor:model.FillColor withRingWidth:[model.ringWidth doubleValue] withModel:(DashboardA *)model];
+    [self addDrawFillstartAngle:[model.DashboardAFillstartAngle doubleValue] FillendAngle:[model.DashboardAFillEndAngle doubleValue] FillColor:model.DashboardAFillColor withRingWidth:[model.DashboardAringWidth doubleValue] withModel:(CustomDashboard *)model];
     UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:LongPress];
     if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
-    UIPinchGestureRecognizer* pinchGR = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchAction:)];
-    [self addGestureRecognizer:pinchGR];
+        UIPinchGestureRecognizer* pinchGR = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchAction:)];
+        [self addGestureRecognizer:pinchGR];
     }
     [self setNeedsDisplay];
     
-
+    
 }
 #pragma mark 捏合手势
 - (void)pinchAction:(UIPinchGestureRecognizer*)recognizer{
@@ -258,7 +252,7 @@
         
     {
         
-//        UIView *view=[recognizer view];
+        //        UIView *view=[recognizer view];
         
         //扩大、缩小倍数
         
@@ -279,18 +273,18 @@
 }
 #pragma mark // 计算label的坐标
 - (CGPoint)calculateTextPositonWithArcCenter:(CGPoint)center
-                                       Angle:(CGFloat)angel radius:(CGFloat)Theradius Rotate:(BOOL)labelRotate{    
+                                       Angle:(CGFloat)angel radius:(CGFloat)Theradius Rotate:(BOOL)labelRotate{
     CGFloat x = (Theradius) * cosf(angel);
     CGFloat y = (Theradius) * sinf(angel);
     return CGPointMake(center.x + x, center.y - y);
 }
 
 - (void)drawRect:(CGRect)rect {
-   
+    
 }
 #pragma mark 画指针 圆与三角形
-- (void)adddrawPointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor withStartAngle:(CGFloat )TheAngle withModel:(DashboardA *)model{
-
+- (void)adddrawPointerVisble:(BOOL)pointerVisble PointerWidth:(CGFloat)pointerWidth PointerLength:(CGFloat)pointerLength PointerColor:(NSString *)pointerColor KNOBRadius:(CGFloat)kNOBRadius KNOBColor:(NSString *)kNOBColor withStartAngle:(CGFloat )TheAngle withModel:(CustomDashboard *)model{
+    
     
     _triangleView= [[UIView alloc]initWithFrame:CGRectMake(((ViewWidth/2) - (pointerWidth/2)), (ViewWidth/2), pointerWidth,((ViewWidth/2)-20)*pointerLength)];
     CGPoint oldOrigin = _triangleView.frame.origin;
@@ -303,7 +297,7 @@
     transition.y = newOrigin.y - oldOrigin.y;
     
     _triangleView.center = CGPointMake (_triangleView.center.x - transition.x, _triangleView.center.y - transition.y);
-
+    
     _triangleView.transform = CGAffineTransformMakeRotation(TheAngle+M_PI/2);
     [self addSubview:_triangleView];
     // 线的路径 三角形
@@ -324,10 +318,10 @@
     polygonLayer.strokeColor = [ColorTools colorWithHexString:pointerColor].CGColor;
     polygonLayer.path = polygonPath.CGPath;
     polygonLayer.fillColor = [ColorTools colorWithHexString:pointerColor].CGColor; //
-    if (model.PointerVisble == YES) {
-            [_triangleView.layer addSublayer:polygonLayer];
+    if (model.DashboardAPointerVisble == YES) {
+        [_triangleView.layer addSublayer:polygonLayer];
     }else{
-    
+        
     }
     //画圆
     CGFloat startAngle = 0; // 开始角度
@@ -376,8 +370,8 @@
     
     
 }
-- (void)addDrawFillstartAngle:(CGFloat)startAngle FillendAngle:(CGFloat)endAngle FillColor:(NSString *)fillColor withRingWidth:(CGFloat)RingWidth withModel:(DashboardA *)model{
-   
+- (void)addDrawFillstartAngle:(CGFloat)startAngle FillendAngle:(CGFloat)endAngle FillColor:(NSString *)fillColor withRingWidth:(CGFloat)RingWidth withModel:(CustomDashboard *)model{
+    
     BOOL clockwise = YES; // 顺时针
     //    CALayer *containerLayer = [CALayer layer];
     
@@ -390,8 +384,8 @@
     circleLayer.strokeColor = [ColorTools colorWithHexString:fillColor].CGColor;
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_center radius:_radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
     circleLayer.path = circlePath.CGPath;
-     if (model.Fillenabled == YES) {
-           [self.layer addSublayer:circleLayer];
+    if (model.DashboardAFillenabled == YES) {
+        [self.layer addSublayer:circleLayer];
     }else{
         
     }
@@ -432,52 +426,53 @@
 #pragma mark 开始点击
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-   
+    
     //保存触摸起始点位置
     if ([DashboardSetting sharedInstance].isDashboardMove == YES && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
-
-    
-   
+        
+        
+        
     }
-   
+    
 }
 
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-
+    
     //计算位移=当前位置-起始位置
-      if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
-          //做UIView拖拽
-          UITouch *touch = [touches anyObject];
-          
-          
-          //求偏移量 = 手指当前点的X - 手指上一个点的X
-          CGPoint curP = [touch locationInView:self];
-          CGPoint preP = [touch previousLocationInView:self];
-//          DLog(@"curP====%@",NSStringFromCGPoint(curP));
-//          DLog(@"preP====%@",NSStringFromCGPoint(preP));
-//          
-          CGFloat offsetX = curP.x - preP.x;
-          CGFloat offsetY = curP.y - preP.y;
-          
-          //平移
-          self.transform = CGAffineTransformTranslate(self.transform, offsetX, offsetY);
-      }
-   
+    if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
+        //做UIView拖拽
+        UITouch *touch = [touches anyObject];
+        
+        
+        //求偏移量 = 手指当前点的X - 手指上一个点的X
+        CGPoint curP = [touch locationInView:self];
+        CGPoint preP = [touch previousLocationInView:self];
+        //          DLog(@"curP====%@",NSStringFromCGPoint(curP));
+        //          DLog(@"preP====%@",NSStringFromCGPoint(preP));
+        //
+        CGFloat offsetX = curP.x - preP.x;
+        CGFloat offsetY = curP.y - preP.y;
+        
+        //平移
+        self.transform = CGAffineTransformTranslate(self.transform, offsetX, offsetY);
+    }
+    
 }
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-   
-      if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
-      
-          if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
-//               DLog(@"origin%f,%f",self.frame.origin.x,self.frame.origin.y );
-              [self.delegate touchMoveWithcenterX:self.frame.origin.x WithcenterY:self.frame.origin.y];
-              //移动view
-          }
-  }
+    
+    if ([DashboardSetting sharedInstance].isDashboardMove == YES  && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
+        
+        if ([self.delegate respondsToSelector:@selector(touchMoveWithcenterX:WithcenterY:)]) {
+            //               DLog(@"origin%f,%f",self.frame.origin.x,self.frame.origin.y );
+            [self.delegate touchMoveWithcenterX:self.frame.origin.x WithcenterY:self.frame.origin.y];
+            //移动view
+        }
+    }
     
     
     
 }
 
 @end
+

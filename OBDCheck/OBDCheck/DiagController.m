@@ -299,7 +299,7 @@ static dispatch_source_t _timer;
         troubleCodeModel *model = [troubleCodeModel new];
         model.toubleCode = self.troubleDataSource;
         model.currentTime = self.currentTime;
-        [model bg_saveOrUpdate];
+        [model update];
         isSave = NO;
     }
 }

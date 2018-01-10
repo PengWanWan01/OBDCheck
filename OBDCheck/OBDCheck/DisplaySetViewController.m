@@ -14,7 +14,7 @@
     UITableView *MyTableView;
     CustomDashboard *model;
     
-
+    
 }
 @property (nonatomic,strong) NSMutableArray *titleNameArray;
 @property (nonatomic,strong) NSMutableArray *detailArray;
@@ -37,14 +37,14 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-        if (isLandscape) {
+    if (isLandscape) {
         //翻转为横屏时
         DLog(@"横屏");
         [self setHorizontalFrame];
-        }else{
-            DLog(@"竖屏");
-            [self setVerticalFrame];
-        }
+    }else{
+        DLog(@"竖屏");
+        [self setVerticalFrame];
+    }
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
@@ -72,17 +72,17 @@
     return UIStatusBarAnimationNone;
 }
 - (void)initWithUI{
-   
+    
     
     switch ([DashboardSetting sharedInstance].dashboardMode) {
         case DashboardClassicMode:
         {
-         _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"PID", nil];
+            _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"PID", nil];
         }
             break;
         case DashboardCustomMode:
         {
-             _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Instant fuel economy",@"Min",@"Max",@"PID",@"Multiplier", nil];
+            _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Instant fuel economy",@"Min",@"Max",@"PID",@"Multiplier", nil];
         }
             break;
         default:
@@ -118,13 +118,13 @@
         }
             break;
         case DashboardCustomMode:{
-             return 4;
+            return 4;
         }
             break;
         default:
             break;
     }
-  
+    
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     switch ([DashboardSetting sharedInstance].dashboardMode) {
@@ -204,9 +204,8 @@
         //        selectBtn.backgroundColor = [UIColor redColor];
         selectfield.textAlignment  = NSTextAlignmentCenter;
         selectfield.tag = indexPath.row;
-         NSArray *arr = @[@"BG_ID",@"=",[NSNumber numberWithInteger:[DashboardSetting sharedInstance].Dashboardindex]];
-        NSArray* pAll = [CustomDashboard bg_findWhere:arr];
-        for(CustomDashboard *dashboard in pAll){
+        NSArray *list = [CustomDashboard findAll];
+        for(CustomDashboard *dashboard in list){
             model = dashboard;
             switch (indexPath.row) {
                 case 0:
@@ -214,18 +213,18 @@
                     switch (dashboard.dashboardType) {
                         case 1:
                         {
-                            selectfield.text = dashboard.dashboardA.minNumber ;
-                          
+                            selectfield.text = dashboard.DashboardAminNumber ;
+                            
                         }
                             break;
                         case 2:
                         {
-                            selectfield.text = dashboard.dashboardB.minNumber ;
-                    }
+                            selectfield.text = dashboard.DashboardBminNumber ;
+                        }
                             break;
                         case 3:
                         {
-                            selectfield.text = dashboard.dashboardC.minNumber ;
+                            selectfield.text = dashboard.DashboardCminNumber ;
                         }
                             break;
                         default:
@@ -238,19 +237,19 @@
                     switch (dashboard.dashboardType) {
                         case 1:
                         {
-                            selectfield.text = dashboard.dashboardA.maxNumber ;
+                            selectfield.text = dashboard.DashboardAmaxNumber ;
                             
                         }
                             break;
                         case 2:
                         {
-                            selectfield.text = dashboard.dashboardB.maxNumber ;
+                            selectfield.text = dashboard.DashboardBmaxNumber ;
                             
                         }
                             break;
                         case 3:
                         {
-                            selectfield.text = dashboard.dashboardC.maxNumber ;
+                            selectfield.text = dashboard.DashboardCmaxNumber ;
                             
                         }
                             break;
@@ -269,7 +268,7 @@
         [selectfield addTarget:self action:@selector(textFieldEditChanged:) forControlEvents:UIControlEventEditingChanged];
         cell.accessoryView = selectfield;
         
-           }
+    }
     if (indexPath.section==2 || indexPath.section ==3 ) {
         UIButton *selectBtn = [[UIButton alloc]initWithFrame:CGRectMake(MSWidth - 240, 0, 200, 44)];
         //        selectBtn.backgroundColor = [UIColor redColor];
@@ -293,7 +292,7 @@
                         [selectBtn setTitle:@"X1000" forState:UIControlStateNormal];
                     }
                         break;
-                  
+                        
                     default:
                         break;
                 }
@@ -307,8 +306,8 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-
+    
+    
     switch (indexPath.section) {
         case 1:
         {
@@ -327,13 +326,13 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
-            default:
+        default:
             break;
     }
 }
 - (void)textFieldEditChanged:(UITextField *)textField
 {
-
+    
     switch (textField.tag) {
         case 0:
         {
@@ -341,40 +340,40 @@
                     
                 case 1:
                 {
-                
-                    if ([textField.text integerValue] > [model.dashboardA.maxNumber integerValue]) {
+                    
+                    if ([textField.text integerValue] > [model.DashboardAmaxNumber integerValue]) {
                         [self showWarn];
-                        textField.text = [NSString stringWithFormat:@"%.f", [model.dashboardA.maxNumber floatValue] -1];
+                        textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardAmaxNumber floatValue] -1];
                     }
-                    model.dashboardA.minNumber = textField.text;
+                    model.DashboardAminNumber = textField.text;
                 }
                     break;
                 case 2:
                 {
-                
-                    model.dashboardB.minNumber = textField.text;
-                    if ([textField.text integerValue] > [model.dashboardB.maxNumber integerValue]) {
+                    
+                    model.DashboardBminNumber = textField.text;
+                    if ([textField.text integerValue] > [model.DashboardBmaxNumber integerValue]) {
                         [self showWarn];
-                        textField.text = [NSString stringWithFormat:@"%.f", [model.dashboardA.maxNumber floatValue] -1];
+                        textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardBmaxNumber floatValue] -1];
                     }
-                     model.dashboardB.minNumber = textField.text;
+                    model.DashboardBminNumber = textField.text;
                 }
                     break;
                 case 3:
                 {
                     
-                    if ([textField.text integerValue] > [model.dashboardC.maxNumber integerValue]) {
+                    if ([textField.text integerValue] > [model.DashboardCmaxNumber integerValue]) {
                         [self showWarn];
-                        textField.text = [NSString stringWithFormat:@"%.f", [model.dashboardA.maxNumber floatValue] -1];
+                        textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardCmaxNumber floatValue] -1];
                     }
-                     model.dashboardC.minNumber = textField.text;
-
+                    model.DashboardCminNumber = textField.text;
+                    
                 }
                     break;
                 default:
                     break;
             }
-           
+            
         }
             break;
         case 1:
@@ -384,32 +383,32 @@
                     
                 case 1:
                 {
-                   
-                    if ([model.dashboardA.minNumber integerValue] > [textField.text integerValue]) {
+                    
+                    if ([model.DashboardAminNumber integerValue] > [textField.text integerValue]) {
                         [self showWarn];
-                        textField.text = [NSString stringWithFormat:@"%.f", [model.dashboardA.minNumber floatValue] +1];
+                        textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardAminNumber floatValue] +1];
                     }
-                    model.dashboardA.maxNumber = textField.text;
+                    model.DashboardAmaxNumber = textField.text;
                 }
                     break;
                 case 2:
                 {
-                   
-                    if ([model.dashboardB.minNumber integerValue] > [textField.text integerValue]) {
+                    
+                    if ([model.DashboardBminNumber integerValue] > [textField.text integerValue]) {
                         [self showWarn];
-                        textField.text = [NSString stringWithFormat:@"%.f", [model.dashboardB.minNumber floatValue] +1];
+                        textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardBminNumber floatValue] +1];
                     }
-                      model.dashboardB.maxNumber = textField.text;
+                    model.DashboardBmaxNumber = textField.text;
                 }
                     break;
                 case 3:
                 {
                     
-                    if ([model.dashboardC.minNumber integerValue] > [textField.text integerValue]) {
+                    if ([model.DashboardCminNumber integerValue] > [textField.text integerValue]) {
                         [self showWarn];
-                        textField.text = [NSString stringWithFormat:@"%.f", [model.dashboardC.minNumber floatValue] +1];
+                        textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardCminNumber floatValue] +1];
                     }
-                    model.dashboardC.maxNumber = textField.text;
+                    model.DashboardCmaxNumber = textField.text;
                 }
                     break;
                 default:
@@ -421,7 +420,7 @@
         default:
             break;
     }
-   
+    
 }
 - (void)showWarn{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Warn" message:@"The minimum value you enter can not be greater than the maximum value  " preferredStyle:  UIAlertControllerStyleAlert];
@@ -436,9 +435,9 @@
     switch (btn.tag) {
         case 2:
         {
-    PIDSelectViewController *vc = [[PIDSelectViewController alloc ]init];
-    [self.navigationController pushViewController:vc animated:YES];
-
+            PIDSelectViewController *vc = [[PIDSelectViewController alloc ]init];
+            [self.navigationController pushViewController:vc animated:YES];
+            
         }
             break;
         case 3:
@@ -454,23 +453,24 @@
 }
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
-    [model bg_saveOrUpdate];
+    [model update];
     
-//    if([model.bg_id integerValue] == [DashboardSetting sharedInstance].Dashboardindex ){
-//        CustomDashboard *dash = [CustomDashboard new];
-//        dash.dashboardC.maxNumber =model.dashboardC.maxNumber;
-//        dash.dashboardB.maxNumber =model.dashboardB.maxNumber;
-//        dash.dashboardA.maxNumber =model.dashboardA.maxNumber;
-//        dash.dashboardA.minNumber =model.dashboardA.minNumber;
-//        dash.dashboardB.minNumber =model.dashboardB.minNumber;
-//        dash.dashboardC.minNumber =model.dashboardC.minNumber;
-////        [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
-//
-//    }
-
-
+    //    if([model.bg_id integerValue] == [DashboardSetting sharedInstance].Dashboardindex ){
+    //        CustomDashboard *dash = [CustomDashboard new];
+    //        dash.dashboardC.maxNumber =model.dashboardC.maxNumber;
+    //        dash.dashboardB.maxNumber =model.dashboardB.maxNumber;
+    //        dash.dashboardA.maxNumber =model.dashboardA.maxNumber;
+    //        dash.dashboardA.minNumber =model.dashboardA.minNumber;
+    //        dash.dashboardB.minNumber =model.dashboardB.minNumber;
+    //        dash.dashboardC.minNumber =model.dashboardC.minNumber;
+    ////        [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
+    //
+    //    }
+    
+    
 }
 - (void)rightBarButtonClick{
     [self.navigationController popViewControllerAnimated:YES];
 }
 @end
+

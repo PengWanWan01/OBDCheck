@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 typedef NS_ENUM(NSInteger ,DashboardMode)
 {
     DashboardClassicMode=0,   //经典模式
@@ -56,9 +57,7 @@ typedef NS_ENUM(NSInteger ,ProtocolType)
     CanProtocol,   // Can协议
     KWProtocol    //KW协议
 };
-@class DashboardA;
-@class DashboardB;
-@class DashboardC;
+@class CustomDashboard;
 
 @interface DashboardSetting : NSObject
 @property(nonatomic)   DashboardMode dashboardMode;
@@ -94,9 +93,9 @@ typedef NS_ENUM(NSInteger ,ProtocolType)
 - (void)initWithdashboardC;
 - (void)initwithCustomDashboard;
 
-- (void)initADDdashboardA:(DashboardA *)model withTag:(NSInteger )i;
-- (void)initADDdashboardB:(DashboardB *)model withTag:(NSInteger )i;
-- (void)initADDdashboardC:(DashboardC *)model withTag:(NSInteger )i;
+- (void)initADDdashboardA:(CustomDashboard *)model withTag:(NSInteger )i;
+- (void)initADDdashboardB:(CustomDashboard *)model withTag:(NSInteger )i;
+- (void)initADDdashboardC:(CustomDashboard *)model withTag:(NSInteger )i;
 
 
 - (void)CustomDashboardType:(AddDashboardStyle)type  withTag:(NSInteger)i;

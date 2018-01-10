@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class DashboardC;
+@class CustomDashboard;
 @protocol StyleCtouchMoveDelegate <NSObject>
 
 - (void)touchMoveWithcenterX:(CGFloat)centerX WithcenterY:(CGFloat)WithcenterY;
@@ -27,7 +27,7 @@
 @property (nonatomic,strong) UILabel *UnitLabel;
 
 
-- (void)initWithModel:(DashboardC *)model;
+- (void)initWithModel:(CustomDashboard *)model;
 
 
 

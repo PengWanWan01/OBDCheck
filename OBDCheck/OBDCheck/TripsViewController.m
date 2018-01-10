@@ -173,10 +173,8 @@
     cell.backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
     cell.textLabel.text = self.dataSource[indexPath.row];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-  
-    NSArray *arr= @[@"BG_ID",@"=",[NSNumber numberWithInteger:indexPath.section + 1]];
-    NSArray* pAll = [TripsModel bg_findWhere:arr];
-    for(TripsModel* model in pAll){
+    
+   TripsModel* model = [TripsModel findByPK:indexPath.section + 1];
         switch (indexPath.row) {
             case 0:
             {
@@ -198,7 +196,7 @@
             default:
                 break;
         }
-    }
+    
    
     cell.detailTextLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -206,18 +204,12 @@
 }
 - (void)FootBtn:(UIButton *)btn{
     DLog(@"%ld",(long)btn.tag);
-    TripsModel *model;
-    NSString *SQL  = [NSString stringWithFormat:@"where pk = %ld",btn.tag+1];
-    NSArray *pAll = [TripsModel bg_findWhere:SQL];
-    for(TripsModel* logsmodel in pAll){
-        DLog(@"logsmodel.item1PID %d",logsmodel.bg_id  );
-        model = logsmodel;
-    }
-    
-    model.distance = @"0.00";
-    model.Fuel = @"0.00";
-    model.FuelEconmy = @"0.00";
-//    [model bg_updateWhere:<#(NSArray * _Nullable)#>];
+   TripsModel* logsmodel = [TripsModel findByPK:btn.tag+1];
+
+    logsmodel.distance = @"0.00";
+    logsmodel.Fuel = @"0.00";
+    logsmodel.FuelEconmy = @"0.00";
+    [logsmodel update];
     
             [mytableView reloadData];
 

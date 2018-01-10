@@ -31,23 +31,23 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-        if (isLandscape) {
+    if (isLandscape) {
         //翻转为横屏时
         DLog(@"横屏");
         [self setHorizontalFrame];
-        }else{
-            DLog(@"竖屏");
-            [self setVerticalFrame];
-        }
+    }else{
+        DLog(@"竖屏");
+        [self setVerticalFrame];
+    }
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
- tableView.frame = CGRectMake(0, 34, SCREEN_MIN, SCREEN_MAX-TopHigh) ;
+    tableView.frame = CGRectMake(0, 34, SCREEN_MIN, SCREEN_MAX-TopHigh) ;
     
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
- tableView.frame = CGRectMake(0, 34, SCREEN_MAX, SCREEN_MIN-TopHigh) ;
+    tableView.frame = CGRectMake(0, 34, SCREEN_MAX, SCREEN_MIN-TopHigh) ;
     
 }
 //设置样式
@@ -90,7 +90,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];
     }
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
         cell.layoutMargins = UIEdgeInsetsZero;
@@ -106,7 +106,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
-
+            
         case 0:
         {
             DisplaySetViewController *vc = [[DisplaySetViewController alloc]init];
@@ -115,37 +115,32 @@
             break;
         case 1:
         {
-            NSArray *arr = @[@"BG_ID",@"=",@([DashboardSetting sharedInstance].Dashboardindex)];
-            NSArray* pAll = [CustomDashboard bg_findWhere:arr];
-        
-            for(CustomDashboard *dashboard in pAll){
-                switch (dashboard.dashboardType) {
-                    case 1:
-                    {
-                        StyleViewController *vc = [[StyleViewController alloc]init];
-                        [self.navigationController pushViewController:vc animated:YES];
-                    }
-                        break;
-                    case 2:
-                    {
-                        StyleViewBController *vc = [[StyleViewBController alloc]init];
-                        [self.navigationController pushViewController:vc animated:YES];
-                    }
-                        break;
-                    case 3:
-                    {
-                        StyleCViewController *vc = [[StyleCViewController alloc]init];
-                        [self.navigationController pushViewController:vc animated:YES];
-                    }
-                        break;
-                    default:
-                        break;
+            
+            CustomDashboard *dashboard  = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
+            
+            switch (dashboard.dashboardType) {
+                case 1:
+                {
+                    StyleViewController *vc = [[StyleViewController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
                 }
+                    break;
+                case 2:
+                {
+                    StyleViewBController *vc = [[StyleViewBController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                case 3:
+                {
+                    StyleCViewController *vc = [[StyleCViewController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                default:
+                    break;
             }
             
-            
-           
-          
         }
             break;
         case 2:
@@ -158,7 +153,7 @@
             break;
         case 3:
         {
-          [DashboardSetting sharedInstance].isDashboardRemove = YES;
+            [DashboardSetting sharedInstance].isDashboardRemove = YES;
             [self back];
             
         }
@@ -166,16 +161,16 @@
         case 4:
         {
             [DashboardSetting sharedInstance].isDashboardMove = YES;
-
+            
             [self back];
         }
             break;
         case 5:
         {
             [DashboardSetting sharedInstance].isDashboardFont = YES;
-         
+            
             [self back];
-
+            
         }
             break;
         default:
@@ -185,3 +180,4 @@
 
 
 @end
+

@@ -38,6 +38,7 @@
       
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window setRootViewController:NAC];
+    self.window.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     [self.window makeKeyAndVisible];
     [UITabBar appearance].backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
     [UITabBar appearance].tintColor = [ColorTools colorWithHexString:@"#FE9002"];
@@ -47,17 +48,14 @@
 }
 
 - (void)initWithdatabase{
-    [CustomDashboard bg_drop];
-    [DashboardA bg_drop];
-    [DashboardB bg_drop];
-    [DashboardC bg_drop];
-    [TripsModel bg_drop];
-    [LogsModel bg_drop];
+    [CustomDashboard clearTable];
+    [TripsModel clearTable];
+    [LogsModel clearTable];
     [[DashboardSetting sharedInstance]initWithdashboardA];
     [[DashboardSetting sharedInstance]initWithdashboardB];
     [[DashboardSetting sharedInstance]initWithdashboardC];
     [[LogsSetting sharedInstance]initWithTrips];
-
+    
     [[DashboardSetting sharedInstance]initwithCustomDashboard];
     
 }

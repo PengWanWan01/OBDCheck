@@ -34,16 +34,16 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-
-        if (isLandscape) {
-                //翻转为横屏时
-                DLog(@"横屏");
-                [self setHorizontalFrame];
-        }else{
-                //翻转为竖屏时
-                DLog(@"竖屏");
-                [self setVerticalFrame];
-        }
+    
+    if (isLandscape) {
+        //翻转为横屏时
+        DLog(@"横屏");
+        [self setHorizontalFrame];
+    }else{
+        //翻转为竖屏时
+        DLog(@"竖屏");
+        [self setVerticalFrame];
+    }
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
@@ -111,28 +111,28 @@
     cell.accessoryView = imageView;
     cell.accessoryView.hidden = YES;
     if ([DashboardSetting sharedInstance].dashboardMode == DashboardClassicMode) {
-    switch ([DashboardSetting sharedInstance].dashboardStyle ) {
-        case DashboardStyleOne:{
-            if (indexPath.row == 0) {
-                cell.accessoryView.hidden = NO;
+        switch ([DashboardSetting sharedInstance].dashboardStyle ) {
+            case DashboardStyleOne:{
+                if (indexPath.row == 0) {
+                    cell.accessoryView.hidden = NO;
+                }
             }
-        }
-            break;
-        case DashboardStyleTwo:{
-            if (indexPath.row == 1) {
-                cell.accessoryView.hidden = NO;
+                break;
+            case DashboardStyleTwo:{
+                if (indexPath.row == 1) {
+                    cell.accessoryView.hidden = NO;
+                }
             }
-        }
-            break;
-        case DashboardStyleThree:{
+                break;
+            case DashboardStyleThree:{
                 if (indexPath.row == 2) {
                     cell.accessoryView.hidden = NO;
                 }
             }
-            break;
-        default:
-            break;
-    }
+                break;
+            default:
+                break;
+        }
     }
     return cell;
 }
@@ -147,7 +147,7 @@
                     switch (indexPath.row) {
                         case 0:{     //第一种仪表盘
                             [DashboardSetting sharedInstance].addStyle = AddStyleOne;
-                              [DashboardSetting sharedInstance].ChangeStyle = ChangeDashboardStyleOne;
+                            [DashboardSetting sharedInstance].ChangeStyle = ChangeDashboardStyleOne;
                         }
                             break;
                         case 1:{     //第二种仪表盘
@@ -157,7 +157,7 @@
                             break;
                         case 2:{         //第三种仪表盘
                             [DashboardSetting sharedInstance].addStyle = AddStyleThree;
-                              [DashboardSetting sharedInstance].ChangeStyle = ChangeDashboardStyleThree;
+                            [DashboardSetting sharedInstance].ChangeStyle = ChangeDashboardStyleThree;
                         }
                             break;
                         default:
@@ -169,7 +169,7 @@
                     
                 }
             }
-        
+            
         }
             break;
         case DashboardClassicMode:
@@ -181,7 +181,7 @@
                     switch (indexPath.row) {
                         case 0:{     //第一种仪表盘
                             [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleOne;
-                          
+                            
                         }
                             break;
                         case 1:{     //第二种仪表盘
@@ -191,7 +191,7 @@
                             break;
                         case 2:{         //第三种仪表盘
                             [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleThree;
-                          
+                            
                         }
                             break;
                         default:
@@ -209,139 +209,139 @@
         default:
             break;
     }
-   
+    
 }
 
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
-
-    if ([DashboardSetting sharedInstance].ischangeDashboard == YES) {
     
-        NSArray *arr = @[@"BG_ID",@"=",@([DashboardSetting sharedInstance].Dashboardindex)];
-        NSArray *all = [CustomDashboard bg_findWhere:arr];
- 
-    for (CustomDashboard *dash in all ) {
-        if ([dash.bg_id integerValue] == self.indexID) {
-            
-      
-        switch (dash.dashboardType) {
-            case 1:
-            {
-                switch ([DashboardSetting sharedInstance].ChangeStyle) {
-                    case ChangeDashboardStyleTwo:
+    if ([DashboardSetting sharedInstance].ischangeDashboard == YES) {
+        
+        
+        NSArray *list = [CustomDashboard findAll];
+        for (CustomDashboard *dash in list ) {
+            if (dash.pk == self.indexID) {
+                
+                
+                switch (dash.dashboardType) {
+                    case 1:
                     {
-                        dash.dashboardType = 2;
-                        [self updateCustomType:2 OrignX:[dash.dashboardA.orignx floatValue] OrignY:[dash.dashboardA.origny floatValue] Width:[dash.dashboardA.orignwidth floatValue] Height:[dash.dashboardA.orignwidth floatValue] ID:self.indexID];
+                        switch ([DashboardSetting sharedInstance].ChangeStyle) {
+                            case ChangeDashboardStyleTwo:
+                            {
+                                dash.dashboardType = 2;
+                                [self updateCustomType:2 OrignX:[dash.DashboardAorignx floatValue] OrignY:[dash.DashboardAorigny floatValue] Width:[dash.DashboardAorignwidth floatValue] Height:[dash.DashboardAorignwidth floatValue] ID:self.indexID];
+                                
+                            }
+                                break;
+                            case ChangeDashboardStyleThree:
+                            {
+                                dash.dashboardType = 3;
+                                [self updateCustomType:3 OrignX:[dash.DashboardAorignx floatValue] OrignY:[dash.DashboardAorigny floatValue] Width:[dash.DashboardAorignwidth floatValue] Height:[dash.DashboardAorignheight floatValue] ID:self.indexID];
+                            }
+                                break;
+                            default:
+                                break;
+                        }
                         
                     }
                         break;
-                    case ChangeDashboardStyleThree:
+                    case 2:
                     {
-                        dash.dashboardType = 3;
-                        [self updateCustomType:3 OrignX:[dash.dashboardA.orignx floatValue] OrignY:[dash.dashboardA.origny floatValue] Width:[dash.dashboardA.orignwidth floatValue] Height:[dash.dashboardA.orignheight floatValue] ID:self.indexID];
+                        switch ([DashboardSetting sharedInstance].ChangeStyle) {
+                            case ChangeDashboardStyleOne:
+                            {
+                                dash.dashboardType = 1;
+                                [self updateCustomType:1 OrignX:[dash.DashboardBorignx floatValue] OrignY:[dash.DashboardBorigny floatValue] Width:[dash.DashboardBorignwidth floatValue] Height:[dash.DashboardBorignwidth  floatValue]+20 ID:self.indexID];
+                            }
+                                break;
+                            case ChangeDashboardStyleThree:
+                            {
+                                dash.dashboardType = 3;
+                                [self updateCustomType:3 OrignX:[dash.DashboardBorignx floatValue] OrignY:[dash.DashboardBorigny floatValue] Width:[dash.DashboardBorignwidth floatValue] Height:[dash.DashboardBorignwidth  floatValue] ID:self.indexID];
+                            }
+                                break;
+                            default:
+                                break;
+                        }
+                        
+                    }
+                        break;
+                    case 3:
+                    {
+                        switch ([DashboardSetting sharedInstance].ChangeStyle) {
+                            case ChangeDashboardStyleOne:
+                            {
+                                dash.dashboardType = 1;
+                                [self updateCustomType:1 OrignX:[dash.DashboardCorignx floatValue] OrignY:[dash.DashboardCorigny floatValue] Width:[dash.DashboardCorignwidth floatValue] Height:[dash.DashboardCorignwidth  floatValue]+20 ID:self.indexID];
+                            }
+                                break;
+                            case ChangeDashboardStyleTwo:
+                            {
+                                dash.dashboardType = 2;
+                                [self updateCustomType:2 OrignX:[dash.DashboardCorignx floatValue] OrignY:[dash.DashboardCorigny floatValue] Width:[dash.DashboardCorignwidth floatValue] Height:[dash.DashboardCorignwidth  floatValue] ID:self.indexID];
+                            }
+                                break;
+                            default:
+                                break;
+                        }
+                        
                     }
                         break;
                     default:
                         break;
                 }
-            
+                //            [CustomDashboard bg_updateWhere:<#(NSArray * _Nullable)#>];
+                
+            }
+        }
+        [DashboardSetting sharedInstance].ischangeDashboard = NO;
+    }
+    
+}
+- (void)updateCustomType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(CGFloat)id{
+    
+    NSArray *array = [CustomDashboard findAll];
+    for(CustomDashboard *dash in array){
+        //        if(dash.dashboardA.orignx == @(23) ){
+        
+        switch (Customtype) {
+            case 1:
+            {
+                
+                dash.DashboardAorignx = [NSString stringWithFormat:@"%f",orignx];
+                dash.DashboardAorigny = [NSString stringWithFormat:@"%f",origny];
+                dash.DashboardAorignwidth = [NSString stringWithFormat:@"%f",width];
+                dash.DashboardAorignheight = [NSString stringWithFormat:@"%f",height];
+                
             }
                 break;
             case 2:
             {
-                switch ([DashboardSetting sharedInstance].ChangeStyle) {
-                    case ChangeDashboardStyleOne:
-                    {
-                        dash.dashboardType = 1;
-                        [self updateCustomType:1 OrignX:[dash.dashboardB.orignx floatValue] OrignY:[dash.dashboardB.origny floatValue] Width:[dash.dashboardB.orignwidth floatValue] Height:[dash.dashboardB.orignwidth  floatValue]+20 ID:self.indexID];
-                    }
-                        break;
-                    case ChangeDashboardStyleThree:
-                    {
-                        dash.dashboardType = 3;
-                        [self updateCustomType:3 OrignX:[dash.dashboardB.orignx floatValue] OrignY:[dash.dashboardB.origny floatValue] Width:[dash.dashboardB.orignwidth floatValue] Height:[dash.dashboardB.orignwidth  floatValue] ID:self.indexID];
-                    }
-                        break;
-                    default:
-                        break;
-                }
-                
+                dash.DashboardBorignx = [NSString stringWithFormat:@"%f",orignx];
+                dash.DashboardBorigny = [NSString stringWithFormat:@"%f",origny];
+                dash.DashboardBorignwidth = [NSString stringWithFormat:@"%f",width];
+                dash.DashboardBorignheight = [NSString stringWithFormat:@"%f",height];
             }
                 break;
             case 3:
             {
-                switch ([DashboardSetting sharedInstance].ChangeStyle) {
-                    case ChangeDashboardStyleOne:
-                    {
-                        dash.dashboardType = 1;
-                        [self updateCustomType:1 OrignX:[dash.dashboardC.orignx floatValue] OrignY:[dash.dashboardC.origny floatValue] Width:[dash.dashboardC.orignwidth floatValue] Height:[dash.dashboardC.orignwidth  floatValue]+20 ID:self.indexID];
-                    }
-                        break;
-                    case ChangeDashboardStyleTwo:
-                    {
-                        dash.dashboardType = 2;
-                        [self updateCustomType:2 OrignX:[dash.dashboardC.orignx floatValue] OrignY:[dash.dashboardC.origny floatValue] Width:[dash.dashboardC.orignwidth floatValue] Height:[dash.dashboardC.orignwidth  floatValue] ID:self.indexID];
-                    }
-                        break;
-                    default:
-                        break;
-                }
+                dash.DashboardCorignx = [NSString stringWithFormat:@"%f",orignx];
+                dash.DashboardCorigny = [NSString stringWithFormat:@"%f",origny];
+                dash.DashboardCorignwidth = [NSString stringWithFormat:@"%f",width];
+                dash.DashboardCorignheight = [NSString stringWithFormat:@"%f",height];
                 
             }
                 break;
             default:
                 break;
         }
-//            [CustomDashboard bg_updateWhere:<#(NSArray * _Nullable)#>];
-
-        }
-    }
-        [DashboardSetting sharedInstance].ischangeDashboard = NO;
+        [dash update];
+        //        }
     }
     
-}
-- (void)updateCustomType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(CGFloat)id{
-
-    NSArray *array = [CustomDashboard bg_findAll];
-    for(CustomDashboard *dash in array){
-//        if(dash.dashboardA.orignx == @(23) ){
-        
-    switch (Customtype) {
-        case 1:
-        {
-            
-             dash.dashboardA.orignx = [NSNumber numberWithFloat:orignx];
-             dash.dashboardA.origny = [NSNumber numberWithFloat:origny];
-            dash.dashboardA.orignwidth = [NSNumber numberWithFloat:width];
-            dash.dashboardA.orignheight = [NSNumber numberWithFloat:height];
-           
-        }
-            break;
-        case 2:
-        {
-            dash.dashboardB.orignx = [NSNumber numberWithFloat:orignx];
-            dash.dashboardB.origny = [NSNumber numberWithFloat:origny];
-            dash.dashboardB.orignwidth = [NSNumber numberWithFloat:width];
-            dash.dashboardB.orignheight = [NSNumber numberWithFloat:height];
-        }
-            break;
-        case 3:
-        {
-            dash.dashboardC.orignx = [NSNumber numberWithFloat:orignx];
-            dash.dashboardC.origny = [NSNumber numberWithFloat:origny];
-            dash.dashboardC.orignwidth = [NSNumber numberWithFloat:width];
-            dash.dashboardC.orignheight = [NSNumber numberWithFloat:height];
-            
-        }
-            break;
-        default:
-            break;
-    }
-//            [dash bg_updateWhere:<#(NSArray * _Nullable)#>];
-//        }
-    }
-   
     
     
 }
 @end
+

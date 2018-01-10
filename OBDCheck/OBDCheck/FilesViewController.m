@@ -34,7 +34,7 @@
     [self initWithUI];
 }
 - (void)initWithData{
-    NSArray *array = [LogsModel bg_findAll];
+    NSArray *array = [LogsModel findAll];
     DLog(@"%@",array);
     self.dataSource = [[NSMutableArray alloc]init];
     for (NSInteger i = 1; i<=array.count; i++) {
@@ -148,10 +148,10 @@
 
 - (void)deleteData:(NSInteger)tag{
     DLog(@"%@",[NSNumber numberWithInteger:tag+1]);
-    NSArray *arr = [LogsModel bg_findAll];
+    NSArray *arr = [LogsModel findAll];
     model = arr[tag];
-     [LogsModel bg_deleteWhere:@[@"BG_ID",@"=",model.bg_id]];
-      DLog(@"剩余%@",[LogsModel bg_findAll]);
+//     [LogsModel bg_deleteWhere:@[@"BG_ID",@"=",model.bg_id]];
+      DLog(@"剩余%@",[LogsModel findAll]);
     [self.dataSource removeObjectAtIndex:tag]; //从模型中删除
     
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:tag inSection:0]]  withRowAnimation:UITableViewRowAnimationRight];
@@ -240,7 +240,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     DLog(@"%ld",(long)indexPath.row);
     FileBackViewController *vc = [[FileBackViewController alloc]init];
-    NSArray *array = [LogsModel bg_findAll];
+    NSArray *array = [LogsModel findAll];
     vc.model = array[indexPath.row];
     DLog(@"%@%@%@%@%d%d",vc.model,vc.model.PID1dataSource,vc.model.PID2dataSource,vc.model.PID3dataSource,vc.model.item3Enabled,vc.model.item3Enabled);
     DLog(@"%@%@%@%@",vc.model.item1PID,vc.model.item2PID,vc.model.item3PID,vc.model.item4PID);

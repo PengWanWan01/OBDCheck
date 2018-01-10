@@ -21,7 +21,7 @@
 #define SCREEN_MAX MAX(MSHeight,MSWidth)
 #define    ViewWidth    self.frame.size.width
 #define    ViewHeight self.frame.size.height
-#define baseViewWidth  (MSWidth)/2 - 30
+#define baseViewWidth  (SCREEN_MIN)/2 - 30
 #define baseViewHeight  baseViewWidth
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -101,9 +101,6 @@
 #import "rotationView.h"
 #import "DiagnosticsTableViewCell.h"
 #import "HistoryViewController.h"
-#import "DashboardA.h"
-#import "DashboardB.h"
-#import "DashboardC.h"
 #import "CustomDashboard.h"
 #import "TBarView.h"
 #import "JXButton.h"
@@ -144,7 +141,8 @@
 #import "UnitsController.h"
 #import "GeneralController.h"
 #import "PerformanceController.h"
-#import "BGFMDB.h"
+#import "JKDBModel.h"
+#import "JKDBHelper.h"
 #import "BlueToothController.h"
 #import "BELInfo.h"
 #import "BlueTool.h"

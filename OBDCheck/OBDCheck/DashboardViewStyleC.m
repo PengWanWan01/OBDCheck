@@ -7,7 +7,6 @@
 //
 
 #import "DashboardViewStyleC.h"
-#define KMultipleC   ViewWidth/320
 
 @implementation DashboardViewStyleC
 
@@ -21,51 +20,51 @@
 }
 -(void)setNeedsLayout{
     [super setNeedsLayout];
-     view.frame = CGRectMake(21*KMultipleC, 21*KMultipleC, self.bounds.size.width - 42*KMultipleC, self.bounds.size.width - 42*KMultipleC);
+    view.frame = CGRectMake(21*KMultipleC, 21*KMultipleC, self.bounds.size.width - 42*KMultipleC, self.bounds.size.width - 42*KMultipleC);
     self.NumberLabel.frame =  CGRectMake(0, (view.bounds.size.height/2 - 35.0*KMultipleC) , view.bounds.size.width, 80.f*KMultipleC);
     self.NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size: 74.f*KMultipleC];
-     self.PIDLabel.frame = CGRectMake(0,(53*KMultipleC), view.bounds.size.width, 35.0*KMultipleC);
-     self.PIDLabel.font = [UIFont systemFontOfSize: 36.f*KMultipleC];
-     self.UnitLabel.frame = CGRectMake(0,( view.bounds.size.height - 78*KMultipleC), view.bounds.size.width, 35.0*KMultipleC);
+    self.PIDLabel.frame = CGRectMake(0,(53*KMultipleC), view.bounds.size.width, 35.0*KMultipleC);
+    self.PIDLabel.font = [UIFont systemFontOfSize: 36.f*KMultipleC];
+    self.UnitLabel.frame = CGRectMake(0,( view.bounds.size.height - 78*KMultipleC), view.bounds.size.width, 35.0*KMultipleC);
     self.UnitLabel.font = [UIFont systemFontOfSize:36.f*KMultipleC];
 }
-- (void)initWithModel:(DashboardC *)model{
-  
-    self.backgroundColor = [ColorTools colorWithHexString:model.outerColor];
-    self.layer.borderColor=[ColorTools colorWithHexString:model.outerColor].CGColor;
+- (void)initWithModel:(CustomDashboard *)model{
+    
+    self.backgroundColor = [ColorTools colorWithHexString:model.DashboardCouterColor];
+    self.layer.borderColor=[ColorTools colorWithHexString:model.DashboardCouterColor].CGColor;
     self.layer.borderWidth=1;
     view = [[gradientView alloc]initWithFrame:CGRectMake(21*KMultipleC, 21*KMultipleC, self.bounds.size.width - 42*KMultipleC, self.bounds.size.width - 42*KMultipleC)];
-    view.gradientRadius = [model.Gradientradius floatValue];
-     view.startGradientColor =   [UIColor clearColor];
-    view.endGradientColor =  [ColorTools colorWithHexString:model.innerColor];
-    self.NumberLabel =  [[UILabel alloc]initWithFrame:CGRectMake(0, (view.bounds.size.height/2 - 35.0*KMultipleC)*[model.ValuePositon floatValue] , view.bounds.size.width, 80.f*KMultipleC)];
-    self.NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:[model.ValueFontScale floatValue]* 74.f*KMultipleC];
+    view.gradientRadius = [model.DashboardCGradientradius floatValue];
+    view.startGradientColor =   [UIColor clearColor];
+    view.endGradientColor =  [ColorTools colorWithHexString:model.DashboardCinnerColor];
+    self.NumberLabel =  [[UILabel alloc]initWithFrame:CGRectMake(0, (view.bounds.size.height/2 - 35.0*KMultipleC)*[model.DashboardCValuePositon floatValue] , view.bounds.size.width, 80.f*KMultipleC)];
+    self.NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:[model.DashboardCValueFontScale floatValue]* 74.f*KMultipleC];
     self.NumberLabel.text = @"0.00";
     self.NumberLabel.textAlignment = NSTextAlignmentCenter;
-    self.NumberLabel.textColor = [ColorTools colorWithHexString:model.ValueColor];
-   
+    self.NumberLabel.textColor = [ColorTools colorWithHexString:model.DashboardCValueColor];
     
-    self.PIDLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,(53*KMultipleC)*[model.titlePositon floatValue] , view.bounds.size.width, 35.0*KMultipleC)];
-    self.PIDLabel.font = [UIFont systemFontOfSize:[model.titleFontScale floatValue]* 36.f*KMultipleC];
+    
+    self.PIDLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,(53*KMultipleC)*[model.DashboardCtitlePositon floatValue] , view.bounds.size.width, 35.0*KMultipleC)];
+    self.PIDLabel.font = [UIFont systemFontOfSize:[model.DashboardCtitleFontScale floatValue]* 36.f*KMultipleC];
     self.PIDLabel.text = @"RPM";
     self.PIDLabel.textAlignment = NSTextAlignmentCenter;
-    self.PIDLabel.textColor = [ColorTools colorWithHexString:model.titleColor];
-  
-    self.UnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,( view.bounds.size.height  - 78*KMultipleC)*[model.UnitPositon floatValue], view.bounds.size.width, 35.0*KMultipleC)];
-    self.UnitLabel.font = [UIFont systemFontOfSize:36.f*KMultipleC*[model.UnitFontScale floatValue]];
+    self.PIDLabel.textColor = [ColorTools colorWithHexString:model.DashboardCtitleColor];
+    
+    self.UnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,( view.bounds.size.height  - 78*KMultipleC)*[model.DashboardCUnitPositon floatValue], view.bounds.size.width, 35.0*KMultipleC)];
+    self.UnitLabel.font = [UIFont systemFontOfSize:36.f*KMultipleC*[model.DashboardCUnitFontScale floatValue]];
     self.UnitLabel.text = @"/min";
     self.UnitLabel.textAlignment = NSTextAlignmentCenter;
-    self.UnitLabel.textColor = [ColorTools colorWithHexString:model.UnitColor];
-  
+    self.UnitLabel.textColor = [ColorTools colorWithHexString:model.DashboardCUnitColor];
+    
     [self addSubview:view];
     [view addSubview:self.PIDLabel];
-    if (model.ValueVisible == YES) {
+    if (model.DashboardCValueVisible == YES) {
         [view addSubview:self.NumberLabel];
     }else{
-    
+        
     }
     [view addSubview:self.UnitLabel];
-
+    
     
     UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:LongPress];
@@ -103,7 +102,7 @@
     //保存触摸起始点位置
     if ([DashboardSetting sharedInstance].isDashboardMove == YES && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
         
-  
+        
     }
 }
 
@@ -119,8 +118,8 @@
         //求偏移量 = 手指当前点的X - 手指上一个点的X
         CGPoint curP = [touch locationInView:self];
         CGPoint preP = [touch previousLocationInView:self];
-//        DLog(@"curP====%@",NSStringFromCGPoint(curP));
-//        DLog(@"preP====%@",NSStringFromCGPoint(preP));
+        //        DLog(@"curP====%@",NSStringFromCGPoint(curP));
+        //        DLog(@"preP====%@",NSStringFromCGPoint(preP));
         
         CGFloat offsetX = curP.x - preP.x;
         CGFloat offsetY = curP.y - preP.y;
@@ -140,6 +139,7 @@
             //移动view
         }
     }
-   
+    
     
 }@end
+

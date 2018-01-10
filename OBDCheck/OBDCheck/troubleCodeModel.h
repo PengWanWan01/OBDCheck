@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface troubleCodeModel : NSObject
+@interface troubleCodeModel : JKDBModel
 @property (nonatomic,strong) NSArray *toubleCode;//故障码的内容
 @property (nonatomic,copy) NSString *currentTime; //当前时间
 @end

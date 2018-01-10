@@ -57,7 +57,7 @@
 - (void)initwithdata{
    
     _sectiondatasource = [[NSMutableArray alloc]init];
-    NSArray *array = [troubleCodeModel bg_findAll];
+    NSArray *array = [troubleCodeModel findAll];
 //    troubleCodeModel *model =
     for (troubleCodeModel *model in array) {
         DLog(@"%@%@",model.currentTime,model.toubleCode);

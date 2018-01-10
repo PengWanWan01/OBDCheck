@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class DashboardA;
+@class CustomDashboard;
 @protocol touchMoveDelegate <NSObject>
 - (void)touchMoveWithcenterX:(CGFloat)centerX WithcenterY:(CGFloat)WithcenterY;
 - (void)tap:(UILongPressGestureRecognizer *)sender;
@@ -48,7 +48,7 @@
 
 @property (nonatomic,copy) NSString  *infoLabeltext; //名字
 
-- (void)initWithModel:(DashboardA *)model;
+- (void)initWithModel:(CustomDashboard *)model;
 
 - (void)addGradientView:(NSString *)gradientColor GradientViewWidth:(CGFloat )gradientViewWidth;
 - (void)rotationWithStartAngle:(CGFloat)StartAngle WithEndAngle:(CGFloat)endAngle;

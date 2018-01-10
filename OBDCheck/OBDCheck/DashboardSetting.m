@@ -24,9 +24,9 @@
 {
     self = [super init];
     if (self) {
-         self.defaults = [NSUserDefaults standardUserDefaults];
-//        [self.defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:myObject] forKey:@"MyObjectKey"];
-
+        self.defaults = [NSUserDefaults standardUserDefaults];
+        //        [self.defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:myObject] forKey:@"MyObjectKey"];
+        
         [self.defaults synchronize];
         self.dashboardMode = DashboardCustomMode;
         self.dashboardStyle = DashboardStyleOne;
@@ -48,8 +48,8 @@
         self.HUDColourStr = @"44FF00";
         self.blueState = 0;
         self.protocolType = KWProtocol;
-//         [self.defaults setObject:@"11" forKey:[NSString stringWithFormat:@"test%ld",[DashboardSetting sharedInstance].Dashboardindex]];
-    
+        //         [self.defaults setObject:@"11" forKey:[NSString stringWithFormat:@"test%ld",[DashboardSetting sharedInstance].Dashboardindex]];
+        
     }
     return self;
 }
@@ -78,206 +78,216 @@
     }
     return result;
 }
-- (void)initWithdashboardA{
+- (void)initWithCustomDashboard{
     for (int i = 0; i<9; i++) {
-        DashboardA *model =  [DashboardA new];
+        CustomDashboard *model =  [CustomDashboard new];
         [self initADDdashboardA:model withTag:i ];
-        [model bg_saveOrUpdate];
+        [self initADDdashboardB:model withTag:i ];
+        [self initADDdashboardC:model withTag:i ];
+        
+        [model save];
     }
     
 }
-- (void)initADDdashboardA:(DashboardA *)model withTag:(NSInteger)i {
-     model.titleColor = @"FE9002";
-    model.titleFontScale = [NSNumber numberWithFloat:1];
-    model.titlePosition = [NSNumber numberWithFloat:1];
+- (void)initADDCustomDashboard:(CustomDashboard *)model withTag:(NSInteger)i {
     
-    model.ValueVisble = YES;
-    model.ValueFontScale = [NSNumber numberWithFloat:1];
-    model.ValuePosition =[NSNumber numberWithFloat:1];
-    model.ValueColor = @"FE9002";
+}
+- (void)initWithdashboardA{
+    for (int i = 0; i< 9; i++) {
+        [self CustomDashboardType:AddStyleOne withTag:i];
+    }
+}
+- (void)initWithdashboardB{
+    for (int i = 0; i<9; i++) {
+        [self CustomDashboardType:AddStyleTwo withTag:i];
+    }
     
-    model.LabelVisble = YES;
-    model.LabelRotate = YES;
-    model.LabelOffest = [NSNumber numberWithFloat:1];
-    model.LabelFontScale = [NSNumber numberWithFloat:1];
     
-    model.PointerVisble = YES;
-    model.PointerWidth = [NSNumber numberWithFloat:10];
-    model.PointerColor = @"FE9002";
+}
+- (NSString * _Nonnull)extracted {
+    return [NSString stringWithFormat:@"%f",150*KFontmultiple];
+}
+- (void)initADDdashboardA:(CustomDashboard *)model withTag:(NSInteger )i{
+    model.DashboardAtitleColor = @"FE9002";
+    model.DashboardAtitleFontScale = [NSString stringWithFormat:@"%d",1];
+    model.DashboardAtitlePosition =[NSString stringWithFormat:@"%d",1];
     
-    model.KNOBRadius = [NSNumber numberWithFloat:10.f];
-    model.KNOBColor = @"FFFFFF";
+    model.DashboardAValueVisble = YES;
+    model.DashboardAValueFontScale =[NSString stringWithFormat:@"%d",1];
+    model.DashboardAValuePosition =[NSString stringWithFormat:@"%d",1];
+    model.DashboardAValueColor = @"FE9002";
     
-    model.Fillenabled = YES;
-    model.FillstartAngle = [NSNumber numberWithFloat:0];
-    model.FillEndAngle = [NSNumber numberWithFloat:0];
-    model.FillColor = @"FE9002";
+    model.DashboardALabelVisble = YES;
+    model.DashboardALabelRotate = YES;
+    model.DashboardALabelOffest =[NSString stringWithFormat:@"%d",1];
+    model.DashboardALabelFontScale =[NSString stringWithFormat:@"%d",1];
     
-    model.UnitColor = @"FE9002";
-    model.UnitFontScale = [NSNumber numberWithFloat:1];
-    model.UnitVerticalPosition = [NSNumber numberWithFloat:1];
-    model.UnitHorizontalPosition = [NSNumber numberWithFloat:1];
+    model.DashboardAPointerVisble = YES;
+    model.DashboardAPointerWidth =[NSString stringWithFormat:@"%d",10];
+    model.DashboardAPointerColor = @"FE9002";
     
-    model.StartAngle = [NSNumber numberWithFloat:0.f];
-    model.endAngle = [NSNumber numberWithFloat:2.f*M_PI];
-    model.ringWidth = [NSNumber numberWithFloat:10.f];
-    model.maLength = [NSNumber numberWithFloat:15.f];
-    model.miLength = [NSNumber numberWithFloat:5];
-    model.miWidth = [NSNumber numberWithFloat:10.f];
-    model.maWidth = [NSNumber numberWithFloat:10.f];
-    model.maColor = @"FFFFFF";
-    model.miColor = @"FFFFFF";
-    model.innerColor = @"18191C";
-    model.outerColor = @"18191C";
-    model.PID = @"";
+    model.DashboardAKNOBRadius =[NSString stringWithFormat:@"%f",10.f];
+    model.DashboardAKNOBColor = @"FFFFFF";
+    
+    model.DashboardAFillenabled = YES;
+    model.DashboardAFillstartAngle =[NSString stringWithFormat:@"%d",0];
+    model.DashboardAFillEndAngle =[NSString stringWithFormat:@"%d",0];
+    model.DashboardAFillColor = @"FE9002";
+    
+    model.DashboardAUnitColor = @"FE9002";
+    model.DashboardAUnitFontScale =[NSString stringWithFormat:@"%d",1];
+    model.DashboardAUnitVerticalPosition =[NSString stringWithFormat:@"%d",1];
+    model.DashboardAUnitHorizontalPosition =[NSString stringWithFormat:@"%d",1];
+    
+    model.DashboardAStartAngle = [NSString stringWithFormat:@"%d", 0];
+    model.DashboardAendAngle =[NSString stringWithFormat:@"%f", 2*M_PI];
+    DLog(@"%@,%@", model.DashboardAStartAngle, model.DashboardAendAngle);
+    model.DashboardAringWidth =[NSString stringWithFormat:@"%f",10.f];
+    model.DashboardAmaLength =[NSString stringWithFormat:@"%f",15.f];
+    model.DashboardAmiLength =[NSString stringWithFormat:@"%d",5];
+    model.DashboardAmiWidth =[NSString stringWithFormat:@"%f",10.f];
+    model.DashboardAmaWidth =[NSString stringWithFormat:@"%f",10.f];
+    model.DashboardAmaColor = @"FFFFFF";
+    model.DashboardAmiColor = @"FFFFFF";
+    model.DashboardAinnerColor = @"18191C";
+    model.DashboardAouterColor = @"18191C";
+    model.DashboardAPID = @"";
     if (i>=6 && i<8) {
-        model.orignx = [NSNumber numberWithFloat:SCREEN_MIN+ SCREEN_MIN/2 - 100];
-        model.origny = [NSNumber numberWithFloat:(i -6) * (ScreenHeight/2)+(ScreenHeight/2 - 240)];
-        model.orignwidth = [NSNumber numberWithFloat:220];
-        model.orignheight = [NSNumber numberWithFloat:220+20];
+        model.DashboardAorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100];
+        model.DashboardAorigny =[NSString stringWithFormat:@"%f",(i -6) * (ScreenHeight/2)+(ScreenHeight/2 - 240)];
+        model.DashboardAorignwidth =[NSString stringWithFormat:@"%d",220];
+        model.DashboardAorignheight =[NSString stringWithFormat:@"%d",220+20];
     }else if (i==8){
-        model.orignx = [NSNumber numberWithFloat:SCREEN_MIN*2+(SCREEN_MIN- 300)/2];
-        model.origny = [NSNumber numberWithFloat:ScreenHeight/2 - 160];
-        model.orignwidth = [NSNumber numberWithFloat:300];
-        model.orignheight = [NSNumber numberWithFloat:300+20];
+        model.DashboardAorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN*2+(SCREEN_MIN- 300)/2];
+        model.DashboardAorigny =[NSString stringWithFormat:@"%f",ScreenHeight/2 - 160];
+        model.DashboardAorignwidth =[NSString stringWithFormat:@"%d",300];
+        model.DashboardAorignheight =[NSString stringWithFormat:@"%d",300+20];
     }else{
         NSInteger index = i % 2;
         NSInteger page = i / 2;
         CGFloat  space = SCREEN_MIN - 150*KFontmultiple*2 - 50;
-        model.orignx = [NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25];
-        model.origny = [NSNumber numberWithFloat: page  * (((SCREEN_MIN)/2 - 30) + 40)+10];
-        model.orignwidth = [NSNumber numberWithFloat:150*KFontmultiple];
-        model.orignheight = [NSNumber numberWithFloat:150*KFontmultiple +20];
+        model.DashboardAorignx =[NSString stringWithFormat:@"%f",index * (space+ 150*KFontmultiple)+25];
+        model.DashboardAorigny =[NSString stringWithFormat:@"%f", page  * (((SCREEN_MIN)/2 - 30) + 40)+10];
+        model.DashboardAorignwidth =[NSString stringWithFormat:@"%f",150*KFontmultiple];
+        model.DashboardAorignheight =[NSString stringWithFormat:@"%f",150*KFontmultiple +20];
     }
-//    model.PointerLength = [NSNumber numberWithFloat:([model.orignwidth integerValue]/2) - 15 - 14];
-      model.PointerLength = [NSNumber numberWithFloat:1];
-    model.minNumber = @"0";
-    model.maxNumber = @"100";
-    model.infoLabeltext = @"add";
+    //    model.PointerLength =[NSString stringWithFormat:@"%d":([model.orignwidth integerValue]/2) - 15 - 14];
+    model.DashboardAPointerLength =[NSString stringWithFormat:@"%d",1];
+    model.DashboardAminNumber = @"0";
+    model.DashboardAmaxNumber = @"100";
+    model.DashboardAinfoLabeltext = @"add";
     /**
      存储.
      */
 }
-
-- (void)initWithdashboardB{
-    for (int i = 0; i<9; i++) {
-        DashboardB *model =  [DashboardB new];
-        [self initADDdashboardB:model withTag:i] ;
-         [model bg_saveOrUpdate];
+- (void)initADDdashboardB:(CustomDashboard *)model withTag:(NSInteger)i{
+    model.DashboardBValueColor  = @"#FFFFFF";
+    model.DashboardBValueFontScale =[NSString stringWithFormat:@"%f",1.f];
+    model.DashboardBValuePositon =[NSString stringWithFormat:@"%f",1.f];
+    model.DashboardBValueVisible = YES;
+    model.DashboardBtitleColor  = @"#757476";
+    model.DashboardBtitleFontScale =[NSString stringWithFormat:@"%f",1.f];
+    model.DashboardBtitlePositon =[NSString stringWithFormat:@"%f",1.f];
+    
+    model.DashboardBUnitColor = @"#757476";
+    model.DashboardBUnitFontScale =[NSString stringWithFormat:@"%f",1.f];
+    model.DashboardBUnitPositon =[NSString stringWithFormat:@"%f",1.f];
+    
+    
+    model.DashboardBbackColor = @"00a6ff";
+    model.DashboardBGradientRadius =[NSString stringWithFormat:@"%f",SCREEN_MIN/2];
+    
+    model.DashboardBFillColor = @"FE9002";
+    model.DashboardBFillEnable = YES;
+    
+    model.DashboardBPointerwidth =[NSString stringWithFormat:@"%f",1.f];
+    model.DashboardBpointerColor = @"#FFFFFF";
+    if (i>=6 && i<8)  {
+        model.DashboardBorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100];
+        model.DashboardBorigny =[NSString stringWithFormat:@"%f",(i -6) * (ScreenHeight/2)+(ScreenHeight/2 - 220)];
+        model.DashboardBorignwidth =[NSString stringWithFormat:@"%d",220];
+        model.DashboardBorignheight =[NSString stringWithFormat:@"%d",220];
+    }else if(i==8){
+        model.DashboardBorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN*2+(SCREEN_MIN- 300)/2];
+        model.DashboardBorigny =[NSString stringWithFormat:@"%f",ScreenHeight/2 - 150];
+        model.DashboardBorignwidth =[NSString stringWithFormat:@"%d",300];
+        model.DashboardBorignheight =[NSString stringWithFormat:@"%d",300];
+    }else{
+        NSInteger index = i % 2;
+        NSInteger page = i / 2;
+        CGFloat  space = SCREEN_MIN - 150*KFontmultiple*2 - 50;
+        model.DashboardBorignx =[NSString stringWithFormat:@"%f",index * (space+ 150*KFontmultiple)+25];
+        model.DashboardBorigny =[NSString stringWithFormat:@"%f",page  * (baseViewHeight + 40)+20];
+        model.DashboardBorignwidth = [self extracted];
+        model.DashboardBorignheight =[NSString stringWithFormat:@"%f",150*KFontmultiple];
     }
-
-
-}
-- (void)initADDdashboardB:(DashboardB *)model withTag:(NSInteger)i{
-    model.ValueColor  = @"#FFFFFF";
-    model.ValueFontScale = [NSNumber numberWithFloat:1.f];
-    model.ValuePositon = [NSNumber numberWithFloat:1.f];
-    model.ValueVisible = YES;
-    model.titleColor  = @"#757476";
-    model.titleFontScale = [NSNumber numberWithFloat:1.f];
-    model.titlePositon = [NSNumber numberWithFloat:1.f];
     
-    model.UnitColor = @"#757476";
-    model.UnitFontScale = [NSNumber numberWithFloat:1.f];
-    model.UnitPositon = [NSNumber numberWithFloat:1.f];
+    model.DashboardBPID = @"";
+    model.DashboardBminNumber = @"0";
+    model.DashboardBmaxNumber = @"100";
+    model.DashboardBinfoLabeltext = @"add";
     
-    
-    model.backColor = @"00a6ff";
-    model.GradientRadius = [NSNumber numberWithFloat:SCREEN_MIN/2];
-    
-    model.FillColor = @"FE9002";
-    model.FillEnable = YES;
-    
-    model.Pointerwidth = [NSNumber numberWithFloat:1.f];
-    model.pointerColor = @"#FFFFFF";
-   if (i>=6 && i<8)  {
-       model.orignx = [NSNumber numberWithFloat:SCREEN_MIN+ SCREEN_MIN/2 - 100];
-       model.origny = [NSNumber numberWithFloat:(i -6) * (ScreenHeight/2)+(ScreenHeight/2 - 220)];
-       model.orignwidth = [NSNumber numberWithFloat:220];
-       model.orignheight = [NSNumber numberWithFloat:220];
-   }else if(i==8){
-       model.orignx = [NSNumber numberWithFloat:SCREEN_MIN*2+(SCREEN_MIN- 300)/2];
-       model.origny = [NSNumber numberWithFloat:ScreenHeight/2 - 150];
-       model.orignwidth = [NSNumber numberWithFloat:300];
-       model.orignheight = [NSNumber numberWithFloat:300];
-   }else{
-       NSInteger index = i % 2;
-       NSInteger page = i / 2;
-       CGFloat  space = SCREEN_MIN - 150*KFontmultiple*2 - 50;
-       model.orignx = [NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25];
-       model.origny = [NSNumber numberWithFloat:page  * (baseViewHeight + 40)+20];
-       model.orignwidth = [NSNumber numberWithFloat:150*KFontmultiple];
-       model.orignheight = [NSNumber numberWithFloat:150*KFontmultiple];
-   }
-   
-    model.PID = @"";
-    model.minNumber = @"0";
-    model.maxNumber = @"100";
-    model.infoLabeltext = @"add";
-
     /**
      存储.
      */
 }
 - (void)initWithdashboardC {
     for (int i = 0; i<9; i++) {
-        DashboardC *model = [DashboardC new];
-        [self initADDdashboardC:model withTag:i];
-         [model bg_saveOrUpdate];
+        [self CustomDashboardType:AddStyleThree withTag:i];
     }
     
     
 }
-- (void)initADDdashboardC:(DashboardC *)model withTag:(NSInteger)i{
-    model.UnitColor = @"FFFFFF";
-    model.UnitFontScale = [NSNumber numberWithFloat:1.f];
-    model.UnitPositon = [NSNumber numberWithFloat:1.f];
+- (void)initADDdashboardC:(CustomDashboard *)model withTag:(NSInteger)i{
+    model.DashboardCUnitColor = @"FFFFFF";
+    model.DashboardCUnitFontScale =[NSString stringWithFormat:@"%f",1.f];
+    model.DashboardCUnitPositon =[NSString stringWithFormat:@"%f",1.f];
     
-    model.FrameColor = @"FFFFFF";
-    model.titlePositon = [NSNumber numberWithFloat:1.f];
-    model.titleFontScale =[NSNumber numberWithFloat:1.f];
-    model.titleColor = @"FFFFFF";
+    model.DashboardCFrameColor = @"FFFFFF";
+    model.DashboardCtitlePositon =[NSString stringWithFormat:@"%f",1.f];
+    model.DashboardCtitleFontScale =[NSString stringWithFormat:@"%f",1.f];
+    model.DashboardCtitleColor = @"FFFFFF";
     
-    model.ValueColor = @"FFFFFF";
-    model.ValueFontScale = [NSNumber numberWithFloat:1.f];
-    model.ValuePositon = [NSNumber numberWithFloat:1.f];
-    model.ValueVisible = YES;
-    model.innerColor = @"000000";
-    model.outerColor = @"000000";
-    model.Gradientradius = [NSNumber numberWithFloat:SCREEN_MIN/2];
+    model.DashboardCValueColor = @"FFFFFF";
+    model.DashboardCValueFontScale =[NSString stringWithFormat:@"%f",1.f];
+    model.DashboardCValuePositon =[NSString stringWithFormat:@"%f",1.f];
+    model.DashboardCValueVisible = YES;
+    model.DashboardCinnerColor = @"000000";
+    model.DashboardCouterColor = @"000000";
+    model.DashboardCGradientradius =[NSString stringWithFormat:@"%f",SCREEN_MIN/2];
     if (i>=6 && i<8)  {
-        model.orignx = [NSNumber numberWithFloat:SCREEN_MIN+ SCREEN_MIN/2 - 100];
-        model.origny = [NSNumber numberWithFloat:(i -6) * (ScreenHeight/2)+(ScreenHeight/2 - 220)];
-        model.orignwidth = [NSNumber numberWithFloat:220];
-        model.orignheight = [NSNumber numberWithFloat:220];
+        model.DashboardCorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100];
+        model.DashboardCorigny =[NSString stringWithFormat:@"%f",(i -6) * (ScreenHeight/2)+(ScreenHeight/2 - 220)];
+        model.DashboardCorignwidth =[NSString stringWithFormat:@"%d",220];
+        model.DashboardCorignheight =[NSString stringWithFormat:@"%d",220];
     }else if (i==8){
-        model.orignx = [NSNumber numberWithFloat:SCREEN_MIN*2+(SCREEN_MIN- 300)/2];
-        model.origny = [NSNumber numberWithFloat:ScreenHeight/2 - 160];
-        model.orignwidth = [NSNumber numberWithFloat:300];
-        model.orignheight = [NSNumber numberWithFloat:300];
+        model.DashboardCorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN*2+(SCREEN_MIN- 300)/2];
+        model.DashboardCorigny =[NSString stringWithFormat:@"%f",ScreenHeight/2 - 160];
+        model.DashboardCorignwidth =[NSString stringWithFormat:@"%d",300];
+        model.DashboardCorignheight =[NSString stringWithFormat:@"%d",300];
     }else{
         NSInteger index = i % 2;
         NSInteger page = i / 2;
         CGFloat  space = SCREEN_MIN - 150*KFontmultiple*2 - 50;
-        model.orignx = [NSNumber numberWithFloat:index * (space+ 150*KFontmultiple)+25];
-        model.origny = [NSNumber numberWithFloat:page  * (baseViewHeight + 40)+10];
-        model.orignwidth = [NSNumber numberWithFloat:150*KFontmultiple];
-        model.orignheight = [NSNumber numberWithFloat:150*KFontmultiple];
+        model.DashboardCorignx =[NSString stringWithFormat:@"%f",index * (space+ 150*KFontmultiple)+25];
+        model.DashboardCorigny =[NSString stringWithFormat:@"%f",page  * (baseViewHeight + 40)+10];
+        model.DashboardCorignwidth =[NSString stringWithFormat:@"%f",150*KFontmultiple];
+        model.DashboardCorignheight =[NSString stringWithFormat:@"%f",150*KFontmultiple];
     }
-   
-    model.PID = @"";
-    model.minNumber = @"0";
-    model.maxNumber = @"100";
-    model.infoLabeltext = @"add";
-
+    
+    model.DashboardCPID = @"";
+    model.DashboardCminNumber = @"0";
+    model.DashboardCmaxNumber = @"100";
+    model.DashboardCinfoLabeltext = @"add";
+    
     /**
      存储.
      */
-   
+    
 }
 
 - (void)initwithCustomDashboard{
-
+    
     dispatch_async(dispatch_get_global_queue(0, 0),^{
         for (int i = 0; i< 9; i++) {
             DLog(@"%d",i);
@@ -290,22 +300,15 @@
             }
         }
     });
-   
-
+    
+    
 }
 - (void)CustomDashboardType:(AddDashboardStyle)type withTag:(NSInteger)i{
     
     CustomDashboard *model = [CustomDashboard new ];
-    DashboardA *dashA = [DashboardA new];
-    [self initADDdashboardA:dashA withTag:i ];
-    DashboardB *dashB = [DashboardB new];
-    [self initADDdashboardB:dashB withTag:i];
-    model.dashboardB = dashB;
-    model.dashboardA = dashA;
-    DashboardC *dashC = [DashboardC new];
-    [self initADDdashboardC:dashC withTag:i];
-    model.dashboardC = dashC;
-    
+    [self initADDdashboardA:model withTag:i ];
+    [self initADDdashboardB:model withTag:i];
+    [self initADDdashboardC:model withTag:i];
     switch (type) {
         case AddStyleOne:
         {
@@ -325,7 +328,8 @@
         default:
             break;
     }
-    [model bg_saveOrUpdate];
+    [model save];
     
 }
 @end
+
