@@ -21,11 +21,11 @@
 -(void)setNeedsLayout{
     [super setNeedsLayout];
     view.frame = CGRectMake(21*KMultipleC, 21*KMultipleC, self.bounds.size.width - 42*KMultipleC, self.bounds.size.width - 42*KMultipleC);
-    self.NumberLabel.frame =  CGRectMake(0, (view.bounds.size.height/2 - 35.0*KMultipleC) , view.bounds.size.width, 80.f*KMultipleC);
+    self.NumberLabel.frame = CGRectMake(0, view.bounds.size.height/3, view.bounds.size.width, view.bounds.size.height/3);
     self.NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size: 74.f*KMultipleC];
-    self.PIDLabel.frame = CGRectMake(0,(53*KMultipleC), view.bounds.size.width, 35.0*KMultipleC);
+    self.PIDLabel.frame = CGRectMake(0,0, view.bounds.size.width,view.bounds.size.height/3);
     self.PIDLabel.font = [UIFont systemFontOfSize: 36.f*KMultipleC];
-    self.UnitLabel.frame = CGRectMake(0,( view.bounds.size.height - 78*KMultipleC), view.bounds.size.width, 35.0*KMultipleC);
+    self.UnitLabel.frame =CGRectMake(0,2*view.bounds.size.height/3, view.bounds.size.width, view.bounds.size.height/3);
     self.UnitLabel.font = [UIFont systemFontOfSize:36.f*KMultipleC];
 }
 - (void)initWithModel:(CustomDashboard *)model{
@@ -37,31 +37,31 @@
     view.gradientRadius = [model.DashboardCGradientradius floatValue];
     view.startGradientColor =   [UIColor clearColor];
     view.endGradientColor =  [ColorTools colorWithHexString:model.DashboardCinnerColor];
-    self.NumberLabel =  [[UILabel alloc]initWithFrame:CGRectMake(0, (view.bounds.size.height/2 - 35.0*KMultipleC)*[model.DashboardCValuePositon floatValue] , view.bounds.size.width, 80.f*KMultipleC)];
+     [self addSubview:view];
+    self.NumberLabel =  [[UILabel alloc]initWithFrame:CGRectMake(0, view.bounds.size.height/3, view.bounds.size.width, view.bounds.size.height/3)];
     self.NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:[model.DashboardCValueFontScale floatValue]* 74.f*KMultipleC];
     self.NumberLabel.text = @"0.00";
     self.NumberLabel.textAlignment = NSTextAlignmentCenter;
     self.NumberLabel.textColor = [ColorTools colorWithHexString:model.DashboardCValueColor];
     
     
-    self.PIDLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,(53*KMultipleC)*[model.DashboardCtitlePositon floatValue] , view.bounds.size.width, 35.0*KMultipleC)];
+    self.PIDLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,0, view.bounds.size.width,view.bounds.size.height/3)];
     self.PIDLabel.font = [UIFont systemFontOfSize:[model.DashboardCtitleFontScale floatValue]* 36.f*KMultipleC];
     self.PIDLabel.text = @"RPM";
     self.PIDLabel.textAlignment = NSTextAlignmentCenter;
     self.PIDLabel.textColor = [ColorTools colorWithHexString:model.DashboardCtitleColor];
     
-    self.UnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,( view.bounds.size.height  - 78*KMultipleC)*[model.DashboardCUnitPositon floatValue], view.bounds.size.width, 35.0*KMultipleC)];
+    self.UnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,2*view.bounds.size.height/3, view.bounds.size.width, view.bounds.size.height/3)];
     self.UnitLabel.font = [UIFont systemFontOfSize:36.f*KMultipleC*[model.DashboardCUnitFontScale floatValue]];
     self.UnitLabel.text = @"/min";
     self.UnitLabel.textAlignment = NSTextAlignmentCenter;
     self.UnitLabel.textColor = [ColorTools colorWithHexString:model.DashboardCUnitColor];
     
-    [self addSubview:view];
+
+    
     [view addSubview:self.PIDLabel];
     if (model.DashboardCValueVisible == YES) {
         [view addSubview:self.NumberLabel];
-    }else{
-        
     }
     [view addSubview:self.UnitLabel];
     

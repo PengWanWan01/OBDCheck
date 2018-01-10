@@ -141,7 +141,7 @@
     
     model.DashboardAStartAngle = [NSString stringWithFormat:@"%d", 0];
     model.DashboardAendAngle =[NSString stringWithFormat:@"%f", 2*M_PI];
-    DLog(@"%@,%@", model.DashboardAStartAngle, model.DashboardAendAngle);
+  
     model.DashboardAringWidth =[NSString stringWithFormat:@"%f",10.f];
     model.DashboardAmaLength =[NSString stringWithFormat:@"%f",15.f];
     model.DashboardAmiLength =[NSString stringWithFormat:@"%d",5];
@@ -288,9 +288,8 @@
 
 - (void)initwithCustomDashboard{
     
-    dispatch_async(dispatch_get_global_queue(0, 0),^{
+  
         for (int i = 0; i< 9; i++) {
-            DLog(@"%d",i);
             if (i<6) {
                 [self CustomDashboardType:AddStyleOne withTag:i];
             }else if (i>=6 && i < 8){
@@ -299,7 +298,7 @@
                 [self CustomDashboardType:AddStyleThree withTag:i];
             }
         }
-    });
+  
     
     
 }

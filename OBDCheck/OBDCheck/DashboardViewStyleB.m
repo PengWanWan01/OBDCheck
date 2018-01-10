@@ -42,7 +42,7 @@
 }
 - (void)setNeedsLayout{
     [super setNeedsLayout];
-    DLog(@"你好👋");
+//    DLog(@"你好👋");
     view.frame = self.bounds;
     view.layer.cornerRadius = self.bounds.size.width/2;
     image2.frame = CGRectMake(self.bounds.size.width/2 - 100*KMultipleB, self.bounds.size.width -73.0*KMultipleB , 200.0*KMultipleB,  70.0*KMultipleB);

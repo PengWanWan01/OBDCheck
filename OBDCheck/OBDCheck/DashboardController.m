@@ -1018,14 +1018,16 @@ static dispatch_source_t _timer;
 #pragma mark 全部恢复默认仪表盘
 - (void)LoadDefaultDashboards{
     DLog(@"LoadLoad");
- 
     [CustomDashboard clearTable];
-    [[DashboardSetting sharedInstance]initWithdashboardA];
-    [[DashboardSetting sharedInstance]initWithdashboardB];
-    [[DashboardSetting sharedInstance]initWithdashboardC];
-    [DashboardSetting sharedInstance].KPageNumer = 4;
-    //    [self clearAllUserDefaultsData];
-    [self  updateView];
+         [[DashboardSetting sharedInstance]initWithdashboardA];
+         [[DashboardSetting sharedInstance]initWithdashboardB];
+         [[DashboardSetting sharedInstance]initWithdashboardC];
+         [[DashboardSetting sharedInstance]initwithCustomDashboard];
+    [self clearAllUserDefaultsData];
+        [self updateView];
+
+    
+
     
     
 }
@@ -1229,8 +1231,6 @@ static dispatch_source_t _timer;
     [scrollView removeFromSuperview];
     [self initWithData];
     [self initWithUI];
-    
-    
     scrollView.contentOffset = CGPointMake(current*MSWidth, 0);
 }
 #pragma mark 移动代理
@@ -1298,9 +1298,8 @@ static dispatch_source_t _timer;
     [DashboardSetting sharedInstance].numberDecimals = NumberDecimalZero;
     [DashboardSetting sharedInstance].multiplierType = MultiplierType1;
     [DashboardSetting sharedInstance].hudModeType = HUDModeTypeToNormal;
-    [DashboardSetting sharedInstance].KPageNumer = 3;
+    [DashboardSetting sharedInstance].KPageNumer = 4;
     [DashboardSetting sharedInstance].isDashboardRemove = NO;
-    [self LoadUI];
 }
 @end
 

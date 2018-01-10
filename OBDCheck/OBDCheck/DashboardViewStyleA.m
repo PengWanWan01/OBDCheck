@@ -133,7 +133,6 @@
     
     
     //       DLog(@"innerColor%@",model);
-    DLog(@"**********innerColor%@%@",model.DashboardAStartAngle,model.DashboardAendAngle);
     [self addCircleLayer:[model.DashboardAringWidth doubleValue] withInnerColor:model.DashboardAinnerColor];
     
     CGFloat perAngle = ([model.DashboardAendAngle floatValue]  - [model.DashboardAStartAngle floatValue])  / _dialCount;
