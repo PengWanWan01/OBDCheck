@@ -534,20 +534,13 @@
 			name = Performance;
 			sourceTree = "<group>";
 		};
-		CB1591D32006380100F51FD3 /* DBModel */ = {
+		CB15FB711F5A9173005A978C /* FMDataBase */ = {
 			isa = PBXGroup;
 			children = (
 				CB1591D42006380100F51FD3 /* JKDBHelper.h */,
 				CB1591D52006380100F51FD3 /* JKDBHelper.m */,
 				CB1591D62006380100F51FD3 /* JKDBModel.h */,
 				CB1591D72006380100F51FD3 /* JKDBModel.m */,
-			);
-			path = DBModel;
-			sourceTree = "<group>";
-		};
-		CB15FB711F5A9173005A978C /* FMDataBase */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			name = FMDataBase;
 			sourceTree = "<group>";
@@ -994,7 +987,6 @@
 		CBF1E25C1F30674500EEC755 /* Dashboards */ = {
 			isa = PBXGroup;
 			children = (
-				CB1591D32006380100F51FD3 /* DBModel */,
 				CB15FB711F5A9173005A978C /* FMDataBase */,
 				CB21339B1F5A8F9A009B970D /* Model */,
 				CB1591DC2006383400F51FD3 /* CustomDashboard.h */,
