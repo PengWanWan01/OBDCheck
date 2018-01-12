@@ -171,6 +171,9 @@
     [Mytableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
 
 }
+- (void)back{
+    DLog(@"禁止返回");
+}
 - (void)Selectbtn:(UIButton *)btn{
     switch (btn.tag) {
         case 0:
