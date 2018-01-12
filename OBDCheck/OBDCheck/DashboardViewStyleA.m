@@ -38,8 +38,6 @@
     // 添加外环
     self.infoLabeltext = self.infoLabel.text;
     //注册通知
-    
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNewNumber:) name:@"updateNumber"object:nil];
     
     
@@ -68,8 +66,6 @@
     //    DLog(@"%@%@%ld",PreviouStr,presentStr,(long)[text.userInfo[@"StyleAViewTag"] integerValue]);
     
     if ([text.userInfo[@"StyleAViewTag"] integerValue] == self.tag) {
-//        DLog(@"**%ld",[text.userInfo[@"StyleAViewTag"] integerValue]);
-//        DLog(@"**%ld",self.tag);
             CustomDashboard *dashboard  = [CustomDashboard findByPK:self.tag];
         CGFloat Space =   ([dashboard.DashboardAendAngle doubleValue]- [dashboard.DashboardAStartAngle doubleValue])/([dashboard.DashboardAmaxNumber doubleValue] - [dashboard.DashboardAminNumber doubleValue]);
         [self rotationWithStartAngle:[dashboard.DashboardAStartAngle doubleValue] + (int)start%[dashboard.DashboardAmaxNumber intValue]*Space  WithEndAngle:[dashboard.DashboardAStartAngle doubleValue] + (int)end%[dashboard.DashboardAmaxNumber intValue]*Space];

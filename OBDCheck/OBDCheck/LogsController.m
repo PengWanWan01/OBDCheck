@@ -389,9 +389,26 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 - (void)rightBarButtonClick{
     [self SaveDataSource];
-    LogSetViewController *vc = [[LogSetViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
-    
+    switch (selectVC) {
+        case 0:
+            {
+                LogSetViewController *vc = [[LogSetViewController alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            break;
+        case 1:
+        {
+            
+        }
+            break;
+        case 2:
+        {
+             [[NSNotificationCenter defaultCenter]postNotificationName:@"FileBtnEdit" object:nil userInfo:nil];
+        }
+            break;
+        default:
+            break;
+    }
 }
 #pragma mark 底部Tabbar的按钮事件
 //根据字典中是否存在相关页面对应的key，没有的话存储

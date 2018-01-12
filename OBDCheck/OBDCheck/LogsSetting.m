@@ -50,7 +50,7 @@
     model.PID3dataSource = PID3data;
     model.PID4dataSource = PID4data;
     DLog(@"建立数据库");
-    [model update];
+    [model save];
 }
 - (void)initWithTrips{
     
@@ -59,7 +59,7 @@
     model.distance = @"0.00";
     model.Fuel = @"0.00";
     model.FuelEconmy = @"0.00";
-    [model update];
+    [model save];
     }
 }
 

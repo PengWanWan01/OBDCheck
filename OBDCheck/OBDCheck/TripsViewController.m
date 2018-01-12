@@ -191,8 +191,7 @@
     logsmodel.Fuel = @"0.00";
     logsmodel.FuelEconmy = @"0.00";
     [logsmodel update];
-    
-            [mytableView reloadData];
+    [mytableView reloadData];
 
 
 }

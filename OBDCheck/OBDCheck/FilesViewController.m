@@ -37,8 +37,6 @@
     for (NSInteger i = 1; i<=array.count; i++) {
         [self.dataSource addObject:[NSString stringWithFormat:@"File%ld",(long)i]];
     }
-    
-    
 }
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -59,18 +57,14 @@
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     self.tableView.frame = CGRectMake(0, 1, MSWidth, MSHeight-TopHigh-49);
-   
-    
     NSMutableArray *arr = [[NSMutableArray alloc]init];
     NSInteger sections = self.tableView .numberOfSections;
     for (int section = 0; section < sections; section++) {
         NSInteger rows =  [self.tableView  numberOfRowsInSection:section];
-        
         for (int row = 0; row < rows; row++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
             [arr addObject:indexPath];
             [self.tableView reloadRowsAtIndexPaths:arr withRowAnimation:UITableViewRowAnimationNone];
-
         }
     }
     if (isLandscape) {
@@ -100,12 +94,14 @@
     [self.view addSubview:self.tableView];
     //FilesTableViewCell
     [self.tableView registerClass:[FilesTableViewCell class] forCellReuseIdentifier:@"FilesTableViewCell"];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rightBarButtonClick) name:@"FileBtnEdit"object:nil];
 }
 - (void)back{
 }
 - (void)rightBarButtonClick{
    
-    
+    DLog(@"编辑");
     NSArray *arr = [self.tableView indexPathsForVisibleRows];
     for (NSIndexPath *indexPath in arr) {
         FilesTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
