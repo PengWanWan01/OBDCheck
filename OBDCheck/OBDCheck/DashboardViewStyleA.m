@@ -57,7 +57,9 @@
     }
 }
 - (void)getNewNumber:(NSNotification *)text{
-    //    DLog(@"得到通知");
+        DLog(@"得到通知");
+    DLog(@"%ld",[text.userInfo[@"StyleAViewTag"] integerValue]);
+    DLog(@"%ld",self.tag);
     NSString *presentStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"StyleAViewnumber"]];
     NSString *PreviouStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"PreStyleAViewnumber"]];
     
@@ -66,29 +68,12 @@
     //    DLog(@"%@%@%ld",PreviouStr,presentStr,(long)[text.userInfo[@"StyleAViewTag"] integerValue]);
     
     if ([text.userInfo[@"StyleAViewTag"] integerValue] == self.tag) {
-        
-        
-        switch ([ DashboardSetting sharedInstance].dashboardMode) {
-            case DashboardCustomMode:
-            {
-                CustomDashboard *dashboard  = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
-                CGFloat Space =   ([dashboard.DashboardAendAngle floatValue]- [dashboard.DashboardAendAngle floatValue])/([dashboard.DashboardAmaxNumber  doubleValue]- [dashboard.DashboardAminNumber doubleValue]);
-                [self rotationWithStartAngle:[dashboard.DashboardAStartAngle doubleValue] + (int)start%[dashboard.DashboardAmaxNumber intValue]*Space  WithEndAngle:[dashboard.DashboardAStartAngle doubleValue] + (int)end%[dashboard.DashboardAmaxNumber intValue]*Space];
-                self.numberLabel.text = presentStr;
-            }
-                break;
-            case DashboardClassicMode:
-            {
-                //                for(DashboardA* dashboard in list){
-                //                    CGFloat Space =   ([dashboard.endAngle doubleValue]- [dashboard.StartAngle doubleValue])/([dashboard.maxNumber doubleValue] - [dashboard.minNumber doubleValue]);
-                //                    [self rotationWithStartAngle:[dashboard.StartAngle doubleValue] + start*Space  WithEndAngle:[dashboard.StartAngle doubleValue] + end*Space];
-                //                     self.numberLabel.text = presentStr;
-                //                }
-            }
-                break;
-            default:
-                break;
-        }
+        DLog(@"**%ld",[text.userInfo[@"StyleAViewTag"] integerValue]);
+        DLog(@"**%ld",self.tag);
+            CustomDashboard *dashboard  = [CustomDashboard findByPK:self.tag];
+        CGFloat Space =   ([dashboard.DashboardAendAngle doubleValue]- [dashboard.DashboardAStartAngle doubleValue])/([dashboard.DashboardAmaxNumber doubleValue] - [dashboard.DashboardAminNumber doubleValue]);
+        [self rotationWithStartAngle:[dashboard.DashboardAStartAngle doubleValue] + (int)start%[dashboard.DashboardAmaxNumber intValue]*Space  WithEndAngle:[dashboard.DashboardAStartAngle doubleValue] + (int)end%[dashboard.DashboardAmaxNumber intValue]*Space];
+        self.numberLabel.text = presentStr;
     }
     
     

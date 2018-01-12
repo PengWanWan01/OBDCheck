@@ -383,34 +383,34 @@ static dispatch_source_t _timer;
     NSString *number3 = _CustomNumberArray[2];
     NSString *number4 = _CustomNumberArray[3];
     
-    DLog(@"收到收到%@",data);
+//    DLog(@"收到收到%@",data);
     
-    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+//    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
     NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    DLog(@"%@",string);
+//    DLog(@"%@",string);
     NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
     NSString *RotationalStr = [BlueTool isRotational:string];
     NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
     NSString *ThrottlePositionStr = [BlueTool isThrottlePosition:string];
     DLog(@"车速%@",VehicleSpeedStr);
-    DLog(@"转速%@",RotationalStr);
-    DLog(@"水温%@",WatertemperatureStr);
-    DLog(@"TF%@",ThrottlePositionStr);
+//    DLog(@"转速%@",RotationalStr);
+//    DLog(@"水温%@",WatertemperatureStr);
+//    DLog(@"TF%@",ThrottlePositionStr);
     
     if (!(VehicleSpeedStr == nil)) {
         
         [_CustomNumberArray replaceObjectAtIndex:0 withObject:VehicleSpeedStr];
-        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"1",@"StyleAViewTag",_CustomNumberArray[0],@"StyleAViewnumber",number1,@"PreStyleAViewnumber", nil];
+        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"28",@"StyleAViewTag",_CustomNumberArray[0],@"StyleAViewnumber",number1,@"PreStyleAViewnumber", nil];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
         //得到车速之后，发送转速
         [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
     }
     if (!(RotationalStr == nil)) {
         [_CustomNumberArray replaceObjectAtIndex:1 withObject:RotationalStr];
-        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"2",@"StyleAViewTag",_CustomNumberArray[1],@"StyleAViewnumber",number2,@"PreStyleAViewnumber", nil];
+        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"29",@"StyleAViewTag",_CustomNumberArray[1],@"StyleAViewnumber",number2,@"PreStyleAViewnumber", nil];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
         //发送水温
         [self.blueTooth SendData:[BlueTool hexToBytes:@"303130350D"]];
@@ -418,14 +418,14 @@ static dispatch_source_t _timer;
     }
     if (!(WatertemperatureStr == nil)) {
         [_CustomNumberArray replaceObjectAtIndex:2 withObject:WatertemperatureStr];
-        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"3",@"StyleAViewTag",_CustomNumberArray[2],@"StyleAViewnumber",number3,@"PreStyleAViewnumber", nil];
+        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"30",@"StyleAViewTag",_CustomNumberArray[2],@"StyleAViewnumber",number3,@"PreStyleAViewnumber", nil];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
         //得到水温之后，发送TF
         [self.blueTooth SendData:[BlueTool hexToBytes:@"303131310D"]];
     }
     if (!(ThrottlePositionStr == nil)) {
         [_CustomNumberArray replaceObjectAtIndex:3 withObject:ThrottlePositionStr];
-        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"4",@"StyleAViewTag",_CustomNumberArray[3],@"StyleAViewnumber",number4,@"PreStyleAViewnumber", nil];
+        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"31",@"StyleAViewTag",_CustomNumberArray[3],@"StyleAViewnumber",number4,@"PreStyleAViewnumber", nil];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
         //得到TF之后，发送车速
         [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
@@ -520,76 +520,6 @@ static dispatch_source_t _timer;
     //发送车速
     [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
 }
-- (void)startAnimationView{
-    
-    //自定义模式
-    for (int i = 0; i<_CustomNumberArray.count; i++) {
-        _PreNumberStr = _CustomNumberArray[i];
-        [self initWithData];
-        if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
-            NSArray *all = [CustomDashboard findAll];
-            for(CustomDashboard *dashboard in all){
-                switch (dashboard.dashboardType) {
-                    case 1:
-                    {
-                        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleAViewTag",_CustomNumberArray[i],@"StyleAViewnumber",_PreNumberStr,@"PreStyleAViewnumber", nil];
-                        
-                        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
-                    }
-                        break;
-                    case 2:
-                    {
-                        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleBViewTag",_CustomNumberArray[i],@"StyleBViewnumber",_PreNumberStr,@"PreStyleBViewnumber", nil];
-                        [[NSNotificationCenter defaultCenter]postNotificationName:@"StyleBupdateNumber" object:nil userInfo:dict];
-                    }
-                        break;
-                    case 3:
-                    {
-                        dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:i+1];
-                        dashboardStyleCView.NumberLabel.text = _CustomNumberArray[i];
-                    }
-                        break;
-                    default:
-                        break;
-                }
-                
-            }
-            
-            
-        }else{
-            //经典模式
-            switch ([DashboardSetting sharedInstance].dashboardStyle) {
-                case DashboardStyleOne:
-                {
-                    
-                    
-                    NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleAViewTag",_numberArray[i],@"StyleAViewnumber",_PreNumberStr,@"PreStyleAViewnumber", nil];
-                    
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
-                    
-                }
-                    break;
-                case DashboardStyleTwo:
-                {
-                    NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",i+1],@"StyleBViewTag",_numberArray[i],@"StyleBViewnumber",_PreNumberStr,@"PreStyleBViewnumber", nil];
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"StyleBupdateNumber" object:nil userInfo:dict];
-                }
-                    break;
-                case DashboardStyleThree:
-                {
-                    dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:i+1];
-                    dashboardStyleCView.NumberLabel.text = _numberArray[i];
-                }
-                    break;
-                default:
-                    break;
-            }
-            
-        }
-    }
-    
-}
-
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
