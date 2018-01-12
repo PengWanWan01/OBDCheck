@@ -129,7 +129,6 @@ static dispatch_source_t _timer;
 - (void)setHorizontalFrame{
     scrollView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN);
     scrollView.contentSize = CGSizeMake(SCREEN_MAX*[DashboardSetting sharedInstance].KPageNumer,0);
-    scrollView.pagingEnabled = YES;
     pageControl.frame = CGRectMake(0, SCREEN_MIN- TopHigh -20, SCREEN_MAX, 30);
     
     if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
@@ -382,10 +381,7 @@ static dispatch_source_t _timer;
     NSString *number2 = _CustomNumberArray[1];
     NSString *number3 = _CustomNumberArray[2];
     NSString *number4 = _CustomNumberArray[3];
-    
-//    DLog(@"收到收到%@",data);
-    
-//    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+
     NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
     string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
     string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
@@ -395,7 +391,7 @@ static dispatch_source_t _timer;
     NSString *RotationalStr = [BlueTool isRotational:string];
     NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
     NSString *ThrottlePositionStr = [BlueTool isThrottlePosition:string];
-    DLog(@"车速%@",VehicleSpeedStr);
+//    DLog(@"车速%@",VehicleSpeedStr);
 //    DLog(@"转速%@",RotationalStr);
 //    DLog(@"水温%@",WatertemperatureStr);
 //    DLog(@"TF%@",ThrottlePositionStr);
@@ -855,21 +851,36 @@ static dispatch_source_t _timer;
 }
 #pragma mark 捏合手势代理
 - (void)pinchtap:(UIPinchGestureRecognizer *)sender OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height{
+    DLog(@"%f \n %f",orignx,origny);
     CustomDashboard *dashboard = [CustomDashboard findByPK:sender.view.tag];
+     int page =  orignx/MSWidth;
     switch (dashboard.dashboardType) {
         case 1:
         {
+            if (isLandscape) {
+            [self updateCustomType:1 OrignX:SCREEN_MIN-origny-(height-30*KFontmultiple)-20*KFontmultiple OrignY:orignx-TopHigh-15*KFontmultiple-page*MSWidth Width:width Height:height ID:sender.view.tag];
+            }else{
             [self updateCustomType:1 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
+                }
         }
             break;
         case 2:
         {
-            [self updateCustomType:2 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
+           
+            if (isLandscape) {
+                [self updateCustomType:2 OrignX:SCREEN_MIN-origny-(height-30*KFontmultiple)-20*KFontmultiple OrignY:orignx-TopHigh-15*KFontmultiple-page*MSWidth Width:width Height:height ID:sender.view.tag];
+            }else{
+                [self updateCustomType:2 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
+            }
         }
             break;
         case 3:
         {
-            [self updateCustomType:3 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
+            if (isLandscape) {
+                [self updateCustomType:1 OrignX:SCREEN_MIN-origny-(height-30*KFontmultiple)-20*KFontmultiple OrignY:orignx-TopHigh-15*KFontmultiple-page*MSWidth Width:width Height:height ID:sender.view.tag];
+            }else{
+                [self updateCustomType:3 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
+            }
         }
             break;
         default:
@@ -1018,44 +1029,42 @@ static dispatch_source_t _timer;
         {
             [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleOne withTag:0];
             
-            dashboardStyleAView = [[DashboardView alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage *MSWidth +(arc4random() % (int)200), (arc4random() % (int)300), 150*KFontmultiple, 150*KFontmultiple)];
-            dashboardStyleAView.tag = ++ DashBoardTag;
-            dashboardStyleAView.delegate =self;
-            DLog(@"插入插入%ld",(long)dashboardStyleAView.tag);
-           CustomDashboard *dashboard = [CustomDashboard findByPK:dashboardStyleAView.tag];
-                    [dashboardStyleAView addGradientView:dashboard.DashboardAouterColor GradientViewWidth:dashboardStyleAView.frame.size.width];
-                    [dashboardStyleAView initWithModel:dashboard];
-                    [scrollView addSubview:dashboardStyleAView];
-             
-            [self updateCustomType:1 OrignX:dashboardStyleAView.frame.origin.x OrignY:dashboardStyleAView.frame.origin.y Width:dashboardStyleAView.frame.size.width Height:dashboardStyleAView.frame.size.height ID:dashboardStyleAView.tag];
-            
+         DashboardView  * dashboardAView = [[DashboardView alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage *MSWidth +(arc4random() % (int)(MSWidth/2)), (arc4random() % (int)(MSHeight/2)), 150*KFontmultiple, 150*KFontmultiple)];
+            dashboardAView.tag = ++ DashBoardTag;
+            dashboardAView.delegate =self;
+           CustomDashboard *dashboard = [CustomDashboard findByPK:dashboardAView.tag];
+            [dashboardAView addGradientView:dashboard.DashboardAouterColor GradientViewWidth:dashboardAView.frame.size.width];
+                    [dashboardAView initWithModel:dashboard];
+            [scrollView addSubview:dashboardAView];
+            [self updateCustomType:1 OrignX:dashboardAView.frame.origin.x OrignY:dashboardAView.frame.origin.y Width:dashboardAView.frame.size.width Height:dashboardAView.frame.size.height ID:dashboardAView.tag];
             
         }
             break;
         case AddStyleTwo:
         {
+        [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleTwo withTag:0];
             
-            [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleTwo withTag:0];
-            
-            dashboardStyleBView = [[DashboardViewStyleB alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage*MSWidth+(arc4random() % (int)200), (arc4random() % (int)300 ), 150*KFontmultiple, 150*KFontmultiple)];
-            dashboardStyleBView.tag = ++ DashBoardTag;
-            dashboardStyleBView.delegate =self;
-           CustomDashboard *dashboard = [CustomDashboard findByPK: dashboardStyleBView.tag];
-                    [dashboardStyleBView initWithModel:dashboard];
-            [self updateCustomType:2 OrignX:dashboardStyleBView.frame.origin.x OrignY:dashboardStyleBView.frame.origin.y Width:dashboardStyleBView.frame.size.width Height:dashboardStyleBView.frame.size.height ID:dashboardStyleBView.tag];
+        DashboardViewStyleB    *dashboardBView = [[DashboardViewStyleB alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage*MSWidth+(arc4random() % (int)(MSWidth/2)), (arc4random() % (int)(MSHeight/2) ), 150*KFontmultiple, 150*KFontmultiple)];
+            dashboardBView.tag = ++ DashBoardTag;
+            dashboardBView.delegate =self;
+           CustomDashboard *dashboard = [CustomDashboard findByPK: dashboardBView.tag];
+                [dashboardBView initWithModel:dashboard];
+            [scrollView addSubview:dashboardBView];
+            DLog(@"%f",dashboardBView.frame.origin.x);
+            [self updateCustomType:2 OrignX:dashboardBView.frame.origin.x OrignY:dashboardBView.frame.origin.y Width:dashboardBView.frame.size.width Height:dashboardBView.frame.size.height ID:dashboardBView.tag];
         }
             break;
         case AddStyleThree:
         {
             [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleThree withTag:0];
-            dashboardStyleCView = [[DashboardViewStyleC alloc ]initWithFrame:CGRectMake( [DashboardSetting sharedInstance].CurrentPage*MSWidth +(arc4random() % (int)200), (arc4random() % (int)300 ), 150*KFontmultiple, 150*KFontmultiple)];
-            dashboardStyleCView.tag = ++ DashBoardTag;
-            dashboardStyleCView.delegate = self;
-            CustomDashboard *dashboard = [CustomDashboard findByPK:dashboardStyleCView.tag];
-                    [dashboardStyleCView initWithModel:dashboard];
-                    [scrollView addSubview:dashboardStyleCView];
-                    [scrollView addSubview:dashboardStyleCView];
-            [self updateCustomType:3 OrignX:dashboardStyleCView.frame.origin.x OrignY:dashboardStyleCView.frame.origin.y Width:dashboardStyleCView.frame.size.width Height:dashboardStyleCView.frame.size.height ID:dashboardStyleCView.tag];
+         DashboardViewStyleC  * dashboardCView = [[DashboardViewStyleC alloc ]initWithFrame:CGRectMake( [DashboardSetting sharedInstance].CurrentPage*MSWidth +(arc4random() % (int)(MSWidth/2)), (arc4random() % (int)(MSHeight/2) ), 150*KFontmultiple, 150*KFontmultiple)];
+            dashboardCView.tag = ++ DashBoardTag;
+            dashboardCView.delegate = self;
+            CustomDashboard *dashboard = [CustomDashboard findByPK:dashboardCView.tag];
+            [dashboardCView initWithModel:dashboard];
+            [scrollView addSubview:dashboardCView];
+            [self updateCustomType:3 OrignX:dashboardCView.frame.origin.x OrignY:dashboardCView.frame.origin.y Width:dashboardCView.frame.size.width Height:dashboardCView.frame.size.height ID:dashboardCView.tag];
+
         }
             break;
             

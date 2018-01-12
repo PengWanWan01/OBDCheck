@@ -57,9 +57,9 @@
     }
 }
 - (void)getNewNumber:(NSNotification *)text{
-        DLog(@"得到通知");
-    DLog(@"%ld",[text.userInfo[@"StyleAViewTag"] integerValue]);
-    DLog(@"%ld",self.tag);
+//        DLog(@"得到通知");
+//    DLog(@"%ld",[text.userInfo[@"StyleAViewTag"] integerValue]);
+//    DLog(@"%ld",self.tag);
     NSString *presentStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"StyleAViewnumber"]];
     NSString *PreviouStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"PreStyleAViewnumber"]];
     
@@ -68,8 +68,8 @@
     //    DLog(@"%@%@%ld",PreviouStr,presentStr,(long)[text.userInfo[@"StyleAViewTag"] integerValue]);
     
     if ([text.userInfo[@"StyleAViewTag"] integerValue] == self.tag) {
-        DLog(@"**%ld",[text.userInfo[@"StyleAViewTag"] integerValue]);
-        DLog(@"**%ld",self.tag);
+//        DLog(@"**%ld",[text.userInfo[@"StyleAViewTag"] integerValue]);
+//        DLog(@"**%ld",self.tag);
             CustomDashboard *dashboard  = [CustomDashboard findByPK:self.tag];
         CGFloat Space =   ([dashboard.DashboardAendAngle doubleValue]- [dashboard.DashboardAStartAngle doubleValue])/([dashboard.DashboardAmaxNumber doubleValue] - [dashboard.DashboardAminNumber doubleValue]);
         [self rotationWithStartAngle:[dashboard.DashboardAStartAngle doubleValue] + (int)start%[dashboard.DashboardAmaxNumber intValue]*Space  WithEndAngle:[dashboard.DashboardAStartAngle doubleValue] + (int)end%[dashboard.DashboardAmaxNumber intValue]*Space];

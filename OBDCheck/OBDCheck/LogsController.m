@@ -36,6 +36,8 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      TBarView *tbarView;
     NSInteger selectVC;
     NSMutableDictionary *listDic;
+    UIView * topView;
+    UILabel * topViewLabel;
 }
 @property (nonatomic,strong) LogsController *oneVc;
 @property (nonatomic,strong) TripsViewController *twoVC;
@@ -307,18 +309,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 
 - (void)initWithUI{
-    UIView * topView= [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, self.navigationController.navigationBar.frame.size.height)];
-    UIButton *startBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, topView.frame.size.height)];
-    [startBtn setImage:[UIImage imageNamed:@"start"] forState:UIControlStateNormal];
-    [startBtn addTarget:self action:@selector(startBtn) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *stopBtn = [[UIButton alloc]initWithFrame:CGRectMake(50, 0, 50, topView.frame.size.height)];
-     [stopBtn setImage:[UIImage imageNamed:@"stop"] forState:UIControlStateNormal];
-     [stopBtn addTarget:self action:@selector(stopBtn) forControlEvents:UIControlEventTouchUpInside];
-    
-        [topView addSubview:stopBtn];
-        [topView addSubview:startBtn];
-    self.navigationItem.titleView = topView;
+    [self initWithTitleView];
     tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
     
     if (IS_IPHONE_X) {
@@ -335,6 +326,23 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     [self.view addSubview:tbarView];
   
     
+}
+- (void)initWithTitleView{
+    topViewLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, self.navigationController.navigationBar.frame.size.height)];
+    topViewLabel.textAlignment = NSTextAlignmentCenter;
+    topViewLabel.textColor = [ColorTools colorWithHexString:@"FE9002"];
+    topView= [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, self.navigationController.navigationBar.frame.size.height)];
+    UIButton *startBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, topView.frame.size.height)];
+    [startBtn setImage:[UIImage imageNamed:@"start"] forState:UIControlStateNormal];
+    [startBtn addTarget:self action:@selector(startBtn) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *stopBtn = [[UIButton alloc]initWithFrame:CGRectMake(50, 0, 50, topView.frame.size.height)];
+    [stopBtn setImage:[UIImage imageNamed:@"stop"] forState:UIControlStateNormal];
+    [stopBtn addTarget:self action:@selector(stopBtn) forControlEvents:UIControlEventTouchUpInside];
+    
+    [topView addSubview:stopBtn];
+    [topView addSubview:startBtn];
+    self.navigationItem.titleView = topView;
 }
 - (void)initWithLogViewUI{
     DLog(@"弹出一个图");
@@ -450,6 +458,30 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Graphs",@"Trips",@"Files", nil];
     tbarView.delegate = self;
     [tbarView initWithData];
+    switch (VCindex) {
+        case 0:
+            {
+                [self initNavBarTitle:@"Logs" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
+                 self.navigationItem.titleView = topView;
+            }
+            break;
+        case 1:
+        {
+            [self initNavBarTitle:@"Trips" andLeftItemImageName:@"back" andRightItemImageName:@" "];
+            topViewLabel.text = @"Trips";
+            self.navigationItem.titleView = topViewLabel;
+        }
+            break;
+        case 2:
+        {
+               [self initNavBarTitle:@"Files" andLeftItemImageName:@"back" andRightItemName:@"Edit"];
+             topViewLabel.text = @"Files";
+            self.navigationItem.titleView = topViewLabel;
+        }
+            break;
+        default:
+            break;
+    }
     [self.view addSubview:tbarView];
 }
 #pragma mark 点击开始点击停止
