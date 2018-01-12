@@ -8,10 +8,8 @@
 
 #import "Mode09ViewController.h"
 
-@interface Mode09ViewController ()<TBarViewDelegate>
-{
-    TBarView *tbarView ;
-}
+@interface Mode09ViewController ()
+
 @end
 
 @implementation Mode09ViewController
@@ -42,10 +40,6 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
-    }
     self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-TopHigh) ;
  
         if (isLandscape) {
@@ -66,61 +60,12 @@
 
 }
 - (void)initWithUI{
-     [self.tableView registerNib:[UINib nibWithNibName:@"MonitorsTableViewCell" bundle:nil] forCellReuseIdentifier:@"MonitorsTableViewCell"];
-    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
-    }
-    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    tbarView.numberBtn = 4;
-    tbarView.isSelectNumber = 3;
-    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"monitor_normal",@"Sensor_normal",@"Mode06_normal",@"Mode09_normal",nil];
-    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"monitor_highlight",@"Sensor_highlight",@"Mode06_highlight",@"Mode09_highlight",nil];
-    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Monitor Tests",@"O2 Sensors",@"Mode $06",@"Mode $09", nil];
-    tbarView.delegate = self;
-    [tbarView initWithData];
-    [self.view addSubview:tbarView];
+    [self.tableView registerNib:[UINib nibWithNibName:@"MonitorsTableViewCell" bundle:nil] forCellReuseIdentifier:@"MonitorsTableViewCell"];
     
 }
-- (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
-    switch (touchSelectNumber) {
-        case 0:
-        {
-            MonController *vc = [[MonController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        case 1:
-        {
-            Sensors2ViewController *vc = [[Sensors2ViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        case 2:
-        {
-            Mode06ViewController *vc = [[Mode06ViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        case 3:
-        {
-            Mode09ViewController *vc = [[Mode09ViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        default:
-            break;
-    }
-    
-}
+
 - (void)back{
-    ViewController *vc = [[ViewController alloc
-                           ]init];
-    [self.navigationController pushViewController:vc animated:NO];
+ 
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

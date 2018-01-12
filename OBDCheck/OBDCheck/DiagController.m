@@ -16,8 +16,8 @@ static dispatch_source_t _timer;
     UIProgressView *progressView;
     NSInteger totalNumber;
     NSInteger importantNumber;
-    UILabel *totalLabel;
-    UILabel *importantLabel;
+    UIButton *totalBtn;
+    UIButton *importantBtn;
     UITableView *MYTableView;
     NSString *sendType;
     UIView *showView;
@@ -26,12 +26,18 @@ static dispatch_source_t _timer;
     TBarView *tbarView;
     UIButton *clearBtn;
     UIButton *HistoricalBtn;
+    NSInteger selectVC;
+    NSMutableDictionary *listDic;
 }
 @property (nonatomic,strong) NSMutableArray *typeimageData;
 @property (nonatomic,strong) NSMutableArray *totalDataSource;
 @property (nonatomic,strong) NSMutableArray *importantDataSource;
 @property (nonatomic,strong) NSMutableArray *troubleDataSource;
 @property (nonatomic,copy) NSString *currentTime;
+@property (nonatomic,strong) DiagController *oneVc;
+@property (nonatomic,strong) FreezeViewController *twoVC;
+@property (nonatomic,strong) ReadinessViewController *ThreeVc;
+@property (nonatomic,strong) FilesViewController *FourVc;
 @end
 
 @implementation DiagController
@@ -48,6 +54,10 @@ static dispatch_source_t _timer;
     [self initWithdata];
     [self initWithheadUI];
     [self initWithUI];
+    if (!(selectVC == 0)) {
+        DLog(@"yes");
+        [self reloadControlleView:selectVC];
+    }
   }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -69,33 +79,7 @@ static dispatch_source_t _timer;
       roView.frame = CGRectMake(10*Kwidthmultiple, 8*KHeightmultiple, 100*Kwidthmultiple, 100*Kwidthmultiple);
     infoLabel.frame = CGRectMake(CGRectGetMaxX(roView.frame)+25*Kwidthmultiple, 32, 210*Kwidthmultiple, 46);
      progressView.frame  = CGRectMake(0, 116*KHeightmultiple,MSWidth, 4);
-    [showView removeFromSuperview];
-    showView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(progressView.frame)+10, SCREEN_MIN, 30)];
-    [self.view addSubview:showView];
-    for (NSInteger i = 0; i<2; i++) {
-        UIView *itemView = [[UIView alloc]initWithFrame:CGRectMake(i*MSWidth/2, 0, MSWidth/2, 30)];
-        itemView.backgroundColor = [ColorTools colorWithHexString:@"#18191D"];
-        
-        [showView addSubview:itemView];
-        UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(itemView.frame.size.width/4, 5, 24, 20)];
-        view.image = [UIImage imageNamed:_typeimageData[i]];
-        [itemView addSubview:view];
-        
-        if (i == 1) {
-            importantLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 5,itemView.frame.size.width -view.frame.size.width/4- 24  , 20)];
-            importantLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-            importantLabel.font = [UIFont ToAdapFont:16];
-            //            importantLabel.text = @"Important：01";
-            [itemView addSubview:importantLabel];
-        }else{
-            totalLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 5,itemView.frame.size.width -view.frame.size.width/4- 24  , 20)];
-            totalLabel.font = [UIFont ToAdapFont:16];
-            //            totalLabel.text = @"Total：01";
-            totalLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-            
-            [itemView addSubview:totalLabel];
-        }
-    }
+     showView.frame = CGRectMake(0, CGRectGetMaxY(progressView.frame)+10, SCREEN_MIN, 30);
     footView.frame = CGRectMake(0, 0, SCREEN_MIN, 180);
     clearBtn.frame = CGRectMake(57, 40, SCREEN_MIN - 114, 30);
     HistoricalBtn.frame = CGRectMake(57,CGRectGetMaxY(clearBtn.frame)+10,  MSWidth - 114, 30);
@@ -113,34 +97,9 @@ static dispatch_source_t _timer;
     infoLabel.frame = CGRectMake(CGRectGetMaxX(roView.frame)+25*Kwidthmultiple, 32, 210*Kwidthmultiple, 46);
     progressView.frame  = CGRectMake(0, 116*KHeightmultiple,MSWidth, 4);
     
-    [showView removeFromSuperview];
-    showView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(progressView.frame)+10, SCREEN_MAX, 30)];
-//    showView.backgroundColor = [UIColor redColor];
-    [self.view addSubview:showView];
-    for (NSInteger i = 0; i<2; i++) {
-         UIView *itemView = [[UIView alloc]initWithFrame:CGRectMake(i*SCREEN_MAX/2, 0, SCREEN_MAX/2, 30)];
-        itemView.backgroundColor = [ColorTools colorWithHexString:@"#18191D"];
-        
-        [showView addSubview:itemView];
-        UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(itemView.frame.size.width/4, 5, 24, 20)];
-        view.image = [UIImage imageNamed:_typeimageData[i]];
-        [itemView addSubview:view];
-        
-        if (i == 1) {
-            importantLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 5,itemView.frame.size.width -view.frame.size.width/4- 24  , 20)];
-            importantLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-            importantLabel.font = [UIFont ToAdapFont:16];
-                        importantLabel.text = @"Important：01";
-            [itemView addSubview:importantLabel];
-        }else{
-            totalLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(view.frame), 5,itemView.frame.size.width -view.frame.size.width/4- 24  , 20)];
-            totalLabel.font = [UIFont ToAdapFont:16];
-                        totalLabel.text = @"Total：01";
-            totalLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-            
-            [itemView addSubview:totalLabel];
-        }
-    }
+    showView.frame = CGRectMake(0, CGRectGetMaxY(progressView.frame)+10, SCREEN_MIN, 30);
+    importantBtn.frame = CGRectMake(SCREEN_MAX/2, 0,SCREEN_MAX/2 , 20);
+    totalBtn.frame = CGRectMake(0, 0,SCREEN_MAX/2 , 20);
     footView.frame = CGRectMake(0, 0, SCREEN_MAX, 180);
     clearBtn.frame = CGRectMake(57, 40, SCREEN_MAX - 114, 30);
     HistoricalBtn.frame = CGRectMake(57,CGRectGetMaxY(clearBtn.frame)+10,  SCREEN_MAX - 114, 30);
@@ -211,40 +170,79 @@ static dispatch_source_t _timer;
     
     [self.view addSubview:tbarView];
 }
+//根据字典中是否存在相关页面对应的key，没有的话存储
+- (UIViewController *)controllerForSegIndex:(NSUInteger)segIndex {
+    NSString *keyName = [NSString stringWithFormat:@"VC_%ld",(unsigned long)segIndex];
+    
+    UIViewController *controller = (UIViewController *)[listDic objectForKey:keyName];
+    
+    if (!controller) {
+        if (segIndex == 0) {//申请
+            controller = self.oneVC;
+            
+        }else if (segIndex == 1) {//待办
+            controller = self.twoVC;
+        }
+        else if (segIndex == 2) {//待办
+            controller = self.ThreeVc;
+        }
+        else if (segIndex == 3) {//待办
+            controller = self.FourVc;
+        }
+        [listDic setObject:controller forKey:keyName];
+    }
+    
+    return controller;
+}
 - (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
     [self save];
+    [self reloadControlleView:touchSelectNumber];
     switch (touchSelectNumber) {
         case 0:
         {
-            DiagController *vc = [[DiagController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
+            tbarView.isSelectNumber = 0;
         }
             break;
         case 1:
         {
-            FreezeViewController *vc = [[FreezeViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
+            tbarView.isSelectNumber = 1;
         }
             break;
         case 2:
         {
-            ReadinessViewController *vc = [[ReadinessViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
+            tbarView.isSelectNumber = 2;
         }
             break;
         case 3:
         {
-            ReportViewController *vc = [[ReportViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
+            tbarView.isSelectNumber = 3;
         }
             break;
         default:
             break;
     }
+    selectVC =  tbarView.isSelectNumber;
+}
+- (void)reloadControlleView:(NSInteger)VCindex{
+    [_oneVc.view   removeFromSuperview];
+    [_twoVC.view removeFromSuperview];
+    [_ThreeVc.view removeFromSuperview];
+    [_FourVc.view removeFromSuperview];
+    UIViewController *controller = [self controllerForSegIndex:VCindex];
+    [self.view addSubview:controller.view];
+    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
+    }
+    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    tbarView.numberBtn = 4;
+    tbarView.isSelectNumber = selectVC;
+    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_normal",@"freeze_normal",@"readiness_normal",@"report_normal", nil];
+    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_highLight",@"Freeze_highlight",@"readiness_highLight",@"report_highLight", nil];
+    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"trouble Codes",@"Freeze Frame",@"Readiness Test",@"Report", nil];
+    tbarView.delegate = self;
+    [tbarView initWithData];
+    [self.view addSubview:tbarView];
 }
 - (void)initWithheadUI{
     roView = [[rotationView alloc]initWithFrame:CGRectMake(10*Kwidthmultiple, 8*KHeightmultiple, 100*Kwidthmultiple, 100*Kwidthmultiple)];
@@ -282,6 +280,27 @@ static dispatch_source_t _timer;
     
     // 开启定时器
     dispatch_resume(_timer);
+    showView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(progressView.frame)+10, SCREEN_MIN, 30)];
+    [self.view addSubview:showView];
+    for (NSInteger i = 0; i<2; i++) {
+        
+        if (i == 1) {
+            importantBtn = [[UIButton alloc]initWithFrame:CGRectMake(i*SCREEN_MIN/2, 0,SCREEN_MIN/2 , 20)];
+            [importantBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+            importantBtn.titleLabel.font = [UIFont ToAdapFont:16];
+            [importantBtn  setTitle:@"Important：01" forState:UIControlStateNormal] ;
+            [importantBtn setImage:[UIImage imageNamed:_typeimageData[i]] forState:UIControlStateNormal];
+            [showView addSubview:importantBtn];
+        }else{
+            
+            totalBtn = [[UIButton alloc]initWithFrame:CGRectMake(i*SCREEN_MAX/2, 0,SCREEN_MIN/2 , 20)];
+            totalBtn.titleLabel.font = [UIFont ToAdapFont:16];
+            [totalBtn setTitle:@"Total：01" forState:UIControlStateNormal];
+            [totalBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+            [totalBtn setImage:[UIImage imageNamed:_typeimageData[i]] forState:UIControlStateNormal];
+            [showView addSubview:totalBtn];
+        }
+    }
 
 }
 #pragma mark 清楚故障码
@@ -458,8 +477,9 @@ static dispatch_source_t _timer;
     [self refreshUI];
 }
 - (void)refreshUI{
-    importantLabel.text = [NSString stringWithFormat:@"Important:%lu",(unsigned long)self.importantDataSource.count];
-    totalLabel.text = [NSString stringWithFormat:@"Total:%lu",(unsigned long)self.totalDataSource.count];
+ 
+    [importantBtn setTitle:[NSString stringWithFormat:@"Important:%lu",(unsigned long)self.importantDataSource.count] forState:UIControlStateNormal];
+    [totalBtn setTitle:[NSString stringWithFormat:@"Total:%lu",(unsigned long)self.totalDataSource.count] forState:UIControlStateNormal];
     [MYTableView reloadData];
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
@@ -485,5 +505,32 @@ static dispatch_source_t _timer;
         Cell.toubleCodeType = toubleCodeTypenormal;
     }
     return Cell;
+}
+
+-(DiagController *)oneVC{
+    if (_oneVc == nil) {
+        _oneVc = [[DiagController alloc] init];
+    }
+    return _oneVc;
+}
+
+
+-(FreezeViewController *)twoVC{
+    if (_twoVC == nil) {
+        _twoVC = [[FreezeViewController alloc] init];
+    }
+    return _twoVC;
+}
+-(ReadinessViewController *)ThreeVc{
+    if (_ThreeVc == nil) {
+        _ThreeVc = [[ReadinessViewController alloc] init];
+    }
+    return _ThreeVc;
+}
+-(FilesViewController *)FourVc{
+    if (_FourVc == nil) {
+        _FourVc = [[FilesViewController alloc] init];
+    }
+    return _FourVc;
 }
 @end

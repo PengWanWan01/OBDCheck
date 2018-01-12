@@ -13,7 +13,7 @@
 
 - (void)initNavBarTitle:(NSString *)titleName andLeftItemImageName:(NSString *)leftItemImageName andRightItemImageName:(NSString *)rightItemImageName
 {
-//    [self backGesture];
+    [self backGesture];
     self.navigationItem.hidesBackButton = NO;
     [self initNavBarTitle:titleName andLeftItemImageName:leftItemImageName andRightItemName:@""];
     
@@ -30,7 +30,7 @@
 
 - (void)initNavBarTitle:(NSString *)titleName andLeftItemImageName:(NSString *)leftItemImageName andRightItemName:(NSString *)rightItemName
 {
-//      [self backGesture];
+      [self backGesture];
     if (![leftItemImageName isEqualToString:@""]) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
 

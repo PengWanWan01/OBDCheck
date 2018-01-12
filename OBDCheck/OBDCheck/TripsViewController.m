@@ -8,10 +8,9 @@
 
 #import "TripsViewController.h"
 
-@interface TripsViewController ()<TBarViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface TripsViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *mytableView;
-    TBarView *tbarView ;
 }
 @property (nonatomic,strong) NSMutableArray *SectionHeadArray;
 @property (nonatomic,strong) NSMutableArray *dataSource;
@@ -52,11 +51,6 @@
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     mytableView.frame = CGRectMake(0, 1, MSWidth, MSHeight-74-44);
-    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
-    }
-  
     if (isLandscape) {
         //翻转为横屏时
         DLog(@"横屏");
@@ -81,19 +75,6 @@
     mytableView.separatorColor = [ColorTools colorWithHexString:@"212329"];
     mytableView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     [self.view addSubview:mytableView];
-    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
-    }
-    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    tbarView.numberBtn = 3;
-    tbarView.isSelectNumber = 1;
-    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_normal",@"trips_normal",@"file_normal",nil];
-    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_highlight",@"trips_highlight",@"file_highlight",nil];
-    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Graphs",@"Trips",@"Files", nil];
-    tbarView.delegate = self;
-    [tbarView initWithData];
-    [self.view addSubview:tbarView];
   
 }
 - (void)back{

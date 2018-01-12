@@ -8,9 +8,7 @@
 
 #import "ReadinessViewController.h"
 
-@interface ReadinessViewController ()<TBarViewDelegate>{
-    TBarView *tbarView;
-}
+@interface ReadinessViewController ()
 @property(nonatomic,strong)NSMutableArray *completeDatasource;
 @property(nonatomic,strong)NSMutableArray *UndfinishedDatasource;
 @property(nonatomic,strong)NSMutableArray *NotsupportDatasource;
@@ -41,10 +39,6 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
-    }
     self.tableView.frame = CGRectMake(0, 38, MSWidth, MSHeight);
     if (isLandscape) {
         //翻转为横屏时
@@ -85,61 +79,12 @@
     return UIStatusBarAnimationNone;
 }
 - (void)initWithUI{
-    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
-    }
-    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    tbarView.numberBtn = 4;
-    tbarView.isSelectNumber = 2;
-    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_normal",@"freeze_normal",@"readiness_normal",@"report_normal", nil];
-    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_highLight",@"Freeze_highlight",@"readiness_highLight",@"report_highLight", nil];
-    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"trouble Codes",@"Freeze Frame",@"Readiness Test",@"Report", nil];
-    tbarView.delegate = self;
-    [tbarView initWithData];
-    
-    [self.view addSubview:tbarView];
+
 }
-- (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
-    switch (touchSelectNumber) {
-        case 0:
-        {
-            DiagController *vc = [[DiagController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        case 1:
-        {
-            FreezeViewController *vc = [[FreezeViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        case 2:
-        {
-            ReadinessViewController *vc = [[ReadinessViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        case 3:
-        {
-            ReportViewController *vc = [[ReportViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        default:
-            break;
-    }
-}
+
 -(void)back{
     
-    
-    ViewController *vc = [[ViewController alloc
-                           ]init];
-    [self.navigationController pushViewController:vc animated:NO];
+ 
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

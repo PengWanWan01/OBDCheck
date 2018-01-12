@@ -34,7 +34,12 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      NSInteger PID4indextag;
      BOOL isSave;
      TBarView *tbarView;
+    NSInteger selectVC;
+    NSMutableDictionary *listDic;
 }
+@property (nonatomic,strong) LogsController *oneVc;
+@property (nonatomic,strong) TripsViewController *twoVC;
+@property (nonatomic,strong) FilesViewController *ThreeVc;
 @end
 
 @implementation LogsController
@@ -57,6 +62,10 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      PID3indextag =  0;
      PID4indextag =  0;
     isSave = NO;
+    if (!(selectVC == 0)) {
+        DLog(@"yes");
+        [self reloadControlleView:selectVC];
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -65,10 +74,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     PID3dataSource = [[NSMutableArray alloc]init];
     PID4dataSource = [[NSMutableArray alloc]init];
 
-//    for (NSInteger i = 11; i < 3600; i++) {
-//        [XdataSource addObject:[NSString stringWithFormat:@"%ld",(long)i]];
-//    }
- 
   
 }
 //设置样式
@@ -97,6 +102,10 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
             DLog(@"竖屏");
             [self setVerticalFrame];
         }
+    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
+    }
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
@@ -118,20 +127,8 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     
   
   
-    [tbarView removeFromSuperview];
-    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, SCREEN_MAX - 49-TopHigh, SCREEN_MIN, 49)];
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh-34,SCREEN_MIN ,49);
-    }
-    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    tbarView.numberBtn = 3;
-    tbarView.isSelectNumber = 0;
-    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_normal",@"trips_normal",@"file_normal",nil];
-    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_highlight",@"trips_highlight",@"file_highlight",nil];
-    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Graphs",@"Trips",@"Files", nil];
-    tbarView.delegate = self;
-    [tbarView initWithData];
-    [self.view addSubview:tbarView];
+    
+   
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
@@ -151,22 +148,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         }
     }
     
-    
-    [tbarView removeFromSuperview];
-    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, SCREEN_MIN - 49-TopHigh, SCREEN_MAX, 49)];
-    
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh-34,SCREEN_MAX ,49);
-    }
-    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    tbarView.numberBtn = 3;
-    tbarView.isSelectNumber = 0;
-    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_normal",@"trips_normal",@"file_normal",nil];
-    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_highlight",@"trips_highlight",@"file_highlight",nil];
-    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Graphs",@"Trips",@"Files", nil];
-    tbarView.delegate = self;
-    [tbarView initWithData];
-    [self.view addSubview:tbarView];
+
     
 }
 - (void)btn{
@@ -337,7 +319,20 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         [topView addSubview:stopBtn];
         [topView addSubview:startBtn];
     self.navigationItem.titleView = topView;
+    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
     
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
+    }
+    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    tbarView.numberBtn = 3;
+    tbarView.isSelectNumber = 0;
+    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_normal",@"trips_normal",@"file_normal",nil];
+    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_highlight",@"trips_highlight",@"file_highlight",nil];
+    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Graphs",@"Trips",@"Files", nil];
+    tbarView.delegate = self;
+    [tbarView initWithData];
+    [self.view addSubview:tbarView];
   
     
 }
@@ -390,32 +385,72 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     [self.navigationController pushViewController:vc animated:YES];
     
 }
+#pragma mark 底部Tabbar的按钮事件
+//根据字典中是否存在相关页面对应的key，没有的话存储
+- (UIViewController *)controllerForSegIndex:(NSUInteger)segIndex {
+    NSString *keyName = [NSString stringWithFormat:@"VC_%ld",(unsigned long)segIndex];
+    
+    UIViewController *controller = (UIViewController *)[listDic objectForKey:keyName];
+    
+    if (!controller) {
+        if (segIndex == 0) {//
+            controller = self.oneVc;
+            
+        }else if (segIndex == 1) {//
+            controller = self.twoVC;
+        }
+        else if (segIndex == 2) {//
+            controller = self.ThreeVc;
+        }
+        [listDic setObject:controller forKey:keyName];
+    }
+    
+    return controller;
+}
 - (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
-     [self SaveDataSource];
+    [self SaveDataSource];
+    DLog(@"%ld",touchSelectNumber);
+    [self reloadControlleView:touchSelectNumber];
     switch (touchSelectNumber) {
         case 0:
         {
-            LogsController *vc = [[LogsController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
+            tbarView.isSelectNumber = 0;
         }
             break;
         case 1:
         {
-            TripsViewController *vc = [[TripsViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
+            tbarView.isSelectNumber = 1;
         }
             break;
         case 2:
         {
-            FilesViewController *vc = [[FilesViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
+            tbarView.isSelectNumber = 2;
         }
             break;
         default:
             break;
     }
-
+    selectVC =  tbarView.isSelectNumber;
+}
+- (void)reloadControlleView:(NSInteger)VCindex{
+    [_oneVc.view   removeFromSuperview];
+    [_twoVC.view removeFromSuperview];
+    [_ThreeVc.view removeFromSuperview];
+    UIViewController *controller = [self controllerForSegIndex:VCindex];
+    [self.view addSubview:controller.view];
+    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
+    }
+    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    tbarView.numberBtn = 3;
+    tbarView.isSelectNumber = selectVC;
+    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_normal",@"trips_normal",@"file_normal",nil];
+    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_highlight",@"trips_highlight",@"file_highlight",nil];
+    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Graphs",@"Trips",@"Files", nil];
+    tbarView.delegate = self;
+    [tbarView initWithData];
+    [self.view addSubview:tbarView];
 }
 #pragma mark 点击开始点击停止
 - (void)stopBtn{
@@ -542,4 +577,25 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     }
     return data;
 }
+-(LogsController *)oneVC{
+    if (_oneVc == nil) {
+        _oneVc = [[LogsController alloc] init];
+    }
+    return _oneVc;
+}
+
+
+-(TripsViewController *)twoVC{
+    if (_twoVC == nil) {
+        _twoVC = [[TripsViewController alloc] init];
+    }
+    return _twoVC;
+}
+-(FilesViewController *)ThreeVc{
+    if (_ThreeVc == nil) {
+        _ThreeVc = [[FilesViewController alloc] init];
+    }
+    return _ThreeVc;
+}
+
 @end

@@ -8,10 +8,9 @@
 
 #import "FilesViewController.h"
 
-@interface FilesViewController ()<TBarViewDelegate,UITableViewDelegate,UITableViewDataSource,deleteFileDelegate>
+@interface FilesViewController ()<UITableViewDelegate,UITableViewDataSource,deleteFileDelegate>
 {
     LogsModel *model;
-    TBarView *tbarView ;
     FilesTableViewCell *cell;
   
     
@@ -76,13 +75,6 @@
 
         }
     }
-    
-    
-    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
-    }
-  
     if (isLandscape) {
         //翻转为横屏时
         DLog(@"横屏");
@@ -110,26 +102,8 @@
     [self.view addSubview:self.tableView];
     //FilesTableViewCell
     [self.tableView registerClass:[FilesTableViewCell class] forCellReuseIdentifier:@"FilesTableViewCell"];
-    
-    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
-    }
-    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    tbarView.numberBtn = 3;
-    tbarView.isSelectNumber = 2;
-    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_normal",@"trips_normal",@"file_normal",nil];
-    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_highlight",@"trips_highlight",@"file_highlight",nil];
-    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Graphs",@"Trips",@"Files", nil];
-    tbarView.delegate = self;
-    [tbarView initWithData];
-    [self.view addSubview:tbarView];
-
 }
 - (void)back{
-    ViewController *vc = [[ViewController alloc
-                           ]init];
-    [self.navigationController pushViewController:vc animated:NO];
 }
 - (void)rightBarButtonClick{
    
