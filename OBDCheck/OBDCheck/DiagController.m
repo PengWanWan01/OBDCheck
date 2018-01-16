@@ -189,7 +189,9 @@ static dispatch_source_t _timer;
         else if (segIndex == 3) {//待办
             controller = self.FourVc;
         }
+        if(!(controller == nil)){
         [listDic setObject:controller forKey:keyName];
+        }
     }
     
     return controller;

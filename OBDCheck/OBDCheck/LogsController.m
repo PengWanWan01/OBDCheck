@@ -388,10 +388,10 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     [self.navigationController pushViewController:vc animated:NO];
 }
 - (void)rightBarButtonClick{
-    [self SaveDataSource];
     switch (selectVC) {
         case 0:
             {
+                [self SaveDataSource];
                 LogSetViewController *vc = [[LogSetViewController alloc]init];
                 [self.navigationController pushViewController:vc animated:YES];
             }
@@ -427,14 +427,16 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         else if (segIndex == 2) {//
             controller = self.ThreeVc;
         }
+        if(!(controller == nil)){
         [listDic setObject:controller forKey:keyName];
+        }
     }
     
     return controller;
 }
 - (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
-    [self SaveDataSource];
-    DLog(@"%ld",touchSelectNumber);
+    DLog(@"%ld",(long)touchSelectNumber);
+      [self SaveDataSource];
     [self reloadControlleView:touchSelectNumber];
     switch (touchSelectNumber) {
         case 0:

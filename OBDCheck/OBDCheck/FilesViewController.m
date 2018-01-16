@@ -24,6 +24,10 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rightBarButtonClick) name:@"FileBtnEdit"object:nil];
+    [self initNavBarTitle:@"Files" andLeftItemImageName:@"back" andRightItemName:@"Edit"];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -94,13 +98,10 @@
     [self.view addSubview:self.tableView];
     //FilesTableViewCell
     [self.tableView registerClass:[FilesTableViewCell class] forCellReuseIdentifier:@"FilesTableViewCell"];
-    //注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rightBarButtonClick) name:@"FileBtnEdit"object:nil];
 }
 - (void)back{
 }
 - (void)rightBarButtonClick{
-   
     DLog(@"编辑");
     NSArray *arr = [self.tableView indexPathsForVisibleRows];
     for (NSIndexPath *indexPath in arr) {
@@ -109,22 +110,14 @@
         [cell setNeedsDisplay];
         [cell setNeedsLayout];
     }
- 
 }
-
-
 
 - (void)deleteData:(NSInteger)tag{
     DLog(@"%@",[NSNumber numberWithInteger:tag+1]);
-    NSArray *arr = [LogsModel findAll];
-    model = arr[tag];
-//     [LogsModel bg_deleteWhere:@[@"BG_ID",@"=",model.bg_id]];
-      DLog(@"剩余%@",[LogsModel findAll]);
+    [LogsModel deleteObjectsByCriteria:@"WHERE pk = tag+1 "];
     [self.dataSource removeObjectAtIndex:tag]; //从模型中删除
-    
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:tag inSection:0]]  withRowAnimation:UITableViewRowAnimationRight];
     [self.tableView reloadData];
-
 }
 - (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
     switch (touchSelectNumber) {
@@ -207,12 +200,11 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     DLog(@"%ld",(long)indexPath.row);
-    FileBackViewController *vc = [[FileBackViewController alloc]init];
     NSArray *array = [LogsModel findAll];
-    vc.model = array[indexPath.row];
-    DLog(@"%@%@%@%@%d%d",vc.model,vc.model.PID1dataSource,vc.model.PID2dataSource,vc.model.PID3dataSource,vc.model.item3Enabled,vc.model.item3Enabled);
-    DLog(@"%@%@%@%@",vc.model.item1PID,vc.model.item2PID,vc.model.item3PID,vc.model.item4PID);
-    
+//    DLog(@"%@%@%@%@%d%d",vc.model,vc.model.PID1dataSource,vc.model.PID2dataSource,vc.model.PID3dataSource,vc.model.item3Enabled,vc.model.item3Enabled);
+//    DLog(@"%@%@%@%@",vc.model.item1PID,vc.model.item2PID,vc.model.item3PID,vc.model.item4PID);
+    FileBackViewController *vc = [[FileBackViewController alloc]init];
+      vc.model = array[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
 @end
