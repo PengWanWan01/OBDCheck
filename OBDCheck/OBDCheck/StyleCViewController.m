@@ -99,19 +99,13 @@
     [self.view addSubview:self.tableView];
     
 }
-- (void)initWithHeadUI{
-    
-    
-    
-    NSArray *list = [CustomDashboard findAll];
-    for(CustomDashboard * dashboard in list){
-        
+- (void)initWithHeadUI{ 
+    CustomDashboard * dashboard = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
         model = dashboard;
         dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
         [self.view addSubview:dashViewC];
         [dashViewC initWithModel:dashboard];
         dashViewC.PIDLabel.text = dashboard.DashboardCinfoLabeltext;
-    }
    Valuelabel = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
     
     Valuelabel.text = @"Value";
@@ -490,25 +484,7 @@
 -(void)back{
     [self.navigationController popViewControllerAnimated:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSArray *list = [CustomDashboard findAll];
-        for (CustomDashboard *dash in list) {
-            dash.DashboardCValueVisible = model.DashboardCValueVisible;
-            dash.DashboardCFrameColor = model.DashboardCFrameColor;
-            dash.DashboardCUnitColor = model.DashboardCUnitColor;
-            dash.DashboardCouterColor = model.DashboardCouterColor;
-            dash.DashboardCinnerColor = model.DashboardCinnerColor;
-            dash.DashboardCtitleColor = model.DashboardCtitleColor;
-            dash.DashboardCUnitPositon = model.DashboardCUnitPositon;
-            dash.DashboardCUnitFontScale = model.DashboardCUnitFontScale;
-            dash.DashboardCValuePositon = model.DashboardCValuePositon;
-            dash.DashboardCValueFontScale = model.DashboardCValueFontScale;
-            dash.DashboardCtitlePositon = model.DashboardCtitlePositon;
-            dash.DashboardCtitleFontScale = model.DashboardCtitleFontScale;
-            dash.DashboardCGradientradius = model.DashboardCGradientradius;
-            [dash update];
-            
-        }
-        
+            [model update];
     });
 }
 -(void)rightBarButtonClick{

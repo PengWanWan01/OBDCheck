@@ -71,22 +71,71 @@
 #pragma mark 竖屏
 - (void)setVerticalFrame{
     self.DashViewA.frame = CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple);
-    btnView.frame = CGRectMake(29, CGRectGetMaxY(self.DashView.frame) + 40, MSWidth - 58, 24);
-    scrollView.frame =CGRectMake(0, CGRectGetMaxY(btnView.frame)+20, SCREEN_MIN, SCREEN_MAX);
-    scrollView.contentSize = CGSizeMake(SCREEN_MIN*4,SCREEN_MAX - 237);
-      ValueLabel.frame = CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple);
-    self.slider.frame = CGRectMake(CGRectGetMaxX(self.DashView.frame) + 10, CGRectGetMaxY(ValueLabel.frame )+10, MSWidth - self.DashViewA.frame.size.width-50*KFontmultiple , 20);
-    
+    ValueLabel.frame = CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple);
+     self.slider.frame = CGRectMake(CGRectGetMaxX(self.DashView.frame) + 10, CGRectGetMaxY(ValueLabel.frame )+10, MSWidth - self.DashViewA.frame.size.width-50*KFontmultiple , 20);
+    [btnView removeFromSuperview];
+    btnView = [[UIView alloc]initWithFrame:CGRectMake(29, CGRectGetMaxY(self.DashView.frame) + 40, MSWidth - 58, 24)];
+    [self initWithBtnView];
+    scrollView.frame =CGRectMake(0, CGRectGetMaxY(btnView.frame)+20, MSWidth, MSHeight);
+    scrollView.contentSize = CGSizeMake(MSWidth*4,MSHeight - 237);
+    scrollView.contentOffset = CGPointMake(0,0);
+    self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight - 237-44-TopHigh);
+    self.tableViewAxis.frame =CGRectMake(MSWidth, 0, MSWidth, MSHeight - 237-44-TopHigh);
+    self.tableViewNeedle.frame = CGRectMake(MSWidth*2, 0, MSWidth, MSHeight - 237-44-TopHigh);
+    self.tableViewRange.frame =CGRectMake(MSWidth*3, 0, MSWidth, MSHeight - 237-44-TopHigh) ;
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
     self.DashViewA.frame = CGRectMake(66*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple);
-    btnView.frame = CGRectMake(CGRectGetMaxX(self.DashViewA.frame)+15 , 10, MSWidth - (CGRectGetMaxX(self.DashViewA.frame)+30), 24);
-    btnView.backgroundColor  = [UIColor redColor];
-    scrollView.frame =CGRectMake(CGRectGetMaxX(self.DashViewA.frame)+10, CGRectGetMaxY(btnView.frame)+20, MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10), MSHeight);
-    scrollView.contentSize = CGSizeMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10))*4,MSHeight);
     ValueLabel.frame = CGRectMake(66*KFontmultiple, CGRectGetMaxY(self.DashViewA.frame)+10, 36*KFontmultiple, 23*KFontmultiple);
     self.slider.frame = CGRectMake(66*KFontmultiple, CGRectGetMaxY(ValueLabel.frame )+10, self.DashViewA.frame.size.width , 20);
+    
+    [btnView removeFromSuperview];
+    btnView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashViewA.frame)+25, 40, MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+40), 24)];
+    [self initWithBtnView];
+    scrollView.frame =CGRectMake(CGRectGetMaxX(self.DashViewA.frame)+10, CGRectGetMaxY(btnView.frame)+20, MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10), MSHeight);
+    scrollView.contentSize = CGSizeMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10))*4,MSHeight);
+    scrollView.contentOffset = CGPointMake(0,0);
+    self.tableView.frame = CGRectMake(0, 0, (MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), MSHeight);
+    self.tableViewAxis.frame =CGRectMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), 0, MSWidth, MSHeight);
+    self.tableViewNeedle.frame = CGRectMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10))*2, 0, (MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), MSHeight);
+    self.tableViewRange.frame =CGRectMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10))*3, 0, (MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), MSHeight ) ;
+
+}
+-(void)initWithBtnView{
+  
+    _datasource = [[NSMutableArray alloc]initWithObjects:@"Frame",@"Axis",@"Needle",@"Range", nil];
+    
+    for (NSInteger i = 0; i< 4; i++) {
+        selectTag = 0;
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(btnView.frame.size.width/4), 0, btnView.frame.size.width/4, 24)];
+        [btn setTitle:_datasource[i] forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont ToAdapFont:13];
+        if (i == 0) {
+            Fristbtn = btn;
+            [Fristbtn setTitleColor:[ColorTools colorWithHexString:@"#212329"] forState:UIControlStateNormal];
+            Fristbtn.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+        }else{
+            [btn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
+            btn.backgroundColor = [UIColor clearColor];
+        }
+        
+        
+        [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
+        btn.tag = i;
+        [btnView addSubview:btn];
+    }
+    for (NSInteger i = 0; i< 5; i++) {
+        UIView *LineView = [[UIView alloc]initWithFrame:CGRectMake(i*(btnView.bounds.size.width)/4, 0, 1, btnView.bounds.size.height)];
+        LineView.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+        [btnView addSubview:LineView];
+    }
+    for (NSInteger i = 0; i< 2; i++) {
+        UIView *LineView = [[UIView alloc]initWithFrame:CGRectMake(0, i*(btnView.bounds.size.height), btnView.bounds.size.width,1)];
+        LineView.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
+        [btnView addSubview:LineView];
+    }
+    [self.view addSubview:btnView];
 }
 - (void)initWithData{
     _FrameSectionSource = [[NSMutableArray alloc]initWithObjects:@"ANGLES",@"BACKGROUND COLOR",@"TITLE LABEL",@"VALUE LABEL",@"UNITS LABEL", nil];
@@ -129,43 +178,9 @@
     self.slider.minimumTrackTintColor = [ColorTools colorWithHexString:@"FE9002"];
     self.slider.tag = 20;
     slideValue = self.slider.value;
-    btnView = [[UIView alloc]initWithFrame:CGRectMake(29, CGRectGetMaxY(self.DashView.frame) + 40, MSWidth - 58, 24)];
-    _datasource = [[NSMutableArray alloc]initWithObjects:@"Frame",@"Axis",@"Needle",@"Range", nil];
-    
-    for (NSInteger i = 0; i< 4; i++) {
-        selectTag = 0;
-        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(btnView.frame.size.width/4), 0, btnView.frame.size.width/4, 24)];
-        [btn setTitle:_datasource[i] forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont ToAdapFont:13];
-        if (i == 0) {
-            Fristbtn = btn;
-            [Fristbtn setTitleColor:[ColorTools colorWithHexString:@"#212329"] forState:UIControlStateNormal];
-            Fristbtn.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
-        }else{
-            [btn setTitleColor:[ColorTools colorWithHexString:@"#C8C6C6"] forState:UIControlStateNormal];
-            btn.backgroundColor = [UIColor clearColor];
-        }
-        
-        
-        [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
-        btn.tag = i;
-        [btnView addSubview:btn];
-    }
-    for (NSInteger i = 0; i< 5; i++) {
-        UIView *LineView = [[UIView alloc]initWithFrame:CGRectMake(i*(btnView.bounds.size.width)/4, 0, 1, btnView.bounds.size.height)];
-        LineView.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
-        [btnView addSubview:LineView];
-    }
-    for (NSInteger i = 0; i< 2; i++) {
-        UIView *LineView = [[UIView alloc]initWithFrame:CGRectMake(0, i*(btnView.bounds.size.height), btnView.bounds.size.width,1)];
-        LineView.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
-        [btnView addSubview:LineView];
-    }
     [self.view addSubview:ValueLabel];
     [self.view  addSubview:self.slider];
     [self.view  addSubview:self.NumberLabel];
-    [self.view  addSubview:btnView];
-    
     
 }
 //设置样式
@@ -1223,48 +1238,13 @@
     self.DashViewA.infoLabel.text = model.DashboardAinfoLabeltext;
     self.DashView = self.DashViewA;
     [self.view addSubview:self.DashViewA];
-    
-    //    NSArray *dashArray = [CustomDashboard findAll];
-    //    for (CustomDashboard *dash in dashArray) {
-    //        DLog(@" 测试测试%@ ",dash.dashboardA.StartAngle);
-    //    }
-    
 }
 #pragma mark 返回仪表盘更新数据库
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
     DLog(@"121");
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        //        CustomDashboard *   Model = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
-        //            Model.DashboardAStartAngle = model.DashboardAStartAngle;
-        //             Model.DashboardAmiLength = model.DashboardAmiLength;
-        //             Model.DashboardAmiWidth = model.DashboardAmiWidth;
-        //             Model.DashboardAmaWidth = model.DashboardAmaWidth;
-        //             Model.DashboardAmaLength = model.DashboardAmaLength;
-        //             Model.DashboardAUnitHorizontalPosition = model.DashboardAUnitHorizontalPosition;
-        //            Model.DashboardAUnitVerticalPosition = model.DashboardAUnitVerticalPosition;
-        //            Model.DashboardAUnitFontScale = model.DashboardAUnitFontScale;
-        //            Model.DashboardAValuePosition = model.DashboardAValuePosition;
-        //            Model.DashboardAValueFontScale = model.DashboardAValueFontScale;
-        //            Model.DashboardAendAngle = model.DashboardAendAngle;
-        //            Model.DashboardAtitleFontScale = model.DashboardAtitleFontScale;
-        //
-        //            Model.DashboardAFillstartAngle = model.DashboardAFillstartAngle;
-        //            Model.DashboardALabelFontScale = model.DashboardALabelFontScale;
-        //            Model.DashboardALabelOffest = model.DashboardALabelOffest;
-        //            Model.DashboardAouterColor = model.DashboardAouterColor;
-        //            Model.DashboardAinnerColor = model.DashboardAinnerColor;
-        //            Model.DashboardAtitleColor = model.DashboardAtitleColor;
-        //            Model.DashboardAmaColor = model.DashboardAmaColor;
-        //            Model.DashboardAFillColor = model.DashboardAFillColor;
-        //            Model.DashboardAKNOBColor = model.DashboardAKNOBColor;
-        //            Model.DashboardAPointerVisble = model.DashboardAPointerVisble;
-        //            Model.DashboardALabelRotate = model.DashboardALabelRotate;
-        //            Model.DashboardAValueVisble = model.DashboardAValueVisble;
-        //            Model.DashboardALabelVisble = model.DashboardALabelVisble;
-        //            Model.DashboardAPointerWidth = model.DashboardAPointerWidth;
         [model update];
-        
     });
 }
 -(void)rightBarButtonClick{
