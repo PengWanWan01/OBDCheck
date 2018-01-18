@@ -20,6 +20,7 @@
     CustomDashboard* model;
     UIView *btnView;//放四个按钮的View
     CGFloat slideValue;  //slide的前一个
+    UILabel *ValueLabel;
 }
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) UITableView *tableViewFrame;
@@ -73,18 +74,19 @@
     btnView.frame = CGRectMake(29, CGRectGetMaxY(self.DashView.frame) + 40, MSWidth - 58, 24);
     scrollView.frame =CGRectMake(0, CGRectGetMaxY(btnView.frame)+20, SCREEN_MIN, SCREEN_MAX);
     scrollView.contentSize = CGSizeMake(SCREEN_MIN*4,SCREEN_MAX - 237);
-    
-    //    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashView.frame) + 10, CGRectGetMaxY(label.frame )+10, MSWidth - self.DashViewA.frame.size.width-50*KFontmultiple , 20)];
+      ValueLabel.frame = CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple);
+    self.slider.frame = CGRectMake(CGRectGetMaxX(self.DashView.frame) + 10, CGRectGetMaxY(ValueLabel.frame )+10, MSWidth - self.DashViewA.frame.size.width-50*KFontmultiple , 20);
     
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
     self.DashViewA.frame = CGRectMake(66*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple);
-    btnView.frame = CGRectMake(SCREEN_MAX -(SCREEN_MIN - 58) - 20 , 25, (SCREEN_MIN - 58), 24);
+    btnView.frame = CGRectMake(CGRectGetMaxX(self.DashViewA.frame)+15 , 10, MSWidth - (CGRectGetMaxX(self.DashViewA.frame)+30), 24);
     btnView.backgroundColor  = [UIColor redColor];
-    scrollView.frame =CGRectMake(SCREEN_MAX -(SCREEN_MIN - 58) - 40, CGRectGetMaxY(btnView.frame)+20, SCREEN_MAX -(SCREEN_MIN - 58), SCREEN_MAX);
-    scrollView.contentSize = CGSizeMake((SCREEN_MAX -(SCREEN_MIN - 58))*4,SCREEN_MAX);
-    
+    scrollView.frame =CGRectMake(CGRectGetMaxX(self.DashViewA.frame)+10, CGRectGetMaxY(btnView.frame)+20, MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10), MSHeight);
+    scrollView.contentSize = CGSizeMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10))*4,MSHeight);
+    ValueLabel.frame = CGRectMake(66*KFontmultiple, CGRectGetMaxY(self.DashViewA.frame)+10, 36*KFontmultiple, 23*KFontmultiple);
+    self.slider.frame = CGRectMake(66*KFontmultiple, CGRectGetMaxY(ValueLabel.frame )+10, self.DashViewA.frame.size.width , 20);
 }
 - (void)initWithData{
     _FrameSectionSource = [[NSMutableArray alloc]initWithObjects:@"ANGLES",@"BACKGROUND COLOR",@"TITLE LABEL",@"VALUE LABEL",@"UNITS LABEL", nil];
@@ -115,12 +117,11 @@
     self.DashViewA.infoLabel.text = dashboard.DashboardAinfoLabeltext;
     self.DashView = self.DashViewA;
     [self.view addSubview:self.DashViewA];
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
-    label.text = @"Value";
-    label.textColor = [ColorTools colorWithHexString:@"#FE9002"];
-    label.font = [UIFont ToAdapFont:14.f];
-    
-    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashView.frame) + 10, CGRectGetMaxY(label.frame )+10, MSWidth - self.DashViewA.frame.size.width-50*KFontmultiple , 20)];
+    ValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
+    ValueLabel.text = @"Value";
+    ValueLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
+    ValueLabel.font = [UIFont ToAdapFont:14.f];
+    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashView.frame) + 10, CGRectGetMaxY(ValueLabel.frame )+10, MSWidth - self.DashViewA.frame.size.width-50*KFontmultiple , 20)];
     
     self.slider.minimumValue = [model.DashboardAminNumber floatValue];
     self.slider.maximumValue = [model.DashboardAmaxNumber floatValue];
@@ -160,7 +161,7 @@
         LineView.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
         [btnView addSubview:LineView];
     }
-    [self.view addSubview:label];
+    [self.view addSubview:ValueLabel];
     [self.view  addSubview:self.slider];
     [self.view  addSubview:self.NumberLabel];
     [self.view  addSubview:btnView];
@@ -864,7 +865,7 @@
 
 - (void)btn:(UIButton *)btn{
     DLog(@"111===%ld",(long)btn.tag);
-    scrollView.contentOffset = CGPointMake(MSWidth*btn.tag,0);
+    scrollView.contentOffset = CGPointMake((scrollView.contentSize.width/4)*btn.tag,0);
     switch (btn.tag) {
         case 0:
         {

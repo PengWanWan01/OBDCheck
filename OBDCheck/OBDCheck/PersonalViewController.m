@@ -11,7 +11,6 @@
 
 @interface PersonalViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
-    
     UITableView *Mytableview;
 }
 @property (nonatomic,strong) NSMutableArray *normalImage;
@@ -32,23 +31,20 @@
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
 }
 - (void)viewDidLoad {
-    [super viewDidLoad];
+      [super viewDidLoad];
       [self initWithData];
-    [self initWithUI];
- 
-    
+      [self initWithUI];
 }
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-  
-        if (isLandscape) {
+    if (isLandscape) {
         //翻转为横屏时
         DLog(@"横屏");
         [self setHorizontalFrame];
-        }else{
-            DLog(@"竖屏");
-            [self setVerticalFrame];
+    }else{
+        DLog(@"竖屏");
+        [self setVerticalFrame];
         }
 }
 #pragma mark 竖屏

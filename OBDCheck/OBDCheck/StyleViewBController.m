@@ -12,6 +12,7 @@
 @interface StyleViewBController ()<UITableViewDelegate,UITableViewDataSource,selectColorDelegete,selectSwtichDelegete>
 {
     DashboardViewStyleB  *dashViewB;
+    UILabel *ValueLabel;
     NSInteger selectTag;
     UIButton *Fristbtn;
     UIButton *selectBtn;
@@ -61,11 +62,17 @@
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
+    dashViewB.frame = CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple);
+    ValueLabel.frame = CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple);
+    self.slider.frame = CGRectMake(CGRectGetMaxX(dashViewB.frame) + 10, CGRectGetMaxY(ValueLabel.frame )+10, MSWidth - dashViewB.frame.size.width-50*KFontmultiple , 20);
     self.tableView.frame = CGRectMake(0, 186, SCREEN_MIN, SCREEN_MAX - 186 - 44 -TopHigh);
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
-    self.tableView.frame = CGRectMake(292, 0, SCREEN_MAX -292, SCREEN_MIN);
+    dashViewB.frame = CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple);
+    ValueLabel.frame = CGRectMake(30*KFontmultiple, CGRectGetMaxY(dashViewB.frame)+10, 36*KFontmultiple, 23*KFontmultiple);
+    self.slider.frame = CGRectMake(30*KFontmultiple, CGRectGetMaxY(ValueLabel.frame )+10, dashViewB.frame.size.width, 20);
+    self.tableView.frame = CGRectMake(CGRectGetMaxY(dashViewB.frame)+30, 0, SCREEN_MAX -(CGRectGetMaxY(dashViewB.frame)+20), SCREEN_MIN);
 }
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -105,12 +112,12 @@
     [self.view addSubview:dashViewB];
     
     
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
-    label.text = @"Value";
-    label.textColor = [ColorTools colorWithHexString:@"#FE9002"];
-    label.font = [UIFont ToAdapFont:14.f];
+    ValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
+    ValueLabel.text = @"Value";
+    ValueLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
+    ValueLabel.font = [UIFont ToAdapFont:14.f];
     
-    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(dashViewB.frame) + 10, CGRectGetMaxY(label.frame )+10, MSWidth - dashViewB.frame.size.width-50*KFontmultiple , 20)];
+    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(dashViewB.frame) + 10, CGRectGetMaxY(ValueLabel.frame )+10, MSWidth - dashViewB.frame.size.width-50*KFontmultiple , 20)];
     self.slider.minimumValue = [model.DashboardBminNumber floatValue];
     
     self.slider.maximumValue = [model.DashboardBmaxNumber floatValue];
@@ -122,7 +129,7 @@
     _datasource = [[NSMutableArray alloc]initWithObjects:@"Frame",@"Axis",@"Needle",@"Range", nil];
     
     
-    [self.view addSubview:label];
+    [self.view addSubview:ValueLabel];
     [self.view  addSubview:self.slider];
     [self.view  addSubview:self.NumberLabel];
     
@@ -512,25 +519,7 @@
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSArray *list = [CustomDashboard findAll];
-        
-        for (CustomDashboard *dash in list) {
-            dash.DashboardBtitleFontScale = model.DashboardBtitleFontScale;
-            dash.DashboardBValueFontScale = model.DashboardBValueFontScale;
-            dash.DashboardBValuePositon = model.DashboardBValuePositon;
-            dash.DashboardBUnitPositon = model.DashboardBUnitPositon;
-            dash.DashboardBtitleColor = model.DashboardBtitleColor;
-            dash.DashboardBValueColor = model.DashboardBValueColor;
-            
-            dash.DashboardBUnitColor = model.DashboardBUnitColor;
-            dash.DashboardBpointerColor = model.DashboardBpointerColor;
-            dash.DashboardBbackColor = model.DashboardBbackColor;
-            dash.DashboardBValueVisible = model.DashboardBValueVisible;
-            dash.DashboardBFillEnable = model.DashboardBFillEnable;
-            dash.DashboardBGradientRadius = model.DashboardBGradientRadius;
-            [dash update];
-            
-        }
+            [model update];
     });
 }
 -(void)rightBarButtonClick{

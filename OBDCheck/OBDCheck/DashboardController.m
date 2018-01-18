@@ -468,7 +468,7 @@ static dispatch_source_t _timer;
                     break;
             }
             [dash update];
-
+    DLog(@"*****%@**%@",dash.DashboardCorignx,dash.DashboardCorigny);
 }
 #pragma mark 对经典不同风格进行更新
 - (void)updateClassicType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(NSInteger)id{
@@ -877,7 +877,7 @@ static dispatch_source_t _timer;
         case 3:
         {
             if (isLandscape) {
-                [self updateCustomType:1 OrignX:SCREEN_MIN-origny-(height-30*KFontmultiple)-20*KFontmultiple OrignY:orignx-TopHigh-15*KFontmultiple-page*MSWidth Width:width Height:height ID:sender.view.tag];
+                [self updateCustomType:3 OrignX:SCREEN_MIN-origny-(height-30*KFontmultiple)-20*KFontmultiple OrignY:orignx-TopHigh-15*KFontmultiple-page*MSWidth Width:width Height:height ID:sender.view.tag];
             }else{
                 [self updateCustomType:3 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
             }
@@ -1036,8 +1036,13 @@ static dispatch_source_t _timer;
             [dashboardAView addGradientView:dashboard.DashboardAouterColor GradientViewWidth:dashboardAView.frame.size.width];
                     [dashboardAView initWithModel:dashboard];
             [scrollView addSubview:dashboardAView];
-            [self updateCustomType:1 OrignX:dashboardAView.frame.origin.x OrignY:dashboardAView.frame.origin.y Width:dashboardAView.frame.size.width Height:dashboardAView.frame.size.height ID:dashboardAView.tag];
-            
+            DLog(@"%f*****%f",dashboardAView.frame.origin.x,dashboardAView.frame.origin.y);
+
+             if (isLandscape) {
+       [self updateCustomType:1 OrignX:SCREEN_MIN-dashboardAView.frame.origin.y-(dashboardAView.frame.size.height-30*KFontmultiple)+[DashboardSetting sharedInstance].CurrentPage*SCREEN_MIN OrignY:dashboardAView.frame.origin.x-TopHigh-15*KFontmultiple-[DashboardSetting sharedInstance].CurrentPage*MSWidth Width:dashboardAView.frame.size.width Height:dashboardAView.frame.size.height ID:dashboardAView.tag];
+             }else{[self updateCustomType:1 OrignX:dashboardAView.frame.origin.x OrignY:dashboardAView.frame.origin.y Width:dashboardAView.frame.size.width Height:dashboardAView.frame.size.height ID:dashboardAView.tag];
+             }
+
         }
             break;
         case AddStyleTwo:
@@ -1050,8 +1055,10 @@ static dispatch_source_t _timer;
            CustomDashboard *dashboard = [CustomDashboard findByPK: dashboardBView.tag];
                 [dashboardBView initWithModel:dashboard];
             [scrollView addSubview:dashboardBView];
-            DLog(@"%f",dashboardBView.frame.origin.x);
-            [self updateCustomType:2 OrignX:dashboardBView.frame.origin.x OrignY:dashboardBView.frame.origin.y Width:dashboardBView.frame.size.width Height:dashboardBView.frame.size.height ID:dashboardBView.tag];
+DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
+            if (isLandscape) {
+               [self updateCustomType:2 OrignX:SCREEN_MIN-dashboardBView.frame.origin.y-(dashboardBView.frame.size.height-30*KFontmultiple)+[DashboardSetting sharedInstance].CurrentPage*SCREEN_MIN OrignY:dashboardBView.frame.origin.x-TopHigh-15*KFontmultiple-[DashboardSetting sharedInstance].CurrentPage*MSWidth Width:dashboardBView.frame.size.width Height:dashboardBView.frame.size.height ID:dashboardBView.tag];
+            }else{[self updateCustomType:2 OrignX:dashboardBView.frame.origin.x OrignY:dashboardBView.frame.origin.y Width:dashboardBView.frame.size.width Height:dashboardBView.frame.size.height ID:dashboardBView.tag];}
         }
             break;
         case AddStyleThree:
@@ -1063,7 +1070,11 @@ static dispatch_source_t _timer;
             CustomDashboard *dashboard = [CustomDashboard findByPK:dashboardCView.tag];
             [dashboardCView initWithModel:dashboard];
             [scrollView addSubview:dashboardCView];
-            [self updateCustomType:3 OrignX:dashboardCView.frame.origin.x OrignY:dashboardCView.frame.origin.y Width:dashboardCView.frame.size.width Height:dashboardCView.frame.size.height ID:dashboardCView.tag];
+            if (isLandscape) {
+            [self updateCustomType:3 OrignX:SCREEN_MIN-dashboardCView.frame.origin.y-(dashboardCView.frame.size.height-30*KFontmultiple)+[DashboardSetting sharedInstance].CurrentPage*SCREEN_MIN OrignY:dashboardCView.frame.origin.x-TopHigh-15*KFontmultiple-[DashboardSetting sharedInstance].CurrentPage*MSWidth Width:dashboardCView.frame.size.width Height:dashboardCView.frame.size.height ID:dashboardCView.tag];
+            }else{ [self updateCustomType:3 OrignX:dashboardCView.frame.origin.x OrignY:dashboardCView.frame.origin.y Width:dashboardCView.frame.size.width Height:dashboardCView.frame.size.height ID:dashboardCView.tag];
+            }
+            DLog(@"%f*****%f",dashboardCView.frame.origin.x,dashboardCView.frame.origin.y);
 
         }
             break;

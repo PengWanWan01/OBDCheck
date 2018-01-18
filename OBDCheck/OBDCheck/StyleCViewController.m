@@ -17,7 +17,7 @@
     UIButton *selectBtn;
     CustomDashboard * model;
     NSNumber *indexID;
-    
+    UILabel *Valuelabel;
 }
 @property (nonatomic,strong) NSMutableArray *sectionSource;
 @property (nonatomic,strong) NSMutableArray *rowTitleSource;
@@ -54,12 +54,16 @@
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
+    Valuelabel.frame = CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple);
+    self.slider.frame = CGRectMake(CGRectGetMaxX(dashViewC.frame) + 10, CGRectGetMaxY(Valuelabel.frame )+10, MSWidth - dashViewC.frame.size.width-50*KFontmultiple , 20);
     self.tableView.frame = CGRectMake(0, 186, MSWidth, MSHeight - 186-44-TopHigh);
     
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
-    self.tableView.frame = CGRectMake(292, 0, SCREEN_MAX -292, SCREEN_MIN);
+    Valuelabel.frame = CGRectMake(dashViewC.frame.origin.x,CGRectGetMaxY(dashViewC.frame)+10, 36*KFontmultiple, 23*KFontmultiple);
+    self.slider.frame = CGRectMake(dashViewC.frame.origin.x, CGRectGetMaxY(Valuelabel.frame )+10, dashViewC.frame.size.width , 20);
+    self.tableView.frame = CGRectMake(CGRectGetMaxX(dashViewC.frame)+20, 0, MSWidth -(CGRectGetMaxX(dashViewC.frame)+20), MSHeight);
     
 }
 //设置样式
@@ -108,13 +112,13 @@
         [dashViewC initWithModel:dashboard];
         dashViewC.PIDLabel.text = dashboard.DashboardCinfoLabeltext;
     }
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
+   Valuelabel = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
     
-    label.text = @"Value";
-    label.textColor = [ColorTools colorWithHexString:@"#FE9002"];
-    label.font = [UIFont ToAdapFont:14.f];
+    Valuelabel.text = @"Value";
+    Valuelabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
+    Valuelabel.font = [UIFont ToAdapFont:14.f];
     
-    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(dashViewC.frame) + 10, CGRectGetMaxY(label.frame )+10, MSWidth - dashViewC.frame.size.width-50*KFontmultiple , 20)];
+    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(dashViewC.frame) + 10, CGRectGetMaxY(Valuelabel.frame )+10, MSWidth - dashViewC.frame.size.width-50*KFontmultiple , 20)];
     self.slider.minimumValue = [model.DashboardCminNumber floatValue];
     self.slider.maximumValue = [model.DashboardCmaxNumber floatValue];
     [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -122,7 +126,7 @@
     self.slider.tag = 8;
     
     
-    [self.view addSubview:label];
+    [self.view addSubview:Valuelabel];
     [self.view  addSubview:self.slider];
     [self.view  addSubview:self.NumberLabel];
     

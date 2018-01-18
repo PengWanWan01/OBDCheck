@@ -153,15 +153,15 @@
     model.DashboardAouterColor = @"18191C";
     model.DashboardAPID = @"";
     if (i>=6 && i<8) {
-        model.DashboardAorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100];
-        model.DashboardAorigny =[NSString stringWithFormat:@"%f",(i -6) * (ScreenHeight/2)+(ScreenHeight/2 - 240)];
-        model.DashboardAorignwidth =[NSString stringWithFormat:@"%d",220];
-        model.DashboardAorignheight =[NSString stringWithFormat:@"%d",220+20];
+        model.DashboardAorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100*KFontmultiple];
+        model.DashboardAorigny =[NSString stringWithFormat:@"%f",(i -6) * ((SCREEN_MAX-64)/2)+(((SCREEN_MAX-64)/2) - 240*KFontmultiple)];
+        model.DashboardAorignwidth =[NSString stringWithFormat:@"%f",220*KFontmultiple];
+        model.DashboardAorignheight =[NSString stringWithFormat:@"%f",240*KFontmultiple];
     }else if (i==8){
-        model.DashboardAorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN*2+(SCREEN_MIN- 300)/2];
-        model.DashboardAorigny =[NSString stringWithFormat:@"%f",ScreenHeight/2 - 160];
-        model.DashboardAorignwidth =[NSString stringWithFormat:@"%d",300];
-        model.DashboardAorignheight =[NSString stringWithFormat:@"%d",300+20];
+        model.DashboardAorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN*2+(SCREEN_MIN- 300*KFontmultiple)/2];
+        model.DashboardAorigny =[NSString stringWithFormat:@"%f",ScreenHeight/2 - 160*KFontmultiple];
+        model.DashboardAorignwidth =[NSString stringWithFormat:@"%f",300*KFontmultiple];
+        model.DashboardAorignheight =[NSString stringWithFormat:@"%f",320*KFontmultiple];
     }else{
         NSInteger index = i % 2;
         NSInteger page = i / 2;
@@ -204,14 +204,14 @@
     model.DashboardBpointerColor = @"#FFFFFF";
     if (i>=6 && i<8)  {
         model.DashboardBorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100];
-        model.DashboardBorigny =[NSString stringWithFormat:@"%f",(i -6) * (ScreenHeight/2)+(ScreenHeight/2 - 220)];
-        model.DashboardBorignwidth =[NSString stringWithFormat:@"%d",220];
-        model.DashboardBorignheight =[NSString stringWithFormat:@"%d",220];
+        model.DashboardBorigny =[NSString stringWithFormat:@"%f",(i -6) * ((ScreenHeight-64)/2)+(((ScreenHeight-64)/2) - 220*KFontmultiple)];
+        model.DashboardBorignwidth =[NSString stringWithFormat:@"%f",220*KFontmultiple];
+        model.DashboardBorignheight =[NSString stringWithFormat:@"%f",220*KFontmultiple];
     }else if(i==8){
-        model.DashboardBorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN*2+(SCREEN_MIN- 300)/2];
-        model.DashboardBorigny =[NSString stringWithFormat:@"%f",ScreenHeight/2 - 150];
-        model.DashboardBorignwidth =[NSString stringWithFormat:@"%d",300];
-        model.DashboardBorignheight =[NSString stringWithFormat:@"%d",300];
+        model.DashboardBorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN*2+(SCREEN_MIN- 300*KFontmultiple)/2];
+        model.DashboardBorigny =[NSString stringWithFormat:@"%f",ScreenHeight/2 - 150*KFontmultiple];
+        model.DashboardBorignwidth =[NSString stringWithFormat:@"%f",300*KFontmultiple];
+        model.DashboardBorignheight =[NSString stringWithFormat:@"%f",300*KFontmultiple];
     }else{
         NSInteger index = i % 2;
         NSInteger page = i / 2;
@@ -257,14 +257,14 @@
     model.DashboardCGradientradius =[NSString stringWithFormat:@"%f",SCREEN_MIN/2];
     if (i>=6 && i<8)  {
         model.DashboardCorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100];
-        model.DashboardCorigny =[NSString stringWithFormat:@"%f",(i -6) * (ScreenHeight/2)+(ScreenHeight/2 - 220)];
-        model.DashboardCorignwidth =[NSString stringWithFormat:@"%d",220];
-        model.DashboardCorignheight =[NSString stringWithFormat:@"%d",220];
+        model.DashboardCorigny =[NSString stringWithFormat:@"%f",(i -6) * ((ScreenHeight-64-10)/2)+((ScreenHeight-64-10)/2 - 220*KFontmultiple)];
+        model.DashboardCorignwidth =[NSString stringWithFormat:@"%f",220*KFontmultiple];
+        model.DashboardCorignheight =[NSString stringWithFormat:@"%f",220*KFontmultiple];
     }else if (i==8){
         model.DashboardCorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN*2+(SCREEN_MIN- 300)/2];
         model.DashboardCorigny =[NSString stringWithFormat:@"%f",ScreenHeight/2 - 160];
-        model.DashboardCorignwidth =[NSString stringWithFormat:@"%d",300];
-        model.DashboardCorignheight =[NSString stringWithFormat:@"%d",300];
+        model.DashboardCorignwidth =[NSString stringWithFormat:@"%f",300*KFontmultiple];
+        model.DashboardCorignheight =[NSString stringWithFormat:@"%f",300*KFontmultiple];
     }else{
         NSInteger index = i % 2;
         NSInteger page = i / 2;
