@@ -9,7 +9,7 @@
 #import "PersonalViewController.h"
 #import "UIViewController+NavBar.h"
 
-@interface PersonalViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface PersonalViewController ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 {
     UITableView *Mytableview;
 }
@@ -21,6 +21,7 @@
 @property (nonatomic,strong) NSMutableArray *landSelectImage;
 @property (nonatomic,strong) NSMutableArray *titleBtnData;
 @property (nonatomic,strong)  UIView *tabarView;
+@property (nonatomic,assign) BOOL isCanSideBack;
 
 @end
 
@@ -34,6 +35,25 @@
       [super viewDidLoad];
       [self initWithData];
       [self initWithUI];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.isCanSideBack = NO;
+    //关闭ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate=self;
+    }
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.isCanSideBack=YES;
+    //开启ios右滑返回
+ if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+}
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer{
+    return  self.isCanSideBack;
 }
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{

@@ -96,10 +96,10 @@
     scrollView.frame =CGRectMake(CGRectGetMaxX(self.DashViewA.frame)+10, CGRectGetMaxY(btnView.frame)+20, MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10), MSHeight);
     scrollView.contentSize = CGSizeMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10))*4,MSHeight);
     scrollView.contentOffset = CGPointMake(0,0);
-    self.tableView.frame = CGRectMake(0, 0, (MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), MSHeight);
-    self.tableViewAxis.frame =CGRectMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), 0, MSWidth, MSHeight);
-    self.tableViewNeedle.frame = CGRectMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10))*2, 0, (MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), MSHeight);
-    self.tableViewRange.frame =CGRectMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10))*3, 0, (MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), MSHeight ) ;
+    self.tableView.frame = CGRectMake(0, 0, (MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), MSHeight - 24-44-TopHigh);
+    self.tableViewAxis.frame =CGRectMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), 0, (MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), MSHeight - 24-44-TopHigh);
+    self.tableViewNeedle.frame = CGRectMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10))*2, 0, (MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), MSHeight - 24-44-TopHigh);
+    self.tableViewRange.frame =CGRectMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10))*3, 0, (MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), MSHeight - 24-44-TopHigh ) ;
 
 }
 -(void)initWithBtnView{
