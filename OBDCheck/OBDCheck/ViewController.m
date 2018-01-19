@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "UIViewController+NavBar.h"
 
-@interface ViewController ()<BlueToothControllerDelegate,reconnectionDelegate>
+@interface ViewController ()<BlueToothControllerDelegate,reconnectionDelegate,UIGestureRecognizerDelegate>
 {
 
     BOOL isSelect;
@@ -33,6 +33,7 @@
 @property (nonatomic,strong)  UIScrollView *scrollView;
 @property (nonatomic,strong)  UIView *tabarView;
 @property (nonatomic,strong) NSMutableArray *blueDataSource;
+@property (nonatomic,assign) BOOL isCanSideBack;
 @end
 
 @implementation ViewController
@@ -43,14 +44,28 @@
      self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     [self.navigationController.navigationBar setHidden:NO];
     [self.tabBarController.tabBar setHidden:NO];
- 
-    
-    [self initNavBarTitle:@"" andLeftItemImageName:@"Upload" andRightItemImageName:@"help"];
+     [self initNavBarTitle:@"" andLeftItemImageName:@"Upload" andRightItemImageName:@"help"];
    
     DLog(@"IS_IPHONE%d,%f",IS_IPHONE,SCREEN_MAX_LENGTH);
 }
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    self.isCanSideBack = NO;
+    //关闭ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate=self;
+    }
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.isCanSideBack=YES;
+    //开启ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+}
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer{
+    return  self.isCanSideBack;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

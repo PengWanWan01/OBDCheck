@@ -37,6 +37,7 @@
 @property (nonatomic,strong) NSMutableArray *NeedleRowTitleSource;
 @property (nonatomic,strong) NSMutableArray *RangeRowTitleSource;
 @property (nonatomic,strong) NSNumber *indexID;
+@property (nonatomic,assign) NSInteger CurrentSelectStyle;
 @end
 
 @implementation StyleViewController
@@ -78,11 +79,12 @@
     [self initWithBtnView];
     scrollView.frame =CGRectMake(0, CGRectGetMaxY(btnView.frame)+20, MSWidth, MSHeight);
     scrollView.contentSize = CGSizeMake(MSWidth*4,MSHeight - 237);
-    scrollView.contentOffset = CGPointMake(0,0);
+    scrollView.contentOffset = CGPointMake((scrollView.contentSize.width/4)*self.CurrentSelectStyle,0);
     self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight - 237-44-TopHigh);
     self.tableViewAxis.frame =CGRectMake(MSWidth, 0, MSWidth, MSHeight - 237-44-TopHigh);
     self.tableViewNeedle.frame = CGRectMake(MSWidth*2, 0, MSWidth, MSHeight - 237-44-TopHigh);
     self.tableViewRange.frame =CGRectMake(MSWidth*3, 0, MSWidth, MSHeight - 237-44-TopHigh) ;
+    self.selectStyleElement = self.CurrentSelectStyle;
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
@@ -95,11 +97,12 @@
     [self initWithBtnView];
     scrollView.frame =CGRectMake(CGRectGetMaxX(self.DashViewA.frame)+10, CGRectGetMaxY(btnView.frame)+20, MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10), MSHeight);
     scrollView.contentSize = CGSizeMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10))*4,MSHeight);
-    scrollView.contentOffset = CGPointMake(0,0);
+    scrollView.contentOffset = CGPointMake((scrollView.contentSize.width/4)*self.CurrentSelectStyle,0);
     self.tableView.frame = CGRectMake(0, 0, (MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), MSHeight - 24-44-TopHigh);
     self.tableViewAxis.frame =CGRectMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), 0, (MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), MSHeight - 24-44-TopHigh);
     self.tableViewNeedle.frame = CGRectMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10))*2, 0, (MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), MSHeight - 24-44-TopHigh);
     self.tableViewRange.frame =CGRectMake((MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10))*3, 0, (MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+10)), MSHeight - 24-44-TopHigh ) ;
+    self.selectStyleElement = self.CurrentSelectStyle;
 
 }
 -(void)initWithBtnView{
@@ -111,7 +114,7 @@
         UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(i*(btnView.frame.size.width/4), 0, btnView.frame.size.width/4, 24)];
         [btn setTitle:_datasource[i] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont ToAdapFont:13];
-        if (i == 0) {
+        if (i == self.CurrentSelectStyle) {
             Fristbtn = btn;
             [Fristbtn setTitleColor:[ColorTools colorWithHexString:@"#212329"] forState:UIControlStateNormal];
             Fristbtn.backgroundColor = [ColorTools colorWithHexString:@"#C8C6C6"];
@@ -218,7 +221,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"StyleOneTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleOneTableViewCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"StyleTwoTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleTwoTableViewCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"StyleThreeTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleThreeTableViewCell"];
-    self.selectStyleElement = SelectFrame;
+    self.CurrentSelectStyle = SelectFrame;
     [scrollView addSubview:self.tableView];
     
     self.tableViewAxis = [[UITableView alloc]initWithFrame:CGRectMake(MSWidth, 0, MSWidth, MSHeight - 237-44-TopHigh) style:UITableViewStyleGrouped];
@@ -885,12 +888,14 @@
         case 0:
         {
             self.selectStyleElement = SelectFrame;
+            self.CurrentSelectStyle = SelectFrame;
             [self.tableViewFrame reloadData ];
         }
             break;
         case 1:
         {
             self.selectStyleElement = SelectAxis;
+            self.CurrentSelectStyle = SelectAxis;
             [self.tableViewAxis reloadData ];
             
         }
@@ -898,6 +903,7 @@
         case 2:
         {
             self.selectStyleElement = SelectNeedle;
+            self.CurrentSelectStyle = SelectNeedle;
             [self.tableViewNeedle reloadData ];
             
         }
@@ -905,6 +911,7 @@
         case 3:
         {
             self.selectStyleElement = SelectRange;
+            self.CurrentSelectStyle = SelectRange;
             [self.tableViewRange reloadData ];
             
         }
