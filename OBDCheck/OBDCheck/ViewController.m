@@ -337,32 +337,18 @@
         }
             break;
         case 1:{
-//            [self.navigationController.navigationBar setHidden:YES];
-//            [self.tabBarController.tabBar setHidden:YES];
-//            CusTabBar * CusVc = [[CusTabBar alloc] init];
-//            CusVc.tabbarType = 0;
-//            [CusVc initWithView];
             DiagController *vc = [[DiagController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
            
         }
             break;
         case 2:{
-//            [self.navigationController.navigationBar setHidden:YES];
-//            [self.tabBarController.tabBar setHidden:YES];
-//            CusTabBar * CusVc = [[CusTabBar alloc] init];
-//            CusVc.tabbarType = 1;
-//            [CusVc initWithView];
+
             MonController *vc = [[ MonController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
         }
             break;
         case 3:{
-//            [self.navigationController.navigationBar setHidden:YES];
-//            [self.tabBarController.tabBar setHidden:YES];
-//            CusTabBar * CusVc = [[CusTabBar alloc] init];
-//            CusVc.tabbarType = 2;
-//            [CusVc initWithView];
             LogsController *vc = [[ LogsController alloc] init];
             [self.navigationController pushViewController:vc animated:NO];
         }

@@ -1131,6 +1131,8 @@ DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
 }
 #pragma mark 移动代理
 - (void)touchMoveWithcenterX:(CGFloat)centerX WithcenterY:(CGFloat)WithcenterY{
+    DLog(@"****%f ---- %f",centerX,WithcenterY);
+    int page =  centerX/MSWidth;
     scrollView.scrollEnabled = YES;
     [DashboardSetting sharedInstance].isDashboardMove = NO;
     CustomDashboard *dashboard = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
@@ -1138,22 +1140,35 @@ DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
         case 1:
         {
             DLog(@"111");
+            if (isLandscape) {
+                dashboard.DashboardAorignx = [NSString stringWithFormat:@"%f",SCREEN_MIN-WithcenterY-([dashboard.DashboardAorignheight floatValue]-30*KFontmultiple)+page*SCREEN_MIN];
+                dashboard.DashboardAorigny = [NSString stringWithFormat:@"%f",centerX-TopHigh-15*KFontmultiple-page*MSWidth];
+            }else{
             dashboard.DashboardAorignx = [NSString stringWithFormat:@"%f",centerX];
             dashboard.DashboardAorigny = [NSString stringWithFormat:@"%f",WithcenterY];
-            
+            }
         }
             break;
         case 2:
         {
+              if (isLandscape) {
+                  dashboard.DashboardBorignx = [NSString stringWithFormat:@"%f",SCREEN_MIN-WithcenterY-([dashboard.DashboardBorignheight floatValue]-30*KFontmultiple)+page*SCREEN_MIN];
+                  dashboard.DashboardBorigny = [NSString stringWithFormat:@"%f",centerX-TopHigh-15*KFontmultiple-page*MSWidth];
+              }else{
             dashboard.DashboardBorignx = [NSString stringWithFormat:@"%f",centerX];
             dashboard.DashboardBorigny = [NSString stringWithFormat:@"%f",WithcenterY];
+              }
         }
             break;
         case 3:
         {
+            if (isLandscape) {
+                dashboard.DashboardCorignx = [NSString stringWithFormat:@"%f",SCREEN_MIN-WithcenterY-([dashboard.DashboardCorignheight floatValue]-30*KFontmultiple)+page*MSWidth];
+                dashboard.DashboardCorigny = [NSString stringWithFormat:@"%f",centerX-TopHigh-15*KFontmultiple-page*MSWidth];
+            }else{
             dashboard.DashboardCorignx = [NSString stringWithFormat:@"%f",centerX];
             dashboard.DashboardCorigny = [NSString stringWithFormat:@"%f",WithcenterY];
-            
+            }
             break;
         default:
             break;

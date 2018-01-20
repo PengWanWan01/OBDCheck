@@ -323,8 +323,6 @@
     //保存触摸起始点位置
     if ([DashboardSetting sharedInstance].isDashboardMove == YES && [DashboardSetting sharedInstance].Dashboardindex == self.tag) {
         
-        
-        
     }
 }
 
