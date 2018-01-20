@@ -1095,12 +1095,6 @@ DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
         case 1:
         {
             dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-            DLog(@"ID%ld",(long)dashboard.pk);
-            
-            //                [CustomDashboard bg_deleteAsync:arr complete:^(BOOL isSuccess) {
-            //                    DLog(@"删除成功");
-            //
-            //                }];
             [dashboardStyleAView removeFromSuperview];
             
         }
@@ -1108,7 +1102,6 @@ DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
         case 2:
         {
             dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-            //                [CustomDashboard bg_deleteWhere:arr];
             [dashboardStyleBView removeFromSuperview];
             
         }
@@ -1116,14 +1109,16 @@ DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
         case 3:
         {
             dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
-            [CustomDashboard clearTable];
             [dashboardStyleCView removeFromSuperview];
         }
             break;
         default:
             break;
     }
-    
+ 
+    NSString *str = [NSString stringWithFormat:@"WHERE pk = %ld",[DashboardSetting sharedInstance].Dashboardindex];
+    [CustomDashboard  deleteObjectsByCriteria:str];
+
 }
 #pragma mark 更新最新的仪表盘
 - (void)updateView{
