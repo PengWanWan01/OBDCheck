@@ -27,6 +27,7 @@
     [self.view addSubview:self.tableView];
     
 }
+
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;

@@ -40,14 +40,7 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-        if (isLandscape) {
-        //翻转为横屏时
-        DLog(@"横屏");
-        [self setHorizontalFrame];
-        }else{
-            DLog(@"竖屏");
-            [self setVerticalFrame];
-        }
+    self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-64);
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{

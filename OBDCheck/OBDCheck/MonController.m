@@ -127,7 +127,6 @@
     return controller;
 }
 - (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
-    [self reloadControlleView:touchSelectNumber];
     switch (touchSelectNumber) {
         case 0:
         {
@@ -153,14 +152,21 @@
             break;
     }
     selectVC =  tbarView.isSelectNumber;
+    [self reloadControlleView:touchSelectNumber];
 }
 - (void)reloadControlleView:(NSInteger)VCindex{
     [_oneVc.view   removeFromSuperview];
     [_twoVC.view removeFromSuperview];
     [_ThreeVc.view removeFromSuperview];
     [_FourVc.view removeFromSuperview];
-    UIViewController *controller = [self controllerForSegIndex:VCindex];
-    [self.view addSubview:controller.view];
+    [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    if (VCindex == 0) {
+        [self initWithUI];
+    }else{
+        UIViewController *controller = [self controllerForSegIndex:VCindex];
+        [self.view addSubview:controller.view];
+    }
+    [tbarView removeFromSuperview];
     tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
     if (IS_IPHONE_X) {
         tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);

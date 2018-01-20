@@ -9,6 +9,9 @@
 #import "ReadinessViewController.h"
 
 @interface ReadinessViewController ()
+{
+    UIImageView *headimageView;
+}
 @property(nonatomic,strong)NSMutableArray *completeDatasource;
 @property(nonatomic,strong)NSMutableArray *UndfinishedDatasource;
 @property(nonatomic,strong)NSMutableArray *NotsupportDatasource;
@@ -28,7 +31,7 @@
     [super viewDidLoad];
     [self initWithData];
       [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
-    UIImageView *headimageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 18, MSWidth, 20)];
+   headimageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 18, MSWidth, 20)];
     headimageView.image = [UIImage imageNamed:@"ReadinessbackView"];
     headimageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:headimageView];
@@ -39,15 +42,8 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    self.tableView.frame = CGRectMake(0, 38, MSWidth, MSHeight);
-    if (isLandscape) {
-        //翻转为横屏时
-        DLog(@"横屏");
-        [self setHorizontalFrame];
-    }else{
-        DLog(@"竖屏");
-        [self setVerticalFrame];
-    }
+    self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-64);
+    headimageView.frame = CGRectMake(0, 18, MSWidth, 20);
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{

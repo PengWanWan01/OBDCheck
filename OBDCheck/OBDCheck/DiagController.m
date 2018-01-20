@@ -79,15 +79,17 @@ static dispatch_source_t _timer;
       roView.frame = CGRectMake(10*Kwidthmultiple, 8*KHeightmultiple, 100*Kwidthmultiple, 100*Kwidthmultiple);
     infoLabel.frame = CGRectMake(CGRectGetMaxX(roView.frame)+25*Kwidthmultiple, 32, 210*Kwidthmultiple, 46);
      progressView.frame  = CGRectMake(0, 116*KHeightmultiple,MSWidth, 4);
-     showView.frame = CGRectMake(0, CGRectGetMaxY(progressView.frame)+10, SCREEN_MIN, 30);
-    footView.frame = CGRectMake(0, 0, SCREEN_MIN, 180);
-    clearBtn.frame = CGRectMake(57, 40, SCREEN_MIN - 114, 30);
+     showView.frame = CGRectMake(0, CGRectGetMaxY(progressView.frame)+10, MSWidth, 30);
+    importantBtn.frame = CGRectMake(MSWidth/2, 0,MSWidth/2 , 20);
+    totalBtn.frame = CGRectMake(0, 0,MSWidth/2 , 20);
+    footView.frame = CGRectMake(0, 0, MSWidth, 180);
+    clearBtn.frame = CGRectMake(57, 40, MSWidth - 114, 30);
     HistoricalBtn.frame = CGRectMake(57,CGRectGetMaxY(clearBtn.frame)+10,  MSWidth - 114, 30);
     MYTableView.frame = CGRectMake(0, CGRectGetMaxY(showView.frame), MSWidth, MSHeight-showView.frame.origin.y - showView.frame.size.height-70);
     
-    tbarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh, SCREEN_MIN, 49);
+    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
     if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh-34,SCREEN_MIN , 49);
+        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
     }
 }
 #pragma mark 横屏
@@ -98,15 +100,15 @@ static dispatch_source_t _timer;
     progressView.frame  = CGRectMake(0, 116*KHeightmultiple,MSWidth, 4);
     
     showView.frame = CGRectMake(0, CGRectGetMaxY(progressView.frame)+10, SCREEN_MIN, 30);
-    importantBtn.frame = CGRectMake(SCREEN_MAX/2, 0,SCREEN_MAX/2 , 20);
-    totalBtn.frame = CGRectMake(0, 0,SCREEN_MAX/2 , 20);
-    footView.frame = CGRectMake(0, 0, SCREEN_MAX, 180);
-    clearBtn.frame = CGRectMake(57, 40, SCREEN_MAX - 114, 30);
-    HistoricalBtn.frame = CGRectMake(57,CGRectGetMaxY(clearBtn.frame)+10,  SCREEN_MAX - 114, 30);
-       MYTableView.frame = CGRectMake(0, CGRectGetMaxY(showView.frame), SCREEN_MAX, SCREEN_MIN-showView.frame.origin.y - showView.frame.size.height-70);
-    tbarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh, SCREEN_MAX, 49);
+    importantBtn.frame = CGRectMake(MSWidth/2, 0,MSWidth/2 , 20);
+    totalBtn.frame = CGRectMake(0, 0,MSWidth/2 , 20);
+    footView.frame = CGRectMake(0, 0, MSWidth, 180);
+    clearBtn.frame = CGRectMake(57, 40, MSWidth - 114, 30);
+    HistoricalBtn.frame = CGRectMake(57,CGRectGetMaxY(clearBtn.frame)+10,  MSWidth - 114, 30);
+       MYTableView.frame = CGRectMake(0, CGRectGetMaxY(showView.frame), MSWidth, MSHeight-showView.frame.origin.y - showView.frame.size.height-70);
+    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
     if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh-34,SCREEN_MAX , 49);
+        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
     }
     
 }
@@ -230,8 +232,15 @@ static dispatch_source_t _timer;
     [_twoVC.view removeFromSuperview];
     [_ThreeVc.view removeFromSuperview];
     [_FourVc.view removeFromSuperview];
-    UIViewController *controller = [self controllerForSegIndex:VCindex];
-    [self.view addSubview:controller.view];
+    [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    if (VCindex == 0) {
+        [self initWithheadUI];
+        [self initWithUI];
+    }else{
+        UIViewController *controller = [self controllerForSegIndex:VCindex];
+        [self.view addSubview:controller.view];
+    }
+    [tbarView removeFromSuperview];
     tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
     if (IS_IPHONE_X) {
         tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
