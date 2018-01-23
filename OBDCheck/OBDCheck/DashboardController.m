@@ -377,6 +377,7 @@ static dispatch_source_t _timer;
 }
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
+    DLog(@"收到数据%@",data);
     NSString *number1 = _CustomNumberArray[0];
     NSString *number2 = _CustomNumberArray[1];
     NSString *number3 = _CustomNumberArray[2];
@@ -391,10 +392,10 @@ static dispatch_source_t _timer;
     NSString *RotationalStr = [BlueTool isRotational:string];
     NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
     NSString *ThrottlePositionStr = [BlueTool isThrottlePosition:string];
-//    DLog(@"车速%@",VehicleSpeedStr);
-//    DLog(@"转速%@",RotationalStr);
-//    DLog(@"水温%@",WatertemperatureStr);
-//    DLog(@"TF%@",ThrottlePositionStr);
+    DLog(@"车速%@",VehicleSpeedStr);
+    DLog(@"转速%@",RotationalStr);
+    DLog(@"水温%@",WatertemperatureStr);
+    DLog(@"TF%@",ThrottlePositionStr);
     
     if (!(VehicleSpeedStr == nil)) {
         

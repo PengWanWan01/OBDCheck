@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 };
 typedef NS_ENUM(NSInteger ,ProtocolType)
 {
-    CanProtocol,   // Can协议
+    CanProtocol,   // Can 拓展协议
     KWProtocol    //KW协议
 };
 @class CustomDashboard;

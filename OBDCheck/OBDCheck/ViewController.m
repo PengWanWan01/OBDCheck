@@ -254,6 +254,7 @@
     
     for (int i = 0; i<_btnTitleArray.count; i++) {
         CGFloat space = IS_IPHONE_4_OR_LESS?20*SCREEN_MAX/667:30*SCREEN_MAX/667;
+        
         OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], 100*SCREEN_MIN/375, 100*SCREEN_MIN/375 + space)];
         btn.Label.text = _btnTitleArray[i];
         btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
@@ -431,7 +432,7 @@
         if ([[string substringWithRange:NSMakeRange(12, 6)] isEqualToString:@"86F111"]) {
             [DashboardSetting sharedInstance].protocolType = KWProtocol;
         }else if ([[string substringWithRange:NSMakeRange(12, 6)] isEqualToString:@"18DAF1"]){
-            [DashboardSetting sharedInstance].protocolType = CanProtocol;
+            [DashboardSetting sharedInstance].protocolType = CanProtocol; 
             }
         [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
     }

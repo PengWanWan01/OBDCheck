@@ -27,7 +27,9 @@
    NSInteger page = i / 2;
      CGFloat Space = (CGFloat)(Height_Space) ;
    resultY =  page  * (Button_Height + Space)+Start_Y;
-        
+    if (IS_IPHONE_X) {
+        resultY =  page  * (Button_Height + Space+20)+Start_Y;
+    }
       return resultY;
 }
 
