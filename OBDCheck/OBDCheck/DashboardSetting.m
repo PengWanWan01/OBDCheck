@@ -154,17 +154,17 @@
     model.DashboardAPID = @"";
     if (i>=6 && i<8) {
         if (IS_IPHONE_4_OR_LESS) {
-            model.DashboardAorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 80*KFontmultiple];
+            model.DashboardAorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100*KFontmultiple];
             model.DashboardAorigny =[NSString stringWithFormat:@"%f",(i -6) * (220*KFontmultiple+10*KFontmultiple)+20*KFontmultiple];
             model.DashboardAorignwidth =[NSString stringWithFormat:@"%f",200*KFontmultiple];
             model.DashboardAorignheight =[NSString stringWithFormat:@"%f",220*KFontmultiple];
         }else if(IS_IPHONE_X){
-            model.DashboardAorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100*KFontmultiple];
+            model.DashboardAorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 110*KFontmultiple];
             model.DashboardAorigny =[NSString stringWithFormat:@"%f",(i -6) * (240*KFontmultiple+55*KFontmultiple)+50*KFontmultiple];
             model.DashboardAorignwidth =[NSString stringWithFormat:@"%f",220*KFontmultiple];
             model.DashboardAorignheight =[NSString stringWithFormat:@"%f",240*KFontmultiple];
         }else{
-        model.DashboardAorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100*KFontmultiple];
+        model.DashboardAorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 110*KFontmultiple];
         model.DashboardAorigny =[NSString stringWithFormat:@"%f",(i -6) * (240*KFontmultiple+20*KFontmultiple)+35*KFontmultiple];
         model.DashboardAorignwidth =[NSString stringWithFormat:@"%f",220*KFontmultiple];
         model.DashboardAorignheight =[NSString stringWithFormat:@"%f",240*KFontmultiple];
@@ -231,17 +231,17 @@
     model.DashboardBpointerColor = @"#FFFFFF";
     if (i>=6 && i<8)  {
         if (IS_IPHONE_4_OR_LESS) {
-            model.DashboardBorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 80];
+            model.DashboardBorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100*KFontmultiple];
             model.DashboardBorigny =[NSString stringWithFormat:@"%f",(i -6) * (200*KFontmultiple+20*KFontmultiple)+15*KFontmultiple];
             model.DashboardBorignwidth =[NSString stringWithFormat:@"%f",200*KFontmultiple];
             model.DashboardBorignheight =[NSString stringWithFormat:@"%f",200*KFontmultiple];
         }else if(IS_IPHONE_X){
-            model.DashboardBorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100];
+            model.DashboardBorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 110*KFontmultiple];
             model.DashboardBorigny =[NSString stringWithFormat:@"%f",(i -6) * (220*KFontmultiple+60*KFontmultiple)+60*KFontmultiple];
             model.DashboardBorignwidth =[NSString stringWithFormat:@"%f",220*KFontmultiple];
             model.DashboardBorignheight =[NSString stringWithFormat:@"%f",220*KFontmultiple];
         }else{
-        model.DashboardBorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100];
+        model.DashboardBorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 110*KFontmultiple];
         model.DashboardBorigny =[NSString stringWithFormat:@"%f",(i -6) * (220*KFontmultiple+35*KFontmultiple)+40*KFontmultiple];
         model.DashboardBorignwidth =[NSString stringWithFormat:@"%f",220*KFontmultiple];
         model.DashboardBorignheight =[NSString stringWithFormat:@"%f",220*KFontmultiple];
@@ -311,17 +311,17 @@
     model.DashboardCGradientradius =[NSString stringWithFormat:@"%f",SCREEN_MIN/2];
     if (i>=6 && i<8)  {
          if (IS_IPHONE_4_OR_LESS) {
-        model.DashboardCorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100];
-        model.DashboardCorigny =[NSString stringWithFormat:@"%f",(i -6) * (220*KFontmultiple+10*KFontmultiple)+30*KFontmultiple];
-        model.DashboardCorignwidth =[NSString stringWithFormat:@"%f",220*KFontmultiple];
-             model.DashboardCorignheight =[NSString stringWithFormat:@"%f",220*KFontmultiple];
+        model.DashboardCorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100*KFontmultiple];
+        model.DashboardCorigny =[NSString stringWithFormat:@"%f",(i -6) * (200*KFontmultiple+10*KFontmultiple)+30*KFontmultiple];
+        model.DashboardCorignwidth =[NSString stringWithFormat:@"%f",200*KFontmultiple];
+             model.DashboardCorignheight =[NSString stringWithFormat:@"%f",200*KFontmultiple];
          }else if(IS_IPHONE_X){
-             model.DashboardCorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100];
+             model.DashboardCorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 110*KFontmultiple];
              model.DashboardCorigny =[NSString stringWithFormat:@"%f",(i -6) * (220*KFontmultiple+60*KFontmultiple)+60*KFontmultiple];
              model.DashboardCorignwidth =[NSString stringWithFormat:@"%f",220*KFontmultiple];
              model.DashboardCorignheight =[NSString stringWithFormat:@"%f",220*KFontmultiple];
          }else{
-             model.DashboardCorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100];
+             model.DashboardCorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 110*KFontmultiple];
              model.DashboardCorigny =[NSString stringWithFormat:@"%f",(i -6) * (220*KFontmultiple+35*KFontmultiple)+40*KFontmultiple];
              model.DashboardCorignwidth =[NSString stringWithFormat:@"%f",220*KFontmultiple];
              model.DashboardCorignheight =[NSString stringWithFormat:@"%f",220*KFontmultiple];
@@ -335,11 +335,11 @@
         NSInteger index = i % 2;
         NSInteger page = i / 2;
         if (IS_IPHONE_4_OR_LESS) {
-            CGFloat  space = SCREEN_MIN - 150*KFontmultiple*2 - 50;
-            model.DashboardCorignx =[NSString stringWithFormat:@"%f",index * (space+ 150*KFontmultiple)+25];
-            model.DashboardCorigny =[NSString stringWithFormat:@"%f",page  * (150*KFontmultiple + 30)];
-            model.DashboardCorignwidth =[NSString stringWithFormat:@"%f",150*KFontmultiple];
-            model.DashboardCorignheight =[NSString stringWithFormat:@"%f",150*KFontmultiple];
+            CGFloat  space = SCREEN_MIN - 140*KFontmultiple*2 - 50;
+            model.DashboardCorignx =[NSString stringWithFormat:@"%f",index * (space+ 140*KFontmultiple)+25];
+            model.DashboardCorigny =[NSString stringWithFormat:@"%f",page  * (140*KFontmultiple + 20)];
+            model.DashboardCorignwidth =[NSString stringWithFormat:@"%f",140*KFontmultiple];
+            model.DashboardCorignheight =[NSString stringWithFormat:@"%f",140*KFontmultiple];
         }else if(IS_IPHONE_X){
             CGFloat  space = SCREEN_MIN - 150*KFontmultiple*2 - 50;
             model.DashboardCorignx =[NSString stringWithFormat:@"%f",index * (space+ 150*KFontmultiple)+25];
