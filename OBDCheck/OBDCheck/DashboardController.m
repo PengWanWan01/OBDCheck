@@ -865,30 +865,32 @@ static dispatch_source_t _timer;
             }else{
             [self updateCustomType:1 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
                 }
+            DLog(@"%@\n%@\n%@\n%@",dashboard.DashboardAorignx,dashboard.DashboardAorigny,dashboard.DashboardAorignwidth,dashboard.DashboardAorignheight)
         }
             break;
         case 2:
         {
             if (isLandscape) {
-                [self updateCustomType:2 OrignX:SCREEN_MIN-origny-(height-30*KFontmultiple)-20*KFontmultiple OrignY:orignx-TopHigh-15*KFontmultiple-page*MSWidth Width:width Height:height ID:sender.view.tag];
+                [self updateCustomType:2 OrignX:SCREEN_MIN-origny-(height-30*KFontmultiple)-30*KFontmultiple+page*SCREEN_MIN OrignY:orignx-TopHigh-15*KFontmultiple-page*MSWidth Width:width Height:height ID:sender.view.tag];
             }else{
                 [self updateCustomType:2 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
             }
+            DLog(@"%@\n%@\n%@\n%@",dashboard.DashboardBorignx,dashboard.DashboardBorigny,dashboard.DashboardBorignwidth,dashboard.DashboardBorignheight)
         }
             break;
         case 3:
         {
             if (isLandscape) {
-                [self updateCustomType:3 OrignX:SCREEN_MIN-origny-(height-30*KFontmultiple)-20*KFontmultiple OrignY:orignx-TopHigh-15*KFontmultiple-page*MSWidth Width:width Height:height ID:sender.view.tag];
+                [self updateCustomType:3 OrignX:SCREEN_MIN-origny-(height-30*KFontmultiple)+page*SCREEN_MIN OrignY:orignx-TopHigh-15*KFontmultiple-page*MSWidth Width:width Height:height ID:sender.view.tag];
             }else{
                 [self updateCustomType:3 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
             }
+            DLog(@"%@\n%@\n%@\n%@",dashboard.DashboardCorignx,dashboard.DashboardCorigny,dashboard.DashboardCorignwidth,dashboard.DashboardCorignheight)
         }
             break;
         default:
             break;
     }
-    
 }
 #pragma mark 长按仪表盘的手势
 - (void)tap:(UILongPressGestureRecognizer *)sender{

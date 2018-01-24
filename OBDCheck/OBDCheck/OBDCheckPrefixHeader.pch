@@ -41,6 +41,7 @@
 #define Kwidthmultiple SCREEN_MIN/375
 #define KHeightmultiple SCREEN_MAX/667
 #define KMultipleC   ViewWidth/320
+#define KBoundsWidth  self.bounds.size.width
 #define TopHigh (self.navigationController.navigationBar.frame.size.height +[UIApplication sharedApplication].statusBarFrame.size.height)
 #define isLandscape !UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)
 #

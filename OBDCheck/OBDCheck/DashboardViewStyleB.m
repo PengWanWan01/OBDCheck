@@ -7,7 +7,7 @@
 //
 
 #import "DashboardViewStyleB.h"
-#define KMultipleB  ViewWidth/300
+#define KMultipleB  self.bounds.size.width/300
 @interface DashboardViewStyleB()
 {
     CGPoint _center; // 中心点
@@ -43,18 +43,21 @@
 - (void)setNeedsLayout{
     [super setNeedsLayout];
     DLog(@"你好👋");
+    self.image = [UIImage imageNamed:@"Dashboard"];
+    self.contentMode = UIViewContentModeScaleAspectFill;
+    _center = CGPointMake(ViewWidth / 2, ViewWidth / 2);
     view.frame = self.bounds;
     view.layer.cornerRadius = self.bounds.size.width/2;
     image2.frame = CGRectMake(self.bounds.size.width/2 - 100*KMultipleB, self.bounds.size.width -73.0*KMultipleB , 200.0*KMultipleB,  70.0*KMultipleB);
-    view.gradientRadius = self.bounds.size.width;
+    view.gradientRadius = self.frame.size.width;
     innerimage.frame = CGRectMake(43.0*KMultipleB, 43.0*KMultipleB, self.bounds.size.width - 86.0*KMultipleB,  self.bounds.size.width - 86.0*KMultipleB);
-    _UnitLabel.frame = CGRectMake(0, 2*innerimage.bounds.size.height/3, innerimage.bounds.size.width, innerimage.bounds.size.height/3);
-    _NumberLabel.frame = CGRectMake(0,innerimage.bounds.size.height/3, innerimage.bounds.size.width, innerimage.bounds.size.height/3);
-    _PIDLabel.frame = CGRectMake(0, 0, innerimage.bounds.size.width, innerimage.bounds.size.height/3);
+    _UnitLabel.frame = CGRectMake(0, 2*innerimage.frame.size.height/3, innerimage.frame.size.width, innerimage.frame.size.height/3);
+    _NumberLabel.frame = CGRectMake(0,innerimage.frame.size.height/3, innerimage.frame.size.width, innerimage.frame.size.height/3);
+    _PIDLabel.frame = CGRectMake(0, 0, innerimage.frame.size.width, innerimage.frame.size.height/3);
     _NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:56.0*KMultipleB];
     _UnitLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleB];
     [_triangleView removeFromSuperview];
-    _triangleView = [[UIView alloc]initWithFrame:CGRectMake(ViewWidth/2 - 30*KMultipleB/2, 7*KMultipleB, 30*KMultipleB, (ViewWidth/2)-7*KMultipleB)];
+    _triangleView = [[UIView alloc]initWithFrame:CGRectMake(self.bounds.size.width /2 - 30*KMultipleB/2, 7*KMultipleB, 30*KMultipleB, (self.bounds.size.width /2)-7*KMultipleB)];
     //    _triangleView.backgroundColor = [UIColor redColor];
     CGPoint oldOrigin = _triangleView.frame.origin;
     //设置triangleView的角度与开始位置一直
@@ -111,7 +114,7 @@
     
     
     CGPoint _c = CGPointMake(self.bounds.size.width/2   , self.bounds.size.width/2 );
-    CGFloat _r = self.bounds.size.width/2 - (23.0/300)*self.frame.size.width;
+    CGFloat _r = self.bounds.size.width/2 - (23.0/300)*self.bounds.size.width;
     BOOL clockwise = YES; // 顺时针
     UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_c radius:_r startAngle:(M_PI / 2) endAngle:M_PI *3/4-M_PI/18 clockwise:clockwise];
     circleLayer.path = circlePath.CGPath;
@@ -161,7 +164,7 @@
     
 }
 - (void)initWithModel:(CustomDashboard *)model{
-    view = [[gradientView alloc]initWithFrame:self.bounds];
+    view = [[gradientView alloc]initWithFrame:self.frame];
     view.gradientRadius = [model.DashboardBGradientRadius floatValue];
     view.startGradientColor =  [ColorTools colorWithHexString:model.DashboardBbackColor];
     view.endGradientColor =  [UIColor clearColor];
@@ -170,16 +173,16 @@
     [self addmiddle:model.DashboardBtitleColor TitlteFontScale:[model.DashboardBtitleFontScale floatValue] TitlePositon:[model.DashboardBtitlePositon floatValue] ValueVisible:model.DashboardBValueVisible Valuecolor:model.DashboardBValueColor ValueFontScale:[model.DashboardBValueFontScale floatValue] ValuePositon:[model.DashboardBValuePositon floatValue] UnitColor:model.DashboardBUnitColor UnitFontScale:[model.DashboardBUnitFontScale floatValue] UnitPositon:[model.DashboardBUnitPositon floatValue] withmoel:(CustomDashboard *)model  ];
     
     //添加仪表盘 底部的内容
-    image2 = [[UIImageView alloc]initWithFrame:CGRectMake(self.bounds.size.width/2 - 100*KMultipleB, self.bounds.size.width -73.0*KMultipleB , 200.0*KMultipleB,  70.0*KMultipleB)];
+    image2 = [[UIImageView alloc]initWithFrame:CGRectMake(self.frame.size.width/2 - 100*KMultipleB, self.frame.size.width -73.0*KMultipleB , 200.0*KMultipleB,  70.0*KMultipleB)];
     image2.image = [UIImage imageNamed:@"yuanhu"];
     image2.contentMode = UIViewContentModeScaleAspectFill;
     
     [self addSubview:image2];
     
     //添加进度条
-    //    [self draw:self.bounds.size.width/2 - 23.0*KMultipleB lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:@"1d2027"] startAngle:(M_PI / 4) +(M_PI/18) endAngle: M_PI *3/4-M_PI/18];
+    //    [self draw:self.frame.size.width/2 - 23.0*KMultipleB lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:@"1d2027"] startAngle:(M_PI / 4) +(M_PI/18) endAngle: M_PI *3/4-M_PI/18];
     
-    [self draw:self.bounds.size.width/2 - (23.0/300)*self.frame.size.width lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:model.DashboardBFillColor] startAngle:(M_PI / 2) endAngle: M_PI *3/4-M_PI/18];
+    [self draw:self.frame.size.width/2 - (23.0/300)*self.frame.size.width lineWidth:12.0*KMultipleB lineColor:[ColorTools colorWithHexString:model.DashboardBFillColor] startAngle:(M_PI / 2) endAngle: M_PI *3/4-M_PI/18];
     [self adddrawPointColor:model.DashboardBpointerColor PointWidth:[model.DashboardBPointerwidth floatValue] Fillenable:model.DashboardBFillEnable   FillColor:model.DashboardBFillColor];
     UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:LongPress];
@@ -249,12 +252,12 @@
 
 - (void)addmiddle:(NSString *)titlteColor TitlteFontScale:(CGFloat )titlteFontScale TitlePositon:(CGFloat)titlePositon ValueVisible:(BOOL )valueVisible Valuecolor:(NSString *)ValueColor  ValueFontScale:(CGFloat)valueFontScale ValuePositon:(CGFloat)valuePositon UnitColor:(NSString *)unitColor UnitFontScale:(CGFloat)unitFontScale  UnitPositon:(CGFloat)unitPositon withmoel:(CustomDashboard *)model {
     
-    innerimage = [[UIImageView alloc]initWithFrame:CGRectMake(43.0*KMultipleB, 43.0*KMultipleB, self.bounds.size.width - 86.0*KMultipleB,  self.bounds.size.width - 86.0*KMultipleB)];
+    innerimage = [[UIImageView alloc]initWithFrame:CGRectMake(43.0*KMultipleB, 43.0*KMultipleB, self.frame.size.width - 86.0*KMultipleB,  self.frame.size.width - 86.0*KMultipleB)];
     innerimage.image = [UIImage imageNamed:@"circle-top"];
     innerimage.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:innerimage];
     
-    _NumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,innerimage.bounds.size.height/3, innerimage.bounds.size.width, innerimage.bounds.size.height/3)];
+    _NumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,innerimage.frame.size.height/3, innerimage.frame.size.width, innerimage.frame.size.height/3)];
     _NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:56.0*KMultipleB*valueFontScale];
     
     _NumberLabel.textColor = [ColorTools colorWithHexString: ValueColor];
@@ -269,13 +272,13 @@
         
     }
     
-    _PIDLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, innerimage.bounds.size.width, innerimage.bounds.size.height/3)];
+    _PIDLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, innerimage.frame.size.width, innerimage.frame.size.height/3)];
     _PIDLabel.font = [UIFont boldSystemFontOfSize:24.0*KMultipleB*titlteFontScale];
     _PIDLabel.textColor =[ColorTools colorWithHexString: titlteColor];
     _PIDLabel.textAlignment = NSTextAlignmentCenter;
     _PIDLabel.text = @"MPH";
     [innerimage addSubview:_PIDLabel];
-    _UnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2*innerimage.bounds.size.height/3, innerimage.bounds.size.width, innerimage.bounds.size.height/3)];
+    _UnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2*innerimage.frame.size.height/3, innerimage.frame.size.width, innerimage.frame.size.height/3)];
     _UnitLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleB*unitFontScale];
     _UnitLabel.textColor =  [ColorTools colorWithHexString:unitColor];
     _UnitLabel.textAlignment = NSTextAlignmentCenter;
@@ -284,7 +287,7 @@
     [innerimage addSubview:_UnitLabel];
 }
 - (void)draw:(CGFloat )radius lineWidth:(CGFloat)width lineColor:(UIColor *)color startAngle:(CGFloat)start endAngle:(CGFloat)end{
-    CGPoint _c = CGPointMake(self.bounds.size.width/2   , self.bounds.size.width/2 );
+    CGPoint _c = CGPointMake(self.frame.size.width/2   , self.frame.size.width/2 );
     CGFloat _r = radius;
     CGFloat startAngle =start; // 开始角度
     CGFloat endAngle = end; // 结束角度

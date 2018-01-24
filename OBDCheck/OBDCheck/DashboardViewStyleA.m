@@ -32,7 +32,7 @@
     
     self.userInteractionEnabled = YES;
     _center = CGPointMake(ViewWidth / 2, ViewWidth / 2);
-    _radius = ViewWidth/ 2 ;
+    _radius = self.bounds.size.width/ 2 ;
     _dialPieceCount  =5;
     _dialCount = 8 * self.dialPieceCount;
     // 添加外环
