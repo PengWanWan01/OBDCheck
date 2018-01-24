@@ -765,12 +765,13 @@ static dispatch_source_t _timer;
 }
 
 - (void)rightBarButtonClick{
-    editview = [[editDashboardsView alloc]initWithFrame:CGRectMake(85*MSWidth/375, 50, MSWidth -85*MSWidth/375 , 240)];
+    editview = [[editDashboardsView alloc]initWithFrame:CGRectMake(MSWidth - 270, 50, 270 , 240)];
     editview.delegate = self;
     [editview show];
 }
 
 - (void)scrollViewtap{
+    DLog(@"点击屏幕");
     [editview hide];
 }
 #pragma mark 点击选择仪表盘模式和风格按钮

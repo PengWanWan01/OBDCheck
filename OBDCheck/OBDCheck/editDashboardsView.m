@@ -7,7 +7,9 @@
 //
 
 #import "editDashboardsView.h"
-@interface editDashboardsView()<UITableViewDelegate,UITableViewDataSource>
+@interface editDashboardsView()<UITableViewDelegate,UITableViewDataSource>{
+    UIView *backView ;
+}
 @property (nonatomic,strong) NSMutableArray *titileArray;
 @end
 @implementation editDashboardsView
@@ -16,7 +18,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-    
+        backView = [UIView new];
+        [backView addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(backViewBeTouch)]];
+         
         self.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 8)];
         view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
@@ -53,6 +57,9 @@
     }
     return self;
     
+}
+-(void)backViewBeTouch{
+    [self hide];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -176,27 +183,35 @@
 
 }
 - (void)show{
-    
     UIWindow *win = [[UIApplication sharedApplication] keyWindow];
-    //        UIView *topView = [win.subviews firstObject];
-    //        [topView addSubview:self];
-    [win addSubview:self];
-    
-    [win bringSubviewToFront:self];
-    
-    
+    backView.frame = win.frame;
+    backView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    [win addSubview:backView];
+    [backView addSubview:self];
+//    [win bringSubviewToFront:backView];
     [UIView animateWithDuration:0.1 animations:^{
         
         [self layoutIfNeeded];
     }];
     
 }
+- (UIViewController *)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
+
 - (void)hide{
+    DLog(@"1212");
     [UIView animateWithDuration:0.3 animations:^{
-        self.alpha = 0;
+        backView.alpha = 0;
         [self layoutIfNeeded];
     } completion:^(BOOL finished) {
-        [self removeFromSuperview];
+        [backView removeFromSuperview];
     }];
 }
 - (void)selectBtn:(UIButton *)btn{
