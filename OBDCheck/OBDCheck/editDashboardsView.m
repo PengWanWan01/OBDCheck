@@ -7,7 +7,7 @@
 //
 
 #import "editDashboardsView.h"
-@interface editDashboardsView()<UITableViewDelegate,UITableViewDataSource>{
+@interface editDashboardsView()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>{
     UIView *backView ;
 }
 @property (nonatomic,strong) NSMutableArray *titileArray;
@@ -19,8 +19,17 @@
     self = [super initWithFrame:frame];
     if (self) {
         backView = [UIView new];
-        [backView addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(backViewBeTouch)]];
-         
+        UIWindow *win = [[UIApplication sharedApplication] keyWindow];
+        backView.frame = win.frame;
+        backView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        [backView addSubview:self];
+//        [backView bringSubviewToFront:self];
+        [win addSubview:backView];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(backViewBeTouch)];
+        tap.delegate = self;
+        [backView addGestureRecognizer:tap];
+        backView.hidden = YES;
+        
         self.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 8)];
         view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
@@ -57,6 +66,15 @@
     }
     return self;
     
+}
+#pragma mark - UIGestureRecognizerDelegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    return  YES;
 }
 -(void)backViewBeTouch{
     [self hide];
@@ -147,8 +165,7 @@
 
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self hide];
-   
+    DLog(@"点击");
         switch ([DashboardSetting sharedInstance].dashboardMode) {
         case DashboardCustomMode:
         {
@@ -180,17 +197,12 @@
         default:
             break;
     }
-
+   [self hide];
 }
 - (void)show{
-    UIWindow *win = [[UIApplication sharedApplication] keyWindow];
-    backView.frame = win.frame;
-    backView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    [win addSubview:backView];
-    [backView addSubview:self];
-//    [win bringSubviewToFront:backView];
+    backView.hidden = NO;
     [UIView animateWithDuration:0.1 animations:^{
-        
+
         [self layoutIfNeeded];
     }];
     
@@ -206,7 +218,6 @@
 }
 
 - (void)hide{
-    DLog(@"1212");
     [UIView animateWithDuration:0.3 animations:^{
         backView.alpha = 0;
         [self layoutIfNeeded];

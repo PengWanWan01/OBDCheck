@@ -270,7 +270,7 @@ static BlueToothController* instance;
     //改变状态
     if (self.delegate) {
         @try {
-            [self.delegate BlueToothState:BlueToothStateConnect];
+            [self.delegate BlueToothState:BlueToothStateScan];
         }
         @catch (NSException *exception) {
             DLog(@"%@",exception);

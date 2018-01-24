@@ -438,7 +438,7 @@ static dispatch_source_t _timer;
             switch (Customtype) {
                 case 1:
                 {
-                    
+                    DLog(@"改变！！！！111");
                     dash.DashboardAorignx = [NSString stringWithFormat:@"%f",orignx];
                     dash.DashboardAorigny = [NSString stringWithFormat:@"%f",origny];
                     dash.DashboardAorignwidth = [NSString stringWithFormat:@"%f",width];
@@ -469,7 +469,7 @@ static dispatch_source_t _timer;
                     break;
             }
             [dash update];
-    DLog(@"*****%@**%@",dash.DashboardCorignx,dash.DashboardCorigny);
+
 }
 #pragma mark 对经典不同风格进行更新
 - (void)updateClassicType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(NSInteger)id{
@@ -853,8 +853,9 @@ static dispatch_source_t _timer;
 }
 #pragma mark 捏合手势代理
 - (void)pinchtap:(UIPinchGestureRecognizer *)sender OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height{
-    DLog(@"%f \n %f",orignx,origny);
+    DLog(@"*****DIDIDIDIDI%f \n %f \n %f \n %f",orignx,origny,width,height);
     CustomDashboard *dashboard = [CustomDashboard findByPK:sender.view.tag];
+      dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:sender.view.tag];
      int page =  orignx/MSWidth;
     switch (dashboard.dashboardType) {
         case 1:
@@ -868,7 +869,6 @@ static dispatch_source_t _timer;
             break;
         case 2:
         {
-           
             if (isLandscape) {
                 [self updateCustomType:2 OrignX:SCREEN_MIN-origny-(height-30*KFontmultiple)-20*KFontmultiple OrignY:orignx-TopHigh-15*KFontmultiple-page*MSWidth Width:width Height:height ID:sender.view.tag];
             }else{
@@ -888,6 +888,7 @@ static dispatch_source_t _timer;
         default:
             break;
     }
+    
 }
 #pragma mark 长按仪表盘的手势
 - (void)tap:(UILongPressGestureRecognizer *)sender{

@@ -42,7 +42,7 @@
 }
 - (void)setNeedsLayout{
     [super setNeedsLayout];
-//    DLog(@"你好👋");
+    DLog(@"你好👋");
     view.frame = self.bounds;
     view.layer.cornerRadius = self.bounds.size.width/2;
     image2.frame = CGRectMake(self.bounds.size.width/2 - 100*KMultipleB, self.bounds.size.width -73.0*KMultipleB , 200.0*KMultipleB,  70.0*KMultipleB);
@@ -197,13 +197,9 @@
     if (recognizer.state==UIGestureRecognizerStateBegan || recognizer.state==UIGestureRecognizerStateChanged)
         
     {
-        
         //        UIView *view=[recognizer view];
-        
         //扩大、缩小倍数
-        
         self.transform=CGAffineTransformScale(self.transform, recognizer.scale, recognizer.scale);
-        
         recognizer.scale=1;
         if ([self.delegate respondsToSelector:@selector(pinchtap:OrignX:OrignY:Width:Height:)]) {
             [self.delegate pinchtap:recognizer OrignX:self.frame.origin.x OrignY:self.frame.origin.y Width:self.frame.size.width Height:self.frame.size.height];
