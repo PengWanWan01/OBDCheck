@@ -109,6 +109,7 @@
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
     [dashViewB initWithModel:dashboard];
     dashViewB.PIDLabel.text = dashboard.DashboardBinfoLabeltext;
+    [dashViewB setNeedsLayout];
     [self.view addSubview:dashViewB];
     
     
@@ -533,6 +534,7 @@
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
     [dashViewB initWithModel:model];
     dashViewB.PIDLabel.text = model.DashboardBinfoLabeltext;
+    [dashViewB setNeedsLayout];
     [self.view addSubview:dashViewB];
     
 }

@@ -103,6 +103,7 @@
     CustomDashboard * dashboard = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
         model = dashboard;
         dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
+        [dashViewC setNeedsLayout];
         [self.view addSubview:dashViewC];
         [dashViewC initWithModel:dashboard];
         dashViewC.PIDLabel.text = dashboard.DashboardCinfoLabeltext;
@@ -496,7 +497,7 @@
     dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
     [dashViewC initWithModel:model];
     dashViewC.PIDLabel.text = model.DashboardCinfoLabeltext;
-    
+    [dashViewC setNeedsLayout];
     [self.view addSubview:dashViewC];
     
 }
