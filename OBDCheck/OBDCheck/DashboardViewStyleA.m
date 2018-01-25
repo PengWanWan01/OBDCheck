@@ -68,7 +68,7 @@
     if ([text.userInfo[@"StyleAViewTag"] integerValue] == self.tag) {
             CustomDashboard *dashboard  = [CustomDashboard findByPK:self.tag];
         CGFloat Space =   ([dashboard.DashboardAendAngle doubleValue]- [dashboard.DashboardAStartAngle doubleValue])/([dashboard.DashboardAmaxNumber doubleValue] - [dashboard.DashboardAminNumber doubleValue]);
-        [self rotationWithStartAngle:[dashboard.DashboardAStartAngle doubleValue] + (int)start%[dashboard.DashboardAmaxNumber intValue]*Space  WithEndAngle:[dashboard.DashboardAStartAngle doubleValue] + (int)end%[dashboard.DashboardAmaxNumber intValue]*Space];
+        [self rotationWithStartAngle:[dashboard.DashboardAStartAngle doubleValue] + ((double)start/[dashboard.DashboardAmaxNumber doubleValue]*Space)  WithEndAngle:[dashboard.DashboardAStartAngle doubleValue] + (double)end/[dashboard.DashboardAmaxNumber doubleValue]*Space];
         self.numberLabel.text = presentStr;
     }
     
@@ -127,11 +127,11 @@
     
     
     for (int i = 0; i<= _dialCount; i++) {
-        CGFloat startAngel = (- M_PI + perAngle * i+[model.DashboardAStartAngle floatValue]*KMultipleA);
-        CGFloat endAngel = startAngel + perAngle/([model.DashboardAmiWidth doubleValue]*KMultipleA);
+        CGFloat startAngel = (- M_PI + perAngle * i+[model.DashboardAStartAngle floatValue]);
+        CGFloat endAngel = startAngel + perAngle/([model.DashboardAmiWidth doubleValue]);
         //    _center = CGPointMake([model.DashboardAorignwidth doubleValue]/2, [model.DashboardAorignwidth doubleValue]/2);
         if (i % 5 == 0) {
-            CGFloat endAngel = startAngel + perAngle/[model.DashboardAmaWidth doubleValue]*KMultipleA;
+            CGFloat endAngel = startAngel + perAngle/[model.DashboardAmaWidth doubleValue];
             UIBezierPath *LongtickPath    =   [UIBezierPath bezierPathWithArcCenter:_center radius:(_radius-[model.DashboardAringWidth doubleValue]*KMultipleA- [model.DashboardAmiLength doubleValue]*KMultipleA) startAngle:startAngel endAngle:endAngel clockwise:YES];
             CAShapeLayer *LongperLayer    = [CAShapeLayer layer];
             
@@ -140,9 +140,9 @@
             //添加刻度
             //            DLog(@"%@",model.DashboardAorignwidth);
             
-            CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:(_radius-[model.DashboardAringWidth doubleValue]*KMultipleA- [model.DashboardAmaLength doubleValue]*KMultipleA- 5*KMultipleA)*[model.DashboardALabelOffest doubleValue] Rotate:model.DashboardALabelRotate];
+            CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:(_radius-[model.DashboardAringWidth doubleValue]*KMultipleA- [model.DashboardAmaLength doubleValue]*KMultipleA- 6*KMultipleA)*[model.DashboardALabelOffest doubleValue] Rotate:model.DashboardALabelRotate];
             //四舍五入
-            NSString *tickText = [NSString stringWithFormat:@"%.f",((roundf([model.DashboardAmaxNumber doubleValue]*KMultipleA- [model.DashboardAminNumber doubleValue]*KMultipleA)/8)*(i/5) +[model.DashboardAminNumber doubleValue]*KMultipleA)];
+            NSString *tickText = [NSString stringWithFormat:@"%.f",((roundf([model.DashboardAmaxNumber doubleValue]- [model.DashboardAminNumber doubleValue])/8)*(i/5) +[model.DashboardAminNumber doubleValue])];
             
             //默认label的大小14 * 14
             //            DLog(@"%f",_center.x);
@@ -150,13 +150,13 @@
             //            if (point.x [is nan]) {
             //
             //            }
-            UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(((point.x - 10*KMultipleA)), ((point.y - 10*KMultipleA)), 20*KMultipleA, 20*KMultipleA)];
-            text.backgroundColor = [UIColor clearColor];
+            UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(((point.x - 10*KMultipleA)), ((point.y - 10*KMultipleA)), floor(20*KMultipleA),  floor(20*KMultipleA))];
+            text.backgroundColor = [ColorTools colorWithHexString:model.DashboardAinnerColor];
             text.text = tickText;
             text.font = [UIFont systemFontOfSize:[model.DashboardALabelFontScale doubleValue]*10.f*KMultipleA];
             text.textColor = [UIColor whiteColor];
             text.textAlignment = NSTextAlignmentCenter;
-            
+         
             //让文字刻度显示
             if (model.DashboardALabelVisble == YES) {
                 [self addSubview:text];
