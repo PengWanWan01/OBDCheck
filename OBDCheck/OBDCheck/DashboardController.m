@@ -75,10 +75,13 @@ static dispatch_source_t _timer;
             switch (dash.dashboardType) {
                 case 1:
                 {
+//                    dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:dash.pk ];
+//                    [dashboardStyleAView removeFromSuperview];
+//                    dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.DashboardAorignx doubleValue], [dash.DashboardAorigny doubleValue], [dash.DashboardAorignwidth doubleValue], [dash.DashboardAorignheight doubleValue])];
+//                    [self initWithCustomDashboardAFrame:dash];
                     dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:dash.pk ];
-                    [dashboardStyleAView removeFromSuperview];
-                    dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.DashboardAorignx doubleValue], [dash.DashboardAorigny doubleValue], [dash.DashboardAorignwidth doubleValue], [dash.DashboardAorignheight doubleValue])];
-                    [self initWithCustomDashboardAFrame:dash];
+                    dashboardStyleAView.frame = CGRectMake([dash.DashboardAorignx doubleValue],[dash.DashboardAorigny doubleValue], [dash.DashboardAorignwidth doubleValue], [dash.DashboardAorignheight doubleValue]);
+                    [dashboardStyleAView setNeedsLayout];
                 }
                     break;
                 case 2:
@@ -137,24 +140,29 @@ static dispatch_source_t _timer;
             switch (dash.dashboardType) {
                 case 1:
                 {
+//                    int page =  [dash.DashboardAorignx doubleValue]/SCREEN_MIN;
+//                    DLog(@"333====%d",page);
+//                    dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:dash.pk ];
+//                    [dashboardStyleAView removeFromSuperview];
+//                    if (([dash.DashboardAorignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
+//                        DLog(@"111111");
+//                        //竖屏时候左边的一排仪表盘
+//                        dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.DashboardAorigny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+20*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple)];
+//                    }else{
+//                        //  //竖屏时候左边的一排仪表盘，6P以上的大屏进行特殊适配
+//                        if (IS_IPHONE_6P_OR_MORE) {
+//                            DLog(@"121");
+//                            dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.DashboardAorigny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+45*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple)];
+//                        }else{
+//                            dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.DashboardAorigny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+40*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple)];
+//                        }
+//                    }
+//                    [self initWithCustomDashboardAFrame:dash];
                     int page =  [dash.DashboardAorignx doubleValue]/SCREEN_MIN;
                     DLog(@"333====%d",page);
                     dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:dash.pk ];
-                    [dashboardStyleAView removeFromSuperview];
-                    if (([dash.DashboardAorignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
-                        DLog(@"111111");
-                        //竖屏时候左边的一排仪表盘
-                        dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.DashboardAorigny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+20*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple)];
-                    }else{
-                        //  //竖屏时候左边的一排仪表盘，6P以上的大屏进行特殊适配
-                        if (IS_IPHONE_6P_OR_MORE) {
-                            DLog(@"121");
-                            dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.DashboardAorigny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+45*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple)];
-                        }else{
-                            dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.DashboardAorigny floatValue]+TopHigh+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+40*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple)];
-                        }
-                    }
-                    [self initWithCustomDashboardAFrame:dash];
+                    dashboardStyleAView.frame = CGRectMake([dash.DashboardAorigny floatValue]+page*SCREEN_MAX+TopHigh,[dash.DashboardAorignx floatValue]-page*SCREEN_MIN-TopHigh, [dash.DashboardAorignwidth doubleValue] ,[dash.DashboardAorignheight doubleValue]);
+                    [dashboardStyleAView setNeedsLayout];
                 }
                     break;
                 case 2:
@@ -327,6 +335,7 @@ static dispatch_source_t _timer;
         [dashboardStyleAView initWithModel:customDashboard];
     }
     dashboardStyleAView.infoLabel.text = _CustomLabelArray[customDashboard.pk  - 1-27];
+    dashboardStyleAView.infoLabel.adjustsFontSizeToFitWidth = YES;
     dashboardStyleAView.numberLabel.text = _CustomNumberArray[customDashboard.pk  - 1-27];
     customDashboard.DashboardAinfoLabeltext = dashboardStyleAView.infoLabel.text;
     if ([customDashboard.DashboardAinfoLabeltext isEqualToString:@"RPM"]) {
@@ -344,6 +353,7 @@ static dispatch_source_t _timer;
     dashboardStyleAView.delegate = self;
     DashBoardTag = dashboardStyleAView.tag ;
     dashboardStyleAView.infoLabel.text = _LabelNameArray[dashboardStyleAView.tag - 1];
+    dashboardStyleAView.infoLabel.adjustsFontSizeToFitWidth = YES;
     dashboardStyleAView.numberLabel.text = _numberArray[dashboardStyleAView.tag - 1];
     dashboardA.DashboardAinfoLabeltext = dashboardStyleAView.infoLabel.text;
     [dashboardA update];
