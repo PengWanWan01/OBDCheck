@@ -159,6 +159,10 @@
     [_twoVC.view removeFromSuperview];
     [_ThreeVc.view removeFromSuperview];
     [_FourVc.view removeFromSuperview];
+    _oneVc = nil;
+    _twoVC = nil;
+    _ThreeVc = nil;
+    _FourVc = nil;
     [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     if (VCindex == 0) {
         [self initWithUI];

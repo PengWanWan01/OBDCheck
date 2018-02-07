@@ -52,45 +52,8 @@
  
     
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[ColorTools colorWithHexString:@"#FE9002"],NSForegroundColorAttributeName,[UIFont systemFontOfSize:18.0f],NSFontAttributeName, nil]];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-    
-}
-//- (void)viewDidLayoutSubviews{
-//    [sup]
-//}
-- (void)dealloc{
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
 }
 
-- (void)orientChange:(NSNotification *)notification{
-//    CGFloat height = [UIScreen mainScreen].bounds.size.height;
-//    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-//    CGFloat  index = 0 ;
-    UIDeviceOrientation  orient = [UIDevice currentDevice].orientation;
-    if (orient == UIDeviceOrientationPortrait) {
-        DLog(@"竖屏2");
-//        [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height-1, self.navigationController.navigationBar.frame.size.width, 1)];
-        line.backgroundColor = [ColorTools colorWithHexString:@"#36373d"];
-        [self.navigationController.navigationBar addSubview:line];
-        [self.navigationController.navigationBar bringSubviewToFront:line];
-        [self.view addSubview:line];
-
-    }else  if (orient == UIDeviceOrientationLandscapeLeft){
-        DLog(@"横屏2");
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height-1, self.navigationController.navigationBar.frame.size.width, 1)];
-        line.backgroundColor = [ColorTools colorWithHexString:@"#36373d"];
-        [self.navigationController.navigationBar addSubview:line];
-        [self.navigationController.navigationBar bringSubviewToFront:line];
-        
-        
-    }
-    [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-   
-}
 - (void)back
 {
     [self.navigationController popViewControllerAnimated:YES];

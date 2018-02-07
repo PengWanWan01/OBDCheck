@@ -47,6 +47,10 @@
      [self initNavBarTitle:@"" andLeftItemImageName:@"Upload" andRightItemImageName:@"help"];
    
     DLog(@"IS_IPHONE%d,%f",IS_IPHONE,SCREEN_MAX_LENGTH);
+    [self initWithData];
+    [self initWithUI];
+    self.blueTooth = [BlueToothController Instance];
+    self.blueTooth.delegate = self;
 }
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -69,10 +73,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initWithData];
-    [self initWithUI];
-    self.blueTooth = [BlueToothController Instance];
-    self.blueTooth.delegate = self;
 }
 
 #pragma mark 设置横竖屏布局
@@ -309,7 +309,7 @@
 }
 -(void)initWithData{
     self.btnImageArray = [[NSMutableArray alloc]initWithObjects:@"Dashboards",@"Diagnostics",@"Montiors",@"Logs",@"Performance",@"Settings", nil];
-    self.btnTitleArray = [[NSMutableArray alloc]initWithObjects:@"Dashboards",@"Diagnostics",@"Montiors",@"Logs",@"Performance",@"Settings", nil];
+    self.btnTitleArray = [[NSMutableArray alloc]initWithObjects:@"Dashboards",@"Diagnostics",@"Monitors",@"Logs",@"Performance",@"Settings", nil];
     self.normalImage = [[NSMutableArray alloc]initWithObjects:@"OBD_normal",@"Vehicle_normal", nil];
     self.selectImage = [[NSMutableArray alloc]initWithObjects:@"OBD_highlight",@"Vehicle_highlight", nil];
 
@@ -330,6 +330,8 @@
 - (void)tap:(UITapGestureRecognizer *)sender{
     DLog(@"点击一个");
     [self.blueView hide];
+    self.blueTooth.delegate = nil;
+    self.blueView.delegate = nil;
     switch ([sender view].tag) {
         case 0:{
             DashboardController *vc = [[DashboardController alloc]init];

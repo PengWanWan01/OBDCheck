@@ -463,6 +463,9 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     [_oneVc.view   removeFromSuperview];
     [_twoVC.view removeFromSuperview];
     [_ThreeVc.view removeFromSuperview];
+    _oneVc = nil;
+    _twoVC = nil;
+    _ThreeVc = nil;
     UIViewController *controller = [self controllerForSegIndex:VCindex];
     [self.view addSubview:controller.view];
     tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];

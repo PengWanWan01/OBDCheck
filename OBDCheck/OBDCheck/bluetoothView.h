@@ -19,6 +19,6 @@
 - (void)show;
 - (void)hide;
 @property (nonatomic,strong) NSMutableArray *dataSource;
-@property (nonatomic , strong) id<reconnectionDelegate> delegate;
+@property (nonatomic , weak) id<reconnectionDelegate> delegate;
 
 @end
