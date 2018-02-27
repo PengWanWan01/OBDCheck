@@ -67,8 +67,6 @@
 		CB5A61A31F7A210A000D23D6 /* FuelCaculationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A61A21F7A210A000D23D6 /* FuelCaculationViewController.m */; };
 		CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5AA4101F31A377002B3006 /* SetTableViewCell.m */; };
 		CB5AA4131F31A377002B3006 /* SetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */; };
-		CB5B83F51FECFBB300ACE126 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB5B83F21FECFB8D00ACE126 /* Charts.framework */; };
-		CB5B83F61FECFBB300ACE126 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB5B83F21FECFB8D00ACE126 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CB5DAC621F78FA93009A8A19 /* ColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5DAC601F78FA93009A8A19 /* ColorTableViewCell.m */; };
 		CB5DAC631F78FA93009A8A19 /* ColorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5DAC611F78FA93009A8A19 /* ColorTableViewCell.xib */; };
 		CB6390101FB9A88E00C958E7 /* reportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB63900F1FB9A88E00C958E7 /* reportModel.m */; };
@@ -150,26 +148,33 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CB5B83F11FECFB8D00ACE126 /* PBXContainerItemProxy */ = {
+		CBDFA06F204533F60095FE45 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CB5B83EC1FECFB8D00ACE126 /* Charts.xcodeproj */;
+			containerPortal = CBDFA068204533F60095FE45 /* Charts.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
-			remoteInfo = Charts;
+			remoteGlobalIDString = 5BA8EC401A9D14DC00CE82E1;
+			remoteInfo = "Charts-iOS";
 		};
-		CB5B83F31FECFB8D00ACE126 /* PBXContainerItemProxy */ = {
+		CBDFA071204533F60095FE45 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CB5B83EC1FECFB8D00ACE126 /* Charts.xcodeproj */;
+			containerPortal = CBDFA068204533F60095FE45 /* Charts.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
+			remoteGlobalIDString = A52C5C371BAC5CA400594CDD;
+			remoteInfo = "Charts-TV";
+		};
+		CBDFA073204533F60095FE45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CBDFA068204533F60095FE45 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65B3F5BF1C7370BE000983D0;
+			remoteInfo = "Charts-OSX";
+		};
+		CBDFA075204533F60095FE45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CBDFA068204533F60095FE45 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06AEE7A21BDC3F8B009875AE;
 			remoteInfo = ChartsTests;
-		};
-		CB5B83F71FECFBB300ACE126 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CB5B83EC1FECFB8D00ACE126 /* Charts.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A58A4ED274A941CA248EA921;
-			remoteInfo = Charts;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -180,7 +185,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CB5B83F61FECFBB300ACE126 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,7 +308,6 @@
 		CB5AA40F1F31A377002B3006 /* SetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTableViewCell.h; sourceTree = "<group>"; };
 		CB5AA4101F31A377002B3006 /* SetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTableViewCell.m; sourceTree = "<group>"; };
 		CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetTableViewCell.xib; sourceTree = "<group>"; };
-		CB5B83EC1FECFB8D00ACE126 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		CB5DAC5F1F78FA93009A8A19 /* ColorTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorTableViewCell.h; sourceTree = "<group>"; };
 		CB5DAC601F78FA93009A8A19 /* ColorTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorTableViewCell.m; sourceTree = "<group>"; };
 		CB5DAC611F78FA93009A8A19 /* ColorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorTableViewCell.xib; sourceTree = "<group>"; };
@@ -382,6 +385,7 @@
 		CBD8EB741F9E0C1E00FDABBB /* BELInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BELInfo.h; sourceTree = "<group>"; };
 		CBD8EB751F9E0C1E00FDABBB /* BELInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BELInfo.m; sourceTree = "<group>"; };
 		CBD8EB761F9E0C1E00FDABBB /* BlueToothController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueToothController.m; sourceTree = "<group>"; };
+		CBDFA068204533F60095FE45 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = SOURCE_ROOT; };
 		CBE4AC011F442674003714A4 /* PIDSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIDSelectViewController.h; sourceTree = "<group>"; };
 		CBE4AC021F442674003714A4 /* PIDSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIDSelectViewController.m; sourceTree = "<group>"; };
 		CBE4AC041F4426BC003714A4 /* BasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicViewController.h; sourceTree = "<group>"; };
@@ -449,7 +453,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBD8EB711F9E0BEF00FDABBB /* libc++.tbd in Frameworks */,
-				CB5B83F51FECFBB300ACE126 /* Charts.framework in Frameworks */,
 				CB2E3D771F977D7900685DC9 /* libsqlite3.tbd in Frameworks */,
 				68B0FEE83EC9AFD3217B8679 /* Pods_OBDCheck.framework in Frameworks */,
 			);
@@ -687,15 +690,6 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		CB5B83ED1FECFB8D00ACE126 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CB5B83F21FECFB8D00ACE126 /* Charts.framework */,
-				CB5B83F41FECFB8D00ACE126 /* ChartsTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		CB63900C1FB9A86B00C958E7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -836,11 +830,22 @@
 		CBB1CCD81F66A4FD002EE7EB /* iOSCharts */ = {
 			isa = PBXGroup;
 			children = (
-				CB5B83EC1FECFB8D00ACE126 /* Charts.xcodeproj */,
+				CBDFA068204533F60095FE45 /* Charts.xcodeproj */,
 				CBB1CCE31F66A52C002EE7EB /* BridgHeader.swift */,
 				CBB1CCE21F66A52B002EE7EB /* OBDCheck-Bridging-Header.h */,
 			);
 			name = iOSCharts;
+			sourceTree = "<group>";
+		};
+		CBDFA069204533F60095FE45 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CBDFA070204533F60095FE45 /* Charts.framework */,
+				CBDFA072204533F60095FE45 /* Charts.framework */,
+				CBDFA074204533F60095FE45 /* Charts.framework */,
+				CBDFA076204533F60095FE45 /* ChartsTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		CBE4AC071F4426C5003714A4 /* Basic */ = {
@@ -1145,7 +1150,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				CB5B83F81FECFBB300ACE126 /* PBXTargetDependency */,
 			);
 			name = OBDCheck;
 			productName = OBDCheck;
@@ -1182,8 +1186,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = CB5B83ED1FECFB8D00ACE126 /* Products */;
-					ProjectRef = CB5B83EC1FECFB8D00ACE126 /* Charts.xcodeproj */;
+					ProductGroup = CBDFA069204533F60095FE45 /* Products */;
+					ProjectRef = CBDFA068204533F60095FE45 /* Charts.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1194,18 +1198,32 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		CB5B83F21FECFB8D00ACE126 /* Charts.framework */ = {
+		CBDFA070204533F60095FE45 /* Charts.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Charts.framework;
-			remoteRef = CB5B83F11FECFB8D00ACE126 /* PBXContainerItemProxy */;
+			remoteRef = CBDFA06F204533F60095FE45 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		CB5B83F41FECFB8D00ACE126 /* ChartsTests.xctest */ = {
+		CBDFA072204533F60095FE45 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = CBDFA071204533F60095FE45 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CBDFA074204533F60095FE45 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = CBDFA073204533F60095FE45 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CBDFA076204533F60095FE45 /* ChartsTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = ChartsTests.xctest;
-			remoteRef = CB5B83F31FECFB8D00ACE126 /* PBXContainerItemProxy */;
+			remoteRef = CBDFA075204533F60095FE45 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1245,9 +1263,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-OBDCheck/Pods-OBDCheck-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1275,13 +1298,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OBDCheck-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CB9DC9D81FF3B1B6006DEB47 /* ShellScript */ = {
@@ -1425,14 +1451,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		CB5B83F81FECFBB300ACE126 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Charts;
-			targetProxy = CB5B83F71FECFBB300ACE126 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CBF1E22F1F2ED49200EEC755 /* Main.storyboard */ = {
