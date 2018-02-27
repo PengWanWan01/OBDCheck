@@ -55,6 +55,11 @@
 		CB4852571FB3EEFC00E98902 /* PropertyReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4852561FB3EEFC00E98902 /* PropertyReportController.m */; };
 		CB49FB671FB04CFB00A6FEBB /* AlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB49FB661FB04CFB00A6FEBB /* AlarmViewController.m */; };
 		CB49FB6C1FB0521000A6FEBB /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB49FB6B1FB0521000A6FEBB /* FeedbackViewController.m */; };
+		CB4D891820453B3900B868A7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4D891720453B3900B868A7 /* QuartzCore.framework */; };
+		CB4D891A20453B4200B868A7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4D891920453B4200B868A7 /* UIKit.framework */; };
+		CB4D8D002045458C00B868A7 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4D8CFB2045450D00B868A7 /* Charts.framework */; };
+		CB4D8D012045459900B868A7 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4D8CFB2045450D00B868A7 /* Charts.framework */; };
+		CB4D8D022045459900B868A7 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB4D8CFB2045450D00B868A7 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CB5583601F51468C0010A1E5 /* StyleViewBController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB55835F1F51468C0010A1E5 /* StyleViewBController.m */; };
 		CB5583631F5146B70010A1E5 /* StyleCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5583621F5146B70010A1E5 /* StyleCViewController.m */; };
 		CB574E0C1FFF581F00A50C89 /* UIViewController+NavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CB574E0B1FFF581F00A50C89 /* UIViewController+NavBar.m */; };
@@ -100,7 +105,6 @@
 		CBB1CC4C1F6267F0002EE7EB /* TripsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB1CC4A1F6267F0002EE7EB /* TripsViewController.xib */; };
 		CBB1CC501F626809002EE7EB /* FilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB1CC4E1F626809002EE7EB /* FilesViewController.m */; };
 		CBB1CC511F626809002EE7EB /* FilesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB1CC4F1F626809002EE7EB /* FilesViewController.xib */; };
-		CBB1CCE41F66A52C002EE7EB /* BridgHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB1CCE31F66A52C002EE7EB /* BridgHeader.swift */; };
 		CBC0F9A81FFCCFDA00BAE153 /* CusTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC0F9A71FFCCFDA00BAE153 /* CusTabBar.m */; };
 		CBCD978F1F7C94850002383F /* FileBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCD978E1F7C94850002383F /* FileBackViewController.m */; };
 		CBCD97961F7CE8F10002383F /* FileInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCD97951F7CE8F10002383F /* FileInfoView.m */; };
@@ -148,33 +152,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CBDFA06F204533F60095FE45 /* PBXContainerItemProxy */ = {
+		CB4D8CFA2045450D00B868A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CBDFA068204533F60095FE45 /* Charts.xcodeproj */;
+			containerPortal = CB4D8CF52045450D00B868A7 /* Charts.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 5BA8EC401A9D14DC00CE82E1;
-			remoteInfo = "Charts-iOS";
+			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
+			remoteInfo = Charts;
 		};
-		CBDFA071204533F60095FE45 /* PBXContainerItemProxy */ = {
+		CB4D8CFC2045450D00B868A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CBDFA068204533F60095FE45 /* Charts.xcodeproj */;
+			containerPortal = CB4D8CF52045450D00B868A7 /* Charts.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = A52C5C371BAC5CA400594CDD;
-			remoteInfo = "Charts-TV";
-		};
-		CBDFA073204533F60095FE45 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CBDFA068204533F60095FE45 /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 65B3F5BF1C7370BE000983D0;
-			remoteInfo = "Charts-OSX";
-		};
-		CBDFA075204533F60095FE45 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CBDFA068204533F60095FE45 /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 06AEE7A21BDC3F8B009875AE;
+			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
 			remoteInfo = ChartsTests;
+		};
+		CB4D8D032045459900B868A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB4D8CF52045450D00B868A7 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A58A4ED274A941CA248EA921;
+			remoteInfo = Charts;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -185,6 +182,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				CB4D8D022045459900B868A7 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,6 +282,10 @@
 		CB49FB661FB04CFB00A6FEBB /* AlarmViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmViewController.m; sourceTree = "<group>"; };
 		CB49FB6A1FB0521000A6FEBB /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		CB49FB6B1FB0521000A6FEBB /* FeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		CB4D891720453B3900B868A7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CB4D891920453B4200B868A7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		CB4D8CF52045450D00B868A7 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "Charts-master/Charts.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		CB4D8CFF2045453C00B868A7 /* OBDCheck_Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OBDCheck_Swift.h; sourceTree = "<group>"; };
 		CB55835E1F51468C0010A1E5 /* StyleViewBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewBController.h; sourceTree = "<group>"; };
 		CB55835F1F51468C0010A1E5 /* StyleViewBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleViewBController.m; sourceTree = "<group>"; };
 		CB5583611F5146B70010A1E5 /* StyleCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleCViewController.h; sourceTree = "<group>"; };
@@ -368,8 +370,6 @@
 		CBB1CC4D1F626809002EE7EB /* FilesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesViewController.h; sourceTree = "<group>"; };
 		CBB1CC4E1F626809002EE7EB /* FilesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilesViewController.m; sourceTree = "<group>"; };
 		CBB1CC4F1F626809002EE7EB /* FilesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilesViewController.xib; sourceTree = "<group>"; };
-		CBB1CCE21F66A52B002EE7EB /* OBDCheck-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OBDCheck-Bridging-Header.h"; sourceTree = "<group>"; };
-		CBB1CCE31F66A52C002EE7EB /* BridgHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BridgHeader.swift; sourceTree = "<group>"; };
 		CBC0F9A61FFCCFDA00BAE153 /* CusTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CusTabBar.h; sourceTree = "<group>"; };
 		CBC0F9A71FFCCFDA00BAE153 /* CusTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CusTabBar.m; sourceTree = "<group>"; };
 		CBCD978D1F7C94850002383F /* FileBackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileBackViewController.h; sourceTree = "<group>"; };
@@ -385,7 +385,6 @@
 		CBD8EB741F9E0C1E00FDABBB /* BELInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BELInfo.h; sourceTree = "<group>"; };
 		CBD8EB751F9E0C1E00FDABBB /* BELInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BELInfo.m; sourceTree = "<group>"; };
 		CBD8EB761F9E0C1E00FDABBB /* BlueToothController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueToothController.m; sourceTree = "<group>"; };
-		CBDFA068204533F60095FE45 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = SOURCE_ROOT; };
 		CBE4AC011F442674003714A4 /* PIDSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIDSelectViewController.h; sourceTree = "<group>"; };
 		CBE4AC021F442674003714A4 /* PIDSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIDSelectViewController.m; sourceTree = "<group>"; };
 		CBE4AC041F4426BC003714A4 /* BasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicViewController.h; sourceTree = "<group>"; };
@@ -452,6 +451,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB4D8D002045458C00B868A7 /* Charts.framework in Frameworks */,
+				CB4D891A20453B4200B868A7 /* UIKit.framework in Frameworks */,
+				CB4D891820453B3900B868A7 /* QuartzCore.framework in Frameworks */,
+				CB4D8D012045459900B868A7 /* Charts.framework in Frameworks */,
 				CBD8EB711F9E0BEF00FDABBB /* libc++.tbd in Frameworks */,
 				CB2E3D771F977D7900685DC9 /* libsqlite3.tbd in Frameworks */,
 				68B0FEE83EC9AFD3217B8679 /* Pods_OBDCheck.framework in Frameworks */,
@@ -473,6 +476,8 @@
 		60BA65FE094F6FF97074E431 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB4D891920453B4200B868A7 /* UIKit.framework */,
+				CB4D891720453B3900B868A7 /* QuartzCore.framework */,
 				CB5642921F984151002EFB7E /* libc++.tbd */,
 				CB2E3D761F977D7900685DC9 /* libsqlite3.tbd */,
 				CB3FAD611F5FDB5F00C4F21B /* libsqlite3.0.tbd */,
@@ -597,6 +602,15 @@
 				CB47CE741FBC267700451244 /* Setting.m */,
 			);
 			name = Common;
+			sourceTree = "<group>";
+		};
+		CB4D8CF62045450D00B868A7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CB4D8CFB2045450D00B868A7 /* Charts.framework */,
+				CB4D8CFD2045450D00B868A7 /* ChartsTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		CB538A1E1F4E62B10095B4FE /* DashboardView */ = {
@@ -830,22 +844,10 @@
 		CBB1CCD81F66A4FD002EE7EB /* iOSCharts */ = {
 			isa = PBXGroup;
 			children = (
-				CBDFA068204533F60095FE45 /* Charts.xcodeproj */,
-				CBB1CCE31F66A52C002EE7EB /* BridgHeader.swift */,
-				CBB1CCE21F66A52B002EE7EB /* OBDCheck-Bridging-Header.h */,
+				CB4D8CFF2045453C00B868A7 /* OBDCheck_Swift.h */,
+				CB4D8CF52045450D00B868A7 /* Charts.xcodeproj */,
 			);
 			name = iOSCharts;
-			sourceTree = "<group>";
-		};
-		CBDFA069204533F60095FE45 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CBDFA070204533F60095FE45 /* Charts.framework */,
-				CBDFA072204533F60095FE45 /* Charts.framework */,
-				CBDFA074204533F60095FE45 /* Charts.framework */,
-				CBDFA076204533F60095FE45 /* ChartsTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		CBE4AC071F4426C5003714A4 /* Basic */ = {
@@ -1150,6 +1152,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				CB4D8D042045459900B868A7 /* PBXTargetDependency */,
 			);
 			name = OBDCheck;
 			productName = OBDCheck;
@@ -1186,8 +1189,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = CBDFA069204533F60095FE45 /* Products */;
-					ProjectRef = CBDFA068204533F60095FE45 /* Charts.xcodeproj */;
+					ProductGroup = CB4D8CF62045450D00B868A7 /* Products */;
+					ProjectRef = CB4D8CF52045450D00B868A7 /* Charts.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1198,32 +1201,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		CBDFA070204533F60095FE45 /* Charts.framework */ = {
+		CB4D8CFB2045450D00B868A7 /* Charts.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Charts.framework;
-			remoteRef = CBDFA06F204533F60095FE45 /* PBXContainerItemProxy */;
+			remoteRef = CB4D8CFA2045450D00B868A7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		CBDFA072204533F60095FE45 /* Charts.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Charts.framework;
-			remoteRef = CBDFA071204533F60095FE45 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CBDFA074204533F60095FE45 /* Charts.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Charts.framework;
-			remoteRef = CBDFA073204533F60095FE45 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CBDFA076204533F60095FE45 /* ChartsTests.xctest */ = {
+		CB4D8CFD2045450D00B868A7 /* ChartsTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = ChartsTests.xctest;
-			remoteRef = CBDFA075204533F60095FE45 /* PBXContainerItemProxy */;
+			remoteRef = CB4D8CFC2045450D00B868A7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1445,12 +1434,19 @@
 				CBF1E2281F2ED49200EEC755 /* main.m in Sources */,
 				CBF1E27C1F3068ED00EEC755 /* SetViewController.m in Sources */,
 				CB0220851F42FE8E008773ED /* SelectModeViewController.m in Sources */,
-				CBB1CCE41F66A52C002EE7EB /* BridgHeader.swift in Sources */,
 				CB5A619D1F7A20CB000D23D6 /* TyperViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CB4D8D042045459900B868A7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = CB4D8D032045459900B868A7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CBF1E22F1F2ED49200EEC755 /* Main.storyboard */ = {
@@ -1572,6 +1568,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = E54SCXFP9M;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
@@ -1583,9 +1580,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Auptophix.OBDCheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "OBDCheck/OBDCheck-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheck-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1596,6 +1593,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = E54SCXFP9M;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
@@ -1607,8 +1605,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Auptophix.OBDCheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "OBDCheck/OBDCheck-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheck-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
