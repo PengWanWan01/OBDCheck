@@ -83,19 +83,19 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
+    if (isLandscape) {
+        //翻转为横屏时
+        DLog(@"横屏");
+        [self setHorizontalFrame];
+    }else{
+        DLog(@"竖屏");
+        [self setVerticalFrame];
+    }
     [self.blueView setNeedsLayout];
     if ([DashboardSetting sharedInstance].blueState == 1) {
         [self IsConnectState];
     }else{
         [self NonConnectState];
-    }
-    if (isLandscape) {
-        //翻转为横屏时
-          DLog(@"横屏");
-        [self setHorizontalFrame];
-    }else{
-        DLog(@"竖屏");
-        [self setVerticalFrame];
     }
     
 }
