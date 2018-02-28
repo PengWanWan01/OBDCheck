@@ -639,8 +639,9 @@ static dispatch_source_t _timer;
             //点击按钮的响应事件；
             [DashboardSetting sharedInstance].isDashboardRemove = NO;
         }]];
+        __weak __typeof(&*self)weakSelf = self;
         [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self RemoveDisplay];
+            [weakSelf RemoveDisplay];
         }]];
         
         //弹出提示框；
@@ -649,10 +650,10 @@ static dispatch_source_t _timer;
     
 }
 - (void)back{
-    
+    __weak __typeof(&*self)weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         DLog(@"停止停止");
-        [self stopSend];
+        [weakSelf stopSend];
     });
     [editview hide];
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -1131,7 +1132,7 @@ DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
             break;
     }
  
-    NSString *str = [NSString stringWithFormat:@"WHERE pk = %ld",[DashboardSetting sharedInstance].Dashboardindex];
+    NSString *str = [NSString stringWithFormat:@"WHERE pk = %ld",(long)[DashboardSetting sharedInstance].Dashboardindex];
     [CustomDashboard  deleteObjectsByCriteria:str];
 
 }

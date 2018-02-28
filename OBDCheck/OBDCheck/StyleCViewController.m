@@ -183,9 +183,10 @@
     StyleTwoTableViewCell *StyleTwoCell = [tableView dequeueReusableCellWithIdentifier:@"StyleTwoTableViewCell"];
     StyleTwoCell.delegate = self;
     StyleTwoCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    __weak __typeof(&*self)weakSelf = self;
     StyleTwoCell.colorClick = ^(NSString *color){
         DLog(@"diandiandianji%@",color);
-        self.selectColor = color;
+        weakSelf.selectColor = color;
     };
     
     StyleThreeTableViewCell *StyleThreeCell = [tableView dequeueReusableCellWithIdentifier:@"StyleThreeTableViewCell"];

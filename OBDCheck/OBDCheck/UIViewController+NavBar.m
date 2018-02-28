@@ -53,7 +53,52 @@
     
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[ColorTools colorWithHexString:@"#FE9002"],NSForegroundColorAttributeName,[UIFont systemFontOfSize:18.0f],NSFontAttributeName, nil]];
 }
-
+- (void)initNavBarDefineTitle:(NSString *)titleName andLeftItemImageName:(NSString *)leftItemImageName andRightItemImageName:(NSString *)rightItemImageName
+{
+    [self backGesture];
+    self.navigationItem.hidesBackButton = NO;
+    [self backGesture];
+    if (![leftItemImageName isEqualToString:@""]) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [btn setImage:[UIImage imageNamed:leftItemImageName] forState:UIControlStateNormal  ];
+        [btn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+        btn.frame = CGRectMake(0, 0 , 42, 42);
+        UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+        self.navigationItem.leftBarButtonItem = barButtonItem;
+    }
+   
+    self.navigationController.navigationBar.translucent = NO; //导航栏颜色不会发生变化
+    [self.navigationController.navigationBar setBarTintColor:[ColorTools colorWithHexString:@"#212329"]];
+    
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[ColorTools colorWithHexString:@"#FE9002"],NSForegroundColorAttributeName,[UIFont systemFontOfSize:18.0f],NSFontAttributeName, nil]];
+    
+    if (![rightItemImageName isEqualToString:@""]) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [btn setImage:[UIImage imageNamed:rightItemImageName] forState:UIControlStateNormal  ];
+        [btn addTarget:self action:@selector(rightBarButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        btn.frame = CGRectMake(0, 0 , 42, 42);
+        UIBarButtonItem *rightButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+        self.navigationItem.rightBarButtonItem = rightButtonItem;
+    }
+    UIButton  *titleBtn= [[RLBtn alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    if ([DashboardSetting sharedInstance].blueState == 1) {
+       [titleBtn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
+    }else{
+       [titleBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+    }
+    [titleBtn setTitle:@"Connect" forState:UIControlStateNormal];
+    titleBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    [titleBtn setImage:[UIImage imageNamed:@"xiala"] forState:UIControlStateNormal];
+    [titleBtn addTarget:self action:@selector(LinkBlueTooth) forControlEvents:UIControlEventTouchUpInside];
+   
+    self.navigationItem.titleView = titleBtn;
+}
+- (void)LinkBlueTooth{
+     [[NSNotificationCenter defaultCenter]postNotificationName:@"linkConnect" object:nil userInfo:nil];
+}
 - (void)back
 {
     [self.navigationController popViewControllerAnimated:YES];

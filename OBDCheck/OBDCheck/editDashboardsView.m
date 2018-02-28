@@ -201,9 +201,10 @@
 }
 - (void)show{
     backView.hidden = NO;
+    __weak __typeof(&*self)weakSelf = self;
     [UIView animateWithDuration:0.1 animations:^{
 
-        [self layoutIfNeeded];
+        [weakSelf layoutIfNeeded];
     }];
     
 }
@@ -218,9 +219,10 @@
 }
 
 - (void)hide{
+    __weak __typeof(&*self)weakSelf = self;
     [UIView animateWithDuration:0.3 animations:^{
         backView.alpha = 0;
-        [self layoutIfNeeded];
+        [weakSelf layoutIfNeeded];
     } completion:^(BOOL finished) {
         [backView removeFromSuperview];
     }];

@@ -76,8 +76,7 @@
 }
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    
+
 }
 //[ColorTools colorWithHexString:@"18191C"].CGColor
 - (void)addGradientView:(NSString *)gradientColor GradientViewWidth:(CGFloat)gradientViewWidth{

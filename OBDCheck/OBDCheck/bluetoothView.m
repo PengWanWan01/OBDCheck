@@ -60,19 +60,20 @@
     
     [win bringSubviewToFront:self];
     
-    
+    __weak __typeof(&*self)weakSelf = self;
     [UIView animateWithDuration:0.1 animations:^{
         
-        [self layoutIfNeeded];
+        [weakSelf layoutIfNeeded];
     }];
     
 }
 - (void)hide{
+    __weak __typeof(&*self)weakSelf = self;
     [UIView animateWithDuration:0.3 animations:^{
-        self.alpha = 0;
-        [self layoutIfNeeded];
+        weakSelf.alpha = 0;
+        [weakSelf layoutIfNeeded];
     } completion:^(BOOL finished) {
-        [self removeFromSuperview];
+        [weakSelf removeFromSuperview];
     }];
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource

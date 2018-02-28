@@ -44,13 +44,18 @@
      self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     [self.navigationController.navigationBar setHidden:NO];
     [self.tabBarController.tabBar setHidden:NO];
-     [self initNavBarTitle:@"" andLeftItemImageName:@"Upload" andRightItemImageName:@"help"];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LinkBlueTooth) name:@"linkConnect"object:nil];
+     [self initNavBarDefineTitle:@"" andLeftItemImageName:@"Upload" andRightItemImageName:@"help"];
    
     DLog(@"IS_IPHONE%d,%f",IS_IPHONE,SCREEN_MAX_LENGTH);
     [self initWithData];
     [self initWithUI];
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
+}
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -222,15 +227,10 @@
     }else{
         [self NonConnectState];
     }
-    [self.titleBtn setTitle:@"Connect" forState:UIControlStateNormal];
-    self.titleBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-    [self.titleBtn setImage:[UIImage imageNamed:@"xiala"] forState:UIControlStateNormal];
-    [self.titleBtn addTarget:self action:@selector(LinkBlueTooth) forControlEvents:UIControlEventTouchUpInside];
     isSelect = YES;
-    self.navigationItem.titleView = self.titleBtn;
     self.statusView = [[UIImageView alloc]initWithFrame:CGRectMake(22, 11, MSWidth - 44, 41)];
     self.statusView.image = [UIImage imageNamed:@"information"];
-    self.statusView.contentMode = UIViewContentModeScaleAspectFill;
+    self.statusView.contentMode = UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.statusView];
     self.statusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(self.statusView.frame.size.width - 50, 10, 24, 20)];
     self.statusImageView.image = [UIImage imageNamed:@"signal"];
@@ -388,7 +388,7 @@
     self.blueView= [[bluetoothView alloc]initWithFrame:CGRectMake(0, 64, MSWidth, 140)];
     self.blueView.delegate = self;
      self.blueView.dataSource = self.blueTooth.arrayBLE;
-        [self.blueView show];    
+        [self.blueView show];
 }
 #pragma mark 重新连接蓝牙
 - (void)reconnectionBlueTooth{
@@ -443,7 +443,6 @@
 -(void)NonConnectState{
     self.statusLabel.text = @"Please connect to the device...";
     [self.statusLabel setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
-    [self.titleBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
     [self.statusImageView removeFromSuperview];
     [self.statusView addSubview:self.roView];
     [self.roView rotate360WithDuration:1 repeatCount:600];

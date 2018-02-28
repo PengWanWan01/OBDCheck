@@ -456,9 +456,10 @@
     
 }
 - (void)back{
+    __weak __typeof(&*self)weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         DLog(@"停止停止");
-        [self stopSend];
+        [weakSelf stopSend];
     });
     ViewController *vc = [[ViewController alloc]init];
     [self.navigationController pushViewController:vc animated:NO];
@@ -478,9 +479,10 @@
     self.blueTooth.stopSend = YES;
 }
 -(void)reportBtn{
+    __weak __typeof(&*self)weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         DLog(@"停止停止");
-        [self stopSend];
+        [weakSelf stopSend];
     });
     PropertyReportController *vc = [[PropertyReportController alloc]init];
     DLog(@"模型模型%@",reportmodel.reportUp100Time);
@@ -730,9 +732,10 @@
         CGFloat ty = keyboardY - inputBoxY;
         DLog(@"position keyboard: %f, inputbox: %f, ty: %f", keyboardY, inputBoxY, ty);
         //差值小于0，做平移变换
+        __weak __typeof(&*self)weakSelf = self;
         [UIView animateWithDuration:duration animations:^{
             if (ty < 0) {
-                self.view.transform = CGAffineTransformMakeTranslation(0, ty);
+                weakSelf.view.transform = CGAffineTransformMakeTranslation(0, ty);
             }
         }];
     }
@@ -743,8 +746,9 @@
     //获取键盘弹出的时间
     double duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     //还原
+    __weak __typeof(&*self)weakSelf = self;
     [UIView animateWithDuration:duration animations:^{
-        self.view.transform = CGAffineTransformMakeTranslation(0, 0);
+        weakSelf.view.transform = CGAffineTransformMakeTranslation(0, 0);
     }];
 }
 

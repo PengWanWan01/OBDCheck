@@ -403,18 +403,19 @@ static dispatch_source_t _timer;
     _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
     dispatch_source_set_timer(_timer, dispatch_walltime(DISPATCH_TIME_NOW, NSEC_PER_SEC * interval), period * NSEC_PER_SEC, 0); //每秒执行
     // 事件回调
+    __weak __typeof(&*self)weakSelf = self;
     dispatch_source_set_event_handler(_timer, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
         
             
-            [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)indextag withY:[self.model.PID2dataSource[indextag] intValue]];
+            [weakSelf updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)indextag withY:[self.model.PID2dataSource[indextag] intValue]];
             
-            [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)indextag withY:[self.model.PID1dataSource[indextag] intValue]];
-            if (self.model.item3Enabled == YES) {
+            [weakSelf updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)indextag withY:[self.model.PID1dataSource[indextag] intValue]];
+            if (weakSelf.model.item3Enabled == YES) {
                 DLog(@"item3item3");
                 [self updateChartData:chartViewTwo withData:PartTwodata withIndex:0 withX:(int)indextag withY:[self.model.PID3dataSource[indextag] intValue]];
             }
-            if (self.model.item4Enabled == YES) {
+            if (weakSelf.model.item4Enabled == YES) {
                 [self updateChartData:chartViewTwo withData:PartTwodata withIndex:1 withX:(int)indextag withY:[self.model.PID4dataSource[indextag] intValue]];
             }
             ++indextag;
