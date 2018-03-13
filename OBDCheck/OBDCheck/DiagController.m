@@ -37,7 +37,7 @@ static dispatch_source_t _timer;
 @property (nonatomic,strong) DiagController *oneVc;
 @property (nonatomic,strong) FreezeViewController *twoVC;
 @property (nonatomic,strong) ReadinessViewController *ThreeVc;
-@property (nonatomic,strong) FilesViewController *FourVc;
+@property (nonatomic,strong) ReportViewController *FourVc;
 @end
 
 @implementation DiagController
@@ -542,9 +542,9 @@ static dispatch_source_t _timer;
     }
     return _ThreeVc;
 }
--(FilesViewController *)FourVc{
+-(ReportViewController *)FourVc{
     if (_FourVc == nil) {
-        _FourVc = [[FilesViewController alloc] init];
+        _FourVc = [[ReportViewController alloc] init];
     }
     return _FourVc;
 }

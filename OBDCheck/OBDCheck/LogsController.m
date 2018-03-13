@@ -68,6 +68,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         DLog(@"yes");
         [self reloadControlleView:selectVC];
     }
+   
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -75,8 +76,21 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     PID2dataSource = [[NSMutableArray alloc]init];
     PID3dataSource = [[NSMutableArray alloc]init];
     PID4dataSource = [[NSMutableArray alloc]init];
-
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FileClick:) name:@"FileClick" object:nil];
   
+}
+- (void)FileClick:(NSNotification *)text{
+    DLog(@"回放回放");
+//       NSNumber *present = [text.userInfo objectForKey:@"index"];
+//        NSArray *array = [LogsModel findAll];
+    FileBackViewController *vc = [[FileBackViewController alloc]init];
+   
+//    vc.model = array[[present intValue]];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {

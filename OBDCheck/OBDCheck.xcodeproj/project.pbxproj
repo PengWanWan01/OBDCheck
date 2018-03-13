@@ -525,19 +525,10 @@
 		CB07E6A61F908B8900545A82 /* Performance */ = {
 			isa = PBXGroup;
 			children = (
-				CB6497D61FD5517F00AB128E /* View */,
 				CB47CE6A1FBBD1D400451244 /* Data */,
+				CB6497D61FD5517F00AB128E /* View */,
 				CB63900C1FB9A86B00C958E7 /* Model */,
-				CB07E6A81F908BB600545A82 /* PerformanceController.h */,
-				CB07E6A91F908BB600545A82 /* PerformanceController.m */,
-				CB99D70E1FB328BB00ABAF4A /* PerformancesViewController.h */,
-				CB99D70F1FB328BB00ABAF4A /* PerformancesViewController.m */,
-				CB4852551FB3EEFC00E98902 /* PropertyReportController.h */,
-				CB4852561FB3EEFC00E98902 /* PropertyReportController.m */,
-				CB94DFC81FBAC0830051E152 /* PerformanceSetController.h */,
-				CB94DFC91FBAC0830051E152 /* PerformanceSetController.m */,
-				CB94DFCB1FBAC4CB0051E152 /* TestItemViewController.h */,
-				CB94DFCC1FBAC4CB0051E152 /* TestItemViewController.m */,
+				CB88C92E2057D22200C9148C /* Controller */,
 			);
 			name = Performance;
 			sourceTree = "<group>";
@@ -556,6 +547,8 @@
 		CB21339B1F5A8F9A009B970D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CB1591DC2006383400F51FD3 /* CustomDashboard.h */,
+				CB1591DB2006383300F51FD3 /* CustomDashboard.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -723,6 +716,8 @@
 		CB848F121F4541DB00C1A718 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CBF1E2621F30680F00EEC755 /* DashboardController.h */,
+				CBF1E2631F30680F00EEC755 /* DashboardController.m */,
 				CB5583641F5146F80010A1E5 /* StyleController */,
 				CB8E40DE1F6137D3003E5024 /* Controller */,
 			);
@@ -762,6 +757,57 @@
 				CB84B3D21F56A7FF00B454E6 /* ReportViewController.m */,
 				CB835D341F596994007C5A17 /* HistoryViewController.h */,
 				CB835D351F596994007C5A17 /* HistoryViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		CB88C92C2057D1D600C9148C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E2741F3068C500EEC755 /* MonController.h */,
+				CBF1E2751F3068C500EEC755 /* MonController.m */,
+				CB3FAD241F6A6F1000B572FD /* Sensors2ViewController.h */,
+				CB3FAD251F6A6F1000B572FD /* Sensors2ViewController.m */,
+				CB3FAD271F6A6F1D00B572FD /* Mode06ViewController.h */,
+				CB3FAD281F6A6F1D00B572FD /* Mode06ViewController.m */,
+				CB3FAD2A1F6A6F3200B572FD /* Mode09ViewController.h */,
+				CB3FAD2B1F6A6F3200B572FD /* Mode09ViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		CB88C92D2057D1F000C9148C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E2771F3068E000EEC755 /* LogsController.h */,
+				CBF1E2781F3068E000EEC755 /* LogsController.m */,
+				CB99E1A81F66A7C700A87DAF /* LogSetViewController.h */,
+				CB99E1A91F66A7C700A87DAF /* LogSetViewController.m */,
+				CBB1CC481F6267F0002EE7EB /* TripsViewController.h */,
+				CBB1CC491F6267F0002EE7EB /* TripsViewController.m */,
+				CBB1CC4A1F6267F0002EE7EB /* TripsViewController.xib */,
+				CBB1CC4D1F626809002EE7EB /* FilesViewController.h */,
+				CBB1CC4E1F626809002EE7EB /* FilesViewController.m */,
+				CBB1CC4F1F626809002EE7EB /* FilesViewController.xib */,
+				CBCD978D1F7C94850002383F /* FileBackViewController.h */,
+				CBCD978E1F7C94850002383F /* FileBackViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		CB88C92E2057D22200C9148C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CB07E6A81F908BB600545A82 /* PerformanceController.h */,
+				CB07E6A91F908BB600545A82 /* PerformanceController.m */,
+				CB99D70E1FB328BB00ABAF4A /* PerformancesViewController.h */,
+				CB99D70F1FB328BB00ABAF4A /* PerformancesViewController.m */,
+				CB4852551FB3EEFC00E98902 /* PropertyReportController.h */,
+				CB4852561FB3EEFC00E98902 /* PropertyReportController.m */,
+				CB94DFC81FBAC0830051E152 /* PerformanceSetController.h */,
+				CB94DFC91FBAC0830051E152 /* PerformanceSetController.m */,
+				CB94DFCB1FBAC4CB0051E152 /* TestItemViewController.h */,
+				CB94DFCC1FBAC4CB0051E152 /* TestItemViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -996,12 +1042,8 @@
 			children = (
 				CB15FB711F5A9173005A978C /* FMDataBase */,
 				CB21339B1F5A8F9A009B970D /* Model */,
-				CB1591DC2006383400F51FD3 /* CustomDashboard.h */,
-				CB1591DB2006383300F51FD3 /* CustomDashboard.m */,
 				CB0220861F43E966008773ED /* common */,
 				CB9B28611F3416BB00CD8C84 /* View */,
-				CBF1E2621F30680F00EEC755 /* DashboardController.h */,
-				CBF1E2631F30680F00EEC755 /* DashboardController.m */,
 				CB848F121F4541DB00C1A718 /* Controllers */,
 			);
 			name = Dashboards;
@@ -1022,14 +1064,7 @@
 			isa = PBXGroup;
 			children = (
 				CB3FAD301F6A9F7100B572FD /* View */,
-				CBF1E2741F3068C500EEC755 /* MonController.h */,
-				CBF1E2751F3068C500EEC755 /* MonController.m */,
-				CB3FAD241F6A6F1000B572FD /* Sensors2ViewController.h */,
-				CB3FAD251F6A6F1000B572FD /* Sensors2ViewController.m */,
-				CB3FAD271F6A6F1D00B572FD /* Mode06ViewController.h */,
-				CB3FAD281F6A6F1D00B572FD /* Mode06ViewController.m */,
-				CB3FAD2A1F6A6F3200B572FD /* Mode09ViewController.h */,
-				CB3FAD2B1F6A6F3200B572FD /* Mode09ViewController.m */,
+				CB88C92C2057D1D600C9148C /* Controller */,
 			);
 			name = Montiors;
 			sourceTree = "<group>";
@@ -1041,18 +1076,7 @@
 				CB99E1B91F67ABA100A87DAF /* Common */,
 				CB99E1B51F67AAA400A87DAF /* Data */,
 				CB99E1AB1F66B75500A87DAF /* View */,
-				CBF1E2771F3068E000EEC755 /* LogsController.h */,
-				CBF1E2781F3068E000EEC755 /* LogsController.m */,
-				CB99E1A81F66A7C700A87DAF /* LogSetViewController.h */,
-				CB99E1A91F66A7C700A87DAF /* LogSetViewController.m */,
-				CBB1CC481F6267F0002EE7EB /* TripsViewController.h */,
-				CBB1CC491F6267F0002EE7EB /* TripsViewController.m */,
-				CBB1CC4A1F6267F0002EE7EB /* TripsViewController.xib */,
-				CBB1CC4D1F626809002EE7EB /* FilesViewController.h */,
-				CBB1CC4E1F626809002EE7EB /* FilesViewController.m */,
-				CBB1CC4F1F626809002EE7EB /* FilesViewController.xib */,
-				CBCD978D1F7C94850002383F /* FileBackViewController.h */,
-				CBCD978E1F7C94850002383F /* FileBackViewController.m */,
+				CB88C92D2057D1F000C9148C /* Controller */,
 			);
 			name = Logs;
 			sourceTree = "<group>";

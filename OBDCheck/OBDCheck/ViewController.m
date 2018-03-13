@@ -103,7 +103,7 @@
 - (void)setVerticalFrame{
     self.backView.hidden = NO;
     self.scrollView.hidden = YES;
-    self.titleBtn.frame = CGRectMake(0, 0, 100, 44);
+//    self.titleBtn.frame = CGRectMake(0, 0, 100, 44);
     self.statusView.frame = CGRectMake(22, 11, SCREEN_MIN - 44, 41);
     self.statusLabel.frame = CGRectMake(10, 0, SCREEN_MIN - 86, 40);
     self.statusLabel.textAlignment = NSTextAlignmentLeft;
@@ -441,6 +441,7 @@
     }
 }
 -(void)NonConnectState{
+      [self initNavBarDefineTitle:@"" andLeftItemImageName:@"Upload" andRightItemImageName:@"help"];
     self.statusLabel.text = @"Please connect to the device...";
     [self.statusLabel setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
     [self.statusImageView removeFromSuperview];
@@ -448,6 +449,7 @@
     [self.roView rotate360WithDuration:1 repeatCount:600];
 }
 - (void)IsConnectState{
+     [self initNavBarDefineTitle:@"" andLeftItemImageName:@"Upload" andRightItemImageName:@"help"];
     [self.titleBtn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
     self.statusLabel.text = @"Connect to the device successfully";
     [self.statusLabel setTextColor:[ColorTools colorWithHexString:@"#FE9002"]];

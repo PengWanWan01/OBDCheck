@@ -55,7 +55,7 @@
 }
 - (void)initWithData{
     _completeDatasource = [[NSMutableArray alloc]initWithObjects:@"Complete",@"NMHC Catalyst Monitor", nil];
-    _UndfinishedDatasource = [[NSMutableArray alloc]initWithObjects:@"Undfinished",@"Heated Catalyst Monitor", nil];
+    _UndfinishedDatasource = [[NSMutableArray alloc]initWithObjects:@"Unfinished",@"Heated Catalyst Monitor", nil];
     _NotsupportDatasource = [[NSMutableArray alloc]initWithObjects:@"Not support",@"Misfire monitor",@"Misfire monitor",@"Misfire monitor",@"Misfire monitor", nil];
     [self initWithUI];
 }

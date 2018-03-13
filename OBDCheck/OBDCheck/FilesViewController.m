@@ -200,11 +200,13 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     DLog(@"%ld",(long)indexPath.row);
-    NSArray *array = [LogsModel findAll];
-//    DLog(@"%@%@%@%@%d%d",vc.model,vc.model.PID1dataSource,vc.model.PID2dataSource,vc.model.PID3dataSource,vc.model.item3Enabled,vc.model.item3Enabled);
-//    DLog(@"%@%@%@%@",vc.model.item1PID,vc.model.item2PID,vc.model.item3PID,vc.model.item4PID);
-    FileBackViewController *vc = [[FileBackViewController alloc]init];
-      vc.model = array[indexPath.row];
-    [self.navigationController pushViewController:vc animated:YES];
+//    NSArray *array = [LogsModel findAll];
+////    DLog(@"%@%@%@%@%d%d",vc.model,vc.model.PID1dataSource,vc.model.PID2dataSource,vc.model.PID3dataSource,vc.model.item3Enabled,vc.model.item3Enabled);
+////    DLog(@"%@%@%@%@",vc.model.item1PID,vc.model.item2PID,vc.model.item3PID,vc.model.item4PID);
+//    FileBackViewController *vc = [[FileBackViewController alloc]init];
+////      vc.model = array[indexPath.row];
+//    [self.navigationController pushViewController:vc animated:YES];
+    NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:(int)indexPath.row],@"index", nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"FileClick" object:nil userInfo:dic];
 }
 @end
