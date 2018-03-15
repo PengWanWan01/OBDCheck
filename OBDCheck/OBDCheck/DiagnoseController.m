@@ -39,7 +39,7 @@
     [self.view addSubview:tbarView];
     
     [self initNavBarTitle:@"Diagnostics" andLeftItemImageName:@"back" andRightItemImageName:@"refresh"];
-
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.oneVC = [[DiagController alloc] init];
     [self.oneVC.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height)];
     [self addChildViewController:_oneVC];
@@ -87,10 +87,15 @@
 - (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
 //    [self save];
     DLog(@"按钮%ld",touchSelectNumber);
-    switch (touchSelectNumber) {
+    if ((self.currentVC == self.oneVC && touchSelectNumber == 100)) {
+        return;
+    }else{
+    switch (touchSelectNumber-100) {
         case 0:
         {
             //            tbarView.isSelectNumber = 0;
+            [self replaceController:self.currentVC newController:self.oneVC];
+
             return;
         }
             break;
@@ -117,12 +122,11 @@
         default:
             break;
     }
-    //    selectVC =  tbarView.isSelectNumber;
+    }
 }
 //  切换各个标签内容
 - (void)replaceController:(UIViewController *)oldController newController:(UIViewController *)newController
 {
-    
     [self addChildViewController:newController];
     [self transitionFromViewController:oldController toViewController:newController duration:0.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL finished) {
         

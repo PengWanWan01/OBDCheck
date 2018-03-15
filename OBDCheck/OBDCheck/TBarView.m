@@ -52,6 +52,10 @@
         btn.titleLabel.adjustsFontSizeToFitWidth = YES;
         [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
         btn.tag = 100+i;
+        if (i == 0) {
+            [btn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:_highimageData[btn.tag-100]] forState:UIControlStateNormal];
+        }
         [self addSubview:btn];
     }
 }
@@ -68,6 +72,10 @@
         btn.titleLabel.adjustsFontSizeToFitWidth = YES;
         [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
         btn.tag = 100+i;
+        if (i == 0) {
+            [btn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:_highimageData[btn.tag-100]] forState:UIControlStateNormal];
+        }
         [self addSubview:btn];
     }
 }
@@ -77,11 +85,12 @@
   
 }
 - (void)btn:(UIButton *)btn{
-    if ([self.delegate respondsToSelector:@selector(TBarBtnBetouch:)]) {
-        [self.delegate TBarBtnBetouch:btn.tag];
-    }
         //上次点击过的按钮，不做处理
-        
+    if (!(btn.tag == 100)) {
+        UIButton *btn = (UIButton *)[self viewWithTag:100];
+        [btn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:_normalimageData[btn.tag-100]] forState:UIControlStateNormal];
+    }
         if(selectBtn == btn ) {
             SelectIndex = selectBtn.tag - 99;
         } else{
@@ -90,14 +99,15 @@
             [btn setImage:[UIImage imageNamed:_highimageData[btn.tag-100]] forState:UIControlStateNormal];
             SelectIndex = btn.tag - 99;
             //将上次点击过的按钮设为白色
-            DLog(@"测试测试%ld",(long)SelectIndex);
             [selectBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
-            DLog(@"%@",selectBtn);
             if (!(selectBtn == nil)) {
             [selectBtn setImage:[UIImage imageNamed:_normalimageData[selectBtn.tag-100]] forState:UIControlStateNormal];
             }
         }
     selectBtn= btn;
+    if ([self.delegate respondsToSelector:@selector(TBarBtnBetouch:)]) {
+        [self.delegate TBarBtnBetouch:btn.tag];
+    }
 
 }
 
