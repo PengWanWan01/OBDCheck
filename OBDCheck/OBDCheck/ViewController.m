@@ -340,7 +340,7 @@
         }
             break;
         case 1:{
-            DiagController *vc = [[DiagController alloc]init];
+            DiagnoseController *vc = [[DiagnoseController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
            
         }

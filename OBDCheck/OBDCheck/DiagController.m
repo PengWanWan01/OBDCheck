@@ -9,7 +9,7 @@
 #import "DiagController.h"
 static dispatch_source_t _timer;
 
-@interface DiagController ()<UITableViewDelegate,UITableViewDataSource,TBarViewDelegate,BlueToothControllerDelegate>
+@interface DiagController ()<UITableViewDelegate,UITableViewDataSource,BlueToothControllerDelegate>
 {
     rotationView *roView;
     UILabel *infoLabel;
@@ -23,7 +23,6 @@ static dispatch_source_t _timer;
     UIView *showView;
     UIView *footView;
     BOOL isSave;
-    TBarView *tbarView;
     UIButton *clearBtn;
     UIButton *HistoricalBtn;
     NSInteger selectVC;
@@ -34,10 +33,7 @@ static dispatch_source_t _timer;
 @property (nonatomic,strong) NSMutableArray *importantDataSource;
 @property (nonatomic,strong) NSMutableArray *troubleDataSource;
 @property (nonatomic,copy) NSString *currentTime;
-@property (nonatomic,strong) DiagController *oneVc;
-@property (nonatomic,strong) FreezeViewController *twoVC;
-@property (nonatomic,strong) ReadinessViewController *ThreeVc;
-@property (nonatomic,strong) ReportViewController *FourVc;
+
 @end
 
 @implementation DiagController
@@ -45,7 +41,6 @@ static dispatch_source_t _timer;
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
     [UIApplication sharedApplication].statusBarHidden = NO;
-    [self initNavBarTitle:@"Diagnostics" andLeftItemImageName:@"back" andRightItemImageName:@"refresh"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
@@ -56,11 +51,12 @@ static dispatch_source_t _timer;
     [self initWithUI];
     if (!(selectVC == 0)) {
         DLog(@"yes");
-        [self reloadControlleView:selectVC];
+//        [self reloadControlleView:selectVC];
     }
   }
 - (void)viewDidLoad {
     [super viewDidLoad];
+   
 }
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
@@ -85,12 +81,8 @@ static dispatch_source_t _timer;
     footView.frame = CGRectMake(0, 0, MSWidth, 180);
     clearBtn.frame = CGRectMake(57, 40, MSWidth - 114, 30);
     HistoricalBtn.frame = CGRectMake(57,CGRectGetMaxY(clearBtn.frame)+10,  MSWidth - 114, 30);
-    MYTableView.frame = CGRectMake(0, CGRectGetMaxY(showView.frame), MSWidth, MSHeight-showView.frame.origin.y - showView.frame.size.height-70);
+    MYTableView.frame = CGRectMake(0, CGRectGetMaxY(showView.frame), MSWidth, MSHeight-showView.frame.origin.y - showView.frame.size.height-70-49);
     
-    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
-    }
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
@@ -105,11 +97,8 @@ static dispatch_source_t _timer;
     footView.frame = CGRectMake(0, 0, MSWidth, 180);
     clearBtn.frame = CGRectMake(57, 40, MSWidth - 114, 30);
     HistoricalBtn.frame = CGRectMake(57,CGRectGetMaxY(clearBtn.frame)+10,  MSWidth - 114, 30);
-       MYTableView.frame = CGRectMake(0, CGRectGetMaxY(showView.frame), MSWidth, MSHeight-showView.frame.origin.y - showView.frame.size.height-70);
-    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
-    }
+       MYTableView.frame = CGRectMake(0, CGRectGetMaxY(showView.frame), MSWidth, MSHeight-showView.frame.origin.y - showView.frame.size.height-70-49);
+   
     
 }
 //设置样式
@@ -135,7 +124,7 @@ static dispatch_source_t _timer;
 }
 - (void)initWithUI{
    
-    MYTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(showView.frame), MSWidth, MSHeight-showView.frame.origin.y - showView.frame.size.height-70) style:UITableViewStylePlain];
+    MYTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(showView.frame), MSWidth, MSHeight-showView.frame.origin.y - showView.frame.size.height-70-49) style:UITableViewStylePlain];
     MYTableView.backgroundColor = [ColorTools colorWithHexString:@"18191D"];
     MYTableView.delegate =self;
     MYTableView.dataSource =self;
@@ -157,108 +146,10 @@ static dispatch_source_t _timer;
     [HistoricalBtn addTarget:self action:@selector(HistoricalBtn) forControlEvents:UIControlEventTouchUpInside];
     MYTableView.tableFooterView = footView;
     
-    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
-    }
-    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    tbarView.numberBtn = 4;
-    tbarView.isSelectNumber = 0;
-    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_normal",@"freeze_normal",@"readiness_normal",@"report_normal", nil];
-    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_highLight",@"Freeze_highlight",@"readiness_highLight",@"report_highLight", nil];
-    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"trouble Codes",@"Freeze Frame",@"Readiness Test",@"Report", nil];
-    tbarView.delegate = self;
-    [tbarView initWithData];
-    
-    [self.view addSubview:tbarView];
+  
 }
-//根据字典中是否存在相关页面对应的key，没有的话存储
-- (UIViewController *)controllerForSegIndex:(NSUInteger)segIndex {
-    NSString *keyName = [NSString stringWithFormat:@"VC_%ld",(unsigned long)segIndex];
-    
-    UIViewController *controller = (UIViewController *)[listDic objectForKey:keyName];
-    
-    if (!controller) {
-        if (segIndex == 0) {//申请
-            controller = self.oneVC;
-            
-        }else if (segIndex == 1) {//待办
-            controller = self.twoVC;
-        }
-        else if (segIndex == 2) {//待办
-            controller = self.ThreeVc;
-        }
-        else if (segIndex == 3) {//待办
-            controller = self.FourVc;
-        }
-        if(!(controller == nil)){
-        [listDic setObject:controller forKey:keyName];
-        }
-    }
-    
-    return controller;
-}
-- (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
-    [self save];
-    [self reloadControlleView:touchSelectNumber];
-    switch (touchSelectNumber) {
-        case 0:
-        {
-            tbarView.isSelectNumber = 0;
-        }
-            break;
-        case 1:
-        {
-            tbarView.isSelectNumber = 1;
-        }
-            break;
-        case 2:
-        {
-            tbarView.isSelectNumber = 2;
-        }
-            break;
-        case 3:
-        {
-            tbarView.isSelectNumber = 3;
-        }
-            break;
-        default:
-            break;
-    }
-    selectVC =  tbarView.isSelectNumber;
-}
-- (void)reloadControlleView:(NSInteger)VCindex{
-    [_oneVc.view   removeFromSuperview];
-    [_twoVC.view removeFromSuperview];
-    [_ThreeVc.view removeFromSuperview];
-    [_FourVc.view removeFromSuperview];
-    _oneVc = nil;
-    _twoVC = nil;
-    _ThreeVc = nil;
-    _FourVc = nil;
-    [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    if (VCindex == 0) {
-        [self initWithheadUI];
-        [self initWithUI];
-    }else{
-        UIViewController *controller = [self controllerForSegIndex:VCindex];
-        [self.view addSubview:controller.view];
-    }
-    [tbarView removeFromSuperview];
-    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
-    }
-    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    tbarView.numberBtn = 4;
-    tbarView.isSelectNumber = selectVC;
-    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_normal",@"freeze_normal",@"readiness_normal",@"report_normal", nil];
-    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_highLight",@"Freeze_highlight",@"readiness_highLight",@"report_highLight", nil];
-    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"trouble Codes",@"Freeze Frame",@"Readiness Test",@"Report", nil];
-    tbarView.delegate = self;
-    [tbarView initWithData];
-    [self.view addSubview:tbarView];
-}
+
+
 - (void)initWithheadUI{
     roView = [[rotationView alloc]initWithFrame:CGRectMake(10*Kwidthmultiple, 8*KHeightmultiple, 100*Kwidthmultiple, 100*Kwidthmultiple)];
     [roView rotate360WithDuration:0.1 repeatCount:50];
@@ -522,30 +413,5 @@ static dispatch_source_t _timer;
     return Cell;
 }
 
--(DiagController *)oneVC{
-    if (_oneVc == nil) {
-        _oneVc = [[DiagController alloc] init];
-    }
-    return _oneVc;
-}
 
-
--(FreezeViewController *)twoVC{
-    if (_twoVC == nil) {
-        _twoVC = [[FreezeViewController alloc] init];
-    }
-    return _twoVC;
-}
--(ReadinessViewController *)ThreeVc{
-    if (_ThreeVc == nil) {
-        _ThreeVc = [[ReadinessViewController alloc] init];
-    }
-    return _ThreeVc;
-}
--(ReportViewController *)FourVc{
-    if (_FourVc == nil) {
-        _FourVc = [[ReportViewController alloc] init];
-    }
-    return _FourVc;
-}
 @end

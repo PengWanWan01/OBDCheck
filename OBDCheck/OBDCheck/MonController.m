@@ -91,7 +91,6 @@
     }
     tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     tbarView.numberBtn = 4;
-    tbarView.isSelectNumber = 0;
     tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"monitor_normal",@"Sensor_normal",@"Mode06_normal",@"Mode09_normal",nil];
     tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"monitor_highlight",@"Sensor_highlight",@"Mode06_highlight",@"Mode09_highlight",nil];
     tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Monitor Tests",@"O2 Sensors",@"Mode $06",@"Mode $09", nil];
@@ -130,28 +129,23 @@
     switch (touchSelectNumber) {
         case 0:
         {
-            tbarView.isSelectNumber = 0;
         }
             break;
         case 1:
         {
-            tbarView.isSelectNumber = 1;
         }
             break;
         case 2:
         {
-            tbarView.isSelectNumber = 2;
         }
             break;
         case 3:
         {
-            tbarView.isSelectNumber = 3;
         }
             break;
         default:
             break;
     }
-    selectVC =  tbarView.isSelectNumber;
     [self reloadControlleView:touchSelectNumber];
 }
 - (void)reloadControlleView:(NSInteger)VCindex{
@@ -177,7 +171,6 @@
     }
     tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     tbarView.numberBtn = 4;
-    tbarView.isSelectNumber = selectVC;
     tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"monitor_normal",@"Sensor_normal",@"Mode06_normal",@"Mode09_normal",nil];
     tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"monitor_highlight",@"Sensor_highlight",@"Mode06_highlight",@"Mode09_highlight",nil];
     tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Monitor Tests",@"O2 Sensors",@"Mode $06",@"Mode $09", nil];

@@ -21,8 +21,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-       
-            }
+
+    }
     return self;
 }
 #pragma mark 设置横竖屏布局
@@ -50,12 +50,8 @@
         [btn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:_normalimageData[i]] forState:UIControlStateNormal];
         btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-        if (i == self.isSelectNumber) {
-            [btn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
-            [btn setImage:[UIImage imageNamed:_highimageData[i]] forState:UIControlStateNormal];
-        }
         [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
-        btn.tag = i;
+        btn.tag = 100+i;
         [self addSubview:btn];
     }
 }
@@ -70,12 +66,8 @@
         [btn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:_normalimageData[i]] forState:UIControlStateNormal];
         btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-        if (i == self.isSelectNumber) {
-            [btn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
-            [btn setImage:[UIImage imageNamed:_highimageData[i]] forState:UIControlStateNormal];
-        }
         [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
-        btn.tag = i;
+        btn.tag = 100+i;
         [self addSubview:btn];
     }
 }
@@ -88,6 +80,24 @@
     if ([self.delegate respondsToSelector:@selector(TBarBtnBetouch:)]) {
         [self.delegate TBarBtnBetouch:btn.tag];
     }
+        //上次点击过的按钮，不做处理
+        
+        if(selectBtn == btn ) {
+            SelectIndex = selectBtn.tag - 99;
+        } else{
+            //本次点击的按钮设为黑色
+            [btn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:_highimageData[btn.tag-100]] forState:UIControlStateNormal];
+            SelectIndex = btn.tag - 99;
+            //将上次点击过的按钮设为白色
+            DLog(@"测试测试%ld",(long)SelectIndex);
+            [selectBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
+            DLog(@"%@",selectBtn);
+            if (!(selectBtn == nil)) {
+            [selectBtn setImage:[UIImage imageNamed:_normalimageData[selectBtn.tag-100]] forState:UIControlStateNormal];
+            }
+        }
+    selectBtn= btn;
 
 }
 

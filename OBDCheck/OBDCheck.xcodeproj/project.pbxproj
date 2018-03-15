@@ -60,6 +60,7 @@
 		CB4D8D002045458C00B868A7 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4D8CFB2045450D00B868A7 /* Charts.framework */; };
 		CB4D8D012045459900B868A7 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4D8CFB2045450D00B868A7 /* Charts.framework */; };
 		CB4D8D022045459900B868A7 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB4D8CFB2045450D00B868A7 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CB510BED205A714500F3AD6D /* DiagnoseController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB510BEC205A714500F3AD6D /* DiagnoseController.m */; };
 		CB5583601F51468C0010A1E5 /* StyleViewBController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB55835F1F51468C0010A1E5 /* StyleViewBController.m */; };
 		CB5583631F5146B70010A1E5 /* StyleCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5583621F5146B70010A1E5 /* StyleCViewController.m */; };
 		CB574E0C1FFF581F00A50C89 /* UIViewController+NavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CB574E0B1FFF581F00A50C89 /* UIViewController+NavBar.m */; };
@@ -286,6 +287,8 @@
 		CB4D891920453B4200B868A7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CB4D8CF52045450D00B868A7 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "Charts-master/Charts.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		CB4D8CFF2045453C00B868A7 /* OBDCheck_Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OBDCheck_Swift.h; sourceTree = "<group>"; };
+		CB510BEB205A714500F3AD6D /* DiagnoseController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiagnoseController.h; sourceTree = "<group>"; };
+		CB510BEC205A714500F3AD6D /* DiagnoseController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiagnoseController.m; sourceTree = "<group>"; };
 		CB55835E1F51468C0010A1E5 /* StyleViewBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewBController.h; sourceTree = "<group>"; };
 		CB55835F1F51468C0010A1E5 /* StyleViewBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleViewBController.m; sourceTree = "<group>"; };
 		CB5583611F5146B70010A1E5 /* StyleCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleCViewController.h; sourceTree = "<group>"; };
@@ -746,6 +749,8 @@
 		CB84B3E11F56EC1900B454E6 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				CB510BEB205A714500F3AD6D /* DiagnoseController.h */,
+				CB510BEC205A714500F3AD6D /* DiagnoseController.m */,
 				CBF1E2711F30689B00EEC755 /* DiagController.h */,
 				CBF1E2721F30689B00EEC755 /* DiagController.m */,
 				CB84B3CB1F56A7D500B454E6 /* FreezeViewController.h */,
@@ -1457,6 +1462,7 @@
 				CB47CE711FBBD99E00451244 /* PerformanceSetting.m in Sources */,
 				CBF1E2281F2ED49200EEC755 /* main.m in Sources */,
 				CBF1E27C1F3068ED00EEC755 /* SetViewController.m in Sources */,
+				CB510BED205A714500F3AD6D /* DiagnoseController.m in Sources */,
 				CB0220851F42FE8E008773ED /* SelectModeViewController.m in Sources */,
 				CB5A619D1F7A20CB000D23D6 /* TyperViewController.m in Sources */,
 			);

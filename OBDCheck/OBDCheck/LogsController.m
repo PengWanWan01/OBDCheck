@@ -331,7 +331,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     }
     tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     tbarView.numberBtn = 3;
-    tbarView.isSelectNumber = 0;
     tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_normal",@"trips_normal",@"file_normal",nil];
     tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_highlight",@"trips_highlight",@"file_highlight",nil];
     tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Graphs",@"Trips",@"Files", nil];
@@ -455,23 +454,19 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     switch (touchSelectNumber) {
         case 0:
         {
-            tbarView.isSelectNumber = 0;
         }
             break;
         case 1:
         {
-            tbarView.isSelectNumber = 1;
         }
             break;
         case 2:
         {
-            tbarView.isSelectNumber = 2;
         }
             break;
         default:
             break;
     }
-    selectVC =  tbarView.isSelectNumber;
 }
 - (void)reloadControlleView:(NSInteger)VCindex{
     [_oneVc.view   removeFromSuperview];
@@ -488,7 +483,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     }
     tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     tbarView.numberBtn = 3;
-    tbarView.isSelectNumber = selectVC;
     tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_normal",@"trips_normal",@"file_normal",nil];
     tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_highlight",@"trips_highlight",@"file_highlight",nil];
     tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Graphs",@"Trips",@"Files", nil];

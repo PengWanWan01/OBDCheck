@@ -15,13 +15,15 @@
 @end
 
 @interface TBarView : UIView
-
+{
+    UIButton *selectBtn;
+    NSInteger SelectIndex;
+}
 @property (nonatomic,assign) NSInteger numberBtn;
 @property (nonatomic,strong) NSMutableArray *highimageData;
 @property (nonatomic,strong) NSMutableArray *normalimageData;
 
 @property (nonatomic,strong) NSMutableArray *titleData;
-@property (nonatomic,assign) NSInteger isSelectNumber;
 @property (nonatomic,weak) id<TBarViewDelegate> delegate;
 -(void)initWithData;
 @end
