@@ -347,12 +347,12 @@
             break;
         case 2:{
 
-            MonController *vc = [[ MonController alloc]init];
+           monitorsController  *vc = [[ monitorsController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
         }
             break;
         case 3:{
-            LogsController *vc = [[ LogsController alloc] init];
+            LogsViewController *vc = [[ LogsViewController alloc] init];
             [self.navigationController pushViewController:vc animated:NO];
         }
             break;

@@ -53,6 +53,8 @@
 		CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2EE1F4819C200B23D8E /* StyleViewController.m */; };
 		CB47E2F21F481B3200B23D8E /* StyleHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47E2F11F481B3200B23D8E /* StyleHeadView.m */; };
 		CB4852571FB3EEFC00E98902 /* PropertyReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4852561FB3EEFC00E98902 /* PropertyReportController.m */; };
+		CB4994EE205B5B640085A49D /* monitorsController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4994ED205B5B640085A49D /* monitorsController.m */; };
+		CB4994F3205B61B10085A49D /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4994F2205B61B10085A49D /* LogsViewController.m */; };
 		CB49FB671FB04CFB00A6FEBB /* AlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB49FB661FB04CFB00A6FEBB /* AlarmViewController.m */; };
 		CB49FB6C1FB0521000A6FEBB /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB49FB6B1FB0521000A6FEBB /* FeedbackViewController.m */; };
 		CB4D891820453B3900B868A7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4D891720453B3900B868A7 /* QuartzCore.framework */; };
@@ -279,6 +281,10 @@
 		CB47E2F11F481B3200B23D8E /* StyleHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleHeadView.m; sourceTree = "<group>"; };
 		CB4852551FB3EEFC00E98902 /* PropertyReportController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PropertyReportController.h; sourceTree = "<group>"; };
 		CB4852561FB3EEFC00E98902 /* PropertyReportController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PropertyReportController.m; sourceTree = "<group>"; };
+		CB4994EC205B5B640085A49D /* monitorsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = monitorsController.h; sourceTree = "<group>"; };
+		CB4994ED205B5B640085A49D /* monitorsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = monitorsController.m; sourceTree = "<group>"; };
+		CB4994F1205B61B10085A49D /* LogsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogsViewController.h; sourceTree = "<group>"; };
+		CB4994F2205B61B10085A49D /* LogsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogsViewController.m; sourceTree = "<group>"; };
 		CB49FB651FB04CFB00A6FEBB /* AlarmViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlarmViewController.h; sourceTree = "<group>"; };
 		CB49FB661FB04CFB00A6FEBB /* AlarmViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmViewController.m; sourceTree = "<group>"; };
 		CB49FB6A1FB0521000A6FEBB /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
@@ -769,6 +775,8 @@
 		CB88C92C2057D1D600C9148C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				CB4994EC205B5B640085A49D /* monitorsController.h */,
+				CB4994ED205B5B640085A49D /* monitorsController.m */,
 				CBF1E2741F3068C500EEC755 /* MonController.h */,
 				CBF1E2751F3068C500EEC755 /* MonController.m */,
 				CB3FAD241F6A6F1000B572FD /* Sensors2ViewController.h */,
@@ -784,6 +792,8 @@
 		CB88C92D2057D1F000C9148C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				CB4994F1205B61B10085A49D /* LogsViewController.h */,
+				CB4994F2205B61B10085A49D /* LogsViewController.m */,
 				CBF1E2771F3068E000EEC755 /* LogsController.h */,
 				CBF1E2781F3068E000EEC755 /* LogsController.m */,
 				CB99E1A81F66A7C700A87DAF /* LogSetViewController.h */,
@@ -1398,6 +1408,7 @@
 				CBEBF1CC1F3B0E3F006CCA8B /* SelectStyleViewController.m in Sources */,
 				CBF334641F4B0FE6003C0548 /* ILColorPickerView.m in Sources */,
 				CB45CBB11F6B7DC2003AA330 /* SummaryTableViewCell.m in Sources */,
+				CB4994EE205B5B640085A49D /* monitorsController.m in Sources */,
 				CBF1E24C1F30262E00EEC755 /* MyTabBarController.m in Sources */,
 				CB84B3D31F56A7FF00B454E6 /* ReportViewController.m in Sources */,
 				CBEBF1D51F3B2804006CCA8B /* DisplaySetViewController.m in Sources */,
@@ -1418,6 +1429,7 @@
 				CB048C351F8CE199006A2ED7 /* informationController.m in Sources */,
 				CB99E1AA1F66A7C700A87DAF /* LogSetViewController.m in Sources */,
 				CB47CE781FBC2A7500451244 /* FeedbackDocumentController.m in Sources */,
+				CB4994F3205B61B10085A49D /* LogsViewController.m in Sources */,
 				CBB1CC501F626809002EE7EB /* FilesViewController.m in Sources */,
 				CB3FAD291F6A6F1D00B572FD /* Mode06ViewController.m in Sources */,
 				CBCD978F1F7C94850002383F /* FileBackViewController.m in Sources */,

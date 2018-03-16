@@ -25,9 +25,7 @@
     [super viewWillAppear:animated];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     
-    //注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rightBarButtonClick) name:@"FileBtnEdit"object:nil];
-    [self initNavBarTitle:@"Files" andLeftItemImageName:@"back" andRightItemName:@"Edit"];
+   
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -101,16 +99,16 @@
 }
 - (void)back{
 }
-- (void)rightBarButtonClick{
-    DLog(@"编辑");
-    NSArray *arr = [self.tableView indexPathsForVisibleRows];
-    for (NSIndexPath *indexPath in arr) {
-        FilesTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        cell.editstatus = EditstatusType2;
-        [cell setNeedsDisplay];
-        [cell setNeedsLayout];
-    }
-}
+//- (void)rightBarButtonClick{
+//    DLog(@"编辑");
+//    NSArray *arr = [self.tableView indexPathsForVisibleRows];
+//    for (NSIndexPath *indexPath in arr) {
+//        FilesTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//        cell.editstatus = EditstatusType2;
+//        [cell setNeedsDisplay];
+//        [cell setNeedsLayout];
+//    }
+//}
 
 - (void)deleteData:(NSInteger)tag{
     DLog(@"%@",[NSNumber numberWithInteger:tag+1]);
@@ -206,7 +204,6 @@
 //    FileBackViewController *vc = [[FileBackViewController alloc]init];
 ////      vc.model = array[indexPath.row];
 //    [self.navigationController pushViewController:vc animated:YES];
-    NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:(int)indexPath.row],@"index", nil];
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"FileClick" object:nil userInfo:dic];
+  
 }
 @end

@@ -1,55 +1,56 @@
+
 //
-//  DiagnoseController.m
+//  monitorsController.m
 //  OBDCheck
 //
-//  Created by yutaozhao on 2018/3/15.
+//  Created by yutaozhao on 2018/3/16.
 //  Copyright © 2018年 Auptophix. All rights reserved.
 //
 
-#import "DiagnoseController.h"
+#import "monitorsController.h"
 
-@interface DiagnoseController ()<TBarViewDelegate>
+@interface monitorsController ()<TBarViewDelegate>
 {
     TBarView *tbarView;
-
+    
 }
-@property (nonatomic,strong) DiagController *oneVC;
-@property (nonatomic,strong) FreezeViewController *twoVC;
-@property (nonatomic,strong) ReadinessViewController *ThreeVc;
-@property (nonatomic,strong) ReportViewController *FourVc;
+@property (nonatomic,strong) MonController *oneVC;
+@property (nonatomic,strong) Sensors2ViewController *twoVC;
+@property (nonatomic,strong) Mode06ViewController *ThreeVc;
+@property (nonatomic,strong) Mode09ViewController *FourVc;
 @property (nonatomic ,strong) UIViewController *currentVC;
 @end
 
-@implementation DiagnoseController
+@implementation monitorsController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initNavBarTitle:@"Montiors" andLeftItemImageName:@"back" andRightItemImageName:@"refresh"];
+
     tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
     if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
+        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
     }
     tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     tbarView.numberBtn = 4;
-    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_normal",@"freeze_normal",@"readiness_normal",@"report_normal", nil];
-    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_highLight",@"Freeze_highlight",@"readiness_highLight",@"report_highLight", nil];
-    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"trouble Codes",@"Freeze Frame",@"Readiness Test",@"Report", nil];
+    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"monitor_normal",@"Sensor_normal",@"Mode06_normal",@"Mode09_normal",nil];
+    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"monitor_highlight",@"Sensor_highlight",@"Mode06_highlight",@"Mode09_highlight",nil];
+    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Monitor Tests",@"O2 Sensors",@"Mode $06",@"Mode $09", nil];
     tbarView.delegate = self;
     [tbarView initWithData];
-    
     [self.view addSubview:tbarView];
     
-    [self initNavBarTitle:@"Diagnostics" andLeftItemImageName:@"back" andRightItemImageName:@"refresh"];
-    self.oneVC = [[DiagController alloc] init];
+    self.oneVC = [[MonController alloc] init];
     [self.oneVC.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height)];
     [self addChildViewController:_oneVC];
     
-    self.twoVC = [[FreezeViewController alloc] init];
+    self.twoVC = [[Sensors2ViewController alloc] init];
     [self.twoVC.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height-TopHigh)];
     
-    self.ThreeVc = [[ReadinessViewController alloc] init];
+    self.ThreeVc = [[Mode06ViewController alloc] init];
     [self.ThreeVc.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height-TopHigh)];
     
-    self.FourVc = [[ReportViewController alloc] init];
+    self.FourVc = [[Mode09ViewController alloc] init];
     [self.FourVc.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height-TopHigh)];
     
     //  默认,第一个视图(你会发现,全程就这一个用了addSubview)
@@ -84,37 +85,37 @@
     }
 }
 - (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
-//    [self save];
+    //    [self save];
     DLog(@"按钮%ld",touchSelectNumber);
     if ((self.currentVC == self.oneVC &&touchSelectNumber == 100)||(self.currentVC == self.twoVC && touchSelectNumber == 101)||(self.currentVC == self.ThreeVc && touchSelectNumber == 102)||(self.currentVC == self.FourVc && touchSelectNumber == 103)) {
         return;
     }else{
-    switch (touchSelectNumber-100) {
-        case 0:
-        {
-            [self replaceController:self.currentVC newController:self.oneVC];
-            return;
+        switch (touchSelectNumber-100) {
+            case 0:
+            {
+                [self replaceController:self.currentVC newController:self.oneVC];
+                return;
+            }
+                break;
+            case 1:
+            {
+                [self replaceController:self.currentVC newController:self.twoVC];
+            }
+                break;
+            case 2:
+            {
+                [self replaceController:self.currentVC newController:self.ThreeVc];
+                
+            }
+                break;
+            case 3:
+            {
+                [self replaceController:self.currentVC newController:self.FourVc];
+            }
+                break;
+            default:
+                break;
         }
-            break;
-        case 1:
-        {
-            [self replaceController:self.currentVC newController:self.twoVC];
-        }
-            break;
-        case 2:
-        {
-            [self replaceController:self.currentVC newController:self.ThreeVc];
-            
-        }
-            break;
-        case 3:
-        {
-            [self replaceController:self.currentVC newController:self.FourVc];
-        }
-            break;
-        default:
-            break;
-    }
     }
 }
 //  切换各个标签内容
@@ -131,11 +132,11 @@
             self.currentVC = newController;
             
         }else{
-            
             self.currentVC = oldController;
             
         }
     }];
 }
+
 
 @end

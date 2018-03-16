@@ -163,4 +163,6 @@
 #import <Bugly/Bugly.h>
 #import "CusTabBar.h"
 #import "DiagnoseController.h"
+#import "monitorsController.h"
+#import "LogsViewController.h"
 #endif /* OBDCheckPrefixHeader_pch */

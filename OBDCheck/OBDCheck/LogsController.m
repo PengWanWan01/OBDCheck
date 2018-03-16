@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
    
 };
 
-@interface LogsController ()<TBarViewDelegate,ChartViewDelegate,BlueToothControllerDelegate>
+@interface LogsController ()<ChartViewDelegate,BlueToothControllerDelegate>
 {
     LineChartView *chartViewone ;
     LineChartView *chartViewTwo ;
@@ -33,15 +33,11 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      NSInteger PID3indextag;
      NSInteger PID4indextag;
      BOOL isSave;
-     TBarView *tbarView;
     NSInteger selectVC;
     NSMutableDictionary *listDic;
     UIView * topView;
     UILabel * topViewLabel;
 }
-@property (nonatomic,strong) LogsController *oneVc;
-@property (nonatomic,strong) TripsViewController *twoVC;
-@property (nonatomic,strong) FilesViewController *ThreeVc;
 @end
 
 @implementation LogsController
@@ -64,10 +60,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      PID3indextag =  0;
      PID4indextag =  0;
     isSave = NO;
-    if (!(selectVC == 0)) {
-        DLog(@"yes");
-        [self reloadControlleView:selectVC];
-    }
+   
    
 }
 - (void)viewDidLoad {
@@ -76,22 +69,11 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     PID2dataSource = [[NSMutableArray alloc]init];
     PID3dataSource = [[NSMutableArray alloc]init];
     PID4dataSource = [[NSMutableArray alloc]init];
-    //注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FileClick:) name:@"FileClick" object:nil];
+ 
   
 }
-- (void)FileClick:(NSNotification *)text{
-    DLog(@"回放回放");
-//       NSNumber *present = [text.userInfo objectForKey:@"index"];
-//        NSArray *array = [LogsModel findAll];
-    FileBackViewController *vc = [[FileBackViewController alloc]init];
-   
-//    vc.model = array[[present intValue]];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-- (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+
+
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
@@ -118,10 +100,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
             DLog(@"竖屏");
             [self setVerticalFrame];
         }
-    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
-    }
+ 
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
@@ -324,20 +303,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 
 - (void)initWithUI{
     [self initWithTitleView];
-    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
-    
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
-    }
-    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    tbarView.numberBtn = 3;
-    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_normal",@"trips_normal",@"file_normal",nil];
-    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_highlight",@"trips_highlight",@"file_highlight",nil];
-    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Graphs",@"Trips",@"Files", nil];
-    tbarView.delegate = self;
-    [tbarView initWithData];
-    [self.view addSubview:tbarView];
-  
+
     
 }
 - (void)initWithTitleView{
@@ -416,104 +382,14 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
             break;
         case 2:
         {
-             [[NSNotificationCenter defaultCenter]postNotificationName:@"FileBtnEdit" object:nil userInfo:nil];
+           
         }
             break;
         default:
             break;
     }
 }
-#pragma mark 底部Tabbar的按钮事件
-//根据字典中是否存在相关页面对应的key，没有的话存储
-- (UIViewController *)controllerForSegIndex:(NSUInteger)segIndex {
-    NSString *keyName = [NSString stringWithFormat:@"VC_%ld",(unsigned long)segIndex];
-    
-    UIViewController *controller = (UIViewController *)[listDic objectForKey:keyName];
-    
-    if (!controller) {
-        if (segIndex == 0) {//
-            controller = self.oneVc;
-            
-        }else if (segIndex == 1) {//
-            controller = self.twoVC;
-        }
-        else if (segIndex == 2) {//
-            controller = self.ThreeVc;
-        }
-        if(!(controller == nil)){
-        [listDic setObject:controller forKey:keyName];
-        }
-    }
-    
-    return controller;
-}
-- (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
-    DLog(@"%ld",(long)touchSelectNumber);
-      [self SaveDataSource];
-    [self reloadControlleView:touchSelectNumber];
-    switch (touchSelectNumber) {
-        case 0:
-        {
-        }
-            break;
-        case 1:
-        {
-        }
-            break;
-        case 2:
-        {
-        }
-            break;
-        default:
-            break;
-    }
-}
-- (void)reloadControlleView:(NSInteger)VCindex{
-    [_oneVc.view   removeFromSuperview];
-    [_twoVC.view removeFromSuperview];
-    [_ThreeVc.view removeFromSuperview];
-    _oneVc = nil;
-    _twoVC = nil;
-    _ThreeVc = nil;
-    UIViewController *controller = [self controllerForSegIndex:VCindex];
-    [self.view addSubview:controller.view];
-    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
-    }
-    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    tbarView.numberBtn = 3;
-    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_normal",@"trips_normal",@"file_normal",nil];
-    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"Graphs_highlight",@"trips_highlight",@"file_highlight",nil];
-    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Graphs",@"Trips",@"Files", nil];
-    tbarView.delegate = self;
-    [tbarView initWithData];
-    switch (VCindex) {
-        case 0:
-            {
-                [self initNavBarTitle:@"Logs" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
-                 self.navigationItem.titleView = topView;
-            }
-            break;
-        case 1:
-        {
-            [self initNavBarTitle:@"Trips" andLeftItemImageName:@"back" andRightItemImageName:@" "];
-            topViewLabel.text = @"Trips";
-            self.navigationItem.titleView = topViewLabel;
-        }
-            break;
-        case 2:
-        {
-               [self initNavBarTitle:@"Files" andLeftItemImageName:@"back" andRightItemName:@"Edit"];
-             topViewLabel.text = @"Files";
-            self.navigationItem.titleView = topViewLabel;
-        }
-            break;
-        default:
-            break;
-    }
-    [self.view addSubview:tbarView];
-}
+
 #pragma mark 点击开始点击停止
 - (void)stopBtn{
   
@@ -639,25 +515,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     }
     return data;
 }
--(LogsController *)oneVC{
-    if (_oneVc == nil) {
-        _oneVc = [[LogsController alloc] init];
-    }
-    return _oneVc;
-}
 
-
--(TripsViewController *)twoVC{
-    if (_twoVC == nil) {
-        _twoVC = [[TripsViewController alloc] init];
-    }
-    return _twoVC;
-}
--(FilesViewController *)ThreeVc{
-    if (_ThreeVc == nil) {
-        _ThreeVc = [[FilesViewController alloc] init];
-    }
-    return _ThreeVc;
-}
 
 @end

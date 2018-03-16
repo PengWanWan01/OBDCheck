@@ -10,15 +10,9 @@
 
 @interface MonController ()<TBarViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
-    TBarView *tbarView;
-    NSInteger selectVC;
     NSMutableDictionary *listDic;
 }
 @property (nonatomic,strong) UITableView *tableView;
-@property (nonatomic,strong) MonController *oneVc;
-@property (nonatomic,strong) Sensors2ViewController *twoVC;
-@property (nonatomic,strong) Mode06ViewController *ThreeVc;
-@property (nonatomic,strong) Mode09ViewController *FourVc;
 @end
 
 @implementation MonController
@@ -26,10 +20,6 @@
     [super viewWillAppear:animated];
     [self initNavBarTitle:@"Montiors" andLeftItemImageName:@"back" andRightItemImageName:@"refresh"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
-    if (!(selectVC == 0)) {
-        DLog(@"yes");
-        [self reloadControlleView:selectVC];
-    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -53,11 +43,8 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    self.tableView.frame = CGRectMake(0, 1, MSWidth, MSHeight-TopHigh) ;
-    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
-    }
+    self.tableView.frame = CGRectMake(0, 1, MSWidth, MSHeight-TopHigh-49) ;
+
         if (isLandscape) {
         //翻转为横屏时
         DLog(@"横屏");
@@ -74,7 +61,7 @@
 - (void)setHorizontalFrame{
 }
 - (void)initWithUI{
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 1, MSWidth, MSHeight-TopHigh) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 1, MSWidth, MSHeight-TopHigh-49) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -85,104 +72,9 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ResultsTableViewCell" bundle:nil] forCellReuseIdentifier:@"ResultsTableViewCell"];
     [self.tableView registerClass:[SummaryTableViewCell class] forCellReuseIdentifier:@"SummaryTableViewCell"];
     
-    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
-    }
-    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    tbarView.numberBtn = 4;
-    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"monitor_normal",@"Sensor_normal",@"Mode06_normal",@"Mode09_normal",nil];
-    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"monitor_highlight",@"Sensor_highlight",@"Mode06_highlight",@"Mode09_highlight",nil];
-    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Monitor Tests",@"O2 Sensors",@"Mode $06",@"Mode $09", nil];
-    tbarView.delegate = self;
-    [tbarView initWithData];
-    [self.view addSubview:tbarView];
 
 }
-//根据字典中是否存在相关页面对应的key，没有的话存储
-- (UIViewController *)controllerForSegIndex:(NSUInteger)segIndex {
-    NSString *keyName = [NSString stringWithFormat:@"VC_%ld",(unsigned long)segIndex];
-    
-    UIViewController *controller = (UIViewController *)[listDic objectForKey:keyName];
-    
-    if (!controller) {
-        if (segIndex == 0) {//申请
-            controller = self.oneVc;
-            
-        }else if (segIndex == 1) {//待办
-            controller = self.twoVC;
-        }
-        else if (segIndex == 2) {//待办
-            controller = self.ThreeVc;
-        }
-        else if (segIndex == 3) {//待办
-            controller = self.FourVc;
-        }
-        if(!(controller == nil)){
-        [listDic setObject:controller forKey:keyName];
-        }
-    }
-    
-    return controller;
-}
-- (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
-    switch (touchSelectNumber) {
-        case 0:
-        {
-        }
-            break;
-        case 1:
-        {
-        }
-            break;
-        case 2:
-        {
-        }
-            break;
-        case 3:
-        {
-        }
-            break;
-        default:
-            break;
-    }
-    [self reloadControlleView:touchSelectNumber];
-}
-- (void)reloadControlleView:(NSInteger)VCindex{
-    [_oneVc.view   removeFromSuperview];
-    [_twoVC.view removeFromSuperview];
-    [_ThreeVc.view removeFromSuperview];
-    [_FourVc.view removeFromSuperview];
-    _oneVc = nil;
-    _twoVC = nil;
-    _ThreeVc = nil;
-    _FourVc = nil;
-    [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    if (VCindex == 0) {
-        [self initWithUI];
-    }else{
-        UIViewController *controller = [self controllerForSegIndex:VCindex];
-        [self.view addSubview:controller.view];
-    }
-    [tbarView removeFromSuperview];
-    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
-    }
-    tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    tbarView.numberBtn = 4;
-    tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"monitor_normal",@"Sensor_normal",@"Mode06_normal",@"Mode09_normal",nil];
-    tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"monitor_highlight",@"Sensor_highlight",@"Mode06_highlight",@"Mode09_highlight",nil];
-    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"Monitor Tests",@"O2 Sensors",@"Mode $06",@"Mode $09", nil];
-    tbarView.delegate = self;
-    [tbarView initWithData];
-    [self.view addSubview:tbarView];
-}
-- (void)back{
-    ViewController *vc = [[ViewController alloc
-                           ]init];
-    [self.navigationController pushViewController:vc animated:NO];
-}
+
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
@@ -242,30 +134,5 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 44.f;
 }
--(MonController *)oneVC{
-    if (_oneVc == nil) {
-        _oneVc = [[MonController alloc] init];
-    }
-    return _oneVc;
-}
 
-
--(Sensors2ViewController *)twoVC{
-    if (_twoVC == nil) {
-        _twoVC = [[Sensors2ViewController alloc] init];
-    }
-    return _twoVC;
-}
--(Mode06ViewController *)ThreeVc{
-    if (_ThreeVc == nil) {
-        _ThreeVc = [[Mode06ViewController alloc] init];
-    }
-    return _ThreeVc;
-}
--(Mode09ViewController *)FourVc{
-    if (_FourVc == nil) {
-        _FourVc = [[Mode09ViewController alloc] init];
-    }
-    return _FourVc;
-}
 @end
