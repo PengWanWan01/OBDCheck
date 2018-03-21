@@ -20,7 +20,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initNavBarTitle:@"Trips" andLeftItemImageName:@"back" andRightItemImageName:@""];
+//    [self initNavBarTitle:@"Trips" andLeftItemImageName:@"back" andRightItemImageName:@""];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
 }
 - (void)viewDidLoad {
@@ -82,34 +82,7 @@
                            ]init];
     [self.navigationController pushViewController:vc animated:NO];
 }
-- (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
-    switch (touchSelectNumber) {
-        case 0:
-        {
-            LogsController *vc = [[LogsController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        case 1:
-        {
-            TripsViewController *vc = [[TripsViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        case 2:
-        {
-            FilesViewController *vc = [[FilesViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        default:
-            break;
-    }
-    
-}
+
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 4;

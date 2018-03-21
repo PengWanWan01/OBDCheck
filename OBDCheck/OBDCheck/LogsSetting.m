@@ -34,6 +34,7 @@
     return self;
 }
 - (void)initWithlogswith:(NSArray *)PID1data with:(NSArray *)PID2data with:(NSArray *)PID3data with:(NSArray *)PID4data {
+
     LogsModel *model = [LogsModel new];
     model.item1PID = @"vehicle speed";
     model.item1Smoothing = self.PID1Smoothing;
@@ -45,12 +46,16 @@
     model.item4PID = @"throttle position";
     model.item4Enabled = self.PID4Enable;
     model.item4Smoothing = self.PID4Smoothing;
-    model.PID1dataSource = PID1data;
-    model.PID2dataSource = PID2data;
-    model.PID3dataSource = PID3data;
-    model.PID4dataSource = PID4data;
+    model.PID1dataSource = [[NSMutableArray alloc]initWithArray:PID1data];
+    model.PID2dataSource = [[NSMutableArray alloc]initWithArray:PID2data];
+    model.PID3dataSource = [[NSMutableArray alloc]initWithArray:PID3data];
+    model.PID4dataSource = [[NSMutableArray alloc]initWithArray:PID4data];
     DLog(@"建立数据库");
     [model save];
+    DLog(@"%@",model);
+    LogsModel *model11 = [LogsModel findByPK:1];
+    
+    DLog(@"logs数据库%@", model11);
 }
 - (void)initWithTrips{
     

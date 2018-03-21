@@ -85,6 +85,9 @@
   
 }
 - (void)btn:(UIButton *)btn{
+    if ([self.delegate respondsToSelector:@selector(TBarBtnBetouch:)]) {
+        [self.delegate TBarBtnBetouch:btn.tag];
+    }
         //上次点击过的按钮，不做处理
     if (!(btn.tag == 100)) {
         UIButton *btn = (UIButton *)[self viewWithTag:100];
@@ -105,9 +108,7 @@
             }
         }
     selectBtn= btn;
-    if ([self.delegate respondsToSelector:@selector(TBarBtnBetouch:)]) {
-        [self.delegate TBarBtnBetouch:btn.tag];
-    }
+  
 
 }
 

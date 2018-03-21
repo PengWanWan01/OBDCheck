@@ -46,8 +46,12 @@
         [rightButtonItem setTintColor:[UIColor whiteColor]];
         self.navigationItem.rightBarButtonItem = rightButtonItem;
     }
+    UILabel *topViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, self.navigationController.navigationBar.frame.size.height)];
+    topViewLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
+    topViewLabel.textAlignment = NSTextAlignmentCenter;
     
-    self.navigationItem.title=titleName;
+    topViewLabel.text = titleName;
+    self.navigationItem.titleView= topViewLabel;
     self.navigationController.navigationBar.translucent = NO; //导航栏颜色不会发生变化
     [self.navigationController.navigationBar setBarTintColor:[ColorTools colorWithHexString:@"#212329"]];
  

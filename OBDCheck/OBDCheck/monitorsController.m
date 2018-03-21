@@ -52,7 +52,7 @@
     
     self.FourVc = [[Mode09ViewController alloc] init];
     [self.FourVc.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height-TopHigh)];
-    
+
     //  默认,第一个视图(你会发现,全程就这一个用了addSubview)
     [self.view addSubview:self.oneVC.view];
     self.currentVC = self.oneVC;
@@ -122,19 +122,22 @@
 - (void)replaceController:(UIViewController *)oldController newController:(UIViewController *)newController
 {
     [self addChildViewController:newController];
-    [self transitionFromViewController:oldController toViewController:newController duration:0.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL finished) {
+    DLog(@"%@ %@",oldController,newController);
+    [self transitionFromViewController:oldController toViewController:newController duration:0.0 options:UIViewAnimationOptionLayoutSubviews animations:nil completion:^(BOOL finished) {
+      
+
+//        if (finished) {
         
-        if (finished) {
-            
             [newController didMoveToParentViewController:self];
             [oldController willMoveToParentViewController:nil];
             [oldController removeFromParentViewController];
             self.currentVC = newController;
-            
-        }else{
-            self.currentVC = oldController;
-            
-        }
+//        }else{
+//            self.currentVC = oldController;
+//
+//        }
+        DLog(@"%@ %@ %@",self.currentVC,oldController,newController);
+
     }];
 }
 

@@ -117,34 +117,7 @@
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:tag inSection:0]]  withRowAnimation:UITableViewRowAnimationRight];
     [self.tableView reloadData];
 }
-- (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
-    switch (touchSelectNumber) {
-        case 0:
-        {
-            LogsController *vc = [[LogsController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        case 1:
-        {
-            TripsViewController *vc = [[TripsViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        case 2:
-        {
-            FilesViewController *vc = [[FilesViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:NO];
-            
-        }
-            break;
-        default:
-            break;
-    }
-    
-}
+
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -198,12 +171,13 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     DLog(@"%ld",(long)indexPath.row);
-//    NSArray *array = [LogsModel findAll];
+    NSArray *array = [LogsModel findAll];
 ////    DLog(@"%@%@%@%@%d%d",vc.model,vc.model.PID1dataSource,vc.model.PID2dataSource,vc.model.PID3dataSource,vc.model.item3Enabled,vc.model.item3Enabled);
 ////    DLog(@"%@%@%@%@",vc.model.item1PID,vc.model.item2PID,vc.model.item3PID,vc.model.item4PID);
-//    FileBackViewController *vc = [[FileBackViewController alloc]init];
-////      vc.model = array[indexPath.row];
-//    [self.navigationController pushViewController:vc animated:YES];
+    FileBackViewController *vc = [[FileBackViewController alloc]init];
+    
+    vc.model = array[indexPath.row];
+    [self.navigationController pushViewController:vc animated:YES];
   
 }
 @end

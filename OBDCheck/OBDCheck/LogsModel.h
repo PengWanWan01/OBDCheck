@@ -23,8 +23,8 @@
 @property (nonatomic,assign) BOOL item4Enabled;
 @property (nonatomic,assign) BOOL item4Smoothing;
 
-@property (nonatomic,strong) NSArray *PID1dataSource; //保存第一条PID的数据
-@property (nonatomic,strong) NSArray *PID2dataSource; //保存第二条PID的数据
-@property (nonatomic,strong) NSArray *PID3dataSource; //保存第三条PID的数据
-@property (nonatomic,strong) NSArray *PID4dataSource; //保存第四条PID的数据
+@property (nonatomic,copy) NSArray *PID1dataSource; //保存第一条PID的数据
+@property (nonatomic,copy) NSArray *PID2dataSource; //保存第二条PID的数据
+@property (nonatomic,copy) NSArray *PID3dataSource; //保存第三条PID的数据
+@property (nonatomic,copy) NSArray *PID4dataSource; //保存第四条PID的数据
 @end

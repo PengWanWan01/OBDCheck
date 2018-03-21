@@ -123,18 +123,18 @@
     [self addChildViewController:newController];
     [self transitionFromViewController:oldController toViewController:newController duration:0.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL finished) {
         
-        if (finished) {
-            
+//        if (finished) {
+        
             [newController didMoveToParentViewController:self];
             [oldController willMoveToParentViewController:nil];
             [oldController removeFromParentViewController];
             self.currentVC = newController;
             
-        }else{
-            
-            self.currentVC = oldController;
-            
-        }
+//        }else{
+//            
+//            self.currentVC = oldController;
+//            
+//        }
     }];
 }
 

@@ -32,10 +32,8 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      NSInteger PID2indextag;
      NSInteger PID3indextag;
      NSInteger PID4indextag;
-     BOOL isSave;
     NSInteger selectVC;
     NSMutableDictionary *listDic;
-    UIView * topView;
     UILabel * topViewLabel;
 }
 @end
@@ -43,7 +41,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 @implementation LogsController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initNavBarTitle:@"Logs" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
     set1 = nil;
     PartOnedata = [[LineChartData alloc] initWithDataSet:set1];
     PartTwodata = [[LineChartData alloc] initWithDataSet:set1];
@@ -59,9 +56,11 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      PID2indextag =  0;
      PID3indextag =  0;
      PID4indextag =  0;
-    isSave = NO;
    
    
+}
+- (void)test{
+    DLog(@"wowowowowoowo我我我");
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -310,18 +309,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     topViewLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, self.navigationController.navigationBar.frame.size.height)];
     topViewLabel.textAlignment = NSTextAlignmentCenter;
     topViewLabel.textColor = [ColorTools colorWithHexString:@"FE9002"];
-    topView= [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, self.navigationController.navigationBar.frame.size.height)];
-    UIButton *startBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, topView.frame.size.height)];
-    [startBtn setImage:[UIImage imageNamed:@"start"] forState:UIControlStateNormal];
-    [startBtn addTarget:self action:@selector(startBtn) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *stopBtn = [[UIButton alloc]initWithFrame:CGRectMake(50, 0, 50, topView.frame.size.height)];
-    [stopBtn setImage:[UIImage imageNamed:@"stop"] forState:UIControlStateNormal];
-    [stopBtn addTarget:self action:@selector(stopBtn) forControlEvents:UIControlEventTouchUpInside];
-    
-    [topView addSubview:stopBtn];
-    [topView addSubview:startBtn];
-    self.navigationItem.titleView = topView;
+   
 }
 - (void)initWithLogViewUI{
     DLog(@"弹出一个图");
@@ -397,17 +385,18 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 #pragma mark 保存内容LOGS到数据库
 -(void)SaveDataSource{
-    if (isSave == YES) {
     self.blueTooth.stopSend = YES;
+    //保存到数据库；
+    DLog(@"保存");
     [[LogsSetting sharedInstance]initWithlogswith:PID1dataSource with:PID2dataSource with:PID3dataSource with:PID4dataSource];
+    DLog(@"%@  %@   %@  %@",PID1dataSource,PID2dataSource,PID3dataSource,PID4dataSource);
+    LogsModel *model = [LogsModel findByPK:3];
+
+    DLog(@"logs数据库%@", model);
+//    LogsModel *model = arr.lastObject;
+//    [model saveOrUpdate];
+//    DLog(@"数据%@%@%@%@",model.PID1dataSource,model.PID2dataSource,model.PID3dataSource,model.PID4dataSource);
     
-    NSArray *arr = [LogsModel findAll];
-    
-    DLog(@"logs数据库%@", arr.lastObject);
-    LogsModel *model = arr.lastObject;
-    DLog(@"数据%@%@%@%@",model.PID1dataSource,model.PID2dataSource,model.PID3dataSource,model.PID4dataSource);
-        isSave = NO;
-    }
 }
 #pragma mark 点击开始  //发送蓝牙指令
 - (void)startBtn{
@@ -490,7 +479,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
             ++PID2indextag;
             ++PID3indextag;
             ++PID4indextag;
-            isSave = YES;
             //得到TF之后，发送车速
             [self.blueTooth SendData:[self hexToBytes:@"303130640D"]];
        
