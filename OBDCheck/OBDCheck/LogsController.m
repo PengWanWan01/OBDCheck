@@ -348,12 +348,7 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
         [self setDataCount:0 range:0 withView:chartViewTwo withdata:PartTwodata withPIDTiltle:@"throttle position" withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:([LogsSetting sharedInstance].PID4Smoothing)];
     }
 }
-- (void)back{
-    [self SaveDataSource];
-    ViewController *vc = [[ViewController alloc
-                           ]init];
-    [self.navigationController pushViewController:vc animated:NO];
-}
+
 - (void)rightBarButtonClick{
     switch (selectVC) {
         case 0:

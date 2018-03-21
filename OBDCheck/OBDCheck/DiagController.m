@@ -25,7 +25,6 @@ static dispatch_source_t _timer;
     BOOL isSave;
     UIButton *clearBtn;
     UIButton *HistoricalBtn;
-    NSInteger selectVC;
     NSMutableDictionary *listDic;
 }
 @property (nonatomic,strong) NSMutableArray *typeimageData;
@@ -49,10 +48,7 @@ static dispatch_source_t _timer;
     [self initWithdata];
     [self initWithheadUI];
     [self initWithUI];
-    if (!(selectVC == 0)) {
-        DLog(@"yes");
-//        [self reloadControlleView:selectVC];
-    }
+ 
   }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -228,12 +224,7 @@ static dispatch_source_t _timer;
         isSave = NO;
     }
 }
--(void)back{
-    ViewController *vc = [[ViewController alloc
-                           ]init];
-    [self.navigationController pushViewController:vc animated:NO];
-    [self save];
-}
+
 #pragma mark蓝牙代理协议，处理信息
 - (void)getDeviceInfo:(BELInfo *)info{
     

@@ -77,11 +77,7 @@
     [self.view addSubview:mytableView];
   
 }
-- (void)back{
-    ViewController *vc = [[ViewController alloc
-                           ]init];
-    [self.navigationController pushViewController:vc animated:NO];
-}
+
 
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

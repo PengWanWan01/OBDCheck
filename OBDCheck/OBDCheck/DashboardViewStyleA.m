@@ -55,7 +55,7 @@
     }
 }
 - (void)getNewNumber:(NSNotification *)text{
-//        DLog(@"得到通知");
+        DLog(@"得到通知");
 //    DLog(@"%ld",[text.userInfo[@"StyleAViewTag"] integerValue]);
 //    DLog(@"%ld",self.tag);
     NSString *presentStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"StyleAViewnumber"]];

@@ -97,8 +97,7 @@
     //FilesTableViewCell
     [self.tableView registerClass:[FilesTableViewCell class] forCellReuseIdentifier:@"FilesTableViewCell"];
 }
-- (void)back{
-}
+
 //- (void)rightBarButtonClick{
 //    DLog(@"编辑");
 //    NSArray *arr = [self.tableView indexPathsForVisibleRows];

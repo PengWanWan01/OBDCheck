@@ -83,6 +83,7 @@
 #pragma mark 设置横竖屏布局
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
+    [self initStatusView];
     if (isLandscape) {
         //翻转为横屏时
         DLog(@"横屏");
@@ -101,26 +102,21 @@
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
-    self.backView.hidden = NO;
-    self.scrollView.hidden = YES;
-//    self.titleBtn.frame = CGRectMake(0, 0, 100, 44);
-    self.statusView.frame = CGRectMake(22, 11, SCREEN_MIN - 44, 41);
-    self.statusLabel.frame = CGRectMake(10, 0, SCREEN_MIN - 86, 40);
-    self.statusLabel.textAlignment = NSTextAlignmentLeft;
-    self.statusImageView.frame = CGRectMake(self.statusView.frame.size.width - 70, 10, 24, 20);
-    self.roView.frame = CGRectMake(CGRectGetMaxX(self.statusView.frame) - 50, 10, 21, 23);
+ 
     [self.tabarView removeFromSuperview];
     self.tabarView =  [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_MAX - 49-TopHigh, SCREEN_MIN, 49)];
     if (IS_IPHONE_X) {
         self.tabarView.frame = CGRectMake(0, SCREEN_MAX - 49-TopHigh-34,SCREEN_MIN , 49);
     }
     [self.view addSubview:self.tabarView];
+    [self initBackview];
     //计算出底部按钮的最终字体大小；
     UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_MIN/2-43*KFontmultiple, 49)];
     textLabel.text = @"Vehicle Information123";
     textLabel.adjustsFontSizeToFitWidth = YES;
     CGFloat textFont = textLabel.font.pointSize;
     DLog(@"字体%f",textFont);
+    
     //设置底部的两个按钮
     for (NSInteger i = 0; i< 2; i++) {
         
@@ -150,19 +146,14 @@
 - (void)setHorizontalFrame{
     self.backView.hidden = YES;
     self.scrollView.hidden = NO;
-    self.statusView.frame = CGRectMake(50, 16, SCREEN_MAX - 100, 41);
-    self.statusLabel.frame =CGRectMake(10, 0, SCREEN_MAX - 100, 40);
-    self.statusLabel.textAlignment = NSTextAlignmentCenter;
-    self.statusView.image = [UIImage imageNamed:@"information"];
-    self.statusView.contentMode = UIViewContentModeScaleToFill;
-    self.statusImageView.frame = CGRectMake(SCREEN_MAX - 100 - 50, 10, 24, 20);
-    self.roView.frame =CGRectMake(SCREEN_MAX - 100 - 50, 10, 24, 20);
+
     [self.tabarView removeFromSuperview];
     self.tabarView =  [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_MIN - 49-TopHigh, SCREEN_MAX, 49)];
     if (IS_IPHONE_X) {
         self.tabarView.frame = CGRectMake(0, SCREEN_MIN - 49-TopHigh-34,SCREEN_MAX , 49);
     }
     [self.view addSubview:self.tabarView];
+    [self initSrcollview];
     //计算出底部按钮的最终字体大小；
     UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_MAX/2-139*KFontmultiple, 49)];
     textLabel.text = @"Vehicle Information123";
@@ -195,7 +186,87 @@
     }
     
 }
-
+- (void)initStatusView{
+    [[self.statusView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.statusView removeFromSuperview];
+    
+    self.statusView = [[UIImageView alloc]init];
+    self.statusView.image = [UIImage imageNamed:@"information"];
+    self.statusView.contentMode = UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:self.statusView];
+    self.statusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(self.statusView.frame.size.width - 50, 10, 24, 20)];
+    self.statusImageView.image = [UIImage imageNamed:@"signal"];
+    self.statusImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.roView = [[rotationView alloc]initWithFrame:CGRectMake(self.statusView.frame.size.width - 50, 10, 21, 23)];
+    [self.roView rotate360WithDuration:1 repeatCount:600];
+    self.roView.rotationImage.image = [UIImage imageNamed:@"search"];
+    self.roView.numberLabel.hidden = YES;
+    if ([DashboardSetting sharedInstance].blueState == 1) {
+        [self.roView removeFromSuperview];
+        [self.statusView addSubview:self.statusImageView];
+    }else{
+        [self.statusImageView removeFromSuperview];
+        [self.statusView addSubview:self.roView];
+    }
+    [self.statusView addSubview:self.statusLabel];
+    if (isLandscape) {
+       
+        self.statusView.frame = CGRectMake(50, 16, SCREEN_MAX - 100, 41);
+        self.statusLabel.frame =CGRectMake(10, 0, SCREEN_MAX - 100, 40);
+        self.statusLabel.textAlignment = NSTextAlignmentCenter;
+        self.statusView.image = [UIImage imageNamed:@"information"];
+        self.statusView.contentMode = UIViewContentModeScaleToFill;
+        self.statusImageView.frame = CGRectMake(SCREEN_MAX - 100 - 50, 10, 24, 20);
+        self.roView.frame =CGRectMake(SCREEN_MAX - 100 - 50, 10, 24, 20);
+    }else{
+        self.statusView.frame = CGRectMake(22, 11, SCREEN_MIN - 44, 41);
+        self.statusLabel.frame = CGRectMake(10, 0, SCREEN_MIN - 86, 40);
+        self.statusLabel.textAlignment = NSTextAlignmentLeft;
+        self.statusImageView.frame = CGRectMake(self.statusView.frame.size.width - 30, 10, 24, 20);
+        self.roView.frame = CGRectMake(CGRectGetMaxX(self.statusView.frame) - 50, 10, 21, 23);
+        
+    }
+}
+-(void)initBackview{
+    [self.backView removeFromSuperview];
+    [self.scrollView removeFromSuperview];
+    self.backView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame), SCREEN_MIN, SCREEN_MAX - 165)];
+    [self.view addSubview:self.backView];
+    
+    for (int i = 0; i<_btnTitleArray.count; i++) {
+        CGFloat space = IS_IPHONE_4_OR_LESS?20*SCREEN_MAX/667:30*SCREEN_MAX/667;
+        
+        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], 100*SCREEN_MIN/375, 100*SCREEN_MIN/375 + space)];
+        btn.Label.text = _btnTitleArray[i];
+        btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+        [btn addGestureRecognizer:tap];
+        UIView *singleTapView  = [tap view];
+        singleTapView.tag = i;
+        [self.backView addSubview:btn];
+        DLog(@"%f",btn.frame.size.width);
+    }
+}
+- (void)initSrcollview{
+    [self.backView removeFromSuperview];
+    [self.scrollView removeFromSuperview];
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame) + 30, SCREEN_MAX, 100*SCREEN_MIN/375 + 40)];
+    self.scrollView.contentSize = CGSizeMake(60+(100*SCREEN_MIN/375 + 40)*6,0);
+    self.scrollView.showsVerticalScrollIndicator = NO;
+    self.scrollView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview:self.scrollView];
+    for (int i = 0; i<_btnTitleArray.count; i++) {
+        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake(30+(100*SCREEN_MIN/375 + 40)*i,0, 100*SCREEN_MIN/375 - 20, 100*SCREEN_MIN/375 - 20 +40)];
+        btn.Label.text = _btnTitleArray[i];
+        btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
+        [btn.imageView setContentMode:UIViewContentModeScaleToFill];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+        [btn addGestureRecognizer:tap];
+        UIView *singleTapView  = [tap view];
+        singleTapView.tag = i;
+        [self.scrollView addSubview:btn];
+    }
+}
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
@@ -228,63 +299,11 @@
         [self NonConnectState];
     }
     isSelect = YES;
-    self.statusView = [[UIImageView alloc]initWithFrame:CGRectMake(22, 11, MSWidth - 44, 41)];
-    self.statusView.image = [UIImage imageNamed:@"information"];
-    self.statusView.contentMode = UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:self.statusView];
-    self.statusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(self.statusView.frame.size.width - 50, 10, 24, 20)];
-    self.statusImageView.image = [UIImage imageNamed:@"signal"];
-    self.statusImageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.roView = [[rotationView alloc]initWithFrame:CGRectMake(self.statusView.frame.size.width - 50, 10, 21, 23)];
-    [self.roView rotate360WithDuration:1 repeatCount:600];
-    self.roView.rotationImage.image = [UIImage imageNamed:@"search"];
-    self.roView.numberLabel.hidden = YES;
-    if ([DashboardSetting sharedInstance].blueState == 1) {
-        [self.roView removeFromSuperview];
-        [self.statusView addSubview:self.statusImageView];
-    }else{
-        [self.statusImageView removeFromSuperview];
-        [self.statusView addSubview:self.roView];
-    }
-    [self.statusView addSubview:self.statusLabel];
+   
     
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(EveryViewtap)] ];
-    self.backView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame), SCREEN_MIN, SCREEN_MAX - 165)];
-    [self.view addSubview:self.backView];
-    
-    for (int i = 0; i<_btnTitleArray.count; i++) {
-        CGFloat space = IS_IPHONE_4_OR_LESS?20*SCREEN_MAX/667:30*SCREEN_MAX/667;
-        
-        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake([setDistanceUtil setX:i], [setDistanceUtil setY:i], 100*SCREEN_MIN/375, 100*SCREEN_MIN/375 + space)];
-        btn.Label.text = _btnTitleArray[i];
-        btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
-        [btn addGestureRecognizer:tap];
-        UIView *singleTapView  = [tap view];
-        singleTapView.tag = i;
-        [self.backView addSubview:btn];
-        DLog(@"%f",btn.frame.size.width);
-    }
-    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.statusView.frame) + 30, SCREEN_MAX, 100*SCREEN_MIN/375 + 40)];
-//    self.scrollView.backgroundColor = [UIColor blueColor];
-    self.scrollView.contentSize = CGSizeMake(60+(100*SCREEN_MIN/375 + 40)*6,0);
-//    self.scrollView.pagingEnabled = YES;
-    self.scrollView.showsVerticalScrollIndicator = NO;
-    self.scrollView.showsHorizontalScrollIndicator = NO;
-    [self.view addSubview:self.scrollView];
-    for (int i = 0; i<_btnTitleArray.count; i++) {
-        OBDBtn *btn =[[OBDBtn alloc]initWithFrame: CGRectMake(30+(100*SCREEN_MIN/375 + 40)*i,0, 100*SCREEN_MIN/375 - 20, 100*SCREEN_MIN/375 - 20 +40)];
-        btn.Label.text = _btnTitleArray[i];
-        btn.imageView.image = [UIImage imageNamed:_btnImageArray[i]];
-        [btn.imageView setContentMode:UIViewContentModeScaleToFill];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
-        [btn addGestureRecognizer:tap];
-        UIView *singleTapView  = [tap view];
-        singleTapView.tag = i;
-        [self.scrollView addSubview:btn];
-    }
-    self.backView.hidden = YES;
-    self.scrollView.hidden = YES;
+   
+  
 }
 
 #pragma mark 底部按钮的点击事件

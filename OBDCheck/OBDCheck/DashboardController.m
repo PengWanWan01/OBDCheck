@@ -427,6 +427,7 @@ static dispatch_source_t _timer;
         [_CustomNumberArray replaceObjectAtIndex:2 withObject:WatertemperatureStr];
         NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"30",@"StyleAViewTag",_CustomNumberArray[2],@"StyleAViewnumber",number3,@"PreStyleAViewnumber", nil];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
+        
         //得到水温之后，发送TF
         [self.blueTooth SendData:[BlueTool hexToBytes:@"303131310D"]];
     }
@@ -968,7 +969,7 @@ static dispatch_source_t _timer;
         switch (dashboard.dashboardType) {
             case 1:
             {
-                NSLog(@"1212");
+                DLog(@"1212");
                 DashboardView *view = (DashboardView *)[scrollView viewWithTag:[DashboardSetting sharedInstance].Dashboardindex];
                 [scrollView bringSubviewToFront:view];
             }
