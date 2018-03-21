@@ -51,8 +51,8 @@
     return UIStatusBarAnimationNone;
 }
 #pragma mark 设置横竖屏布局
-- (void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
     [self initWithHeadUI];
     self.tableView.frame =  CGRectMake(0, 1, MSWidth, MSHeight-60);
 

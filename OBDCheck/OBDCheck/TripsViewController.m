@@ -48,8 +48,8 @@
     return UIStatusBarAnimationNone;
 }
 #pragma mark 设置横竖屏布局
-- (void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
     mytableView.frame = CGRectMake(0, 1, MSWidth, MSHeight-74-44);
     if (isLandscape) {
         //翻转为横屏时

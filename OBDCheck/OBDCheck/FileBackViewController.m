@@ -62,8 +62,8 @@ static dispatch_source_t _timer;
     return UIStatusBarAnimationNone;
 }
 #pragma mark 设置横竖屏布局
-- (void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
     headView.frame = CGRectMake(0, 0, MSWidth, 40);
     LineView.frame = CGRectMake(0, 38, MSWidth/2, 2);
      ChartBtn.frame = CGRectMake(0, 0, MSWidth/2, 40);

@@ -47,8 +47,9 @@ static dispatch_source_t _timer;
     
 }
 #pragma mark 设置横竖屏布局
-- (void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
+
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
     [self initWithData];
     DLog(@"000--%f",TopHigh);
     if (isLandscape) {

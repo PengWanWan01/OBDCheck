@@ -23,8 +23,8 @@
     [UIApplication sharedApplication].statusBarHidden = NO;
 }
 #pragma mark 设置横竖屏布局
-- (void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
    MYTableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-TopHigh);
     if (isLandscape) {
         //翻转为横屏时
