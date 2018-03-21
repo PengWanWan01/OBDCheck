@@ -46,10 +46,10 @@
     model.item4PID = @"throttle position";
     model.item4Enabled = self.PID4Enable;
     model.item4Smoothing = self.PID4Smoothing;
-    model.PID1dataSource = [[NSMutableArray alloc]initWithArray:PID1data];
-    model.PID2dataSource = [[NSMutableArray alloc]initWithArray:PID2data];
-    model.PID3dataSource = [[NSMutableArray alloc]initWithArray:PID3data];
-    model.PID4dataSource = [[NSMutableArray alloc]initWithArray:PID4data];
+    model.PID1dataSource = [NSJSONSerialization dataWithJSONObject:PID1data options:NSJSONWritingPrettyPrinted error:nil];
+    model.PID2dataSource = [NSJSONSerialization dataWithJSONObject:PID2data options:NSJSONWritingPrettyPrinted error:nil];
+    model.PID3dataSource =[NSJSONSerialization dataWithJSONObject:PID3data options:NSJSONWritingPrettyPrinted error:nil];
+    model.PID4dataSource = [NSJSONSerialization dataWithJSONObject:PID4data options:NSJSONWritingPrettyPrinted error:nil];
     DLog(@"建立数据库");
     [model save];
     DLog(@"%@",model);

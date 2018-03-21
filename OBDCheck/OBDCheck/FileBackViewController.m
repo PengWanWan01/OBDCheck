@@ -84,7 +84,9 @@ static dispatch_source_t _timer;
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
-    if (self.model.PID1dataSource.count >0) {
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:self.model.PID1dataSource options:NSJSONReadingAllowFragments error:nil];
+    NSArray *array = (NSArray *)jsonObject;
+    if (array.count >0) {
         if (self.model.item3Enabled == YES || self.model.item4Enabled == YES ) {
             chartViewone.frame =CGRectMake(0, CGRectGetMaxY(PlaybackLabel.frame)+10, MSWidth,170);
             contentScrollView.contentSize = CGSizeMake(MSWidth,MSHeight+300);
@@ -100,7 +102,9 @@ static dispatch_source_t _timer;
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
-    if (self.model.PID1dataSource.count >0) {
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:self.model.PID1dataSource options:NSJSONReadingAllowFragments error:nil];
+    NSArray *array = (NSArray *)jsonObject;
+    if (array.count >0) {
         if (self.model.item3Enabled == YES || self.model.item4Enabled == YES ) {
             chartViewone.frame =CGRectMake(0, CGRectGetMaxY(PlaybackLabel.frame)+10, MSWidth,170);
             contentScrollView.contentSize = CGSizeMake(MSWidth,MSHeight+300);
@@ -174,7 +178,9 @@ static dispatch_source_t _timer;
     PlaybackLabel.textColor = [ColorTools colorWithHexString:@"918E8E"];
     PlaybackLabel.text = @"Playback";
     [contentScrollView addSubview:PlaybackLabel];
-    if (self.model.PID1dataSource.count >0) {
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:self.model.PID1dataSource options:NSJSONReadingAllowFragments error:nil];
+    NSArray *array = (NSArray *)jsonObject;
+    if (array.count >0) {
         DLog(@"%d%d",self.model.item3Enabled,self.model.item4Enabled);
         if (self.model.item3Enabled == YES || self.model.item4Enabled == YES ) {
             
@@ -202,9 +208,15 @@ static dispatch_source_t _timer;
     chartViewone = [[LineChartView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(PlaybackLabel.frame)+10, MSWidth,170)];
     [contentScrollView addSubview:chartViewone];
     [self initWithchartView:chartViewone Type:1];
+    id PID1jsonObject = [NSJSONSerialization JSONObjectWithData:self.model.PID1dataSource options:NSJSONReadingAllowFragments error:nil];
+    NSArray *PID1array = (NSArray *)PID1jsonObject;
     
-    [self setDataCount:self.model.PID1dataSource.count  range:self.model.PID1dataSource withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(self.model.item1Smoothing)];
-    [self setDataCount:self.model.PID2dataSource.count range:self.model.PID2dataSource withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(self.model.item2Smoothing)];
+    [self setDataCount:PID1array.count  range:PID1array withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(self.model.item1Smoothing)];
+    
+    id PID2jsonObject = [NSJSONSerialization JSONObjectWithData:self.model.PID2dataSource options:NSJSONReadingAllowFragments error:nil];
+    NSArray *PID2array = (NSArray *)PID2jsonObject;
+    
+    [self setDataCount:PID2array.count range:PID2array withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(self.model.item2Smoothing)];
 //    [chartViewone animateWithXAxisDuration:self.model.PID1dataSource.count-1];
     //设置当前可以看到的个数
 //    [chartViewone setVisibleXRangeMaximum:10];
@@ -228,21 +240,32 @@ static dispatch_source_t _timer;
     [self initWithchartView:chartViewone Type:1];
     [self initWithchartView:chartViewTwo Type:2];
     
-        
-    [self setDataCount:self.model.PID1dataSource.count range:self.model.PID1dataSource withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(self.model.item1Smoothing)];
-    [self setDataCount:self.model.PID2dataSource.count range:self.model.PID2dataSource withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(self.model.item2Smoothing)];
-    [self setDataCount:self.model.PID3dataSource.count range:self.model.PID3dataSource withView:chartViewTwo withdata:PartTwodata withPIDTiltle:self.model.item3PID withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:(self.model.item3Smoothing)];
+    id PID1jsonObject = [NSJSONSerialization JSONObjectWithData:self.model.PID1dataSource options:NSJSONReadingAllowFragments error:nil];
+    NSArray *PID1Array = (NSArray *)PID1jsonObject;
+    [self setDataCount:PID1Array.count range:PID1Array withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item1PID withLineColor:[ColorTools colorWithHexString:@"E51C23"] withDependency:AxisDependencyLeft iSsmoothing:(self.model.item1Smoothing)];
+    
+    id PID2jsonObject = [NSJSONSerialization JSONObjectWithData:self.model.PID2dataSource options:NSJSONReadingAllowFragments error:nil];
+    NSArray *PID2array = (NSArray *)PID2jsonObject;
+    [self setDataCount:PID2array.count range:PID2array withView:chartViewone withdata:PartOnedata withPIDTiltle:self.model.item2PID withLineColor:[ColorTools colorWithHexString:@"54C44B"] withDependency:AxisDependencyRight iSsmoothing:(self.model.item2Smoothing)];
+    
+     id PID3jsonObject = [NSJSONSerialization JSONObjectWithData:self.model.PID3dataSource options:NSJSONReadingAllowFragments error:nil];
+    NSArray *PID3array = (NSArray *)PID3jsonObject;
+    [self setDataCount:PID3array.count range:PID3array withView:chartViewTwo withdata:PartTwodata withPIDTiltle:self.model.item3PID withLineColor:[ColorTools colorWithHexString:@"3F51B5"] withDependency:AxisDependencyLeft iSsmoothing:(self.model.item3Smoothing)];
+    
+    id PID4jsonObject = [NSJSONSerialization JSONObjectWithData:self.model.PID3dataSource options:NSJSONReadingAllowFragments error:nil];
+    NSArray *PID4array = (NSArray *)PID4jsonObject;
     if (self.model.item4Enabled == YES) {
-        [self setDataCount:self.model.PID4dataSource.count range:self.model.PID4dataSource withView:chartViewTwo withdata:PartTwodata withPIDTiltle:self.model.item4PID withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:(self.model.item4Smoothing)];
+      
+        [self setDataCount:PID4array.count range:PID4array withView:chartViewTwo withdata:PartTwodata withPIDTiltle:self.model.item4PID withLineColor:[ColorTools colorWithHexString:@"FF9800"] withDependency:AxisDependencyRight iSsmoothing:(self.model.item4Smoothing)];
     }
    
-    [chartViewone animateWithXAxisDuration:self.model.PID1dataSource.count];
+    [chartViewone animateWithXAxisDuration:PID1Array.count];
 //    //设置当前可以看到的个数
 //    [chartViewone setVisibleXRangeMaximum:10];
-    if (self.model.PID3dataSource.count >0) {
-        [chartViewTwo animateWithXAxisDuration:self.model.PID3dataSource.count-1];
+    if (PID3array.count >0) {
+        [chartViewTwo animateWithXAxisDuration:PID3array.count-1];
     }else{
-        [chartViewTwo animateWithXAxisDuration:self.model.PID4dataSource.count-1];
+        [chartViewTwo animateWithXAxisDuration:PID4array.count-1];
     }
 //    //设置当前可以看到的个数
 //    [chartViewTwo setVisibleXRangeMaximum:10];
@@ -407,19 +430,27 @@ static dispatch_source_t _timer;
     dispatch_source_set_event_handler(_timer, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
         
+            id PID2jsonObject = [NSJSONSerialization JSONObjectWithData:self.model.PID2dataSource options:NSJSONReadingAllowFragments error:nil];
+            NSArray *PID2array = (NSArray *)PID2jsonObject;
+            [weakSelf updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)indextag withY:[PID2array[indextag] intValue]];
             
-            [weakSelf updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)indextag withY:[self.model.PID2dataSource[indextag] intValue]];
+            id PID1jsonObject = [NSJSONSerialization JSONObjectWithData:self.model.PID1dataSource options:NSJSONReadingAllowFragments error:nil];
+            NSArray *PID1array = (NSArray *)PID1jsonObject;
+            [weakSelf updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)indextag withY:[PID1array[indextag] intValue]];
             
-            [weakSelf updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)indextag withY:[self.model.PID1dataSource[indextag] intValue]];
             if (weakSelf.model.item3Enabled == YES) {
                 DLog(@"item3item3");
-                [self updateChartData:chartViewTwo withData:PartTwodata withIndex:0 withX:(int)indextag withY:[self.model.PID3dataSource[indextag] intValue]];
+                id PID3jsonObject = [NSJSONSerialization JSONObjectWithData:self.model.PID3dataSource options:NSJSONReadingAllowFragments error:nil];
+                NSArray *PID3array = (NSArray *)PID3jsonObject;
+                [self updateChartData:chartViewTwo withData:PartTwodata withIndex:0 withX:(int)indextag withY:[PID3array[indextag] intValue]];
             }
             if (weakSelf.model.item4Enabled == YES) {
-                [self updateChartData:chartViewTwo withData:PartTwodata withIndex:1 withX:(int)indextag withY:[self.model.PID4dataSource[indextag] intValue]];
+                id PID4jsonObject = [NSJSONSerialization JSONObjectWithData:self.model.PID4dataSource options:NSJSONReadingAllowFragments error:nil];
+                NSArray *PID4array = (NSArray *)PID4jsonObject;
+                [self updateChartData:chartViewTwo withData:PartTwodata withIndex:1 withX:(int)indextag withY:[PID4array[indextag] intValue]];
             }
             ++indextag;
-            if (indextag == self.model.PID1dataSource.count -1) {
+            if (indextag == PID1array.count -1) {
                 dispatch_source_cancel(_timer);
                 
             }
