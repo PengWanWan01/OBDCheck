@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0B4B63811B9A516F5294C8023FC50923"
+               BlueprintIdentifier = "F7DCEDB96024A54E38E34284AF60849E"
                BuildableName = "Pods_OBDCheck.framework"
                BlueprintName = "Pods-OBDCheck"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0B4B63811B9A516F5294C8023FC50923"
+            BlueprintIdentifier = "F7DCEDB96024A54E38E34284AF60849E"
             BuildableName = "Pods_OBDCheck.framework"
             BlueprintName = "Pods-OBDCheck"
             ReferencedContainer = "container:Pods.xcodeproj">

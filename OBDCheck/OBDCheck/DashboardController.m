@@ -327,7 +327,7 @@ static dispatch_source_t _timer;
     }
 }
 #pragma mark横竖屏之后调整Frame
--(void)initWithCustomDashboardAFrame:(CustomDashboard *)customDashboard{
+-(void)initWithCustomDashboardAFrame:(CustomDashboard *)customDashboard{    
     dashboardStyleAView.tag = customDashboard.pk ;
     DashBoardTag = dashboardStyleAView.tag ;
     [dashboardStyleAView addGradientView:customDashboard.DashboardAouterColor  GradientViewWidth:dashboardStyleAView.frame.size.width];

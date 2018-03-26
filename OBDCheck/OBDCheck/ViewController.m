@@ -301,7 +301,6 @@
     }
     isSelect = YES;
    
-    
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(EveryViewtap)] ];
    
   
