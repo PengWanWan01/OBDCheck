@@ -154,4 +154,15 @@
 {
     [self.oneVC stopBtn];
 }
+
+/**
+ 点击导航栏的右键
+ */
+- (void)rightBarButtonClick{
+    if (self.currentVC == self.oneVC) {
+        [self.oneVC rightBarButtonClick];
+    }else if (self.currentVC == self.ThreeVc){
+        [self.ThreeVc rightBarButtonClick];
+    }
+}
 @end

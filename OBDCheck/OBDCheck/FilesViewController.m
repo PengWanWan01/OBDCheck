@@ -98,16 +98,16 @@
     [self.tableView registerClass:[FilesTableViewCell class] forCellReuseIdentifier:@"FilesTableViewCell"];
 }
 
-//- (void)rightBarButtonClick{
-//    DLog(@"编辑");
-//    NSArray *arr = [self.tableView indexPathsForVisibleRows];
-//    for (NSIndexPath *indexPath in arr) {
-//        FilesTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-//        cell.editstatus = EditstatusType2;
-//        [cell setNeedsDisplay];
-//        [cell setNeedsLayout];
-//    }
-//}
+- (void)rightBarButtonClick{
+    DLog(@"编辑");
+    NSArray *arr = [self.tableView indexPathsForVisibleRows];
+    for (NSIndexPath *indexPath in arr) {
+        FilesTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        cell.editstatus = EditstatusType2;
+        [cell setNeedsDisplay];
+        [cell setNeedsLayout];
+    }
+}
 
 - (void)deleteData:(NSInteger)tag{
     DLog(@"%@",[NSNumber numberWithInteger:tag+1]);

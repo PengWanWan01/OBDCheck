@@ -135,4 +135,10 @@
     return 44.f;
 }
 
+/**
+ 刷新
+ */
+- (void)rightBarButtonClick{
+    DLog(@"刷新");
+}
 @end

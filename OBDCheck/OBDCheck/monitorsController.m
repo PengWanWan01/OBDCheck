@@ -141,5 +141,19 @@
     }];
 }
 
+/**
+ 点击右键
+ */
+- (void)rightBarButtonClick{
+    if (self.currentVC == self.oneVC) {
+        [self.oneVC rightBarButtonClick];
+    }else if (self.currentVC == self.twoVC){
+        [self.twoVC rightBarButtonClick];
+    }else if (self.currentVC == self.ThreeVc){
+        [self.ThreeVc rightBarButtonClick];
+    }else if (self.currentVC == self.FourVc){
+        [self.FourVc rightBarButtonClick];
+    }
+}
 
 @end

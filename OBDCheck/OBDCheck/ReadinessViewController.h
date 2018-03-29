@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ReadinessViewController : BasicViewController
+- (void)rightBarButtonClick;
 
 @end

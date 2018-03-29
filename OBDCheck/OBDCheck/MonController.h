@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MonController : UIViewController
-
+- (void)rightBarButtonClick;
 @end

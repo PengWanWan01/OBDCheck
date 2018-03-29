@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ReportViewController : BasicViewController
-
+- (void)rightBarButtonClick;
 @end

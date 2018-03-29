@@ -523,7 +523,6 @@
             for (int i=0; i< model.columeNames.count; i++) {
                  NSString *columeName = [model.columeNames objectAtIndex:i];
                  NSString *columeType = [model.columeTypes objectAtIndex:i];
-                 DLog(@"**********************%@",columeName);
                  if ([columeType isEqualToString:SQLTEXT]) {
                      [model setValue:[resultSet stringForColumn:columeName] forKey:columeName];
                  } else if ([columeType isEqualToString:SQLBLOB]) {

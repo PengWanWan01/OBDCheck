@@ -302,8 +302,7 @@
     isSelect = YES;
    
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(EveryViewtap)] ];
-   
-  
+    
 }
 
 #pragma mark 底部按钮的点击事件

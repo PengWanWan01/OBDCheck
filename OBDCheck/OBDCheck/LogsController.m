@@ -32,7 +32,6 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
      NSInteger PID2indextag;
      NSInteger PID3indextag;
      NSInteger PID4indextag;
-    NSInteger selectVC;
     NSMutableDictionary *listDic;
     UILabel * topViewLabel;
 }
@@ -350,27 +349,9 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
 }
 
 - (void)rightBarButtonClick{
-    switch (selectVC) {
-        case 0:
-            {
-                [self SaveDataSource];
-                LogSetViewController *vc = [[LogSetViewController alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-            break;
-        case 1:
-        {
-            
-        }
-            break;
-        case 2:
-        {
-           
-        }
-            break;
-        default:
-            break;
-    }
+    [self SaveDataSource];
+    LogSetViewController *vc = [[LogSetViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark 点击开始点击停止

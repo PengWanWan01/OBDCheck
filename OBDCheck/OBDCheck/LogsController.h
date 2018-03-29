@@ -14,4 +14,5 @@
 
 - (void)startBtn;
 - (void)stopBtn;
+- (void)rightBarButtonClick;
 @end

@@ -404,5 +404,11 @@ static dispatch_source_t _timer;
     return Cell;
 }
 
+/**
+ 刷新
+ */
+- (void)rightBarButtonClick{
+    DLog(@"刷新");
+}
 
 @end
