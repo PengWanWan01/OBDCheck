@@ -166,5 +166,6 @@
 #import "monitorsController.h"
 #import "LogsViewController.h"
 #import "SVProgressHUD.h"
-
+#import "OBDCHECKLIBOC.h"
+#import "OBDLibTool.h"
 #endif /* OBDCheckPrefixHeader_pch */

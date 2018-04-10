@@ -42,7 +42,16 @@
     [self.window makeKeyAndVisible];
     [UITabBar appearance].backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
     [UITabBar appearance].tintColor = [ColorTools colorWithHexString:@"#FE9002"];
-//    
+    //  加载C语言库
+    NSData *reader;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"ExtFlashDat" ofType:@"bin"];
+    //获取数据
+    reader = [NSData dataWithContentsOfFile:path];//调用OBDCHECKLIBOC的LoadPublicLIB2OCBufP加载文件之前，必须要先打开文件
+    if([[OBDLibTool sharedInstance] LoadPublicLIB2OCBufP:reader])  //step1:加载库成功
+    {
+        [OBDLibTool sharedInstance].LoadSuccess = YES;
+        //在程序杀死时候释放
+    }
     
     return YES;
 }
@@ -101,7 +110,7 @@
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+     [[OBDLibTool sharedInstance] freeBufOC];//在使用完OBDCHECKLIBOC之后，一定要调用freeBufOC来释放在使用的过程中分配的内存
 }
 
 

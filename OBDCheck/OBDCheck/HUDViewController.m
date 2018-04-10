@@ -262,7 +262,7 @@
         //得到车速之后，发送转速
         [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
     }else{
-//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
+        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
     }
     if (!(RotationalStr == nil)) {
         if (PIDNameLabel.tag == 1) {

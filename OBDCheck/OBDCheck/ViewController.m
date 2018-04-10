@@ -347,6 +347,7 @@
 #pragma mark 六个按钮的点击
 - (void)tap:(UITapGestureRecognizer *)sender{
     DLog(@"点击一个");
+
     [self.blueView hide];
     self.blueTooth.delegate = nil;
     self.blueView.delegate = nil;
@@ -431,32 +432,36 @@
 }
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
-    DLog(@"收到收到%@",data);
     DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
-    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
-    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
-    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    DLog(@"%@",string);
-    if ([string isEqualToString:@"OK>"] && sendNumber ==0) {
-        [self.blueTooth SendData:[BlueTool hexToBytes:@"41545350300D"]];
-        ++sendNumber;
-    }else if ([string isEqualToString:@"OK>"] && sendNumber ==1){
-        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130300D"]];
-    }else if (string.length>21){
-        if ([[string substringWithRange:NSMakeRange(0, 12)] isEqualToString:@"SEARCHING..."] && [[string substringWithRange:NSMakeRange(string.length -1 , 1)] isEqualToString:@">"]) {
-            
-        DLog(@"可以发动了");
-           [self IsConnectState];
-//        SEARCHING...86F1114100FFFFFFFFC5>
-        if ([[string substringWithRange:NSMakeRange(12, 6)] isEqualToString:@"86F111"]) {
-            [DashboardSetting sharedInstance].protocolType = KWProtocol;
-        }else if ([[string substringWithRange:NSMakeRange(12, 6)] isEqualToString:@"18DAF1"]){
-            [DashboardSetting sharedInstance].protocolType = CanProtocol; 
-            }
-        [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
-    }
-    }
+    [OBDLibTool sharedInstance].backData  = data;
+//    [OBDLibTool sharedInstance].currentData = data;
+//
+//    [[OBDLibTool sharedInstance] resolvingData:data withrequestData:[BlueTool hexToBytes:@"02000281"]];
+//    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+//    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+//    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+//    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+//    DLog(@"%@",string);
+//    if ([string isEqualToString:@"OK>"] && sendNumber ==0) {
+//        [self.blueTooth SendData:[BlueTool hexToBytes:@"41545350300D"]];
+//        ++sendNumber;
+//    }else if ([string isEqualToString:@"OK>"] && sendNumber ==1){
+//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130300D"]];
+//    }else if (string.length>21){
+//        if ([[string substringWithRange:NSMakeRange(0, 12)] isEqualToString:@"SEARCHING..."] && [[string substringWithRange:NSMakeRange(string.length -1 , 1)] isEqualToString:@">"]) {
+//
+//        DLog(@"可以发动了");
+//           [self IsConnectState];
+////        SEARCHING...86F1114100FFFFFFFFC5>
+//        if ([[string substringWithRange:NSMakeRange(12, 6)] isEqualToString:@"86F111"]) {
+//            [DashboardSetting sharedInstance].protocolType = KWProtocol;
+//        }else if ([[string substringWithRange:NSMakeRange(12, 6)] isEqualToString:@"18DAF1"]){
+//            [DashboardSetting sharedInstance].protocolType = CanProtocol;
+//            }
+//        [self.blueTooth SendData:[BlueTool hexToBytes:@"415444500D"]];
+//    }
+//    }
 }
 -(void)NonConnectState{
       [self initNavBarDefineTitle:@"" andLeftItemImageName:@"Upload" andRightItemImageName:@"help"];
@@ -495,12 +500,26 @@
             DLog(@"连接成功状态");
             [self IsConnectState];
             sendNumber = 0;
-            [self.blueTooth SendData:[BlueTool hexToBytes:@"415448310D"]];
+//              [[OBDLibTool sharedInstance] requestcommand:@"02000181"];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                请求进入
+                [[OBDLibTool sharedInstance] InitTool];
+            });
+//            dispatch_queue_t queue = dispatch_queue_create("kk", DISPATCH_QUEUE_SERIAL);
+//
+//            dispatch_sync(queue, ^{
+//                  [[OBDLibTool sharedInstance] InitTool];
+//                });
+//          NSThread  *thread=[[NSThread alloc]initWithTarget:self selector:@selector(test) object:nil];
+//            [thread start];
         }
             break;
         default:
             break;
     }
+}
+-(void)test{
+      [[OBDLibTool sharedInstance] InitTool];
 }
 - (UIImage*)imageCompressWithSimple:(UIImage*)image{
     CGSize size = image.size;

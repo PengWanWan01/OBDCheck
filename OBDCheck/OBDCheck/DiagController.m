@@ -44,7 +44,14 @@ static dispatch_source_t _timer;
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
     self.blueTooth.stopSend = NO;
-    [self.blueTooth SendData:[BlueTool hexToBytes:@"30370D"]];
+    if ([OBDLibTool sharedInstance].EnterSuccess == YES) {
+        //请求故障码
+          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+              [[OBDLibTool sharedInstance] OBDIIReadDTC:@"0200010101"];
+              [[OBDLibTool sharedInstance] OBDIIReadDTC:@"0200010102"];
+              [[OBDLibTool sharedInstance] OBDIIReadDTC:@"0200010103"];
+            });
+    }
     [self initWithdata];
     [self initWithheadUI];
     [self initWithUI];
@@ -236,98 +243,102 @@ static dispatch_source_t _timer;
 #pragma mark 收到数据
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
-    DLog(@"收到收到%@",data);
-    
     DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
-    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
-    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
-    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    DLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-    NSDate *datenow = [NSDate date];
-    isSave  = YES;
-    self.currentTime = [formatter stringFromDate:datenow];
-    [self.troubleDataSource addObject:string];
-    NSString *code03Str = [BlueTool istroubleCode03:string];
-    NSString *code07Str = [BlueTool istroubleCode07:string];
-    NSString *code0aStr = [BlueTool istroubleCode0a:string];
-
-    if (!(code07Str == nil)) {
-         DLog(@"得到%@",code07Str);
-        //发送命令为07
-        sendType = @"07";
-        switch ([DashboardSetting sharedInstance].protocolType) {
-            case CanProtocol:
-                {
-                    for (NSInteger i = 0; i<code07Str.length/4; i++) {
-                        NSString *codeStr = [code07Str substringWithRange:NSMakeRange(i*4, 4)];
-                        [self getCodeType:codeStr];
-                        DLog(@"四个数的故障码%@",codeStr);
-                    }
-                }
-                break;
-            case KWProtocol:
-            {
-                [self getTroubleCode:string];
-            }
-                break;
-            default:
-                break;
-        }
-        [self.blueTooth SendData:[BlueTool hexToBytes:@"30330D"]];
-    }
-        if (!(code03Str == nil)) {
-            DLog(@"得到%@",code03Str);
-            //发送命令为07
-            sendType = @"03";
-            switch ([DashboardSetting sharedInstance].protocolType) {
-                case CanProtocol:
-                {
-                    for (NSInteger i = 0; i<code03Str.length/4; i++) {
-                        NSString *codeStr = [code03Str substringWithRange:NSMakeRange(i*4, 4)];
-                        [self getCodeType:codeStr];
-                        DLog(@"四个数的故障码%@",codeStr);
-                    }
-                }
-                    break;
-                case KWProtocol:
-                {
-                [self getTroubleCode:string];
-                }
-                    break;
-                default:
-                    break;
-            }
-            [self.blueTooth SendData:[BlueTool hexToBytes:@"30410D"]];
-        }
-        
-        if (!(code0aStr == nil)) {
-               DLog(@"得到%@",code0aStr);
-            //发送命令为07
-            sendType = @"0a";
-            switch ([DashboardSetting sharedInstance].protocolType) {
-                case CanProtocol:
-                {
-                    for (NSInteger i = 0; i<code0aStr.length/4; i++) {
-                        NSString *codeStr = [code0aStr substringWithRange:NSMakeRange(i*4, 4)];
-                        [self getCodeType:codeStr];
-                        DLog(@"四个数的故障码%@",codeStr);
-                    }
-                }
-                    break;
-                case KWProtocol:
-                {
-            [self getTroubleCode:string];
-                }
-                    break;
-                default:
-                    break;
-            }
-          
-        }
+  [OBDLibTool sharedInstance].backData  = data;
+//    [OBDLibTool sharedInstance].currentData = data;
+//
+//    [[OBDLibTool sharedInstance] resolvingData:data withrequestData:[BlueTool hexToBytes:@"02000201"]];
     
+//    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+//    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+//    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+//    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+//    DLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+//    NSDate *datenow = [NSDate date];
+//    isSave  = YES;
+//    self.currentTime = [formatter stringFromDate:datenow];
+//    [self.troubleDataSource addObject:string];
+//    NSString *code03Str = [BlueTool istroubleCode03:string];
+//    NSString *code07Str = [BlueTool istroubleCode07:string];
+//    NSString *code0aStr = [BlueTool istroubleCode0a:string];
+//
+//    if (!(code07Str == nil)) {
+//         DLog(@"得到%@",code07Str);
+//        //发送命令为07
+//        sendType = @"07";
+//        switch ([DashboardSetting sharedInstance].protocolType) {
+//            case CanProtocol:
+//                {
+//                    for (NSInteger i = 0; i<code07Str.length/4; i++) {
+//                        NSString *codeStr = [code07Str substringWithRange:NSMakeRange(i*4, 4)];
+//                        [self getCodeType:codeStr];
+//                        DLog(@"四个数的故障码%@",codeStr);
+//                    }
+//                }
+//                break;
+//            case KWProtocol:
+//            {
+//                [self getTroubleCode:string];
+//            }
+//                break;
+//            default:
+//                break;
+//        }
+//        [self.blueTooth SendData:[BlueTool hexToBytes:@"30330D"]];
+//    }
+//        if (!(code03Str == nil)) {
+//            DLog(@"得到%@",code03Str);
+//            //发送命令为07
+//            sendType = @"03";
+//            switch ([DashboardSetting sharedInstance].protocolType) {
+//                case CanProtocol:
+//                {
+//                    for (NSInteger i = 0; i<code03Str.length/4; i++) {
+//                        NSString *codeStr = [code03Str substringWithRange:NSMakeRange(i*4, 4)];
+//                        [self getCodeType:codeStr];
+//                        DLog(@"四个数的故障码%@",codeStr);
+//                    }
+//                }
+//                    break;
+//                case KWProtocol:
+//                {
+//                [self getTroubleCode:string];
+//                }
+//                    break;
+//                default:
+//                    break;
+//            }
+//            [self.blueTooth SendData:[BlueTool hexToBytes:@"30410D"]];
+//        }
+//
+//        if (!(code0aStr == nil)) {
+//               DLog(@"得到%@",code0aStr);
+//            //发送命令为07
+//            sendType = @"0a";
+//            switch ([DashboardSetting sharedInstance].protocolType) {
+//                case CanProtocol:
+//                {
+//                    for (NSInteger i = 0; i<code0aStr.length/4; i++) {
+//                        NSString *codeStr = [code0aStr substringWithRange:NSMakeRange(i*4, 4)];
+//                        [self getCodeType:codeStr];
+//                        DLog(@"四个数的故障码%@",codeStr);
+//                    }
+//                }
+//                    break;
+//                case KWProtocol:
+//                {
+//            [self getTroubleCode:string];
+//                }
+//                    break;
+//                default:
+//                    break;
+//            }
+//
+//        }
+//
 }
 - (void)getTroubleCode:(NSString *)strring{
     NSString *numberStr = [strring substringWithRange:NSMakeRange(1, 1)];

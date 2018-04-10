@@ -21,11 +21,11 @@ typedef NS_ENUM(NSUInteger, BlueToothState)
 
 //蓝牙委托
 @protocol BlueToothControllerDelegate <NSObject>
-
+@optional
 ///收到外围设备传输过来的数据时的接口
 -(void)BlueToothEventWithReadData:(CBPeripheral*)peripheral Data:(NSData*)data;
 -(void)getDeviceInfo:(BELInfo*)info;
-@optional
+
 //蓝牙状态改变时的接口
 -(void)BlueToothState:(BlueToothState)state;
 /*

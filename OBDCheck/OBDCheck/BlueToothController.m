@@ -37,8 +37,8 @@
     NSLock* lock;
     //是否连接到蓝牙的计时器
     NSTimer* timer;
-    NSString *sendDataStr;
-    NSMutableString *dataStr;
+    NSData *sendData;
+    NSMutableData *resultdata;
     NSMutableArray *SearchInfoarr;
 }
 
@@ -352,17 +352,15 @@ static BlueToothController* instance;
 {
    
 
-//    DLog(@"发出数据：%@",data);
+    DLog(@"发出数据：%@",data);
     if (self.stopSend == NO) {
-        
-    sendDataStr = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
-    
+        sendData = [[NSData alloc]initWithData:data];
+        resultdata = [[NSMutableData alloc]init];
     if (SendCharacteristic) {
          
         [self.ConnectPeripheral writeValue:data forCharacteristic:SendCharacteristic type:CBCharacteristicWriteWithResponse];
         // CBCharacteristicWriteWithResponse ／／CBCharacteristicWriteWithoutResponse
     }
-    dataStr = [[NSMutableString alloc]init];
     }
 }
 
@@ -424,19 +422,15 @@ static BlueToothController* instance;
 
     NSData* data = characteristic.value;
 //    DLog(@"收到了一条源数据：%@",data);
-   
-    NSString *resultStr = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
-    
-    
-    if ([sendDataStr isEqualToString:resultStr]) {
-       
+    [resultdata appendData:data];
+        
+    if ([data isEqualToData:sendData]) {
+//        DLog(@"收到相同");
     }else{
-        [dataStr appendString:resultStr];
-        NSData* xmlData = [dataStr dataUsingEncoding:NSUTF8StringEncoding];
-        //调用协议的函数
         if (self.delegate) {
+//            [OBDLibTool sharedInstance].backData  = resultdata;
             if ([self.delegate respondsToSelector:@selector(BlueToothEventWithReadData:Data:)]) {
-                [self.delegate BlueToothEventWithReadData:peripheral Data:xmlData];
+                [self.delegate BlueToothEventWithReadData:peripheral Data:resultdata];
             }
         }
     }

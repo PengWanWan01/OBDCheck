@@ -145,8 +145,8 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     
 }
 - (void)btn{
-    [self.blueTooth SendData:[self hexToBytes:@"303130640D"]];
-//    [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:100 withY:100];
+//    [self.blueTooth SendData:[self hexToBytes:@"303130640D"]];
+    [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:100 withY:100];
 }
  - (void)initWithLogView{
      DLog(@"弹出一个图");
