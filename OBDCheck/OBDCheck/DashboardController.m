@@ -388,58 +388,58 @@ static dispatch_source_t _timer;
 }
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
-    DLog(@"收到数据%@",data);
-    NSString *number1 = _CustomNumberArray[0];
-    NSString *number2 = _CustomNumberArray[1];
-    NSString *number3 = _CustomNumberArray[2];
-    NSString *number4 = _CustomNumberArray[3];
-
-    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
-    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
-    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-//    DLog(@"%@",string);
-    NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
-    NSString *RotationalStr = [BlueTool isRotational:string];
-    NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
-    NSString *ThrottlePositionStr = [BlueTool isThrottlePosition:string];
-    DLog(@"车速%@",VehicleSpeedStr);
-    DLog(@"转速%@",RotationalStr);
-    DLog(@"水温%@",WatertemperatureStr);
-    DLog(@"TF%@",ThrottlePositionStr);
-    
-    if (!(VehicleSpeedStr == nil)) {
-        
-        [_CustomNumberArray replaceObjectAtIndex:0 withObject:VehicleSpeedStr];
-        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"28",@"StyleAViewTag",_CustomNumberArray[0],@"StyleAViewnumber",number1,@"PreStyleAViewnumber", nil];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
-        //得到车速之后，发送转速
-        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
-    }
-    if (!(RotationalStr == nil)) {
-        [_CustomNumberArray replaceObjectAtIndex:1 withObject:RotationalStr];
-        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"29",@"StyleAViewTag",_CustomNumberArray[1],@"StyleAViewnumber",number2,@"PreStyleAViewnumber", nil];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
-        //发送水温
-        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130350D"]];
-        
-    }
-    if (!(WatertemperatureStr == nil)) {
-        [_CustomNumberArray replaceObjectAtIndex:2 withObject:WatertemperatureStr];
-        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"30",@"StyleAViewTag",_CustomNumberArray[2],@"StyleAViewnumber",number3,@"PreStyleAViewnumber", nil];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
-        
-        //得到水温之后，发送TF
-        [self.blueTooth SendData:[BlueTool hexToBytes:@"303131310D"]];
-    }
-    if (!(ThrottlePositionStr == nil)) {
-        [_CustomNumberArray replaceObjectAtIndex:3 withObject:ThrottlePositionStr];
-        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"31",@"StyleAViewTag",_CustomNumberArray[3],@"StyleAViewnumber",number4,@"PreStyleAViewnumber", nil];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
-        //得到TF之后，发送车速
-        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
-    }
-    
+//    DLog(@"收到数据%@",data);
+//    NSString *number1 = _CustomNumberArray[0];
+//    NSString *number2 = _CustomNumberArray[1];
+//    NSString *number3 = _CustomNumberArray[2];
+//    NSString *number4 = _CustomNumberArray[3];
+//
+//    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+//    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+//    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+////    DLog(@"%@",string);
+//    NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
+//    NSString *RotationalStr = [BlueTool isRotational:string];
+//    NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
+//    NSString *ThrottlePositionStr = [BlueTool isThrottlePosition:string];
+//    DLog(@"车速%@",VehicleSpeedStr);
+//    DLog(@"转速%@",RotationalStr);
+//    DLog(@"水温%@",WatertemperatureStr);
+//    DLog(@"TF%@",ThrottlePositionStr);
+//    
+//    if (!(VehicleSpeedStr == nil)) {
+//        
+//        [_CustomNumberArray replaceObjectAtIndex:0 withObject:VehicleSpeedStr];
+//        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"28",@"StyleAViewTag",_CustomNumberArray[0],@"StyleAViewnumber",number1,@"PreStyleAViewnumber", nil];
+//        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
+//        //得到车速之后，发送转速
+//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
+//    }
+//    if (!(RotationalStr == nil)) {
+//        [_CustomNumberArray replaceObjectAtIndex:1 withObject:RotationalStr];
+//        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"29",@"StyleAViewTag",_CustomNumberArray[1],@"StyleAViewnumber",number2,@"PreStyleAViewnumber", nil];
+//        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
+//        //发送水温
+//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130350D"]];
+//        
+//    }
+//    if (!(WatertemperatureStr == nil)) {
+//        [_CustomNumberArray replaceObjectAtIndex:2 withObject:WatertemperatureStr];
+//        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"30",@"StyleAViewTag",_CustomNumberArray[2],@"StyleAViewnumber",number3,@"PreStyleAViewnumber", nil];
+//        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
+//        
+//        //得到水温之后，发送TF
+//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303131310D"]];
+//    }
+//    if (!(ThrottlePositionStr == nil)) {
+//        [_CustomNumberArray replaceObjectAtIndex:3 withObject:ThrottlePositionStr];
+//        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"31",@"StyleAViewTag",_CustomNumberArray[3],@"StyleAViewnumber",number4,@"PreStyleAViewnumber", nil];
+//        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
+//        //得到TF之后，发送车速
+//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
+//    }
+//    
     
 }
 

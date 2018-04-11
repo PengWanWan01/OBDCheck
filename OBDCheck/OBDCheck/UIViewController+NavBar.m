@@ -103,6 +103,7 @@
 }
 - (void)LinkBlueTooth{
      [[NSNotificationCenter defaultCenter]postNotificationName:@"linkConnect" object:nil userInfo:nil];
+    
 }
 - (void)back
 {

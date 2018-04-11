@@ -28,9 +28,6 @@ static dispatch_source_t _timer;
     NSMutableDictionary *listDic;
 }
 @property (nonatomic,strong) NSMutableArray *typeimageData;
-@property (nonatomic,strong) NSMutableArray *totalDataSource;
-@property (nonatomic,strong) NSMutableArray *importantDataSource;
-@property (nonatomic,strong) NSMutableArray *troubleDataSource;
 @property (nonatomic,copy) NSString *currentTime;
 
 @end
@@ -46,20 +43,35 @@ static dispatch_source_t _timer;
     self.blueTooth.stopSend = NO;
     if ([OBDLibTool sharedInstance].EnterSuccess == YES) {
         //请求故障码
-          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-              [[OBDLibTool sharedInstance] OBDIIReadDTC:@"0200010101"];
-              [[OBDLibTool sharedInstance] OBDIIReadDTC:@"0200010102"];
-              [[OBDLibTool sharedInstance] OBDIIReadDTC:@"0200010103"];
+          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{              
+              [[OBDLibTool sharedInstance] OBDIIReadDTC];
             });
     }
     [self initWithdata];
     [self initWithheadUI];
     [self initWithUI];
- 
-  }
+   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshUI) name:@"readTroubleCode"object:nil];
+}
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
    
+}
+- (void)refreshUI{
+    NSInteger importantCount=0,totalCount = 0;
+    for (NSInteger i = 0; i<[OBDLibTool sharedInstance].troubleCodeArray.count; i++) {
+        NSDictionary *dict = [OBDLibTool sharedInstance].troubleCodeArray[i];
+        if ( [[dict allKeys].lastObject isEqualToString:@"important"]) {
+            ++importantCount;
+        }else if ( [ [dict allKeys].lastObject isEqualToString:@"total"]){
+            ++totalCount;
+        }
+    }
+    [importantBtn setTitle:[NSString stringWithFormat:@"Important:%lu",importantCount] forState:UIControlStateNormal];
+    [totalBtn setTitle:[NSString stringWithFormat:@"Total:%lu",totalCount] forState:UIControlStateNormal];
+    [MYTableView reloadData];
 }
 #pragma mark 设置横竖屏布局
 - (void)viewWillLayoutSubviews{
@@ -121,9 +133,6 @@ static dispatch_source_t _timer;
 }
 - (void)initWithdata{
     _typeimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_highLight",@"troubleCode_important",nil];
-    self.totalDataSource = [[NSMutableArray alloc]init];
-    self.importantDataSource = [[NSMutableArray alloc]init];
-    self.troubleDataSource = [[NSMutableArray alloc]init];
 }
 - (void)initWithUI{
    
@@ -197,14 +206,14 @@ static dispatch_source_t _timer;
             importantBtn = [[UIButton alloc]initWithFrame:CGRectMake(i*SCREEN_MIN/2, 0,SCREEN_MIN/2 , 20)];
             [importantBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
             importantBtn.titleLabel.font = [UIFont ToAdapFont:16];
-            [importantBtn  setTitle:@"Important：01" forState:UIControlStateNormal] ;
+            [importantBtn  setTitle:@"Important：0" forState:UIControlStateNormal] ;
             [importantBtn setImage:[UIImage imageNamed:_typeimageData[i]] forState:UIControlStateNormal];
             [showView addSubview:importantBtn];
         }else{
             
             totalBtn = [[UIButton alloc]initWithFrame:CGRectMake(i*SCREEN_MAX/2, 0,SCREEN_MIN/2 , 20)];
             totalBtn.titleLabel.font = [UIFont ToAdapFont:16];
-            [totalBtn setTitle:@"Total：01" forState:UIControlStateNormal];
+            [totalBtn setTitle:@"Total：0" forState:UIControlStateNormal];
             [totalBtn setTitleColor:[ColorTools colorWithHexString:@"C8C6C6"] forState:UIControlStateNormal];
             [totalBtn setImage:[UIImage imageNamed:_typeimageData[i]] forState:UIControlStateNormal];
             [showView addSubview:totalBtn];
@@ -225,7 +234,7 @@ static dispatch_source_t _timer;
 - (void)save{
     if (isSave == YES) {
         troubleCodeModel *model = [troubleCodeModel new];
-        model.toubleCode = self.troubleDataSource;
+        model.toubleCode =[OBDLibTool sharedInstance].troubleCodeArray;
         model.currentTime = self.currentTime;
         [model update];
         isSave = NO;
@@ -248,154 +257,16 @@ static dispatch_source_t _timer;
 //    [OBDLibTool sharedInstance].currentData = data;
 //
 //    [[OBDLibTool sharedInstance] resolvingData:data withrequestData:[BlueTool hexToBytes:@"02000201"]];
-    
-//    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
-//    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
-//    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
-//    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-//    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-//    DLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-//    NSDate *datenow = [NSDate date];
-//    isSave  = YES;
-//    self.currentTime = [formatter stringFromDate:datenow];
-//    [self.troubleDataSource addObject:string];
-//    NSString *code03Str = [BlueTool istroubleCode03:string];
-//    NSString *code07Str = [BlueTool istroubleCode07:string];
-//    NSString *code0aStr = [BlueTool istroubleCode0a:string];
-//
-//    if (!(code07Str == nil)) {
-//         DLog(@"得到%@",code07Str);
-//        //发送命令为07
-//        sendType = @"07";
-//        switch ([DashboardSetting sharedInstance].protocolType) {
-//            case CanProtocol:
-//                {
-//                    for (NSInteger i = 0; i<code07Str.length/4; i++) {
-//                        NSString *codeStr = [code07Str substringWithRange:NSMakeRange(i*4, 4)];
-//                        [self getCodeType:codeStr];
-//                        DLog(@"四个数的故障码%@",codeStr);
-//                    }
-//                }
-//                break;
-//            case KWProtocol:
-//            {
-//                [self getTroubleCode:string];
-//            }
-//                break;
-//            default:
-//                break;
-//        }
-//        [self.blueTooth SendData:[BlueTool hexToBytes:@"30330D"]];
-//    }
-//        if (!(code03Str == nil)) {
-//            DLog(@"得到%@",code03Str);
-//            //发送命令为07
-//            sendType = @"03";
-//            switch ([DashboardSetting sharedInstance].protocolType) {
-//                case CanProtocol:
-//                {
-//                    for (NSInteger i = 0; i<code03Str.length/4; i++) {
-//                        NSString *codeStr = [code03Str substringWithRange:NSMakeRange(i*4, 4)];
-//                        [self getCodeType:codeStr];
-//                        DLog(@"四个数的故障码%@",codeStr);
-//                    }
-//                }
-//                    break;
-//                case KWProtocol:
-//                {
-//                [self getTroubleCode:string];
-//                }
-//                    break;
-//                default:
-//                    break;
-//            }
-//            [self.blueTooth SendData:[BlueTool hexToBytes:@"30410D"]];
-//        }
-//
-//        if (!(code0aStr == nil)) {
-//               DLog(@"得到%@",code0aStr);
-//            //发送命令为07
-//            sendType = @"0a";
-//            switch ([DashboardSetting sharedInstance].protocolType) {
-//                case CanProtocol:
-//                {
-//                    for (NSInteger i = 0; i<code0aStr.length/4; i++) {
-//                        NSString *codeStr = [code0aStr substringWithRange:NSMakeRange(i*4, 4)];
-//                        [self getCodeType:codeStr];
-//                        DLog(@"四个数的故障码%@",codeStr);
-//                    }
-//                }
-//                    break;
-//                case KWProtocol:
-//                {
-//            [self getTroubleCode:string];
-//                }
-//                    break;
-//                default:
-//                    break;
-//            }
-//
-//        }
-//
+
 }
-- (void)getTroubleCode:(NSString *)strring{
-    NSString *numberStr = [strring substringWithRange:NSMakeRange(1, 1)];
-    //获取一条数据的故障码
-    [self getcode:strring];
-    
-    if (![[strring substringWithRange:NSMakeRange(8+([numberStr integerValue]*2), 1)] isEqualToString:@">"]) {
-        DLog(@"如果发完第一条之后还没有结束");
-        NSString *nextStr = [strring substringWithRange:NSMakeRange(8+([numberStr integerValue]*2), strring.length- 1-8-([numberStr integerValue]*2))];
-        DLog(@"剩下的内容%@",nextStr);
-        [self getcode:nextStr];
-        
-    }
-    
-}
-- (void)getcode:(NSString *)str{
-    NSString *numberStr = [str substringWithRange:NSMakeRange(1, 1)];
-    DLog(@"%ldd",(long)([numberStr integerValue] - 1)/2);
-    for (NSInteger i = 0; i< ([numberStr integerValue] - 1)/2; i++) {
-        NSString *codeStr= [str substringWithRange:NSMakeRange(8+(4*i), 4)];
-        if (![codeStr isEqualToString:@"0000"]) {
-            DLog(@"最终获取出去0000的故障码%@",codeStr);
-            [self getCodeType:codeStr];
-        }
-    }
-    
-}
-#pragma mark 得到最终故障码将故障码的十六进制变为二进制，取二进制的最高位，获得去P、C、B、U的哪一位；
-- (void)getCodeType:(NSString *)codeStr{
-    NSString *str = [BlueTool getBinaryByHex:codeStr];
-    NSString *nextStr = [@"00" stringByAppendingString:[str substringFromIndex:2]];
-    NSInteger index = [BlueTool getDecimalByBinary:[str substringToIndex:2]];
-    NSString *nextIndex = [BlueTool getHexByBinary:nextStr];
-    NSArray *arr =  [[NSArray alloc]initWithObjects:@"P",@"C",@"B",@"U", nil];
-    NSString *resultCode = [NSString stringWithFormat:@"%@%@",arr[index],nextIndex];
-    if([sendType isEqualToString:@"03"]){
-        NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys:resultCode,@"important",nil];
-        [self.importantDataSource addObject:dict];
-        [self.totalDataSource addObject:dict];
-    }else{
-        NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys:resultCode,@"total",nil];
-        [self.totalDataSource addObject:dict];
-    }
-    [self refreshUI];
-}
-- (void)refreshUI{
- 
-    [importantBtn setTitle:[NSString stringWithFormat:@"Important:%lu",(unsigned long)self.importantDataSource.count] forState:UIControlStateNormal];
-    [totalBtn setTitle:[NSString stringWithFormat:@"Total:%lu",(unsigned long)self.totalDataSource.count] forState:UIControlStateNormal];
-    [MYTableView reloadData];
-}
+
+
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.totalDataSource.count;
+    return [OBDLibTool sharedInstance].troubleCodeArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44.f;
@@ -403,13 +274,17 @@ static dispatch_source_t _timer;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
      DiagnosticsTableViewCell *Cell = [tableView dequeueReusableCellWithIdentifier:@"DiagnosticsTableViewCell"];
     Cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    NSDictionary *dict = self.totalDataSource[indexPath.row];
+    NSDictionary *dict = [OBDLibTool sharedInstance].troubleCodeArray[indexPath.row];
+    NSDictionary *detailDict = [OBDLibTool sharedInstance].explainCodeArray[indexPath.row];
+
     DLog(@"数组%@",[dict allKeys].lastObject);
     if ( [[dict allKeys].lastObject isEqualToString:@"important"]) {
         Cell.nameTitle.text = [dict objectForKey:@"important"];
+        Cell.detialTitle.text = [detailDict objectForKey:@"important"];
         Cell.toubleCodeType = toubleCodeTypeimportant;
     }else if ( [ [dict allKeys].lastObject isEqualToString:@"total"]){
          Cell.nameTitle.text = [dict objectForKey:@"total"];
+        Cell.detialTitle.text = [detailDict objectForKey:@"total"];
         Cell.toubleCodeType = toubleCodeTypenormal;
     }
     return Cell;

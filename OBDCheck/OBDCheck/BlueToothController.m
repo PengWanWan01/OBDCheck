@@ -421,7 +421,7 @@ static BlueToothController* instance;
 {
 
     NSData* data = characteristic.value;
-//    DLog(@"收到了一条源数据：%@",data);
+    DLog(@"收到了一条源数据：%@",data);
     [resultdata appendData:data];
         
     if ([data isEqualToData:sendData]) {

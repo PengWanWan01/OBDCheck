@@ -410,55 +410,55 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     DLog(@"收到收到%@",data);
     
     DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
-    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
-    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
-     string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-     string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-     DLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
-    NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
-    NSString *RotationalStr = [BlueTool isRotational:string];
-    NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
-    NSString *ThrottlePositionStr = [BlueTool isThrottlePosition:string];
-    DLog(@"车速%@",VehicleSpeedStr);
-    DLog(@"转速%@",RotationalStr);
-    DLog(@"水温%@",WatertemperatureStr);
-    DLog(@"TF%@",ThrottlePositionStr);
-   if (!(VehicleSpeedStr == nil)) {
-            [PID1dataSource addObject:VehicleSpeedStr];
-            DLog(@"%@",PID1dataSource);
-            //得到车速之后，发送转速
-            [self.blueTooth SendData:[self hexToBytes:@"303130630D"]];
-       
-    }
-    if (!(RotationalStr == nil)) {
-            [PID2dataSource addObject:RotationalStr];
-            DLog(@"%@",PID2dataSource);
-            //发送水温
-            [self.blueTooth SendData:[self hexToBytes:@"303130350D"]];
-      
-    }
-    if (!(WatertemperatureStr == nil)) {
-            [PID3dataSource addObject:WatertemperatureStr];
-            DLog(@"%@",PID3dataSource);
-            //得到水温之后，发送TF
-            [self.blueTooth SendData:[self hexToBytes:@"303131310D"]];
-
-    }
-   if (!(ThrottlePositionStr == nil)) {
-            [PID4dataSource addObject:ThrottlePositionStr];
-            DLog(@"%@",PID4dataSource);
-            [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)PID1indextag  withY:[PID1dataSource[PID1indextag] intValue]];
-            [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)PID2indextag  withY:[PID2dataSource[PID2indextag] intValue]];
-            [self updateChartData:chartViewTwo withData:PartTwodata withIndex:0 withX:(int)PID3indextag  withY:[PID3dataSource[PID3indextag] intValue]];
-             [self updateChartData:chartViewTwo withData:PartTwodata withIndex:1 withX:(int)PID4indextag  withY:[PID4dataSource[PID4indextag] intValue]];
-            ++PID1indextag;
-            ++PID2indextag;
-            ++PID3indextag;
-            ++PID4indextag;
-            //得到TF之后，发送车速
-            [self.blueTooth SendData:[self hexToBytes:@"303130640D"]];
-       
-    }
+//    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+//    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+//     string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+//     string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+//     DLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
+//    NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
+//    NSString *RotationalStr = [BlueTool isRotational:string];
+//    NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
+//    NSString *ThrottlePositionStr = [BlueTool isThrottlePosition:string];
+//    DLog(@"车速%@",VehicleSpeedStr);
+//    DLog(@"转速%@",RotationalStr);
+//    DLog(@"水温%@",WatertemperatureStr);
+//    DLog(@"TF%@",ThrottlePositionStr);
+//   if (!(VehicleSpeedStr == nil)) {
+//            [PID1dataSource addObject:VehicleSpeedStr];
+//            DLog(@"%@",PID1dataSource);
+//            //得到车速之后，发送转速
+//            [self.blueTooth SendData:[self hexToBytes:@"303130630D"]];
+//       
+//    }
+//    if (!(RotationalStr == nil)) {
+//            [PID2dataSource addObject:RotationalStr];
+//            DLog(@"%@",PID2dataSource);
+//            //发送水温
+//            [self.blueTooth SendData:[self hexToBytes:@"303130350D"]];
+//      
+//    }
+//    if (!(WatertemperatureStr == nil)) {
+//            [PID3dataSource addObject:WatertemperatureStr];
+//            DLog(@"%@",PID3dataSource);
+//            //得到水温之后，发送TF
+//            [self.blueTooth SendData:[self hexToBytes:@"303131310D"]];
+//
+//    }
+//   if (!(ThrottlePositionStr == nil)) {
+//            [PID4dataSource addObject:ThrottlePositionStr];
+//            DLog(@"%@",PID4dataSource);
+//            [self updateChartData:chartViewone withData:PartOnedata withIndex:0 withX:(int)PID1indextag  withY:[PID1dataSource[PID1indextag] intValue]];
+//            [self updateChartData:chartViewone withData:PartOnedata withIndex:1 withX:(int)PID2indextag  withY:[PID2dataSource[PID2indextag] intValue]];
+//            [self updateChartData:chartViewTwo withData:PartTwodata withIndex:0 withX:(int)PID3indextag  withY:[PID3dataSource[PID3indextag] intValue]];
+//             [self updateChartData:chartViewTwo withData:PartTwodata withIndex:1 withX:(int)PID4indextag  withY:[PID4dataSource[PID4indextag] intValue]];
+//            ++PID1indextag;
+//            ++PID2indextag;
+//            ++PID3indextag;
+//            ++PID4indextag;
+//            //得到TF之后，发送车速
+//            [self.blueTooth SendData:[self hexToBytes:@"303130640D"]];
+//       
+//    }
  
 
 }

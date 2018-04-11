@@ -243,42 +243,42 @@
     DLog(@"收到收到%@",data);
     
     DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
-    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
-    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
-    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    DLog(@"%@",string);
-    NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
-    NSString *RotationalStr = [BlueTool isRotational:string];
-    NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
-    DLog(@"车速%@",VehicleSpeedStr);
-    DLog(@"转速%@",RotationalStr);
-    DLog(@"水温%@",WatertemperatureStr);
-    
-    if (!(VehicleSpeedStr == nil)) {
-        if (PIDNameLabel.tag == 0) {
-        PIDNameLabel.text = VehicleSpeedStr;
-        }
-        //得到车速之后，发送转速
-        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
-    }else{
-        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
-    }
-    if (!(RotationalStr == nil)) {
-        if (PIDNameLabel.tag == 1) {
-            PIDNameLabel.text = RotationalStr;
-        }
-        //发送水温
-        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130350D"]];
-        
-    }
-    if (!(WatertemperatureStr == nil)) {
-        if (PIDNameLabel.tag == 2) {
-            PIDNameLabel.text = WatertemperatureStr;
-        }
-        //得到水温之后，发送车速
-        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
-    }
+//    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+//    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+//    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+//    DLog(@"%@",string);
+//    NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
+//    NSString *RotationalStr = [BlueTool isRotational:string];
+//    NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
+//    DLog(@"车速%@",VehicleSpeedStr);
+//    DLog(@"转速%@",RotationalStr);
+//    DLog(@"水温%@",WatertemperatureStr);
+//    
+//    if (!(VehicleSpeedStr == nil)) {
+//        if (PIDNameLabel.tag == 0) {
+//        PIDNameLabel.text = VehicleSpeedStr;
+//        }
+//        //得到车速之后，发送转速
+//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
+//    }else{
+//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
+//    }
+//    if (!(RotationalStr == nil)) {
+//        if (PIDNameLabel.tag == 1) {
+//            PIDNameLabel.text = RotationalStr;
+//        }
+//        //发送水温
+//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130350D"]];
+//        
+//    }
+//    if (!(WatertemperatureStr == nil)) {
+//        if (PIDNameLabel.tag == 2) {
+//            PIDNameLabel.text = WatertemperatureStr;
+//        }
+//        //得到水温之后，发送车速
+//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
+//    }
    
     
 }

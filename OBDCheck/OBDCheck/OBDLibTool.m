@@ -28,9 +28,6 @@
         self.blueTooth.delegate = self;
         self.LoadSuccess = NO;
         self.EnterSuccess = NO;
-        self.sendData = [[NSData alloc]init];
-        self.totalData = [[NSData alloc]init];
-        self.resolveData = [[NSData alloc]init];
         self.backData = [[NSData alloc]init];
         Byte byte1[] = {0x00};  //请求指令
         self.input = [NSData dataWithBytes:byte1 length: CmdDataSetSize];//输入的缓冲区的大小必须是CmdDataSetSize
@@ -116,6 +113,10 @@
             case    3://下位机肯定应答
                 self.EnterSuccess = YES;
                 DLog(@"进入成功");
+                dispatch_async(dispatch_get_main_queue(), ^{
+                  [SVProgressHUD showInfoWithStatus:@"进入成功"];
+                });
+//
                 return ;
             case    4://下位机否定应答，已经与汽车断开连接
                 return ;
@@ -140,7 +141,8 @@
     }
 }
 - (void)OBDIIReadDTC:(NSString *)str{
-   //01读取存储故障码  02读取未决故障码 03 读取历史故障码
+//    self.troubleCodeArray = nil;
+//    self.explainCodeArray = nil;
     Byte *byt = (Byte *)[[BlueTool hexToBytes:str] bytes];
     self.input = [NSData dataWithBytes:byt length: CmdDataSetSize];//输入的缓冲区的大小必须是CmdDataSetSize
     self.output = [NSData dataWithBytes:byt length: CmdDataSetSize];//输出的缓冲区的大小必须是CmdDataSetSize
@@ -177,9 +179,40 @@
             }
                 break;
             case    2://请求显示数据
+            {
              Flag = 0;
-          DLog(@"获取的故障码为%@",[[NSString alloc] initWithData:[self.output subdataWithRange:NSMakeRange(5, self.output.length - 5)]  encoding:NSUTF8StringEncoding]);
-                
+                //01读取存储故障码  02读取未决故障码 03 读取历史故障码
+                if (a>0) {
+                    //得到一串所有的故障码字符串
+                    NSString *resultStr = [[NSString alloc] initWithData:[self.output subdataWithRange:NSMakeRange(5,5*a)]  encoding:NSUTF8StringEncoding];
+                    DLog(@"获取所有的故障码为%@",resultStr);
+                    for (NSInteger i = 0; i<a; i++) { //得到一个5个数的故障码
+                        NSString *toubleCodeStr =  [resultStr  substringWithRange:NSMakeRange(5*i, 5)];
+                        DLog(@"获取的故障码名称为%@",toubleCodeStr);
+                        NSMutableDictionary  *dict = [NSMutableDictionary dictionary];
+                        if ([str isEqualToString:@"0200010101"]) {
+                            [dict setObject:toubleCodeStr forKey:@"important"];
+                            [self FindTroubleCodeMean:toubleCodeStr withKey:@"important"];
+                        }else if([str isEqualToString:@"0200010102"]){
+                            [dict setObject:toubleCodeStr forKey:@"total"];
+                            [self FindTroubleCodeMean:toubleCodeStr withKey:@"total"];
+                        }else if([str isEqualToString:@"0200010103"]){
+                            [dict setObject:toubleCodeStr forKey:@"total"];
+                            [self FindTroubleCodeMean:toubleCodeStr withKey:@"total"];
+                        }
+                        DLog(@"获取的故障码字典为%@",dict);
+//                        if (![self.troubleCodeArray containsObject:dict]) {
+                            [self.troubleCodeArray addObject: dict];
+//                        }
+                         DLog(@"获取的故障码数组为%@",self.troubleCodeArray);
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            // 通知主线程刷新
+                              [[NSNotificationCenter defaultCenter]postNotificationName:@"readTroubleCode" object:nil userInfo:nil];
+                        });
+                      
+                    }
+                }
+            }
                 return ;
             case    3://下位机肯定应答
                  Flag = 0;
@@ -229,7 +262,7 @@
 //         DLog(@"得到蓝牙返回数据%@",self.backData)
 //    }
     while (1) {
-       
+//        DLog(@"蓝牙返回数据%@",self.backData);
         if (!(self.backData == nil)) {
             if ((self.backData.length>3)&& ([[self.backData subdataWithRange:NSMakeRange(self.backData.length -3, 3)] isEqualToData:[BlueTool hexToBytes:@"0d0d3e"]])) {
                 DLog(@"不为空%@",self.backData );
@@ -237,6 +270,32 @@
             }
         }
     }
-    
+}
+//查找故障码解释
+-(void)FindTroubleCodeMean:(NSString *)str withKey:(NSString *)Key{
+    NSMutableData *F1data =[[NSMutableData alloc]initWithData:[BlueTool hexToBytes:@"020002830000"]];;
+    [F1data appendData:[str dataUsingEncoding:NSUTF8StringEncoding]];
+    DLog(@"**%@",F1data);
+    Byte *testByte = (Byte *)[F1data bytes];
+    NSData *inputData = [NSData dataWithBytes:testByte length:CmdDataSetSize];
+    Byte byte[] = {0x00};
+    self.output = [NSData dataWithBytes:byte length: CmdDataSetSize];//输出的缓冲区的大小必须是CmdDataSetSize
+    [self PrsCmdLoadDataOCInput:inputData withOutPut:self.output];
+    //添加故障码的解释保持到数组
+    DLog(@"%@",[[NSString alloc]initWithData:self.output encoding:NSUTF8StringEncoding])
+    NSMutableDictionary  *dict = [NSMutableDictionary dictionary];
+    [dict setObject:[[NSString alloc]initWithData:self.output encoding:NSUTF8StringEncoding] forKey:Key];
+//    if (![self.troubleCodeArray containsObject:dict]) {
+    [self.explainCodeArray addObject:dict];
+//    }
+    DLog(@"解释数组%@",self.explainCodeArray);
+
+}
+- (void)OBDIIReadDTC{
+    self.troubleCodeArray = [[NSMutableArray alloc]init];
+    self.explainCodeArray = [[NSMutableArray alloc]init];
+    [[OBDLibTool sharedInstance] OBDIIReadDTC:@"0200010101"];
+    [[OBDLibTool sharedInstance] OBDIIReadDTC:@"0200010102"];
+    [[OBDLibTool sharedInstance] OBDIIReadDTC:@"0200010103"];
 }
 @end

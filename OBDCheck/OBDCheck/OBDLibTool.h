@@ -18,16 +18,13 @@
 @property (nonatomic,assign) BOOL EnterSuccess;
 @property (nonatomic,copy) NSData *input; //输入数据
 @property (nonatomic,copy) NSData *output; //输出数据
-@property (nonatomic,copy) NSData *sendData;////最终蓝牙发送结果
-@property (nonatomic,copy) NSData *reslutData; //上一帧的内容
-@property (nonatomic,copy)   NSData *currentData; //当前帧的内容
-@property (nonatomic,copy)   NSData *totalData; //等待6S的内容
-@property (nonatomic,copy)   NSData *resolveData; //等待6S的内容
 @property (nonatomic,copy)   NSData *backData; //蓝牙返回内容
+@property (nonatomic,strong)NSMutableArray *troubleCodeArray;
+@property (nonatomic,strong)NSMutableArray *explainCodeArray;
 
 //蓝牙管理类
 @property (nonatomic,strong) BlueToothController *blueTooth ;
 
 - (void)InitTool;//进入设备
-- (void)OBDIIReadDTC:(NSString *)str; //去读故障码
+- (void)OBDIIReadDTC; //去读故障码
 @end

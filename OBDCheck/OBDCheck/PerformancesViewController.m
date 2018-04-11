@@ -505,126 +505,126 @@
 {
     DLog(@"收到收到%@",data);
     
-    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
-    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
-    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
-    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    DLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
-    NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
-   NSString *RotationalStr = [BlueTool isRotational:string];
-    DLog(@"%@",VehicleSpeedStr);
-    if (!(VehicleSpeedStr == nil)) {
-        vehicleLabel.text = VehicleSpeedStr;
-        //得到车速之后，发送转速
-        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
-        NSDate *nowDate = [NSDate date]; // 当前日期
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"yyyy-MM-dd HH-mm-ss";
-        NSTimeInterval delta = [nowDate timeIntervalSinceDate:StartTime]; // 计算出相差多少秒
-        [self showTotalTime:delta]; //计算性能测试开始的时间
-        rotateLabel.text = VehicleSpeedStr ;
-        [PID1dataSource addObject:VehicleSpeedStr];
-        ++PID1indextag;
-         NSInteger index = PID1indextag;
-        if (GetDataCount == 0) {
-            double space = [VehicleSpeedStr doubleValue]/(3.6);
-            TotalDistance = delta*space;
-            reportmodel.reportMaxSpeed = VehicleSpeedStr;
-        [self showTotalDiatance:TotalDistance]; //计算性能测试开始的距离
-            preDate = nowDate;
-            ++GetDataCount;
-        }else{
-            //取得最大车速
-            if ([VehicleSpeedStr doubleValue] > [reportmodel.reportMaxSpeed doubleValue]) {
-                reportmodel.reportMaxSpeed = VehicleSpeedStr;
-            }
-            NSInteger indextag = PID1indextag;
-            NSTimeInterval delta = [nowDate timeIntervalSinceDate:preDate]; // 计算出相差多少秒
-            double space = ([PID1dataSource[--indextag] doubleValue]+[PID1dataSource[--indextag] doubleValue])/(2*3.6);
-            TotalDistance = TotalDistance +space*delta;
-            [self showTotalDiatance:TotalDistance]; //计算性能测试开始的距离
-            preDate = nowDate;
-        }
-        
- //计算设置的结束距离，0-例如：100m（结束距离） 的时间
-        if (TotalDistance > 0) {
-            if (isDistanceTestStart == YES) {
-                DistanceTestDate = preDate;
-                isDistanceTestStart = NO;
-            }
-            if (TotalDistance >= DistanceTest && isDistanceTestEnd == YES) {
-               NSTimeInterval delta = [nowDate timeIntervalSinceDate:DistanceTestDate]; // 计算出相差多少秒
-                [self showTime:delta];
-                isDistanceTestEnd = NO;
-            }
-        }
-//计算加速度的开始速度到结束速度的加速度
-        if ([VehicleSpeedStr doubleValue] == AcceleratedStartSpeed) {
-            isVssUpStart = YES;
-            VssUpbeforeDate = [NSDate date]; // 当前日期
-        }
-        if ([VehicleSpeedStr integerValue]>0) {
-            if ([VehicleSpeedStr doubleValue] >= AcceleratedEndSpeed) {
-                VssUpafterDate =  [NSDate date]; // 当前日期
-                NSTimeInterval delta = [VssUpafterDate timeIntervalSinceDate:VssUpbeforeDate]; // 计算出相差多少秒
-                if (isVssUpStart==YES) {
-                    [self showjiasu:delta];
-                    isVssUpStart = NO;
-                }
-            }
-        }
-        
-    
-        
-//计算刹车的结束速度 到0的 刹车距离与时间
-        if ([VehicleSpeedStr isEqualToString:@"0"]) {
-            if (isVssDownStart == YES) {
-                VssDownafterDate =  [NSDate date]; // 当前日期
-                NSTimeInterval delta = [VssDownafterDate timeIntervalSinceDate:VssDownbeforeDate]; // 计算出相差多少秒
-                double space = ([PID1dataSource[--index] doubleValue]+[PID1dataSource[--index] doubleValue])/(2*3.6);
-                DownDistance = DownDistance +space*delta;
-                  [self showDownDistance:DownDistance];
-                isVssDownStart = NO;
-                isVssDowncountStart = YES;
-                DownDistance = 0;
-            }            
-        }
-    if ([VehicleSpeedStr integerValue]>0) {
-        if ([VehicleSpeedStr doubleValue] >= BrakingSpeed) {
-            //刹车速度大于100
-            isVssDownStart = YES;
-            isVssDowncountStart = YES;
-        }else{ //刹车速度小于100
-            if(isVssDownStart == YES){
-                NSInteger sendCount = 0;
-                if (isVssDowncountStart == YES) {//第一次得到100的速度就记录，之后就不记录
-                VssDownbeforeDate =  [NSDate date]; // 当前日期
-                isVssDowncountStart = NO;
-                 sendCount    = 1;
-                    DownDistance = 0;
-                }
-                
-                if (sendCount == 1) {
-                    adate = [NSDate date];
-                }else{
-                    NSDate *currentData =  [NSDate date]; // 当前日期
-                    NSTimeInterval delta = [currentData timeIntervalSinceDate:adate]; // 计算出相差多少秒
-                    double space = ([PID1dataSource[--index] doubleValue]+[PID1dataSource[--index] doubleValue])/(2*3.6);
-                    DownDistance = DownDistance +space*delta;
-                    adate = currentData;
-                }
-            }
-        }
-        
-    }
-        
-        
-    }
-    if (!(RotationalStr == nil)) {
-      [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
-        rotateLabel.text = RotationalStr;
-    }
+//    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+//    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+//    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+//    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+//    DLog(@"最后的数据%@,数据长度%ld",string,(unsigned long)string.length);
+//    NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
+//   NSString *RotationalStr = [BlueTool isRotational:string];
+//    DLog(@"%@",VehicleSpeedStr);
+//    if (!(VehicleSpeedStr == nil)) {
+//        vehicleLabel.text = VehicleSpeedStr;
+//        //得到车速之后，发送转速
+//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
+//        NSDate *nowDate = [NSDate date]; // 当前日期
+//        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//        formatter.dateFormat = @"yyyy-MM-dd HH-mm-ss";
+//        NSTimeInterval delta = [nowDate timeIntervalSinceDate:StartTime]; // 计算出相差多少秒
+//        [self showTotalTime:delta]; //计算性能测试开始的时间
+//        rotateLabel.text = VehicleSpeedStr ;
+//        [PID1dataSource addObject:VehicleSpeedStr];
+//        ++PID1indextag;
+//         NSInteger index = PID1indextag;
+//        if (GetDataCount == 0) {
+//            double space = [VehicleSpeedStr doubleValue]/(3.6);
+//            TotalDistance = delta*space;
+//            reportmodel.reportMaxSpeed = VehicleSpeedStr;
+//        [self showTotalDiatance:TotalDistance]; //计算性能测试开始的距离
+//            preDate = nowDate;
+//            ++GetDataCount;
+//        }else{
+//            //取得最大车速
+//            if ([VehicleSpeedStr doubleValue] > [reportmodel.reportMaxSpeed doubleValue]) {
+//                reportmodel.reportMaxSpeed = VehicleSpeedStr;
+//            }
+//            NSInteger indextag = PID1indextag;
+//            NSTimeInterval delta = [nowDate timeIntervalSinceDate:preDate]; // 计算出相差多少秒
+//            double space = ([PID1dataSource[--indextag] doubleValue]+[PID1dataSource[--indextag] doubleValue])/(2*3.6);
+//            TotalDistance = TotalDistance +space*delta;
+//            [self showTotalDiatance:TotalDistance]; //计算性能测试开始的距离
+//            preDate = nowDate;
+//        }
+//        
+// //计算设置的结束距离，0-例如：100m（结束距离） 的时间
+//        if (TotalDistance > 0) {
+//            if (isDistanceTestStart == YES) {
+//                DistanceTestDate = preDate;
+//                isDistanceTestStart = NO;
+//            }
+//            if (TotalDistance >= DistanceTest && isDistanceTestEnd == YES) {
+//               NSTimeInterval delta = [nowDate timeIntervalSinceDate:DistanceTestDate]; // 计算出相差多少秒
+//                [self showTime:delta];
+//                isDistanceTestEnd = NO;
+//            }
+//        }
+////计算加速度的开始速度到结束速度的加速度
+//        if ([VehicleSpeedStr doubleValue] == AcceleratedStartSpeed) {
+//            isVssUpStart = YES;
+//            VssUpbeforeDate = [NSDate date]; // 当前日期
+//        }
+//        if ([VehicleSpeedStr integerValue]>0) {
+//            if ([VehicleSpeedStr doubleValue] >= AcceleratedEndSpeed) {
+//                VssUpafterDate =  [NSDate date]; // 当前日期
+//                NSTimeInterval delta = [VssUpafterDate timeIntervalSinceDate:VssUpbeforeDate]; // 计算出相差多少秒
+//                if (isVssUpStart==YES) {
+//                    [self showjiasu:delta];
+//                    isVssUpStart = NO;
+//                }
+//            }
+//        }
+//        
+//    
+//        
+////计算刹车的结束速度 到0的 刹车距离与时间
+//        if ([VehicleSpeedStr isEqualToString:@"0"]) {
+//            if (isVssDownStart == YES) {
+//                VssDownafterDate =  [NSDate date]; // 当前日期
+//                NSTimeInterval delta = [VssDownafterDate timeIntervalSinceDate:VssDownbeforeDate]; // 计算出相差多少秒
+//                double space = ([PID1dataSource[--index] doubleValue]+[PID1dataSource[--index] doubleValue])/(2*3.6);
+//                DownDistance = DownDistance +space*delta;
+//                  [self showDownDistance:DownDistance];
+//                isVssDownStart = NO;
+//                isVssDowncountStart = YES;
+//                DownDistance = 0;
+//            }            
+//        }
+//    if ([VehicleSpeedStr integerValue]>0) {
+//        if ([VehicleSpeedStr doubleValue] >= BrakingSpeed) {
+//            //刹车速度大于100
+//            isVssDownStart = YES;
+//            isVssDowncountStart = YES;
+//        }else{ //刹车速度小于100
+//            if(isVssDownStart == YES){
+//                NSInteger sendCount = 0;
+//                if (isVssDowncountStart == YES) {//第一次得到100的速度就记录，之后就不记录
+//                VssDownbeforeDate =  [NSDate date]; // 当前日期
+//                isVssDowncountStart = NO;
+//                 sendCount    = 1;
+//                    DownDistance = 0;
+//                }
+//                
+//                if (sendCount == 1) {
+//                    adate = [NSDate date];
+//                }else{
+//                    NSDate *currentData =  [NSDate date]; // 当前日期
+//                    NSTimeInterval delta = [currentData timeIntervalSinceDate:adate]; // 计算出相差多少秒
+//                    double space = ([PID1dataSource[--index] doubleValue]+[PID1dataSource[--index] doubleValue])/(2*3.6);
+//                    DownDistance = DownDistance +space*delta;
+//                    adate = currentData;
+//                }
+//            }
+//        }
+//        
+//    }
+//        
+//        
+//    }
+//    if (!(RotationalStr == nil)) {
+//      [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
+//        rotateLabel.text = RotationalStr;
+//    }
 }
 -(void)BlueToothState:(BlueToothState)state{
     
