@@ -347,8 +347,8 @@
 #pragma mark 六个按钮的点击
 - (void)tap:(UITapGestureRecognizer *)sender{
     DLog(@"点击一个");
-
-    [self.blueView hide];
+//    DLog(@"%@",[CustomDashboard findByCriteria:@"WHERE PK > 27"]);
+        [self.blueView hide];
     self.blueTooth.delegate = nil;
     self.blueView.delegate = nil;
     switch ([sender view].tag) {
@@ -361,7 +361,7 @@
         case 1:{
             DiagnoseController *vc = [[DiagnoseController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
-           
+
         }
             break;
         case 2:{
@@ -500,26 +500,15 @@
             DLog(@"连接成功状态");
             [self IsConnectState];
             sendNumber = 0;
-//              [[OBDLibTool sharedInstance] requestcommand:@"02000181"];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //                请求进入
                 [[OBDLibTool sharedInstance] InitTool];
             });
-//            dispatch_queue_t queue = dispatch_queue_create("kk", DISPATCH_QUEUE_SERIAL);
-//
-//            dispatch_sync(queue, ^{
-//                  [[OBDLibTool sharedInstance] InitTool];
-//                });
-//          NSThread  *thread=[[NSThread alloc]initWithTarget:self selector:@selector(test) object:nil];
-//            [thread start];
         }
             break;
         default:
             break;
     }
-}
--(void)test{
-      [[OBDLibTool sharedInstance] InitTool];
 }
 - (UIImage*)imageCompressWithSimple:(UIImage*)image{
     CGSize size = image.size;

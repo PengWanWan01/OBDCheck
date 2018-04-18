@@ -55,6 +55,7 @@
     //  默认,第一个视图(你会发现,全程就这一个用了addSubview)
     [self.view addSubview:self.oneVC.view];
     self.currentVC = self.oneVC;
+      DLog(@"已经来到");
 }
 
 #pragma mark 设置横竖屏布局

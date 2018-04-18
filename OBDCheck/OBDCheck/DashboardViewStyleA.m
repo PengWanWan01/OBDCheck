@@ -16,7 +16,7 @@
     CGFloat _radius; // 外环半径
     NSInteger _dialCount; // 刻度线的个数
     CGFloat _pointerLength; // 指针长度记录
-    
+    gradientView *gradientview; //地盘颜色
 }
 @end
 
@@ -43,11 +43,44 @@
     
     return self;
 }
-- (void)setNeedsLayout{
-    [super setNeedsLayout];
-    
-    
+-(void)layoutSubviews{
+      [super layoutSubviews];
+    if (isLandscape) {
+           [self setHorizontalFrame];
+    }else{
+          [self setVerticalFrame];
+    }
 }
+- (void)setHorizontalFrame{
+    NSString *str = [NSString stringWithFormat:@"WHERE PK = %ld",(long)self.tag];
+    NSArray* pAllCount = [CustomDashboard findByCriteria:str];
+            for (CustomDashboard *dash in pAllCount) {
+                int page =  [dash.DashboardAorignx doubleValue]/SCREEN_MIN;
+                                    if (([dash.DashboardAorignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
+                                        //横屏时候上边的一排仪表盘
+                                        self.frame = CGRectMake([dash.DashboardAorigny floatValue]+64+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+20*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple);
+                                    }else{
+                                        //  //横屏时候下边的一排仪表盘，6P以上的大屏进行特殊适配
+                                        if (IS_IPHONE_6P_OR_MORE) {
+                                            self.frame = CGRectMake([dash.DashboardAorigny floatValue]+64+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+45*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple);
+
+                                        }else{
+                                            self.frame = CGRectMake([dash.DashboardAorigny floatValue]+64+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+40*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple);
+                                            
+                                        }
+                                    }
+                self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.85, 0.85);
+            }
+}
+- (void)setVerticalFrame{
+    NSString *str = [NSString stringWithFormat:@"WHERE PK = %ld",(long)self.tag];
+    NSArray* pAllCount = [CustomDashboard findByCriteria:str];
+    for (CustomDashboard *dash in pAllCount) {
+          self.frame =CGRectMake([dash.DashboardAorignx doubleValue], [dash.DashboardAorigny doubleValue], [dash.DashboardAorignwidth doubleValue], [dash.DashboardAorignheight doubleValue]);
+        self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
+    }
+}
+
 - (void)updateTOFont{
     if ([DashboardSetting sharedInstance].isDashboardFont == YES) {
         [[self superview] bringSubviewToFront:self];
@@ -80,7 +113,7 @@
 }
 //[ColorTools colorWithHexString:@"18191C"].CGColor
 - (void)addGradientView:(NSString *)gradientColor GradientViewWidth:(CGFloat)gradientViewWidth{
-    gradientView *gradientview = [[gradientView alloc]initWithFrame:CGRectMake(0, 0, gradientViewWidth, gradientViewWidth)];
+    gradientview = [[gradientView alloc]initWithFrame:CGRectMake(0, 0, gradientViewWidth, gradientViewWidth)];
     gradientview.gradientRadius = gradientViewWidth/2;
     gradientview.startGradientColor =   [UIColor clearColor];
     gradientview.endGradientColor =  [ColorTools colorWithHexString:gradientColor];

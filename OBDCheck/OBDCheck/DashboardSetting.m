@@ -78,17 +78,7 @@
     }
     return result;
 }
-- (void)initWithCustomDashboard{
-    for (int i = 0; i<9; i++) {
-        CustomDashboard *model =  [CustomDashboard new];
-        [self initADDdashboardA:model withTag:i ];
-        [self initADDdashboardB:model withTag:i ];
-        [self initADDdashboardC:model withTag:i ];
-        
-        [model save];
-    }
-    
-}
+
 - (void)initADDCustomDashboard:(CustomDashboard *)model withTag:(NSInteger)i {
     
 }

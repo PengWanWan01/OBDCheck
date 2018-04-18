@@ -201,9 +201,7 @@
                             [self FindTroubleCodeMean:toubleCodeStr withKey:@"total"];
                         }
                         DLog(@"获取的故障码字典为%@",dict);
-//                        if (![self.troubleCodeArray containsObject:dict]) {
                             [self.troubleCodeArray addObject: dict];
-//                        }
                          DLog(@"获取的故障码数组为%@",self.troubleCodeArray);
                         dispatch_async(dispatch_get_main_queue(), ^{
                             // 通知主线程刷新
@@ -285,9 +283,7 @@
     DLog(@"%@",[[NSString alloc]initWithData:self.output encoding:NSUTF8StringEncoding])
     NSMutableDictionary  *dict = [NSMutableDictionary dictionary];
     [dict setObject:[[NSString alloc]initWithData:self.output encoding:NSUTF8StringEncoding] forKey:Key];
-//    if (![self.troubleCodeArray containsObject:dict]) {
     [self.explainCodeArray addObject:dict];
-//    }
     DLog(@"解释数组%@",self.explainCodeArray);
 
 }

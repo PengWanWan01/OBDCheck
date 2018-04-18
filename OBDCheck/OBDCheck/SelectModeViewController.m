@@ -105,11 +105,13 @@
             switch (indexPath.row) {
                 case 0:{  //经典模式
                     [DashboardSetting sharedInstance].dashboardMode = DashboardClassicMode;
+                     [DashboardSetting sharedInstance].KPageNumer = 3;
                     [self clearAllUserDefaultsData];
                 }
                     break;
                 case 1:{  //自定义模式
                     [DashboardSetting sharedInstance].dashboardMode = DashboardCustomMode;
+                     [DashboardSetting sharedInstance].KPageNumer = 4;
                 }
                     break;
                 default:

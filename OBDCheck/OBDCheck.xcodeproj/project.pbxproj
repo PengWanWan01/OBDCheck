@@ -57,7 +57,6 @@
 		CB4994F3205B61B10085A49D /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4994F2205B61B10085A49D /* LogsViewController.m */; };
 		CB49FB671FB04CFB00A6FEBB /* AlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB49FB661FB04CFB00A6FEBB /* AlarmViewController.m */; };
 		CB49FB6C1FB0521000A6FEBB /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB49FB6B1FB0521000A6FEBB /* FeedbackViewController.m */; };
-		CB4C0057207C89F1002338B5 /* ExtFlashDat.bin in Resources */ = {isa = PBXBuildFile; fileRef = CB4C0052207C89F0002338B5 /* ExtFlashDat.bin */; };
 		CB4C0058207C89F1002338B5 /* OBDCHECKLIB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4C0054207C89F0002338B5 /* OBDCHECKLIB.a */; };
 		CB4C0059207C89F1002338B5 /* OBDLibTool.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4C0056207C89F1002338B5 /* OBDLibTool.m */; };
 		CB4D891820453B3900B868A7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4D891720453B3900B868A7 /* QuartzCore.framework */; };
@@ -78,6 +77,7 @@
 		CB5A61A31F7A210A000D23D6 /* FuelCaculationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A61A21F7A210A000D23D6 /* FuelCaculationViewController.m */; };
 		CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5AA4101F31A377002B3006 /* SetTableViewCell.m */; };
 		CB5AA4131F31A377002B3006 /* SetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */; };
+		CB5C9D382084DCBC008F2B17 /* ExtFlashDat.bin in Resources */ = {isa = PBXBuildFile; fileRef = CB5C9D372084DCBC008F2B17 /* ExtFlashDat.bin */; };
 		CB5DAC621F78FA93009A8A19 /* ColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5DAC601F78FA93009A8A19 /* ColorTableViewCell.m */; };
 		CB5DAC631F78FA93009A8A19 /* ColorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5DAC611F78FA93009A8A19 /* ColorTableViewCell.xib */; };
 		CB6390101FB9A88E00C958E7 /* reportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB63900F1FB9A88E00C958E7 /* reportModel.m */; };
@@ -234,7 +234,6 @@
 		CB21DA441F343F880080648E /* DashboardViewStyleA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewStyleA.h; sourceTree = "<group>"; };
 		CB21DA451F343F880080648E /* DashboardViewStyleA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewStyleA.m; sourceTree = "<group>"; };
 		CB2E3D761F977D7900685DC9 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		CB366A57207B8C3E005C1FF6 /* OBDCHECKLIBOC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OBDCHECKLIBOC.h; path = ../../../test_OC/test_OC/OBDCHECKLIBOC.h; sourceTree = "<group>"; };
 		CB3FAD181F6A1F0900B572FD /* FilesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesTableViewCell.h; sourceTree = "<group>"; };
 		CB3FAD191F6A1F0900B572FD /* FilesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilesTableViewCell.m; sourceTree = "<group>"; };
 		CB3FAD211F6A5F0B00B572FD /* Filesmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filesmodel.h; sourceTree = "<group>"; };
@@ -293,7 +292,6 @@
 		CB49FB661FB04CFB00A6FEBB /* AlarmViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmViewController.m; sourceTree = "<group>"; };
 		CB49FB6A1FB0521000A6FEBB /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		CB49FB6B1FB0521000A6FEBB /* FeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
-		CB4C0052207C89F0002338B5 /* ExtFlashDat.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = ExtFlashDat.bin; path = ../../../test_OC/test_OC/BlueTooth/ExtFlashDat.bin; sourceTree = "<group>"; };
 		CB4C0054207C89F0002338B5 /* OBDCHECKLIB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = OBDCHECKLIB.a; sourceTree = "<group>"; };
 		CB4C0055207C89F1002338B5 /* OBDLibTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDLibTool.h; sourceTree = "<group>"; };
 		CB4C0056207C89F1002338B5 /* OBDLibTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBDLibTool.m; sourceTree = "<group>"; };
@@ -327,6 +325,8 @@
 		CB5AA40F1F31A377002B3006 /* SetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTableViewCell.h; sourceTree = "<group>"; };
 		CB5AA4101F31A377002B3006 /* SetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTableViewCell.m; sourceTree = "<group>"; };
 		CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetTableViewCell.xib; sourceTree = "<group>"; };
+		CB5C9D372084DCBC008F2B17 /* ExtFlashDat.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = ExtFlashDat.bin; path = "../../../C语言编译&库加载/test_OC/test_OC/BlueTooth/ExtFlashDat.bin"; sourceTree = "<group>"; };
+		CB5C9D392084DCCE008F2B17 /* OBDCHECKLIBOC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OBDCHECKLIBOC.h; path = "../../../C语言编译&库加载/test_OC/test_OC/OBDCHECKLIBOC.h"; sourceTree = "<group>"; };
 		CB5DAC5F1F78FA93009A8A19 /* ColorTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorTableViewCell.h; sourceTree = "<group>"; };
 		CB5DAC601F78FA93009A8A19 /* ColorTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorTableViewCell.m; sourceTree = "<group>"; };
 		CB5DAC611F78FA93009A8A19 /* ColorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorTableViewCell.xib; sourceTree = "<group>"; };
@@ -1058,8 +1058,8 @@
 				CBF1E25A1F305CF800EEC755 /* setDistanceUtil.m */,
 				CBF1E2871F30796400EEC755 /* ColorTools.h */,
 				CBF1E2881F30796400EEC755 /* ColorTools.m */,
-				CB366A57207B8C3E005C1FF6 /* OBDCHECKLIBOC.h */,
-				CB4C0052207C89F0002338B5 /* ExtFlashDat.bin */,
+				CB5C9D372084DCBC008F2B17 /* ExtFlashDat.bin */,
+				CB5C9D392084DCCE008F2B17 /* OBDCHECKLIBOC.h */,
 				CB4C0054207C89F0002338B5 /* OBDCHECKLIB.a */,
 				CB4C0055207C89F1002338B5 /* OBDLibTool.h */,
 				CB4C0056207C89F1002338B5 /* OBDLibTool.m */,
@@ -1293,7 +1293,7 @@
 				CB44DB371F4A825900A24629 /* StyleThreeTableViewCell.xib in Resources */,
 				CB45CBAE1F6B7B96003AA330 /* ResultsTableViewCell.xib in Resources */,
 				CB44DB2D1F4A822200A24629 /* StyleOneTableViewCell.xib in Resources */,
-				CB4C0057207C89F1002338B5 /* ExtFlashDat.bin in Resources */,
+				CB5C9D382084DCBC008F2B17 /* ExtFlashDat.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
