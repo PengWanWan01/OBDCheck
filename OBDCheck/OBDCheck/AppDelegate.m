@@ -30,7 +30,8 @@
     
     DLog(@"启动成功");
 
-    
+    [UIApplication sharedApplication].idleTimerDisabled =YES;
+
     // Override point for customization after application launch.
     ViewController *ROOTVC = [[ViewController alloc]init];
     UINavigationController *NAC = [[UINavigationController alloc]initWithRootViewController:ROOTVC];
