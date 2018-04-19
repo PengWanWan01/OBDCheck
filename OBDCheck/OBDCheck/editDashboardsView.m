@@ -38,24 +38,10 @@
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:view];
         [view addSubview:imageView];
-       
-        switch ([UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode" ) {
-            case DashboardClassicMode:
-            {
-                DLog(@"1212121212");
-             _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Mode",@"Dashboards Style",@"Load Default Dashboards",@"Toggle HUD Mode", nil];
-            }
-                break;
-            case DashboardCustomMode:
-            {
-                 _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Mode",@"Add Dashboard",@"Load Default Dashboards",@"Toggle HUD Mode",nil];
-            }
-                break;
-            default:
-                break;
-        }
-        DLog(@"数据:%@",_titileArray);
-       UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 8, self.bounds.size.width, self.bounds.size.height - 8)];                  
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self initWithData];
+        });
+       UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 8, self.bounds.size.width, self.bounds.size.height - 8)];
         tableView.backgroundColor = [UIColor clearColor];
         tableView.separatorInset = UIEdgeInsetsZero;
         tableView.scrollEnabled = NO;
@@ -67,6 +53,27 @@
     }
     return self;
     
+}
+- (void)initWithData{
+   
+    switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] ) {
+        case DashboardClassicMode:
+        {
+            
+            DLog(@"1212121212");
+            _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Mode",@"Dashboards Style",@"Load Default Dashboards",@"Toggle HUD Mode", nil];
+        }
+            break;
+        case DashboardCustomMode:
+        {
+              DLog(@"7777");
+            _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Mode",@"Add Dashboard",@"Load Default Dashboards",@"Toggle HUD Mode",nil];
+        }
+            break;
+        default:
+            break;
+    }
+    DLog(@"数据:%@",_titileArray);
 }
 #pragma mark - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
