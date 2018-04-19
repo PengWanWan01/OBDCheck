@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ConnectionController : UIViewController
+@interface ConnectionController : BasicViewController
 
 @end

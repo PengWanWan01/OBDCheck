@@ -120,7 +120,8 @@
             {
                 cell.textLabel.text = self.dataSource[indexPath.row];
                 UISwitch *selectSwitch = [[UISwitch alloc]init];
-                selectSwitch.on = YES;
+                selectSwitch.on = [[UserDefaultSet sharedInstance]GetAttribute:@"alarm"];
+                   [selectSwitch addTarget:self action:@selector(select:) forControlEvents:UIControlEventTouchUpInside];
                 cell.accessoryView = selectSwitch;
             }
             break;
@@ -135,6 +136,14 @@
             break;
     }
     return cell;
+}
+- (void)select:(UISwitch *)btn{
+    if (btn.on == YES) {
+        [UserDefaultSet sharedInstance].alarm = AlarmON;
+    }else{
+        [UserDefaultSet sharedInstance].alarm = AlarmOFF;
+    }
+    [[UserDefaultSet sharedInstance] SetAttribute:[UserDefaultSet sharedInstance].alarm Key:@"alarm"];
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
@@ -240,4 +249,5 @@
             break;
     }
 }
+
 @end

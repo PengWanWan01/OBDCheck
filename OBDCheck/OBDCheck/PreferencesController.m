@@ -90,7 +90,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    
-            switch (indexPath.row) {
+            switch (indexPath.section) {
                 case 0:
                     {
          CommunicationController  *vc = [[CommunicationController alloc]init];

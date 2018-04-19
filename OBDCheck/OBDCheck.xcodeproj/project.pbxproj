@@ -82,6 +82,7 @@
 		CB6390101FB9A88E00C958E7 /* reportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB63900F1FB9A88E00C958E7 /* reportModel.m */; };
 		CB6628421FD15E9300858DCE /* TheBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6628411FD15E9300858DCE /* TheBasicViewController.m */; };
 		CB66C9A220886FC5000AE89A /* UserDefaultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = CB66C9A120886FC5000AE89A /* UserDefaultSet.m */; };
+		CB66C9AB2088B675000AE89A /* screenshotModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB66C9AA2088B675000AE89A /* screenshotModel.m */; };
 		CB82247C1F46EEC400E1E4BA /* HUDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB82247B1F46EEC400E1E4BA /* HUDViewController.m */; };
 		CB82247F1F46F30000E1E4BA /* HUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB82247E1F46F30000E1E4BA /* HUDView.m */; };
 		CB835D2D1F594DB6007C5A17 /* ReadinessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB835D2B1F594DB6007C5A17 /* ReadinessViewController.m */; };
@@ -337,6 +338,8 @@
 		CB6628411FD15E9300858DCE /* TheBasicViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TheBasicViewController.m; sourceTree = "<group>"; };
 		CB66C9A020886FC5000AE89A /* UserDefaultSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultSet.h; sourceTree = "<group>"; };
 		CB66C9A120886FC5000AE89A /* UserDefaultSet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultSet.m; sourceTree = "<group>"; };
+		CB66C9A92088B675000AE89A /* screenshotModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = screenshotModel.h; sourceTree = "<group>"; };
+		CB66C9AA2088B675000AE89A /* screenshotModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = screenshotModel.m; sourceTree = "<group>"; };
 		CB82247A1F46EEC400E1E4BA /* HUDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDViewController.h; sourceTree = "<group>"; };
 		CB82247B1F46EEC400E1E4BA /* HUDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDViewController.m; sourceTree = "<group>"; };
 		CB82247D1F46F30000E1E4BA /* HUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDView.h; sourceTree = "<group>"; };
@@ -802,6 +805,15 @@
 			name = UserDefaults;
 			sourceTree = "<group>";
 		};
+		CB66C9A72088B651000AE89A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CB66C9A92088B675000AE89A /* screenshotModel.h */,
+				CB66C9AA2088B675000AE89A /* screenshotModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		CB848F121F4541DB00C1A718 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1178,6 +1190,7 @@
 		CBF1E2611F30678F00EEC755 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				CB66C9A72088B651000AE89A /* Model */,
 				CB47CE721FBC266100451244 /* Common */,
 				CB5AA40E1F31A321002B3006 /* View */,
 				CBF1E27A1F3068ED00EEC755 /* SetViewController.h */,
@@ -1450,6 +1463,7 @@
 				CBD8EB7A1F9E0D1600FDABBB /* BELInfo.m in Sources */,
 				CBD8EB791F9E0D0700FDABBB /* BlueToothController.m in Sources */,
 				CBF5BA9520874AAD00A3F7A1 /* NetWorkClient.m in Sources */,
+				CB66C9AB2088B675000AE89A /* screenshotModel.m in Sources */,
 				CB1591DA2006380100F51FD3 /* JKDBModel.m in Sources */,
 				CBD8EB781F9E0CFD00FDABBB /* BlueToothController.h in Sources */,
 				CB94DFCD1FBAC4CB0051E152 /* TestItemViewController.m in Sources */,

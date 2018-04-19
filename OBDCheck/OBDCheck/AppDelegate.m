@@ -30,7 +30,7 @@
     
     DLog(@"启动成功");
 
-    [UIApplication sharedApplication].idleTimerDisabled =YES;
+//    [UIApplication sharedApplication].idleTimerDisabled =YES; //让屏幕常亮
 
     // Override point for customization after application launch.
     ViewController *ROOTVC = [[ViewController alloc]init];

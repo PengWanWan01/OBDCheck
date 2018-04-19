@@ -35,10 +35,21 @@
     self.dashboardStyle = DashboardStyleOne;
     self.numberDecimals = NumberDecimalZero;
     self.multiplierType = MultiplierType1;
+    self.backConnect = backgroundConnectON;
+    self.alarm = AlarmON;
+    self.keepScreen = keepScreenON;
+    self.keeptips = keepScreenON;
+    self.launchDashboard = LaunchDashboardON;
+
     [self SetAttribute:self.dashboardMode Key:@"dashboardMode"];
     [self SetAttribute:self.dashboardStyle Key:@"dashboardStyle"];
     [self SetAttribute:self.numberDecimals Key:@"numberDecimals"];
     [self SetAttribute:self.multiplierType Key:@"multiplierType"]; //
+    [self SetAttribute:self.backConnect Key:@"backConnect"]; //
+    [self SetAttribute:self.alarm Key:@"alarm"];
+    [self SetAttribute:self.alarm Key:@"keepScreen"];
+    [self SetAttribute:self.keeptips Key:@"keeptips"];
+    [self SetAttribute:self.launchDashboard Key:@"launchDashboard"];
 
 }
 -(BOOL)SetAttribute:(NSInteger )Value Key:(NSString *)key

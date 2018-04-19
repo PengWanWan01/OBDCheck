@@ -68,7 +68,7 @@
 - (void)initWithData{
 
     self.datasource = [[NSMutableArray alloc
-                        ]initWithObjects:@"Preferences",@"Information",@"Firmware Updates",@"Connection Help",@"License Agreement",@"Privacy Policy",@"Alarm settings",@"Feedback",@"Operation record", nil];
+                        ]initWithObjects:@"通信设置",@"单位设置",@"报警设置",@"通用设置",@"固件升级",@"关于", nil];
     
 }
 - (void)initWithUI{
@@ -86,20 +86,20 @@
     return 44.f;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 5;
+    return 1;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 25;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSInteger result = 0;
-    if (section == 1) {
-        result = 5;
-    }else{
-        result = 1;
-    }
-    return  result;
+//    NSInteger result = 0;
+//    if (section == 1) {
+//        result = 5;
+//    }else{
+//        result = 1;
+//    }
+    return  self.datasource.count;
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -112,59 +112,62 @@
     }
      cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
-    if (indexPath.section == 0) {
-        cell.textLabel.text = _datasource[indexPath.row];
-    }else if (indexPath.section == 1){
-         cell.textLabel.text = _datasource[indexPath.row+1];
-    }else{
-        cell.textLabel.text = _datasource[indexPath.row+4+indexPath.section ];
-    }
+     cell.textLabel.text = _datasource[indexPath.row];
+//    if (indexPath.section == 0) {
+//        cell.textLabel.text = _datasource[indexPath.row];
+//    }else if (indexPath.section == 1){
+//         cell.textLabel.text = _datasource[indexPath.row+1];
+//    }else{
+//        cell.textLabel.text = _datasource[indexPath.row+4+indexPath.section ];
+//    }
     cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle =  UITableViewCellSelectionStyleNone;
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    switch (indexPath.section) {
+    switch (indexPath.row) {
         case 0:
         {
-            PreferencesController *vc = [[PreferencesController alloc]init];
+            ConnectionController *vc = [[ConnectionController alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 1:
         {
-            switch (indexPath.row) {
-                case 0:
-                {
-                    informationController *vc = [[informationController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                    break;
-                case 1:
-                {
-                    FirmwareController *vc = [[FirmwareController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                    break;
-                case 2:
-                {
-                    ConnectionController *vc = [[ConnectionController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                    break;
-                case 3:
-                {
-                    
-                }
-                    break;
-                case 4:
-                {
-                    
-                }
-                    break;
-                default:
-                    break;
-            }
+            UnitsController *vc = [[UnitsController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+//            switch (indexPath.row) {
+//                case 0:
+//                {
+//                    informationController *vc = [[informationController alloc]init];
+//                    [self.navigationController pushViewController:vc animated:YES];
+//                }
+//                    break;
+//                case 1:
+//                {
+//                    FirmwareController *vc = [[FirmwareController alloc]init];
+//                    [self.navigationController pushViewController:vc animated:YES];
+//                }
+//                    break;
+//                case 2:
+//                {
+//                    ConnectionController *vc = [[ConnectionController alloc]init];
+//                    [self.navigationController pushViewController:vc animated:YES];
+//                }
+//                    break;
+//                case 3:
+//                {
+//
+//                }
+//                    break;
+//                case 4:
+//                {
+//
+//                }
+//                    break;
+//                default:
+//                    break;
+//            }
         }
             break;
         case 2:
@@ -175,7 +178,7 @@
             break;
         case 3:
         {
-            FeedbackViewController *vc = [[FeedbackViewController alloc]init];
+            GeneralController *vc = [[GeneralController alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;

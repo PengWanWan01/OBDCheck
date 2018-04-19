@@ -31,6 +31,31 @@ typedef NS_ENUM(NSInteger ,MultiplierType)
     MultiplierType1=0,   // 单位1倍
     MultiplierType1000=1    //单位1000倍
 };
+typedef NS_ENUM(NSInteger ,backgroundConnect)
+{
+    backgroundConnectOFF=0,   // 后台连接关闭
+    backgroundConnectON=1    //后台连接打开
+};
+typedef NS_ENUM(NSInteger ,Alarm)
+{
+    AlarmOFF=0,   // 报警功能打开
+    AlarmON=1    //报警功能关闭
+};
+typedef NS_ENUM(NSInteger ,KeepScreen)
+{
+    keepScreenOFF=0,   // 关闭保持屏幕
+    keepScreenON=1    //开启保持屏幕
+};
+typedef NS_ENUM(NSInteger ,KeepTips)
+{
+    KeepTipsOFF=0,   // 关闭显示提示框
+    KeepTipsON=1    //开启示提示框
+};
+typedef NS_ENUM(NSInteger ,LaunchDashboard)
+{
+    LaunchDashboardOFF=0,   // 关闭启动后显示仪表页面
+    LaunchDashboardON=1    //开启启动后显示仪表页面
+};
 @interface UserDefaultSet : NSObject
 //单例模式，实例化对象
 +(instancetype )sharedInstance;
@@ -39,6 +64,12 @@ typedef NS_ENUM(NSInteger ,MultiplierType)
 @property(nonatomic)   DashboardStyle dashboardStyle;
 @property (nonatomic) NumberDecimals numberDecimals;
 @property (nonatomic) MultiplierType multiplierType;
+@property (nonatomic) backgroundConnect backConnect;
+@property (nonatomic) Alarm alarm;
+@property (nonatomic) KeepScreen keepScreen;
+@property (nonatomic) KeepTips keeptips;
+@property (nonatomic) LaunchDashboard launchDashboard;
+
 -(void)SetDefultAttribute;
 //设置一个属性
 -(BOOL)SetAttribute:(NSInteger )Value Key:(NSString *)key;
