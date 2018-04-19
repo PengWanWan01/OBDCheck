@@ -77,11 +77,11 @@
 		CB5A61A31F7A210A000D23D6 /* FuelCaculationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A61A21F7A210A000D23D6 /* FuelCaculationViewController.m */; };
 		CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5AA4101F31A377002B3006 /* SetTableViewCell.m */; };
 		CB5AA4131F31A377002B3006 /* SetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */; };
-		CB5C9D382084DCBC008F2B17 /* ExtFlashDat.bin in Resources */ = {isa = PBXBuildFile; fileRef = CB5C9D372084DCBC008F2B17 /* ExtFlashDat.bin */; };
 		CB5DAC621F78FA93009A8A19 /* ColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5DAC601F78FA93009A8A19 /* ColorTableViewCell.m */; };
 		CB5DAC631F78FA93009A8A19 /* ColorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5DAC611F78FA93009A8A19 /* ColorTableViewCell.xib */; };
 		CB6390101FB9A88E00C958E7 /* reportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB63900F1FB9A88E00C958E7 /* reportModel.m */; };
 		CB6628421FD15E9300858DCE /* TheBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6628411FD15E9300858DCE /* TheBasicViewController.m */; };
+		CB66C9A220886FC5000AE89A /* UserDefaultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = CB66C9A120886FC5000AE89A /* UserDefaultSet.m */; };
 		CB82247C1F46EEC400E1E4BA /* HUDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB82247B1F46EEC400E1E4BA /* HUDViewController.m */; };
 		CB82247F1F46F30000E1E4BA /* HUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB82247E1F46F30000E1E4BA /* HUDView.m */; };
 		CB835D2D1F594DB6007C5A17 /* ReadinessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB835D2B1F594DB6007C5A17 /* ReadinessViewController.m */; };
@@ -155,6 +155,9 @@
 		CBF334631F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF3345F1F4B0FE6003C0548 /* ILSaturationBrightnessPickerView.m */; };
 		CBF334641F4B0FE6003C0548 /* ILColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF334611F4B0FE6003C0548 /* ILColorPickerView.m */; };
 		CBF334671F4B0FFC003C0548 /* UIColor+GetHSB.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF334661F4B0FFC003C0548 /* UIColor+GetHSB.m */; };
+		CBF5BA8F2087481700A3F7A1 /* AFNetWork.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF5BA8E2087481700A3F7A1 /* AFNetWork.m */; };
+		CBF5BA9520874AAD00A3F7A1 /* NetWorkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF5BA9420874AAD00A3F7A1 /* NetWorkClient.m */; };
+		CBF5BA9A20874E4300A3F7A1 /* ExtFlashDat.bin in Resources */ = {isa = PBXBuildFile; fileRef = CBF5BA9820874E4300A3F7A1 /* ExtFlashDat.bin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -325,8 +328,6 @@
 		CB5AA40F1F31A377002B3006 /* SetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTableViewCell.h; sourceTree = "<group>"; };
 		CB5AA4101F31A377002B3006 /* SetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTableViewCell.m; sourceTree = "<group>"; };
 		CB5AA4111F31A377002B3006 /* SetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetTableViewCell.xib; sourceTree = "<group>"; };
-		CB5C9D372084DCBC008F2B17 /* ExtFlashDat.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = ExtFlashDat.bin; path = "../../../C语言编译&库加载/test_OC/test_OC/BlueTooth/ExtFlashDat.bin"; sourceTree = "<group>"; };
-		CB5C9D392084DCCE008F2B17 /* OBDCHECKLIBOC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OBDCHECKLIBOC.h; path = "../../../C语言编译&库加载/test_OC/test_OC/OBDCHECKLIBOC.h"; sourceTree = "<group>"; };
 		CB5DAC5F1F78FA93009A8A19 /* ColorTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorTableViewCell.h; sourceTree = "<group>"; };
 		CB5DAC601F78FA93009A8A19 /* ColorTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorTableViewCell.m; sourceTree = "<group>"; };
 		CB5DAC611F78FA93009A8A19 /* ColorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorTableViewCell.xib; sourceTree = "<group>"; };
@@ -334,6 +335,8 @@
 		CB63900F1FB9A88E00C958E7 /* reportModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = reportModel.m; sourceTree = "<group>"; };
 		CB6628401FD15E9300858DCE /* TheBasicViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TheBasicViewController.h; sourceTree = "<group>"; };
 		CB6628411FD15E9300858DCE /* TheBasicViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TheBasicViewController.m; sourceTree = "<group>"; };
+		CB66C9A020886FC5000AE89A /* UserDefaultSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultSet.h; sourceTree = "<group>"; };
+		CB66C9A120886FC5000AE89A /* UserDefaultSet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultSet.m; sourceTree = "<group>"; };
 		CB82247A1F46EEC400E1E4BA /* HUDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDViewController.h; sourceTree = "<group>"; };
 		CB82247B1F46EEC400E1E4BA /* HUDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDViewController.m; sourceTree = "<group>"; };
 		CB82247D1F46F30000E1E4BA /* HUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDView.h; sourceTree = "<group>"; };
@@ -461,6 +464,13 @@
 		CBF334611F4B0FE6003C0548 /* ILColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILColorPickerView.m; sourceTree = "<group>"; };
 		CBF334651F4B0FFC003C0548 /* UIColor+GetHSB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+GetHSB.h"; sourceTree = "<group>"; };
 		CBF334661F4B0FFC003C0548 /* UIColor+GetHSB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GetHSB.m"; sourceTree = "<group>"; };
+		CBF5BA8D2087481700A3F7A1 /* AFNetWork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFNetWork.h; sourceTree = "<group>"; };
+		CBF5BA8E2087481700A3F7A1 /* AFNetWork.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFNetWork.m; sourceTree = "<group>"; };
+		CBF5BA9320874AAC00A3F7A1 /* NetWorkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkClient.h; sourceTree = "<group>"; };
+		CBF5BA9420874AAD00A3F7A1 /* NetWorkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWorkClient.m; sourceTree = "<group>"; };
+		CBF5BA9720874CE800A3F7A1 /* NetWorkConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetWorkConfig.h; sourceTree = "<group>"; };
+		CBF5BA9820874E4300A3F7A1 /* ExtFlashDat.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = ExtFlashDat.bin; path = "../../../C语言编译&库加载/ExtFlashDat.bin"; sourceTree = "<group>"; };
+		CBF5BA9920874E4300A3F7A1 /* OBDCHECKLIBOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OBDCHECKLIBOC.h; path = "../../../C语言编译&库加载/OBDCHECKLIBOC.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -584,6 +594,50 @@
 				CB45CBB01F6B7DC2003AA330 /* SummaryTableViewCell.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		CB44891220874731009A9BB1 /* ColorTool */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E2871F30796400EEC755 /* ColorTools.h */,
+				CBF1E2881F30796400EEC755 /* ColorTools.m */,
+				CB07EA231F41A370002894F9 /* UIColor+Separate.h */,
+				CB07EA241F41A370002894F9 /* UIColor+Separate.m */,
+				CB07EA251F41A370002894F9 /* UIColor+Wonderful.h */,
+				CB07EA261F41A370002894F9 /* UIColor+Wonderful.m */,
+			);
+			name = ColorTool;
+			sourceTree = "<group>";
+		};
+		CB44891520874747009A9BB1 /* FrameTool */ = {
+			isa = PBXGroup;
+			children = (
+				CBF1E2591F305CF800EEC755 /* setDistanceUtil.h */,
+				CBF1E25A1F305CF800EEC755 /* setDistanceUtil.m */,
+			);
+			name = FrameTool;
+			sourceTree = "<group>";
+		};
+		CB44891620874754009A9BB1 /* frameworkTool */ = {
+			isa = PBXGroup;
+			children = (
+				CB4C0054207C89F0002338B5 /* OBDCHECKLIB.a */,
+				CB4C0055207C89F1002338B5 /* OBDLibTool.h */,
+				CB4C0056207C89F1002338B5 /* OBDLibTool.m */,
+			);
+			name = frameworkTool;
+			sourceTree = "<group>";
+		};
+		CB44891E208747AB009A9BB1 /* AFNetworkingTool */ = {
+			isa = PBXGroup;
+			children = (
+				CBF5BA8D2087481700A3F7A1 /* AFNetWork.h */,
+				CBF5BA8E2087481700A3F7A1 /* AFNetWork.m */,
+				CBF5BA9320874AAC00A3F7A1 /* NetWorkClient.h */,
+				CBF5BA9420874AAD00A3F7A1 /* NetWorkClient.m */,
+				CBF5BA9720874CE800A3F7A1 /* NetWorkConfig.h */,
+			);
+			name = AFNetworkingTool;
 			sourceTree = "<group>";
 		};
 		CB476C711FAC586800C54837 /* Model */ = {
@@ -729,6 +783,23 @@
 			children = (
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		CB66C99E20886F76000AE89A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CB66C99F20886F8E000AE89A /* UserDefaults */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		CB66C99F20886F8E000AE89A /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				CB66C9A020886FC5000AE89A /* UserDefaultSet.h */,
+				CB66C9A120886FC5000AE89A /* UserDefaultSet.m */,
+			);
+			name = UserDefaults;
 			sourceTree = "<group>";
 		};
 		CB848F121F4541DB00C1A718 /* Controllers */ = {
@@ -972,6 +1043,7 @@
 				CBEBF1C01F3AEF80006CCA8B /* View */,
 				CBE4AC071F4426C5003714A4 /* Basic */,
 				CBF1E2831F306C4900EEC755 /* Category */,
+				CB66C99E20886F76000AE89A /* Common */,
 				CBF1E2581F305CD800EEC755 /* Utils */,
 				CBF1E28E1F30A14200EEC755 /* Bluetooth */,
 				CB15FB711F5A9173005A978C /* FMDataBase */,
@@ -1050,19 +1122,12 @@
 		CBF1E2581F305CD800EEC755 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				CB07EA231F41A370002894F9 /* UIColor+Separate.h */,
-				CB07EA241F41A370002894F9 /* UIColor+Separate.m */,
-				CB07EA251F41A370002894F9 /* UIColor+Wonderful.h */,
-				CB07EA261F41A370002894F9 /* UIColor+Wonderful.m */,
-				CBF1E2591F305CF800EEC755 /* setDistanceUtil.h */,
-				CBF1E25A1F305CF800EEC755 /* setDistanceUtil.m */,
-				CBF1E2871F30796400EEC755 /* ColorTools.h */,
-				CBF1E2881F30796400EEC755 /* ColorTools.m */,
-				CB5C9D372084DCBC008F2B17 /* ExtFlashDat.bin */,
-				CB5C9D392084DCCE008F2B17 /* OBDCHECKLIBOC.h */,
-				CB4C0054207C89F0002338B5 /* OBDCHECKLIB.a */,
-				CB4C0055207C89F1002338B5 /* OBDLibTool.h */,
-				CB4C0056207C89F1002338B5 /* OBDLibTool.m */,
+				CBF5BA9820874E4300A3F7A1 /* ExtFlashDat.bin */,
+				CBF5BA9920874E4300A3F7A1 /* OBDCHECKLIBOC.h */,
+				CB44891E208747AB009A9BB1 /* AFNetworkingTool */,
+				CB44891620874754009A9BB1 /* frameworkTool */,
+				CB44891520874747009A9BB1 /* FrameTool */,
+				CB44891220874731009A9BB1 /* ColorTool */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1226,6 +1291,11 @@
 						DevelopmentTeam = E54SCXFP9M;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1293,7 +1363,7 @@
 				CB44DB371F4A825900A24629 /* StyleThreeTableViewCell.xib in Resources */,
 				CB45CBAE1F6B7B96003AA330 /* ResultsTableViewCell.xib in Resources */,
 				CB44DB2D1F4A822200A24629 /* StyleOneTableViewCell.xib in Resources */,
-				CB5C9D382084DCBC008F2B17 /* ExtFlashDat.bin in Resources */,
+				CBF5BA9A20874E4300A3F7A1 /* ExtFlashDat.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1307,12 +1377,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-OBDCheck/Pods-OBDCheck-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
@@ -1377,6 +1449,7 @@
 			files = (
 				CBD8EB7A1F9E0D1600FDABBB /* BELInfo.m in Sources */,
 				CBD8EB791F9E0D0700FDABBB /* BlueToothController.m in Sources */,
+				CBF5BA9520874AAD00A3F7A1 /* NetWorkClient.m in Sources */,
 				CB1591DA2006380100F51FD3 /* JKDBModel.m in Sources */,
 				CBD8EB781F9E0CFD00FDABBB /* BlueToothController.h in Sources */,
 				CB94DFCD1FBAC4CB0051E152 /* TestItemViewController.m in Sources */,
@@ -1452,6 +1525,7 @@
 				CB3FAD291F6A6F1D00B572FD /* Mode06ViewController.m in Sources */,
 				CBCD978F1F7C94850002383F /* FileBackViewController.m in Sources */,
 				CB84B3CD1F56A7D500B454E6 /* FreezeViewController.m in Sources */,
+				CB66C9A220886FC5000AE89A /* UserDefaultSet.m in Sources */,
 				CB4852571FB3EEFC00E98902 /* PropertyReportController.m in Sources */,
 				CB048C3B1F8CE1CD006A2ED7 /* FirmwareController.m in Sources */,
 				CB94DFCA1FBAC0830051E152 /* PerformanceSetController.m in Sources */,
@@ -1476,6 +1550,7 @@
 				CB1591DD2006383400F51FD3 /* CustomDashboard.m in Sources */,
 				CBF1E2791F3068E000EEC755 /* LogsController.m in Sources */,
 				CBCFDF6E1F42A4C5008329CF /* DashboardViewStyleB.m in Sources */,
+				CBF5BA8F2087481700A3F7A1 /* AFNetWork.m in Sources */,
 				CBF1E28D1F30A06500EEC755 /* bluetoothView.m in Sources */,
 				CB3FAD261F6A6F1000B572FD /* Sensors2ViewController.m in Sources */,
 				CBB1CC441F623C2B002EE7EB /* TBarView.m in Sources */,
@@ -1632,6 +1707,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = E54SCXFP9M;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
 				INFOPLIST_FILE = OBDCheck/Info.plist;
@@ -1665,6 +1741,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = E54SCXFP9M;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
 				INFOPLIST_FILE = OBDCheck/Info.plist;

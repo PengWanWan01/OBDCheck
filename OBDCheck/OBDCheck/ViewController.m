@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "UIViewController+NavBar.h"
 
-@interface ViewController ()<BlueToothControllerDelegate,reconnectionDelegate,UIGestureRecognizerDelegate>
+@interface ViewController ()<BlueToothControllerDelegate,reconnectionDelegate,UIGestureRecognizerDelegate,HTTPClientDelegate>
 {
 
     BOOL isSelect;
@@ -34,10 +34,19 @@
 @property (nonatomic,strong)  UIView *tabarView;
 @property (nonatomic,strong) NSMutableArray *blueDataSource;
 @property (nonatomic,assign) BOOL isCanSideBack;
+@property (strong,nonatomic)NetWorkClient *requestClient;
+
 @end
 
 @implementation ViewController
-
+- (NetWorkClient *)requestClient
+{
+    if (!_requestClient) {
+        _requestClient = [NetWorkClient manager];
+        _requestClient.delegate = self;
+    }
+    return _requestClient;
+}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
      [UIApplication sharedApplication].statusBarStyle=UIStatusBarStyleLightContent;
@@ -64,6 +73,7 @@
     if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate=self;
     }
+    
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
@@ -78,6 +88,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
 }
 
 #pragma mark 设置横竖屏布局
@@ -355,7 +366,6 @@
         case 0:{
             DashboardController *vc = [[DashboardController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
-
         }
             break;
         case 1:{
@@ -509,6 +519,23 @@
         default:
             break;
     }
+}
+- (void)requestGetDeviceState{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@"1" forKey:@"cmd"];
+    [parameters setObject:@"1234" forKey:@"test"];
+    //00000000000002
+    [self.requestClient requestWithParameters:parameters withType:@"GetDeviceState"];
+    
+}
+- (void)httpResponseSuccess:(NetWorkClient *)client dataTask:(NSURLSessionDataTask *)task didSuccessWithObject:(id)obj withType:(NSString *)type{
+    NSString *objStr = [[NSString alloc] initWithData:obj encoding:NSUTF8StringEncoding];
+    NSDictionary *dics = [NSJSONSerialization JSONObjectWithData:[objStr dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
+    if ([type isEqualToString:@"GetDeviceState"]) {
+      DLog(@"请求结果11为:%@",dics);
+    }
+}
+- (void)httpResponseFailure:(NetWorkClient *)client dataTask:(NSURLSessionDataTask *)task didFailWithError:(NSError *)error{
 }
 - (UIImage*)imageCompressWithSimple:(UIImage*)image{
     CGSize size = image.size;

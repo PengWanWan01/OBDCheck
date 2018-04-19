@@ -8,19 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger ,DashboardMode)
-{
-    DashboardClassicMode=0,   //经典模式
-    DashboardCustomMode    //自定义模式
-    
-};
 
-typedef NS_ENUM(NSInteger ,DashboardStyle)
-{
-    DashboardStyleOne=0,   // 第一种风格
-    DashboardStyleTwo,    //第二种风格
-    DashboardStyleThree=2     //第三种风格
-};
+
 typedef NS_ENUM(NSInteger ,AddDashboardStyle)
 {
     AddStyleNone=0,
@@ -35,18 +24,7 @@ typedef NS_ENUM(NSInteger ,ChangeDashboardStyle)
     ChangeDashboardStyleTwo,    //改变为第二种风格
     ChangeDashboardStyleThree    //改变为第三种风格
 };
-typedef NS_ENUM(NSInteger ,NumberDecimals)
-{
-    NumberDecimalZero=0,   // 0个小数点位数
-    NumberDecimalOne,    //1个小数点位数
-    NumberDecimalTwo     //2个小数点位数
-};
 
-typedef NS_ENUM(NSInteger ,MultiplierType)
-{
-    MultiplierType1=0,   // 单位1倍
-    MultiplierType1000    //单位1000倍
-};
 typedef NS_ENUM(NSInteger ,HUDModeType)
 {
     HUDModeTypeToHUD,   // 变成HUD类型
@@ -60,10 +38,6 @@ typedef NS_ENUM(NSInteger ,ProtocolType)
 @class CustomDashboard;
 
 @interface DashboardSetting : NSObject
-@property(nonatomic)   DashboardMode dashboardMode;
-@property(nonatomic)   DashboardStyle dashboardStyle;
-@property (nonatomic) NumberDecimals numberDecimals;
-@property (nonatomic) MultiplierType multiplierType;
 @property (nonatomic) HUDModeType hudModeType;
 @property (nonatomic) AddDashboardStyle addStyle;
 @property (nonatomic) ChangeDashboardStyle ChangeStyle;
@@ -81,7 +55,6 @@ typedef NS_ENUM(NSInteger ,ProtocolType)
 @property (nonatomic,assign) NSInteger blueState;    //蓝牙连接状态
 @property (nonatomic,assign) NSInteger protocolType;    //蓝牙连接协议
 
-@property (nonatomic,strong)   NSUserDefaults* defaults;
 @property (nonatomic,assign)   BOOL DashBoardFristLoad;
 @property (nonatomic,assign) NSInteger CurrentPage;   //当前仪表盘页数
 @property (nonatomic,copy ) NSString  *HUDColourStr;   //HUD颜色
@@ -99,8 +72,6 @@ typedef NS_ENUM(NSInteger ,ProtocolType)
 
 
 - (void)CustomDashboardType:(AddDashboardStyle)type  withTag:(NSInteger)i;
-//设置一个属性
--(BOOL)SetAttribute:(CGFloat)Value Key:(NSString *)key;
-//获取一个属性值
--(CGFloat)GetAttribute:(NSString *)Key;
+
+
 @end

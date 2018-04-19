@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F7DCEDB96024A54E38E34284AF60849E"
+               BlueprintIdentifier = "648BB5B52296DCD3811D6756BF1C77EB"
                BuildableName = "Pods_OBDCheck.framework"
                BlueprintName = "Pods-OBDCheck"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -26,7 +26,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -37,7 +36,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -47,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F7DCEDB96024A54E38E34284AF60849E"
+            BlueprintIdentifier = "648BB5B52296DCD3811D6756BF1C77EB"
             BuildableName = "Pods_OBDCheck.framework"
             BlueprintName = "Pods-OBDCheck"
             ReferencedContainer = "container:Pods.xcodeproj">

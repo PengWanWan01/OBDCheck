@@ -43,20 +43,26 @@
     [UITabBar appearance].backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
     [UITabBar appearance].tintColor = [ColorTools colorWithHexString:@"#FE9002"];
     //  加载C语言库
-    NSData *reader;
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"ExtFlashDat" ofType:@"bin"];
-    //获取数据
-    reader = [NSData dataWithContentsOfFile:path];//调用OBDCHECKLIBOC的LoadPublicLIB2OCBufP加载文件之前，必须要先打开文件
-    if([[OBDLibTool sharedInstance] LoadPublicLIB2OCBufP:reader])  //step1:加载库成功
-    {
-        [OBDLibTool sharedInstance].LoadSuccess = YES;
-        //在程序杀死时候释放
-    }
+//    NSData *reader;
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"ExtFlashDat" ofType:@"bin"];
+//    //获取数据
+//    reader = [NSData dataWithContentsOfFile:path];//调用OBDCHECKLIBOC的LoadPublicLIB2OCBufP加载文件之前，必须要先打开文件
+//    if([[OBDLibTool sharedInstance] LoadPublicLIB2OCBufP:reader])  //step1:加载库成功
+//    {
+//        [OBDLibTool sharedInstance].LoadSuccess = YES;
+//        //在程序杀死时候释放
+//    }
+    //在后台也可以播放声音
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setActive:YES error:nil];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    
     
     return YES;
 }
 
 - (void)initWithdatabase{
+    [[UserDefaultSet sharedInstance]SetDefultAttribute]; //设置默认属性,分数据库部分
     [CustomDashboard clearTable];
     [TripsModel clearTable];
     [LogsModel clearTable];
@@ -71,11 +77,7 @@
 
 - (void)clearAllUserDefaultsData
 {
-    [DashboardSetting sharedInstance].dashboardMode = DashboardCustomMode;
-    [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleOne;
-    [DashboardSetting sharedInstance].numberDecimals = NumberDecimalZero;
-    [DashboardSetting sharedInstance].multiplierType = MultiplierType1;
-    [DashboardSetting sharedInstance].hudModeType = HUDModeTypeToNormal;
+    [[UserDefaultSet sharedInstance] SetDefultAttribute];
     [DashboardSetting sharedInstance].KPageNumer = 3;
     [DashboardSetting sharedInstance].isAddDashboard = NO;
     [DashboardSetting sharedInstance].isDashboardFont = NO;

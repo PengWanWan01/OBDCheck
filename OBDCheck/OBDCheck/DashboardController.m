@@ -43,13 +43,13 @@ static dispatch_source_t _timer;
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     self.navigationController.navigationBar.hidden = NO;
     [UIApplication sharedApplication].statusBarHidden = NO;
-    
+    [self updateView];
+    [self startAnimation];
 }
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [UIApplication sharedApplication].statusBarHidden = NO;
-    [self updateView];
-    [self startAnimation];
+  
 }
 #pragma mark 设置横竖屏布局
 
@@ -75,7 +75,7 @@ static dispatch_source_t _timer;
     scrollView.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX);
     scrollView.contentSize = CGSizeMake(SCREEN_MIN*[DashboardSetting sharedInstance].KPageNumer,0);
     pageControl.frame = CGRectMake(0, SCREEN_MAX- self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -40, SCREEN_MIN, 30);
-    if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
+    if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardCustomMode) {
         NSArray* pAllCount = [CustomDashboard findByCriteria:@"WHERE PK > 27"];
         for (CustomDashboard *dash in pAllCount) {
             switch (dash.dashboardType) {
@@ -114,7 +114,7 @@ static dispatch_source_t _timer;
             }
         }
     }else{
-        switch ([DashboardSetting sharedInstance].dashboardStyle) {
+        switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardStyle"]) {
             case DashboardStyleOne:
             {
                 [self setVerticalDashboardFrame:DashboardStyleOne];
@@ -145,7 +145,7 @@ static dispatch_source_t _timer;
     scrollView.contentSize = CGSizeMake(SCREEN_MAX*[DashboardSetting sharedInstance].KPageNumer,0);
     pageControl.frame = CGRectMake(0, SCREEN_MIN- TopHigh -20, SCREEN_MAX, 30);
     
-    if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
+    if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardCustomMode) {
         NSArray* pAllCount = [CustomDashboard findByCriteria:@"WHERE PK > 27"];
         for (CustomDashboard *dash in pAllCount) {
             switch (dash.dashboardType) {
@@ -174,7 +174,7 @@ static dispatch_source_t _timer;
         }
         
     }else{
-        switch ([DashboardSetting sharedInstance].dashboardStyle) {
+        switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardStyle"]) {
             case DashboardStyleOne:
             {
                 [self setHorizontalDashboardFrame:DashboardStyleOne];
@@ -527,7 +527,7 @@ static dispatch_source_t _timer;
 }
 - (void)LoadUI{
     //判断仪表盘模式：
-    if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
+    if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardCustomMode) {
         [self initWithcustomMode];
          DLog(@"已经来到");
         if ([DashboardSetting sharedInstance].isAddDashboard == YES) {
@@ -536,7 +536,7 @@ static dispatch_source_t _timer;
         }
         
     }else{
-        switch ([DashboardSetting sharedInstance].dashboardStyle) {
+        switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardStyle"]) {
             case DashboardStyleOne:
             {
                 [self initWithStyleA];
@@ -727,7 +727,7 @@ static dispatch_source_t _timer;
             break;
         case 2:
         {
-            if ([DashboardSetting sharedInstance].dashboardMode == DashboardClassicMode) {
+            if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardClassicMode) {
                 SelectStyleViewController *vc = [[SelectStyleViewController alloc]init];
                 [self.navigationController pushViewController:vc animated:YES];
             }
@@ -746,7 +746,7 @@ static dispatch_source_t _timer;
         {
             //自定义模式
             //添加一个仪表盘
-            if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
+            if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardCustomMode) {
                 [DashboardSetting sharedInstance].isAddDashboard = YES;
                 [DashboardSetting sharedInstance].CurrentPage = pageControl.currentPage;
                 SelectStyleViewController *vc =   [[SelectStyleViewController alloc]init];
@@ -835,7 +835,7 @@ static dispatch_source_t _timer;
     DLog(@"aaa%ld",(long)[DashboardSetting sharedInstance].Dashboardindex);
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
-            switch ([DashboardSetting sharedInstance].dashboardMode) {
+            switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"]) {
                 case DashboardClassicMode:{
                     // 关闭定时器
                     //                    dispatch_source_cancel(_timer);
@@ -1027,7 +1027,7 @@ DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
 }
 #pragma mark 点击移除
 - (void)RemoveDisplay{
-    [[DashboardSetting sharedInstance].defaults setInteger:[[DashboardSetting sharedInstance].defaults integerForKey:@"AddDashboardNumber"]-1 forKey:@"AddDashboardNumber"];
+    [[UserDefaultSet sharedInstance].defaults setInteger:[[UserDefaultSet sharedInstance].defaults integerForKey:@"AddDashboardNumber"]-1 forKey:@"AddDashboardNumber"];
     
     [DashboardSetting sharedInstance].isDashboardRemove = NO;
     CustomDashboard *dashboard = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
@@ -1145,10 +1145,10 @@ DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
 - (void)clearAllUserDefaultsData
 {
     
-    [DashboardSetting sharedInstance].dashboardMode = DashboardCustomMode;
-    [DashboardSetting sharedInstance].dashboardStyle = DashboardStyleOne;
-    [DashboardSetting sharedInstance].numberDecimals = NumberDecimalZero;
-    [DashboardSetting sharedInstance].multiplierType = MultiplierType1;
+    [UserDefaultSet sharedInstance].dashboardMode = DashboardCustomMode;
+    [UserDefaultSet sharedInstance].dashboardStyle = DashboardStyleOne;
+    [UserDefaultSet sharedInstance].numberDecimals = NumberDecimalZero;
+    [UserDefaultSet sharedInstance].multiplierType = MultiplierType1;
     [DashboardSetting sharedInstance].hudModeType = HUDModeTypeToNormal;
     [DashboardSetting sharedInstance].KPageNumer = 4;
     [DashboardSetting sharedInstance].isDashboardRemove = NO;

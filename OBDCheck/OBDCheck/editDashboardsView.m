@@ -39,9 +39,10 @@
         [self addSubview:view];
         [view addSubview:imageView];
        
-        switch ([DashboardSetting sharedInstance].dashboardMode) {
+        switch ([UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode" ) {
             case DashboardClassicMode:
             {
+                DLog(@"1212121212");
              _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Mode",@"Dashboards Style",@"Load Default Dashboards",@"Toggle HUD Mode", nil];
             }
                 break;
@@ -53,7 +54,7 @@
             default:
                 break;
         }
-       
+        DLog(@"数据:%@",_titileArray);
        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 8, self.bounds.size.width, self.bounds.size.height - 8)];                  
         tableView.backgroundColor = [UIColor clearColor];
         tableView.separatorInset = UIEdgeInsetsZero;
@@ -118,7 +119,7 @@
              cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
              [selectBtn addTarget:self action:@selector(selectBtn:) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:selectBtn];
-            switch ([DashboardSetting sharedInstance].dashboardMode) {
+            switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"]) {
                 case DashboardClassicMode:{
                     [selectBtn setTitle:@"Classic" forState:UIControlStateNormal];
                 }
@@ -131,11 +132,11 @@
                     break;
             }
             
-        }else  if (indexPath.row == 2 && [DashboardSetting sharedInstance].dashboardMode == DashboardClassicMode ) {
+        }else  if (indexPath.row == 2 && [[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardClassicMode ) {
             cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
              [selectBtn addTarget:self action:@selector(selectBtn:) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:selectBtn];
-                    switch ([DashboardSetting sharedInstance].dashboardStyle) {
+                    switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardStyle"]) {
                         case DashboardStyleOne:{
                             [selectBtn setTitle:@"One" forState:UIControlStateNormal];
                         }
@@ -166,7 +167,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     DLog(@"点击");
-        switch ([DashboardSetting sharedInstance].dashboardMode) {
+        switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"]) {
         case DashboardCustomMode:
         {
             if (indexPath.row==1) {

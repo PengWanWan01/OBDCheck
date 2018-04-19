@@ -79,7 +79,7 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
     cell.accessoryView = imageView;
     cell.accessoryView.hidden = YES;
-    switch ([DashboardSetting sharedInstance].dashboardMode ) {
+    switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] ) {
         case DashboardClassicMode:{
             if (indexPath.row == 0) {
                 cell.accessoryView.hidden = NO;
@@ -104,20 +104,21 @@
             cell.accessoryView.hidden = NO;
             switch (indexPath.row) {
                 case 0:{  //经典模式
-                    [DashboardSetting sharedInstance].dashboardMode = DashboardClassicMode;
+                    [UserDefaultSet sharedInstance].dashboardMode = DashboardClassicMode;
                      [DashboardSetting sharedInstance].KPageNumer = 3;
                     [self clearAllUserDefaultsData];
                 }
                     break;
                 case 1:{  //自定义模式
-                    [DashboardSetting sharedInstance].dashboardMode = DashboardCustomMode;
+                    [UserDefaultSet sharedInstance].dashboardMode = DashboardCustomMode;
                      [DashboardSetting sharedInstance].KPageNumer = 4;
                 }
                     break;
                 default:
                     break;
         }
-            DLog(@"122,%ld",(long)[DashboardSetting sharedInstance].dashboardMode);
+            [[UserDefaultSet sharedInstance]SetAttribute:[UserDefaultSet sharedInstance].dashboardMode Key:@"dashboardMode"];
+            DLog(@"122,%ld",(long)[UserDefaultSet sharedInstance].dashboardMode);
 
         }else{
             cell.accessoryView.hidden = YES;

@@ -168,4 +168,8 @@
 #import "SVProgressHUD.h"
 #import "OBDCHECKLIBOC.h"
 #import "OBDLibTool.h"
+#import <AVFoundation/AVFoundation.h>
+#import "AFNetworking.h"
+#import "NetWorkClient.h"
+#import "UserDefaultSet.h"
 #endif /* OBDCheckPrefixHeader_pch */

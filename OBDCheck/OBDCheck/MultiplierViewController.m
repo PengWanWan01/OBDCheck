@@ -64,7 +64,7 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
     cell.accessoryView = imageView;
     cell.accessoryView.hidden = YES;
-    switch ([DashboardSetting sharedInstance].multiplierType ) {
+    switch ([[UserDefaultSet sharedInstance] GetAttribute:@"multiplierType"]) {
         case MultiplierType1:{
             if (indexPath.row == 0) {
                 cell.accessoryView.hidden = NO;
@@ -89,17 +89,19 @@
             cell.accessoryView.hidden = NO;
             switch (indexPath.row) {
                 case 0:{  //0位小数点
-                    [DashboardSetting sharedInstance].multiplierType = MultiplierType1;
+                    [UserDefaultSet sharedInstance].multiplierType = MultiplierType1;
+                    [[UserDefaultSet sharedInstance]SetAttribute:[UserDefaultSet sharedInstance].multiplierType Key:@"MultiplierType1"];
                 }
                     break;
                 case 1:{  //1位小数点
-                    [DashboardSetting sharedInstance].multiplierType = MultiplierType1000;
+                    [UserDefaultSet sharedInstance].multiplierType = MultiplierType1000;
+                    [[UserDefaultSet sharedInstance]SetAttribute:[UserDefaultSet sharedInstance].multiplierType Key:@"MultiplierType1"];
                 }
                     break;
                 default:
                     break;
             }
-            DLog(@"122,%ld",(long)[DashboardSetting sharedInstance].multiplierType);
+            DLog(@"122,%ld",(long)[UserDefaultSet sharedInstance].multiplierType);
             
         }else{
             cell.accessoryView.hidden = YES;

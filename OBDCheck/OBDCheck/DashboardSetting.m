@@ -24,14 +24,6 @@
 {
     self = [super init];
     if (self) {
-        self.defaults = [NSUserDefaults standardUserDefaults];
-        //        [self.defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:myObject] forKey:@"MyObjectKey"];
-        
-        [self.defaults synchronize];
-        self.dashboardMode = DashboardCustomMode;
-        self.dashboardStyle = DashboardStyleOne;
-        self.numberDecimals = NumberDecimalZero;
-        self.multiplierType = MultiplierType1;
         self.hudModeType = HUDModeTypeToNormal;
         self.KPageNumer = 3;
         self.isAddDashboard = NO;
@@ -53,31 +45,10 @@
     }
     return self;
 }
--(void)SetDefultAttribute
-{
-    
-    self.dashboardMode = DashboardClassicMode;
-}
 
 
--(BOOL)SetAttribute:(CGFloat )Value Key:(NSString *)key
-{
-    //加入本地设置参数
-    [self.defaults setFloat:Value forKey:[NSString stringWithFormat:@"%@",key]];
-    
-    return YES;
-}
 
--(CGFloat )GetAttribute:(NSString *)Key
-{
-    //获取本地文件相关属性的值
-    CGFloat result = [self.defaults floatForKey:[NSString stringWithFormat:@"%@",Key]];
-    
-    if (!result) {
-        return 100.f;
-    }
-    return result;
-}
+
 
 - (void)initADDCustomDashboard:(CustomDashboard *)model withTag:(NSInteger)i {
     

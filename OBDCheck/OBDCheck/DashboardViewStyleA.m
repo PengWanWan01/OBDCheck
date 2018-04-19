@@ -249,7 +249,8 @@
     [self addDrawFillstartAngle:[model.DashboardAFillstartAngle doubleValue] FillendAngle:[model.DashboardAFillEndAngle doubleValue] FillColor:model.DashboardAFillColor withRingWidth:[model.DashboardAringWidth doubleValue] withModel:(CustomDashboard *)model];
     UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:LongPress];
-    if ([DashboardSetting sharedInstance].dashboardMode == DashboardCustomMode) {
+    
+    if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardCustomMode ) {
         UIPinchGestureRecognizer* pinchGR = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchAction:)];
         [self addGestureRecognizer:pinchGR];
     }

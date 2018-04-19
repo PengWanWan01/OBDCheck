@@ -64,7 +64,7 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
     cell.accessoryView = imageView;
     cell.accessoryView.hidden = YES;
-    switch ([DashboardSetting sharedInstance].numberDecimals ) {
+    switch ([[UserDefaultSet sharedInstance] GetAttribute:@"numberDecimals"] ) {
         case NumberDecimalZero:{
             if (indexPath.row == 0) {
                 cell.accessoryView.hidden = NO;
@@ -94,21 +94,22 @@
             cell.accessoryView.hidden = NO;
             switch (indexPath.row) {
                 case 0:{  //0位小数点
-                    [DashboardSetting sharedInstance].numberDecimals = NumberDecimalZero;
+                    [UserDefaultSet sharedInstance].numberDecimals = NumberDecimalZero;
                 }
                     break;
                 case 1:{  //1位小数点
-                    [DashboardSetting sharedInstance].numberDecimals = NumberDecimalOne;
+                    [UserDefaultSet sharedInstance].numberDecimals = NumberDecimalOne;
                 }
                     break;
                 case 2:{  //2位小数点
-                    [DashboardSetting sharedInstance].numberDecimals = NumberDecimalTwo;
+                    [UserDefaultSet sharedInstance].numberDecimals = NumberDecimalTwo;
                 }
                     break;
                 default:
                     break;
             }
-            DLog(@"122,%ld",(long)[DashboardSetting sharedInstance].numberDecimals);
+            [[UserDefaultSet sharedInstance] SetAttribute:[UserDefaultSet sharedInstance].numberDecimals Key:@"numberDecimals"];
+            DLog(@"122,%ld",(long)[UserDefaultSet sharedInstance].numberDecimals);
             
         }else{
             cell.accessoryView.hidden = YES;
