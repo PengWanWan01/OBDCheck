@@ -16,12 +16,15 @@
 @implementation ConnectionController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initNavBarTitle:@"Connection Help" andLeftItemImageName:@"back" andRightItemImageName:@""];
+    [self initNavBarTitle:@"Connection" andLeftItemImageName:@"back" andRightItemImageName:@""];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self initWithData];
+    [self initWithUI];
 }
 //设置样式
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -39,25 +42,64 @@
     return UIStatusBarAnimationNone;
 }
 #pragma mark 设置横竖屏布局
-- (void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    if (isLandscape) {
-        //翻转为横屏时
-        DLog(@"横屏");
-        [self setHorizontalFrame];
-    }else{
-        DLog(@"竖屏");
-        [self setVerticalFrame];
+
+
+- (void)initWithData{
+    self.dataSource = [[NSMutableArray alloc
+                        ]initWithObjects:@"连接的设备",@"连接方法",@"后台连接",@"OBD-II协议", nil];
+}
+- (void)initWithUI{
+    
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];
     }
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        cell.layoutMargins = UIEdgeInsetsZero;
+    }
+    cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
+    cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
+    cell.textLabel.text = self.dataSource[indexPath.row];
+    if (indexPath.row == 2) {
+        UISwitch *selectSwitch = [[UISwitch alloc]init];
+        selectSwitch.on = [[UserDefaultSet sharedInstance]GetAttribute:@"backConnect"];
+        [selectSwitch addTarget:self action:@selector(select:) forControlEvents:UIControlEventTouchUpInside];
+        cell.accessoryView = selectSwitch;
+    }else{
+        cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
+    }
+    cell.selectionStyle =  UITableViewCellSelectionStyleNone;
+    return cell;
 }
-#pragma mark 竖屏
-- (void)setVerticalFrame{
-    
-    
+- (void)select:(UISwitch *)btn{
+    if (btn.on == YES) {
+        [UserDefaultSet sharedInstance].backConnect = backgroundConnectON;
+    }else{
+        [UserDefaultSet sharedInstance].backConnect = backgroundConnectOFF;
+    }
+    [[UserDefaultSet sharedInstance] SetAttribute:[UserDefaultSet sharedInstance].backConnect Key:@"backConnect"];
 }
-#pragma mark 横屏
-- (void)setHorizontalFrame{
-    
-    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    switch (indexPath.row) {
+        case 0:
+            {
+                
+            }
+            break;
+        case 1:
+        {
+            
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
 }
 @end

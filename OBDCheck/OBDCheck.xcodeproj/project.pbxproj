@@ -85,6 +85,10 @@
 		CB66C9AB2088B675000AE89A /* screenshotModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB66C9AA2088B675000AE89A /* screenshotModel.m */; };
 		CB82247C1F46EEC400E1E4BA /* HUDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB82247B1F46EEC400E1E4BA /* HUDViewController.m */; };
 		CB82247F1F46F30000E1E4BA /* HUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB82247E1F46F30000E1E4BA /* HUDView.m */; };
+		CB822DED2089747E00885A2F /* eva_kim-0513-3-333-英文疲劳.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB822DE92089747E00885A2F /* eva_kim-0513-3-333-英文疲劳.mp3 */; };
+		CB822DEE2089747E00885A2F /* eva_kim-0513-3-333-中文超速.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB822DEA2089747E00885A2F /* eva_kim-0513-3-333-中文超速.mp3 */; };
+		CB822DEF2089747E00885A2F /* eva_kim-0513-3-333-中文疲劳.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB822DEB2089747E00885A2F /* eva_kim-0513-3-333-中文疲劳.mp3 */; };
+		CB822DF02089747E00885A2F /* eva_kim-0513-3-333-英文超速.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB822DEC2089747E00885A2F /* eva_kim-0513-3-333-英文超速.mp3 */; };
 		CB835D2D1F594DB6007C5A17 /* ReadinessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB835D2B1F594DB6007C5A17 /* ReadinessViewController.m */; };
 		CB835D2E1F594DB6007C5A17 /* ReadinessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB835D2C1F594DB6007C5A17 /* ReadinessViewController.xib */; };
 		CB835D321F595CD2007C5A17 /* DiagnosticsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB835D301F595CD2007C5A17 /* DiagnosticsTableViewCell.m */; };
@@ -344,6 +348,10 @@
 		CB82247B1F46EEC400E1E4BA /* HUDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDViewController.m; sourceTree = "<group>"; };
 		CB82247D1F46F30000E1E4BA /* HUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDView.h; sourceTree = "<group>"; };
 		CB82247E1F46F30000E1E4BA /* HUDView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDView.m; sourceTree = "<group>"; };
+		CB822DE92089747E00885A2F /* eva_kim-0513-3-333-英文疲劳.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "eva_kim-0513-3-333-英文疲劳.mp3"; sourceTree = "<group>"; };
+		CB822DEA2089747E00885A2F /* eva_kim-0513-3-333-中文超速.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "eva_kim-0513-3-333-中文超速.mp3"; sourceTree = "<group>"; };
+		CB822DEB2089747E00885A2F /* eva_kim-0513-3-333-中文疲劳.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "eva_kim-0513-3-333-中文疲劳.mp3"; sourceTree = "<group>"; };
+		CB822DEC2089747E00885A2F /* eva_kim-0513-3-333-英文超速.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "eva_kim-0513-3-333-英文超速.mp3"; sourceTree = "<group>"; };
 		CB835D2A1F594DB6007C5A17 /* ReadinessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadinessViewController.h; sourceTree = "<group>"; };
 		CB835D2B1F594DB6007C5A17 /* ReadinessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadinessViewController.m; sourceTree = "<group>"; };
 		CB835D2C1F594DB6007C5A17 /* ReadinessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReadinessViewController.xib; sourceTree = "<group>"; };
@@ -814,6 +822,25 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		CB7315262089740A0031111F /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				CB822DE82089747E00885A2F /* 语音报警 */,
+			);
+			name = Music;
+			sourceTree = "<group>";
+		};
+		CB822DE82089747E00885A2F /* 语音报警 */ = {
+			isa = PBXGroup;
+			children = (
+				CB822DE92089747E00885A2F /* eva_kim-0513-3-333-英文疲劳.mp3 */,
+				CB822DEA2089747E00885A2F /* eva_kim-0513-3-333-中文超速.mp3 */,
+				CB822DEB2089747E00885A2F /* eva_kim-0513-3-333-中文疲劳.mp3 */,
+				CB822DEC2089747E00885A2F /* eva_kim-0513-3-333-英文超速.mp3 */,
+			);
+			path = "语音报警";
+			sourceTree = "<group>";
+		};
 		CB848F121F4541DB00C1A718 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1063,6 +1090,7 @@
 				CBF1E23E1F30176900EEC755 /* Special */,
 				CBF1E23F1F30177500EEC755 /* Personal */,
 				CBF1E2401F3017B700EEC755 /* Main */,
+				CB7315262089740A0031111F /* Music */,
 				CBF1E2261F2ED49200EEC755 /* Supporting Files */,
 			);
 			path = OBDCheck;
@@ -1362,6 +1390,7 @@
 				CBB1CC4C1F6267F0002EE7EB /* TripsViewController.xib in Resources */,
 				CB835D331F595CD2007C5A17 /* DiagnosticsTableViewCell.xib in Resources */,
 				CB5AA4131F31A377002B3006 /* SetTableViewCell.xib in Resources */,
+				CB822DEE2089747E00885A2F /* eva_kim-0513-3-333-中文超速.mp3 in Resources */,
 				CBF1E2361F2ED49200EEC755 /* LaunchScreen.storyboard in Resources */,
 				CB5DAC631F78FA93009A8A19 /* ColorTableViewCell.xib in Resources */,
 				CBCD979A1F7CED2F0002383F /* FileInfoView.xib in Resources */,
@@ -1372,7 +1401,10 @@
 				CB99E1B41F66C45600A87DAF /* selectTableViewCell.xib in Resources */,
 				CBB1CC511F626809002EE7EB /* FilesViewController.xib in Resources */,
 				CBF1E2311F2ED49200EEC755 /* Main.storyboard in Resources */,
+				CB822DEF2089747E00885A2F /* eva_kim-0513-3-333-中文疲劳.mp3 in Resources */,
+				CB822DF02089747E00885A2F /* eva_kim-0513-3-333-英文超速.mp3 in Resources */,
 				CB3FAD351F6A9F9600B572FD /* MonitorsTableViewCell.xib in Resources */,
+				CB822DED2089747E00885A2F /* eva_kim-0513-3-333-英文疲劳.mp3 in Resources */,
 				CB44DB371F4A825900A24629 /* StyleThreeTableViewCell.xib in Resources */,
 				CB45CBAE1F6B7B96003AA330 /* ResultsTableViewCell.xib in Resources */,
 				CB44DB2D1F4A822200A24629 /* StyleOneTableViewCell.xib in Resources */,
