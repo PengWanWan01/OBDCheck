@@ -79,7 +79,6 @@
 - (void)clearAllUserDefaultsData
 {
     [[UserDefaultSet sharedInstance] SetDefultAttribute];
-    [DashboardSetting sharedInstance].KPageNumer = 3;
     [DashboardSetting sharedInstance].isAddDashboard = NO;
     [DashboardSetting sharedInstance].isDashboardFont = NO;
     [DashboardSetting sharedInstance].isDashboardMove = NO;

@@ -89,6 +89,7 @@
 		CB822DEE2089747E00885A2F /* eva_kim-0513-3-333-中文超速.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB822DEA2089747E00885A2F /* eva_kim-0513-3-333-中文超速.mp3 */; };
 		CB822DEF2089747E00885A2F /* eva_kim-0513-3-333-中文疲劳.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB822DEB2089747E00885A2F /* eva_kim-0513-3-333-中文疲劳.mp3 */; };
 		CB822DF02089747E00885A2F /* eva_kim-0513-3-333-英文超速.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB822DEC2089747E00885A2F /* eva_kim-0513-3-333-英文超速.mp3 */; };
+		CB822DF42089B71300885A2F /* screenShotController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB822DF32089B71300885A2F /* screenShotController.m */; };
 		CB835D2D1F594DB6007C5A17 /* ReadinessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB835D2B1F594DB6007C5A17 /* ReadinessViewController.m */; };
 		CB835D2E1F594DB6007C5A17 /* ReadinessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB835D2C1F594DB6007C5A17 /* ReadinessViewController.xib */; };
 		CB835D321F595CD2007C5A17 /* DiagnosticsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB835D301F595CD2007C5A17 /* DiagnosticsTableViewCell.m */; };
@@ -352,6 +353,8 @@
 		CB822DEA2089747E00885A2F /* eva_kim-0513-3-333-中文超速.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "eva_kim-0513-3-333-中文超速.mp3"; sourceTree = "<group>"; };
 		CB822DEB2089747E00885A2F /* eva_kim-0513-3-333-中文疲劳.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "eva_kim-0513-3-333-中文疲劳.mp3"; sourceTree = "<group>"; };
 		CB822DEC2089747E00885A2F /* eva_kim-0513-3-333-英文超速.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "eva_kim-0513-3-333-英文超速.mp3"; sourceTree = "<group>"; };
+		CB822DF22089B71300885A2F /* screenShotController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = screenShotController.h; sourceTree = "<group>"; };
+		CB822DF32089B71300885A2F /* screenShotController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = screenShotController.m; sourceTree = "<group>"; };
 		CB835D2A1F594DB6007C5A17 /* ReadinessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadinessViewController.h; sourceTree = "<group>"; };
 		CB835D2B1F594DB6007C5A17 /* ReadinessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadinessViewController.m; sourceTree = "<group>"; };
 		CB835D2C1F594DB6007C5A17 /* ReadinessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReadinessViewController.xib; sourceTree = "<group>"; };
@@ -953,6 +956,8 @@
 				CB0220841F42FE8E008773ED /* SelectModeViewController.m */,
 				CBEBF1CA1F3B0E3F006CCA8B /* SelectStyleViewController.h */,
 				CBEBF1CB1F3B0E3F006CCA8B /* SelectStyleViewController.m */,
+				CB822DF22089B71300885A2F /* screenShotController.h */,
+				CB822DF32089B71300885A2F /* screenShotController.m */,
 				CB82247A1F46EEC400E1E4BA /* HUDViewController.h */,
 				CB82247B1F46EEC400E1E4BA /* HUDViewController.m */,
 				CB84F2AA1F74E73A0008F681 /* HUDColorViewController.h */,
@@ -1613,6 +1618,7 @@
 				CB47CE711FBBD99E00451244 /* PerformanceSetting.m in Sources */,
 				CBF1E2281F2ED49200EEC755 /* main.m in Sources */,
 				CBF1E27C1F3068ED00EEC755 /* SetViewController.m in Sources */,
+				CB822DF42089B71300885A2F /* screenShotController.m in Sources */,
 				CB510BED205A714500F3AD6D /* DiagnoseController.m in Sources */,
 				CB0220851F42FE8E008773ED /* SelectModeViewController.m in Sources */,
 				CB5A619D1F7A20CB000D23D6 /* TyperViewController.m in Sources */,

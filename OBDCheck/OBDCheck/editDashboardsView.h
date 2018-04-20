@@ -17,6 +17,7 @@
 @end
 @interface editDashboardsView : UIView
 @property (nonatomic, weak) id <selectStyleDelegete> delegate;
+@property (nonatomic,strong) NSMutableArray *titileArray;
 
 - (void)show;
 - (void)hide;

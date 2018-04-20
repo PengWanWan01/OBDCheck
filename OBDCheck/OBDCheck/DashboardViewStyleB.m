@@ -137,6 +137,7 @@
     for (CustomDashboard *dash in pAllCount) {
         int page =  [dash.DashboardBorignx doubleValue]/SCREEN_MIN;
         self.frame = CGRectMake([dash.DashboardBorigny floatValue]+page*SCREEN_MAX+64,[dash.DashboardBorignx floatValue]-page*SCREEN_MIN-64, [dash.DashboardBorignwidth doubleValue] ,[dash.DashboardBorignheight doubleValue]);
+        self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
     }
 }
 - (void)setVerticalFrame{
@@ -144,6 +145,8 @@
     NSArray* pAllCount = [CustomDashboard findByCriteria:str];
     for (CustomDashboard *dash in pAllCount) {
          self.frame = CGRectMake([dash.DashboardBorignx doubleValue],[dash.DashboardBorigny doubleValue], [dash.DashboardBorignwidth doubleValue], [dash.DashboardBorignheight doubleValue]);
+        self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
+
     }
 }
 - (void)getNewNumber:(NSNotification *)text{

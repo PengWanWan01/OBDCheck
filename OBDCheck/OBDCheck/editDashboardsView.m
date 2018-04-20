@@ -10,7 +10,6 @@
 @interface editDashboardsView()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>{
     UIView *backView ;
 }
-@property (nonatomic,strong) NSMutableArray *titileArray;
 @end
 @implementation editDashboardsView
 
@@ -41,14 +40,15 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self initWithData];
         });
-       UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 8, self.bounds.size.width, self.bounds.size.height - 8)];
+       UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 8, self.frame.size.width, self.frame.size.height - 8)];
         tableView.backgroundColor = [UIColor clearColor];
         tableView.separatorInset = UIEdgeInsetsZero;
-        tableView.scrollEnabled = NO;
+//        tableView.scrollEnabled = NO;
         tableView.separatorColor = [ColorTools colorWithHexString:@"#212329"];
         tableView.delegate = self;
         tableView.dataSource = self;
         [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
+        tableView.tableFooterView = [[UIView alloc]init];
         [self addSubview:tableView];
     }
     return self;
@@ -67,7 +67,7 @@
         case DashboardCustomMode:
         {
               DLog(@"7777");
-            _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Mode",@"Add Dashboard",@"Load Default Dashboards",@"Toggle HUD Mode",nil];
+            _titileArray = [[NSMutableArray alloc]initWithObjects:@"Edit Dashboards",@"Dashboards Mode",@"Add Dashboard",@"添加页面",@"移除当前页",@"Load Default Dashboards",@"Toggle HUD Mode",@"截图",nil];
         }
             break;
         default:
@@ -185,8 +185,7 @@
                 if ([self.delegate respondsToSelector:@selector(AlertBetouched:)]) {
                     [self.delegate AlertBetouched:indexPath.row];
                 }
-            }
-            
+            }            
             }
             break;
         case DashboardClassicMode:

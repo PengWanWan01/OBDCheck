@@ -25,7 +25,6 @@
     self = [super init];
     if (self) {
         self.hudModeType = HUDModeTypeToNormal;
-        self.KPageNumer = 3;
         self.isAddDashboard = NO;
         self.ischangeDashboard = NO;
         self.isDashboardFont = NO;

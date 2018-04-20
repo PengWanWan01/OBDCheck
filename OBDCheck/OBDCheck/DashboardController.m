@@ -49,31 +49,31 @@ static dispatch_source_t _timer;
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [UIApplication sharedApplication].statusBarHidden = NO;
-  
+    
 }
 #pragma mark 设置横竖屏布局
 
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-//    [self initWithData];
-//    DLog(@"000--%f",TopHigh);
+    //    [self initWithData];
+    //    DLog(@"000--%f",TopHigh);
     if (isLandscape) {
         //翻转为横屏时
         [self setHorizontalFrame];
     }else{
         //翻转为竖屏时
-      
+        
         [self setVerticalFrame];
     }
     DLog(@"旋转");
-//    [self moveFoneView];
+    //    [self moveFoneView];
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
     
     
     scrollView.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX);
-    scrollView.contentSize = CGSizeMake(SCREEN_MIN*[DashboardSetting sharedInstance].KPageNumer,0);
+    scrollView.contentSize = CGSizeMake(SCREEN_MIN*[[UserDefaultSet sharedInstance]GetAttribute:@"KPageNumer"],0);
     pageControl.frame = CGRectMake(0, SCREEN_MAX- self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -40, SCREEN_MIN, 30);
     if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardCustomMode) {
         NSArray* pAllCount = [CustomDashboard findByCriteria:@"WHERE PK > 27"];
@@ -83,30 +83,17 @@ static dispatch_source_t _timer;
                 {
                     dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:dash.pk ];
                     [dashboardStyleAView layoutSubviews];
-
-//                    [dashboardStyleAView removeFromSuperview];
-//                    dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.DashboardAorignx doubleValue], [dash.DashboardAorigny doubleValue], [dash.DashboardAorignwidth doubleValue], [dash.DashboardAorignheight doubleValue])];
-//                    [self initWithCustomDashboardAFrame:dash];
-//                    dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:dash.pk ];
-//                    dashboardStyleAView.frame = CGRectMake([dash.DashboardAorignx doubleValue],[dash.DashboardAorigny doubleValue], [dash.DashboardAorignwidth doubleValue], [dash.DashboardAorignheight doubleValue]);
-//                    [dashboardStyleAView setNeedsLayout];
                 }
                     break;
                 case 2:
                 {
                     [dashboardStyleBView layoutSubviews];
-//                    dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:dash.pk ];
-//                    dashboardStyleBView.frame = CGRectMake([dash.DashboardBorignx doubleValue],[dash.DashboardBorigny doubleValue], [dash.DashboardBorignwidth doubleValue], [dash.DashboardBorignheight doubleValue]);
-//                    [dashboardStyleBView setNeedsLayout];
                 }
                     break;
                 case 3:
                 {
                     [dashboardStyleCView layoutSubviews];
-
-//                    dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:dash.pk ];
-//                    dashboardStyleCView.frame = CGRectMake([dash.DashboardCorignx doubleValue],[dash.DashboardCorigny doubleValue], [dash.DashboardCorignwidth doubleValue], [dash.DashboardCorignheight doubleValue]);
-//                    [dashboardStyleCView setNeedsLayout];
+                    
                 }
                     break;
                 default:
@@ -134,7 +121,7 @@ static dispatch_source_t _timer;
                 break;
         }
     }
-
+    
 }
 #pragma mark 横屏
 //风格一的仪表盘在controller中实现，通过移除先前的，再重建一个仪表盘
@@ -142,7 +129,7 @@ static dispatch_source_t _timer;
 //
 - (void)setHorizontalFrame{
     scrollView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN);
-    scrollView.contentSize = CGSizeMake(SCREEN_MAX*[DashboardSetting sharedInstance].KPageNumer,0);
+    scrollView.contentSize = CGSizeMake(SCREEN_MAX*[[UserDefaultSet sharedInstance]GetAttribute:@"KPageNumer"],0);
     pageControl.frame = CGRectMake(0, SCREEN_MIN- TopHigh -20, SCREEN_MAX, 30);
     
     if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardCustomMode) {
@@ -158,7 +145,7 @@ static dispatch_source_t _timer;
                 case 2:
                 {
                     dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:dash.pk ];
-                    [dashboardStyleBView setNeedsLayout];
+                    [dashboardStyleBView layoutSubviews];
                 }
                     break;
                 case 3:
@@ -201,7 +188,7 @@ static dispatch_source_t _timer;
     switch (type) {
         case DashboardStyleOne:
         {
-          NSArray* pAllCount = [CustomDashboard findByCriteria:@"WHERE  PK < 10"];
+            NSArray* pAllCount = [CustomDashboard findByCriteria:@"WHERE  PK < 10"];
             for (CustomDashboard *dash in pAllCount) {
                 dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:dash.pk];
                 [dashboardStyleAView layoutSubviews];
@@ -219,7 +206,7 @@ static dispatch_source_t _timer;
             break;
         case DashboardStyleThree:
         {
-             NSArray* pAllCount = [CustomDashboard findByCriteria:@"WHERE PK >=19 and PK < 28"];
+            NSArray* pAllCount = [CustomDashboard findByCriteria:@"WHERE PK >=19 and PK < 28"];
             for (CustomDashboard *dash in pAllCount) {
                 dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:dash.pk];
                 [dashboardStyleCView setNeedsLayout];
@@ -265,7 +252,7 @@ static dispatch_source_t _timer;
             break;
     }
 }
-#pragma mark横竖屏之后调整Frame
+#pragma mark初始化仪表盘A
 -(void)initWithCustomDashboardAFrame:(CustomDashboard *)customDashboard{    
     dashboardStyleAView.tag = customDashboard.pk ;
     DashBoardTag = dashboardStyleAView.tag ;
@@ -327,58 +314,58 @@ static dispatch_source_t _timer;
 }
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
-//    DLog(@"收到数据%@",data);
-//    NSString *number1 = _CustomNumberArray[0];
-//    NSString *number2 = _CustomNumberArray[1];
-//    NSString *number3 = _CustomNumberArray[2];
-//    NSString *number4 = _CustomNumberArray[3];
-//
-//    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
-//    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
-//    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-//    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-////    DLog(@"%@",string);
-//    NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
-//    NSString *RotationalStr = [BlueTool isRotational:string];
-//    NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
-//    NSString *ThrottlePositionStr = [BlueTool isThrottlePosition:string];
-//    DLog(@"车速%@",VehicleSpeedStr);
-//    DLog(@"转速%@",RotationalStr);
-//    DLog(@"水温%@",WatertemperatureStr);
-//    DLog(@"TF%@",ThrottlePositionStr);
-//    
-//    if (!(VehicleSpeedStr == nil)) {
-//        
-//        [_CustomNumberArray replaceObjectAtIndex:0 withObject:VehicleSpeedStr];
-//        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"28",@"StyleAViewTag",_CustomNumberArray[0],@"StyleAViewnumber",number1,@"PreStyleAViewnumber", nil];
-//        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
-//        //得到车速之后，发送转速
-//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
-//    }
-//    if (!(RotationalStr == nil)) {
-//        [_CustomNumberArray replaceObjectAtIndex:1 withObject:RotationalStr];
-//        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"29",@"StyleAViewTag",_CustomNumberArray[1],@"StyleAViewnumber",number2,@"PreStyleAViewnumber", nil];
-//        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
-//        //发送水温
-//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130350D"]];
-//        
-//    }
-//    if (!(WatertemperatureStr == nil)) {
-//        [_CustomNumberArray replaceObjectAtIndex:2 withObject:WatertemperatureStr];
-//        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"30",@"StyleAViewTag",_CustomNumberArray[2],@"StyleAViewnumber",number3,@"PreStyleAViewnumber", nil];
-//        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
-//        
-//        //得到水温之后，发送TF
-//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303131310D"]];
-//    }
-//    if (!(ThrottlePositionStr == nil)) {
-//        [_CustomNumberArray replaceObjectAtIndex:3 withObject:ThrottlePositionStr];
-//        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"31",@"StyleAViewTag",_CustomNumberArray[3],@"StyleAViewnumber",number4,@"PreStyleAViewnumber", nil];
-//        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
-//        //得到TF之后，发送车速
-//        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
-//    }
-//    
+    //    DLog(@"收到数据%@",data);
+    //    NSString *number1 = _CustomNumberArray[0];
+    //    NSString *number2 = _CustomNumberArray[1];
+    //    NSString *number3 = _CustomNumberArray[2];
+    //    NSString *number4 = _CustomNumberArray[3];
+    //
+    //    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+    //    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+    //    string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    //    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    ////    DLog(@"%@",string);
+    //    NSString *VehicleSpeedStr = [BlueTool isVehicleSpeed:string];
+    //    NSString *RotationalStr = [BlueTool isRotational:string];
+    //    NSString *WatertemperatureStr = [BlueTool isWatertemperature:string];
+    //    NSString *ThrottlePositionStr = [BlueTool isThrottlePosition:string];
+    //    DLog(@"车速%@",VehicleSpeedStr);
+    //    DLog(@"转速%@",RotationalStr);
+    //    DLog(@"水温%@",WatertemperatureStr);
+    //    DLog(@"TF%@",ThrottlePositionStr);
+    //
+    //    if (!(VehicleSpeedStr == nil)) {
+    //
+    //        [_CustomNumberArray replaceObjectAtIndex:0 withObject:VehicleSpeedStr];
+    //        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"28",@"StyleAViewTag",_CustomNumberArray[0],@"StyleAViewnumber",number1,@"PreStyleAViewnumber", nil];
+    //        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
+    //        //得到车速之后，发送转速
+    //        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130630D"]];
+    //    }
+    //    if (!(RotationalStr == nil)) {
+    //        [_CustomNumberArray replaceObjectAtIndex:1 withObject:RotationalStr];
+    //        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"29",@"StyleAViewTag",_CustomNumberArray[1],@"StyleAViewnumber",number2,@"PreStyleAViewnumber", nil];
+    //        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
+    //        //发送水温
+    //        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130350D"]];
+    //
+    //    }
+    //    if (!(WatertemperatureStr == nil)) {
+    //        [_CustomNumberArray replaceObjectAtIndex:2 withObject:WatertemperatureStr];
+    //        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"30",@"StyleAViewTag",_CustomNumberArray[2],@"StyleAViewnumber",number3,@"PreStyleAViewnumber", nil];
+    //        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
+    //
+    //        //得到水温之后，发送TF
+    //        [self.blueTooth SendData:[BlueTool hexToBytes:@"303131310D"]];
+    //    }
+    //    if (!(ThrottlePositionStr == nil)) {
+    //        [_CustomNumberArray replaceObjectAtIndex:3 withObject:ThrottlePositionStr];
+    //        NSDictionary *dict =[[NSDictionary alloc]initWithObjectsAndKeys:@"31",@"StyleAViewTag",_CustomNumberArray[3],@"StyleAViewnumber",number4,@"PreStyleAViewnumber", nil];
+    //        [[NSNotificationCenter defaultCenter]postNotificationName:@"updateNumber" object:nil userInfo:dict];
+    //        //得到TF之后，发送车速
+    //        [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
+    //    }
+    //
     
 }
 
@@ -386,41 +373,41 @@ static dispatch_source_t _timer;
 - (void)updateCustomType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(NSInteger)id{
     DLog(@"更新");
     CustomDashboard *dash = [CustomDashboard findByPK:id];
-            switch (Customtype) {
-                case 1:
-                {
-                    DLog(@"改变！！！！111");
-                    dash.DashboardAorignx = [NSString stringWithFormat:@"%f",orignx];
-                    dash.DashboardAorigny = [NSString stringWithFormat:@"%f",origny];
-                    dash.DashboardAorignwidth = [NSString stringWithFormat:@"%f",width];
-                    dash.DashboardAorignheight = [NSString stringWithFormat:@"%f",height];
-                    
-                }
-                    break;
-                case 2:
-                {
-                    dash.DashboardBorignx = [NSString stringWithFormat:@"%f",orignx];
-                    dash.DashboardBorigny = [NSString stringWithFormat:@"%f",origny];
-                    dash.DashboardBorignwidth = [NSString stringWithFormat:@"%f",width];
-                    dash.DashboardBorignheight = [NSString stringWithFormat:@"%f",height];
-                    
-                    
-                }
-                    break;
-                case 3:
-                {
-                    dash.DashboardCorignx = [NSString stringWithFormat:@"%f",orignx];
-                    dash.DashboardCorigny = [NSString stringWithFormat:@"%f",origny];
-                    dash.DashboardCorignwidth = [NSString stringWithFormat:@"%f",width];
-                    dash.DashboardCorignheight = [NSString stringWithFormat:@"%f",height];
-                    dash.DashboardCGradientradius = [NSString stringWithFormat:@"%f",width/2];
-                }
-                    break;
-                default:
-                    break;
-            }
-            [dash update];
-
+    switch (Customtype) {
+        case 1:
+        {
+            DLog(@"改变！！！！111");
+            dash.DashboardAorignx = [NSString stringWithFormat:@"%f",orignx];
+            dash.DashboardAorigny = [NSString stringWithFormat:@"%f",origny];
+            dash.DashboardAorignwidth = [NSString stringWithFormat:@"%f",width];
+            dash.DashboardAorignheight = [NSString stringWithFormat:@"%f",height];
+            
+        }
+            break;
+        case 2:
+        {
+            dash.DashboardBorignx = [NSString stringWithFormat:@"%f",orignx];
+            dash.DashboardBorigny = [NSString stringWithFormat:@"%f",origny];
+            dash.DashboardBorignwidth = [NSString stringWithFormat:@"%f",width];
+            dash.DashboardBorignheight = [NSString stringWithFormat:@"%f",height];
+            
+            
+        }
+            break;
+        case 3:
+        {
+            dash.DashboardCorignx = [NSString stringWithFormat:@"%f",orignx];
+            dash.DashboardCorigny = [NSString stringWithFormat:@"%f",origny];
+            dash.DashboardCorignwidth = [NSString stringWithFormat:@"%f",width];
+            dash.DashboardCorignheight = [NSString stringWithFormat:@"%f",height];
+            dash.DashboardCGradientradius = [NSString stringWithFormat:@"%f",width/2];
+        }
+            break;
+        default:
+            break;
+    }
+    [dash update];
+    
 }
 #pragma mark 对经典不同风格进行更新
 - (void)updateClassicType:(NSInteger )Customtype  OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height ID:(NSInteger)id{
@@ -430,29 +417,29 @@ static dispatch_source_t _timer;
     switch (Customtype) {
         case 1:
         {
-                    dash.DashboardAorigny = [NSString stringWithFormat:@"%f",origny];
-                    dash.DashboardAorignwidth = [NSString stringWithFormat:@"%f",width];
-                    dash.DashboardAorignheight = [NSString stringWithFormat:@"%f",height];
-                    [dash update];
+            dash.DashboardAorigny = [NSString stringWithFormat:@"%f",origny];
+            dash.DashboardAorignwidth = [NSString stringWithFormat:@"%f",width];
+            dash.DashboardAorignheight = [NSString stringWithFormat:@"%f",height];
+            [dash update];
         }
             break;
         case 2:
         {
-                    dash.DashboardBorignx = [NSString stringWithFormat:@"%f",orignx];
-                    dash.DashboardBorigny = [NSString stringWithFormat:@"%f",origny];
-                    dash.DashboardBorignwidth = [NSString stringWithFormat:@"%f",width];
-                    dash.DashboardBorignheight = [NSString stringWithFormat:@"%f",height];
-                    [dash update];
+            dash.DashboardBorignx = [NSString stringWithFormat:@"%f",orignx];
+            dash.DashboardBorigny = [NSString stringWithFormat:@"%f",origny];
+            dash.DashboardBorignwidth = [NSString stringWithFormat:@"%f",width];
+            dash.DashboardBorignheight = [NSString stringWithFormat:@"%f",height];
+            [dash update];
         }
             break;
         case 3:
         {
-                    dash.DashboardCorignx = [NSString stringWithFormat:@"%f",orignx];
-                    dash.DashboardCorigny = [NSString stringWithFormat:@"%f",origny];
-                    dash.DashboardCorignwidth = [NSString stringWithFormat:@"%f",width];
-                    dash.DashboardCorignheight = [NSString stringWithFormat:@"%f",height];
-                    dash.DashboardCGradientradius = [NSString stringWithFormat:@"%f",width/2];
-                    [dash update];
+            dash.DashboardCorignx = [NSString stringWithFormat:@"%f",orignx];
+            dash.DashboardCorigny = [NSString stringWithFormat:@"%f",origny];
+            dash.DashboardCorignwidth = [NSString stringWithFormat:@"%f",width];
+            dash.DashboardCorignheight = [NSString stringWithFormat:@"%f",height];
+            dash.DashboardCGradientradius = [NSString stringWithFormat:@"%f",width/2];
+            [dash update];
         }
             break;
         default:
@@ -498,10 +485,23 @@ static dispatch_source_t _timer;
     }
 }
 - (void)initWithUI{
-
+    
     //创建滚动视图
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight)];
-    scrollView.contentSize = CGSizeMake(MSWidth*[DashboardSetting sharedInstance].KPageNumer,0);
+    switch ([[UserDefaultSet sharedInstance]GetAttribute:@"KPageNumer"]) {
+        case DashboardClassicMode:
+            {
+               scrollView.contentSize = CGSizeMake(MSWidth*3,0);
+            }
+            break;
+        case DashboardCustomMode:
+        {
+            scrollView.contentSize = CGSizeMake(MSWidth*[[UserDefaultSet sharedInstance]GetAttribute:@"KPageNumer"],0);
+        }
+            break;
+        default:
+            break;
+    }
     scrollView.pagingEnabled = YES;
     [scrollView setShowsHorizontalScrollIndicator:NO];
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(scrollViewtap)] ];
@@ -513,7 +513,7 @@ static dispatch_source_t _timer;
     //    设置常用属性,距离屏幕下方60像素。
     pageControl.frame = CGRectMake(0, MSHeight- self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -40, MSWidth, 30);
     //    设置圆点的个数
-    pageControl.numberOfPages = [DashboardSetting sharedInstance].KPageNumer;
+    pageControl.numberOfPages = [[UserDefaultSet sharedInstance]GetAttribute:@"KPageNumer"];
     //    设置没有被选中时圆点的颜色
     pageControl.pageIndicatorTintColor = [UIColor blackColor];
     //    设置选中时圆点的颜色
@@ -529,12 +529,11 @@ static dispatch_source_t _timer;
     //判断仪表盘模式：
     if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardCustomMode) {
         [self initWithcustomMode];
-         DLog(@"已经来到");
+        DLog(@"已经来到");
         if ([DashboardSetting sharedInstance].isAddDashboard == YES) {
             [self addDashboard];
             [DashboardSetting sharedInstance].isAddDashboard = NO;
         }
-        
     }else{
         switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardStyle"]) {
             case DashboardStyleOne:
@@ -589,7 +588,7 @@ static dispatch_source_t _timer;
 }
 - (void)initWithcustomMode{
     DLog(@"仪表盘");
-//    testView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight)];
+    //    testView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight)];
     NSArray* pAllCount = [CustomDashboard findByCriteria:@"WHERE PK > 27"];
     for (NSInteger i = 0;i<pAllCount.count;i++) {
         CustomDashboard *dash = pAllCount[i];
@@ -700,7 +699,20 @@ static dispatch_source_t _timer;
 }
 
 - (void)rightBarButtonClick{
-    editview = [[editDashboardsView alloc]initWithFrame:CGRectMake(MSWidth - 270, 50, 270 , 240)];
+    switch ([[UserDefaultSet sharedInstance]GetAttribute:@"dashboardMode"]) {
+        case DashboardCustomMode:
+        {
+            editview = [[editDashboardsView alloc]initWithFrame:CGRectMake(MSWidth - 270, 50, 270 , 370)];
+        }
+            break;
+        case DashboardClassicMode:
+        {
+            editview = [[editDashboardsView alloc]initWithFrame:CGRectMake(MSWidth - 270, 50, 270 , 240)];
+        }
+            break;
+        default:
+            break;
+    }
     editview.delegate = self;
     [editview show];
 }
@@ -751,26 +763,37 @@ static dispatch_source_t _timer;
                 [DashboardSetting sharedInstance].CurrentPage = pageControl.currentPage;
                 SelectStyleViewController *vc =   [[SelectStyleViewController alloc]init];
                 [self.navigationController pushViewController:vc animated:YES];
-                
             }
         }
             break;
         case 3:
         {
+            DLog(@"添加一页");
+            
+            ++[UserDefaultSet sharedInstance].KPageNumer;
+            [self alterDashboardPage];
+        }
+            break;
+        case 4:
+        {
+            DLog(@"删除当前页");
+            --[UserDefaultSet sharedInstance].KPageNumer;
+            [self alterDashboardPage];
+        }
+            break;
+        case 5:
+        {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Load Default Dashboards" message:@"This will delete all of the existing dashboards and load the default set of dashboards. Do you want to continue?" preferredStyle:  UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
             }]];
             [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [self LoadDefaultDashboards];
             }]];
-            
-            
             //弹出提示框；
             [self presentViewController:alert animated:true completion:nil];
         }
             break;
-        case 4:
+        case 6:
         {
             //     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             //                DLog(@"停止停止");
@@ -780,26 +803,39 @@ static dispatch_source_t _timer;
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
-            
+        case 7:
+        {
+            screenShotController *vc = [[screenShotController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
         default:
             break;
     }
     
 }
+#pragma mark 修改仪表盘的页数
+-(void)alterDashboardPage{
+      [[UserDefaultSet sharedInstance] SetAttribute:[UserDefaultSet sharedInstance].KPageNumer Key:@"KPageNumer"];
+     scrollView.contentSize = CGSizeMake(MSWidth*[[UserDefaultSet sharedInstance]GetAttribute:@"KPageNumer"],0);
+    pageControl.numberOfPages = [[UserDefaultSet sharedInstance]GetAttribute:@"KPageNumer"];
+    
+
+}
 #pragma mark 捏合手势代理
 - (void)pinchtap:(UIPinchGestureRecognizer *)sender OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height{
     DLog(@"*****DIDIDIDIDI%f \n %f \n %f \n %f",orignx,origny,width,height);
     CustomDashboard *dashboard = [CustomDashboard findByPK:sender.view.tag];
-      dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:sender.view.tag];
-     int page =  orignx/MSWidth;
+    dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:sender.view.tag];
+    int page =  orignx/MSWidth;
     switch (dashboard.dashboardType) {
         case 1:
         {
             if (isLandscape) {
-            [self updateCustomType:1 OrignX:SCREEN_MIN-origny-(height-30*KFontmultiple)-20*KFontmultiple OrignY:orignx-TopHigh-15*KFontmultiple-page*MSWidth Width:width Height:height ID:sender.view.tag];
+                [self updateCustomType:1 OrignX:SCREEN_MIN-origny-(height-30*KFontmultiple)-20*KFontmultiple OrignY:orignx-TopHigh-15*KFontmultiple-page*MSWidth Width:width Height:height ID:sender.view.tag];
             }else{
-            [self updateCustomType:1 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
-                }
+                [self updateCustomType:1 OrignX:orignx OrignY:origny Width:width Height:height ID:sender.view.tag];
+            }
             DLog(@"%@\n%@\n%@\n%@",dashboard.DashboardAorignx,dashboard.DashboardAorigny,dashboard.DashboardAorignwidth,dashboard.DashboardAorignheight)
         }
             break;
@@ -870,17 +906,17 @@ static dispatch_source_t _timer;
 #pragma mark 全部恢复默认仪表盘
 - (void)LoadDefaultDashboards{
     DLog(@"LoadLoad");
- dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [CustomDashboard clearTable];
-         [[DashboardSetting sharedInstance]initWithdashboardA];
-         [[DashboardSetting sharedInstance]initWithdashboardB];
-         [[DashboardSetting sharedInstance]initWithdashboardC];
-         [[DashboardSetting sharedInstance]initwithCustomDashboard];
+        [[DashboardSetting sharedInstance]initWithdashboardA];
+        [[DashboardSetting sharedInstance]initWithdashboardB];
+        [[DashboardSetting sharedInstance]initWithdashboardC];
+        [[DashboardSetting sharedInstance]initwithCustomDashboard];
         [self clearAllUserDefaultsData];
-       dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateView];
-       });
- });
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateView];
+        });
+    });
 }
 #pragma mark 使仪表盘移动到最前面
 - (void)moveFoneView{
@@ -969,60 +1005,60 @@ static dispatch_source_t _timer;
         {
             [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleOne withTag:0];
             
-         DashboardView  * dashboardAView = [[DashboardView alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage *MSWidth +(arc4random() % (int)(MSWidth/2)), (arc4random() % (int)(MSHeight/2)), 150*KFontmultiple, 150*KFontmultiple)];
+            DashboardView  * dashboardAView = [[DashboardView alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage *MSWidth +(arc4random() % (int)(MSWidth/2)), (arc4random() % (int)(MSHeight/2)), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardAView.tag = ++ DashBoardTag;
             dashboardAView.delegate =self;
-           CustomDashboard *dashboard = [CustomDashboard findByPK:dashboardAView.tag];
+            CustomDashboard *dashboard = [CustomDashboard findByPK:dashboardAView.tag];
             [dashboardAView addGradientView:dashboard.DashboardAouterColor GradientViewWidth:dashboardAView.frame.size.width];
-                    [dashboardAView initWithModel:dashboard];
+            [dashboardAView initWithModel:dashboard];
             [scrollView addSubview:dashboardAView];
             DLog(@"%f*****%f",dashboardAView.frame.origin.x,dashboardAView.frame.origin.y);
-
-             if (isLandscape) {
-       [self updateCustomType:1 OrignX:SCREEN_MIN-dashboardAView.frame.origin.y-(dashboardAView.frame.size.height-30*KFontmultiple)+[DashboardSetting sharedInstance].CurrentPage*SCREEN_MIN OrignY:dashboardAView.frame.origin.x-TopHigh-15*KFontmultiple-[DashboardSetting sharedInstance].CurrentPage*MSWidth Width:dashboardAView.frame.size.width Height:dashboardAView.frame.size.height ID:dashboardAView.tag];
-             }else{[self updateCustomType:1 OrignX:dashboardAView.frame.origin.x OrignY:dashboardAView.frame.origin.y Width:dashboardAView.frame.size.width Height:dashboardAView.frame.size.height ID:dashboardAView.tag];
-             }
-
+            
+            if (isLandscape) {
+                [self updateCustomType:1 OrignX:SCREEN_MIN-dashboardAView.frame.origin.y-(dashboardAView.frame.size.height-30*KFontmultiple)+[DashboardSetting sharedInstance].CurrentPage*SCREEN_MIN OrignY:dashboardAView.frame.origin.x-TopHigh-15*KFontmultiple-[DashboardSetting sharedInstance].CurrentPage*MSWidth Width:dashboardAView.frame.size.width Height:dashboardAView.frame.size.height ID:dashboardAView.tag];
+            }else{[self updateCustomType:1 OrignX:dashboardAView.frame.origin.x OrignY:dashboardAView.frame.origin.y Width:dashboardAView.frame.size.width Height:dashboardAView.frame.size.height ID:dashboardAView.tag];
+            }
+            
         }
             break;
         case AddStyleTwo:
         {
-        [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleTwo withTag:0];
+            [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleTwo withTag:0];
             
-        DashboardViewStyleB    *dashboardBView = [[DashboardViewStyleB alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage*MSWidth+(arc4random() % (int)(MSWidth/2)), (arc4random() % (int)(MSHeight/2) ), 150*KFontmultiple, 150*KFontmultiple)];
+            DashboardViewStyleB    *dashboardBView = [[DashboardViewStyleB alloc ]initWithFrame:CGRectMake([DashboardSetting sharedInstance].CurrentPage*MSWidth+(arc4random() % (int)(MSWidth/2)), (arc4random() % (int)(MSHeight/2) ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardBView.tag = ++ DashBoardTag;
             dashboardBView.delegate =self;
-           CustomDashboard *dashboard = [CustomDashboard findByPK: dashboardBView.tag];
-                [dashboardBView initWithModel:dashboard];
+            CustomDashboard *dashboard = [CustomDashboard findByPK: dashboardBView.tag];
+            [dashboardBView initWithModel:dashboard];
             [scrollView addSubview:dashboardBView];
-DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
+            DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
             if (isLandscape) {
-               [self updateCustomType:2 OrignX:SCREEN_MIN-dashboardBView.frame.origin.y-(dashboardBView.frame.size.height-30*KFontmultiple)+[DashboardSetting sharedInstance].CurrentPage*SCREEN_MIN OrignY:dashboardBView.frame.origin.x-TopHigh-15*KFontmultiple-[DashboardSetting sharedInstance].CurrentPage*MSWidth Width:dashboardBView.frame.size.width Height:dashboardBView.frame.size.height ID:dashboardBView.tag];
+                [self updateCustomType:2 OrignX:SCREEN_MIN-dashboardBView.frame.origin.y-(dashboardBView.frame.size.height-30*KFontmultiple)+[DashboardSetting sharedInstance].CurrentPage*SCREEN_MIN OrignY:dashboardBView.frame.origin.x-TopHigh-15*KFontmultiple-[DashboardSetting sharedInstance].CurrentPage*MSWidth Width:dashboardBView.frame.size.width Height:dashboardBView.frame.size.height ID:dashboardBView.tag];
             }else{[self updateCustomType:2 OrignX:dashboardBView.frame.origin.x OrignY:dashboardBView.frame.origin.y Width:dashboardBView.frame.size.width Height:dashboardBView.frame.size.height ID:dashboardBView.tag];}
         }
             break;
         case AddStyleThree:
         {
             [[DashboardSetting sharedInstance]CustomDashboardType:AddStyleThree withTag:0];
-         DashboardViewStyleC  * dashboardCView = [[DashboardViewStyleC alloc ]initWithFrame:CGRectMake( [DashboardSetting sharedInstance].CurrentPage*MSWidth +(arc4random() % (int)(MSWidth/2)), (arc4random() % (int)(MSHeight/2) ), 150*KFontmultiple, 150*KFontmultiple)];
+            DashboardViewStyleC  * dashboardCView = [[DashboardViewStyleC alloc ]initWithFrame:CGRectMake( [DashboardSetting sharedInstance].CurrentPage*MSWidth +(arc4random() % (int)(MSWidth/2)), (arc4random() % (int)(MSHeight/2) ), 150*KFontmultiple, 150*KFontmultiple)];
             dashboardCView.tag = ++ DashBoardTag;
             dashboardCView.delegate = self;
             CustomDashboard *dashboard = [CustomDashboard findByPK:dashboardCView.tag];
             [dashboardCView initWithModel:dashboard];
             [scrollView addSubview:dashboardCView];
             if (isLandscape) {
-            [self updateCustomType:3 OrignX:SCREEN_MIN-dashboardCView.frame.origin.y-(dashboardCView.frame.size.height-30*KFontmultiple)+[DashboardSetting sharedInstance].CurrentPage*SCREEN_MIN OrignY:dashboardCView.frame.origin.x-TopHigh-15*KFontmultiple-[DashboardSetting sharedInstance].CurrentPage*MSWidth Width:dashboardCView.frame.size.width Height:dashboardCView.frame.size.height ID:dashboardCView.tag];
+                [self updateCustomType:3 OrignX:SCREEN_MIN-dashboardCView.frame.origin.y-(dashboardCView.frame.size.height-30*KFontmultiple)+[DashboardSetting sharedInstance].CurrentPage*SCREEN_MIN OrignY:dashboardCView.frame.origin.x-TopHigh-15*KFontmultiple-[DashboardSetting sharedInstance].CurrentPage*MSWidth Width:dashboardCView.frame.size.width Height:dashboardCView.frame.size.height ID:dashboardCView.tag];
             }else{ [self updateCustomType:3 OrignX:dashboardCView.frame.origin.x OrignY:dashboardCView.frame.origin.y Width:dashboardCView.frame.size.width Height:dashboardCView.frame.size.height ID:dashboardCView.tag];
             }
             DLog(@"%f*****%f",dashboardCView.frame.origin.x,dashboardCView.frame.origin.y);
-
+            
         }
             break;
             
         default:
             break;
     }
-
+    
     
 }
 #pragma mark 点击移除
@@ -1055,10 +1091,10 @@ DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
         default:
             break;
     }
- 
+    
     NSString *str = [NSString stringWithFormat:@"WHERE pk = %ld",(long)[DashboardSetting sharedInstance].Dashboardindex];
     [CustomDashboard  deleteObjectsByCriteria:str];
-
+    
 }
 #pragma mark 更新最新的仪表盘
 - (void)updateView{
@@ -1084,20 +1120,20 @@ DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
                 dashboard.DashboardAorignx = [NSString stringWithFormat:@"%f",SCREEN_MIN-WithcenterY-([dashboard.DashboardAorignheight floatValue]-30*KFontmultiple)+page*SCREEN_MIN];
                 dashboard.DashboardAorigny = [NSString stringWithFormat:@"%f",centerX-TopHigh-15*KFontmultiple-page*MSWidth];
             }else{
-            dashboard.DashboardAorignx = [NSString stringWithFormat:@"%f",centerX];
-            dashboard.DashboardAorigny = [NSString stringWithFormat:@"%f",WithcenterY];
+                dashboard.DashboardAorignx = [NSString stringWithFormat:@"%f",centerX];
+                dashboard.DashboardAorigny = [NSString stringWithFormat:@"%f",WithcenterY];
             }
         }
             break;
         case 2:
         {
-              if (isLandscape) {
-                  dashboard.DashboardBorignx = [NSString stringWithFormat:@"%f",SCREEN_MIN-WithcenterY-([dashboard.DashboardBorignheight floatValue]-30*KFontmultiple)+page*SCREEN_MIN];
-                  dashboard.DashboardBorigny = [NSString stringWithFormat:@"%f",centerX-TopHigh-15*KFontmultiple-page*MSWidth];
-              }else{
-            dashboard.DashboardBorignx = [NSString stringWithFormat:@"%f",centerX];
-            dashboard.DashboardBorigny = [NSString stringWithFormat:@"%f",WithcenterY];
-              }
+            if (isLandscape) {
+                dashboard.DashboardBorignx = [NSString stringWithFormat:@"%f",SCREEN_MIN-WithcenterY-([dashboard.DashboardBorignheight floatValue]-30*KFontmultiple)+page*SCREEN_MIN];
+                dashboard.DashboardBorigny = [NSString stringWithFormat:@"%f",centerX-TopHigh-15*KFontmultiple-page*MSWidth];
+            }else{
+                dashboard.DashboardBorignx = [NSString stringWithFormat:@"%f",centerX];
+                dashboard.DashboardBorigny = [NSString stringWithFormat:@"%f",WithcenterY];
+            }
         }
             break;
         case 3:
@@ -1106,8 +1142,8 @@ DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
                 dashboard.DashboardCorignx = [NSString stringWithFormat:@"%f",SCREEN_MIN-WithcenterY-([dashboard.DashboardCorignheight floatValue]-30*KFontmultiple)+page*MSWidth];
                 dashboard.DashboardCorigny = [NSString stringWithFormat:@"%f",centerX-TopHigh-15*KFontmultiple-page*MSWidth];
             }else{
-            dashboard.DashboardCorignx = [NSString stringWithFormat:@"%f",centerX];
-            dashboard.DashboardCorigny = [NSString stringWithFormat:@"%f",WithcenterY];
+                dashboard.DashboardCorignx = [NSString stringWithFormat:@"%f",centerX];
+                dashboard.DashboardCorigny = [NSString stringWithFormat:@"%f",WithcenterY];
             }
             break;
         default:
@@ -1119,28 +1155,8 @@ DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
     [coverView removeFromSuperview];
     scrollView.scrollEnabled = YES;
     
-    
-    
 }
-#pragma mark 颜色转化
-- (NSString *)hexFromUIColor:(UIColor *)color
-{
-    if (CGColorGetNumberOfComponents(color.CGColor) < 4) {
-        const CGFloat *components = CGColorGetComponents(color.CGColor);
-        color = [UIColor colorWithRed:components[0]
-                                green:components[0]
-                                 blue:components[0]
-                                alpha:components[1]];
-    }
-    
-    if (CGColorSpaceGetModel(CGColorGetColorSpace(color.CGColor)) != kCGColorSpaceModelRGB) {
-        return [NSString stringWithFormat:@"#FFFFFF"];
-    }
-    
-    return [NSString stringWithFormat:@"#%x%x%x", (int)((CGColorGetComponents(color.CGColor))[0]*255.0),
-            (int)((CGColorGetComponents(color.CGColor))[1]*255.0),
-            (int)((CGColorGetComponents(color.CGColor))[2]*255.0)];
-}
+
 
 - (void)clearAllUserDefaultsData
 {
@@ -1149,8 +1165,8 @@ DLog(@"%f*****%f",dashboardBView.frame.origin.x,dashboardBView.frame.origin.y);
     [UserDefaultSet sharedInstance].dashboardStyle = DashboardStyleOne;
     [UserDefaultSet sharedInstance].numberDecimals = NumberDecimalZero;
     [UserDefaultSet sharedInstance].multiplierType = MultiplierType1;
+    [UserDefaultSet sharedInstance].KPageNumer = 3;
     [DashboardSetting sharedInstance].hudModeType = HUDModeTypeToNormal;
-    [DashboardSetting sharedInstance].KPageNumer = 4;
     [DashboardSetting sharedInstance].isDashboardRemove = NO;
 }
 @end

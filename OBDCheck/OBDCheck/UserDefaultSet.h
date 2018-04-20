@@ -59,16 +59,17 @@ typedef NS_ENUM(NSInteger ,LaunchDashboard)
 @interface UserDefaultSet : NSObject
 //单例模式，实例化对象
 +(instancetype )sharedInstance;
-@property (nonatomic,strong)   NSUserDefaults* defaults;
-@property(nonatomic)   DashboardMode dashboardMode;
-@property(nonatomic)   DashboardStyle dashboardStyle;
-@property (nonatomic) NumberDecimals numberDecimals;
-@property (nonatomic) MultiplierType multiplierType;
-@property (nonatomic) backgroundConnect backConnect;
-@property (nonatomic) Alarm alarm;
-@property (nonatomic) KeepScreen keepScreen;
-@property (nonatomic) KeepTips keeptips;
-@property (nonatomic) LaunchDashboard launchDashboard;
+@property (nonatomic,strong)   NSUserDefaults* defaults; 
+@property(nonatomic)   DashboardMode dashboardMode;//仪表盘的模式
+@property(nonatomic)   DashboardStyle dashboardStyle; //经典模式下仪表盘的风格
+@property (nonatomic) NumberDecimals numberDecimals; //小数点后面的位数
+@property (nonatomic) MultiplierType multiplierType; //单位的倍数
+@property (nonatomic) backgroundConnect backConnect;//是否保存后台连接
+@property (nonatomic) Alarm alarm;//保持开启报警
+@property (nonatomic) KeepScreen keepScreen; //是否保持屏幕常亮
+@property (nonatomic) KeepTips keeptips;//是否启动显示提示框
+@property (nonatomic) LaunchDashboard launchDashboard; //是否启动显示仪表页面
+@property (nonatomic,assign)  NSInteger KPageNumer; //自定义模块下仪表盘的页数
 
 -(void)SetDefultAttribute;
 //设置一个属性

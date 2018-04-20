@@ -40,7 +40,7 @@
     self.keepScreen = keepScreenON;
     self.keeptips = keepScreenON;
     self.launchDashboard = LaunchDashboardON;
-
+    self.KPageNumer = 3;
     [self SetAttribute:self.dashboardMode Key:@"dashboardMode"];
     [self SetAttribute:self.dashboardStyle Key:@"dashboardStyle"];
     [self SetAttribute:self.numberDecimals Key:@"numberDecimals"];
@@ -50,6 +50,7 @@
     [self SetAttribute:self.alarm Key:@"keepScreen"];
     [self SetAttribute:self.keeptips Key:@"keeptips"];
     [self SetAttribute:self.launchDashboard Key:@"launchDashboard"];
+    [self SetAttribute:self.KPageNumer Key:@"KPageNumer"];
 
 }
 -(BOOL)SetAttribute:(NSInteger )Value Key:(NSString *)key

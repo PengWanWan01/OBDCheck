@@ -172,4 +172,6 @@
 #import "AFNetworking.h"
 #import "NetWorkClient.h"
 #import "UserDefaultSet.h"
+#import "screenShotController.h"
+
 #endif /* OBDCheckPrefixHeader_pch */

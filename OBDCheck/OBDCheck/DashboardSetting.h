@@ -42,7 +42,6 @@ typedef NS_ENUM(NSInteger ,ProtocolType)
 @property (nonatomic) AddDashboardStyle addStyle;
 @property (nonatomic) ChangeDashboardStyle ChangeStyle;
 
-@property (nonatomic,assign)  NSInteger KPageNumer; //仪表盘的原始页数
 @property (nonatomic,assign) NSInteger Dashboardindex;   //被选中可以移动的仪表盘
 @property (nonatomic,assign) NSInteger RemoveDashboardNumber;   //移除的仪表盘
 @property (nonatomic,assign) BOOL isDashboardFont;          //是否跳到最前面

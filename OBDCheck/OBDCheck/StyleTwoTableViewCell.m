@@ -37,9 +37,9 @@
 -(void)colorPicked:(UIColor *)newColor forPicker:(ILSaturationBrightnessPickerView *)picker
 {
    self.ColorView.backgroundColor = newColor;
-    self.ColorLabel.text = [self hexFromUIColor:newColor];
+    self.ColorLabel.text = [ColorTools hexFromUIColor:newColor];
     if (self.colorClick) {
-        self.colorClick([self hexFromUIColor:newColor]);
+        self.colorClick([ColorTools hexFromUIColor:newColor]);
         
     }
     //颜色改变就会事件代理通知
