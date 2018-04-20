@@ -360,7 +360,7 @@
     DLog(@"点击一个");
 //    [CustomDashboard findAll];
 //    DLog(@"查找完成");
-    DLog(@"%@",[CustomDashboard findByCriteria:@"WHERE PK > 27"]);
+//    DLog(@"%@",[CustomDashboard findByCriteria:@"WHERE PK > 27"]);
         [self.blueView hide];
     self.blueTooth.delegate = nil;
     self.blueView.delegate = nil;

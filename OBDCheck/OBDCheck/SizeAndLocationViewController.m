@@ -168,7 +168,7 @@
         case 1:
         {
           
-            switch ([[ UserDefaultSet sharedInstance] GetAttribute:@"dashboardStyle"]) {
+            switch ([[ UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardStyle"]) {
                 case DashboardStyleOne:
                 {
 //                  [[DashboardSetting sharedInstance].defaults setFloat:[textField.text floatValue]   forKey:[NSString stringWithFormat:@"LeftPercent%ld",(long)[DashboardSetting sharedInstance].Dashboardindex]];

@@ -79,7 +79,7 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
     cell.accessoryView = imageView;
     cell.accessoryView.hidden = YES;
-    switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] ) {
+    switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] ) {
         case DashboardClassicMode:{
             if (indexPath.row == 0) {
                 cell.accessoryView.hidden = NO;
@@ -115,7 +115,7 @@
                 default:
                     break;
         }
-            [[UserDefaultSet sharedInstance]SetAttribute:[UserDefaultSet sharedInstance].dashboardMode Key:@"dashboardMode"];
+            [[UserDefaultSet sharedInstance]SetIntegerAttribute:[UserDefaultSet sharedInstance].dashboardMode Key:@"dashboardMode"];
             DLog(@"122,%ld",(long)[UserDefaultSet sharedInstance].dashboardMode);
 
         }else{

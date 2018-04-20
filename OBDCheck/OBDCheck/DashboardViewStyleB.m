@@ -160,7 +160,7 @@
         
         
         
-        switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"]) {
+        switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"]) {
             case DashboardCustomMode:
             {
                 NSArray *list = [CustomDashboard findAll];

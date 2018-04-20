@@ -41,19 +41,20 @@
     self.keeptips = keepScreenON;
     self.launchDashboard = LaunchDashboardON;
     self.KPageNumer = 3;
-    [self SetAttribute:self.dashboardMode Key:@"dashboardMode"];
-    [self SetAttribute:self.dashboardStyle Key:@"dashboardStyle"];
-    [self SetAttribute:self.numberDecimals Key:@"numberDecimals"];
-    [self SetAttribute:self.multiplierType Key:@"multiplierType"]; //
-    [self SetAttribute:self.backConnect Key:@"backConnect"]; //
-    [self SetAttribute:self.alarm Key:@"alarm"];
-    [self SetAttribute:self.alarm Key:@"keepScreen"];
-    [self SetAttribute:self.keeptips Key:@"keeptips"];
-    [self SetAttribute:self.launchDashboard Key:@"launchDashboard"];
-    [self SetAttribute:self.KPageNumer Key:@"KPageNumer"];
-
+    self.ScreenshotData = [[NSString alloc]init];
+    [self SetIntegerAttribute:self.dashboardMode Key:@"dashboardMode"];
+    [self SetIntegerAttribute:self.dashboardStyle Key:@"dashboardStyle"];
+    [self SetIntegerAttribute:self.numberDecimals Key:@"numberDecimals"];
+    [self SetIntegerAttribute:self.multiplierType Key:@"multiplierType"]; //
+    [self SetIntegerAttribute:self.backConnect Key:@"backConnect"]; //
+    [self SetIntegerAttribute:self.alarm Key:@"alarm"];
+    [self SetIntegerAttribute:self.alarm Key:@"keepScreen"];
+    [self SetIntegerAttribute:self.keeptips Key:@"keeptips"];
+    [self SetIntegerAttribute:self.launchDashboard Key:@"launchDashboard"];
+    [self SetIntegerAttribute:self.KPageNumer Key:@"KPageNumer"];
+    [self SetStringAttribute:self.ScreenshotData Key:@"ScreenshotData"];
 }
--(BOOL)SetAttribute:(NSInteger )Value Key:(NSString *)key
+-(BOOL)SetIntegerAttribute:(NSInteger )Value Key:(NSString *)key
 {
     
     //加入本地设置参数
@@ -62,12 +63,26 @@
     return YES;
 }
 
--(NSInteger )GetAttribute:(NSString *)Key
+-(NSInteger )GetIntegerAttribute:(NSString *)Key
 {
     //获取本地文件相关属性的值
     NSInteger result = [self.defaults  integerForKey:[NSString stringWithFormat:@"%@",Key]];
     DLog(@"取出沙河%ld",(long)result);
 
     return result;
+}
+-(BOOL)SetStringAttribute:(NSString * )Value Key:(NSString *)key{
+    //加入本地设置参数
+    [self.defaults setObject:Value forKey:[NSString stringWithFormat:@"%@",key]];
+    DLog(@"存入沙河");
+    return YES;    
+}
+-(NSString *)GetStringAttribute:(NSString *)Key{
+    //获取本地文件相关属性的值
+    NSString *result = [self.defaults  objectForKey:[NSString stringWithFormat:@"%@",Key]];
+    DLog(@"取出沙河%@",result);
+    
+    return result;
+    
 }
 @end

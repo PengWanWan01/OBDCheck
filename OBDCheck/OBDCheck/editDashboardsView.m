@@ -56,7 +56,7 @@
 }
 - (void)initWithData{
    
-    switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] ) {
+    switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] ) {
         case DashboardClassicMode:
         {
             
@@ -126,7 +126,7 @@
              cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
              [selectBtn addTarget:self action:@selector(selectBtn:) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:selectBtn];
-            switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"]) {
+            switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"]) {
                 case DashboardClassicMode:{
                     [selectBtn setTitle:@"Classic" forState:UIControlStateNormal];
                 }
@@ -139,11 +139,11 @@
                     break;
             }
             
-        }else  if (indexPath.row == 2 && [[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardClassicMode ) {
+        }else  if (indexPath.row == 2 && [[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] == DashboardClassicMode ) {
             cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
              [selectBtn addTarget:self action:@selector(selectBtn:) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:selectBtn];
-                    switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardStyle"]) {
+                    switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardStyle"]) {
                         case DashboardStyleOne:{
                             [selectBtn setTitle:@"One" forState:UIControlStateNormal];
                         }
@@ -174,7 +174,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     DLog(@"点击");
-        switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"]) {
+        switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"]) {
         case DashboardCustomMode:
         {
             if (indexPath.row==1) {

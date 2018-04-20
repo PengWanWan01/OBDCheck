@@ -64,7 +64,7 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
     cell.accessoryView = imageView;
     cell.accessoryView.hidden = YES;
-    switch ([[UserDefaultSet sharedInstance] GetAttribute:@"multiplierType"]) {
+    switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"multiplierType"]) {
         case MultiplierType1:{
             if (indexPath.row == 0) {
                 cell.accessoryView.hidden = NO;
@@ -90,12 +90,12 @@
             switch (indexPath.row) {
                 case 0:{  //0位小数点
                     [UserDefaultSet sharedInstance].multiplierType = MultiplierType1;
-                    [[UserDefaultSet sharedInstance]SetAttribute:[UserDefaultSet sharedInstance].multiplierType Key:@"MultiplierType1"];
+                    [[UserDefaultSet sharedInstance]SetIntegerAttribute:[UserDefaultSet sharedInstance].multiplierType Key:@"MultiplierType1"];
                 }
                     break;
                 case 1:{  //1位小数点
                     [UserDefaultSet sharedInstance].multiplierType = MultiplierType1000;
-                    [[UserDefaultSet sharedInstance]SetAttribute:[UserDefaultSet sharedInstance].multiplierType Key:@"MultiplierType1"];
+                    [[UserDefaultSet sharedInstance]SetIntegerAttribute:[UserDefaultSet sharedInstance].multiplierType Key:@"MultiplierType1"];
                 }
                     break;
                 default:

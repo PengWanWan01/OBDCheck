@@ -64,7 +64,7 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
     cell.accessoryView = imageView;
     cell.accessoryView.hidden = YES;
-    switch ([[UserDefaultSet sharedInstance] GetAttribute:@"numberDecimals"] ) {
+    switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"numberDecimals"] ) {
         case NumberDecimalZero:{
             if (indexPath.row == 0) {
                 cell.accessoryView.hidden = NO;
@@ -108,7 +108,7 @@
                 default:
                     break;
             }
-            [[UserDefaultSet sharedInstance] SetAttribute:[UserDefaultSet sharedInstance].numberDecimals Key:@"numberDecimals"];
+            [[UserDefaultSet sharedInstance] SetIntegerAttribute:[UserDefaultSet sharedInstance].numberDecimals Key:@"numberDecimals"];
             DLog(@"122,%ld",(long)[UserDefaultSet sharedInstance].numberDecimals);
             
         }else{

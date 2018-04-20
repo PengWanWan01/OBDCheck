@@ -74,7 +74,7 @@
 - (void)initWithUI{
     
     
-    switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"]) {
+    switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"]) {
         case DashboardClassicMode:
         {
             _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"PID", nil];
@@ -111,7 +111,7 @@
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"]) {
+    switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"]) {
         case DashboardClassicMode:
         {
             return 1;
@@ -127,7 +127,7 @@
     return 0;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    switch ([[UserDefaultSet sharedInstance]GetAttribute:@"dashboardMode"]) {
+    switch ([[UserDefaultSet sharedInstance]GetIntegerAttribute:@"dashboardMode"]) {
         case DashboardClassicMode:
         {
             return 1;
@@ -281,7 +281,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         switch (indexPath.section) {
             case 3:{
-                switch ([[UserDefaultSet sharedInstance] GetAttribute:@"multiplierType"]) {
+                switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"multiplierType"]) {
                     case MultiplierType1:
                     {
                         [selectBtn setTitle:@"X1" forState:UIControlStateNormal];

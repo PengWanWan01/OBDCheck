@@ -64,7 +64,7 @@
     cell.textLabel.text = self.dataSource[indexPath.row];
     if (indexPath.row == 2) {
         UISwitch *selectSwitch = [[UISwitch alloc]init];
-        selectSwitch.on = [[UserDefaultSet sharedInstance]GetAttribute:@"backConnect"];
+        selectSwitch.on = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"backConnect"];
         [selectSwitch addTarget:self action:@selector(select:) forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryView = selectSwitch;
     }else{
@@ -79,7 +79,7 @@
     }else{
         [UserDefaultSet sharedInstance].backConnect = backgroundConnectOFF;
     }
-    [[UserDefaultSet sharedInstance] SetAttribute:[UserDefaultSet sharedInstance].backConnect Key:@"backConnect"];
+    [[UserDefaultSet sharedInstance] SetIntegerAttribute:[UserDefaultSet sharedInstance].backConnect Key:@"backConnect"];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {

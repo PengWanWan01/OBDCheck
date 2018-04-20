@@ -70,10 +70,16 @@ typedef NS_ENUM(NSInteger ,LaunchDashboard)
 @property (nonatomic) KeepTips keeptips;//是否启动显示提示框
 @property (nonatomic) LaunchDashboard launchDashboard; //是否启动显示仪表页面
 @property (nonatomic,assign)  NSInteger KPageNumer; //自定义模块下仪表盘的页数
+@property (nonatomic,copy)  NSString *ScreenshotData; //保存截屏的数据
 
 -(void)SetDefultAttribute;
-//设置一个属性
--(BOOL)SetAttribute:(NSInteger )Value Key:(NSString *)key;
-//获取一个属性值
--(NSInteger)GetAttribute:(NSString *)Key;
+//设置一个整形属性
+-(BOOL)SetIntegerAttribute:(NSInteger )Value Key:(NSString *)key;
+//获取一个整形属性值
+-(NSInteger)GetIntegerAttribute:(NSString *)Key;
+
+//设置一个字符串属性
+-(BOOL)SetStringAttribute:(NSString * )Value Key:(NSString *)key;
+//获取一个字符串属性值
+-(NSString *)GetStringAttribute:(NSString *)Key;
 @end

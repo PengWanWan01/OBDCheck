@@ -110,8 +110,8 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yes"]];
     cell.accessoryView = imageView;
     cell.accessoryView.hidden = YES;
-    if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardClassicMode) {
-        switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardStyle"]) {
+    if ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] == DashboardClassicMode) {
+        switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardStyle"]) {
             case DashboardStyleOne:{
                 if (indexPath.row == 0) {
                     cell.accessoryView.hidden = NO;
@@ -137,7 +137,7 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] ) {
+    switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] ) {
         case DashboardCustomMode:
         {
             for (NSInteger i = 0; i<_styleDataArray.count; i++) {
@@ -181,18 +181,18 @@
                     switch (indexPath.row) {
                         case 0:{     //第一种仪表盘
                             [UserDefaultSet sharedInstance].dashboardStyle = DashboardStyleOne;
-                            [[UserDefaultSet sharedInstance]SetAttribute:[UserDefaultSet sharedInstance].dashboardStyle Key:@"dashboardStyle"];
+                            [[UserDefaultSet sharedInstance]SetIntegerAttribute:[UserDefaultSet sharedInstance].dashboardStyle Key:@"dashboardStyle"];
                             
                         }
                             break;
                         case 1:{     //第二种仪表盘
                             [UserDefaultSet sharedInstance].dashboardStyle = DashboardStyleTwo;
-                            [[UserDefaultSet sharedInstance]SetAttribute:[UserDefaultSet sharedInstance].dashboardStyle Key:@"dashboardStyle"];
+                            [[UserDefaultSet sharedInstance]SetIntegerAttribute:[UserDefaultSet sharedInstance].dashboardStyle Key:@"dashboardStyle"];
                         }
                             break;
                         case 2:{         //第三种仪表盘
                             [UserDefaultSet sharedInstance].dashboardStyle = DashboardStyleThree;
-                            [[UserDefaultSet sharedInstance]SetAttribute:[UserDefaultSet sharedInstance].dashboardStyle Key:@"dashboardStyle"];
+                            [[UserDefaultSet sharedInstance]SetIntegerAttribute:[UserDefaultSet sharedInstance].dashboardStyle Key:@"dashboardStyle"];
                         }
                             break;
                         default:

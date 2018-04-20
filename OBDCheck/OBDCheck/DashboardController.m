@@ -73,9 +73,9 @@ static dispatch_source_t _timer;
     
     
     scrollView.frame = CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX);
-    scrollView.contentSize = CGSizeMake(SCREEN_MIN*[[UserDefaultSet sharedInstance]GetAttribute:@"KPageNumer"],0);
+    scrollView.contentSize = CGSizeMake(SCREEN_MIN*[[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"],0);
     pageControl.frame = CGRectMake(0, SCREEN_MAX- self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -40, SCREEN_MIN, 30);
-    if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardCustomMode) {
+    if ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] == DashboardCustomMode) {
         NSArray* pAllCount = [CustomDashboard findByCriteria:@"WHERE PK > 27"];
         for (CustomDashboard *dash in pAllCount) {
             switch (dash.dashboardType) {
@@ -101,7 +101,7 @@ static dispatch_source_t _timer;
             }
         }
     }else{
-        switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardStyle"]) {
+        switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardStyle"]) {
             case DashboardStyleOne:
             {
                 [self setVerticalDashboardFrame:DashboardStyleOne];
@@ -129,10 +129,10 @@ static dispatch_source_t _timer;
 //
 - (void)setHorizontalFrame{
     scrollView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN);
-    scrollView.contentSize = CGSizeMake(SCREEN_MAX*[[UserDefaultSet sharedInstance]GetAttribute:@"KPageNumer"],0);
+    scrollView.contentSize = CGSizeMake(SCREEN_MAX*[[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"],0);
     pageControl.frame = CGRectMake(0, SCREEN_MIN- TopHigh -20, SCREEN_MAX, 30);
     
-    if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardCustomMode) {
+    if ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] == DashboardCustomMode) {
         NSArray* pAllCount = [CustomDashboard findByCriteria:@"WHERE PK > 27"];
         for (CustomDashboard *dash in pAllCount) {
             switch (dash.dashboardType) {
@@ -161,7 +161,7 @@ static dispatch_source_t _timer;
         }
         
     }else{
-        switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardStyle"]) {
+        switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardStyle"]) {
             case DashboardStyleOne:
             {
                 [self setHorizontalDashboardFrame:DashboardStyleOne];
@@ -488,7 +488,7 @@ static dispatch_source_t _timer;
     
     //创建滚动视图
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight)];
-    switch ([[UserDefaultSet sharedInstance]GetAttribute:@"KPageNumer"]) {
+    switch ([[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"]) {
         case DashboardClassicMode:
             {
                scrollView.contentSize = CGSizeMake(MSWidth*3,0);
@@ -496,7 +496,7 @@ static dispatch_source_t _timer;
             break;
         case DashboardCustomMode:
         {
-            scrollView.contentSize = CGSizeMake(MSWidth*[[UserDefaultSet sharedInstance]GetAttribute:@"KPageNumer"],0);
+            scrollView.contentSize = CGSizeMake(MSWidth*[[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"],0);
         }
             break;
         default:
@@ -513,7 +513,7 @@ static dispatch_source_t _timer;
     //    设置常用属性,距离屏幕下方60像素。
     pageControl.frame = CGRectMake(0, MSHeight- self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -40, MSWidth, 30);
     //    设置圆点的个数
-    pageControl.numberOfPages = [[UserDefaultSet sharedInstance]GetAttribute:@"KPageNumer"];
+    pageControl.numberOfPages = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"];
     //    设置没有被选中时圆点的颜色
     pageControl.pageIndicatorTintColor = [UIColor blackColor];
     //    设置选中时圆点的颜色
@@ -527,7 +527,7 @@ static dispatch_source_t _timer;
 }
 - (void)LoadUI{
     //判断仪表盘模式：
-    if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardCustomMode) {
+    if ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] == DashboardCustomMode) {
         [self initWithcustomMode];
         DLog(@"已经来到");
         if ([DashboardSetting sharedInstance].isAddDashboard == YES) {
@@ -535,7 +535,7 @@ static dispatch_source_t _timer;
             [DashboardSetting sharedInstance].isAddDashboard = NO;
         }
     }else{
-        switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardStyle"]) {
+        switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardStyle"]) {
             case DashboardStyleOne:
             {
                 [self initWithStyleA];
@@ -699,7 +699,7 @@ static dispatch_source_t _timer;
 }
 
 - (void)rightBarButtonClick{
-    switch ([[UserDefaultSet sharedInstance]GetAttribute:@"dashboardMode"]) {
+    switch ([[UserDefaultSet sharedInstance]GetIntegerAttribute:@"dashboardMode"]) {
         case DashboardCustomMode:
         {
             editview = [[editDashboardsView alloc]initWithFrame:CGRectMake(MSWidth - 270, 50, 270 , 370)];
@@ -739,7 +739,7 @@ static dispatch_source_t _timer;
             break;
         case 2:
         {
-            if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardClassicMode) {
+            if ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] == DashboardClassicMode) {
                 SelectStyleViewController *vc = [[SelectStyleViewController alloc]init];
                 [self.navigationController pushViewController:vc animated:YES];
             }
@@ -758,7 +758,7 @@ static dispatch_source_t _timer;
         {
             //自定义模式
             //添加一个仪表盘
-            if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardCustomMode) {
+            if ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] == DashboardCustomMode) {
                 [DashboardSetting sharedInstance].isAddDashboard = YES;
                 [DashboardSetting sharedInstance].CurrentPage = pageControl.currentPage;
                 SelectStyleViewController *vc =   [[SelectStyleViewController alloc]init];
@@ -816,9 +816,9 @@ static dispatch_source_t _timer;
 }
 #pragma mark 修改仪表盘的页数
 -(void)alterDashboardPage{
-      [[UserDefaultSet sharedInstance] SetAttribute:[UserDefaultSet sharedInstance].KPageNumer Key:@"KPageNumer"];
-     scrollView.contentSize = CGSizeMake(MSWidth*[[UserDefaultSet sharedInstance]GetAttribute:@"KPageNumer"],0);
-    pageControl.numberOfPages = [[UserDefaultSet sharedInstance]GetAttribute:@"KPageNumer"];
+      [[UserDefaultSet sharedInstance] SetIntegerAttribute:[UserDefaultSet sharedInstance].KPageNumer Key:@"KPageNumer"];
+     scrollView.contentSize = CGSizeMake(MSWidth*[[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"],0);
+    pageControl.numberOfPages = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"];
     
 
 }
@@ -871,7 +871,7 @@ static dispatch_source_t _timer;
     DLog(@"aaa%ld",(long)[DashboardSetting sharedInstance].Dashboardindex);
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
-            switch ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"]) {
+            switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"]) {
                 case DashboardClassicMode:{
                     // 关闭定时器
                     //                    dispatch_source_cancel(_timer);

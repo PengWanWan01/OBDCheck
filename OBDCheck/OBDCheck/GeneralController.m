@@ -66,7 +66,6 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSInteger reslut = 0;
   
     return self.dataSource.count;
 }
@@ -91,7 +90,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }else{
         UISwitch *selectSwitch = [[UISwitch alloc]init];
-        selectSwitch.on = [[UserDefaultSet sharedInstance]GetAttribute:@"backConnect"];
+        selectSwitch.on = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"backConnect"];
         selectSwitch.tag = indexPath.row;
         [selectSwitch addTarget:self action:@selector(select:) forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryView = selectSwitch;
@@ -133,19 +132,19 @@
             case 0:
                 {
                   [UserDefaultSet sharedInstance].keepScreen = keepScreenON;
-                [[UserDefaultSet sharedInstance] SetAttribute:[UserDefaultSet sharedInstance].keepScreen Key:@"keepScreen"];
+                [[UserDefaultSet sharedInstance] SetIntegerAttribute:[UserDefaultSet sharedInstance].keepScreen Key:@"keepScreen"];
                 }
                 break;
             case 1:
             {
                 [UserDefaultSet sharedInstance].keeptips = KeepTipsON;
-                  [[UserDefaultSet sharedInstance] SetAttribute:[UserDefaultSet sharedInstance].keeptips Key:@"keeptips"];
+                  [[UserDefaultSet sharedInstance] SetIntegerAttribute:[UserDefaultSet sharedInstance].keeptips Key:@"keeptips"];
             }
                 break;
             case 2:
             {
                 [UserDefaultSet sharedInstance].launchDashboard = LaunchDashboardON;
-                  [[UserDefaultSet sharedInstance] SetAttribute:[UserDefaultSet sharedInstance].launchDashboard Key:@"launchDashboard"];
+                  [[UserDefaultSet sharedInstance] SetIntegerAttribute:[UserDefaultSet sharedInstance].launchDashboard Key:@"launchDashboard"];
             }
                 break;
             default:
@@ -156,19 +155,19 @@
             case 0:
             {
                 [UserDefaultSet sharedInstance].keepScreen = keepScreenOFF;
-                  [[UserDefaultSet sharedInstance] SetAttribute:[UserDefaultSet sharedInstance].keepScreen Key:@"keepScreen"];
+                  [[UserDefaultSet sharedInstance] SetIntegerAttribute:[UserDefaultSet sharedInstance].keepScreen Key:@"keepScreen"];
             }
                 break;
             case 1:
             {
                 [UserDefaultSet sharedInstance].keeptips = KeepTipsOFF;
-                 [[UserDefaultSet sharedInstance] SetAttribute:[UserDefaultSet sharedInstance].keeptips Key:@"keeptips"];
+                 [[UserDefaultSet sharedInstance] SetIntegerAttribute:[UserDefaultSet sharedInstance].keeptips Key:@"keeptips"];
             }
                 break;
             case 2:
             {
                 [UserDefaultSet sharedInstance].launchDashboard = LaunchDashboardOFF;
-                  [[UserDefaultSet sharedInstance] SetAttribute:[UserDefaultSet sharedInstance].launchDashboard Key:@"launchDashboard"];
+                  [[UserDefaultSet sharedInstance] SetIntegerAttribute:[UserDefaultSet sharedInstance].launchDashboard Key:@"launchDashboard"];
             }
                 break;
             default:
@@ -176,5 +175,12 @@
         }
     }
 
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+   
+    if (indexPath.row == 3) {
+        screenShotSetController *vc = [[screenShotSetController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 @end

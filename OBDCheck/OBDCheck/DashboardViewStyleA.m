@@ -250,7 +250,7 @@
     UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:LongPress];
     
-    if ([[UserDefaultSet sharedInstance] GetAttribute:@"dashboardMode"] == DashboardCustomMode ) {
+    if ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] == DashboardCustomMode ) {
         UIPinchGestureRecognizer* pinchGR = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchAction:)];
         [self addGestureRecognizer:pinchGR];
     }

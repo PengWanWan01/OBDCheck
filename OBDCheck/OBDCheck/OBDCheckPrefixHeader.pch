@@ -173,5 +173,7 @@
 #import "NetWorkClient.h"
 #import "UserDefaultSet.h"
 #import "screenShotController.h"
+#import "screenShotSetController.h"
+#import "SceenshotCell.h"
 
 #endif /* OBDCheckPrefixHeader_pch */
