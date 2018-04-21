@@ -767,15 +767,15 @@ static dispatch_source_t _timer;
         {
             DLog(@"添加一页");
             
-            ++[UserDefaultSet sharedInstance].KPageNumer;
-            [self alterDashboardPage];
+            NSInteger page = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"]+1;
+            [self alterDashboardPage:page];
         }
             break;
         case 4:
         {
             DLog(@"删除当前页");
-            --[UserDefaultSet sharedInstance].KPageNumer;
-            [self alterDashboardPage];
+            NSInteger page = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"]-1;
+            [self alterDashboardPage:page];
         }
             break;
         case 5:
@@ -812,8 +812,8 @@ static dispatch_source_t _timer;
     
 }
 #pragma mark 修改仪表盘的页数
--(void)alterDashboardPage{
-      [[UserDefaultSet sharedInstance] SetIntegerAttribute:[UserDefaultSet sharedInstance].KPageNumer Key:@"KPageNumer"];
+-(void)alterDashboardPage:(NSInteger)page{
+      [[UserDefaultSet sharedInstance] SetIntegerAttribute:page Key:@"KPageNumer"];
      scrollView.contentSize = CGSizeMake(MSWidth*[[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"],0);
     pageControl.numberOfPages = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"];
     

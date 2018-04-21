@@ -25,7 +25,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Dispaly Configuration",@"Style",@"Change Dashboards Style",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];
+    _titleNameArray = [[NSMutableArray alloc]initWithObjects:@"Dispaly Configuration",@"Style",@"Change Dashboard Style",@"Remove Display",@"Drag and Move",@"Bring to Font", nil];
     [self initWithUI];
 }
 #pragma mark 设置横竖屏布局
@@ -146,7 +146,7 @@
         case 2:
         {
             [DashboardSetting sharedInstance].ischangeDashboard = YES;
-            SelectStyleViewController *vc = [[SelectStyleViewController alloc]init];
+            ChangeBoardStyleController *vc = [[ChangeBoardStyleController alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
             
         }

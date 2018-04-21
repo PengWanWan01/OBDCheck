@@ -46,6 +46,7 @@
 		CB45CBB11F6B7DC2003AA330 /* SummaryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB45CBB01F6B7DC2003AA330 /* SummaryTableViewCell.m */; };
 		CB45CF22208AD7DC00C62491 /* BasicStyleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB45CF21208AD7DC00C62491 /* BasicStyleController.m */; };
 		CB45CF26208AD83E00C62491 /* AddBoardStyleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB45CF25208AD83E00C62491 /* AddBoardStyleController.m */; };
+		CB45CF2A208AEB4300C62491 /* ChangeBoardStyleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB45CF29208AEB4300C62491 /* ChangeBoardStyleController.m */; };
 		CB476C781FAC684200C54837 /* troubleCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB476C771FAC684200C54837 /* troubleCodeModel.m */; };
 		CB476C7E1FAC715B00C54837 /* historyCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB476C7D1FAC715B00C54837 /* historyCodeModel.m */; };
 		CB47CE711FBBD99E00451244 /* PerformanceSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47CE701FBBD99E00451244 /* PerformanceSetting.m */; };
@@ -285,6 +286,8 @@
 		CB45CF21208AD7DC00C62491 /* BasicStyleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BasicStyleController.m; sourceTree = "<group>"; };
 		CB45CF24208AD83E00C62491 /* AddBoardStyleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddBoardStyleController.h; sourceTree = "<group>"; };
 		CB45CF25208AD83E00C62491 /* AddBoardStyleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddBoardStyleController.m; sourceTree = "<group>"; };
+		CB45CF28208AEB4300C62491 /* ChangeBoardStyleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeBoardStyleController.h; sourceTree = "<group>"; };
+		CB45CF29208AEB4300C62491 /* ChangeBoardStyleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeBoardStyleController.m; sourceTree = "<group>"; };
 		CB476C761FAC684200C54837 /* troubleCodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = troubleCodeModel.h; sourceTree = "<group>"; };
 		CB476C771FAC684200C54837 /* troubleCodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = troubleCodeModel.m; sourceTree = "<group>"; };
 		CB476C7C1FAC715B00C54837 /* historyCodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = historyCodeModel.h; sourceTree = "<group>"; };
@@ -680,6 +683,8 @@
 			children = (
 				CB45CF24208AD83E00C62491 /* AddBoardStyleController.h */,
 				CB45CF25208AD83E00C62491 /* AddBoardStyleController.m */,
+				CB45CF28208AEB4300C62491 /* ChangeBoardStyleController.h */,
+				CB45CF29208AEB4300C62491 /* ChangeBoardStyleController.m */,
 				CB45CF20208AD7DC00C62491 /* BasicStyleController.h */,
 				CB45CF21208AD7DC00C62491 /* BasicStyleController.m */,
 				CBEBF1CA1F3B0E3F006CCA8B /* SelectStyleViewController.h */,
@@ -1646,6 +1651,7 @@
 				CB3FAD261F6A6F1000B572FD /* Sensors2ViewController.m in Sources */,
 				CBB1CC441F623C2B002EE7EB /* TBarView.m in Sources */,
 				CBF1E2731F30689B00EEC755 /* DiagController.m in Sources */,
+				CB45CF2A208AEB4300C62491 /* ChangeBoardStyleController.m in Sources */,
 				CBF1E2511F30293100EEC755 /* PersonalViewController.m in Sources */,
 				CB848F151F4542F700C1A718 /* DecimalViewController.m in Sources */,
 				CB84B3E01F56DF0800B454E6 /* rotationView.m in Sources */,

@@ -32,7 +32,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    model = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
     [self initWithUI];
+    
 }
 #pragma mark 设置横竖屏布局
 - (void)viewWillLayoutSubviews{
@@ -204,27 +206,24 @@
         //        selectBtn.backgroundColor = [UIColor redColor];
         selectfield.textAlignment  = NSTextAlignmentCenter;
         selectfield.tag = indexPath.row;
-        NSArray *list = [CustomDashboard findAll];
-        for(CustomDashboard *dashboard in list){
-            model = dashboard;
             switch (indexPath.row) {
                 case 0:
                 {
-                    switch (dashboard.dashboardType) {
+                    switch (model.dashboardType) {
                         case 1:
                         {
-                            selectfield.text = dashboard.DashboardAminNumber ;
+                            selectfield.text = model.DashboardAminNumber ;
                             
                         }
                             break;
                         case 2:
                         {
-                            selectfield.text = dashboard.DashboardBminNumber ;
+                            selectfield.text = model.DashboardBminNumber ;
                         }
                             break;
                         case 3:
                         {
-                            selectfield.text = dashboard.DashboardCminNumber ;
+                            selectfield.text = model.DashboardCminNumber ;
                         }
                             break;
                         default:
@@ -234,22 +233,22 @@
                     break;
                 case 1:
                 {
-                    switch (dashboard.dashboardType) {
+                    switch (model.dashboardType) {
                         case 1:
                         {
-                            selectfield.text = dashboard.DashboardAmaxNumber ;
+                            selectfield.text = model.DashboardAmaxNumber ;
                             
                         }
                             break;
                         case 2:
                         {
-                            selectfield.text = dashboard.DashboardBmaxNumber ;
+                            selectfield.text = model.DashboardBmaxNumber ;
                             
                         }
                             break;
                         case 3:
                         {
-                            selectfield.text = dashboard.DashboardCmaxNumber ;
+                            selectfield.text = model.DashboardCmaxNumber ;
                             
                         }
                             break;
@@ -261,7 +260,6 @@
                 default:
                     break;
             }
-        }
         selectfield.delegate = self;
         [selectfield setTextColor:[ColorTools colorWithHexString:@"#C8C6C6"]];
         selectfield.keyboardType = UIKeyboardTypeNumberPad;
