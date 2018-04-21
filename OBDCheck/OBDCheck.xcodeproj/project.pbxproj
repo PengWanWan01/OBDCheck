@@ -44,6 +44,8 @@
 		CB45CBAD1F6B7B96003AA330 /* ResultsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB45CBAB1F6B7B96003AA330 /* ResultsTableViewCell.m */; };
 		CB45CBAE1F6B7B96003AA330 /* ResultsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB45CBAC1F6B7B96003AA330 /* ResultsTableViewCell.xib */; };
 		CB45CBB11F6B7DC2003AA330 /* SummaryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB45CBB01F6B7DC2003AA330 /* SummaryTableViewCell.m */; };
+		CB45CF22208AD7DC00C62491 /* BasicStyleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB45CF21208AD7DC00C62491 /* BasicStyleController.m */; };
+		CB45CF26208AD83E00C62491 /* AddBoardStyleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB45CF25208AD83E00C62491 /* AddBoardStyleController.m */; };
 		CB476C781FAC684200C54837 /* troubleCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB476C771FAC684200C54837 /* troubleCodeModel.m */; };
 		CB476C7E1FAC715B00C54837 /* historyCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB476C7D1FAC715B00C54837 /* historyCodeModel.m */; };
 		CB47CE711FBBD99E00451244 /* PerformanceSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CB47CE701FBBD99E00451244 /* PerformanceSetting.m */; };
@@ -93,6 +95,7 @@
 		CB822DF82089C61900885A2F /* screenShotSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB822DF72089C61900885A2F /* screenShotSetController.m */; };
 		CB822DFD2089D42C00885A2F /* SceenshotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB822DFB2089D42C00885A2F /* SceenshotCell.m */; };
 		CB822DFE2089D42C00885A2F /* SceenshotCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB822DFC2089D42C00885A2F /* SceenshotCell.xib */; };
+		CB822E062089E38D00885A2F /* OBDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB822E052089E38D00885A2F /* OBDataModel.m */; };
 		CB835D2D1F594DB6007C5A17 /* ReadinessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB835D2B1F594DB6007C5A17 /* ReadinessViewController.m */; };
 		CB835D2E1F594DB6007C5A17 /* ReadinessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB835D2C1F594DB6007C5A17 /* ReadinessViewController.xib */; };
 		CB835D321F595CD2007C5A17 /* DiagnosticsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB835D301F595CD2007C5A17 /* DiagnosticsTableViewCell.m */; };
@@ -278,6 +281,10 @@
 		CB45CBAC1F6B7B96003AA330 /* ResultsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResultsTableViewCell.xib; sourceTree = "<group>"; };
 		CB45CBAF1F6B7DC2003AA330 /* SummaryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryTableViewCell.h; sourceTree = "<group>"; };
 		CB45CBB01F6B7DC2003AA330 /* SummaryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryTableViewCell.m; sourceTree = "<group>"; };
+		CB45CF20208AD7DC00C62491 /* BasicStyleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BasicStyleController.h; sourceTree = "<group>"; };
+		CB45CF21208AD7DC00C62491 /* BasicStyleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BasicStyleController.m; sourceTree = "<group>"; };
+		CB45CF24208AD83E00C62491 /* AddBoardStyleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddBoardStyleController.h; sourceTree = "<group>"; };
+		CB45CF25208AD83E00C62491 /* AddBoardStyleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddBoardStyleController.m; sourceTree = "<group>"; };
 		CB476C761FAC684200C54837 /* troubleCodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = troubleCodeModel.h; sourceTree = "<group>"; };
 		CB476C771FAC684200C54837 /* troubleCodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = troubleCodeModel.m; sourceTree = "<group>"; };
 		CB476C7C1FAC715B00C54837 /* historyCodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = historyCodeModel.h; sourceTree = "<group>"; };
@@ -363,6 +370,8 @@
 		CB822DFA2089D42C00885A2F /* SceenshotCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceenshotCell.h; sourceTree = "<group>"; };
 		CB822DFB2089D42C00885A2F /* SceenshotCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceenshotCell.m; sourceTree = "<group>"; };
 		CB822DFC2089D42C00885A2F /* SceenshotCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SceenshotCell.xib; sourceTree = "<group>"; };
+		CB822E042089E38D00885A2F /* OBDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OBDataModel.h; sourceTree = "<group>"; };
+		CB822E052089E38D00885A2F /* OBDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OBDataModel.m; sourceTree = "<group>"; };
 		CB835D2A1F594DB6007C5A17 /* ReadinessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadinessViewController.h; sourceTree = "<group>"; };
 		CB835D2B1F594DB6007C5A17 /* ReadinessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadinessViewController.m; sourceTree = "<group>"; };
 		CB835D2C1F594DB6007C5A17 /* ReadinessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReadinessViewController.xib; sourceTree = "<group>"; };
@@ -592,6 +601,8 @@
 				CB1591D52006380100F51FD3 /* JKDBHelper.m */,
 				CB1591D62006380100F51FD3 /* JKDBModel.h */,
 				CB1591D72006380100F51FD3 /* JKDBModel.m */,
+				CB822E042089E38D00885A2F /* OBDataModel.h */,
+				CB822E052089E38D00885A2F /* OBDataModel.m */,
 			);
 			name = FMDataBase;
 			sourceTree = "<group>";
@@ -662,6 +673,19 @@
 				CBF5BA9720874CE800A3F7A1 /* NetWorkConfig.h */,
 			);
 			name = AFNetworkingTool;
+			sourceTree = "<group>";
+		};
+		CB45CF27208AD84700C62491 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				CB45CF24208AD83E00C62491 /* AddBoardStyleController.h */,
+				CB45CF25208AD83E00C62491 /* AddBoardStyleController.m */,
+				CB45CF20208AD7DC00C62491 /* BasicStyleController.h */,
+				CB45CF21208AD7DC00C62491 /* BasicStyleController.m */,
+				CBEBF1CA1F3B0E3F006CCA8B /* SelectStyleViewController.h */,
+				CBEBF1CB1F3B0E3F006CCA8B /* SelectStyleViewController.m */,
+			);
+			name = Style;
 			sourceTree = "<group>";
 		};
 		CB476C711FAC586800C54837 /* Model */ = {
@@ -965,10 +989,9 @@
 		CB8E40DE1F6137D3003E5024 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				CB45CF27208AD84700C62491 /* Style */,
 				CB0220831F42FE8E008773ED /* SelectModeViewController.h */,
 				CB0220841F42FE8E008773ED /* SelectModeViewController.m */,
-				CBEBF1CA1F3B0E3F006CCA8B /* SelectStyleViewController.h */,
-				CBEBF1CB1F3B0E3F006CCA8B /* SelectStyleViewController.m */,
 				CB822DF22089B71300885A2F /* screenShotController.h */,
 				CB822DF32089B71300885A2F /* screenShotController.m */,
 				CB82247A1F46EEC400E1E4BA /* HUDViewController.h */,
@@ -1515,6 +1538,7 @@
 				CBD8EB791F9E0D0700FDABBB /* BlueToothController.m in Sources */,
 				CBF5BA9520874AAD00A3F7A1 /* NetWorkClient.m in Sources */,
 				CB66C9AB2088B675000AE89A /* screenshotModel.m in Sources */,
+				CB45CF26208AD83E00C62491 /* AddBoardStyleController.m in Sources */,
 				CB1591DA2006380100F51FD3 /* JKDBModel.m in Sources */,
 				CBD8EB781F9E0CFD00FDABBB /* BlueToothController.h in Sources */,
 				CB94DFCD1FBAC4CB0051E152 /* TestItemViewController.m in Sources */,
@@ -1547,6 +1571,7 @@
 				CBE4AC0A1F443432003714A4 /* DashboardViewStyleC.m in Sources */,
 				CB47E2EC1F480C7000B23D8E /* UIFont+AdapFont.m in Sources */,
 				CB84F2AC1F74E73A0008F681 /* HUDColorViewController.m in Sources */,
+				CB822E062089E38D00885A2F /* OBDataModel.m in Sources */,
 				CB574E0C1FFF581F00A50C89 /* UIViewController+NavBar.m in Sources */,
 				CB47E2EF1F4819C200B23D8E /* StyleViewController.m in Sources */,
 				CBF1E2761F3068C500EEC755 /* MonController.m in Sources */,
@@ -1632,6 +1657,7 @@
 				CB835D321F595CD2007C5A17 /* DiagnosticsTableViewCell.m in Sources */,
 				CB07E6AB1F908BB600545A82 /* PerformanceController.m in Sources */,
 				CB47CE711FBBD99E00451244 /* PerformanceSetting.m in Sources */,
+				CB45CF22208AD7DC00C62491 /* BasicStyleController.m in Sources */,
 				CBF1E2281F2ED49200EEC755 /* main.m in Sources */,
 				CBF1E27C1F3068ED00EEC755 /* SetViewController.m in Sources */,
 				CB822DF42089B71300885A2F /* screenShotController.m in Sources */,
@@ -1777,7 +1803,7 @@
 				DEVELOPMENT_TEAM = E54SCXFP9M;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
+				GCC_PREFIX_HEADER = "/Users/yutaozhao/Desktop/OBDCheck 2/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch";
 				INFOPLIST_FILE = OBDCheck/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1811,7 +1837,7 @@
 				DEVELOPMENT_TEAM = E54SCXFP9M;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
+				GCC_PREFIX_HEADER = "/Users/yutaozhao/Desktop/OBDCheck 2/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch";
 				INFOPLIST_FILE = OBDCheck/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (

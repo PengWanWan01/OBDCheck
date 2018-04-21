@@ -105,31 +105,16 @@
 
     [self.view addSubview:PortraitBackView];
     for (NSInteger i = 0; i<3; i++) {
-        UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, i*(SCREEN_MAX/3), SCREEN_MIN, (SCREEN_MAX/3))];
-        [PortraitBackView addSubview:backView];
-        PIDNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, SCREEN_MIN - 20, 23)];
-        PIDNameLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
-        PIDNameLabel.font = [UIFont systemFontOfSize:14.f];
-        PIDNameLabel.text  = self.PIDDataSource[i];
-        PIDNameLabel.tag = i;
-        NumberLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, SCREEN_MIN,SCREEN_MAX/3 -  80)];
-        NumberLabel.textAlignment = NSTextAlignmentCenter;
-        NumberLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
-        NumberLabel.font = [UIFont systemFontOfSize:70];
-        NumberLabel.text  = self.NumberDataSource[i];
-
-        UnitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,backView.frame.size.height-23 , SCREEN_MAX - 20, 23)];
-        UnitLabel.textAlignment = NSTextAlignmentRight;
-        UnitLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
-        UnitLabel.font  = [UIFont systemFontOfSize:14.f];
-        UnitLabel.text  = self.UnitDataSource[i];
-
-        [backView addSubview:PIDNameLabel];
-        [backView addSubview:NumberLabel];
-        [backView addSubview:UnitLabel];
-        lineView = [[UIView alloc]initWithFrame:CGRectMake(0, (i+1)*SCREEN_MAX/3, SCREEN_MIN, 0.5)];
-        lineView.backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
-        [PortraitBackView addSubview:lineView];
+//        UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, i*(SCREEN_MAX/3), SCREEN_MIN, (SCREEN_MAX/3))];
+//        [PortraitBackView addSubview:backView]
+        HUDView *View  = [[HUDView alloc]initWithFrame:CGRectMake(0, i*(SCREEN_MAX/3), SCREEN_MIN, (SCREEN_MAX/3))];
+        View.NumberLabel.textColor = [ColorTools colorWithHexString:[[UserDefaultSet sharedInstance]GetStringAttribute:@"HUDColourStr"]];
+        View.PIDLabel.textColor = [ColorTools colorWithHexString:[[UserDefaultSet sharedInstance]GetStringAttribute:@"HUDColourStr"]];
+        View.UnitLabel.textColor = [ColorTools colorWithHexString:[[UserDefaultSet sharedInstance]GetStringAttribute:@"HUDColourStr"]];
+        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, View.frame.size.height, MSWidth, 1)];
+        lineView.backgroundColor = [UIColor whiteColor];
+        [View addSubview:lineView];
+        [PortraitBackView addSubview:View];
 
         
     }
@@ -163,9 +148,9 @@
             NSInteger index = i % 2;
             NSInteger page = i / 2;
             HUDView *View  = [[HUDView alloc]initWithFrame:CGRectMake(index * ((SCREEN_MAX/2)-1 ), page  * ( (SCREEN_MIN-2)/3), SCREEN_MAX/2, (SCREEN_MIN-2)/3)];
-            View.NumberLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
-            View.PIDLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
-            View.UnitLabel.textColor = [ColorTools colorWithHexString:[DashboardSetting sharedInstance].HUDColourStr];
+            View.NumberLabel.textColor = [ColorTools colorWithHexString:[[UserDefaultSet sharedInstance]GetStringAttribute:@"HUDColourStr"]];
+            View.PIDLabel.textColor = [ColorTools colorWithHexString:[[UserDefaultSet sharedInstance]GetStringAttribute:@"HUDColourStr"]];
+            View.UnitLabel.textColor = [ColorTools colorWithHexString:[[UserDefaultSet sharedInstance]GetStringAttribute:@"HUDColourStr"]];
             [landscapeBackView addSubview:View];
            }
     
@@ -208,18 +193,18 @@
 #pragma mark 切换变成HUD模式
 - (void)ClickToHUD:(UITapGestureRecognizer *)sender{
     DLog(@"切换变成HUD模式");
-    switch ([DashboardSetting sharedInstance].hudModeType) {
+    switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"hudModeType"]) {
         case HUDModeTypeToHUD:{
             self.view.transform = CGAffineTransformIdentity;
             self.view.transform = CGAffineTransformScale(self.view.transform, -1, 1);
             self.view.transform = CGAffineTransformRotate( self.view.transform,M_PI);
-            [DashboardSetting sharedInstance].hudModeType = HUDModeTypeToNormal;
+            [UserDefaultSet sharedInstance].hudModeType = HUDModeTypeToNormal;
         }
             break;
         case HUDModeTypeToNormal:{
             self.view.transform = CGAffineTransformScale(self.view.transform, -1, 1);
             self.view.transform = CGAffineTransformRotate(self.view.transform, -M_PI);
-            [DashboardSetting sharedInstance].hudModeType = HUDModeTypeToHUD;
+            [UserDefaultSet sharedInstance].hudModeType = HUDModeTypeToHUD;
 
         }
             break;
@@ -227,7 +212,7 @@
             break;
     }
     
-    
+    [[UserDefaultSet sharedInstance]SetIntegerAttribute:[UserDefaultSet sharedInstance].hudModeType Key:@"hudModeType"];
     
 }
 #pragma mark 遵守蓝牙的协议

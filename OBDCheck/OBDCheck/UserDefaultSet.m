@@ -42,6 +42,8 @@
     self.launchDashboard = LaunchDashboardON;
     self.KPageNumer = 3;
     self.ScreenshotData = [[NSString alloc]init];
+    self.hudModeType = HUDModeTypeToNormal;
+    self.HUDColourStr = @"44FF00";
     [self SetIntegerAttribute:self.dashboardMode Key:@"dashboardMode"];
     [self SetIntegerAttribute:self.dashboardStyle Key:@"dashboardStyle"];
     [self SetIntegerAttribute:self.numberDecimals Key:@"numberDecimals"];
@@ -52,7 +54,11 @@
     [self SetIntegerAttribute:self.keeptips Key:@"keeptips"];
     [self SetIntegerAttribute:self.launchDashboard Key:@"launchDashboard"];
     [self SetIntegerAttribute:self.KPageNumer Key:@"KPageNumer"];
+    [self SetIntegerAttribute:self.hudModeType Key:@"hudModeType"];
+
     [self SetStringAttribute:self.ScreenshotData Key:@"ScreenshotData"];
+    [self SetStringAttribute:self.HUDColourStr Key:@"HUDColourStr"];
+
 }
 -(BOOL)SetIntegerAttribute:(NSInteger )Value Key:(NSString *)key
 {

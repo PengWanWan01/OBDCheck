@@ -25,11 +25,7 @@ typedef NS_ENUM(NSInteger ,ChangeDashboardStyle)
     ChangeDashboardStyleThree    //改变为第三种风格
 };
 
-typedef NS_ENUM(NSInteger ,HUDModeType)
-{
-    HUDModeTypeToHUD,   // 变成HUD类型
-    HUDModeTypeToNormal    //变成正常类型
-};
+
 typedef NS_ENUM(NSInteger ,ProtocolType)
 {
     CanProtocol,   // Can 拓展协议
@@ -38,7 +34,6 @@ typedef NS_ENUM(NSInteger ,ProtocolType)
 @class CustomDashboard;
 
 @interface DashboardSetting : NSObject
-@property (nonatomic) HUDModeType hudModeType;
 @property (nonatomic) AddDashboardStyle addStyle;
 @property (nonatomic) ChangeDashboardStyle ChangeStyle;
 
@@ -56,7 +51,6 @@ typedef NS_ENUM(NSInteger ,ProtocolType)
 
 @property (nonatomic,assign)   BOOL DashBoardFristLoad;
 @property (nonatomic,assign) NSInteger CurrentPage;   //当前仪表盘页数
-@property (nonatomic,copy ) NSString  *HUDColourStr;   //HUD颜色
 
 //单例模式，实例化对象
 +(instancetype )sharedInstance;

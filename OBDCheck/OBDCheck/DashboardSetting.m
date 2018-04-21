@@ -24,7 +24,6 @@
 {
     self = [super init];
     if (self) {
-        self.hudModeType = HUDModeTypeToNormal;
         self.isAddDashboard = NO;
         self.ischangeDashboard = NO;
         self.isDashboardFont = NO;
@@ -36,7 +35,6 @@
         self.addStyle  = AddStyleNone;
         self.ChangeStyle = ChangeDashboardStyleNone;
         self.CurrentPage = 0;
-        self.HUDColourStr = @"44FF00";
         self.blueState = 0;
         self.protocolType = KWProtocol;
         //         [self.defaults setObject:@"11" forKey:[NSString stringWithFormat:@"test%ld",[DashboardSetting sharedInstance].Dashboardindex]];

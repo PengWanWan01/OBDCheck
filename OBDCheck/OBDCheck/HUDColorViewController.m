@@ -138,7 +138,8 @@
                         case 0:
                             {
                                 cell.SelcetColor.hidden = NO;
-                                [DashboardSetting sharedInstance].HUDColourStr = self.ColorStrdatasource[indexPath.row];
+                                [UserDefaultSet sharedInstance].HUDColourStr = self.ColorStrdatasource[indexPath.row];
+                                [[UserDefaultSet sharedInstance]SetStringAttribute:[UserDefaultSet sharedInstance].HUDColourStr Key:@"HUDColourStr"];
                             }
                             break;
                         case 1:

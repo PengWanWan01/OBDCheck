@@ -54,6 +54,36 @@
     return self;
     
 }
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    if (isLandscape) {
+        //翻转为横屏时
+        [self setHorizontalFrame];
+    }else{
+        //翻转为竖屏时
+        
+        [self setVerticalFrame];
+    }
+    DLog(@"发生变化");
+}
+- (void)setVerticalFrame{
+    if ([[UserDefaultSet sharedInstance]GetIntegerAttribute:@"dashboardMode"] == DashboardCustomMode ) {
+         self.frame = CGRectMake(MSWidth - 270, 50, 270 , 370);
+    }else{
+        self.frame = CGRectMake(MSWidth - 270, 50, 270 , 240);
+    }
+    self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1 , 1);
+
+}
+-(void)setHorizontalFrame{
+    if ([[UserDefaultSet sharedInstance]GetIntegerAttribute:@"dashboardMode"] == DashboardCustomMode ) {
+        self.frame = CGRectMake(MSWidth - 270, 50, 270 , MSHeight-64);
+    }else{
+        self.frame = CGRectMake(MSWidth - 270, 50, 270 , 240);
+    }
+    self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1 , 1);
+
+}
 - (void)initWithData{
    
     switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] ) {

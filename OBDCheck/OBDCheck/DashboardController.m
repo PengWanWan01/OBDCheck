@@ -67,6 +67,7 @@ static dispatch_source_t _timer;
     }
     DLog(@"旋转");
     //    [self moveFoneView];
+//    [editview layoutSubviews];
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
@@ -131,7 +132,7 @@ static dispatch_source_t _timer;
     scrollView.frame = CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN);
     scrollView.contentSize = CGSizeMake(SCREEN_MAX*[[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"],0);
     pageControl.frame = CGRectMake(0, SCREEN_MIN- TopHigh -20, SCREEN_MAX, 30);
-    
+//    editview.frame = 
     if ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] == DashboardCustomMode) {
         NSArray* pAllCount = [CustomDashboard findByCriteria:@"WHERE PK > 27"];
         for (CustomDashboard *dash in pAllCount) {
@@ -530,10 +531,10 @@ static dispatch_source_t _timer;
     if ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] == DashboardCustomMode) {
         [self initWithcustomMode];
         DLog(@"已经来到");
-        if ([DashboardSetting sharedInstance].isAddDashboard == YES) {
-            [self addDashboard];
-            [DashboardSetting sharedInstance].isAddDashboard = NO;
-        }
+//        if ([DashboardSetting sharedInstance].isAddDashboard == YES) {
+//            [self addDashboard];
+//            [DashboardSetting sharedInstance].isAddDashboard = NO;
+//        }
     }else{
         switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardStyle"]) {
             case DashboardStyleOne:
@@ -756,14 +757,10 @@ static dispatch_source_t _timer;
     switch (index) {
         case 2:
         {
-            //自定义模式
-            //添加一个仪表盘
-            if ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] == DashboardCustomMode) {
-                [DashboardSetting sharedInstance].isAddDashboard = YES;
-                [DashboardSetting sharedInstance].CurrentPage = pageControl.currentPage;
-                SelectStyleViewController *vc =   [[SelectStyleViewController alloc]init];
+
+               AddBoardStyleController  *vc =   [[AddBoardStyleController alloc]init];
+                vc.Currentpage = pageControl.currentPage;
                 [self.navigationController pushViewController:vc animated:YES];
-            }
         }
             break;
         case 3:
@@ -906,7 +903,9 @@ static dispatch_source_t _timer;
 #pragma mark 全部恢复默认仪表盘
 - (void)LoadDefaultDashboards{
     DLog(@"LoadLoad");
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+       [[UserDefaultSet sharedInstance]SetDefultAttribute]; //回复设置默认属性,
         [CustomDashboard clearTable];
         [[DashboardSetting sharedInstance]initWithdashboardA];
         [[DashboardSetting sharedInstance]initWithdashboardB];
@@ -1166,7 +1165,7 @@ static dispatch_source_t _timer;
     [UserDefaultSet sharedInstance].numberDecimals = NumberDecimalZero;
     [UserDefaultSet sharedInstance].multiplierType = MultiplierType1;
     [UserDefaultSet sharedInstance].KPageNumer = 3;
-    [DashboardSetting sharedInstance].hudModeType = HUDModeTypeToNormal;
+    [UserDefaultSet sharedInstance].hudModeType = HUDModeTypeToNormal;
     [DashboardSetting sharedInstance].isDashboardRemove = NO;
 }
 @end

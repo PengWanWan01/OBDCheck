@@ -56,6 +56,11 @@ typedef NS_ENUM(NSInteger ,LaunchDashboard)
     LaunchDashboardOFF=0,   // 关闭启动后显示仪表页面
     LaunchDashboardON=1    //开启启动后显示仪表页面
 };
+typedef NS_ENUM(NSInteger ,HUDModeType)
+{
+    HUDModeTypeToHUD,   // 变成HUD类型
+    HUDModeTypeToNormal    //变成正常类型
+};
 @interface UserDefaultSet : NSObject
 //单例模式，实例化对象
 +(instancetype )sharedInstance;
@@ -71,6 +76,8 @@ typedef NS_ENUM(NSInteger ,LaunchDashboard)
 @property (nonatomic) LaunchDashboard launchDashboard; //是否启动显示仪表页面
 @property (nonatomic,assign)  NSInteger KPageNumer; //自定义模块下仪表盘的页数
 @property (nonatomic,copy)  NSString *ScreenshotData; //保存截屏的数据
+@property (nonatomic) HUDModeType hudModeType;
+@property (nonatomic,copy ) NSString  *HUDColourStr;   //HUD颜色
 
 -(void)SetDefultAttribute;
 //设置一个整形属性
