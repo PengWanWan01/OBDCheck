@@ -83,6 +83,10 @@
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
 }
+- (void)rightBarButtonClick{
+    HelpViewController *VC = [[HelpViewController alloc]init];
+    [self.navigationController pushViewController:VC animated:YES];
+}
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer{
     return  self.isCanSideBack;
 }

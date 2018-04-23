@@ -70,6 +70,8 @@
 		CB510BED205A714500F3AD6D /* DiagnoseController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB510BEC205A714500F3AD6D /* DiagnoseController.m */; };
 		CB5583601F51468C0010A1E5 /* StyleViewBController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB55835F1F51468C0010A1E5 /* StyleViewBController.m */; };
 		CB5583631F5146B70010A1E5 /* StyleCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5583621F5146B70010A1E5 /* StyleCViewController.m */; };
+		CB561172208D7D8B000BF8A8 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB561171208D7D8B000BF8A8 /* HelpViewController.m */; };
+		CB561177208D7FC8000BF8A8 /* BasicWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB561176208D7FC8000BF8A8 /* BasicWebViewController.m */; };
 		CB574E0C1FFF581F00A50C89 /* UIViewController+NavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CB574E0B1FFF581F00A50C89 /* UIViewController+NavBar.m */; };
 		CB5A618F1F79FB62000D23D6 /* SeletVehicleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A618E1F79FB62000D23D6 /* SeletVehicleViewController.m */; };
 		CB5A61941F7A206C000D23D6 /* YearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A61931F7A206C000D23D6 /* YearViewController.m */; };
@@ -327,6 +329,10 @@
 		CB55835F1F51468C0010A1E5 /* StyleViewBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleViewBController.m; sourceTree = "<group>"; };
 		CB5583611F5146B70010A1E5 /* StyleCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleCViewController.h; sourceTree = "<group>"; };
 		CB5583621F5146B70010A1E5 /* StyleCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleCViewController.m; sourceTree = "<group>"; };
+		CB561170208D7D8B000BF8A8 /* HelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		CB561171208D7D8B000BF8A8 /* HelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		CB561175208D7FC8000BF8A8 /* BasicWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BasicWebViewController.h; sourceTree = "<group>"; };
+		CB561176208D7FC8000BF8A8 /* BasicWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BasicWebViewController.m; sourceTree = "<group>"; };
 		CB5642921F984151002EFB7E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		CB574E0A1FFF581F00A50C89 /* UIViewController+NavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavBar.h"; sourceTree = "<group>"; };
 		CB574E0B1FFF581F00A50C89 /* UIViewController+NavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavBar.m"; sourceTree = "<group>"; };
@@ -793,6 +799,17 @@
 			name = StyleController;
 			sourceTree = "<group>";
 		};
+		CB56116E208D7D5A000BF8A8 /* Help */ = {
+			isa = PBXGroup;
+			children = (
+				CB561170208D7D8B000BF8A8 /* HelpViewController.h */,
+				CB561171208D7D8B000BF8A8 /* HelpViewController.m */,
+				CB561175208D7FC8000BF8A8 /* BasicWebViewController.h */,
+				CB561176208D7FC8000BF8A8 /* BasicWebViewController.m */,
+			);
+			name = Help;
+			sourceTree = "<group>";
+		};
 		CB5A61911F7A204E000D23D6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1163,6 +1180,7 @@
 				CBF1E25F1F30676600EEC755 /* Logs */,
 				CB07E6A61F908B8900545A82 /* Performance */,
 				CBF1E2611F30678F00EEC755 /* Settings */,
+				CB56116E208D7D5A000BF8A8 /* Help */,
 			);
 			name = OBD;
 			sourceTree = "<group>";
@@ -1540,6 +1558,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBD8EB7A1F9E0D1600FDABBB /* BELInfo.m in Sources */,
+				CB561177208D7FC8000BF8A8 /* BasicWebViewController.m in Sources */,
 				CBD8EB791F9E0D0700FDABBB /* BlueToothController.m in Sources */,
 				CBF5BA9520874AAD00A3F7A1 /* NetWorkClient.m in Sources */,
 				CB66C9AB2088B675000AE89A /* screenshotModel.m in Sources */,
@@ -1606,6 +1625,7 @@
 				CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */,
 				CBF334671F4B0FFC003C0548 /* UIColor+GetHSB.m in Sources */,
 				CB47CE751FBC267700451244 /* Setting.m in Sources */,
+				CB561172208D7D8B000BF8A8 /* HelpViewController.m in Sources */,
 				CB97176F1F32C110009C47FD /* OBDBtn.m in Sources */,
 				CB99E1B81F67AABD00A87DAF /* LogsModel.m in Sources */,
 				CB0220891F43E9CC008773ED /* DashboardSetting.m in Sources */,

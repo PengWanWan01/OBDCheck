@@ -177,5 +177,7 @@
 #import "SceenshotCell.h"
 #import "AddBoardStyleController.h"
 #import "ChangeBoardStyleController.h"
+#import "HelpViewController.h"
+#import "BasicWebViewController.h"
 
 #endif /* OBDCheckPrefixHeader_pch */
