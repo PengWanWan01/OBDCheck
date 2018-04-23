@@ -9,6 +9,7 @@
 #import "editDashboardsView.h"
 @interface editDashboardsView()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>{
     UIView *backView ;
+    UITableView *tableView;
 }
 @end
 @implementation editDashboardsView
@@ -40,7 +41,7 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self initWithData];
         });
-       UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 8, self.frame.size.width, self.frame.size.height - 8)];
+       tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 8, self.frame.size.width, self.frame.size.height - 8)];
         tableView.backgroundColor = [UIColor clearColor];
         tableView.separatorInset = UIEdgeInsetsZero;
 //        tableView.scrollEnabled = NO;
@@ -56,6 +57,8 @@
 }
 - (void)layoutSubviews{
     [super layoutSubviews];
+    UIWindow *win = [[UIApplication sharedApplication] keyWindow];
+    backView.frame = win.frame;
     if (isLandscape) {
         //翻转为横屏时
         [self setHorizontalFrame];
@@ -65,6 +68,8 @@
         [self setVerticalFrame];
     }
     DLog(@"发生变化");
+    tableView.frame = CGRectMake(0, 8, self.frame.size.width, self.frame.size.height - 8);
+
 }
 - (void)setVerticalFrame{
     if ([[UserDefaultSet sharedInstance]GetIntegerAttribute:@"dashboardMode"] == DashboardCustomMode ) {
@@ -77,7 +82,7 @@
 }
 -(void)setHorizontalFrame{
     if ([[UserDefaultSet sharedInstance]GetIntegerAttribute:@"dashboardMode"] == DashboardCustomMode ) {
-        self.frame = CGRectMake(MSWidth - 270, 50, 270 , MSHeight-64);
+        self.frame = CGRectMake(MSWidth - 270, 50, 270 , MSHeight-70);
     }else{
         self.frame = CGRectMake(MSWidth - 270, 50, 270 , 240);
     }
@@ -191,9 +196,7 @@
                     }
                     
         }
-        
-        
-        //选择Mode 与Style的设置
+      //选择Mode 与Style的设置
         selectBtn.tag = indexPath.row;
 
     }else{

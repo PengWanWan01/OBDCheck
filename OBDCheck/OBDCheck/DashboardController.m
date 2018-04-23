@@ -67,7 +67,7 @@ static dispatch_source_t _timer;
     }
     DLog(@"旋转");
     //    [self moveFoneView];
-//    [editview layoutSubviews];
+    [editview layoutSubviews];
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
