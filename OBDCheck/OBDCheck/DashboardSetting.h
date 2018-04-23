@@ -52,6 +52,7 @@ typedef NS_ENUM(NSInteger ,ProtocolType)
 @property (nonatomic,assign)   BOOL DashBoardFristLoad;
 @property (nonatomic,assign) NSInteger CurrentPage;   //当前仪表盘页数
 
+@property (nonatomic,copy) NSArray *PIDDataSource; //存放PID的内容
 //单例模式，实例化对象
 +(instancetype )sharedInstance;
 - (void)initWithdashboardA;

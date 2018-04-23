@@ -108,7 +108,6 @@
     model = dashboard;
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
     [dashViewB initWithModel:dashboard];
-    dashViewB.PIDLabel.text = dashboard.DashboardBinfoLabeltext;
     [dashViewB setNeedsLayout];
     [self.view addSubview:dashViewB];
     
@@ -119,9 +118,9 @@
     ValueLabel.font = [UIFont ToAdapFont:14.f];
     
     self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(dashViewB.frame) + 10, CGRectGetMaxY(ValueLabel.frame )+10, MSWidth - dashViewB.frame.size.width-50*KFontmultiple , 20)];
-    self.slider.minimumValue = [model.DashboardBminNumber floatValue];
+    self.slider.minimumValue = [model.DashboardminNumber floatValue];
     
-    self.slider.maximumValue = [model.DashboardBmaxNumber floatValue];
+    self.slider.maximumValue = [model.DashboardmaxNumber floatValue];
     [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     self.slider.minimumTrackTintColor = [ColorTools colorWithHexString:@"FE9002"];
     self.slider.tag = 9;
@@ -440,7 +439,7 @@
     }
 }
 - (void)rotationWithView{
-    CGFloat Space =   (3*M_PI/2)/([model.DashboardBmaxNumber floatValue] - [model.DashboardBminNumber floatValue]);
+    CGFloat Space =   (3*M_PI/2)/([model.DashboardmaxNumber floatValue] - [model.DashboardminNumber floatValue]);
     [dashViewB rotateImageView:(-M_PI/2-M_PI/4)+Space*slideValue  Withend:(-M_PI/2-M_PI/4) ];
 }
 #pragma mark 外径颜色的变化
@@ -533,7 +532,6 @@
     
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
     [dashViewB initWithModel:model];
-    dashViewB.PIDLabel.text = model.DashboardBinfoLabeltext;
     [dashViewB setNeedsLayout];
     [self.view addSubview:dashViewB];
     

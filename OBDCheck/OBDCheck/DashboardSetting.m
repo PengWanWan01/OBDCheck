@@ -37,6 +37,7 @@
         self.CurrentPage = 0;
         self.blueState = 0;
         self.protocolType = KWProtocol;
+        self.PIDDataSource  = [[NSArray alloc]initWithObjects:@"MPH",@"RPM",@"Altitude",@"Temperature",@"Pressure",@"Mass",@"Torque",@"Fuel Econmy",@"Airflow", nil];
         //         [self.defaults setObject:@"11" forKey:[NSString stringWithFormat:@"test%ld",[DashboardSetting sharedInstance].Dashboardindex]];
         
     }
@@ -109,7 +110,6 @@
     model.DashboardAmiColor = @"FFFFFF";
     model.DashboardAinnerColor = @"18191C";
     model.DashboardAouterColor = @"18191C";
-    model.DashboardAPID = @"";
     if (i>=6 && i<8) {
         if (IS_IPHONE_4_OR_LESS) {
             model.DashboardAorignx =[NSString stringWithFormat:@"%f",SCREEN_MIN+ SCREEN_MIN/2 - 100*KFontmultiple];
@@ -158,9 +158,6 @@
     }
     //    model.PointerLength =[NSString stringWithFormat:@"%d":([model.orignwidth integerValue]/2) - 15 - 14];
     model.DashboardAPointerLength =[NSString stringWithFormat:@"%d",1];
-    model.DashboardAminNumber = @"0";
-    model.DashboardAmaxNumber = @"100";
-    model.DashboardAinfoLabeltext = @"add";
     /**
      存储.
      */
@@ -234,10 +231,6 @@
         }
     }
     
-    model.DashboardBPID = @"";
-    model.DashboardBminNumber = @"0";
-    model.DashboardBmaxNumber = @"100";
-    model.DashboardBinfoLabeltext = @"add";
     
     /**
      存储.
@@ -313,10 +306,6 @@
         }
     }
     
-    model.DashboardCPID = @"";
-    model.DashboardCminNumber = @"0";
-    model.DashboardCmaxNumber = @"100";
-    model.DashboardCinfoLabeltext = @"add";
     
     /**
      存储.
@@ -346,6 +335,12 @@
     [self initADDdashboardA:model withTag:i ];
     [self initADDdashboardB:model withTag:i];
     [self initADDdashboardC:model withTag:i];
+    model.DashboardPID = self.PIDDataSource[i];
+    model.DashboardminNumber = @"0";
+    model.DashboardmaxNumber = @"100";
+    if ([model.DashboardPID isEqualToString:@"RPM"]) {
+        model.DashboardmaxNumber = [NSString stringWithFormat:@"1000"] ;
+    }
     switch (type) {
         case AddStyleOne:
         {

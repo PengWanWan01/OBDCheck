@@ -88,11 +88,13 @@ static dispatch_source_t _timer;
                     break;
                 case 2:
                 {
+                    dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:dash.pk ];
                     [dashboardStyleBView layoutSubviews];
                 }
                     break;
                 case 3:
                 {
+                    dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:dash.pk ];
                     [dashboardStyleCView layoutSubviews];
                     
                 }
@@ -262,13 +264,7 @@ static dispatch_source_t _timer;
     if (!(customDashboard == nil)) {
         [dashboardStyleAView initWithModel:customDashboard];
     }
-    dashboardStyleAView.infoLabel.text = _CustomLabelArray[customDashboard.pk  - 1-27];
-    dashboardStyleAView.infoLabel.adjustsFontSizeToFitWidth = YES;
     dashboardStyleAView.numberLabel.text = _CustomNumberArray[customDashboard.pk  - 1-27];
-    customDashboard.DashboardAinfoLabeltext = dashboardStyleAView.infoLabel.text;
-    if ([customDashboard.DashboardAinfoLabeltext isEqualToString:@"RPM"]) {
-        customDashboard.DashboardAmaxNumber = [NSString stringWithFormat:@"1000"] ;
-    }
     [customDashboard update];
     [scrollView addSubview:dashboardStyleAView];
     [self MoveDashboard: dashboardStyleAView.tag];
@@ -280,10 +276,7 @@ static dispatch_source_t _timer;
     [dashboardStyleAView initWithModel:dashboardA];
     dashboardStyleAView.delegate = self;
     DashBoardTag = dashboardStyleAView.tag ;
-    dashboardStyleAView.infoLabel.text = _LabelNameArray[dashboardStyleAView.tag - 1];
-    dashboardStyleAView.infoLabel.adjustsFontSizeToFitWidth = YES;
     dashboardStyleAView.numberLabel.text = _numberArray[dashboardStyleAView.tag - 1];
-    dashboardA.DashboardAinfoLabeltext = dashboardStyleAView.infoLabel.text;
     [dashboardA update];
     [scrollView addSubview:dashboardStyleAView];
 }
@@ -459,31 +452,13 @@ static dispatch_source_t _timer;
 
 
 - (void)initWithData{
-    _LabelNameArray = [[NSMutableArray alloc]initWithObjects:@"MPH",@"RPM",@"Engine Temp",@"MAF",@"Fuel rate",@"Battery",@"Battery",@"Battery",@"Battery", nil];
+
     
     self.numberArray = [[NSMutableArray alloc]initWithObjects:@"15",
                         @"19",@"34",@"23",@"54",@"34",@"23",@"54",@"23",@"43", nil];
-    _CustomLabelArray = [[NSMutableArray alloc]initWithObjects:@"MPH",@"RPM",@"Engine Temp",@"MAF",@"Fuel rate",@"Battery",@"Battery",@"Battery",@"Battery", nil];
     
     self.CustomNumberArray = [[NSMutableArray alloc]initWithObjects:@"15",
                               @"19",@"34",@"23",@"54",@"34",@"23",@"54",@"23",@"43", nil];
-    
-    
-    NSArray *pAllCount = [CustomDashboard findAll];
-    CustomDashboard *modle = pAllCount.lastObject;
-    NSInteger space =   modle.pk  - _CustomLabelArray.count;
-    if (space > 0) {
-        for (int i = 1; i<=space; i++) {
-            [_CustomLabelArray addObject:@"add"];
-            [self.CustomNumberArray  addObject:@"12"];
-        }
-    }
-    for (int i = 0; i<_numberArray.count; i++) {
-        [_numberArray  replaceObjectAtIndex:i withObject:[NSString stringWithFormat:@"%u", arc4random() % 100]];
-    }
-    for (int i = 0; i<_CustomLabelArray.count; i++) {
-        [self.CustomNumberArray    replaceObjectAtIndex:i withObject:[NSString stringWithFormat:@"%u", arc4random() % 100]];
-    }
 }
 - (void)initWithUI{
     
@@ -520,7 +495,7 @@ static dispatch_source_t _timer;
     //    设置选中时圆点的颜色
     pageControl.currentPageIndicatorTintColor = [ColorTools colorWithHexString:@"#FE9002"];
     //    关闭分页控件的用户交互功能
-    pageControl.userInteractionEnabled = NO;
+//    pageControl.userInteractionEnabled = NO;
     // 为了检测滚动视图的偏移量，引入代理
     scrollView.delegate = self;
     pageControl.tag = 1000;
@@ -604,12 +579,7 @@ static dispatch_source_t _timer;
             [dashboardStyleBView initWithModel:dash];
             DashBoardTag = dashboardStyleBView.tag ;
             dashboardStyleBView.delegate =self;
-            dashboardStyleBView.PIDLabel.text = _CustomLabelArray[DashBoardTag-1-27];
             dashboardStyleBView.NumberLabel.text = _CustomNumberArray[DashBoardTag-1-27];
-            dash.DashboardBinfoLabeltext = dashboardStyleBView.PIDLabel.text;
-            if ([dash.DashboardBinfoLabeltext isEqualToString:@"RPM"]) {
-                dash.DashboardBmaxNumber = [NSString stringWithFormat:@"1000"] ;
-            }
             [dash update];
             [scrollView addSubview:dashboardStyleBView];
             [self MoveDashboard: dashboardStyleBView.tag];
@@ -620,12 +590,7 @@ static dispatch_source_t _timer;
             [dashboardStyleCView initWithModel:dash];
             DashBoardTag = dashboardStyleCView.tag ;
             dashboardStyleCView.delegate = self;
-            dashboardStyleCView.PIDLabel.text = _CustomLabelArray[DashBoardTag-1-27];
             dashboardStyleCView.NumberLabel.text = _CustomNumberArray[DashBoardTag-1-27];
-            dash.DashboardCinfoLabeltext = dashboardStyleCView.PIDLabel.text;
-            if ([dash.DashboardAinfoLabeltext isEqualToString:@"RPM"]) {
-                dash.DashboardAmaxNumber = [NSString stringWithFormat:@"1000"] ;
-            }
             [dash update];
             [scrollView addSubview:dashboardStyleCView];
             [self MoveDashboard: dashboardStyleAView.tag];
@@ -650,16 +615,12 @@ static dispatch_source_t _timer;
     NSArray* pAllCount = [CustomDashboard findByCriteria:@"WHERE PK >=10 and PK < 19"];
     for (CustomDashboard *dash in pAllCount) {
         DLog(@"总共%ld",(long)dash.pk);
-        DLog(@"_LabelNameArray%@",_LabelNameArray);
-        
         dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake([dash.DashboardBorignx doubleValue], [dash.DashboardBorigny doubleValue], [dash.DashboardBorignwidth doubleValue], [dash.DashboardBorignheight doubleValue])];
         [dashboardStyleBView initWithModel:dash];
         dashboardStyleBView.tag = dash.pk ;
         DashBoardTag = dashboardStyleBView.tag ;
         dashboardStyleBView.delegate = self;
-        dashboardStyleBView.PIDLabel.text = _LabelNameArray[dashboardStyleBView.tag-1-9];
         dashboardStyleBView.NumberLabel.text = _numberArray[dashboardStyleBView.tag-1-9];
-        dash.DashboardBinfoLabeltext = dashboardStyleBView.PIDLabel.text;
         [dash update];
         [scrollView addSubview:dashboardStyleBView];
     }
@@ -678,9 +639,7 @@ static dispatch_source_t _timer;
         [dashboardStyleCView initWithModel:dash];
         DashBoardTag = dashboardStyleCView.tag ;
         dashboardStyleCView.delegate = self;
-        dashboardStyleCView.PIDLabel.text = _LabelNameArray[dashboardStyleCView.tag -1-18];
         dashboardStyleCView.NumberLabel.text = _numberArray[dashboardStyleCView.tag -1-18];
-        dash.DashboardCinfoLabeltext = dashboardStyleCView.PIDLabel.text;
         [scrollView addSubview:dashboardStyleCView];
         [dash update];
     }
@@ -768,7 +727,9 @@ static dispatch_source_t _timer;
             DLog(@"添加一页");
             
             NSInteger page = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"]+1;
-            [self alterDashboardPage:page];
+            [[UserDefaultSet sharedInstance] SetIntegerAttribute:page Key:@"KPageNumer"];
+            scrollView.contentSize = CGSizeMake(MSWidth*[[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"],0);
+            pageControl.numberOfPages = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"];
         }
             break;
         case 4:
@@ -814,9 +775,79 @@ static dispatch_source_t _timer;
 #pragma mark 修改仪表盘的页数
 -(void)alterDashboardPage:(NSInteger)page{
       [[UserDefaultSet sharedInstance] SetIntegerAttribute:page Key:@"KPageNumer"];
-     scrollView.contentSize = CGSizeMake(MSWidth*[[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"],0);
-    pageControl.numberOfPages = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"];
-    
+//     scrollView.contentSize = CGSizeMake(MSWidth*[[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"],0);
+//    pageControl.numberOfPages = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"];
+    DLog(@"当前页为:%ld",(long)pageControl.currentPage);
+    NSArray *array = [CustomDashboard findByCriteria:@"WHERE PK > 27"];
+    for (CustomDashboard *model in array) {
+    switch (model.dashboardType) {
+        case 1:
+            {
+                if (pageControl.currentPage == 0) {
+                    if ([model.DashboardAorignx doubleValue]<SCREEN_MIN) {
+                        NSString *str =  [NSString stringWithFormat:@"WHERE PK = %ld",(long)model.pk];
+                        [CustomDashboard deleteObjectsByCriteria:str];
+                    }else{
+                        model.DashboardAorignx = [NSString stringWithFormat:@"%f",[model.DashboardAorignx doubleValue] - SCREEN_MIN];
+                    }
+                }else{
+                    if(([model.DashboardAorignx doubleValue]<(pageControl.currentPage+1)*SCREEN_MIN) && (([model.DashboardAorignx doubleValue]>pageControl.currentPage*SCREEN_MIN))) {
+                    NSString *str =  [NSString stringWithFormat:@"WHERE PK = %ld",(long)model.pk];
+                    [CustomDashboard deleteObjectsByCriteria:str];
+                    }else if ([model.DashboardAorignx doubleValue]>(pageControl.currentPage+1)*SCREEN_MIN){
+                         model.DashboardAorignx = [NSString stringWithFormat:@"%f",[model.DashboardAorignx doubleValue] - SCREEN_MIN];
+                    }
+                }
+            }
+            break;
+        case 2:
+        {
+            if (pageControl.currentPage == 0) {
+                if ([model.DashboardBorignx doubleValue]<SCREEN_MIN) {
+                    NSString *str =  [NSString stringWithFormat:@"WHERE PK = %ld",(long)model.pk];
+                    [CustomDashboard deleteObjectsByCriteria:str];
+                }else{
+                    model.DashboardBorignx = [NSString stringWithFormat:@"%f",[model.DashboardBorignx doubleValue] - SCREEN_MIN];
+                }
+            }else{
+                if(([model.DashboardBorignx doubleValue]<(pageControl.currentPage+1)*SCREEN_MIN) && (([model.DashboardBorignx doubleValue]>pageControl.currentPage*SCREEN_MIN))) {
+                    NSString *str =  [NSString stringWithFormat:@"WHERE PK = %ld",(long)model.pk];
+                    [CustomDashboard deleteObjectsByCriteria:str];
+                }else if ([model.DashboardBorignx doubleValue]>(pageControl.currentPage+1)*SCREEN_MIN){
+                    model.DashboardBorignx = [NSString stringWithFormat:@"%f",[model.DashboardBorignx doubleValue] - SCREEN_MIN];
+                }
+            }
+        }
+            break;
+        case 3:
+        {
+            if (pageControl.currentPage == 0) {
+                if ([model.DashboardCorignx doubleValue]<SCREEN_MIN) {
+                    NSString *str =  [NSString stringWithFormat:@"WHERE PK = %ld",(long)model.pk];
+                    [CustomDashboard deleteObjectsByCriteria:str];
+                }else{
+                    model.DashboardCorignx = [NSString stringWithFormat:@"%f",[model.DashboardCorignx doubleValue] - SCREEN_MIN];
+                }
+            }else{
+                if(([model.DashboardCorignx doubleValue]<(pageControl.currentPage+1)*SCREEN_MIN) && (([model.DashboardCorignx doubleValue]>pageControl.currentPage*SCREEN_MIN))) {
+                    NSString *str =  [NSString stringWithFormat:@"WHERE PK = %ld",(long)model.pk];
+                    [CustomDashboard deleteObjectsByCriteria:str];
+                }else if ([model.DashboardCorignx doubleValue]>(pageControl.currentPage+1)*SCREEN_MIN){
+                    model.DashboardCorignx = [NSString stringWithFormat:@"%f",[model.DashboardCorignx doubleValue] - SCREEN_MIN];
+                }
+            }
+        }
+            break;
+        default:
+            break;
+    }
+        [model update];
+    }
+    [self updateView];
+//    CGRect frame = scrollView.frame;
+//    frame.origin.x = frame.size.width * 3;
+//    frame.origin.y = 0;
+//    [scrollView scrollRectToVisible:frame animated:YES];
 
 }
 #pragma mark 捏合手势代理

@@ -35,8 +35,6 @@
     _radius = self.bounds.size.width/ 2 ;
     _dialPieceCount  =5;
     _dialCount = 8 * self.dialPieceCount;
-    // 添加外环
-    self.infoLabeltext = self.infoLabel.text;
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNewNumber:) name:@"updateNumber"object:nil];
     
@@ -44,41 +42,39 @@
     return self;
 }
 -(void)layoutSubviews{
-      [super layoutSubviews];
+    [super layoutSubviews];
     if (isLandscape) {
-           [self setHorizontalFrame];
+        [self setHorizontalFrame];
     }else{
-          [self setVerticalFrame];
+        [self setVerticalFrame];
     }
 }
 - (void)setHorizontalFrame{
-    NSString *str = [NSString stringWithFormat:@"WHERE PK = %ld",(long)self.tag];
-    NSArray* pAllCount = [CustomDashboard findByCriteria:str];
-            for (CustomDashboard *dash in pAllCount) {
-                int page =  [dash.DashboardAorignx doubleValue]/SCREEN_MIN;
-                                    if (([dash.DashboardAorignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
-                                        //横屏时候上边的一排仪表盘
-                                        self.frame = CGRectMake([dash.DashboardAorigny floatValue]+64+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+20*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple);
-                                    }else{
-                                        //  //横屏时候下边的一排仪表盘，6P以上的大屏进行特殊适配
-                                        if (IS_IPHONE_6P_OR_MORE) {
-                                            self.frame = CGRectMake([dash.DashboardAorigny floatValue]+64+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+45*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple);
-
-                                        }else{
-                                            self.frame = CGRectMake([dash.DashboardAorigny floatValue]+64+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+40*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple);
-                                            
-                                        }
-                                    }
-                self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.85, 0.85);
-            }
-}
-- (void)setVerticalFrame{
-    NSString *str = [NSString stringWithFormat:@"WHERE PK = %ld",(long)self.tag];
-    NSArray* pAllCount = [CustomDashboard findByCriteria:str];
-    for (CustomDashboard *dash in pAllCount) {
-          self.frame =CGRectMake([dash.DashboardAorignx doubleValue], [dash.DashboardAorigny doubleValue], [dash.DashboardAorignwidth doubleValue], [dash.DashboardAorignheight doubleValue]);
+    CustomDashboard* dash = [CustomDashboard findByPK:self.tag];
+    int page =  [dash.DashboardAorignx doubleValue]/SCREEN_MIN;
+    if (([dash.DashboardAorignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
+        //横屏时候上边的一排仪表盘
+        self.frame = CGRectMake([dash.DashboardAorigny floatValue]+64+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+20*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple);
+        self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.85, 0.85);
+    }else{
+        //  //横屏时候下边的一排仪表盘，6P以上的大屏进行特殊适配
+        if (IS_IPHONE_6P_OR_MORE) {
+            self.frame = CGRectMake([dash.DashboardAorigny floatValue]+64+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+45*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple);
+            self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.85, 0.85);
+        }else{
+            self.frame = CGRectMake([dash.DashboardAorigny floatValue]+64+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+40*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple);
+            self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.85, 0.85);
+        }
+    }
+    if (page>0) {
         self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
     }
+}
+- (void)setVerticalFrame{
+    CustomDashboard* dash = [CustomDashboard findByPK:self.tag];
+    self.frame =CGRectMake([dash.DashboardAorignx doubleValue], [dash.DashboardAorigny doubleValue], [dash.DashboardAorignwidth doubleValue], [dash.DashboardAorignheight doubleValue]);
+    self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
+    
 }
 
 - (void)updateTOFont{
@@ -88,9 +84,9 @@
     }
 }
 - (void)getNewNumber:(NSNotification *)text{
-        DLog(@"得到通知");
-//    DLog(@"%ld",[text.userInfo[@"StyleAViewTag"] integerValue]);
-//    DLog(@"%ld",self.tag);
+    DLog(@"得到通知");
+    //    DLog(@"%ld",[text.userInfo[@"StyleAViewTag"] integerValue]);
+    //    DLog(@"%ld",self.tag);
     NSString *presentStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"StyleAViewnumber"]];
     NSString *PreviouStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"PreStyleAViewnumber"]];
     
@@ -99,9 +95,9 @@
     //    DLog(@"%@%@%ld",PreviouStr,presentStr,(long)[text.userInfo[@"StyleAViewTag"] integerValue]);
     
     if ([text.userInfo[@"StyleAViewTag"] integerValue] == self.tag) {
-            CustomDashboard *dashboard  = [CustomDashboard findByPK:self.tag];
-        CGFloat Space =   ([dashboard.DashboardAendAngle doubleValue]- [dashboard.DashboardAStartAngle doubleValue])/([dashboard.DashboardAmaxNumber doubleValue] - [dashboard.DashboardAminNumber doubleValue]);
-        [self rotationWithStartAngle:[dashboard.DashboardAStartAngle doubleValue] + ((double)start/[dashboard.DashboardAmaxNumber doubleValue]*Space)  WithEndAngle:[dashboard.DashboardAStartAngle doubleValue] + (double)end/[dashboard.DashboardAmaxNumber doubleValue]*Space];
+        CustomDashboard *dashboard  = [CustomDashboard findByPK:self.tag];
+        CGFloat Space =   ([dashboard.DashboardAendAngle doubleValue]- [dashboard.DashboardAStartAngle doubleValue])/([dashboard.DashboardmaxNumber doubleValue] - [dashboard.DashboardminNumber doubleValue]);
+        [self rotationWithStartAngle:[dashboard.DashboardAStartAngle doubleValue] + ((double)start/[dashboard.DashboardmaxNumber doubleValue]*Space)  WithEndAngle:[dashboard.DashboardAStartAngle doubleValue] + (double)end/[dashboard.DashboardmaxNumber doubleValue]*Space];
         self.numberLabel.text = presentStr;
     }
     
@@ -109,7 +105,7 @@
 }
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
+    
 }
 //[ColorTools colorWithHexString:@"18191C"].CGColor
 - (void)addGradientView:(NSString *)gradientColor GradientViewWidth:(CGFloat)gradientViewWidth{
@@ -174,7 +170,7 @@
             
             CGPoint point = [self calculateTextPositonWithArcCenter:_center Angle:-endAngel radius:(_radius-[model.DashboardAringWidth doubleValue]*KMultipleA- [model.DashboardAmaLength doubleValue]*KMultipleA- 6*KMultipleA)*[model.DashboardALabelOffest doubleValue] Rotate:model.DashboardALabelRotate];
             //四舍五入
-            NSString *tickText = [NSString stringWithFormat:@"%.f",((roundf([model.DashboardAmaxNumber doubleValue]- [model.DashboardAminNumber doubleValue])/8)*(i/5) +[model.DashboardAminNumber doubleValue])];
+            NSString *tickText = [NSString stringWithFormat:@"%.f",((roundf([model.DashboardmaxNumber doubleValue]- [model.DashboardminNumber doubleValue])/8)*(i/5) +[model.DashboardminNumber doubleValue])];
             
             //默认label的大小14 * 14
             //            DLog(@"%f",_center.x);
@@ -188,7 +184,7 @@
             text.font = [UIFont systemFontOfSize:[model.DashboardALabelFontScale doubleValue]*10.f*KMultipleA];
             text.textColor = [UIColor whiteColor];
             text.textAlignment = NSTextAlignmentCenter;
-         
+            
             //让文字刻度显示
             if (model.DashboardALabelVisble == YES) {
                 [self addSubview:text];
@@ -221,10 +217,12 @@
     [self adddrawPointerVisble:model.DashboardAPointerVisble PointerWidth:[model.DashboardAPointerWidth  doubleValue] PointerLength:[model.DashboardAPointerLength  doubleValue] PointerColor:model.DashboardAPointerColor KNOBRadius:[model.DashboardAKNOBRadius doubleValue] KNOBColor:model.DashboardAKNOBColor withStartAngle:[model.DashboardAStartAngle floatValue]  withModel:(CustomDashboard *)model];
     
     self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_center.x - 60*KMultipleA, (_center.y- 40*KMultipleA)*[model.DashboardAtitlePosition doubleValue], 120*KMultipleA, 30*KMultipleA)];
-//    self.infoLabel.backgroundColor = [UIColor redColor];
+    self.infoLabel.text = model.DashboardPID;
     self.infoLabel.textColor = [ColorTools colorWithHexString:model.DashboardAtitleColor];
     self.infoLabel.textAlignment = NSTextAlignmentCenter;
     self.infoLabel.font = [UIFont systemFontOfSize:20.f*KMultipleA];
+    self.infoLabel.adjustsFontSizeToFitWidth = YES;
+
     [self addSubview:self.infoLabel];
     
     self.unitLabel = [[UILabel alloc]initWithFrame:CGRectMake(((self.bounds.size.width/2) - 20*KMultipleA)*[model.DashboardAUnitHorizontalPosition doubleValue], ((self.bounds.size.width/2)+ 10*KMultipleA)*[model.DashboardAUnitVerticalPosition doubleValue], 40*KMultipleA, 20*KMultipleA)];
@@ -309,7 +307,7 @@
     _triangleView.center = CGPointMake (_triangleView.center.x - transition.x, _triangleView.center.y - transition.y);
     
     _triangleView.transform = CGAffineTransformMakeRotation(TheAngle+M_PI/2);
-//    _triangleView.backgroundColor = [UIColor redColor];
+    //    _triangleView.backgroundColor = [UIColor redColor];
     [self addSubview:_triangleView];
     // 线的路径 三角形
     UIBezierPath *polygonPath = [UIBezierPath bezierPath];

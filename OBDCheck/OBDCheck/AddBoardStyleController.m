@@ -58,6 +58,7 @@
         default:
             break;
     }
+    model.DashboardPID = @"Add";
     [model save];
     [self.navigationController popViewControllerAnimated:YES];
 

@@ -209,52 +209,16 @@
             switch (indexPath.row) {
                 case 0:
                 {
-                    switch (model.dashboardType) {
-                        case 1:
-                        {
-                            selectfield.text = model.DashboardAminNumber ;
-                            
-                        }
-                            break;
-                        case 2:
-                        {
-                            selectfield.text = model.DashboardBminNumber ;
-                        }
-                            break;
-                        case 3:
-                        {
-                            selectfield.text = model.DashboardCminNumber ;
-                        }
-                            break;
-                        default:
-                            break;
-                    }
+                   
+                        selectfield.text = model.DashboardminNumber ;
+                    
                 }
                     break;
                 case 1:
                 {
-                    switch (model.dashboardType) {
-                        case 1:
-                        {
-                            selectfield.text = model.DashboardAmaxNumber ;
-                            
-                        }
-                            break;
-                        case 2:
-                        {
-                            selectfield.text = model.DashboardBmaxNumber ;
-                            
-                        }
-                            break;
-                        case 3:
-                        {
-                            selectfield.text = model.DashboardCmaxNumber ;
-                            
-                        }
-                            break;
-                        default:
-                            break;
-                    }
+                
+                        selectfield.text = model.DashboardmaxNumber ;
+                  
                 }
                     break;
                 default:
@@ -334,85 +298,20 @@
     switch (textField.tag) {
         case 0:
         {
-            switch (model.dashboardType) {
-                    
-                case 1:
-                {
-                    
-                    if ([textField.text integerValue] > [model.DashboardAmaxNumber integerValue]) {
-                        [self showWarn];
-                        textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardAmaxNumber floatValue] -1];
-                    }
-                    model.DashboardAminNumber = textField.text;
-                }
-                    break;
-                case 2:
-                {
-                    
-                    model.DashboardBminNumber = textField.text;
-                    if ([textField.text integerValue] > [model.DashboardBmaxNumber integerValue]) {
-                        [self showWarn];
-                        textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardBmaxNumber floatValue] -1];
-                    }
-                    model.DashboardBminNumber = textField.text;
-                }
-                    break;
-                case 3:
-                {
-                    
-                    if ([textField.text integerValue] > [model.DashboardCmaxNumber integerValue]) {
-                        [self showWarn];
-                        textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardCmaxNumber floatValue] -1];
-                    }
-                    model.DashboardCminNumber = textField.text;
-                    
-                }
-                    break;
-                default:
-                    break;
+            if ([textField.text integerValue] > [model.DashboardmaxNumber integerValue]) {
+                [self showWarn];
+                textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardmaxNumber floatValue] -1];
             }
-            
+            model.DashboardminNumber = textField.text;
         }
             break;
         case 1:
         {
-            
-            switch (model.dashboardType) {
-                    
-                case 1:
-                {
-                    
-                    if ([model.DashboardAminNumber integerValue] > [textField.text integerValue]) {
-                        [self showWarn];
-                        textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardAminNumber floatValue] +1];
-                    }
-                    model.DashboardAmaxNumber = textField.text;
-                }
-                    break;
-                case 2:
-                {
-                    
-                    if ([model.DashboardBminNumber integerValue] > [textField.text integerValue]) {
-                        [self showWarn];
-                        textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardBminNumber floatValue] +1];
-                    }
-                    model.DashboardBmaxNumber = textField.text;
-                }
-                    break;
-                case 3:
-                {
-                    
-                    if ([model.DashboardCminNumber integerValue] > [textField.text integerValue]) {
-                        [self showWarn];
-                        textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardCminNumber floatValue] +1];
-                    }
-                    model.DashboardCmaxNumber = textField.text;
-                }
-                    break;
-                default:
-                    break;
+          if ([model.DashboardminNumber integerValue] > [textField.text integerValue]) {
+                [self showWarn];
+                textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardminNumber floatValue] +1];
             }
-            
+            model.DashboardmaxNumber = textField.text;
         }
             break;
         default:

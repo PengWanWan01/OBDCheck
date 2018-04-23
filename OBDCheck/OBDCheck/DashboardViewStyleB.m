@@ -122,32 +122,28 @@
 -(void)layoutSubviews{
     [super layoutSubviews];
     if (isLandscape) {
-//        DLog(@"视图横屏");
+        //        DLog(@"视图横屏");
         [self setHorizontalFrame];
     }else{
-//        DLog(@"视图竖屏");
+        //        DLog(@"视图竖屏");
         [self setVerticalFrame];
     }
-
-
+    
+    
 }
 - (void)setHorizontalFrame{
-    NSString *str = [NSString stringWithFormat:@"WHERE PK = %ld",(long)self.tag];
-    NSArray* pAllCount = [CustomDashboard findByCriteria:str];
-    for (CustomDashboard *dash in pAllCount) {
-        int page =  [dash.DashboardBorignx doubleValue]/SCREEN_MIN;
-        self.frame = CGRectMake([dash.DashboardBorigny floatValue]+page*SCREEN_MAX+64,[dash.DashboardBorignx floatValue]-page*SCREEN_MIN-64, [dash.DashboardBorignwidth doubleValue] ,[dash.DashboardBorignheight doubleValue]);
-        self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
-    }
+    CustomDashboard *dash = [CustomDashboard findByPK:self.tag];
+    int page =  [dash.DashboardBorignx doubleValue]/SCREEN_MIN;
+    self.frame = CGRectMake([dash.DashboardBorigny floatValue]+page*SCREEN_MAX+64,[dash.DashboardBorignx floatValue]-page*SCREEN_MIN-64, [dash.DashboardBorignwidth doubleValue] ,[dash.DashboardBorignheight doubleValue]);
+    self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
+    //    }
 }
 - (void)setVerticalFrame{
-    NSString *str = [NSString stringWithFormat:@"WHERE PK = %ld",(long)self.tag];
-    NSArray* pAllCount = [CustomDashboard findByCriteria:str];
-    for (CustomDashboard *dash in pAllCount) {
-         self.frame = CGRectMake([dash.DashboardBorignx doubleValue],[dash.DashboardBorigny doubleValue], [dash.DashboardBorignwidth doubleValue], [dash.DashboardBorignheight doubleValue]);
-        self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
+    CustomDashboard *dash = [CustomDashboard findByPK:self.tag];
+    self.frame = CGRectMake([dash.DashboardBorignx doubleValue],[dash.DashboardBorigny doubleValue], [dash.DashboardBorignwidth doubleValue], [dash.DashboardBorignheight doubleValue]);
+    DLog(@"得到%ld竖屏后%f %f",self.tag,[dash.DashboardBorignx doubleValue], [dash.DashboardBorigny doubleValue] );
+    self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
 
-    }
 }
 - (void)getNewNumber:(NSNotification *)text{
     
@@ -160,30 +156,30 @@
         
         
         
-        switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"]) {
-            case DashboardCustomMode:
-            {
+//        switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"]) {
+//            case DashboardCustomMode:
+//            {
                 NSArray *list = [CustomDashboard findAll];
                 for(CustomDashboard* dashboard in list){
-                    CGFloat Space =   (3*M_PI/2)/([dashboard.DashboardBmaxNumber floatValue] - [dashboard.DashboardBminNumber floatValue]);
+                    CGFloat Space =   (3*M_PI/2)/([dashboard.DashboardmaxNumber floatValue] - [dashboard.DashboardminNumber floatValue]);
                     [self rotateImageView:(-M_PI/2-M_PI/4) + Space*start Withend:(-M_PI/2-M_PI/4) +Space*end];
                     
                 }
-            }
-                break;
-            case DashboardClassicMode:
-            {
-                NSArray* pAll = [CustomDashboard findAll];
-                for(CustomDashboard * dashboard in pAll){
-                    CGFloat Space =   (3*M_PI/2)/([dashboard.DashboardBmaxNumber floatValue] - [dashboard.DashboardBminNumber floatValue]);
-                    [self rotateImageView:(-M_PI/2-M_PI/4) + Space*start Withend:(-M_PI/2-M_PI/4) +Space*end];
-                    
-                }
-            }
-                break;
-            default:
-                break;
-        }
+//            }
+//                break;
+//            case DashboardClassicMode:
+//            {
+//                NSArray* pAll = [CustomDashboard findAll];
+//                for(CustomDashboard * dashboard in pAll){
+//                    CGFloat Space =   (3*M_PI/2)/([dashboard.DashboardBmaxNumber floatValue] - [dashboard.DashboardBminNumber floatValue]);
+//                    [self rotateImageView:(-M_PI/2-M_PI/4) + Space*start Withend:(-M_PI/2-M_PI/4) +Space*end];
+//
+//                }
+//            }
+//                break;
+//            default:
+//                break;
+//        }
     }
     
     
@@ -295,7 +291,7 @@
     _NumberLabel.textAlignment = NSTextAlignmentCenter;
     _NumberLabel.text = @"2500";
     
-    if (model.DashboardBValueVisible == YES) {        
+    if (model.DashboardBValueVisible == YES) {
         [innerimage addSubview:_NumberLabel];
     }else{
         
@@ -305,7 +301,7 @@
     _PIDLabel.font = [UIFont boldSystemFontOfSize:24.0*KMultipleB*titlteFontScale];
     _PIDLabel.textColor =[ColorTools colorWithHexString: titlteColor];
     _PIDLabel.textAlignment = NSTextAlignmentCenter;
-    _PIDLabel.text = @"MPH";
+    _PIDLabel.text = model.DashboardPID;
     [innerimage addSubview:_PIDLabel];
     _UnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2*innerimage.frame.size.height/3, innerimage.frame.size.width, innerimage.frame.size.height/3)];
     _UnitLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleB*unitFontScale];

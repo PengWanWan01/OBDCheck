@@ -165,8 +165,6 @@
     DLog(@"%@",dashboard);
     [self.DashViewA addGradientView:dashboard.DashboardAouterColor  GradientViewWidth:self.DashViewA.frame.size.width];
     [self.DashViewA initWithModel:dashboard];
-    self.DashViewA.infoLabel.text =  self.infoLabeltext;
-    self.DashViewA.infoLabel.text = dashboard.DashboardAinfoLabeltext;
     self.DashView = self.DashViewA;
     [self.view addSubview:self.DashViewA];
     ValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
@@ -175,8 +173,8 @@
     ValueLabel.font = [UIFont ToAdapFont:14.f];
     self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashView.frame) + 10, CGRectGetMaxY(ValueLabel.frame )+10, MSWidth - self.DashViewA.frame.size.width-50*KFontmultiple , 20)];
     
-    self.slider.minimumValue = [model.DashboardAminNumber floatValue];
-    self.slider.maximumValue = [model.DashboardAmaxNumber floatValue];
+    self.slider.minimumValue = [model.DashboardminNumber floatValue];
+    self.slider.maximumValue = [model.DashboardmaxNumber floatValue];
     [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     self.slider.minimumTrackTintColor = [ColorTools colorWithHexString:@"FE9002"];
     self.slider.tag = 20;
@@ -1113,7 +1111,7 @@
     
 }
 - (void)rotationWithView{
-    CGFloat Space =   ([model.DashboardAendAngle floatValue] - [model.DashboardAStartAngle floatValue])/([model.DashboardAmaxNumber floatValue]  - [model.DashboardAminNumber floatValue] );
+    CGFloat Space =   ([model.DashboardAendAngle floatValue] - [model.DashboardAStartAngle floatValue])/([model.DashboardmaxNumber floatValue]  - [model.DashboardminNumber floatValue] );
     [self.DashViewA rotationWithStartAngle:[model.DashboardAStartAngle floatValue]  WithEndAngle:[model.DashboardAStartAngle  floatValue]+ slideValue*Space];
     
     
@@ -1243,7 +1241,6 @@
     //画底盘渐变色
     [self.DashViewA addGradientView:model.DashboardAouterColor GradientViewWidth:150*KFontmultiple];
     [self.DashViewA initWithModel:model];
-    self.DashViewA.infoLabel.text = model.DashboardAinfoLabeltext;
     self.DashView = self.DashViewA;
     [self.view addSubview:self.DashViewA];
 }

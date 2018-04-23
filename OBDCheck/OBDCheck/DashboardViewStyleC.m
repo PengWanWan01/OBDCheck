@@ -21,31 +21,26 @@
 -(void)layoutSubviews{
     [super layoutSubviews];
     if (isLandscape) {
-//        DLog(@"视图横屏");
+        //        DLog(@"视图横屏");
         [self setHorizontalFrame];
     }else{
-//        DLog(@"视图竖屏");
+        //        DLog(@"视图竖屏");
         [self setVerticalFrame];
     }
-
+    
 }
 - (void)setHorizontalFrame{
-    NSString *str = [NSString stringWithFormat:@"WHERE PK = %ld",(long)self.tag];
-    NSArray* pAllCount = [CustomDashboard findByCriteria:str];
-    for (CustomDashboard *dash in pAllCount) {
-        int page =  [dash.DashboardCorignx doubleValue]/SCREEN_MIN;
-        self.frame = CGRectMake([dash.DashboardCorigny floatValue]+page*SCREEN_MAX+64+15*KFontmultiple, [dash.DashboardCorignx floatValue]-page*SCREEN_MIN-64+20*KFontmultiple,  [dash.DashboardCorignwidth doubleValue]-30*KFontmultiple , [dash.DashboardCorignheight doubleValue]-30*KFontmultiple);
-        self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.85, 0.85);
-    }
+    CustomDashboard* dash = [CustomDashboard findByPK:self.tag];
+    int page =  [dash.DashboardCorignx doubleValue]/SCREEN_MIN;
+    self.frame = CGRectMake([dash.DashboardCorigny floatValue]+page*SCREEN_MAX+64+15*KFontmultiple, [dash.DashboardCorignx floatValue]-page*SCREEN_MIN-64+20*KFontmultiple,  [dash.DashboardCorignwidth doubleValue]-30*KFontmultiple , [dash.DashboardCorignheight doubleValue]-30*KFontmultiple);
+    self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.85, 0.85);
 }
 - (void)setVerticalFrame{
-    NSString *str = [NSString stringWithFormat:@"WHERE PK = %ld",(long)self.tag];
-    NSArray* pAllCount = [CustomDashboard findByCriteria:str];
-    for (CustomDashboard *dash in pAllCount) {
-         self.frame = CGRectMake([dash.DashboardCorignx doubleValue],[dash.DashboardCorigny doubleValue], [dash.DashboardCorignwidth doubleValue], [dash.DashboardCorignheight doubleValue]);
-        self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1 , 1);
-
-    }
+    CustomDashboard* dash = [CustomDashboard findByPK:self.tag];
+    self.frame = CGRectMake([dash.DashboardCorignx doubleValue],[dash.DashboardCorigny doubleValue], [dash.DashboardCorignwidth doubleValue], [dash.DashboardCorignheight doubleValue]);
+    self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1 , 1);
+    
+    
 }
 
 - (void)initWithModel:(CustomDashboard *)model{
@@ -57,7 +52,7 @@
     view.gradientRadius = [model.DashboardCGradientradius floatValue];
     view.startGradientColor =   [UIColor redColor];
     view.endGradientColor =  [ColorTools colorWithHexString:model.DashboardCinnerColor];
-     [self addSubview:view];
+    [self addSubview:view];
     self.NumberLabel =  [[UILabel alloc]initWithFrame:CGRectMake(0, view.bounds.size.height/3, view.bounds.size.width, view.bounds.size.height/3)];
     self.NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:[model.DashboardCValueFontScale floatValue]* 74.f*KMultipleC];
     self.NumberLabel.text = @"0.00";
@@ -67,7 +62,7 @@
     
     self.PIDLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,0, view.bounds.size.width,view.bounds.size.height/3)];
     self.PIDLabel.font = [UIFont systemFontOfSize:[model.DashboardCtitleFontScale floatValue]* 36.f*KMultipleC];
-    self.PIDLabel.text = @"RPM";
+    self.PIDLabel.text =model.DashboardPID;
     self.PIDLabel.textAlignment = NSTextAlignmentCenter;
     self.PIDLabel.textColor = [ColorTools colorWithHexString:model.DashboardCtitleColor];
     
@@ -77,7 +72,7 @@
     self.UnitLabel.textAlignment = NSTextAlignmentCenter;
     self.UnitLabel.textColor = [ColorTools colorWithHexString:model.DashboardCUnitColor];
     
-
+    
     
     [view addSubview:self.PIDLabel];
     if (model.DashboardCValueVisible == YES) {

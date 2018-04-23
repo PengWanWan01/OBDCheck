@@ -13,7 +13,9 @@
 @interface CustomDashboard : JKDBModel
 @property (nonatomic,assign) NSInteger  dashboardType ;
 
-@property (nonatomic,copy) NSString  *DashboardAinfoLabeltext; //名字
+@property (nonatomic,copy) NSString *DashboardPID;  //PID的值
+@property (nonatomic,copy) NSString *DashboardminNumber;  //最小值
+@property (nonatomic,copy) NSString *DashboardmaxNumber;  //最大值
 
 @property (nonatomic,copy) NSString *DashboardAStartAngle; //开始角度
 @property (nonatomic,copy)  NSString *DashboardAendAngle;  //结束角度
@@ -64,11 +66,7 @@
 @property (nonatomic,copy) NSString *DashboardAorignwidth; //宽
 @property (nonatomic,copy) NSString *DashboardAorignheight; //坐标X轴
 
-@property (nonatomic,copy) NSString *DashboardAminNumber;  //最小值
-@property (nonatomic,copy) NSString *DashboardAmaxNumber;  //最大值
-@property (nonatomic,copy) NSString *DashboardAPID;  //PID的值
 
-@property (nonatomic,copy) NSString  *DashboardBinfoLabeltext; //名字
 
 @property (nonatomic,copy) NSString *DashboardBbackColor;
 @property (nonatomic,copy) NSString* DashboardBGradientRadius;
@@ -94,11 +92,10 @@
 @property (nonatomic,copy) NSString *DashboardBorigny; //坐标Y轴
 @property (nonatomic,copy) NSString *DashboardBorignwidth; //宽
 @property (nonatomic,copy) NSString *DashboardBorignheight; //坐标X轴
-@property (nonatomic,copy) NSString *DashboardBminNumber;  //最小值
-@property (nonatomic,copy) NSString *DashboardBmaxNumber;  //最大值
-@property (nonatomic,copy) NSString *DashboardBPID;  //PID的值
 
-@property (nonatomic,copy) NSString  *DashboardCinfoLabeltext; //名字
+
+
+
 
 @property (nonatomic,copy) NSString *DashboardCinnerColor;
 @property (nonatomic,copy) NSString *DashboardCouterColor;
@@ -123,7 +120,6 @@
 @property (nonatomic,copy) NSString *DashboardCorigny; //坐标Y轴
 @property (nonatomic,copy) NSString *DashboardCorignwidth; //宽
 @property (nonatomic,copy) NSString *DashboardCorignheight; //坐标X轴
-@property (nonatomic,copy) NSString *DashboardCminNumber;  //最小值
-@property (nonatomic,copy) NSString *DashboardCmaxNumber;  //最大值
-@property (nonatomic,copy) NSString *DashboardCPID;  //PID的值
+
+
 @end

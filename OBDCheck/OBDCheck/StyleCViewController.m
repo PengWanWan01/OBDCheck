@@ -106,7 +106,6 @@
         [dashViewC setNeedsLayout];
         [self.view addSubview:dashViewC];
         [dashViewC initWithModel:dashboard];
-        dashViewC.PIDLabel.text = dashboard.DashboardCinfoLabeltext;
    Valuelabel = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
     
     Valuelabel.text = @"Value";
@@ -114,8 +113,8 @@
     Valuelabel.font = [UIFont ToAdapFont:14.f];
     
     self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(dashViewC.frame) + 10, CGRectGetMaxY(Valuelabel.frame )+10, MSWidth - dashViewC.frame.size.width-50*KFontmultiple , 20)];
-    self.slider.minimumValue = [model.DashboardCminNumber floatValue];
-    self.slider.maximumValue = [model.DashboardCmaxNumber floatValue];
+    self.slider.minimumValue = [model.DashboardminNumber floatValue];
+    self.slider.maximumValue = [model.DashboardmaxNumber floatValue];
     [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     self.slider.minimumTrackTintColor = [ColorTools colorWithHexString:@"FE9002"];
     self.slider.tag = 8;
@@ -497,7 +496,6 @@
     [dashViewC removeFromSuperview];
     dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
     [dashViewC initWithModel:model];
-    dashViewC.PIDLabel.text = model.DashboardCinfoLabeltext;
     [dashViewC setNeedsLayout];
     [self.view addSubview:dashViewC];
     
