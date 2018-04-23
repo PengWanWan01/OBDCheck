@@ -37,16 +37,16 @@
             if (model.dashboardType ==2 ) {
                 
                 model.dashboardType = 1;
-                model.DashboardAorignx = model.DashboardBorignx;
-                model.DashboardAorigny = model.DashboardBorigny;
-                model.DashboardAorignwidth = model.DashboardBorignwidth;
-                model.DashboardAorignheight = model.DashboardBorignheight;
+                model.Dashboardorignx = model.Dashboardorignx;
+                model.Dashboardorigny = model.Dashboardorigny;
+                model.Dashboardorignwidth = model.Dashboardorignwidth;
+                model.Dashboardorignheight = model.Dashboardorignheight;
             }else if (model.dashboardType == 3){
                 model.dashboardType = 1;
-                model.DashboardAorignx = model.DashboardCorignx;
-                model.DashboardAorigny = model.DashboardCorigny;
-                model.DashboardAorignwidth = model.DashboardCorignwidth;
-                model.DashboardAorignheight = model.DashboardCorignheight;
+                model.Dashboardorignx = model.Dashboardorignx;
+                model.Dashboardorigny = model.Dashboardorigny;
+                model.Dashboardorignwidth = model.Dashboardorignwidth;
+                model.Dashboardorignheight = model.Dashboardorignheight;
             }
           
         }
@@ -56,16 +56,16 @@
             if (model.dashboardType == 1) {
                 DLog(@"切换成功")
                 model.dashboardType = 2;
-                model.DashboardBorignx = model.DashboardAorignx;
-                model.DashboardBorigny = model.DashboardAorigny;
-                model.DashboardBorignwidth = model.DashboardAorignwidth;
-                model.DashboardBorignheight = model.DashboardAorignwidth;
+                model.Dashboardorignx = model.Dashboardorignx;
+                model.Dashboardorigny = model.Dashboardorigny;
+                model.Dashboardorignwidth = model.Dashboardorignwidth;
+                model.Dashboardorignheight = model.Dashboardorignwidth;
             }else if (model.dashboardType == 3){
                 model.dashboardType = 2;
-                model.DashboardBorignx = model.DashboardCorignx;
-                model.DashboardBorigny = model.DashboardCorigny;
-                model.DashboardBorignwidth = model.DashboardCorignwidth;
-                model.DashboardBorignheight = model.DashboardCorignheight;
+                model.Dashboardorignx = model.Dashboardorignx;
+                model.Dashboardorigny = model.Dashboardorigny;
+                model.Dashboardorignwidth = model.Dashboardorignwidth;
+                model.Dashboardorignheight = model.Dashboardorignheight;
             }
            
         }
@@ -74,16 +74,16 @@
         {
             if (model.dashboardType == 1) {
                 model.dashboardType = 3;
-                model.DashboardCorignx = model.DashboardAorignx;
-                model.DashboardCorigny = model.DashboardAorigny;
-                model.DashboardCorignwidth = model.DashboardAorignwidth;
-                model.DashboardCorignheight = model.DashboardAorignwidth;
+                model.Dashboardorignx = model.Dashboardorignx;
+                model.Dashboardorigny = model.Dashboardorigny;
+                model.Dashboardorignwidth = model.Dashboardorignwidth;
+                model.Dashboardorignheight = model.Dashboardorignwidth;
             }else if (model.dashboardType == 2){
                 model.dashboardType = 3;
-                model.DashboardCorignx = model.DashboardBorignx;
-                model.DashboardCorigny = model.DashboardBorigny;
-                model.DashboardCorignwidth = model.DashboardBorignwidth;
-                model.DashboardCorignheight = model.DashboardBorignheight;
+                model.Dashboardorignx = model.Dashboardorignx;
+                model.Dashboardorigny = model.Dashboardorigny;
+                model.Dashboardorignwidth = model.Dashboardorignwidth;
+                model.Dashboardorignheight = model.Dashboardorignheight;
             }
         }
             break;

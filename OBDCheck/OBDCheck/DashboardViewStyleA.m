@@ -51,18 +51,18 @@
 }
 - (void)setHorizontalFrame{
     CustomDashboard* dash = [CustomDashboard findByPK:self.tag];
-    int page =  [dash.DashboardAorignx doubleValue]/SCREEN_MIN;
-    if (([dash.DashboardAorignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
+    int page =  [dash.Dashboardorignx doubleValue]/SCREEN_MIN;
+    if (([dash.Dashboardorignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
         //横屏时候上边的一排仪表盘
-        self.frame = CGRectMake([dash.DashboardAorigny floatValue]+64+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+20*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple);
+        self.frame = CGRectMake([dash.Dashboardorigny floatValue]+55+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.Dashboardorignx floatValue]-page*SCREEN_MIN+20*KFontmultiple)-([dash.Dashboardorignheight doubleValue]), [dash.Dashboardorignwidth doubleValue]-30*KFontmultiple, [dash.Dashboardorignheight doubleValue]-30*KFontmultiple);
         self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.85, 0.85);
     }else{
         //  //横屏时候下边的一排仪表盘，6P以上的大屏进行特殊适配
         if (IS_IPHONE_6P_OR_MORE) {
-            self.frame = CGRectMake([dash.DashboardAorigny floatValue]+64+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+45*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple);
+            self.frame = CGRectMake([dash.Dashboardorigny floatValue]+55+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.Dashboardorignx floatValue]-page*SCREEN_MIN+45*KFontmultiple)-([dash.Dashboardorignheight doubleValue]), [dash.Dashboardorignwidth doubleValue]-30*KFontmultiple, [dash.Dashboardorignheight doubleValue]-30*KFontmultiple);
             self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.85, 0.85);
         }else{
-            self.frame = CGRectMake([dash.DashboardAorigny floatValue]+64+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.DashboardAorignx floatValue]-page*SCREEN_MIN+40*KFontmultiple)-([dash.DashboardAorignheight doubleValue]-30*KFontmultiple), [dash.DashboardAorignwidth doubleValue]-30*KFontmultiple, [dash.DashboardAorignheight doubleValue]-30*KFontmultiple);
+            self.frame = CGRectMake([dash.Dashboardorigny floatValue]+55+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.Dashboardorignx floatValue]-page*SCREEN_MIN+40*KFontmultiple)-([dash.Dashboardorignheight doubleValue]), [dash.Dashboardorignwidth doubleValue]-30*KFontmultiple, [dash.Dashboardorignheight doubleValue]-30*KFontmultiple);
             self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.85, 0.85);
         }
     }
@@ -72,7 +72,7 @@
 }
 - (void)setVerticalFrame{
     CustomDashboard* dash = [CustomDashboard findByPK:self.tag];
-    self.frame =CGRectMake([dash.DashboardAorignx doubleValue], [dash.DashboardAorigny doubleValue], [dash.DashboardAorignwidth doubleValue], [dash.DashboardAorignheight doubleValue]);
+    self.frame =CGRectMake([dash.Dashboardorignx doubleValue], [dash.Dashboardorigny doubleValue], [dash.Dashboardorignwidth doubleValue], [dash.Dashboardorignheight doubleValue]);
     self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
     
 }
@@ -267,6 +267,7 @@
         self.transform=CGAffineTransformScale(self.transform, recognizer.scale, recognizer.scale);
         
         recognizer.scale=1;
+        
         if ([self.delegate respondsToSelector:@selector(pinchtap:OrignX:OrignY:Width:Height:)]) {
             [self.delegate pinchtap:recognizer OrignX:self.frame.origin.x OrignY:self.frame.origin.y Width:self.frame.size.width Height:self.frame.size.height];
         }

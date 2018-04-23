@@ -15,7 +15,7 @@
 }
 @property (nonatomic,strong) DiagController *oneVC;
 @property (nonatomic,strong) FreezeViewController *twoVC;
-@property (nonatomic,strong) ReadinessViewController *ThreeVc;
+@property (nonatomic,strong) PIDViewController *ThreeVc;
 @property (nonatomic,strong) ReportViewController *FourVc;
 @property (nonatomic ,strong) UIViewController *currentVC;
 @end
@@ -32,7 +32,7 @@
     tbarView.numberBtn = 4;
     tbarView.normalimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_normal",@"freeze_normal",@"readiness_normal",@"report_normal", nil];
     tbarView.highimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_highLight",@"Freeze_highlight",@"readiness_highLight",@"report_highLight", nil];
-    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"trouble Codes",@"Freeze Frame",@"Readiness Test",@"Report", nil];
+    tbarView.titleData = [[NSMutableArray alloc]initWithObjects:@"trouble Codes",@"Freeze Frame",@"PID",@"Report", nil];
     tbarView.delegate = self;
     [tbarView initWithData];
     
@@ -46,7 +46,7 @@
     self.twoVC = [[FreezeViewController alloc] init];
     [self.twoVC.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height-TopHigh)];
     
-    self.ThreeVc = [[ReadinessViewController alloc] init];
+    self.ThreeVc = [[PIDViewController alloc] init];
     [self.ThreeVc.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height-TopHigh)];
     
     self.FourVc = [[ReportViewController alloc] init];
@@ -93,23 +93,27 @@
     switch (touchSelectNumber-100) {
         case 0:
         {
+             [self initNavBarTitle:@"故障码" andLeftItemImageName:@"back" andRightItemImageName:@" "];
             [self replaceController:self.currentVC newController:self.oneVC];
             return;
         }
             break;
         case 1:
         {
+             [self initNavBarTitle:@"冻结帧" andLeftItemImageName:@"back" andRightItemImageName:@" "];
             [self replaceController:self.currentVC newController:self.twoVC];
         }
             break;
         case 2:
         {
+             [self initNavBarTitle:@"PID" andLeftItemImageName:@"back" andRightItemImageName:@" "];
             [self replaceController:self.currentVC newController:self.ThreeVc];
             
         }
             break;
         case 3:
         {
+             [self initNavBarTitle:@"Report" andLeftItemImageName:@"back" andRightItemImageName:@" "];
             [self replaceController:self.currentVC newController:self.FourVc];
         }
             break;

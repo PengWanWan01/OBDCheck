@@ -17,6 +17,12 @@
 @property (nonatomic,copy) NSString *DashboardminNumber;  //最小值
 @property (nonatomic,copy) NSString *DashboardmaxNumber;  //最大值
 
+@property (nonatomic,copy) NSString *Dashboardorignx; //坐标X轴
+@property (nonatomic,copy) NSString *Dashboardorigny; //坐标Y轴
+@property (nonatomic,copy) NSString *Dashboardorignwidth; //宽
+@property (nonatomic,copy) NSString *Dashboardorignheight; //坐标X轴
+
+
 @property (nonatomic,copy) NSString *DashboardAStartAngle; //开始角度
 @property (nonatomic,copy)  NSString *DashboardAendAngle;  //结束角度
 @property (nonatomic,copy)  NSString * DashboardAringWidth;//环形宽度
@@ -61,10 +67,7 @@
 @property (nonatomic,copy) NSString * DashboardAFillstartAngle; //填充开始角度
 @property (nonatomic,copy) NSString * DashboardAFillEndAngle; //填充结束角度
 @property (nonatomic,copy) NSString *DashboardAFillColor; //填充n颜色
-@property (nonatomic,copy) NSString *DashboardAorignx; //坐标X轴
-@property (nonatomic,copy) NSString *DashboardAorigny; //坐标Y轴
-@property (nonatomic,copy) NSString *DashboardAorignwidth; //宽
-@property (nonatomic,copy) NSString *DashboardAorignheight; //坐标X轴
+
 
 
 
@@ -88,10 +91,7 @@
 @property (nonatomic,copy) NSString* DashboardBPointerwidth;
 @property (nonatomic,assign) BOOL DashboardBFillEnable;
 @property (nonatomic,copy ) NSString *DashboardBFillColor;
-@property (nonatomic,copy) NSString *DashboardBorignx; //坐标X轴
-@property (nonatomic,copy) NSString *DashboardBorigny; //坐标Y轴
-@property (nonatomic,copy) NSString *DashboardBorignwidth; //宽
-@property (nonatomic,copy) NSString *DashboardBorignheight; //坐标X轴
+
 
 
 
@@ -116,10 +116,7 @@
 @property (nonatomic,copy) NSString * DashboardCUnitPositon;
 
 @property (nonatomic,copy) NSString *DashboardCFrameColor;
-@property (nonatomic,copy) NSString *DashboardCorignx; //坐标X轴
-@property (nonatomic,copy) NSString *DashboardCorigny; //坐标Y轴
-@property (nonatomic,copy) NSString *DashboardCorignwidth; //宽
-@property (nonatomic,copy) NSString *DashboardCorignheight; //坐标X轴
+
 
 
 @end

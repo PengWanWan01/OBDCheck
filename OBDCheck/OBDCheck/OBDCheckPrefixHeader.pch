@@ -52,7 +52,6 @@
 #import "ViewController.h"
 #import "PersonalViewController.h"
 #import "SpecialViewController.h"
-#import "MyTabBarController.h"
 #import "setDistanceUtil.h"
 #import "DashboardController.h"
 #import "DiagController.h"
@@ -180,5 +179,6 @@
 #import "HelpViewController.h"
 #import "BasicWebViewController.h"
 #import "YYModel.h"
+#import "PIDViewController.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

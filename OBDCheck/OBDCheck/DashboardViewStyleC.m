@@ -31,13 +31,25 @@
 }
 - (void)setHorizontalFrame{
     CustomDashboard* dash = [CustomDashboard findByPK:self.tag];
-    int page =  [dash.DashboardCorignx doubleValue]/SCREEN_MIN;
-    self.frame = CGRectMake([dash.DashboardCorigny floatValue]+page*SCREEN_MAX+64+15*KFontmultiple, [dash.DashboardCorignx floatValue]-page*SCREEN_MIN-64+20*KFontmultiple,  [dash.DashboardCorignwidth doubleValue]-30*KFontmultiple , [dash.DashboardCorignheight doubleValue]-30*KFontmultiple);
-    self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.85, 0.85);
+    int page =  [dash.Dashboardorignx doubleValue]/SCREEN_MIN;
+    if (page == 0) {
+        if (([dash.Dashboardorignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
+            //横屏时候上边的一排仪表盘
+            self.frame = CGRectMake([dash.Dashboardorigny floatValue]+55+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.Dashboardorignx floatValue]-page*SCREEN_MIN+10*KFontmultiple)-([dash.Dashboardorignheight doubleValue]), [dash.Dashboardorignwidth doubleValue], [dash.Dashboardorignheight doubleValue]);
+            self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
+        }else{
+            self.frame = CGRectMake([dash.Dashboardorigny floatValue]+55+page*SCREEN_MAX+15*KFontmultiple, SCREEN_MIN -([dash.Dashboardorignx floatValue]-page*SCREEN_MIN+30*KFontmultiple)-([dash.Dashboardorignheight doubleValue]), [dash.Dashboardorignwidth doubleValue], [dash.Dashboardorignheight doubleValue]);
+            self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
+        }
+        
+    }else{
+        self.frame = CGRectMake([dash.Dashboardorigny floatValue]+page*SCREEN_MAX+57,[dash.Dashboardorignx floatValue]-page*SCREEN_MIN-35, [dash.Dashboardorignwidth doubleValue] ,[dash.Dashboardorignheight doubleValue]);
+        self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
+    }
 }
 - (void)setVerticalFrame{
     CustomDashboard* dash = [CustomDashboard findByPK:self.tag];
-    self.frame = CGRectMake([dash.DashboardCorignx doubleValue],[dash.DashboardCorigny doubleValue], [dash.DashboardCorignwidth doubleValue], [dash.DashboardCorignheight doubleValue]);
+    self.frame = CGRectMake([dash.Dashboardorignx doubleValue],[dash.Dashboardorigny doubleValue], [dash.Dashboardorignwidth doubleValue], [dash.Dashboardorignheight doubleValue]);
     self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1 , 1);
     
     
@@ -83,8 +95,10 @@
     
     UILongPressGestureRecognizer *LongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:LongPress];
-    UIPinchGestureRecognizer* pinchGR = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchAction:)];
-    [self addGestureRecognizer:pinchGR];
+    if ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] == DashboardCustomMode ) {
+        UIPinchGestureRecognizer* pinchGR = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchAction:)];
+        [self addGestureRecognizer:pinchGR];
+    }
 }
 -(void)tap:(UILongPressGestureRecognizer *)sender{
     if ([self.delegate respondsToSelector:@selector(tap:)]) {

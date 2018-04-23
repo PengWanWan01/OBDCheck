@@ -21,7 +21,7 @@
         self.PID4Smoothing = NO;
         self.PID3Enable = NO;
         self.PID4Enable = NO;
-           }
+    }
     return self;
 }
 - (void)initWithlogswith:(NSArray *)PID1data with:(NSArray *)PID2data with:(NSArray *)PID3data with:(NSArray *)PID4data {

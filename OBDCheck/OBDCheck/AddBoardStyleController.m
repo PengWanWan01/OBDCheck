@@ -36,23 +36,23 @@
         case 100:
         {
             model.dashboardType = 1;
-            model.DashboardAorignx = [NSString stringWithFormat:@"%f",self.Currentpage *MSWidth +(arc4random() % (int)(MSWidth/2))];
-            model.DashboardAorigny = [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2))];
+            model.Dashboardorignx = [NSString stringWithFormat:@"%f",self.Currentpage *MSWidth +(arc4random() % (int)(MSWidth/2))];
+            model.Dashboardorigny = [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2))];
         }
             break;
         case 101:
         {
             model.dashboardType = 2;
-            model.DashboardBorignx = [NSString stringWithFormat:@"%f",self.Currentpage*MSWidth+(arc4random() % (int)(MSWidth/2))];
-            model.DashboardBorigny = [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2) )];
+            model.Dashboardorignx = [NSString stringWithFormat:@"%f",self.Currentpage*MSWidth+(arc4random() % (int)(MSWidth/2))];
+            model.Dashboardorigny= [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2) )];
             
         }
             break;
         case 102:
         {
             model.dashboardType = 3;
-            model.DashboardCorignx = [NSString stringWithFormat:@"%f",self.Currentpage*MSWidth +(arc4random() % (int)(MSWidth/2))];
-            model.DashboardCorigny = [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2))];
+            model.Dashboardorignx = [NSString stringWithFormat:@"%f",self.Currentpage*MSWidth +(arc4random() % (int)(MSWidth/2))];
+            model.Dashboardorigny = [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2))];
         }
             break;
         default:
@@ -72,23 +72,23 @@
 //        case 100:
 //        {
 //            model.dashboardType = 1;
-//            model.DashboardAorignx = [NSString stringWithFormat:@"%f",self.Currentpage *MSWidth +(arc4random() % (int)(MSWidth/2))];
-//            model.DashboardAorigny = [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2))];
+//            model.Dashboardorignx = [NSString stringWithFormat:@"%f",self.Currentpage *MSWidth +(arc4random() % (int)(MSWidth/2))];
+//            model.Dashboardorigny = [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2))];
 //        }
 //            break;
 //        case 101:
 //        {
 //            model.dashboardType = 2;
-//            model.DashboardBorignx = [NSString stringWithFormat:@"%f",self.Currentpage*MSWidth+(arc4random() % (int)(MSWidth/2))];
-//            model.DashboardBorigny = [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2) )];
+//            model.Dashboardorignx = [NSString stringWithFormat:@"%f",self.Currentpage*MSWidth+(arc4random() % (int)(MSWidth/2))];
+//            model.Dashboardorigny = [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2) )];
 //
 //        }
 //            break;
 //        case 102:
 //        {
 //            model.dashboardType = 3;
-//            model.DashboardCorignx = [NSString stringWithFormat:@"%f",self.Currentpage*MSWidth +(arc4random() % (int)(MSWidth/2))];
-//            model.DashboardCorigny = [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2))];
+//            model.Dashboardorignx = [NSString stringWithFormat:@"%f",self.Currentpage*MSWidth +(arc4random() % (int)(MSWidth/2))];
+//            model.Dashboardorigny = [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2))];
 //        }
 //            break;
 //        default:

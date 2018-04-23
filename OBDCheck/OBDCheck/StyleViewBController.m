@@ -224,8 +224,8 @@
             StyleOneCell.titleName.text = _rowTitleSource[1];
             StyleTwoCell.ColorView.tag = 0;
             StyleOneCell.NumberSider.tag = 0;
-            StyleOneCell.NumberSider.minimumValue = [model.DashboardBorignwidth floatValue]/2 ;
-            StyleOneCell.NumberSider.maximumValue = [model.DashboardBorignwidth floatValue];
+            StyleOneCell.NumberSider.minimumValue = [model.Dashboardorignwidth floatValue]/2 ;
+            StyleOneCell.NumberSider.maximumValue = [model.Dashboardorignwidth floatValue];
             StyleOneCell.NumberSider.value  = [model.DashboardBGradientRadius floatValue];
             
         }

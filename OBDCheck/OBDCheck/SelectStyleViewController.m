@@ -232,14 +232,14 @@
 //                            case ChangeDashboardStyleTwo:
 //                            {
 //                                dash.dashboardType = 2;
-//                                [self updateCustomType:2 OrignX:[dash.DashboardAorignx floatValue] OrignY:[dash.DashboardAorigny floatValue] Width:[dash.DashboardAorignwidth floatValue] Height:[dash.DashboardAorignwidth floatValue] ID:self.indexID];
+//                                [self updateCustomType:2 OrignX:[dash.DashboardAorignx floatValue] OrignY:[dash.Dashboardorigny floatValue] Width:[dash.Dashboardorignwidth floatValue] Height:[dash.Dashboardorignwidth floatValue] ID:self.indexID];
 //
 //                            }
 //                                break;
 //                            case ChangeDashboardStyleThree:
 //                            {
 //                                dash.dashboardType = 3;
-//                                [self updateCustomType:3 OrignX:[dash.DashboardAorignx floatValue] OrignY:[dash.DashboardAorigny floatValue] Width:[dash.DashboardAorignwidth floatValue] Height:[dash.DashboardAorignheight floatValue] ID:self.indexID];
+//                                [self updateCustomType:3 OrignX:[dash.DashboardAorignx floatValue] OrignY:[dash.Dashboardorigny floatValue] Width:[dash.Dashboardorignwidth floatValue] Height:[dash.Dashboardorignheight floatValue] ID:self.indexID];
 //                            }
 //                                break;
 //                            default:
@@ -254,13 +254,13 @@
 //                            case ChangeDashboardStyleOne:
 //                            {
 //                                dash.dashboardType = 1;
-//                                [self updateCustomType:1 OrignX:[dash.DashboardBorignx floatValue] OrignY:[dash.DashboardBorigny floatValue] Width:[dash.DashboardBorignwidth floatValue] Height:[dash.DashboardBorignwidth  floatValue]+20 ID:self.indexID];
+//                                [self updateCustomType:1 OrignX:[dash.Dashboardorignx floatValue] OrignY:[dash.Dashboardorigny floatValue] Width:[dash.Dashboardorignwidth floatValue] Height:[dash.Dashboardorignwidth  floatValue]+20 ID:self.indexID];
 //                            }
 //                                break;
 //                            case ChangeDashboardStyleThree:
 //                            {
 //                                dash.dashboardType = 3;
-//                                [self updateCustomType:3 OrignX:[dash.DashboardBorignx floatValue] OrignY:[dash.DashboardBorigny floatValue] Width:[dash.DashboardBorignwidth floatValue] Height:[dash.DashboardBorignwidth  floatValue] ID:self.indexID];
+//                                [self updateCustomType:3 OrignX:[dash.Dashboardorignx floatValue] OrignY:[dash.Dashboardorigny floatValue] Width:[dash.Dashboardorignwidth floatValue] Height:[dash.Dashboardorignwidth  floatValue] ID:self.indexID];
 //                            }
 //                                break;
 //                            default:
@@ -275,13 +275,13 @@
 //                            case ChangeDashboardStyleOne:
 //                            {
 //                                dash.dashboardType = 1;
-//                                [self updateCustomType:1 OrignX:[dash.DashboardCorignx floatValue] OrignY:[dash.DashboardCorigny floatValue] Width:[dash.DashboardCorignwidth floatValue] Height:[dash.DashboardCorignwidth  floatValue]+20 ID:self.indexID];
+//                                [self updateCustomType:1 OrignX:[dash.Dashboardorignx floatValue] OrignY:[dash.Dashboardorigny floatValue] Width:[dash.Dashboardorignwidth floatValue] Height:[dash.Dashboardorignwidth  floatValue]+20 ID:self.indexID];
 //                            }
 //                                break;
 //                            case ChangeDashboardStyleTwo:
 //                            {
 //                                dash.dashboardType = 2;
-//                                [self updateCustomType:2 OrignX:[dash.DashboardCorignx floatValue] OrignY:[dash.DashboardCorigny floatValue] Width:[dash.DashboardCorignwidth floatValue] Height:[dash.DashboardCorignwidth  floatValue] ID:self.indexID];
+//                                [self updateCustomType:2 OrignX:[dash.Dashboardorignx floatValue] OrignY:[dash.Dashboardorigny floatValue] Width:[dash.Dashboardorignwidth floatValue] Height:[dash.Dashboardorignwidth  floatValue] ID:self.indexID];
 //                            }
 //                                break;
 //                            default:
@@ -313,27 +313,27 @@
             case 1:
             {
                 
-                dash.DashboardAorignx = [NSString stringWithFormat:@"%f",orignx];
-                dash.DashboardAorigny = [NSString stringWithFormat:@"%f",origny];
-                dash.DashboardAorignwidth = [NSString stringWithFormat:@"%f",width];
-                dash.DashboardAorignheight = [NSString stringWithFormat:@"%f",height];
+                dash.Dashboardorignx = [NSString stringWithFormat:@"%f",orignx];
+                dash.Dashboardorigny = [NSString stringWithFormat:@"%f",origny];
+                dash.Dashboardorignwidth = [NSString stringWithFormat:@"%f",width];
+                dash.Dashboardorignheight = [NSString stringWithFormat:@"%f",height];
                 
             }
                 break;
             case 2:
             {
-                dash.DashboardBorignx = [NSString stringWithFormat:@"%f",orignx];
-                dash.DashboardBorigny = [NSString stringWithFormat:@"%f",origny];
-                dash.DashboardBorignwidth = [NSString stringWithFormat:@"%f",width];
-                dash.DashboardBorignheight = [NSString stringWithFormat:@"%f",height];
+                dash.Dashboardorignx = [NSString stringWithFormat:@"%f",orignx];
+                dash.Dashboardorigny = [NSString stringWithFormat:@"%f",origny];
+                dash.Dashboardorignwidth = [NSString stringWithFormat:@"%f",width];
+                dash.Dashboardorignheight = [NSString stringWithFormat:@"%f",height];
             }
                 break;
             case 3:
             {
-                dash.DashboardCorignx = [NSString stringWithFormat:@"%f",orignx];
-                dash.DashboardCorigny = [NSString stringWithFormat:@"%f",origny];
-                dash.DashboardCorignwidth = [NSString stringWithFormat:@"%f",width];
-                dash.DashboardCorignheight = [NSString stringWithFormat:@"%f",height];
+                dash.Dashboardorignx = [NSString stringWithFormat:@"%f",orignx];
+                dash.Dashboardorigny = [NSString stringWithFormat:@"%f",origny];
+                dash.Dashboardorignwidth = [NSString stringWithFormat:@"%f",width];
+                dash.Dashboardorignheight = [NSString stringWithFormat:@"%f",height];
                 
             }
                 break;

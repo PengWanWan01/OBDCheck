@@ -74,6 +74,7 @@
 		CB561177208D7FC8000BF8A8 /* BasicWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB561176208D7FC8000BF8A8 /* BasicWebViewController.m */; };
 		CB561180208D8248000BF8A8 /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB56117B208D8247000BF8A8 /* NSObject+YYModel.m */; };
 		CB561181208D8248000BF8A8 /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CB56117E208D8248000BF8A8 /* YYClassInfo.m */; };
+		CB561185208D88D4000BF8A8 /* PIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB561184208D88D4000BF8A8 /* PIDViewController.m */; };
 		CB574E0C1FFF581F00A50C89 /* UIViewController+NavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CB574E0B1FFF581F00A50C89 /* UIViewController+NavBar.m */; };
 		CB5A618F1F79FB62000D23D6 /* SeletVehicleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A618E1F79FB62000D23D6 /* SeletVehicleViewController.m */; };
 		CB5A61941F7A206C000D23D6 /* YearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A61931F7A206C000D23D6 /* YearViewController.m */; };
@@ -155,7 +156,6 @@
 		CBF1E2311F2ED49200EEC755 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBF1E22F1F2ED49200EEC755 /* Main.storyboard */; };
 		CBF1E2331F2ED49200EEC755 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBF1E2321F2ED49200EEC755 /* Assets.xcassets */; };
 		CBF1E2361F2ED49200EEC755 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBF1E2341F2ED49200EEC755 /* LaunchScreen.storyboard */; };
-		CBF1E24C1F30262E00EEC755 /* MyTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E24B1F30262E00EEC755 /* MyTabBarController.m */; };
 		CBF1E2511F30293100EEC755 /* PersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E24F1F30293100EEC755 /* PersonalViewController.m */; };
 		CBF1E2521F30293100EEC755 /* PersonalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBF1E2501F30293100EEC755 /* PersonalViewController.xib */; };
 		CBF1E2561F302A0500EEC755 /* SpecialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF1E2541F302A0500EEC755 /* SpecialViewController.m */; };
@@ -340,6 +340,8 @@
 		CB56117D208D8247000BF8A8 /* YYClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYClassInfo.h; sourceTree = "<group>"; };
 		CB56117E208D8248000BF8A8 /* YYClassInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYClassInfo.m; sourceTree = "<group>"; };
 		CB56117F208D8248000BF8A8 /* YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYModel.h; sourceTree = "<group>"; };
+		CB561183208D88D4000BF8A8 /* PIDViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIDViewController.h; sourceTree = "<group>"; };
+		CB561184208D88D4000BF8A8 /* PIDViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIDViewController.m; sourceTree = "<group>"; };
 		CB5642921F984151002EFB7E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		CB574E0A1FFF581F00A50C89 /* UIViewController+NavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavBar.h"; sourceTree = "<group>"; };
 		CB574E0B1FFF581F00A50C89 /* UIViewController+NavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavBar.m"; sourceTree = "<group>"; };
@@ -478,8 +480,6 @@
 		CBF1E2321F2ED49200EEC755 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBF1E2351F2ED49200EEC755 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CBF1E2371F2ED49200EEC755 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CBF1E24A1F30262E00EEC755 /* MyTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTabBarController.h; sourceTree = "<group>"; };
-		CBF1E24B1F30262E00EEC755 /* MyTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTabBarController.m; sourceTree = "<group>"; };
 		CBF1E24D1F3027C100EEC755 /* OBDCheckPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OBDCheckPrefixHeader.pch; sourceTree = "<group>"; };
 		CBF1E24E1F30293100EEC755 /* PersonalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalViewController.h; sourceTree = "<group>"; };
 		CBF1E24F1F30293100EEC755 /* PersonalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalViewController.m; sourceTree = "<group>"; };
@@ -962,6 +962,8 @@
 				CBF1E2721F30689B00EEC755 /* DiagController.m */,
 				CB84B3CB1F56A7D500B454E6 /* FreezeViewController.h */,
 				CB84B3CC1F56A7D500B454E6 /* FreezeViewController.m */,
+				CB561183208D88D4000BF8A8 /* PIDViewController.h */,
+				CB561184208D88D4000BF8A8 /* PIDViewController.m */,
 				CB835D2A1F594DB6007C5A17 /* ReadinessViewController.h */,
 				CB835D2B1F594DB6007C5A17 /* ReadinessViewController.m */,
 				CB835D2C1F594DB6007C5A17 /* ReadinessViewController.xib */,
@@ -1231,8 +1233,6 @@
 		CBF1E2401F3017B700EEC755 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				CBF1E24A1F30262E00EEC755 /* MyTabBarController.h */,
-				CBF1E24B1F30262E00EEC755 /* MyTabBarController.m */,
 				CBF1E24D1F3027C100EEC755 /* OBDCheckPrefixHeader.pch */,
 				CBF1E2291F2ED49200EEC755 /* AppDelegate.h */,
 				CBF1E22A1F2ED49200EEC755 /* AppDelegate.m */,
@@ -1634,7 +1634,6 @@
 				CBF334641F4B0FE6003C0548 /* ILColorPickerView.m in Sources */,
 				CB45CBB11F6B7DC2003AA330 /* SummaryTableViewCell.m in Sources */,
 				CB4994EE205B5B640085A49D /* monitorsController.m in Sources */,
-				CBF1E24C1F30262E00EEC755 /* MyTabBarController.m in Sources */,
 				CB84B3D31F56A7FF00B454E6 /* ReportViewController.m in Sources */,
 				CBEBF1D51F3B2804006CCA8B /* DisplaySetViewController.m in Sources */,
 				CB476C7E1FAC715B00C54837 /* historyCodeModel.m in Sources */,
@@ -1643,6 +1642,7 @@
 				CB82247C1F46EEC400E1E4BA /* HUDViewController.m in Sources */,
 				CB848F181F45434E00C1A718 /* MultiplierViewController.m in Sources */,
 				CB5AA4121F31A377002B3006 /* SetTableViewCell.m in Sources */,
+				CB561185208D88D4000BF8A8 /* PIDViewController.m in Sources */,
 				CBF334671F4B0FFC003C0548 /* UIColor+GetHSB.m in Sources */,
 				CB47CE751FBC267700451244 /* Setting.m in Sources */,
 				CB561172208D7D8B000BF8A8 /* HelpViewController.m in Sources */,
