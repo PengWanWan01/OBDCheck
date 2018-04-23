@@ -11,6 +11,7 @@
 @interface LogSetViewController ()<UITableViewDelegate,UITableViewDataSource,selectSwtichDelegete>
 {
     UITableView *MYtableView;
+    LogsSetting *model;
 }
 @property(nonatomic,strong)NSMutableArray *titleLabel;
 @property(nonatomic,strong)NSMutableArray *selectLabel;
@@ -22,6 +23,7 @@
     [super viewWillAppear:animated];
     [self initNavBarTitle:@"Logs" andLeftItemImageName:@"back" andRightItemImageName:@""];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
+     model =   [LogsSetting yy_modelWithJSON:[[UserDefaultSet sharedInstance]GetStringAttribute:@"LogsModel"]];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -80,6 +82,10 @@
     
     [MYtableView registerNib:[UINib nibWithNibName:@"selectTableViewCell" bundle:nil] forCellReuseIdentifier:@"selectTableViewCell"];
     [MYtableView registerNib:[UINib nibWithNibName:@"StyleThreeTableViewCell" bundle:nil] forCellReuseIdentifier:@"StyleThreeTableViewCell"];
+}
+- (void)back{
+    [[UserDefaultSet sharedInstance]SetStringAttribute:[model yy_modelToJSONString] Key:@"LogsModel"];
+      [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -154,12 +160,12 @@
             switch (indexPath.section) {
                 case 0:
                 {
-                    StylethreeCell.SwitchBtn.on = [LogsSetting sharedInstance].PID1Smoothing;
+                    StylethreeCell.SwitchBtn.on = model.PID1Smoothing;
                 }
                     break;
                 case 1:
                 {
-                    StylethreeCell.SwitchBtn.on = [LogsSetting sharedInstance].PID2Smoothing;
+                    StylethreeCell.SwitchBtn.on = model.PID2Smoothing;
                 }
                     break;
                 default:
@@ -175,12 +181,12 @@
                     switch (indexPath.row) {
                         case 1:
                         {
-                            StylethreeCell.SwitchBtn.on = [LogsSetting sharedInstance].PID3Enable;
+                            StylethreeCell.SwitchBtn.on = model.PID3Enable;
                         }
                             break;
                         case 2:
                         {
-                            StylethreeCell.SwitchBtn.on = [LogsSetting sharedInstance].PID3Smoothing;
+                            StylethreeCell.SwitchBtn.on = model.PID3Smoothing;
                         }
                             break;
                         default:
@@ -193,12 +199,12 @@
                     switch (indexPath.row) {
                         case 1:
                         {
-                            StylethreeCell.SwitchBtn.on = [LogsSetting sharedInstance].PID4Enable;
+                            StylethreeCell.SwitchBtn.on = model.PID4Enable;
                         }
                             break;
                         case 2:
                         {
-                            StylethreeCell.SwitchBtn.on = [LogsSetting sharedInstance].PID4Smoothing;
+                            StylethreeCell.SwitchBtn.on = model.PID4Smoothing;
                         }
                             break;
                         default:
@@ -223,31 +229,31 @@
         case 1:
         {
           
-            [LogsSetting sharedInstance].PID1Smoothing  = switchBtn.on;
+            model.PID1Smoothing  = switchBtn.on;
         }
             break;
         case 11:{
-             [LogsSetting sharedInstance].PID2Smoothing = switchBtn.on;
+            model.PID2Smoothing = switchBtn.on;
         }
             break;
         case 21:{
-               [LogsSetting sharedInstance].PID3Enable = switchBtn.on;
+              model.PID3Enable = switchBtn.on;
         }
             break;
 
         case 22:{
-            [LogsSetting sharedInstance].PID3Smoothing = switchBtn.on;
+            model.PID3Smoothing = switchBtn.on;
 
         }
             break;
 
         case 31:{
-             [LogsSetting sharedInstance].PID4Enable = switchBtn.on;
+             model.PID4Enable = switchBtn.on;
         }
             break;
         case 32:{
 
-             [LogsSetting sharedInstance].PID4Smoothing = switchBtn.on;
+             model.PID4Smoothing = switchBtn.on;
         }
             break;
         default:

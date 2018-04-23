@@ -179,5 +179,6 @@
 #import "ChangeBoardStyleController.h"
 #import "HelpViewController.h"
 #import "BasicWebViewController.h"
+#import "YYModel.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

@@ -72,6 +72,8 @@
 		CB5583631F5146B70010A1E5 /* StyleCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5583621F5146B70010A1E5 /* StyleCViewController.m */; };
 		CB561172208D7D8B000BF8A8 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB561171208D7D8B000BF8A8 /* HelpViewController.m */; };
 		CB561177208D7FC8000BF8A8 /* BasicWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB561176208D7FC8000BF8A8 /* BasicWebViewController.m */; };
+		CB561180208D8248000BF8A8 /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB56117B208D8247000BF8A8 /* NSObject+YYModel.m */; };
+		CB561181208D8248000BF8A8 /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CB56117E208D8248000BF8A8 /* YYClassInfo.m */; };
 		CB574E0C1FFF581F00A50C89 /* UIViewController+NavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CB574E0B1FFF581F00A50C89 /* UIViewController+NavBar.m */; };
 		CB5A618F1F79FB62000D23D6 /* SeletVehicleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A618E1F79FB62000D23D6 /* SeletVehicleViewController.m */; };
 		CB5A61941F7A206C000D23D6 /* YearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5A61931F7A206C000D23D6 /* YearViewController.m */; };
@@ -333,6 +335,11 @@
 		CB561171208D7D8B000BF8A8 /* HelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 		CB561175208D7FC8000BF8A8 /* BasicWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BasicWebViewController.h; sourceTree = "<group>"; };
 		CB561176208D7FC8000BF8A8 /* BasicWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BasicWebViewController.m; sourceTree = "<group>"; };
+		CB56117B208D8247000BF8A8 /* NSObject+YYModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+YYModel.m"; sourceTree = "<group>"; };
+		CB56117C208D8247000BF8A8 /* NSObject+YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYModel.h"; sourceTree = "<group>"; };
+		CB56117D208D8247000BF8A8 /* YYClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYClassInfo.h; sourceTree = "<group>"; };
+		CB56117E208D8248000BF8A8 /* YYClassInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYClassInfo.m; sourceTree = "<group>"; };
+		CB56117F208D8248000BF8A8 /* YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYModel.h; sourceTree = "<group>"; };
 		CB5642921F984151002EFB7E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		CB574E0A1FFF581F00A50C89 /* UIViewController+NavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavBar.h"; sourceTree = "<group>"; };
 		CB574E0B1FFF581F00A50C89 /* UIViewController+NavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavBar.m"; sourceTree = "<group>"; };
@@ -665,6 +672,7 @@
 		CB44891620874754009A9BB1 /* frameworkTool */ = {
 			isa = PBXGroup;
 			children = (
+				CB56117A208D8234000BF8A8 /* YYModel */,
 				CB4C0054207C89F0002338B5 /* OBDCHECKLIB.a */,
 				CB4C0055207C89F1002338B5 /* OBDLibTool.h */,
 				CB4C0056207C89F1002338B5 /* OBDLibTool.m */,
@@ -808,6 +816,18 @@
 				CB561176208D7FC8000BF8A8 /* BasicWebViewController.m */,
 			);
 			name = Help;
+			sourceTree = "<group>";
+		};
+		CB56117A208D8234000BF8A8 /* YYModel */ = {
+			isa = PBXGroup;
+			children = (
+				CB56117C208D8247000BF8A8 /* NSObject+YYModel.h */,
+				CB56117B208D8247000BF8A8 /* NSObject+YYModel.m */,
+				CB56117D208D8247000BF8A8 /* YYClassInfo.h */,
+				CB56117E208D8248000BF8A8 /* YYClassInfo.m */,
+				CB56117F208D8248000BF8A8 /* YYModel.h */,
+			);
+			name = YYModel;
 			sourceTree = "<group>";
 		};
 		CB5A61911F7A204E000D23D6 /* Controllers */ = {
@@ -1690,6 +1710,8 @@
 				CB510BED205A714500F3AD6D /* DiagnoseController.m in Sources */,
 				CB0220851F42FE8E008773ED /* SelectModeViewController.m in Sources */,
 				CB5A619D1F7A20CB000D23D6 /* TyperViewController.m in Sources */,
+				CB561181208D8248000BF8A8 /* YYClassInfo.m in Sources */,
+				CB561180208D8248000BF8A8 /* NSObject+YYModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -78,6 +78,7 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 @property (nonatomic,copy)  NSString *ScreenshotData; //保存截屏的数据
 @property (nonatomic) HUDModeType hudModeType;
 @property (nonatomic,copy ) NSString  *HUDColourStr;   //HUD颜色
+@property (nonatomic,strong ) LogsSetting  *LogsModel;   //Logs模块的设置
 
 -(void)SetDefultAttribute;
 //设置一个整形属性

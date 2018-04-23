@@ -70,7 +70,7 @@
     [[DashboardSetting sharedInstance]initWithdashboardA];
     [[DashboardSetting sharedInstance]initWithdashboardB];
     [[DashboardSetting sharedInstance]initWithdashboardC];
-    [[LogsSetting sharedInstance]initWithTrips];
+//    [[LogsSetting sharedInstance]initWithTrips];
     [[DashboardSetting sharedInstance]initwithCustomDashboard];
     
 }

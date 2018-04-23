@@ -10,15 +10,6 @@
 
 @implementation LogsSetting
 #pragma mark - 单例
-+ (instancetype)sharedInstance {
-    static LogsSetting *_sharedClient = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedClient = [[LogsSetting alloc] init];
-        
-    });
-    return _sharedClient;
-}
 - (instancetype)init
 {
     self = [super init];

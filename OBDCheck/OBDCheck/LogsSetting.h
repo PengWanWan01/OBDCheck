@@ -19,7 +19,6 @@
 
 
 //单例模式，实例化对象
-+(instancetype )sharedInstance;
 - (void)initWithTrips;
 - (void)initWithlogswith:(NSArray *)PID1data with:(NSArray *)PID2data with:(NSArray *)PID3data with:(NSArray *)PID4data;
 

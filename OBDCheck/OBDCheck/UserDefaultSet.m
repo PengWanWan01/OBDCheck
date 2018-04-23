@@ -44,6 +44,7 @@
     self.ScreenshotData = [[NSString alloc]init];
     self.hudModeType = HUDModeTypeToNormal;
     self.HUDColourStr = @"44FF00";
+    self.LogsModel = [LogsSetting new];
     [self SetIntegerAttribute:self.dashboardMode Key:@"dashboardMode"];
     [self SetIntegerAttribute:self.dashboardStyle Key:@"dashboardStyle"];
     [self SetIntegerAttribute:self.numberDecimals Key:@"numberDecimals"];
@@ -58,6 +59,7 @@
 
     [self SetStringAttribute:self.ScreenshotData Key:@"ScreenshotData"];
     [self SetStringAttribute:self.HUDColourStr Key:@"HUDColourStr"];
+    [self SetStringAttribute:[self.LogsModel yy_modelToJSONString] Key:@"LogsModel"];
 
 }
 -(BOOL)SetIntegerAttribute:(NSInteger )Value Key:(NSString *)key
