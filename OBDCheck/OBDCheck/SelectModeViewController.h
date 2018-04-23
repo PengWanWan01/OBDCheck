@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SelectModeViewController : UIViewController
+@interface SelectModeViewController : TheBasicViewController
 
 @end

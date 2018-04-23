@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MonController : UIViewController
+@interface MonController : TheBasicViewController
 - (void)rightBarButtonClick;
 @end

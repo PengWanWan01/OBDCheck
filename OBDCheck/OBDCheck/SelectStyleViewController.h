@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SelectStyleViewController : UIViewController
+@interface SelectStyleViewController : TheBasicViewController
 @property (nonatomic,assign) NSInteger Currentpage;
 @end

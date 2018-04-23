@@ -74,21 +74,7 @@
     self.slider.frame = CGRectMake(30*KFontmultiple, CGRectGetMaxY(ValueLabel.frame )+10, dashViewB.frame.size.width, 20);
     self.tableView.frame = CGRectMake(CGRectGetMaxY(dashViewB.frame)+30, 0, SCREEN_MAX -(CGRectGetMaxY(dashViewB.frame)+20), SCREEN_MIN);
 }
-//设置样式
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
 
-//设置是否隐藏
-- (BOOL)prefersStatusBarHidden {
-    //    [super prefersStatusBarHidden];
-    return NO;
-}
-
-//设置隐藏动画
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationNone;
-}
 - (void)initWithUI{
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 186, MSWidth, MSHeight - 186 - 44 -TopHigh) style:UITableViewStyleGrouped];

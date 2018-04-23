@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SizeAndLocationViewController : UIViewController
+@interface SizeAndLocationViewController : TheBasicViewController
 
 @end

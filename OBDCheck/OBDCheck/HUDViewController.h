@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HUDViewController : UIViewController
+@interface HUDViewController : TheBasicViewController
 
 //蓝牙管理类
 @property (nonatomic,strong) BlueToothController *blueTooth ;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BasicViewController : UIViewController
+@interface BasicViewController : TheBasicViewController
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
 

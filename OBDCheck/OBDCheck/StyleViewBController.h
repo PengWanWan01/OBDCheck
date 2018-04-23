@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StyleViewBController : UIViewController
+@interface StyleViewBController : TheBasicViewController
 @property (nonatomic,strong) UISlider *slider;
 @property (nonatomic,strong) UILabel *NumberLabel;
 @property (nonatomic,strong) NSMutableArray *datasource;

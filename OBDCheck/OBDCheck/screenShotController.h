@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface screenShotController : UIViewController
+@interface screenShotController : TheBasicViewController
 
 @end

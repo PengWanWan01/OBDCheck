@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FileBackViewController : UIViewController
+@interface FileBackViewController : TheBasicViewController
 @property (nonatomic,strong) LogsModel *model;
 @end

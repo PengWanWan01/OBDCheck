@@ -149,21 +149,7 @@
         [self.tabarView addSubview:btn];
     }
 }
-//设置样式
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
 
-//设置是否隐藏
-- (BOOL)prefersStatusBarHidden {
-    //    [super prefersStatusBarHidden];
-    return NO;
-}
-
-//设置隐藏动画
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationNone;
-}
 - (void)initWithData{
     self.normalImage = [[NSMutableArray alloc]initWithObjects:@"OBD_normal",@"Vehicle_normal", nil];
     self.selectImage = [[NSMutableArray alloc]initWithObjects:@"OBD_highlight",@"Vehicle_highlight", nil];

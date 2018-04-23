@@ -116,21 +116,7 @@ static dispatch_source_t _timer;
    
     
 }
-//设置样式
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
 
-//设置是否隐藏
-- (BOOL)prefersStatusBarHidden {
-    //    [super prefersStatusBarHidden];
-    return NO;
-}
-
-//设置隐藏动画
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationNone;
-}
 - (void)initWithdata{
     _typeimageData = [[NSMutableArray alloc]initWithObjects:@"troubleCode_highLight",@"troubleCode_important",nil];
 }

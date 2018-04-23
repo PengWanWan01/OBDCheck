@@ -31,21 +31,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ColorTableViewCell" bundle:nil] forCellReuseIdentifier:@"ColorTableViewCell"];
     
 }
-//设置样式
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
 
-//设置是否隐藏
-- (BOOL)prefersStatusBarHidden {
-    //    [super prefersStatusBarHidden];
-    return NO;
-}
-
-//设置隐藏动画
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationNone;
-}
 - (void)initWithData{
     self.Colordatasource  = [[NSMutableArray alloc]initWithObjects:@"Green",@"Light blue",@"White",@"Yellow",@"Blue", nil];
     self.ColorStrdatasource = [[NSMutableArray alloc]initWithObjects:@"44FF00",@"14F1FF",@"FFFFFF",@"FFFF00",@"42B0FF", nil];

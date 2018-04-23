@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DisplaySetViewController : UIViewController
+@interface DisplaySetViewController : TheBasicViewController
 
 @end

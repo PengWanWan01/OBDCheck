@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EditDisplayViewController : UIViewController
+@interface EditDisplayViewController : TheBasicViewController
 @property (nonatomic,assign) NSInteger Viewindex;
 @end

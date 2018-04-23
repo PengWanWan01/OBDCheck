@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BlueToothController.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : TheBasicViewController
 
 //蓝牙管理类
 @property (nonatomic,strong) BlueToothController *blueTooth ;

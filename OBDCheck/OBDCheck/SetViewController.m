@@ -48,23 +48,7 @@
 - (void)setHorizontalFrame{
      tableview.frame = CGRectMake(0, 1, SCREEN_MAX, SCREEN_MIN-TopHigh);
 }
-//设置样式
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
 
-//设置是否隐藏
-- (BOOL)prefersStatusBarHidden {
-    //    [super prefersStatusBarHidden];
-    return NO;
-}
-- (void)back{
-      [self.navigationController popToRootViewControllerAnimated:YES];
-}
-//设置隐藏动画
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationNone;
-}
 - (void)initWithData{
 
     self.datasource = [[NSMutableArray alloc

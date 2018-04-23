@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StyleCViewController : UIViewController
+@interface StyleCViewController : TheBasicViewController
 @property (nonatomic,strong) UITableView *tableView;
 
 @property (nonatomic,strong) UILabel *NumberLabel;

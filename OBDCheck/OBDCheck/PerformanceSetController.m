@@ -26,21 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-//设置样式
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
 
-//设置是否隐藏
-- (BOOL)prefersStatusBarHidden {
-    //    [super prefersStatusBarHidden];
-    return NO;
-}
-
-//设置隐藏动画
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationNone;
-}
 - (void)initWithData{
     self.dataSource =  [[NSMutableArray alloc]initWithObjects:@"Test Items",@"Start speed",@"End speed",nil];
     

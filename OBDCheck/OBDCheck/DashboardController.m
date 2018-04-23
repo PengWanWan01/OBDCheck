@@ -280,21 +280,6 @@ static dispatch_source_t _timer;
     [dashboardA update];
     [scrollView addSubview:dashboardStyleAView];
 }
-//设置样式
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
-
-//设置是否隐藏
-- (BOOL)prefersStatusBarHidden {
-    //    [super prefersStatusBarHidden];
-    return NO;
-}
-
-//设置隐藏动画
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationNone;
-}
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -635,7 +620,6 @@ static dispatch_source_t _timer;
     switch (index) {
         case 2:
         {
-
                AddBoardStyleController  *vc =   [[AddBoardStyleController alloc]init];
                 vc.Currentpage = pageControl.currentPage;
                 [self.navigationController pushViewController:vc animated:YES];
@@ -643,41 +627,53 @@ static dispatch_source_t _timer;
             break;
         case 3:
         {
-            DLog(@"添加一页");
-            
-            NSInteger page = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"]+1;
-            [[UserDefaultSet sharedInstance] SetIntegerAttribute:page Key:@"KPageNumer"];
-            scrollView.contentSize = CGSizeMake(MSWidth*[[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"],0);
-            pageControl.numberOfPages = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"];
+            switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"]) {
+                case DashboardClassicMode:{
+                    [self LoadDefault];
+                }
+                    break;
+                case DashboardCustomMode:{
+                    DLog(@"添加一页");
+                    
+                    NSInteger page = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"]+1;
+                    [[UserDefaultSet sharedInstance] SetIntegerAttribute:page Key:@"KPageNumer"];
+                    scrollView.contentSize = CGSizeMake(MSWidth*[[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"],0);
+                    pageControl.numberOfPages = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"];
+                }
+                    break;
+                default:
+                    break;
+            }
+    
         }
             break;
         case 4:
         {
-            DLog(@"删除当前页");
-            NSInteger page = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"]-1;
-            [self alterDashboardPage:page];
+            switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"]) {
+                case DashboardClassicMode:{
+                    [self LoadHUD];
+                }
+                    break;
+                case DashboardCustomMode:{
+                    DLog(@"删除当前页");
+                    NSInteger page = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"]-1;
+                    [self alterDashboardPage:page];
+                }
+                    break;
+                default:
+                    break;
+            }
         }
             break;
         case 5:
         {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Load Default Dashboards" message:@"This will delete all of the existing dashboards and load the default set of dashboards. Do you want to continue?" preferredStyle:  UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self LoadDefaultDashboards];
-            }]];
-            //弹出提示框；
-            [self presentViewController:alert animated:true completion:nil];
+            [self LoadDefault];
         }
             break;
         case 6:
         {
-            //     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            //                DLog(@"停止停止");
-            [self stopSend];
-            //        });
-            HUDViewController *vc = [[HUDViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
+            [self LoadHUD];
+          
         }
             break;
         case 7:
@@ -690,6 +686,22 @@ static dispatch_source_t _timer;
             break;
     }
     
+}
+#pragma mark 恢复到默认状态
+- (void)LoadDefault{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Load Default Dashboards" message:@"This will delete all of the existing dashboards and load the default set of dashboards. Do you want to continue?" preferredStyle:  UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self LoadDefaultDashboards];
+    }]];
+    //弹出提示框；
+    [self presentViewController:alert animated:true completion:nil];
+}
+#pragma mark 进入HUD模式
+- (void)LoadHUD{
+    HUDViewController *vc = [[HUDViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark 修改仪表盘的页数
 -(void)alterDashboardPage:(NSInteger)page{
@@ -926,43 +938,12 @@ static dispatch_source_t _timer;
     scrollView.scrollEnabled = YES;
     [DashboardSetting sharedInstance].isDashboardMove = NO;
     CustomDashboard *dashboard = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
-    switch (dashboard.dashboardType) {
-        case 1:
-        {
-            DLog(@"111");
-            if (isLandscape) {
-                dashboard.Dashboardorignx = [NSString stringWithFormat:@"%f",SCREEN_MIN-WithcenterY-([dashboard.Dashboardorignheight floatValue]-30*KFontmultiple)+page*SCREEN_MIN];
-                dashboard.Dashboardorigny = [NSString stringWithFormat:@"%f",centerX-TopHigh-15*KFontmultiple-page*MSWidth];
-            }else{
-                dashboard.Dashboardorignx = [NSString stringWithFormat:@"%f",centerX];
-                dashboard.Dashboardorigny = [NSString stringWithFormat:@"%f",WithcenterY];
-            }
-        }
-            break;
-        case 2:
-        {
-            if (isLandscape) {
-                dashboard.Dashboardorignx = [NSString stringWithFormat:@"%f",SCREEN_MIN-WithcenterY-([dashboard.Dashboardorignheight floatValue]-30*KFontmultiple)+page*SCREEN_MIN];
-                dashboard.Dashboardorigny = [NSString stringWithFormat:@"%f",centerX-TopHigh-15*KFontmultiple-page*MSWidth];
-            }else{
-                dashboard.Dashboardorignx = [NSString stringWithFormat:@"%f",centerX];
-                dashboard.Dashboardorigny = [NSString stringWithFormat:@"%f",WithcenterY];
-            }
-        }
-            break;
-        case 3:
-        {
-            if (isLandscape) {
-                dashboard.Dashboardorignx = [NSString stringWithFormat:@"%f",SCREEN_MIN-WithcenterY-([dashboard.Dashboardorignheight floatValue]-30*KFontmultiple)+page*MSWidth];
-                dashboard.Dashboardorigny = [NSString stringWithFormat:@"%f",centerX-TopHigh-15*KFontmultiple-page*MSWidth];
-            }else{
-                dashboard.Dashboardorignx = [NSString stringWithFormat:@"%f",centerX];
-                dashboard.Dashboardorigny = [NSString stringWithFormat:@"%f",WithcenterY];
-            }
-            break;
-        default:
-            break;
-        }
+    if (isLandscape) {
+        dashboard.Dashboardorignx = [NSString stringWithFormat:@"%f",SCREEN_MIN-WithcenterY-([dashboard.Dashboardorignheight floatValue]-30*KFontmultiple)+page*SCREEN_MIN];
+        dashboard.Dashboardorigny = [NSString stringWithFormat:@"%f",centerX-TopHigh-15*KFontmultiple-page*MSWidth];
+    }else{
+        dashboard.Dashboardorignx = [NSString stringWithFormat:@"%f",centerX];
+        dashboard.Dashboardorigny = [NSString stringWithFormat:@"%f",WithcenterY];
     }
     //更新为当前的数据
     [dashboard update];
