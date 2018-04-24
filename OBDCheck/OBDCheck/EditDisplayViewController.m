@@ -102,7 +102,8 @@
         case 1:
         {
             
-            CustomDashboard *dashboard  = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
+       
+            CustomDashboard *dashboard  = [[OBDataModel sharedDataBase]findByPK:[DashboardSetting sharedInstance].Dashboardindex];
             
             switch (dashboard.dashboardType) {
                 case 1:

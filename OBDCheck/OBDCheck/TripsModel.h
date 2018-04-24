@@ -8,7 +8,7 @@
 
 #import "TripsModel.h"
 
-@interface TripsModel : JKDBModel
+@interface TripsModel : NSObject
 
 @property (nonatomic,copy) NSString *distance;
 @property (nonatomic,copy) NSString *Fuel;

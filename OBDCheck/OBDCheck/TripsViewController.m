@@ -110,7 +110,9 @@
     cell.textLabel.text = self.dataSource[indexPath.row];
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"C8C6C6"];
     
-   TripsModel* model = [TripsModel findByPK:indexPath.section + 1];
+    NSString *SQLStr = [NSString stringWithFormat:@"SELECT * FROM TripsModel WHERE id = %ld",indexPath.section + 1];
+     TripsModel* model   = [TripsModel yy_modelWithJSON: [[[OBDataModel sharedDataBase]find:SQLStr].lastObject stringForColumn:@"data"]];
+    
         switch (indexPath.row) {
             case 0:
             {
@@ -140,12 +142,13 @@
 }
 - (void)FootBtn:(UIButton *)btn{
     DLog(@"%ld",(long)btn.tag);
-   TripsModel* logsmodel = [TripsModel findByPK:btn.tag+1];
-
+    
+    NSString *SQLStr = [NSString stringWithFormat:@"SELECT * FROM TripsModel WHERE id = %ld",btn.tag+1];
+    TripsModel* logsmodel   = [TripsModel yy_modelWithJSON: [[[OBDataModel sharedDataBase]find:SQLStr].lastObject stringForColumn:@"data"]];
     logsmodel.distance = @"0.00";
     logsmodel.Fuel = @"0.00";
     logsmodel.FuelEconmy = @"0.00";
-    [logsmodel update];
+//    [logsmodel update];
     [mytableView reloadData];
 
 

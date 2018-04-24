@@ -86,7 +86,8 @@
     
 }
 - (void)initWithHeadUI{ 
-    CustomDashboard * dashboard = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
+    CustomDashboard *dashboard = [[OBDataModel sharedDataBase]findByPK:[DashboardSetting sharedInstance].Dashboardindex];
+    
         model = dashboard;
         dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
         [dashViewC setNeedsLayout];
@@ -428,11 +429,6 @@
         {
             if (model.DashboardCValueVisible == YES) {
                 model.DashboardCValueColor = self.selectColor;
-                if (model.pk == [indexID intValue]) {
-                    model.DashboardCValueColor = model.DashboardCValueColor;
-                    //                     [model bg_updateWhere:<#(NSArray * _Nullable)#>];
-                }
-                
                 [self upDateDashView];
             }
         }
@@ -471,7 +467,8 @@
 -(void)back{
     [self.navigationController popViewControllerAnimated:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [model update];
+        NSString *str = [NSString stringWithFormat:@"UPDATE CustomDashboard SET (data) = ('%@')  WHERE id = %ld ",[model yy_modelToJSONString],(long)model.ID];
+        [[OBDataModel sharedDataBase]update:str];
     });
 }
 -(void)rightBarButtonClick{

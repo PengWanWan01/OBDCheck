@@ -141,8 +141,6 @@
 #import "UnitsController.h"
 #import "GeneralController.h"
 #import "PerformanceController.h"
-#import "JKDBModel.h"
-#import "JKDBHelper.h"
 #import "BlueToothController.h"
 #import "BELInfo.h"
 #import "BlueTool.h"
@@ -181,5 +179,6 @@
 #import "BasicWebViewController.h"
 #import "YYModel.h"
 #import "PIDViewController.h"
-
+#import "FMDB.h"
+#import "OBDataModel.h"
 #endif /* OBDCheckPrefixHeader_pch */

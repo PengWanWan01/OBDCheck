@@ -53,6 +53,7 @@ typedef NS_ENUM(NSInteger ,ProtocolType)
 @property (nonatomic,assign) NSInteger CurrentPage;   //当前仪表盘页数
 
 @property (nonatomic,copy) NSArray *PIDDataSource; //存放PID的内容
+
 //单例模式，实例化对象
 +(instancetype )sharedInstance;
 - (void)initWithdashboardA;
@@ -66,6 +67,6 @@ typedef NS_ENUM(NSInteger ,ProtocolType)
 
 
 - (void)CustomDashboardType:(AddDashboardStyle)type  withTag:(NSInteger)i;
-
+- (void)AddDashBoard:(CustomDashboard *)model with:(NSInteger)i with:(AddDashboardStyle)type;
 
 @end

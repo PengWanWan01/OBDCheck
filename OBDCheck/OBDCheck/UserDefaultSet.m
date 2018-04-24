@@ -45,6 +45,8 @@
     self.hudModeType = HUDModeTypeToNormal;
     self.HUDColourStr = @"44FF00";
     self.LogsModel = [LogsSetting new];
+    self.dashID = 1;
+    
     [self SetIntegerAttribute:self.dashboardMode Key:@"dashboardMode"];
     [self SetIntegerAttribute:self.dashboardStyle Key:@"dashboardStyle"];
     [self SetIntegerAttribute:self.numberDecimals Key:@"numberDecimals"];
@@ -56,6 +58,7 @@
     [self SetIntegerAttribute:self.launchDashboard Key:@"launchDashboard"];
     [self SetIntegerAttribute:self.KPageNumer Key:@"KPageNumer"];
     [self SetIntegerAttribute:self.hudModeType Key:@"hudModeType"];
+    [self SetIntegerAttribute:self.dashID Key:@"dashID"];
 
     [self SetStringAttribute:self.ScreenshotData Key:@"ScreenshotData"];
     [self SetStringAttribute:self.HUDColourStr Key:@"HUDColourStr"];

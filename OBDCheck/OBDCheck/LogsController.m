@@ -356,12 +356,9 @@ typedef NS_ENUM(NSInteger ,chartViewnumber)
     DLog(@"保存");
     [model initWithlogswith:PID1dataSource with:PID2dataSource with:PID3dataSource with:PID4dataSource];
     DLog(@"%@  %@   %@  %@",PID1dataSource,PID2dataSource,PID3dataSource,PID4dataSource);
-    LogsModel *model = [LogsModel findByPK:3];
+//    LogsModel *model = [LogsModel findByPK:3];
 
-    DLog(@"logs数据库%@", model);
-//    LogsModel *model = arr.lastObject;
-//    [model saveOrUpdate];
-//    DLog(@"数据%@%@%@%@",model.PID1dataSource,model.PID2dataSource,model.PID3dataSource,model.PID4dataSource);
+
     
 }
 #pragma mark 点击开始  //发送蓝牙指令

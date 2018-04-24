@@ -8,7 +8,7 @@
 #import "LogsModel.h"
 
 
-@interface LogsModel : JKDBModel
+@interface LogsModel : NSObject
 @property (nonatomic,copy) NSString *item1PID;
 @property (nonatomic,assign) BOOL item1Smoothing;
 

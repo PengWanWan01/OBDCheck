@@ -32,7 +32,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    model = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
+    NSString *SQLStr = [NSString stringWithFormat:@"SELECT * FROM CustomDashboard WHERE id = %ld",[DashboardSetting sharedInstance].Dashboardindex];
+   model  = [CustomDashboard yy_modelWithJSON: [[[OBDataModel sharedDataBase]find:SQLStr].lastObject stringForColumn:@"data"]];
     [self initWithUI];
     
 }
@@ -336,7 +337,8 @@
 }
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
-    [model update];
+    NSString *str = [NSString stringWithFormat:@"UPDATE CustomDashboard SET (data) = ('%@')  WHERE id = %ld ",[model yy_modelToJSONString],(long)model.ID];
+    [[OBDataModel sharedDataBase]update:str];
     
     //    if([model.bg_id integerValue] == [DashboardSetting sharedInstance].Dashboardindex ){
     //        CustomDashboard *dash = [CustomDashboard new];

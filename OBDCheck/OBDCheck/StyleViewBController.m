@@ -89,7 +89,7 @@
     
 }
 - (void)initWithHeadUI{
-    CustomDashboard * dashboard = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
+    CustomDashboard *dashboard = [[OBDataModel sharedDataBase]findByPK:[DashboardSetting sharedInstance].Dashboardindex];
     
     model = dashboard;
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
@@ -505,7 +505,8 @@
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [model update];
+        NSString *str = [NSString stringWithFormat:@"UPDATE CustomDashboard SET (data) = ('%@')  WHERE id = %ld ",[model yy_modelToJSONString],(long)model.ID];
+        [[OBDataModel sharedDataBase]update:str];
     });
 }
 -(void)rightBarButtonClick{

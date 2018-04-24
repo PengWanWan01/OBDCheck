@@ -29,7 +29,17 @@
     }
     
     DLog(@"启动成功");
-
+   
+//    CustomDashboard *dsh1 =  [[OBDataModel sharedDataBase]findAll][2];
+//    DLog(@"出%ld,%@",dsh1.dashboardType, dsh1.DashboardPID);
+     NSArray *pll1 =    [[OBDataModel sharedDataBase] find:@"WHERE id > 27"];
+    for (CustomDashboard *dsh in pll1) {
+         DLog(@"出%ld,%ld,%@,%@",dsh.ID,dsh.dashboardType, dsh.DashboardPID,dsh.Dashboardorignx);
+    }
+    NSArray *pll =  [[OBDataModel sharedDataBase]findAll];
+    for (CustomDashboard *dash in pll) {
+        NSLog(@"%ld,%ld, %@",(long)dash.ID,dash.dashboardType, dash.Dashboardorignx);
+    }
 //    [UIApplication sharedApplication].idleTimerDisabled =YES; //让屏幕常亮
 
     // Override point for customization after application launch.
@@ -64,9 +74,16 @@
 
 - (void)initWithdatabase{
     [[UserDefaultSet sharedInstance]SetDefultAttribute]; //设置默认属性,分数据库部分
-    [CustomDashboard clearTable];
-    [TripsModel clearTable];
-    [LogsModel clearTable];
+
+//    NSString *SQLstr1 =  [NSString stringWithFormat:@"DELETE FROM CustomDashboard "];
+//    [[OBDataModel sharedDataBase]Delete:SQLstr1];
+//    
+//    NSString *SQLstr2 =  [NSString stringWithFormat:@"DELETE FROM TripsModel "];
+//    [[OBDataModel sharedDataBase]Delete:SQLstr2];
+//    
+//    NSString *SQLstr3 =  [NSString stringWithFormat:@"DELETE FROM LogsModel "];
+//    [[OBDataModel sharedDataBase]Delete:SQLstr3];
+//    
     [[DashboardSetting sharedInstance]initWithdashboardA];
     [[DashboardSetting sharedInstance]initWithdashboardB];
     [[DashboardSetting sharedInstance]initWithdashboardC];

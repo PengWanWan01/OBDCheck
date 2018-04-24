@@ -79,6 +79,7 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 @property (nonatomic) HUDModeType hudModeType;
 @property (nonatomic,copy ) NSString  *HUDColourStr;   //HUD颜色
 @property (nonatomic,strong ) LogsSetting  *LogsModel;   //Logs模块的设置
+@property (nonatomic,assign ) NSInteger dashID;   //仪表盘ID 
 
 -(void)SetDefultAttribute;
 //设置一个整形属性

@@ -40,85 +40,7 @@
     }
     return self;
 }
-//- (void)setNeedsLayout{
-//    [super setNeedsLayout];
-//    DLog(@"你好👋");
-//    self.image = [UIImage imageNamed:@"Dashboard"];
-//    self.contentMode = UIViewContentModeScaleAspectFill;
-//    _center = CGPointMake(ViewWidth / 2, ViewWidth / 2);
-//    view.frame = self.bounds;
-//    view.layer.cornerRadius = self.bounds.size.width/2;
-//    image2.frame = CGRectMake(self.bounds.size.width/2 - 100*KMultipleB, self.bounds.size.width -73.0*KMultipleB , 200.0*KMultipleB,  70.0*KMultipleB);
-//    view.gradientRadius = self.frame.size.width;
-//    innerimage.frame = CGRectMake(43.0*KMultipleB, 43.0*KMultipleB, self.bounds.size.width - 86.0*KMultipleB,  self.bounds.size.width - 86.0*KMultipleB);
-//    _UnitLabel.frame = CGRectMake(0, 2*innerimage.frame.size.height/3, innerimage.frame.size.width, innerimage.frame.size.height/3);
-//    _NumberLabel.frame = CGRectMake(0,innerimage.frame.size.height/3, innerimage.frame.size.width, innerimage.frame.size.height/3);
-//    _PIDLabel.frame = CGRectMake(0, 0, innerimage.frame.size.width, innerimage.frame.size.height/3);
-//    _NumberLabel.font =    [UIFont fontWithName:@"DBLCDTempBlack"size:56.0*KMultipleB];
-//    _UnitLabel.font = [UIFont boldSystemFontOfSize:17*KMultipleB];
-//    [_triangleView removeFromSuperview];
-//    _triangleView = [[UIView alloc]initWithFrame:CGRectMake(self.bounds.size.width /2 - 30*KMultipleB/2, 7*KMultipleB, 30*KMultipleB, (self.bounds.size.width /2)-7*KMultipleB)];
-//    //    _triangleView.backgroundColor = [UIColor redColor];
-//    CGPoint oldOrigin = _triangleView.frame.origin;
-//    //设置triangleView的角度与开始位置一直
-//    _triangleView.layer.anchorPoint = CGPointMake(0.5, 1);
-//    CGPoint newOrigin = _triangleView.layer.frame.origin;
-//    
-//    CGPoint transition;
-//    transition.x = newOrigin.x - oldOrigin.x;
-//    transition.y = newOrigin.y - oldOrigin.y;
-//    _triangleView.center = CGPointMake (_triangleView.center.x - transition.x, _triangleView.center.y - transition.y);
-//    _triangleView.transform = CGAffineTransformMakeRotation(-M_PI/2-M_PI/4);
-//    [self addSubview:_triangleView];
-//    
-//    // 线的路径 三角形
-//    polygonPath = [UIBezierPath bezierPath];
-//    
-//    [polygonPath moveToPoint:CGPointMake(15*KMultipleB, 36.0*KMultipleB/2)];
-//    // 其他点
-//    [polygonPath addLineToPoint:CGPointMake(0, 0)];
-//    [polygonPath addLineToPoint:CGPointMake(30*KMultipleB, 0)];
-//    
-//    [polygonPath closePath]; // 添加一个结尾点和起点相同
-//    
-//    polygonLayer = [CAShapeLayer layer];
-//    polygonLayer.lineWidth = 2;
-//    
-//    [_triangleView.layer addSublayer:polygonLayer];
-//    //画直线
-//    // 线的路径
-//    UIBezierPath *linePath = [UIBezierPath bezierPath];
-//    // 起点
-//    [linePath moveToPoint:CGPointMake(15*KMultipleB, 36.0*KMultipleB/2)];
-//    // 其他点
-//    [linePath addLineToPoint:CGPointMake(15*KMultipleB, 36.0*KMultipleB)];
-//    
-//    lineLayer = [CAShapeLayer layer];
-//    
-//    lineLayer.lineWidth = 2;
-//    
-//    lineLayer.path = linePath.CGPath;
-//    lineLayer.fillColor = nil; // 默认为blackColor
-//    
-//    [_triangleView.layer addSublayer:lineLayer];
-//    NSArray* pAllCount = [CustomDashboard findAll];
-//    for (NSInteger i = 0;i<pAllCount.count;i++) {
-//        CustomDashboard *dash = pAllCount[i];
-//        if (dash.pk == self.tag) {
-//            polygonLayer.strokeColor = [ColorTools colorWithHexString:dash.DashboardBpointerColor].CGColor;
-//            polygonLayer.path = polygonPath.CGPath;
-//            polygonLayer.fillColor = [ColorTools colorWithHexString:dash.DashboardBpointerColor].CGColor; //
-//            lineLayer.strokeColor = [ColorTools colorWithHexString:dash.DashboardBpointerColor].CGColor;
-//        }
-//    }
-//    
-//    
-//    CGPoint _c = CGPointMake(self.bounds.size.width/2   , self.bounds.size.width/2 );
-//    CGFloat _r = self.bounds.size.width/2 - (23.0/300)*self.bounds.size.width;
-//    BOOL clockwise = YES; // 顺时针
-//    UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:_c radius:_r startAngle:(M_PI / 2) endAngle:M_PI *3/4-M_PI/18 clockwise:clockwise];
-//    circleLayer.path = circlePath.CGPath;
-//}
+
 -(void)layoutSubviews{
     [super layoutSubviews];
     if (isLandscape) {
@@ -132,7 +54,8 @@
     
 }
 - (void)setHorizontalFrame{
-    CustomDashboard *dash = [CustomDashboard findByPK:self.tag];
+    CustomDashboard *dash = [[OBDataModel sharedDataBase]findByPK:self.tag];
+
     int page =  [dash.Dashboardorignx doubleValue]/SCREEN_MIN;
     if (page == 0) {
         if (([dash.Dashboardorignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
@@ -150,7 +73,8 @@
         }
 }
 - (void)setVerticalFrame{
-    CustomDashboard *dash = [CustomDashboard findByPK:self.tag];
+    CustomDashboard *dash = [[OBDataModel sharedDataBase]findByPK:self.tag];
+
     self.frame = CGRectMake([dash.Dashboardorignx doubleValue],[dash.Dashboardorigny doubleValue], [dash.Dashboardorignwidth doubleValue], [dash.Dashboardorignheight doubleValue]);
     DLog(@"得到%ld竖屏后%f %f",self.tag,[dash.Dashboardorignx doubleValue], [dash.Dashboardorigny doubleValue] );
     self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
@@ -170,12 +94,11 @@
 //        switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"]) {
 //            case DashboardCustomMode:
 //            {
-                NSArray *list = [CustomDashboard findAll];
-                for(CustomDashboard* dashboard in list){
-                    CGFloat Space =   (3*M_PI/2)/([dashboard.DashboardmaxNumber floatValue] - [dashboard.DashboardminNumber floatValue]);
-                    [self rotateImageView:(-M_PI/2-M_PI/4) + Space*start Withend:(-M_PI/2-M_PI/4) +Space*end];
-                    
-                }
+        NSArray *list = [[OBDataModel sharedDataBase]findAll] ;
+        for (CustomDashboard *dashboard in list) {
+            CGFloat Space =   (3*M_PI/2)/([dashboard.DashboardmaxNumber floatValue] - [dashboard.DashboardminNumber floatValue]);
+            [self rotateImageView:(-M_PI/2-M_PI/4) + Space*start Withend:(-M_PI/2-M_PI/4) +Space*end];
+        }
 //            }
 //                break;
 //            case DashboardClassicMode:

@@ -21,7 +21,7 @@
     [super viewDidLoad];
     [self initNavBarTitle:@"Change DashDoard Style" andLeftItemImageName:@"back" andRightItemName:@""];
     self.delegate = self;
-    model = [CustomDashboard findByPK:[DashboardSetting sharedInstance].Dashboardindex];
+    model = [[OBDataModel sharedDataBase]findByPK:[DashboardSetting sharedInstance].Dashboardindex];
 }
 
 - (void)chosseBoardStyleBetouched:(NSInteger)index{
@@ -90,7 +90,8 @@
         default:
             break;
     }
-    [model update];
+    NSString *str = [NSString stringWithFormat:@"UPDATE CustomDashboard SET (data) = ('%@')  WHERE id = %ld ",[model yy_modelToJSONString],(long)model.ID];
+    [[OBDataModel sharedDataBase]update:str];
     [self.navigationController popViewControllerAnimated:YES];
 
 }

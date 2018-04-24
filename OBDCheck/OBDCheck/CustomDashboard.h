@@ -6,11 +6,13 @@
 //  Copyright © 2017年 Auptophix. All rights reserved.
 //
 
-#import "JKDBModel.h"
 
 
+#import <Foundation/Foundation.h>
 
-@interface CustomDashboard : JKDBModel
+@interface CustomDashboard : NSObject
+
+@property (nonatomic,assign) NSInteger  ID;
 @property (nonatomic,assign) NSInteger  dashboardType ;
 
 @property (nonatomic,copy) NSString *DashboardPID;  //PID的值

@@ -29,37 +29,30 @@
 }
 -(void)back{
     CustomDashboard *model = [CustomDashboard new ];
-    [[DashboardSetting sharedInstance] initADDdashboardA:model withTag:0 ];
-    [[DashboardSetting sharedInstance] initADDdashboardB:model withTag:0];
-    [[DashboardSetting sharedInstance] initADDdashboardC:model withTag:0];
     switch (self.selectIndex) {
         case 100:
         {
-            model.dashboardType = 1;
-            model.Dashboardorignx = [NSString stringWithFormat:@"%f",self.Currentpage *MSWidth +(arc4random() % (int)(MSWidth/2))];
-            model.Dashboardorigny = [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2))];
+            [[DashboardSetting sharedInstance] AddDashBoard:model with:0 with:AddStyleOne];
         }
             break;
         case 101:
         {
-            model.dashboardType = 2;
-            model.Dashboardorignx = [NSString stringWithFormat:@"%f",self.Currentpage*MSWidth+(arc4random() % (int)(MSWidth/2))];
-            model.Dashboardorigny= [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2) )];
-            
+            [[DashboardSetting sharedInstance] AddDashBoard:model with:0 with:AddStyleTwo];
         }
             break;
         case 102:
         {
-            model.dashboardType = 3;
-            model.Dashboardorignx = [NSString stringWithFormat:@"%f",self.Currentpage*MSWidth +(arc4random() % (int)(MSWidth/2))];
-            model.Dashboardorigny = [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2))];
+            [[DashboardSetting sharedInstance] AddDashBoard:model with:0 with:AddStyleThree];
         }
             break;
         default:
             break;
     }
+    model.Dashboardorignx = [NSString stringWithFormat:@"%f",self.Currentpage *MSWidth +(arc4random() % (int)(MSWidth/2))];
+    model.Dashboardorigny = [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2))];
     model.DashboardPID = @"Add";
-    [model save];
+    NSString *SQLStr = [NSString stringWithFormat:@"INSERT INTO CustomDashboard (data) VALUES ('%@')",[model yy_modelToJSONString]];
+    [[OBDataModel sharedDataBase]insert:SQLStr];
     [self.navigationController popViewControllerAnimated:YES];
 
 }

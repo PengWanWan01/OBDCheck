@@ -47,10 +47,6 @@
 
 
 
-
-- (void)initADDCustomDashboard:(CustomDashboard *)model withTag:(NSInteger)i {
-    
-}
 - (void)initWithdashboardA{
     for (int i = 0; i< 9; i++) {
         [self CustomDashboardType:AddStyleOne withTag:i];
@@ -330,7 +326,12 @@
 - (void)CustomDashboardType:(AddDashboardStyle)type withTag:(NSInteger)i{
     
     CustomDashboard *model = [CustomDashboard new ];
-    [self initADDdashboardA:model withTag:i ];
+    [self AddDashBoard:model with:i with:type];
+    NSString *SQLStr = [NSString stringWithFormat:@"INSERT INTO CustomDashboard (data) VALUES ('%@')",[model yy_modelToJSONString]];
+    [[OBDataModel sharedDataBase]insert:SQLStr];
+}
+- (void)AddDashBoard:(CustomDashboard *)model with:(NSInteger)i with:(AddDashboardStyle)type{
+    [self initADDdashboardA:model withTag:i];
     [self initADDdashboardB:model withTag:i];
     [self initADDdashboardC:model withTag:i];
     model.DashboardPID = self.PIDDataSource[i];
@@ -339,6 +340,11 @@
     if ([model.DashboardPID isEqualToString:@"RPM"]) {
         model.DashboardmaxNumber = [NSString stringWithFormat:@"1000"] ;
     }
+    
+    NSInteger ID =  [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"dashID"];
+    model.ID = ID;
+    [[UserDefaultSet sharedInstance] SetIntegerAttribute:ID+1 Key:@"dashID"];
+    
     switch (type) {
         case AddStyleOne:
         {
@@ -358,8 +364,7 @@
         default:
             break;
     }
-    [model save];
-    
+  
 }
 @end
 

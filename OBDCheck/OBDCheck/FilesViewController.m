@@ -33,9 +33,8 @@
     [self initWithUI];
 }
 - (void)initWithData{
-    NSArray *array = [LogsModel findAll];
-    DLog(@"%@",array);
-    self.dataSource = [[NSMutableArray alloc]init];
+    NSString *SQLStr = [NSString stringWithFormat:@"SELECT * FROM LogsModel "];
+    NSArray *array = [[OBDataModel sharedDataBase]find:SQLStr] ;    self.dataSource = [[NSMutableArray alloc]init];
     for (NSInteger i = 1; i<=array.count; i++) {
         [self.dataSource addObject:[NSString stringWithFormat:@"File%ld",(long)i]];
     }
@@ -97,7 +96,8 @@
 
 - (void)deleteData:(NSInteger)tag{
     DLog(@"%@",[NSNumber numberWithInteger:tag+1]);
-    [LogsModel deleteObjectsByCriteria:@"WHERE pk = tag+1 "];
+    NSString *SQLstr =  [NSString stringWithFormat:@"DELETE FROM LogsModel WHERE id = %ld",(long)(tag+1)];
+    [[OBDataModel sharedDataBase]Delete:SQLstr];
     [self.dataSource removeObjectAtIndex:tag]; //从模型中删除
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:tag inSection:0]]  withRowAnimation:UITableViewRowAnimationRight];
     [self.tableView reloadData];
@@ -156,7 +156,8 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     DLog(@"%ld",(long)indexPath.row);
-    NSArray *array = [LogsModel findAll];
+    NSString *SQLStr = [NSString stringWithFormat:@"SELECT * FROM LogsModel "];
+    NSArray *array = [[OBDataModel sharedDataBase]find:SQLStr] ;    self.dataSource = [[NSMutableArray alloc]init];
 ////    DLog(@"%@%@%@%@%d%d",vc.model,vc.model.PID1dataSource,vc.model.PID2dataSource,vc.model.PID3dataSource,vc.model.item3Enabled,vc.model.item3Enabled);
 ////    DLog(@"%@%@%@%@",vc.model.item1PID,vc.model.item2PID,vc.model.item3PID,vc.model.item4PID);
     FileBackViewController *vc = [[FileBackViewController alloc]init];

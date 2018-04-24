@@ -30,7 +30,7 @@
     
 }
 - (void)setHorizontalFrame{
-    CustomDashboard* dash = [CustomDashboard findByPK:self.tag];
+    CustomDashboard *dash = [[OBDataModel sharedDataBase]findByPK:self.tag];
     int page =  [dash.Dashboardorignx doubleValue]/SCREEN_MIN;
     if (page == 0) {
         if (([dash.Dashboardorignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
@@ -48,7 +48,8 @@
     }
 }
 - (void)setVerticalFrame{
-    CustomDashboard* dash = [CustomDashboard findByPK:self.tag];
+    CustomDashboard *dash = [[OBDataModel sharedDataBase]findByPK:self.tag];
+
     self.frame = CGRectMake([dash.Dashboardorignx doubleValue],[dash.Dashboardorigny doubleValue], [dash.Dashboardorignwidth doubleValue], [dash.Dashboardorignheight doubleValue]);
     self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1 , 1);
     
