@@ -103,8 +103,7 @@
         {
             
        
-            CustomDashboard *dashboard  = [[OBDataModel sharedDataBase]findByPK:[DashboardSetting sharedInstance].Dashboardindex];
-            
+            CustomDashboard *dashboard  = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withID:[DashboardSetting sharedInstance].Dashboardindex].lastObject;
             switch (dashboard.dashboardType) {
                 case 1:
                 {

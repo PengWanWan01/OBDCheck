@@ -347,9 +347,6 @@
 #pragma mark 六个按钮的点击
 - (void)tap:(UITapGestureRecognizer *)sender{
     DLog(@"点击一个");
-//    [CustomDashboard findAll];
-//    DLog(@"查找完成");
-//    DLog(@"%@",[CustomDashboard findByCriteria:@"WHERE PK > 27"]);
         [self.blueView hide];
     self.blueTooth.delegate = nil;
     self.blueView.delegate = nil;

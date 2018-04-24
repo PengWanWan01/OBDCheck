@@ -51,8 +51,7 @@
     model.Dashboardorignx = [NSString stringWithFormat:@"%f",self.Currentpage *MSWidth +(arc4random() % (int)(MSWidth/2))];
     model.Dashboardorigny = [NSString stringWithFormat:@"%u",(arc4random() % (int)(MSHeight/2))];
     model.DashboardPID = @"Add";
-    NSString *SQLStr = [NSString stringWithFormat:@"INSERT INTO CustomDashboard (data) VALUES ('%@')",[model yy_modelToJSONString]];
-    [[OBDataModel sharedDataBase]insert:SQLStr];
+    [[OBDataModel sharedDataBase]insertTableName:@"Dashboards" withdata:[model yy_modelToJSONString]];
     [self.navigationController popViewControllerAnimated:YES];
 
 }

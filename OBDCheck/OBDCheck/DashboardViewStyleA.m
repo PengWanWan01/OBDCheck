@@ -50,7 +50,7 @@
     }
 }
 - (void)setHorizontalFrame{
-    CustomDashboard *dash = [[OBDataModel sharedDataBase]findByPK:self.tag];
+    CustomDashboard *dash = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withID:self.tag].lastObject;
     int page =  [dash.Dashboardorignx doubleValue]/SCREEN_MIN;
     if (([dash.Dashboardorignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
         //横屏时候上边的一排仪表盘
@@ -71,7 +71,7 @@
     }
 }
 - (void)setVerticalFrame{
-    CustomDashboard *dash = [[OBDataModel sharedDataBase]findByPK:self.tag];
+    CustomDashboard *dash = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withID:self.tag].lastObject;
     self.frame =CGRectMake([dash.Dashboardorignx doubleValue], [dash.Dashboardorigny doubleValue], [dash.Dashboardorignwidth doubleValue], [dash.Dashboardorignheight doubleValue]);
     self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
     
@@ -95,7 +95,7 @@
     //    DLog(@"%@%@%ld",PreviouStr,presentStr,(long)[text.userInfo[@"StyleAViewTag"] integerValue]);
     
     if ([text.userInfo[@"StyleAViewTag"] integerValue] == self.tag) {
-        CustomDashboard *dashboard = [[OBDataModel sharedDataBase]findByPK:self.tag];
+        CustomDashboard *dashboard = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withID:self.tag].lastObject;
 
         CGFloat Space =   ([dashboard.DashboardAendAngle doubleValue]- [dashboard.DashboardAStartAngle doubleValue])/([dashboard.DashboardmaxNumber doubleValue] - [dashboard.DashboardminNumber doubleValue]);
         [self rotationWithStartAngle:[dashboard.DashboardAStartAngle doubleValue] + ((double)start/[dashboard.DashboardmaxNumber doubleValue]*Space)  WithEndAngle:[dashboard.DashboardAStartAngle doubleValue] + (double)end/[dashboard.DashboardmaxNumber doubleValue]*Space];

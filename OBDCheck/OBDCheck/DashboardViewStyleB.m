@@ -54,7 +54,7 @@
     
 }
 - (void)setHorizontalFrame{
-    CustomDashboard *dash = [[OBDataModel sharedDataBase]findByPK:self.tag];
+    CustomDashboard *dash = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withID:self.tag].lastObject;
 
     int page =  [dash.Dashboardorignx doubleValue]/SCREEN_MIN;
     if (page == 0) {
@@ -73,7 +73,7 @@
         }
 }
 - (void)setVerticalFrame{
-    CustomDashboard *dash = [[OBDataModel sharedDataBase]findByPK:self.tag];
+    CustomDashboard *dash = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withID:self.tag].lastObject;
 
     self.frame = CGRectMake([dash.Dashboardorignx doubleValue],[dash.Dashboardorigny doubleValue], [dash.Dashboardorignwidth doubleValue], [dash.Dashboardorignheight doubleValue]);
     DLog(@"得到%ld竖屏后%f %f",self.tag,[dash.Dashboardorignx doubleValue], [dash.Dashboardorigny doubleValue] );
@@ -94,7 +94,7 @@
 //        switch ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"]) {
 //            case DashboardCustomMode:
 //            {
-        NSArray *list = [[OBDataModel sharedDataBase]findAll] ;
+        NSArray *list = [[OBDataModel sharedDataBase]findTableAll:@"Dashboards"] ;
         for (CustomDashboard *dashboard in list) {
             CGFloat Space =   (3*M_PI/2)/([dashboard.DashboardmaxNumber floatValue] - [dashboard.DashboardminNumber floatValue]);
             [self rotateImageView:(-M_PI/2-M_PI/4) + Space*start Withend:(-M_PI/2-M_PI/4) +Space*end];

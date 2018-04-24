@@ -222,8 +222,7 @@ static dispatch_source_t _timer;
         troubleCodeModel *model = [troubleCodeModel new];
         model.toubleCode =[OBDLibTool sharedInstance].troubleCodeArray;
         model.currentTime = self.currentTime;
-        NSString *SQLStr = [NSString stringWithFormat:@"INSERT INTO troubleCodeModel (data) VALUES %@",[model yy_modelToJSONString]];
-        [[OBDataModel sharedDataBase]update:SQLStr];
+      [[OBDataModel sharedDataBase]insertTableName:@"troubleCodes" withdata:[model yy_modelToJSONString]];
         isSave = NO;
     }
 }

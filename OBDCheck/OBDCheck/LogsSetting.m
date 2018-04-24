@@ -42,8 +42,7 @@
     model.PID3dataSource =[NSJSONSerialization dataWithJSONObject:PID3data options:NSJSONWritingPrettyPrinted error:nil];
     model.PID4dataSource = [NSJSONSerialization dataWithJSONObject:PID4data options:NSJSONWritingPrettyPrinted error:nil];
     DLog(@"建立数据库");
-    NSString *SQLStr = [NSString stringWithFormat:@"INSERT INTO LogsModel (data) VALUES %@",[model yy_modelToJSONString]];
-    [[OBDataModel sharedDataBase]update:SQLStr];
+      [[OBDataModel sharedDataBase]insertTableName:@"Logs" withdata:[model yy_modelToJSONString]];
 }
 - (void)initWithTrips{
     
@@ -52,8 +51,8 @@
         model.distance = @"0.00";
         model.Fuel = @"0.00";
         model.FuelEconmy = @"0.00";
-        NSString *SQLStr = [NSString stringWithFormat:@"INSERT INTO TripsModel (data) VALUES %@",[model yy_modelToJSONString]];
-        [[OBDataModel sharedDataBase]update:SQLStr];
+        [[OBDataModel sharedDataBase]insertTableName:@"Trips" withdata:[model yy_modelToJSONString]];
+
     }
 }
 

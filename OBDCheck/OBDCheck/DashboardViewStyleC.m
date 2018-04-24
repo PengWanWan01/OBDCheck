@@ -30,7 +30,7 @@
     
 }
 - (void)setHorizontalFrame{
-    CustomDashboard *dash = [[OBDataModel sharedDataBase]findByPK:self.tag];
+    CustomDashboard *dash = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withID:self.tag].lastObject;
     int page =  [dash.Dashboardorignx doubleValue]/SCREEN_MIN;
     if (page == 0) {
         if (([dash.Dashboardorignx floatValue]-page*SCREEN_MIN)>SCREEN_MIN/2) {
@@ -48,7 +48,7 @@
     }
 }
 - (void)setVerticalFrame{
-    CustomDashboard *dash = [[OBDataModel sharedDataBase]findByPK:self.tag];
+    CustomDashboard *dash = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withID:self.tag].lastObject;
 
     self.frame = CGRectMake([dash.Dashboardorignx doubleValue],[dash.Dashboardorigny doubleValue], [dash.Dashboardorignwidth doubleValue], [dash.Dashboardorignheight doubleValue]);
     self.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1 , 1);

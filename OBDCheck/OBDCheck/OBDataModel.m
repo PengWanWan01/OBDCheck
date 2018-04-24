@@ -84,7 +84,7 @@ static OBDataModel *_DBCtl = nil;
     
     [_queue inDatabase:^(FMDatabase * _Nonnull db) {
         //创建数据表
-        BOOL flag1 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS CustomDashboard (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
+        BOOL flag1 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS Dashboards (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
 //        BOOL flag2 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS troubleCodeModel (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
 //        BOOL flag3 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS LogsModel (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
 //        BOOL flag4 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS TripsModel (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
@@ -98,9 +98,10 @@ static OBDataModel *_DBCtl = nil;
     
 }
 //增
-- (void)insert:(NSString *)SQL{
+- (void)insertTableName:(NSString *)tableName withdata:(NSString *)data{
     [_queue inDatabase:^(FMDatabase *db) {
-        BOOL    flag = [db executeUpdate:SQL];
+    NSString *SQLStr = [NSString stringWithFormat:@"INSERT INTO %@ (data) VALUES ('%@')",tableName,data];
+        BOOL    flag = [db executeUpdate:SQLStr];
         if (flag) {
             NSLog(@"数据插入成功");
         } else {
@@ -109,9 +110,11 @@ static OBDataModel *_DBCtl = nil;
     }];
 }
 //删
-- (void)Delete:(NSString *)SQL{
+- (void)DeleteTableName:(NSString *)tableName withID:(NSInteger )ID
+{
     [_queue inDatabase:^(FMDatabase *db) {
-        BOOL flag = [db executeUpdate:SQL];
+        NSString *SQLStr = [NSString stringWithFormat:@"DELETE FROM %@ WHERE id = %ld",tableName,ID];
+        BOOL flag = [db executeUpdate:SQLStr];
         if (flag) {
             NSLog(@"数据删除成功");
 
@@ -120,14 +123,26 @@ static OBDataModel *_DBCtl = nil;
         }
     }];
 }
+- (void)dropTable:(NSString *)tableName{
+    [_queue inDatabase:^(FMDatabase *db) {
+        NSString *SQLStr = [NSString stringWithFormat:@"DROP TABLE IF EXISTS %@",tableName];
+        BOOL flag = [db executeUpdate:SQLStr];
+        if (flag) {
+            NSLog(@"成功清除%@",tableName);
+        } else {
+            NSLog(@"清除失败");
+        }
+    }];
+}
 //改
-- (void)update:(NSString *)SQL{
-    
+- (void)updateTableName:(NSString *)tableName  withdata:(NSString *)data withID:(NSInteger )ID{
     __block BOOL flag;
     [_queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
         
         @try {
-            flag =   [db executeUpdate:SQL];
+            NSString *str = [NSString stringWithFormat:@"UPDATE %@ SET (data) = ('%@')  WHERE id = %ld ",tableName,data ,(long)ID];
+            flag =   [db executeUpdate:str];
+            
             
         } @catch (NSException *exception) {
             *rollback = YES;
@@ -139,13 +154,12 @@ static OBDataModel *_DBCtl = nil;
     }];
 }
 //查
-- (NSMutableArray *)find:(NSString *)str{
+- (NSMutableArray *)findTable:(NSString *)tableName withConditionStr:(NSString *)str{
     NSMutableArray *dataArray = [[NSMutableArray alloc] init];
     
     [_queue inDatabase:^(FMDatabase *db) {
-        NSString *SQL = [NSString stringWithFormat:@"SELECT * FROM CustomDashboard %@",str];
+        NSString *SQL = [NSString stringWithFormat:@"SELECT * FROM %@ %@",tableName,str];
         FMResultSet *result = [db executeQuery:SQL];
-        
         while ([result next]) {
             CustomDashboard *person = [[CustomDashboard alloc] init];
             person = [CustomDashboard yy_modelWithJSON:[result stringForColumn:@"data"]];
@@ -156,12 +170,12 @@ static OBDataModel *_DBCtl = nil;
     return dataArray;
     
 }
--(CustomDashboard *)findByPK:(NSInteger )ID{
+-(NSMutableArray *)findTable:(NSString *)tablename withID:(NSInteger )ID{
     
     
     NSMutableArray *dataArray = [[NSMutableArray alloc] init];
     [_queue inDatabase:^(FMDatabase *db) {
-        NSString *SQL = [NSString stringWithFormat:@"SELECT * FROM CustomDashboard WHERE id = %ld",(long)ID];
+        NSString *SQL = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE id = %ld",tablename,(long)ID];
         FMResultSet *result = [db executeQuery:SQL];
         while ([result next]) {
 
@@ -170,14 +184,14 @@ static OBDataModel *_DBCtl = nil;
         [dataArray addObject:person];
         }
     }];
-    return dataArray.lastObject;
+    return dataArray;
 }
 //查
-- (NSMutableArray *)findAll{
+- (NSMutableArray *)findTableAll:(NSString *)tablename{
     NSMutableArray *dataArray = [[NSMutableArray alloc] init];
     
     [_queue inDatabase:^(FMDatabase *db) {
-        FMResultSet *result = [db executeQuery:@"SELECT * FROM CustomDashboard;"];
+        FMResultSet *result = [db executeQuery:@"SELECT * FROM %@",tablename];
         
         while ([result next]) {
             CustomDashboard *person = [[CustomDashboard alloc] init];

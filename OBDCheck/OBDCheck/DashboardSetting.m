@@ -327,8 +327,7 @@
     
     CustomDashboard *model = [CustomDashboard new ];
     [self AddDashBoard:model with:i with:type];
-    NSString *SQLStr = [NSString stringWithFormat:@"INSERT INTO CustomDashboard (data) VALUES ('%@')",[model yy_modelToJSONString]];
-    [[OBDataModel sharedDataBase]insert:SQLStr];
+    [[OBDataModel sharedDataBase]insertTableName:@"Dashboards" withdata:[model yy_modelToJSONString]];
 }
 - (void)AddDashBoard:(CustomDashboard *)model with:(NSInteger)i with:(AddDashboardStyle)type{
     [self initADDdashboardA:model withTag:i];

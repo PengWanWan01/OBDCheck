@@ -1851,7 +1851,7 @@
 				DEVELOPMENT_TEAM = E54SCXFP9M;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/Users/yutaozhao/Desktop/OBDCheck 2/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch";
+				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
 				INFOPLIST_FILE = OBDCheck/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1885,7 +1885,7 @@
 				DEVELOPMENT_TEAM = E54SCXFP9M;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/Users/yutaozhao/Desktop/OBDCheck 2/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch";
+				GCC_PREFIX_HEADER = /Users/yutaozhao/Desktop/OBDCheck/OBDCheck/OBDCheck/OBDCheckPrefixHeader.pch;
 				INFOPLIST_FILE = OBDCheck/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (

@@ -52,8 +52,7 @@
    
     _sectiondatasource = [[NSMutableArray alloc]init];
     
-    NSString *SQLStr = [NSString stringWithFormat:@"SELECT * FROM troubleCodeModel "];
-    NSArray *array = [[OBDataModel sharedDataBase]find:SQLStr] ;
+    NSArray *array = [[OBDataModel sharedDataBase]findTable:@"troubleCodes" withConditionStr:@""] ;
     for (troubleCodeModel *model in array) {
         DLog(@"%@%@",model.currentTime,model.toubleCode);
     }

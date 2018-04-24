@@ -75,7 +75,7 @@ static dispatch_source_t _timer;
     scrollView.contentSize = CGSizeMake(SCREEN_MIN*[[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"],0);
     pageControl.frame = CGRectMake(0, SCREEN_MAX- self.navigationController.navigationBar.frame.size.height -[UIApplication sharedApplication].statusBarFrame.size.height -40, SCREEN_MIN, 30);
     if ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] == DashboardCustomMode) {
-        NSArray *pAllCount = [[OBDataModel sharedDataBase]find:@"WHERE id > 27"] ;
+        NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:@"WHERE id > 27"] ;
         for (CustomDashboard *dash in pAllCount) {
             switch (dash.dashboardType) {
                 case 1:
@@ -135,7 +135,7 @@ static dispatch_source_t _timer;
 //    editview.frame = 
     if ([[UserDefaultSet sharedInstance] GetIntegerAttribute:@"dashboardMode"] == DashboardCustomMode) {
         NSString *SQLStr = [NSString stringWithFormat:@"WHERE id > 27"];
-        NSArray *pAllCount = [[OBDataModel sharedDataBase]find:SQLStr] ;
+        NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
         for (CustomDashboard *dash in pAllCount) {
 
             switch (dash.dashboardType) {
@@ -193,7 +193,7 @@ static dispatch_source_t _timer;
         {
             
             NSString *SQLStr = [NSString stringWithFormat:@" WHERE id < 10"];
-            NSArray *pAllCount = [[OBDataModel sharedDataBase]find:SQLStr] ;
+            NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
             for (CustomDashboard *dash in pAllCount) {
                 dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:dash.ID];
                 [dashboardStyleAView layoutSubviews];
@@ -203,7 +203,7 @@ static dispatch_source_t _timer;
         case DashboardStyleTwo:
         {
             NSString *SQLStr = [NSString stringWithFormat:@" WHERE id >=10 and id < 19"];
-            NSArray *pAllCount = [[OBDataModel sharedDataBase]find:SQLStr] ;
+            NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
             for (CustomDashboard *dash in pAllCount) {
                 dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:dash.ID];
                 [dashboardStyleBView layoutSubviews];
@@ -213,7 +213,7 @@ static dispatch_source_t _timer;
         case DashboardStyleThree:
         {
             NSString *SQLStr = [NSString stringWithFormat:@"WHERE id >=19 and id < 28"];
-            NSArray *pAllCount = [[OBDataModel sharedDataBase]find:SQLStr] ;
+            NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
               for (CustomDashboard *dash in pAllCount) {
                 dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:dash.ID];
                 [dashboardStyleCView setNeedsLayout];
@@ -231,7 +231,7 @@ static dispatch_source_t _timer;
         case DashboardStyleOne:
         {
             NSString *SQLStr = [NSString stringWithFormat:@" WHERE id <10"];
-            NSArray *pAllCount = [[OBDataModel sharedDataBase]find:SQLStr] ;
+            NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
              for (CustomDashboard *dash in pAllCount) {
                 dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:dash.ID];
                 [dashboardStyleAView layoutSubviews];
@@ -241,7 +241,7 @@ static dispatch_source_t _timer;
         case DashboardStyleTwo:
         {
             NSString *SQLStr = [NSString stringWithFormat:@"WHERE id >=10  and id < 19"];
-            NSArray *pAllCount = [[OBDataModel sharedDataBase]find:SQLStr] ;
+            NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
              for (CustomDashboard *dash in pAllCount) {
                 dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:dash.ID];
                 [dashboardStyleBView layoutSubviews];
@@ -251,7 +251,7 @@ static dispatch_source_t _timer;
         case DashboardStyleThree:
         {
             NSString *SQLStr = [NSString stringWithFormat:@" WHERE id >=19  and id < 28"];
-            NSArray *pAllCount = [[OBDataModel sharedDataBase]find:SQLStr] ;
+            NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
              for (CustomDashboard *dash in pAllCount) {
                 dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:dash.ID];
                 [dashboardStyleCView layoutSubviews];
@@ -461,7 +461,7 @@ static dispatch_source_t _timer;
     DLog(@"仪表盘");
     //    testView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight)];
     NSString *SQLStr = [NSString stringWithFormat:@" WHERE id > 27"];
-    NSArray *pAllCount = [[OBDataModel sharedDataBase]find:SQLStr] ;
+    NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
      for (CustomDashboard *dash in pAllCount) {
         if (dash.dashboardType == 1) {
             dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.Dashboardorignx doubleValue], [dash.Dashboardorigny doubleValue], [dash.Dashboardorignwidth doubleValue], [dash.Dashboardorignheight doubleValue])];
@@ -489,7 +489,7 @@ static dispatch_source_t _timer;
 #pragma mark 初始化仪表盘风格
 - (void)initWithStyleA{
     NSString *SQLStr = [NSString stringWithFormat:@" WHERE id <10 "];
-    NSArray *pAllCount = [[OBDataModel sharedDataBase]find:SQLStr];
+    NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr];
      for (CustomDashboard *dash in pAllCount) {
         dashboardStyleAView = [[DashboardView alloc]initWithFrame:CGRectMake([dash.Dashboardorignx doubleValue], [dash.Dashboardorigny doubleValue], [dash.Dashboardorignwidth doubleValue], [dash.Dashboardorignheight doubleValue])];
         [self initwithDashboardAFrame:dash];
@@ -499,7 +499,7 @@ static dispatch_source_t _timer;
 
 - (void)initWithStyleB{
     NSString *SQLStr = [NSString stringWithFormat:@"WHERE id >=10  and id < 19"];
-    NSArray *pAllCount = [[OBDataModel sharedDataBase]find:SQLStr] ;
+    NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
      for (CustomDashboard *dash in pAllCount) {
         dashboardStyleBView = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake([dash.Dashboardorignx doubleValue], [dash.Dashboardorigny doubleValue], [dash.Dashboardorignwidth doubleValue], [dash.Dashboardorignheight doubleValue])];
         [dashboardStyleBView initWithModel:dash];
@@ -513,7 +513,7 @@ static dispatch_source_t _timer;
 
 - (void)initWithStyleC{
     NSString *SQLStr = [NSString stringWithFormat:@" WHERE id >=19  and id < 28"];
-    NSArray *pAllCount = [[OBDataModel sharedDataBase]find:SQLStr] ;
+    NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
    for (CustomDashboard *dash in pAllCount) {
         dashboardStyleCView = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake([dash.Dashboardorignx doubleValue], [dash.Dashboardorigny doubleValue], [dash.Dashboardorignwidth doubleValue], [dash.Dashboardorignheight doubleValue])];
         dashboardStyleCView.tag = dash.ID ;
@@ -684,25 +684,22 @@ static dispatch_source_t _timer;
 //    pageControl.numberOfPages = [[UserDefaultSet sharedInstance]GetIntegerAttribute:@"KPageNumer"];
     DLog(@"当前页为:%ld",(long)pageControl.currentPage);
     NSString *SQLStr = [NSString stringWithFormat:@" WHERE id>27"];
-    NSArray *pAllCount = [[OBDataModel sharedDataBase]find:SQLStr] ;
+    NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
     for (CustomDashboard *model in pAllCount) {
                 if (pageControl.currentPage == 0) {
                     if ([model.Dashboardorignx doubleValue]<SCREEN_MIN) {
-                        NSString *SQLstr =  [NSString stringWithFormat:@"DELETE FROM CustomDashboard WHERE id = %ld",(long)model.ID];
-                        [[OBDataModel sharedDataBase]Delete:SQLstr];
+                        [[OBDataModel sharedDataBase]DeleteTableName:@"Dashboards" withID:model.ID];
                     }else{
                         model.Dashboardorignx = [NSString stringWithFormat:@"%f",[model.Dashboardorignx doubleValue] - SCREEN_MIN];
                     }
                 }else{
                     if(([model.Dashboardorignx doubleValue]<(pageControl.currentPage+1)*SCREEN_MIN) && (([model.Dashboardorignx doubleValue]>pageControl.currentPage*SCREEN_MIN))) {
-                        NSString *SQLstr =  [NSString stringWithFormat:@"DELETE FROM CustomDashboard WHERE id = %ld",(long)model.ID];
-                        [[OBDataModel sharedDataBase]Delete:SQLstr];
+                        [[OBDataModel sharedDataBase]DeleteTableName:@"Dashboards" withID:model.ID];
                     }else if ([model.Dashboardorignx doubleValue]>(pageControl.currentPage+1)*SCREEN_MIN){
                          model.Dashboardorignx = [NSString stringWithFormat:@"%f",[model.Dashboardorignx doubleValue] - SCREEN_MIN];
                     }
                 }
-        NSString *str = [NSString stringWithFormat:@"UPDATE CustomDashboard SET (data) = ('%@')  WHERE id = %ld ",[model yy_modelToJSONString],(long)model.ID];
-        [[OBDataModel sharedDataBase]update:str];
+       [[OBDataModel sharedDataBase]updateTableName:@"Dashboards" withdata:[model yy_modelToJSONString] withID:model.ID];
 
             }
        
@@ -717,7 +714,7 @@ static dispatch_source_t _timer;
 #pragma mark 捏合手势代理
 - (void)pinchtap:(UIPinchGestureRecognizer *)sender OrignX:(CGFloat)orignx OrignY:(CGFloat)origny Width:(CGFloat)width Height:(CGFloat)height{
     DLog(@"*****DIDIDIDIDI%f \n %f \n %f \n %f",orignx,origny,width,height);
-    CustomDashboard *dash = [[OBDataModel sharedDataBase]findByPK:sender.view.tag];
+    CustomDashboard *dash = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withID:sender.view.tag].lastObject;
     int page =  orignx/MSWidth;
     
     if (isLandscape) {
@@ -729,9 +726,7 @@ static dispatch_source_t _timer;
     }
     dash.Dashboardorignwidth = [NSString stringWithFormat:@"%f",width];
     dash.Dashboardorignheight = [NSString stringWithFormat:@"%f",height];
-    NSString *str = [NSString stringWithFormat:@"UPDATE CustomDashboard SET (data) = ('%@')  WHERE id = %ld ",[dash yy_modelToJSONString],(long)dash.ID];
-    [[OBDataModel sharedDataBase]update:str];
-
+      [[OBDataModel sharedDataBase]updateTableName:@"Dashboards" withdata:[dash yy_modelToJSONString] withID:dash.ID];
 }
 #pragma mark 长按仪表盘的手势
 - (void)tap:(UILongPressGestureRecognizer *)sender{
@@ -776,9 +771,7 @@ static dispatch_source_t _timer;
 #pragma mark 全部恢复默认仪表盘
 - (void)LoadDefaultDashboards{
     DLog(@"LoadLoad");
-    
-        NSString *SQLStr = [NSString stringWithFormat:@"DROP TABLE IF EXISTS CustomDashboard"];
-        [[OBDataModel sharedDataBase]Delete:SQLStr];
+    [[OBDataModel sharedDataBase]dropTable:@"Dashboards"];
     
     [[UserDefaultSet sharedInstance]SetDefultAttribute]; //回复设置默认属性,
     [[OBDataModel sharedDataBase]initDataBase];
@@ -798,7 +791,7 @@ static dispatch_source_t _timer;
     //让仪表盘到最前面
     if ([DashboardSetting sharedInstance].isDashboardFont == YES ) {
         DLog(@"CCqianm");
-        CustomDashboard *dashboard =  [[OBDataModel sharedDataBase]findByPK:[DashboardSetting sharedInstance].Dashboardindex];
+        CustomDashboard *dashboard =  [[OBDataModel sharedDataBase]findTable:@"Dashboards" withID:[DashboardSetting sharedInstance].Dashboardindex].lastObject;
         switch (dashboard.dashboardType) {
             case 1:
             {
@@ -831,7 +824,7 @@ static dispatch_source_t _timer;
     if ([DashboardSetting sharedInstance].Dashboardindex == indexTag &&  [DashboardSetting sharedInstance].isDashboardMove == YES ) {
         DLog(@"CCC");
         scrollView.scrollEnabled = NO;
-        CustomDashboard *dashboard =  [[OBDataModel sharedDataBase]findByPK:[DashboardSetting sharedInstance].Dashboardindex];
+        CustomDashboard *dashboard =  [[OBDataModel sharedDataBase]findTable:@"Dashboards" withID:[DashboardSetting sharedInstance].Dashboardindex].lastObject;
         
         switch (dashboard.dashboardType) {
             case 1:
@@ -874,7 +867,7 @@ static dispatch_source_t _timer;
     [[UserDefaultSet sharedInstance].defaults setInteger:[[UserDefaultSet sharedInstance].defaults integerForKey:@"AddDashboardNumber"]-1 forKey:@"AddDashboardNumber"];
     
     [DashboardSetting sharedInstance].isDashboardRemove = NO;
-    CustomDashboard *dashboard = [[OBDataModel sharedDataBase]findByPK:[DashboardSetting sharedInstance].Dashboardindex];
+    CustomDashboard *dashboard = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withID:[DashboardSetting sharedInstance].Dashboardindex].lastObject;
     switch (dashboard.dashboardType) {
         case 1:
         {
@@ -899,9 +892,7 @@ static dispatch_source_t _timer;
         default:
             break;
     }
-    
-    NSString *SQLstr =  [NSString stringWithFormat:@"DELETE FROM CustomDashboard WHERE id = %ld",(long)[DashboardSetting sharedInstance].Dashboardindex];
-    [[OBDataModel sharedDataBase]Delete:SQLstr];
+      [[OBDataModel sharedDataBase]DeleteTableName:@"Dashboards" withID:[DashboardSetting sharedInstance].Dashboardindex];
 }
 #pragma mark 更新最新的仪表盘
 - (void)updateView{
@@ -919,7 +910,7 @@ static dispatch_source_t _timer;
     scrollView.scrollEnabled = YES;
     [DashboardSetting sharedInstance].isDashboardMove = NO;
     
-    CustomDashboard *dashboard = [[OBDataModel sharedDataBase]findByPK:[DashboardSetting sharedInstance].Dashboardindex];
+    CustomDashboard *dashboard = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withID:[DashboardSetting sharedInstance].Dashboardindex].lastObject;
     if (isLandscape) {
         dashboard.Dashboardorignx = [NSString stringWithFormat:@"%f",SCREEN_MIN-WithcenterY-([dashboard.Dashboardorignheight floatValue]-30*KFontmultiple)+page*SCREEN_MIN];
         dashboard.Dashboardorigny = [NSString stringWithFormat:@"%f",centerX-TopHigh-15*KFontmultiple-page*MSWidth];
@@ -928,8 +919,7 @@ static dispatch_source_t _timer;
         dashboard.Dashboardorigny = [NSString stringWithFormat:@"%f",WithcenterY];
     }
     //更新为当前的数据
-    NSString *str = [NSString stringWithFormat:@"UPDATE CustomDashboard SET (data) = ('%@')  WHERE id = %ld ",[dashboard yy_modelToJSONString],(long)dashboard.ID];
-    [[OBDataModel sharedDataBase]update:str];
+    [[OBDataModel sharedDataBase]updateTableName:@"Dashboards" withdata:[dashboard yy_modelToJSONString] withID:dashboard.ID];
     
     [coverView removeFromSuperview];
     scrollView.scrollEnabled = YES;

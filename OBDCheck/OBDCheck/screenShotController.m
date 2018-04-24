@@ -23,6 +23,12 @@
     // 注册collectionViewcell:SceenshotCell是我自定义的cell的类型
     [self.collectionView registerClass:[SceenshotCell class] forCellWithReuseIdentifier:@"cell"];
 }
+#pragma mark 设置横竖屏布局
+
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    self.collectionView.frame = self.view.bounds;
+}
 
 - (UICollectionView *)collectionView {
     if (_collectionView == nil) {
