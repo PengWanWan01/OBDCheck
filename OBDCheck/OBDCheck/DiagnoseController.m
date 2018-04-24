@@ -61,29 +61,30 @@
 #pragma mark 设置横竖屏布局
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    if (isLandscape) {
-        //翻转为横屏时
-        DLog(@"横屏");
-        [self setHorizontalFrame];
-    }else{
-        DLog(@"竖屏");
-        [self setVerticalFrame];
-    }
-}
-#pragma mark 竖屏
-- (void)setVerticalFrame{
     tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
     if (IS_IPHONE_X) {
         tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
     }
+    [tbarView layoutSubviews];
+    [self.oneVC.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height-TopHigh)];
+    [self.twoVC.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height-TopHigh)];
+    [self.ThreeVc.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height-TopHigh)];
+    [self.FourVc.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height-TopHigh)];
 }
-#pragma mark 横屏
-- (void)setHorizontalFrame{
-    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
-    }
-}
+//#pragma mark 竖屏
+//- (void)setVerticalFrame{
+//    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
+//    if (IS_IPHONE_X) {
+//        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
+//    }
+//}
+//#pragma mark 横屏
+//- (void)setHorizontalFrame{
+//    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
+//    if (IS_IPHONE_X) {
+//        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
+//    }
+//}
 - (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
 //    [self save];
     DLog(@"按钮%ld",touchSelectNumber);

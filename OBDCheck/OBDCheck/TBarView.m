@@ -21,7 +21,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-
+        index = 0;
     }
     return self;
 }
@@ -52,7 +52,7 @@
         btn.titleLabel.adjustsFontSizeToFitWidth = YES;
         [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
         btn.tag = 100+i;
-        if (i == 0) {
+        if (i == index) {
             [btn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
             [btn setImage:[UIImage imageNamed:_highimageData[btn.tag-100]] forState:UIControlStateNormal];
         }
@@ -72,7 +72,7 @@
         btn.titleLabel.adjustsFontSizeToFitWidth = YES;
         [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
         btn.tag = 100+i;
-        if (i == 0) {
+        if (i == index) {
             [btn setTitleColor:[ColorTools colorWithHexString:@"FE9002"] forState:UIControlStateNormal];
             [btn setImage:[UIImage imageNamed:_highimageData[btn.tag-100]] forState:UIControlStateNormal];
         }
@@ -87,6 +87,7 @@
 - (void)btn:(UIButton *)btn{
     if ([self.delegate respondsToSelector:@selector(TBarBtnBetouch:)]) {
         [self.delegate TBarBtnBetouch:btn.tag];
+        index = btn.tag - 100;
     }
         //上次点击过的按钮，不做处理
     if (!(btn.tag == 100)) {

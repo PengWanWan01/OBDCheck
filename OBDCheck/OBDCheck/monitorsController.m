@@ -41,7 +41,7 @@
     [self.view addSubview:tbarView];
     
     self.oneVC = [[MonController alloc] init];
-    [self.oneVC.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height)];
+    [self.oneVC.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height-TopHigh)];
     [self addChildViewController:_oneVC];
     
     self.twoVC = [[Sensors2ViewController alloc] init];
@@ -61,7 +61,15 @@
 #pragma mark 设置横竖屏布局
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
+    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
+    if (IS_IPHONE_X) {
+        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
+    }
     [tbarView layoutSubviews];
+      [self.oneVC.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height-TopHigh)];
+      [self.twoVC.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height-TopHigh)];
+     [self.ThreeVc.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height-TopHigh)];
+      [self.FourVc.view setFrame:CGRectMake(0, 0, MSWidth, MSHeight-tbarView.frame.size.height-TopHigh)];
 }
 
 - (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{

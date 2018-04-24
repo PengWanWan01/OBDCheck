@@ -80,7 +80,9 @@
     cell.textLabel.text = self.dataSource[indexPath.row];
     return cell;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    DLog(@"***************");
+}
 #pragma mark  刷新
 - (void)rightBarButtonClick{
     DLog(@"刷新");

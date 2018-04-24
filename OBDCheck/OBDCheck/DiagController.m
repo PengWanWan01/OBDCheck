@@ -38,26 +38,26 @@ static dispatch_source_t _timer;
     self.tabBarController.tabBar.hidden = NO;
     [UIApplication sharedApplication].statusBarHidden = NO;
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
-    self.blueTooth = [BlueToothController Instance];
-    self.blueTooth.delegate = self;
-    self.blueTooth.stopSend = NO;
-    if ([OBDLibTool sharedInstance].EnterSuccess == YES) {
-        //请求故障码
-          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{              
-              [[OBDLibTool sharedInstance] OBDIIReadDTC];
-            });
-    }
-    [self initWithdata];
-    [self initWithheadUI];
-    [self initWithUI];
-   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshUI) name:@"readTroubleCode"object:nil];
+
 }
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    self.blueTooth = [BlueToothController Instance];
+    self.blueTooth.delegate = self;
+    self.blueTooth.stopSend = NO;
+    if ([OBDLibTool sharedInstance].EnterSuccess == YES) {
+        //请求故障码
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[OBDLibTool sharedInstance] OBDIIReadDTC];
+        });
+    }
+    [self initWithdata];
+    [self initWithheadUI];
+    [self initWithUI];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshUI) name:@"readTroubleCode"object:nil];
 }
 - (void)refreshUI{
     NSInteger importantCount=0,totalCount = 0;
@@ -88,7 +88,7 @@ static dispatch_source_t _timer;
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
-      roView.frame = CGRectMake(10*Kwidthmultiple, 8*KHeightmultiple, 100*Kwidthmultiple, 100*Kwidthmultiple);
+    roView.frame = CGRectMake(10*Kwidthmultiple, 8*KHeightmultiple, 100*Kwidthmultiple, 100*Kwidthmultiple);
     infoLabel.frame = CGRectMake(CGRectGetMaxX(roView.frame)+25*Kwidthmultiple, 32, 210*Kwidthmultiple, 46);
      progressView.frame  = CGRectMake(0, 116*KHeightmultiple,MSWidth, 4);
      showView.frame = CGRectMake(0, CGRectGetMaxY(progressView.frame)+10, MSWidth, 30);
@@ -142,7 +142,7 @@ static dispatch_source_t _timer;
     [HistoricalBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [HistoricalBtn setTitle:@"Historical trouble code" forState:UIControlStateNormal];
     [footView addSubview:HistoricalBtn];
-    [HistoricalBtn addTarget:self action:@selector(HistoricalBtn) forControlEvents:UIControlEventTouchUpInside];
+    [HistoricalBtn addTarget:self action:@selector(HistoricalBtnClick) forControlEvents:UIControlEventTouchUpInside];
     MYTableView.tableFooterView = footView;
     
   
@@ -212,7 +212,7 @@ static dispatch_source_t _timer;
 - (void)clearBtn{
     [self.blueTooth SendData:[BlueTool hexToBytes:@"30340D"]];
 }
-- (void)HistoricalBtn{
+- (void)HistoricalBtnClick{
     
     HistoryViewController *vc = [[HistoryViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];

@@ -18,6 +18,7 @@
 {
     UIButton *selectBtn;
     NSInteger SelectIndex;
+    NSInteger index;
 }
 @property (nonatomic,assign) NSInteger numberBtn;
 @property (nonatomic,strong) NSMutableArray *highimageData;
