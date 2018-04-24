@@ -84,6 +84,7 @@ static dispatch_source_t _timer;
             DLog(@"竖屏");
             [self setVerticalFrame];
         }
+    
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{

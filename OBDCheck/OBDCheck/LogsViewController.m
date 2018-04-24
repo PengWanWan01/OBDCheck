@@ -37,10 +37,10 @@
     [topView addSubview:stopBtn];
     [topView addSubview:startBtn];
     self.navigationItem.titleView = topView;
-    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49)];
+    tbarView = [[TBarView alloc]initWithFrame:CGRectMake(0, MSHeight - 49-64, MSWidth, 49)];
     
     if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth ,49);
+        tbarView.frame = CGRectMake(0, MSHeight - 49-64-34,MSWidth ,49);
     }
     tbarView.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
     tbarView.numberBtn = 3;
@@ -70,29 +70,9 @@
 #pragma mark 设置横竖屏布局
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    if (isLandscape) {
-        //翻转为横屏时
-        DLog(@"横屏");
-        [self setHorizontalFrame];
-    }else{
-        DLog(@"竖屏");
-        [self setVerticalFrame];
-    }
+    [tbarView layoutSubviews];
 }
-#pragma mark 竖屏
-- (void)setVerticalFrame{
-    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
-    }
-}
-#pragma mark 横屏
-- (void)setHorizontalFrame{
-    tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh, MSWidth, 49);
-    if (IS_IPHONE_X) {
-        tbarView.frame = CGRectMake(0, MSHeight - 49-TopHigh-34,MSWidth , 49);
-    }
-}
+
 - (void)TBarBtnBetouch:(NSInteger)touchSelectNumber{
     //    [self save];
     DLog(@"按钮%ld",touchSelectNumber);

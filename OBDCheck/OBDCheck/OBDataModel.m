@@ -85,10 +85,10 @@ static OBDataModel *_DBCtl = nil;
     [_queue inDatabase:^(FMDatabase * _Nonnull db) {
         //创建数据表
         BOOL flag1 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS Dashboards (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
-//        BOOL flag2 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS troubleCodeModel (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
-//        BOOL flag3 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS LogsModel (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
-//        BOOL flag4 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS TripsModel (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
-        if (flag1 ) {
+        BOOL flag2 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS troubleCodeModel (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
+        BOOL flag3 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS LogsModel (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
+        BOOL flag4 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS TripsModel (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
+        if (flag1 && flag2 && flag3 && flag4) {
             NSLog(@"表创建成功");
         } else {
             NSLog(@"表创建失败");
@@ -191,7 +191,8 @@ static OBDataModel *_DBCtl = nil;
     NSMutableArray *dataArray = [[NSMutableArray alloc] init];
     
     [_queue inDatabase:^(FMDatabase *db) {
-        FMResultSet *result = [db executeQuery:@"SELECT * FROM %@",tablename];
+        NSString *sqlStr = [NSString stringWithFormat:@"SELECT * FROM %@",tablename];
+        FMResultSet *result = [db executeQuery:sqlStr];
         
         while ([result next]) {
             CustomDashboard *person = [[CustomDashboard alloc] init];
