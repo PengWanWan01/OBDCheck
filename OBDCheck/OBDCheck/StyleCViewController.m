@@ -90,7 +90,6 @@
     
         model = dashboard;
         dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
-        [dashViewC setNeedsLayout];
         [self.view addSubview:dashViewC];
         [dashViewC initWithModel:dashboard];
    Valuelabel = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
@@ -478,7 +477,6 @@
     [dashViewC removeFromSuperview];
     dashViewC = [[DashboardViewStyleC alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
     [dashViewC initWithModel:model];
-    [dashViewC setNeedsLayout];
     [self.view addSubview:dashViewC];
     
 }

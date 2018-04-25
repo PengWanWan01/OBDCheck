@@ -284,7 +284,7 @@
     switch (textField.tag) {
         case 0:
         {
-            if ([textField.text integerValue] > [model.DashboardmaxNumber integerValue]) {
+            if ([textField.text integerValue] >= [model.DashboardmaxNumber integerValue]) {
                 [self showWarn];
                 textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardmaxNumber floatValue] -1];
             }
@@ -293,7 +293,7 @@
             break;
         case 1:
         {
-          if ([model.DashboardminNumber integerValue] > [textField.text integerValue]) {
+          if ([model.DashboardminNumber integerValue] >= [textField.text integerValue]) {
                 [self showWarn];
                 textField.text = [NSString stringWithFormat:@"%.f", [model.DashboardminNumber floatValue] +1];
             }

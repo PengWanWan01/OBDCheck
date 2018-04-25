@@ -81,19 +81,19 @@ static dispatch_source_t _timer;
                 case 1:
                 {
                     dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:dash.ID ];
-                    [dashboardStyleAView layoutSubviews];
+                    [dashboardStyleAView layoutFrames];
                 }
                     break;
                 case 2:
                 {
                     dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:dash.ID ];
-                    [dashboardStyleBView layoutSubviews];
+                    [dashboardStyleBView layoutFrames];
                 }
                     break;
                 case 3:
                 {
                     dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:dash.ID];
-                    [dashboardStyleCView layoutSubviews];
+                    [dashboardStyleCView layoutFrames];
                     
                 }
                     break;
@@ -142,19 +142,19 @@ static dispatch_source_t _timer;
                 case 1:
                 {
                     dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:dash.ID ];
-                    [dashboardStyleAView layoutSubviews];
+                    [dashboardStyleAView layoutFrames];
                 }
                     break;
                 case 2:
                 {
                     dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:dash.ID ];
-                    [dashboardStyleBView layoutSubviews];
+                    [dashboardStyleBView layoutFrames];
                 }
                     break;
                 case 3:
                 {
                     dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:dash.ID ];
-                    [dashboardStyleCView setNeedsLayout];
+                    [dashboardStyleCView layoutFrames];
                     
                 }
                     break;
@@ -196,7 +196,7 @@ static dispatch_source_t _timer;
             NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
             for (CustomDashboard *dash in pAllCount) {
                 dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:dash.ID];
-                [dashboardStyleAView layoutSubviews];
+                [dashboardStyleAView layoutFrames];
             }
         }
             break;
@@ -206,7 +206,7 @@ static dispatch_source_t _timer;
             NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
             for (CustomDashboard *dash in pAllCount) {
                 dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:dash.ID];
-                [dashboardStyleBView layoutSubviews];
+                [dashboardStyleBView layoutFrames];
             }
         }
             break;
@@ -216,7 +216,7 @@ static dispatch_source_t _timer;
             NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
               for (CustomDashboard *dash in pAllCount) {
                 dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:dash.ID];
-                [dashboardStyleCView setNeedsLayout];
+                [dashboardStyleCView layoutFrames];
             }
         }
             break;
@@ -234,7 +234,7 @@ static dispatch_source_t _timer;
             NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
              for (CustomDashboard *dash in pAllCount) {
                 dashboardStyleAView = (DashboardView *)[scrollView viewWithTag:dash.ID];
-                [dashboardStyleAView layoutSubviews];
+                [dashboardStyleAView layoutFrames];
             }
         }
             break;
@@ -244,7 +244,7 @@ static dispatch_source_t _timer;
             NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
              for (CustomDashboard *dash in pAllCount) {
                 dashboardStyleBView = (DashboardViewStyleB *)[scrollView viewWithTag:dash.ID];
-                [dashboardStyleBView layoutSubviews];
+                [dashboardStyleBView layoutFrames];
             }
         }
             break;
@@ -254,7 +254,7 @@ static dispatch_source_t _timer;
             NSArray *pAllCount = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withConditionStr:SQLStr] ;
              for (CustomDashboard *dash in pAllCount) {
                 dashboardStyleCView = (DashboardViewStyleC *)[scrollView viewWithTag:dash.ID];
-                [dashboardStyleCView layoutSubviews];
+                [dashboardStyleCView layoutFrames];
             }
         }
             break;

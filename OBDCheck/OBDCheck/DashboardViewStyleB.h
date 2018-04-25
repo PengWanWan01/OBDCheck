@@ -29,5 +29,5 @@
 
 - (void)rotateImageView:(CGFloat)StartAngle Withend:(CGFloat)endAngle ;
 
-
+-(void)layoutFrames;
 @end

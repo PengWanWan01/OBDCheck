@@ -59,6 +59,8 @@
 #pragma mark 设置横竖屏布局
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
+    self.DashViewA.frame = CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple);
+    self.DashViewA.transform=CGAffineTransformScale(CGAffineTransformIdentity,1,1);
     if (isLandscape) {
         //翻转为横屏时
         DLog(@"横屏");
@@ -71,11 +73,10 @@
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{
-    self.DashViewA.frame = CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple);
     ValueLabel.frame = CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple);
-     self.slider.frame = CGRectMake(CGRectGetMaxX(self.DashView.frame) + 10, CGRectGetMaxY(ValueLabel.frame )+10, MSWidth - self.DashViewA.frame.size.width-50*KFontmultiple , 20);
+     self.slider.frame = CGRectMake(CGRectGetMaxX(self.DashViewA.frame) + 10, CGRectGetMaxY(ValueLabel.frame )+10, MSWidth - self.DashViewA.frame.size.width-50*KFontmultiple , 20);
     [btnView removeFromSuperview];
-    btnView = [[UIView alloc]initWithFrame:CGRectMake(29, CGRectGetMaxY(self.DashView.frame) + 40, MSWidth - 58, 24)];
+    btnView = [[UIView alloc]initWithFrame:CGRectMake(29, CGRectGetMaxY(self.DashViewA.frame) + 40, MSWidth - 58, 24)];
     [self initWithBtnView];
     scrollView.frame =CGRectMake(0, CGRectGetMaxY(btnView.frame)+20, MSWidth, MSHeight);
     scrollView.contentSize = CGSizeMake(MSWidth*4,MSHeight - 237);
@@ -88,9 +89,8 @@
 }
 #pragma mark 横屏
 - (void)setHorizontalFrame{
-    self.DashViewA.frame = CGRectMake(66*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple);
-    ValueLabel.frame = CGRectMake(66*KFontmultiple, CGRectGetMaxY(self.DashViewA.frame)+10, 36*KFontmultiple, 23*KFontmultiple);
-    self.slider.frame = CGRectMake(66*KFontmultiple, CGRectGetMaxY(ValueLabel.frame )+10, self.DashViewA.frame.size.width , 20);
+    ValueLabel.frame = CGRectMake(20, CGRectGetMaxY(self.DashViewA.frame)+10, 36*KFontmultiple, 23*KFontmultiple);
+    self.slider.frame = CGRectMake(30, CGRectGetMaxY(ValueLabel.frame )+10, self.DashViewA.frame.size.width , 20);
     
     [btnView removeFromSuperview];
     btnView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashViewA.frame)+25, 40, MSWidth -(CGRectGetMaxX(self.DashViewA.frame)+40), 24)];
@@ -163,16 +163,16 @@
     
     model = dashboard;
     self.DashViewA = [[DashboardView alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
-    DLog(@"%@",dashboard);
+    self.DashViewA.tag = dashboard.ID;
     [self.DashViewA addGradientView:dashboard.DashboardAouterColor  GradientViewWidth:self.DashViewA.frame.size.width];
     [self.DashViewA initWithModel:dashboard];
-    self.DashView = self.DashViewA;
     [self.view addSubview:self.DashViewA];
     ValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(262*KFontmultiple, 84*KFontmultiple, 36*KFontmultiple, 23*KFontmultiple)];
     ValueLabel.text = @"Value";
+    ValueLabel.textAlignment = NSTextAlignmentCenter;
     ValueLabel.textColor = [ColorTools colorWithHexString:@"#FE9002"];
     ValueLabel.font = [UIFont ToAdapFont:14.f];
-    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashView.frame) + 10, CGRectGetMaxY(ValueLabel.frame )+10, MSWidth - self.DashViewA.frame.size.width-50*KFontmultiple , 20)];
+    self.slider = [[UISlider alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.DashViewA.frame) + 10, CGRectGetMaxY(ValueLabel.frame )+10, MSWidth - self.DashViewA.frame.size.width-50*KFontmultiple , 20)];
     
     self.slider.minimumValue = [model.DashboardminNumber floatValue];
     self.slider.maximumValue = [model.DashboardmaxNumber floatValue];
@@ -1228,7 +1228,6 @@
     //画底盘渐变色
     [self.DashViewA addGradientView:model.DashboardAouterColor GradientViewWidth:150*KFontmultiple];
     [self.DashViewA initWithModel:model];
-    self.DashView = self.DashViewA;
     [self.view addSubview:self.DashViewA];
 }
 #pragma mark 返回仪表盘更新数据库

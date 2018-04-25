@@ -29,6 +29,6 @@
 
 - (void)initWithModel:(CustomDashboard *)model;
 
-
+-(void)layoutFrames;
 
 @end

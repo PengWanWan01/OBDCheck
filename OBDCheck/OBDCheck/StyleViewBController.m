@@ -90,11 +90,9 @@
 }
 - (void)initWithHeadUI{
     CustomDashboard *dashboard = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withID:[DashboardSetting sharedInstance].Dashboardindex].lastObject;
-    
     model = dashboard;
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
     [dashViewB initWithModel:dashboard];
-    [dashViewB setNeedsLayout];
     [self.view addSubview:dashViewB];
     
     
@@ -519,7 +517,6 @@
     
     dashViewB = [[DashboardViewStyleB alloc]initWithFrame:CGRectMake(30*KFontmultiple, 23*KFontmultiple, 150*KFontmultiple, 150*KFontmultiple)];
     [dashViewB initWithModel:model];
-    [dashViewB setNeedsLayout];
     [self.view addSubview:dashViewB];
     
 }

@@ -18,8 +18,7 @@
     }
     return self;
 }
--(void)layoutSubviews{
-    [super layoutSubviews];
+-(void)layoutFrames{
     if (isLandscape) {
         //        DLog(@"视图横屏");
         [self setHorizontalFrame];

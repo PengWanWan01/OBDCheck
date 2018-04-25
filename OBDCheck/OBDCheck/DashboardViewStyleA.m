@@ -41,8 +41,7 @@
     
     return self;
 }
--(void)layoutSubviews{
-    [super layoutSubviews];
+-(void)layoutFrames{
     if (isLandscape) {
         [self setHorizontalFrame];
     }else{
