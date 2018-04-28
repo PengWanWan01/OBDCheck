@@ -353,7 +353,7 @@ static BlueToothController* instance;
    
 
     DLog(@"发出数据：%@",data);
-    if (self.stopSend == NO) {
+//    if (self.stopSend == NO) {
         sendData = [[NSData alloc]initWithData:data];
         resultdata = [[NSMutableData alloc]init];
     if (SendCharacteristic) {
@@ -361,7 +361,7 @@ static BlueToothController* instance;
         [self.ConnectPeripheral writeValue:data forCharacteristic:SendCharacteristic type:CBCharacteristicWriteWithResponse];
         // CBCharacteristicWriteWithResponse ／／CBCharacteristicWriteWithoutResponse
     }
-    }
+//    }
 }
 
 
@@ -428,7 +428,6 @@ static BlueToothController* instance;
 //        DLog(@"收到相同");
     }else{
         if (self.delegate) {
-//            [OBDLibTool sharedInstance].backData  = resultdata;
             if ([self.delegate respondsToSelector:@selector(BlueToothEventWithReadData:Data:)]) {
                 [self.delegate BlueToothEventWithReadData:peripheral Data:resultdata];
             }

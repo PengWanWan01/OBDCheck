@@ -107,7 +107,7 @@
             break;
         case 2:
         {
-             [self initNavBarTitle:@"PID" andLeftItemImageName:@"back" andRightItemImageName:@" "];
+             [self initNavBarTitle:@"PID" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
             [self replaceController:self.currentVC newController:self.ThreeVc];
             
         }

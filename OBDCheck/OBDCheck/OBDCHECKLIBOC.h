@@ -12,40 +12,14 @@
 #define StringMaxSize  (1024)
 
 @interface OBDCHECKLIBOC : NSObject
-
-/**
- 加载bin文件
-
- @param FileData bin文件内容
- @return 是否加载完毕
- */
 -(BOOL)LoadPublicLIB2OCBufP:(NSData * )FileData;
-
-
-/**
- 输入内容进入库解析
-
- @param InPutCmdP 输入内容
- @param OutPutDataP 输出内容
- @return 1
- */
-- (int ) PrsCmdLoadDataOCInput:(NSData  *)InPutCmdP  withOutPut:(NSData *)OutPutDataP;
-
-
-/**
- 国际话语言
-
- @param StringId erw
- @param String er
- @return rew
- */
-- (unsigned int ) ReadFlashStringOCStringID:(unsigned int)StringId WithString:(NSData *)String;
-
-
-/**
- 最后一步  一定要释放
- */
+- (int ) PrsCmdLoadPublicBufOCInput:(Byte  *)InPutCmdP  withOutPut:(Byte *)OutPutDataP;
+- (unsigned int ) ReadFlashStringOCStringID:(unsigned int)StringId WithString:(Byte *)String;
 -(void) freeBufOC;
+-(void) MainOC;
+-(void) SendMessgaeOC;
+-(void) GetMessgaeOCWaitTime: (unsigned int) mS;
+
 
 
 @end

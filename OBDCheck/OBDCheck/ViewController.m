@@ -431,10 +431,10 @@
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
     DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
-    [OBDLibTool sharedInstance].backData  = data;
-//    [OBDLibTool sharedInstance].currentData = data;
+    [OBDLibTools sharedInstance].backData  = data;
+//    [OBDLibTools sharedInstance].currentData = data;
 //
-//    [[OBDLibTool sharedInstance] resolvingData:data withrequestData:[BlueTool hexToBytes:@"02000281"]];
+//    [[OBDLibTools sharedInstance] resolvingData:data withrequestData:[BlueTool hexToBytes:@"02000281"]];
 //    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
 //    NSString *string = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
 //    string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -498,10 +498,10 @@
             DLog(@"连接成功状态");
             [self IsConnectState];
             sendNumber = 0;
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                请求进入
-                [[OBDLibTool sharedInstance] InitTool];
-            });
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+////                请求进入
+//                [[OBDLibTools sharedInstance] InitTool];
+//            });
         }
             break;
         default:

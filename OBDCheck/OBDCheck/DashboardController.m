@@ -39,11 +39,18 @@ static dispatch_source_t _timer;
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self initNavBarTitle:@"Dashboards" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
+    self.blueTooth = [BlueToothController Instance];
+    self.blueTooth.delegate = self;
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     self.navigationController.navigationBar.hidden = NO;
     [UIApplication sharedApplication].statusBarHidden = NO;
     [self updateView];
-    [self startAnimation];
+    if ([OBDLibTools sharedInstance].EnterSuccess == YES) {
+        //请求PID
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[OBDLibTools sharedInstance] OBDIIDataStream];
+        });
+    }
 }
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -284,7 +291,8 @@ static dispatch_source_t _timer;
 }
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
-    //    DLog(@"收到数据%@",data);
+    DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+    [OBDLibTools sharedInstance].backData  = data;
     //    NSString *number1 = _CustomNumberArray[0];
     //    NSString *number2 = _CustomNumberArray[1];
     //    NSString *number3 = _CustomNumberArray[2];
@@ -339,15 +347,7 @@ static dispatch_source_t _timer;
     
 }
 
-//发送指令
-- (void)startAnimation{
-    
-    self.blueTooth = [BlueToothController Instance];
-    self.blueTooth.delegate = self;
-    self.blueTooth.stopSend = NO;
-    //发送车速
-    [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
-}
+
 
 
 - (void)initWithData{

@@ -48,10 +48,10 @@ static dispatch_source_t _timer;
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
     self.blueTooth.stopSend = NO;
-    if ([OBDLibTool sharedInstance].EnterSuccess == YES) {
+    if ([OBDLibTools sharedInstance].EnterSuccess == YES) {
         //请求故障码
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [[OBDLibTool sharedInstance] OBDIIReadDTC];
+            [[OBDLibTools sharedInstance] OBDIIReadDTC];
         });
     }
     [self initWithdata];
@@ -61,8 +61,8 @@ static dispatch_source_t _timer;
 }
 - (void)refreshUI{
     NSInteger importantCount=0,totalCount = 0;
-    for (NSInteger i = 0; i<[OBDLibTool sharedInstance].troubleCodeArray.count; i++) {
-        NSDictionary *dict = [OBDLibTool sharedInstance].troubleCodeArray[i];
+    for (NSInteger i = 0; i<[OBDLibTools sharedInstance].troubleCodeArray.count; i++) {
+        NSDictionary *dict = [OBDLibTools sharedInstance].troubleCodeArray[i];
         if ( [[dict allKeys].lastObject isEqualToString:@"important"]) {
             ++importantCount;
         }else if ( [ [dict allKeys].lastObject isEqualToString:@"total"]){
@@ -221,7 +221,7 @@ static dispatch_source_t _timer;
 - (void)save{
     if (isSave == YES) {
         troubleCodeModel *model = [troubleCodeModel new];
-        model.toubleCode =[OBDLibTool sharedInstance].troubleCodeArray;
+        model.toubleCode =[OBDLibTools sharedInstance].troubleCodeArray;
         model.currentTime = self.currentTime;
       [[OBDataModel sharedDataBase]insertTableName:@"troubleCodes" withdata:[model yy_modelToJSONString]];
         isSave = NO;
@@ -240,10 +240,8 @@ static dispatch_source_t _timer;
 -(void)BlueToothEventWithReadData:(CBPeripheral *)peripheral Data:(NSData *)data
 {
     DLog(@"转为：%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
-  [OBDLibTool sharedInstance].backData  = data;
-//    [OBDLibTool sharedInstance].currentData = data;
-//
-//    [[OBDLibTool sharedInstance] resolvingData:data withrequestData:[BlueTool hexToBytes:@"02000201"]];
+  [OBDLibTools sharedInstance].backData  = data;
+
 
 }
 
@@ -253,7 +251,7 @@ static dispatch_source_t _timer;
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [OBDLibTool sharedInstance].troubleCodeArray.count;
+    return [OBDLibTools sharedInstance].troubleCodeArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44.f;
@@ -261,8 +259,8 @@ static dispatch_source_t _timer;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
      DiagnosticsTableViewCell *Cell = [tableView dequeueReusableCellWithIdentifier:@"DiagnosticsTableViewCell"];
     Cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    NSDictionary *dict = [OBDLibTool sharedInstance].troubleCodeArray[indexPath.row];
-    NSDictionary *detailDict = [OBDLibTool sharedInstance].explainCodeArray[indexPath.row];
+    NSDictionary *dict = [OBDLibTools sharedInstance].troubleCodeArray[indexPath.row];
+    NSDictionary *detailDict = [OBDLibTools sharedInstance].explainCodeArray[indexPath.row];
 
     DLog(@"数组%@",[dict allKeys].lastObject);
     if ( [[dict allKeys].lastObject isEqualToString:@"important"]) {

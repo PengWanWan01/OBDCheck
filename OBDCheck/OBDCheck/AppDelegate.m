@@ -52,16 +52,9 @@
     [self.window makeKeyAndVisible];
     [UITabBar appearance].backgroundColor = [ColorTools colorWithHexString:@"3B3F49"];
     [UITabBar appearance].tintColor = [ColorTools colorWithHexString:@"#FE9002"];
-    //  加载C语言库
-//    NSData *reader;
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"ExtFlashDat" ofType:@"bin"];
-//    //获取数据
-//    reader = [NSData dataWithContentsOfFile:path];//调用OBDCHECKLIBOC的LoadPublicLIB2OCBufP加载文件之前，必须要先打开文件
-//    if([[OBDLibTool sharedInstance] LoadPublicLIB2OCBufP:reader])  //step1:加载库成功
-//    {
-//        [OBDLibTool sharedInstance].LoadSuccess = YES;
-//        //在程序杀死时候释放
-//    }
+    
+    //      加载C语言库
+    [self loadCFile];
     //在后台也可以播放声音
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setActive:YES error:nil];
@@ -70,7 +63,43 @@
     
     return YES;
 }
+- (void)loadCFile{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"ExtFlashDat" ofType:@"bin"];
+    //获取数据
+    NSData  *reader = [NSData dataWithContentsOfFile:path];//调用OBDCHECKLIBOC的LoadPublicLIB2OCBufP加载文件之前，必须要先打开文件
+//    Byte *byt = (Byte *)[reader bytes];
+    //偶尔会蹦
+    if([[OBDLibTools sharedInstance] LoadPublicLIB2OCBufP:reader])  //step1:加载库成功
+    {
+        [OBDLibTools sharedInstance].LoadSuccess = YES;
+        DLog(@"加载成功");
+        [[OBDLibTools sharedInstance]PrsCmdLoadPublicBufOCInput:inputData withOutPut:outputData];
+        //添加一个一直运转的子线程
+        NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(newThread) object:nil];
+        [thread start];
+        //添加收到的通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNewNumber:) name:@"send" object:nil];
+    }
+    //在程序杀死时候释放
+}
+- (void)newThread
+{
+    @autoreleasepool
+    {
+        [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(addTime) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] run];
+    }
+}
+//收到
+- (void)getNewNumber:(NSNotification *)text{
+    DLog(@"收到%@",text);
+    NSString *presentStr = [NSString stringWithFormat:@"%@", [text.userInfo objectForKey:@"Tag"]];
+    [OBDLibTools sharedInstance].MessageVal = [presentStr intValue];
+}
 
+- (void)addTime{
+    [[OBDLibTools sharedInstance]MainOC];
+}
 - (void)initWithdatabase{
     [[UserDefaultSet sharedInstance]SetDefultAttribute]; //设置默认属性,分数据库部分    
     [[DashboardSetting sharedInstance]initWithdashboardA];
@@ -117,7 +146,7 @@
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-     [[OBDLibTool sharedInstance] freeBufOC];//在使用完OBDCHECKLIBOC之后，一定要调用freeBufOC来释放在使用的过程中分配的内存
+     [[OBDLibTools sharedInstance] freeBufOC];//在使用完OBDCHECKLIBOC之后，一定要调用freeBufOC来释放在使用的过程中分配的内存
 }
 
 
