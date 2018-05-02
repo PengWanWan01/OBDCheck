@@ -13,7 +13,10 @@
 @end
 
 @implementation BasicViewController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
@@ -27,7 +30,10 @@
     [self.view addSubview:self.tableView];
     
 }
-
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-TopHigh);
+}
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;

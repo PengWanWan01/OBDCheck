@@ -42,6 +42,7 @@
 //    [UIApplication sharedApplication].idleTimerDisabled =YES; //让屏幕常亮
 
     // Override point for customization after application launch.
+    //testViewController
     ViewController *ROOTVC = [[ViewController alloc]init];
     UINavigationController *NAC = [[UINavigationController alloc]initWithRootViewController:ROOTVC];
     NAC.navigationBar.shadowImage=[ColorTools imageWithColor:[UIColor whiteColor] size:CGSizeMake(MSWidth, 1)];
@@ -54,7 +55,7 @@
     [UITabBar appearance].tintColor = [ColorTools colorWithHexString:@"#FE9002"];
     
     //      加载C语言库
-    [self loadCFile];
+//    [self loadCFile];
     //在后台也可以播放声音
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setActive:YES error:nil];
@@ -105,6 +106,7 @@
     [[DashboardSetting sharedInstance]initWithdashboardA];
     [[DashboardSetting sharedInstance]initWithdashboardB];
     [[DashboardSetting sharedInstance]initWithdashboardC];
+    [[DashboardSetting sharedInstance]initWithHudColor];
 //    [[LogsSetting sharedInstance]initWithTrips];
     [[DashboardSetting sharedInstance]initwithCustomDashboard];
     

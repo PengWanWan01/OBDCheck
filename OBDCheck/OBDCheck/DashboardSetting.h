@@ -60,6 +60,7 @@ typedef NS_ENUM(NSInteger ,ProtocolType)
 - (void)initWithdashboardB;
 - (void)initWithdashboardC;
 - (void)initwithCustomDashboard;
+- (void)initWithHudColor;
 
 - (void)initADDdashboardA:(CustomDashboard *)model withTag:(NSInteger )i;
 - (void)initADDdashboardB:(CustomDashboard *)model withTag:(NSInteger )i;

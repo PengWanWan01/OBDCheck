@@ -35,14 +35,14 @@
     headimageView.image = [UIImage imageNamed:@"ReadinessbackView"];
     headimageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:headimageView];
-    self.tableView.frame = CGRectMake(0, 38, MSWidth, MSHeight-49);
+    self.tableView.frame = CGRectMake(0, 38, MSWidth, MSHeight-TopHigh-49);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
 }
 #pragma mark 设置横竖屏布局
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-64-49);
+    self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-49);
     headimageView.frame = CGRectMake(0, 18, MSWidth, 20);
 }
 #pragma mark 竖屏

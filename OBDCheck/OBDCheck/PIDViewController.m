@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight) style:UITableViewStylePlain];
+    tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-49) style:UITableViewStylePlain];
     tableView.delegate = self;
     [self.view addSubview:tableView];
     tableView.backgroundColor = [UIColor clearColor];
@@ -28,6 +28,11 @@
     tableView.separatorInset = UIEdgeInsetsZero;
     tableView.separatorColor = [ColorTools colorWithHexString:@"#212329"];
    [tableView registerNib:[UINib nibWithNibName:@"PIDViewCell" bundle:nil] forCellReuseIdentifier:@"PIDViewCell"];
+}
+#pragma mark 设置横竖屏布局
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+   tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-49);
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -44,6 +49,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     PIDViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PIDViewCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor = [[ColorTools colorWithHexString:@"#848487"]   colorWithAlphaComponent:0.37f];
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
         cell.layoutMargins = UIEdgeInsetsZero;
     }

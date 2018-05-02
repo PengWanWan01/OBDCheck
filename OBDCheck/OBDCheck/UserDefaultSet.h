@@ -61,6 +61,11 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
     HUDModeTypeToHUD,   // 变成HUD类型
     HUDModeTypeToNormal    //变成正常类型
 };
+typedef NS_ENUM(NSInteger ,HUDColorChange)
+{
+    HUDColorChangeOFF,   // HUD颜色为默认色
+    HUDColorChangeON    //HUD颜色可以改变
+};
 @interface UserDefaultSet : NSObject
 //单例模式，实例化对象
 +(instancetype )sharedInstance;
@@ -77,7 +82,7 @@ typedef NS_ENUM(NSInteger ,HUDModeType)
 @property (nonatomic,assign)  NSInteger KPageNumer; //自定义模块下仪表盘的页数
 @property (nonatomic,copy)  NSString *ScreenshotData; //保存截屏的数据
 @property (nonatomic) HUDModeType hudModeType;
-@property (nonatomic,copy ) NSString  *HUDColourStr;   //HUD颜色
+@property (nonatomic ) HUDColorChange HUDColorchange;   //HUD颜色
 @property (nonatomic,strong ) LogsSetting  *LogsModel;   //Logs模块的设置
 @property (nonatomic,assign ) NSInteger dashID;   //仪表盘ID 
 

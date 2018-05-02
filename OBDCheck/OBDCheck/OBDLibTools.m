@@ -119,17 +119,11 @@
             case 1:
                 {
                     //得到蓝牙发送指令（第3个字节，到预计的长度）进行发送；取得得到的蓝牙返回数据
-                    [self ComSendRead:20000 SendBuf:[outdata subdataWithRange:NSMakeRange(5, a)] ReadBufP:self.backData ];
-                    //得到拼接内容
-                    NSMutableData *F1data =[[NSMutableData alloc]initWithData:[BlueTool hexToBytes:@"02000281"]];;
-                    [F1data appendData:self.backData];
-                    self.backData = nil;
-                 
-                    Byte *test = (Byte *)[F1data bytes];
-                    for (NSInteger i = 0; i < F1data.length; i++) {
-                        inputData[i] = test[i];
-                    }
-                    
+                    [self ComSendRead:20000 SendBuf:[outdata subdataWithRange:NSMakeRange(5, a)] ReadBufP:4 ];
+                      inputData[0] = 0x02;//OBD
+                      inputData[1] = 0x00;
+                      inputData[2] = 0x02;//请求数据
+                      inputData[3] = 0x81;//进入
                     NSData *indata = [NSData dataWithBytes:inputData length:CmdDataSetSize];
                     DLog(@"拼接之后的inputData%@",indata);
                     [self SendMessageAndWaitLibThread:0];
@@ -149,16 +143,13 @@
             case    4://下位机否定应答，已经与汽车断开连接
                 return ;
             case    5://下位机否定应答，处于忙状态，请重新接收数据（等待5S）
-            {  [self ComRead:6000];
-                //得到拼接内容
-                NSMutableData *F1data =[[NSMutableData alloc]initWithData:[BlueTool hexToBytes:@"02000281"]];;
-                [F1data appendData:self.backData];
-                DLog(@"**%@",F1data);
-                self.backData = nil;
-                Byte *test = (Byte *)[F1data bytes];
-                for (NSInteger i = 0; i < F1data.length; i++) {
-                    inputData[i] = test[i];
-                }
+            {
+                [self ComRead:6000 ReadBufP:4];
+                //得到头
+                inputData[0] = 0x02;//OBD
+                inputData[1] = 0x00;
+                inputData[2] = 0x02;//请求数据
+                inputData[3] = 0x81;//进入
                 [self SendMessageAndWaitLibThread:0];
             }
                 break;
@@ -170,7 +161,7 @@
     }
 
 }
-
+//
 - (void)OBDIIReadDTC:(NSString *)str{
 //    self.troubleCodeArray = nil;
 //    self.explainCodeArray = nil;
@@ -182,35 +173,24 @@
     int  Flag = 1;
     while (Flag) {
         NSData *outdata = [NSData dataWithBytes:outputData length:CmdDataSetSize];
-        DLog(@"拼接之后output***%@",outdata);
-        //判断第2个字节为01/02/03/04/05/06
-        NSData *anwerData = [outdata subdataWithRange:NSMakeRange(2, 1)];
-        DLog(@"libk库里面的相应%@",anwerData);
-        Byte *anwerByte = (Byte *)[anwerData bytes];
-        int aqq = [self lBytesToInt:anwerByte];
-        //
         NSData *LengthData = [outdata subdataWithRange:NSMakeRange(4, 1)];
         Byte *testByte = (Byte *)[LengthData bytes];
         int a = [self lBytesToInt:testByte];
         
-        switch (aqq) {
-            case 1:
+        switch (outputData[2]) {
+            case 0x01:
             {
                 //得到蓝牙发送指令（第3个字节，到预计的长度）进行发送；取得得到的蓝牙返回数据
-                [self ComSendRead:20000 SendBuf:[outdata subdataWithRange:NSMakeRange(5, a)] ReadBufP:self.backData];
+                [self ComSendRead:20000 SendBuf:[outdata subdataWithRange:NSMakeRange(5, a)] ReadBufP:4];
                 //得到拼接内容
-                NSMutableData *F1data =[[NSMutableData alloc]initWithData:[BlueTool hexToBytes:@"02000201"]];;
-                [F1data appendData:self.backData];
-                self.backData = nil;
-                DLog(@"**%@",F1data);
-                Byte *testByte = (Byte *)[F1data bytes];
-                for (NSInteger i = 0; i < F1data.length; i++) {
-                    inputData[i] = testByte[i];
-                }
+               inputData[0] = 0x02;//OBD
+                inputData[2] = 0x00;
+               inputData[2] = 0x02;//请求数据
+                inputData[3] = 0x01;//读取故障码
                 [self SendMessageAndWaitLibThread:0];
             }
                 break;
-            case    2://请求显示数据
+            case    0x02://请求显示数据
             {
              Flag = 0;
                 //01读取存储故障码  02读取未决故障码 03 读取历史故障码
@@ -244,27 +224,24 @@
                 }
             }
                 return ;
-            case    3://下位机肯定应答
+            case    0x03://下位机肯定应答
                  Flag = 0;
                 break ;
-            case    4://下位机否定应答，已经与汽车断开连接
+            case   0x04://下位机否定应答，已经与汽车断开连接
                 return ;
-            case    5://下位机否定应答，处于忙状态，请重新接收数据（等待5S）
-            {  [self ComRead:6000];
-                //得到拼接内容
-                NSMutableData *F1data =[[NSMutableData alloc]initWithData:[BlueTool hexToBytes:@"02000201"]];;
-                [F1data appendData:self.backData];
-                self.backData = nil;
-                Byte *testByte = (Byte *)[F1data bytes];
-                for (NSInteger i = 0; i < F1data.length; i++) {
-                    inputData[i] = testByte[i];
-                }
+            case    0x05://下位机否定应答，处于忙状态，请重新接收数据（等待5S）
+            {  [self ComRead:6000 ReadBufP:4];
+                //得到拼接内容头
+                inputData[0] = 0x02;//OBD
+                inputData[1] = 0x00;
+               inputData[2] = 0x02;//请求数据
+                inputData[4] = 0x01;//读取故障码
                 [self SendMessageAndWaitLibThread:0];
             }
                 break;
-            case    6://下位机否定应答，不识别的指令或数据
+            case    0x06://下位机否定应答，不识别的指令或数据
                 return ;
-            case    7://NOdata
+            case    0x07://NOdata
                 Flag = 0;
                 break ;
             default:
@@ -296,16 +273,14 @@
             case 1:
                 {
                     //得到蓝牙发送指令（第3个字节，到预计的长度）进行发送；取得得到的蓝牙返回数据
-                    [self ComSendRead:20000 SendBuf:[outdata subdataWithRange:NSMakeRange(5, a)] ReadBufP:self.backData];
+                    [self ComSendRead:20000 SendBuf:[outdata subdataWithRange:NSMakeRange(5, a)] ReadBufP:6];
                     //得到拼接内容
-                    NSMutableData *F1data =[[NSMutableData alloc]initWithData:[BlueTool hexToBytes:@"020002030000"]];;
-                    [F1data appendData:self.backData];
-                    self.backData =nil;
-                    DLog(@"**%@",F1data);
-                    Byte *testByte = (Byte *)[F1data bytes];
-                    for (NSInteger i = 0; i < F1data.length; i++) {
-                        inputData[i] = testByte[i];
-                    }
+                    inputData[0] = 0x02;//OBD
+                     inputData[1] = 0x00;
+                    inputData[2]= 0x02;//请求数据
+                    inputData[3] = 0x03;//读取数据流
+                     inputData[4] = 0x00;//获取PID序号的指令：0000的高字节
+                     inputData[5] = 0x00;//获取PID序号的指令：0000的低字节
                     [self SendMessageAndWaitLibThread:0];
                 }
                 break;
@@ -314,7 +289,7 @@
                 DLog(@"%@",outdata);
               self.PIDNum =   (outputData[6] << 8) + outputData[7];
                 
-                  DLog(@"个数%d",self.PIDNum);
+                DLog(@"个数%ld",(long)self.PIDNum);
                 if (self.PIDNum == 0) {
                     return;
                 }
@@ -336,15 +311,14 @@
                 return ;
             case 5: //下位机否定应答，处于忙状态，请重新接收数据（等待5S）
             {
-                [self ComRead:6000];
+                [self ComRead:6000 ReadBufP:6];
                 //得到拼接内容
-                NSMutableData *F1data =[[NSMutableData alloc]initWithData:[BlueTool hexToBytes:@"020002030000"]];;
-                [F1data appendData:self.backData];
-                DLog(@"**%@",F1data);
-                Byte *testByte = (Byte *)[F1data bytes];
-                for (NSInteger i = 0; i < F1data.length; i++) {
-                    inputData[i] = testByte[i];
-                }
+                inputData[0] = 0x02;//OBD
+               inputData[1] = 0x00;
+                inputData[2] = 0x02;//请求数据
+                inputData[3] = 0x03;//读取数据流
+               inputData[4] = 0x00;//获取PID序号的指令：0000的高字节
+               inputData[5] = 0x00;//获取PID序号的指令：0000的低字节
                 [self SendMessageAndWaitLibThread:0];
             }
                 break;
@@ -397,7 +371,7 @@
             {
                 case    0x01://请求发送数据
                     //得到蓝牙发送指令（第3个字节，到预计的长度）进行发送；取得得到的蓝牙返回数据
-                    [self ComSendRead:20000 SendBuf:[outdata subdataWithRange:NSMakeRange(5, a)] ReadBufP:self.backData];
+                    [self ComSendRead:20000 SendBuf:[outdata subdataWithRange:NSMakeRange(5, a)] ReadBufP:6];
                     //拼接头内容
                     inputData[0] = 0x02;//OBD
                     inputData[1] = 0x00;
@@ -405,13 +379,6 @@
                     inputData[3] = 0x03;//读取数据流
                     inputData[4] = (StreamDataPID[i] >> 8) & 0xff;//获取PID序号的指令：xxxx的高字节
                     inputData[5] = StreamDataPID[i] & 0xff;//获取PID序号的指令：xxxx的低字节
-                    self.backData =nil;
-                    //拼接蓝牙返回数据内容
-                    Byte *testByte = (Byte *)[self.backData bytes];
-                    for (NSInteger i = 0; i < self.backData.length; i++) {
-                        inputData[i+6] = testByte[i];
-                    }
-                    self.backData = nil;
                     [self SendMessageAndWaitLibThread:0];
                     
                     break;
@@ -426,19 +393,14 @@
                 case    0x04://下位机否定应答，已经与汽车断开连接
                     return ;
                 case    0x05://下位机否定应答，处于忙状态，请重新接收数据（等待5S）
-                    [self ComRead:6000];
+                    [self ComRead:6000 ReadBufP:6];
                     inputData[0] = 0x02;//OBD
                     inputData[1] = 0x00;
                     inputData[2] = 0x02;//请求数据
                     inputData[3] = 0x03;//读取数据流
                     inputData[4] = (StreamDataPID[i] >> 8) & 0xff;//获取PID序号的指令：xxxx的高字节
                     inputData[5] = StreamDataPID[i] & 0xff;//获取PID序号的指令：xxxx的低字节
-                    Byte *test = (Byte *)[self.backData bytes];
-                    for (NSInteger i = 0; i < self.backData.length; i++) {
-                        inputData[i+6] = test[i];
-                    }
                     [self SendMessageAndWaitLibThread:0];
-                    self.backData = nil;
                     break;
                 case    0x06://下位机否定应答，不识别的指令或数据
                     return ;
@@ -451,22 +413,27 @@
     }
     }
 }
-- (void)ComSendRead:(int )iMaxWaitTime SendBuf:(NSData *)Senddata ReadBufP:(NSData *)Readdata{
+- (void)ComSendRead:(int )iMaxWaitTime SendBuf:(NSData *)Senddata ReadBufP:(NSInteger )Location{
     [self.blueTooth SendData:Senddata];
-    [self ComRead:iMaxWaitTime];
+    [self ComRead:iMaxWaitTime ReadBufP:Location];
 }
-- (void)ComRead:(int )iMaxWaitTime{
-    //得到蓝牙返回数据内容处理；
+
+#pragma mark 拼接蓝牙返回内容
+- (void)ComRead:(int )iMaxWaitTime ReadBufP:(NSInteger)Location{
 //    得到蓝牙返回数据
     while (1) {
 //        DLog(@"蓝牙返回数据%@",self.backData);
         if (!(self.backData == nil)) {
             if (self.backData.length>=3) {
-                int i = self.backData.length - 3;
-//                NSRange range = NSMakeRange(i, 3);
+                int i = (int)self.backData.length - 3;
                 NSData *test = [self.backData subdataWithRange:NSMakeRange(i, 3)];
                 if ([test isEqualToData:[BlueTool hexToBytes:@"0d0d3e"]]) {
                      DLog(@"不为空%@",self.backData );
+                    Byte *pinbyte = (Byte *)[self.backData bytes];
+                    for (NSInteger  i = 0; i<self.backData.length; i++) {
+                        inputData[Location +i] = pinbyte[i];
+                    }
+                    self.backData = nil;
                       return;
                 }
             }
@@ -483,6 +450,7 @@
     for (NSInteger i = 0; i < F1data.length; i++) {
         inputData[i] = testByte[i];
     }
+    
     [self SendMessageAndWaitLibThread:0];
     //添加故障码的解释保持到数组
     NSData *outdata = [NSData dataWithBytes:outputData length:CmdDataSetSize];

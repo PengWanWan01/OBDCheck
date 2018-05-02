@@ -65,6 +65,8 @@
 		CB4994F3205B61B10085A49D /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4994F2205B61B10085A49D /* LogsViewController.m */; };
 		CB49FB671FB04CFB00A6FEBB /* AlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB49FB661FB04CFB00A6FEBB /* AlarmViewController.m */; };
 		CB49FB6C1FB0521000A6FEBB /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB49FB6B1FB0521000A6FEBB /* FeedbackViewController.m */; };
+		CB4A9E4C20994DB600E6AF06 /* HUDSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4A9E4B20994DB600E6AF06 /* HUDSetViewController.m */; };
+		CB4A9E502099590300E6AF06 /* HUDSet.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4A9E4F2099590300E6AF06 /* HUDSet.m */; };
 		CB4C89892091A8A100E55631 /* groupView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4C89882091A8A100E55631 /* groupView.m */; };
 		CB4D891820453B3900B868A7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4D891720453B3900B868A7 /* QuartzCore.framework */; };
 		CB4D891A20453B4200B868A7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4D891920453B4200B868A7 /* UIKit.framework */; };
@@ -73,6 +75,11 @@
 		CB4D8D022045459900B868A7 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB4D8CFB2045450D00B868A7 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CB510BED205A714500F3AD6D /* DiagnoseController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB510BEC205A714500F3AD6D /* DiagnoseController.m */; };
 		CB52FEBD20940CDD00AE8484 /* OBDCHECKLIB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB52FEBC20940CDD00AE8484 /* OBDCHECKLIB.a */; };
+		CB52FECD2094443500AE8484 /* troubleCodeDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB52FECB2094443500AE8484 /* troubleCodeDetailController.m */; };
+		CB52FECE2094443500AE8484 /* troubleCodeDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB52FECC2094443500AE8484 /* troubleCodeDetailController.xib */; };
+		CB52FED1209449E800AE8484 /* ReportDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB52FED0209449E800AE8484 /* ReportDetailController.m */; };
+		CB52FED320944C4D00AE8484 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB52FED220944C4D00AE8484 /* Photos.framework */; };
+		CB52FED520944C5800AE8484 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB52FED420944C5800AE8484 /* CoreData.framework */; };
 		CB5583601F51468C0010A1E5 /* StyleViewBController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB55835F1F51468C0010A1E5 /* StyleViewBController.m */; };
 		CB5583631F5146B70010A1E5 /* StyleCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5583621F5146B70010A1E5 /* StyleCViewController.m */; };
 		CB561172208D7D8B000BF8A8 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB561171208D7D8B000BF8A8 /* HelpViewController.m */; };
@@ -334,6 +341,10 @@
 		CB49FB661FB04CFB00A6FEBB /* AlarmViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmViewController.m; sourceTree = "<group>"; };
 		CB49FB6A1FB0521000A6FEBB /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		CB49FB6B1FB0521000A6FEBB /* FeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		CB4A9E4A20994DB600E6AF06 /* HUDSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HUDSetViewController.h; sourceTree = "<group>"; };
+		CB4A9E4B20994DB600E6AF06 /* HUDSetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HUDSetViewController.m; sourceTree = "<group>"; };
+		CB4A9E4E2099590300E6AF06 /* HUDSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HUDSet.h; sourceTree = "<group>"; };
+		CB4A9E4F2099590300E6AF06 /* HUDSet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HUDSet.m; sourceTree = "<group>"; };
 		CB4C89872091A8A100E55631 /* groupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = groupView.h; sourceTree = "<group>"; };
 		CB4C89882091A8A100E55631 /* groupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = groupView.m; sourceTree = "<group>"; };
 		CB4D891720453B3900B868A7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -344,6 +355,13 @@
 		CB510BEC205A714500F3AD6D /* DiagnoseController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiagnoseController.m; sourceTree = "<group>"; };
 		CB52FEBC20940CDD00AE8484 /* OBDCHECKLIB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = OBDCHECKLIB.a; sourceTree = "<group>"; };
 		CB52FEBE20940CE100AE8484 /* OBDCHECKLIBOC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OBDCHECKLIBOC.h; sourceTree = "<group>"; };
+		CB52FECA2094443500AE8484 /* troubleCodeDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = troubleCodeDetailController.h; sourceTree = "<group>"; };
+		CB52FECB2094443500AE8484 /* troubleCodeDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = troubleCodeDetailController.m; sourceTree = "<group>"; };
+		CB52FECC2094443500AE8484 /* troubleCodeDetailController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = troubleCodeDetailController.xib; sourceTree = "<group>"; };
+		CB52FECF209449E800AE8484 /* ReportDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportDetailController.h; sourceTree = "<group>"; };
+		CB52FED0209449E800AE8484 /* ReportDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReportDetailController.m; sourceTree = "<group>"; };
+		CB52FED220944C4D00AE8484 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		CB52FED420944C5800AE8484 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		CB55835E1F51468C0010A1E5 /* StyleViewBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewBController.h; sourceTree = "<group>"; };
 		CB55835F1F51468C0010A1E5 /* StyleViewBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleViewBController.m; sourceTree = "<group>"; };
 		CB5583611F5146B70010A1E5 /* StyleCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleCViewController.h; sourceTree = "<group>"; };
@@ -545,6 +563,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB52FED520944C5800AE8484 /* CoreData.framework in Frameworks */,
+				CB52FED320944C4D00AE8484 /* Photos.framework in Frameworks */,
 				CB4D8D002045458C00B868A7 /* Charts.framework in Frameworks */,
 				CB4D891A20453B4200B868A7 /* UIKit.framework in Frameworks */,
 				CB4D891820453B3900B868A7 /* QuartzCore.framework in Frameworks */,
@@ -571,6 +591,8 @@
 		60BA65FE094F6FF97074E431 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB52FED420944C5800AE8484 /* CoreData.framework */,
+				CB52FED220944C4D00AE8484 /* Photos.framework */,
 				CB4D891920453B4200B868A7 /* UIKit.framework */,
 				CB4D891720453B3900B868A7 /* QuartzCore.framework */,
 				CB5642921F984151002EFB7E /* libc++.tbd */,
@@ -642,6 +664,8 @@
 		CB21339B1F5A8F9A009B970D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CB4A9E4E2099590300E6AF06 /* HUDSet.h */,
+				CB4A9E4F2099590300E6AF06 /* HUDSet.m */,
 				CB1591DC2006383400F51FD3 /* CustomDashboard.h */,
 				CB1591DB2006383300F51FD3 /* CustomDashboard.m */,
 			);
@@ -996,6 +1020,11 @@
 				CB84B3D21F56A7FF00B454E6 /* ReportViewController.m */,
 				CB835D341F596994007C5A17 /* HistoryViewController.h */,
 				CB835D351F596994007C5A17 /* HistoryViewController.m */,
+				CB52FECA2094443500AE8484 /* troubleCodeDetailController.h */,
+				CB52FECB2094443500AE8484 /* troubleCodeDetailController.m */,
+				CB52FECC2094443500AE8484 /* troubleCodeDetailController.xib */,
+				CB52FECF209449E800AE8484 /* ReportDetailController.h */,
+				CB52FED0209449E800AE8484 /* ReportDetailController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1065,6 +1094,8 @@
 				CB822DF32089B71300885A2F /* screenShotController.m */,
 				CB82247A1F46EEC400E1E4BA /* HUDViewController.h */,
 				CB82247B1F46EEC400E1E4BA /* HUDViewController.m */,
+				CB4A9E4A20994DB600E6AF06 /* HUDSetViewController.h */,
+				CB4A9E4B20994DB600E6AF06 /* HUDSetViewController.m */,
 				CB84F2AA1F74E73A0008F681 /* HUDColorViewController.h */,
 				CB84F2AB1F74E73A0008F681 /* HUDColorViewController.m */,
 				CBEBF1CD1F3B247F006CCA8B /* EditDisplayViewController.h */,
@@ -1524,6 +1555,7 @@
 				CBCD979A1F7CED2F0002383F /* FileInfoView.xib in Resources */,
 				CBF1E2331F2ED49200EEC755 /* Assets.xcassets in Resources */,
 				CBF1E2521F30293100EEC755 /* PersonalViewController.xib in Resources */,
+				CB52FECE2094443500AE8484 /* troubleCodeDetailController.xib in Resources */,
 				CB835D2E1F594DB6007C5A17 /* ReadinessViewController.xib in Resources */,
 				CBF1E2571F302A0500EEC755 /* SpecialViewController.xib in Resources */,
 				CB99E1B41F66C45600A87DAF /* selectTableViewCell.xib in Resources */,
@@ -1649,6 +1681,7 @@
 				CB5A61A01F7A20EE000D23D6 /* FuleTypeViewController.m in Sources */,
 				CB44DB311F4A823F00A24629 /* StyleTwoTableViewCell.m in Sources */,
 				CB44DB361F4A825900A24629 /* StyleThreeTableViewCell.m in Sources */,
+				CB4A9E502099590300E6AF06 /* HUDSet.m in Sources */,
 				CBF1E25B1F305CF800EEC755 /* setDistanceUtil.m in Sources */,
 				CBEBF1D21F3B27E1006CCA8B /* SizeAndLocationViewController.m in Sources */,
 				CB07EA281F41A370002894F9 /* UIColor+Wonderful.m in Sources */,
@@ -1698,6 +1731,7 @@
 				CB99E1AA1F66A7C700A87DAF /* LogSetViewController.m in Sources */,
 				CB4C89892091A8A100E55631 /* groupView.m in Sources */,
 				CB47CE781FBC2A7500451244 /* FeedbackDocumentController.m in Sources */,
+				CB52FECD2094443500AE8484 /* troubleCodeDetailController.m in Sources */,
 				CB4994F3205B61B10085A49D /* LogsViewController.m in Sources */,
 				CBB1CC501F626809002EE7EB /* FilesViewController.m in Sources */,
 				CB3FAD291F6A6F1D00B572FD /* Mode06ViewController.m in Sources */,
@@ -1743,11 +1777,13 @@
 				CB84B3E01F56DF0800B454E6 /* rotationView.m in Sources */,
 				CB48F25F2090B3B6003177EB /* testViewController.m in Sources */,
 				CBB1CC4B1F6267F0002EE7EB /* TripsViewController.m in Sources */,
+				CB4A9E4C20994DB600E6AF06 /* HUDSetViewController.m in Sources */,
 				CBB0C07120934DE900801B53 /* OBDLibTools.m in Sources */,
 				CB476C781FAC684200C54837 /* troubleCodeModel.m in Sources */,
 				CB6628421FD15E9300858DCE /* TheBasicViewController.m in Sources */,
 				CB5A619A1F7A20BE000D23D6 /* ModerViewController.m in Sources */,
 				CB822DF82089C61900885A2F /* screenShotSetController.m in Sources */,
+				CB52FED1209449E800AE8484 /* ReportDetailController.m in Sources */,
 				CB835D321F595CD2007C5A17 /* DiagnosticsTableViewCell.m in Sources */,
 				CB07E6AB1F908BB600545A82 /* PerformanceController.m in Sources */,
 				CB47CE711FBBD99E00451244 /* PerformanceSetting.m in Sources */,

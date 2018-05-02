@@ -189,5 +189,9 @@
 #import "Message.h"
 #import "OBDCHECKLIBOC.h"
 #import "OBDLibTools.h"
+#import "troubleCodeDetailController.h"
+#import "ReportDetailController.h"
+#import "HUDSetViewController.h"
+#import "HUDSet.h"
 
 #endif /* OBDCheckPrefixHeader_pch */

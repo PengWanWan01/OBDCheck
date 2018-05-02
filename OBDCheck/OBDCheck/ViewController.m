@@ -498,10 +498,10 @@
             DLog(@"连接成功状态");
             [self IsConnectState];
             sendNumber = 0;
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-////                请求进入
-//                [[OBDLibTools sharedInstance] InitTool];
-//            });
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                请求进入
+                [[OBDLibTools sharedInstance] InitTool];
+            });
         }
             break;
         default:

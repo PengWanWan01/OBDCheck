@@ -365,5 +365,17 @@
     }
   
 }
+- (void)initWithHudColor{
+    for (NSInteger i = 0; i<6; i++) {
+        HUDSet *model = [HUDSet new];
+        model.ID = i+1;
+        model.PIDColor = @"82F3F0";
+        model.NumberColor = @"82F3F0";
+        model.UnitColor = @"82F3F0";
+        [[OBDataModel sharedDataBase]insertTableName:@"HUDs" withdata:[model yy_modelToJSONString]];
+
+    }
+
+}
 @end
 

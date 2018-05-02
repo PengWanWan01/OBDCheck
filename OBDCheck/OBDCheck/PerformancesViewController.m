@@ -477,8 +477,6 @@
 }
 - (void)startBtn{
 //     [self initWithData];
-    //发送车速
-    [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
     NSDate *currentDate = [NSDate date]; // 当前日期
     StartTime = currentDate;
 }

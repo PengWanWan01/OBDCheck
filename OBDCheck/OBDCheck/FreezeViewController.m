@@ -19,7 +19,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
-    self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-64-49);
+    self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-49);
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,7 +29,7 @@
 #pragma mark 设置横竖屏布局
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-64-49);
+    self.tableView.frame = CGRectMake(0, 0, MSWidth, MSHeight-TopHigh-49);
 }
 #pragma mark 竖屏
 - (void)setVerticalFrame{

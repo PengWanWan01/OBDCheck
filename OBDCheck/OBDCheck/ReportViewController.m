@@ -14,7 +14,7 @@
 @implementation ReportViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initNavBarTitle:@"Diagnostics3" andLeftItemImageName:@"back" andRightItemImageName:@"refresh"];
+    [self initNavBarTitle:@"报告" andLeftItemImageName:@"back" andRightItemImageName:@"refresh"];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
 
 }
@@ -38,7 +38,7 @@
 }
 - (void)initWithData{
 
-    self.dataSource = [[NSMutableArray alloc]initWithObjects:@"Diagnostic Report",@"Monitor",@"Trouble Codes",@"Freeze Frame",@"Oxygen Sensors(Modes $05)",@"Om-Board Monitoring(Modes $06)",@"Vehicle Informantion(Modes $09)", nil];
+//    self.dataSource = [[NSMutableArray alloc]initWithObjects:@"Diagnostic Report",@"Monitor",@"Trouble Codes",@"Freeze Frame",@"Oxygen Sensors(Modes $05)",@"Om-Board Monitoring(Modes $06)",@"Vehicle Informantion(Modes $09)", nil];
    
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
 
@@ -58,7 +58,7 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.dataSource.count;
+    return 15;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -71,17 +71,20 @@
     }
     cell.textLabel.font = [UIFont systemFontOfSize:16.f];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (indexPath.row == 0) {
-        cell.backgroundColor = [UIColor clearColor];
-    }else{
-        cell.backgroundColor = [ColorTools colorWithHexString:@"#3B3F49"];
-    }
+//    if (indexPath.row == 0) {
+//        cell.backgroundColor = [UIColor clearColor];
+//    }else{
+    cell.backgroundColor = [[ColorTools colorWithHexString:@"#848487"]   colorWithAlphaComponent:0.37f];
+ 
+//    }
     cell.textLabel.textColor = [ColorTools colorWithHexString:@"#C8C6C6"];
-    cell.textLabel.text = self.dataSource[indexPath.row];
+    cell.textLabel.text = @"2018-04-16 19：00：23";
+    cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    DLog(@"***************");
+    ReportDetailController *vc = [[ReportDetailController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark  刷新
 - (void)rightBarButtonClick{

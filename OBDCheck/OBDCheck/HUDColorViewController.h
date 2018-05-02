@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface HUDColorViewController : BasicViewController
-
+@property (nonatomic,assign) NSIndexPath *indexID;
 @end

@@ -39,11 +39,11 @@
     self.alarm = AlarmON;
     self.keepScreen = keepScreenON;
     self.keeptips = keepScreenON;
+    self.HUDColorchange = HUDColorChangeOFF;
     self.launchDashboard = LaunchDashboardON;
     self.KPageNumer = 3;
     self.ScreenshotData = [[NSString alloc]init];
     self.hudModeType = HUDModeTypeToNormal;
-    self.HUDColourStr = @"44FF00";
     self.LogsModel = [LogsSetting new];
     self.dashID = 1;
     
@@ -59,9 +59,9 @@
     [self SetIntegerAttribute:self.KPageNumer Key:@"KPageNumer"];
     [self SetIntegerAttribute:self.hudModeType Key:@"hudModeType"];
     [self SetIntegerAttribute:self.dashID Key:@"dashID"];
+    [self SetIntegerAttribute:self.HUDColorchange Key:@"HUDColorchange"];
 
     [self SetStringAttribute:self.ScreenshotData Key:@"ScreenshotData"];
-    [self SetStringAttribute:self.HUDColourStr Key:@"HUDColourStr"];
     [self SetStringAttribute:[self.LogsModel yy_modelToJSONString] Key:@"LogsModel"];
 
 }

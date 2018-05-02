@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PIDViewController : UIViewController
+@interface PIDViewController : TheBasicViewController
 
 @end

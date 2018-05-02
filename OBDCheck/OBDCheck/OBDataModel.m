@@ -88,7 +88,8 @@ static OBDataModel *_DBCtl = nil;
         BOOL flag2 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS troubleCodes (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
         BOOL flag3 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS Logs (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
         BOOL flag4 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS Trips (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
-        if (flag1 && flag2 && flag3 && flag4) {
+         BOOL flag5 = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS HUDs (id INTEGER PRIMARY KEY AUTOINCREMENT,data TEXT);"];
+        if (flag1 && flag2 && flag3 && flag4 && flag5) {
             NSLog(@"表创建成功");
         } else {
             NSLog(@"表创建失败");
@@ -161,9 +162,16 @@ static OBDataModel *_DBCtl = nil;
         NSString *SQL = [NSString stringWithFormat:@"SELECT * FROM %@ %@",tableName,str];
         FMResultSet *result = [db executeQuery:SQL];
         while ([result next]) {
-            CustomDashboard *person = [[CustomDashboard alloc] init];
-            person = [CustomDashboard yy_modelWithJSON:[result stringForColumn:@"data"]];
-            [dataArray addObject:person];
+            if ([tableName isEqualToString:@"Dashboards"]) {
+                CustomDashboard *person = [[CustomDashboard alloc] init];
+                person = [CustomDashboard yy_modelWithJSON:[result stringForColumn:@"data"]];
+                 [dataArray addObject:person];
+            }else if ([tableName isEqualToString: @"HUDs"]){
+                HUDSet *person = [[HUDSet alloc] init];
+                person = [HUDSet yy_modelWithJSON:[result stringForColumn:@"data"]];
+                 [dataArray addObject:person];
+            }
+           
         }
     }];
     
@@ -179,9 +187,15 @@ static OBDataModel *_DBCtl = nil;
         FMResultSet *result = [db executeQuery:SQL];
         while ([result next]) {
 
-        CustomDashboard *person = [[CustomDashboard alloc] init];
-        person = [CustomDashboard yy_modelWithJSON:[result stringForColumn:@"data"]];
-        [dataArray addObject:person];
+            if ([tablename isEqualToString:@"Dashboards"]) {
+                CustomDashboard *person = [[CustomDashboard alloc] init];
+                person = [CustomDashboard yy_modelWithJSON:[result stringForColumn:@"data"]];
+                [dataArray addObject:person];
+            }else if ([tablename isEqualToString: @"HUDs"]){
+                HUDSet *person = [[HUDSet alloc] init];
+                person = [HUDSet yy_modelWithJSON:[result stringForColumn:@"data"]];
+                [dataArray addObject:person];
+            }
         }
     }];
     return dataArray;
@@ -195,9 +209,15 @@ static OBDataModel *_DBCtl = nil;
         FMResultSet *result = [db executeQuery:sqlStr];
         
         while ([result next]) {
-            CustomDashboard *person = [[CustomDashboard alloc] init];
-            person = [CustomDashboard yy_modelWithJSON:[result stringForColumn:@"data"]];
-            [dataArray addObject:person];
+            if ([tablename isEqualToString:@"Dashboards"]) {
+                CustomDashboard *person = [[CustomDashboard alloc] init];
+                person = [CustomDashboard yy_modelWithJSON:[result stringForColumn:@"data"]];
+                [dataArray addObject:person];
+            }else if ([tablename isEqualToString: @"HUDs"]){
+                HUDSet *person = [[HUDSet alloc] init];
+                person = [HUDSet yy_modelWithJSON:[result stringForColumn:@"data"]];
+                [dataArray addObject:person];
+            }
         }
     }];
     DLog(@"%@",dataArray);

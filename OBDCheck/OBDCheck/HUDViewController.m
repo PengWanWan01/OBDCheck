@@ -11,13 +11,9 @@
 
 @interface HUDViewController ()<BlueToothControllerDelegate>
 {
-    UILabel *NumberLabel;
-    UILabel *PIDNameLabel;
-    UILabel *UnitLabel;
+ 
     UIView *lineView;
-    NSTimer* timer;
-    UIView *PortraitBackView;
-    UIView *landscapeBackView;
+//    NSTimer* timer;
 
 }
 @property (nonatomic,strong) NSMutableArray *PIDDataSource;
@@ -31,135 +27,98 @@
     [super viewWillAppear:animated];
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     [self initNavBarTitle:@"" andLeftItemImageName:@"back" andRightItemImageName:@"other"];
-    [self hideNavi];
-    [self initWithData];
-    [self initWithUI];
-}
-#pragma mark 设置横竖屏布局
-- (void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-        if (isLandscape) {
-        //翻转为横屏时
-        DLog(@"横屏");
-        [self setHorizontalFrame];
-        }else{
-            DLog(@"竖屏");
-            [self setVerticalFrame];
-        }
-}
-#pragma mark 竖屏
-- (void)setVerticalFrame{
-    PortraitBackView.hidden = NO;
-    landscapeBackView.hidden = YES;
-}
-#pragma mark 横屏
-- (void)setHorizontalFrame{
-    PortraitBackView.hidden = YES;
-    landscapeBackView.hidden = NO;
+   [self initWithUI];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initWithData];
+ 
     DLog(@"开始发送");
     self.blueTooth = [BlueToothController Instance];
     self.blueTooth.delegate = self;
     self.blueTooth.stopSend = NO;
-    //发送车速
-    [self.blueTooth SendData:[BlueTool hexToBytes:@"303130640D"]];
-
+    
+    
+}
+#pragma mark 设置横竖屏布局
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    for (NSInteger i = 0; i < 6; i++) {
+        HUDView *view = (HUDView *)[self.view viewWithTag:i+10];
+        NSInteger index = i % 2;
+        NSInteger page = i / 2;
+       view.frame =  CGRectMake(index * ((MSWidth/2) +2), page  * ( (MSHeight-TopHigh)/3), MSWidth/2, (MSHeight-TopHigh)/3 + 3);
+        view.NumberLabel.frame =  CGRectMake(0, view.frame.size.height/3, view.frame.size.width, view.frame.size.height/3);
+        view.PIDLabel.frame =  CGRectMake(13, 10, view.frame.size.width-26, view.frame.size.height/3 - 10);
+        
+        view.UnitLabel.frame = CGRectMake(13,2*view.frame.size.height/3, view.frame.size.width-26, view.frame.size.height/3);
+        view.RightLine.frame = CGRectMake(view.frame.size.width - 2, 0, 1, view.frame.size.height);
+        view.buttomLine.frame = CGRectMake(0, view.frame.size.height -1, view.frame.size.width, 1);
+        if (isLandscape) {
+            view.NumberLabel.font = [UIFont ToAdapFont:55.f];
+//            view.NumberLabel.adjustsFontSizeToFitWidth = YES;
+        }else{
+            view.NumberLabel.font = [UIFont ToAdapFont:70.f];
+        }
+    }
+    
+}
+#pragma mark 竖屏
+- (void)setVerticalFrame{
+  
+}
+#pragma mark 横屏
+- (void)setHorizontalFrame{
+  
 }
 
+
 - (void)initWithData{
-    self.PIDDataSource = [[NSMutableArray alloc]initWithObjects:@"Speed",@"Rotational Speed",@"Average fuel consumption", nil];
+    self.PIDDataSource = [[NSMutableArray alloc]initWithObjects:@"VSS",@"RPM",@"ECT",@"IAT",@"Batterry",@"EOT", nil];
      self.NumberDataSource = [[NSMutableArray alloc]initWithObjects:@"0",@"2500",@"7.6", nil];
     self.UnitDataSource = [[NSMutableArray alloc]initWithObjects:@"KM/H",@"R/MIN",@"L/100KM", nil];
     
 }
 
 - (void)initWithUI{
-    [self initWithLandscapeUI];
-    [self initWithPortraitUI];
+    [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    for (NSInteger i = 0; i<6; i++) {
+        NSInteger index = i % 2;
+        NSInteger page = i / 2;
+        HUDView *View  = [[HUDView alloc]initWithFrame:CGRectMake(index * ((MSWidth/2)-1 ), page  * ( (MSHeight-TopHigh)/3), MSWidth/2, (MSHeight-TopHigh)/3)];
+        View.tag = i+10;
+        [self.view addSubview:View];
+        View.PIDLabel.text = self.PIDDataSource[i];
+        HUDSet *model =   [[OBDataModel sharedDataBase]findTable:@"HUDs" withID:i+1].lastObject;
+        DLog(@"huoqu:%@ %@",model,model.NumberColor);
+        View.NumberLabel.textColor = [ColorTools colorWithHexString:model.NumberColor];
+        View.PIDLabel.textColor = [ColorTools colorWithHexString:model.PIDColor];
+        View.UnitLabel.textColor = [ColorTools colorWithHexString:model.UnitColor];
+    }
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
     
     [self.view addGestureRecognizer:tap];
 }
-#pragma mark 竖屏
-- (void)initWithPortraitUI
-{
-    PortraitBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_MIN, SCREEN_MAX)];
-    PortraitBackView.backgroundColor = [ColorTools colorWithHexString:@"212329"];
 
-    [self.view addSubview:PortraitBackView];
-    for (NSInteger i = 0; i<3; i++) {
-//        UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, i*(SCREEN_MAX/3), SCREEN_MIN, (SCREEN_MAX/3))];
-//        [PortraitBackView addSubview:backView]
-        HUDView *View  = [[HUDView alloc]initWithFrame:CGRectMake(0, i*(SCREEN_MAX/3), SCREEN_MIN, (SCREEN_MAX/3))];
-        View.NumberLabel.textColor = [ColorTools colorWithHexString:[[UserDefaultSet sharedInstance]GetStringAttribute:@"HUDColourStr"]];
-        View.PIDLabel.textColor = [ColorTools colorWithHexString:[[UserDefaultSet sharedInstance]GetStringAttribute:@"HUDColourStr"]];
-        View.UnitLabel.textColor = [ColorTools colorWithHexString:[[UserDefaultSet sharedInstance]GetStringAttribute:@"HUDColourStr"]];
-        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, View.frame.size.height, MSWidth, 1)];
-        lineView.backgroundColor = [UIColor whiteColor];
-        [View addSubview:lineView];
-        [PortraitBackView addSubview:View];
-
-        
-    }
-    
-    
-}
-#pragma mark 横屏
-- (void)initWithLandscapeUI{
-    landscapeBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_MAX, SCREEN_MIN)];
-    landscapeBackView.backgroundColor =  [ColorTools colorWithHexString:@"212329"];
-    [self.view addSubview:landscapeBackView];
-        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(SCREEN_MAX/2 - 1, 0, 1, SCREEN_MIN)];
-        lineView.backgroundColor = [UIColor whiteColor];
-        [landscapeBackView addSubview:lineView];
-        for (NSInteger i = 0; i< 2; i++) {
-            UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, (i +1) * (SCREEN_MIN/3), SCREEN_MAX, 1)];
-            lineView.backgroundColor = [UIColor whiteColor];
-       [landscapeBackView addSubview:lineView];
-        }
-        UIView *FristView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_MAX/2 - 1, (SCREEN_MIN - 2)/3 )];
-        [landscapeBackView addSubview:FristView];
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(FristView.frame.size.width/2 - 20, FristView.frame.size.height/2 - 22.5, 40, 45)];
-        imageView.image = [UIImage imageNamed:@"HUDBtn"];
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.userInteractionEnabled = YES;
-        UITapGestureRecognizer *Clicktap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickToHUD:)];
-          [imageView addGestureRecognizer:Clicktap];
-        [FristView addSubview:imageView];
-    
-        for (NSInteger i = 1; i< 6; i++) {
-            NSInteger index = i % 2;
-            NSInteger page = i / 2;
-            HUDView *View  = [[HUDView alloc]initWithFrame:CGRectMake(index * ((SCREEN_MAX/2)-1 ), page  * ( (SCREEN_MIN-2)/3), SCREEN_MAX/2, (SCREEN_MIN-2)/3)];
-            View.NumberLabel.textColor = [ColorTools colorWithHexString:[[UserDefaultSet sharedInstance]GetStringAttribute:@"HUDColourStr"]];
-            View.PIDLabel.textColor = [ColorTools colorWithHexString:[[UserDefaultSet sharedInstance]GetStringAttribute:@"HUDColourStr"]];
-            View.UnitLabel.textColor = [ColorTools colorWithHexString:[[UserDefaultSet sharedInstance]GetStringAttribute:@"HUDColourStr"]];
-            [landscapeBackView addSubview:View];
-           }
-    
-    
-}
 #pragma mark 屏幕上的点击事件
 - (void)tap{
-    //弹出导航栏和状态栏
-    self.navigationController.navigationBar.hidden = NO;
-    [UIApplication sharedApplication].statusBarHidden = NO;
-    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-    //创建计时器，3秒之后收回导航栏
-    timer = [NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(hideNavi) userInfo:nil repeats:NO];
-    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+//    //弹出导航栏和状态栏
+//    self.navigationController.navigationBar.hidden = NO;
+//    [UIApplication sharedApplication].statusBarHidden = NO;
+//    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+//    //创建计时器，3秒之后收回导航栏
+//    timer = [NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(hideNavi) userInfo:nil repeats:NO];
+//    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 
 }
 - (void)back{
-    [timer invalidate];
+//    [timer invalidate];
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)rightBarButtonClick{
-     [timer invalidate];
-    HUDColorViewController *vc = [[HUDColorViewController alloc]init];
+//     [timer invalidate];
+    HUDSetViewController *vc = [[HUDSetViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark 隐藏导航栏和状态栏

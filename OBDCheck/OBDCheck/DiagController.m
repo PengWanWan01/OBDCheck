@@ -274,7 +274,11 @@ static dispatch_source_t _timer;
     }
     return Cell;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    troubleCodeDetailController *vc = [[troubleCodeDetailController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
 /**
  刷新
  */

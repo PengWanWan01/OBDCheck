@@ -12,5 +12,6 @@
 @property (nonatomic,strong) UILabel *PIDLabel;
 @property (nonatomic,strong) UILabel *NumberLabel;
 @property (nonatomic,strong) UILabel *UnitLabel;
-
+@property (nonatomic,strong) UIView *RightLine;
+@property (nonatomic,strong) UIView  *buttomLine;
 @end

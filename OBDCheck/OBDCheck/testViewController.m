@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    DashStyleB *dash = [[DashStyleB alloc]initWithFrame:CGRectMake(50, 200, 204, 204)];
+    DashStyleA *dash = [[DashStyleA alloc]initWithFrame:CGRectMake(50, 200, 204, 204)];
 
     CustomDashboard *model = [[OBDataModel sharedDataBase]findTable:@"Dashboards" withID:3].lastObject;
     [dash  initWithModel:model];

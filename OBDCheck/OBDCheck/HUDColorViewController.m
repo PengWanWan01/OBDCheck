@@ -10,9 +10,11 @@
 #import "UIViewController+NavBar.h"
 
 @interface HUDColorViewController ()<UITableViewDelegate,UITableViewDataSource>
+{
+    HUDSet *model;
+}
 @property (nonatomic,strong)NSMutableArray *Colordatasource;
 @property (nonatomic,strong)NSMutableArray *ColorStrdatasource;
-
 @end
 
 @implementation HUDColorViewController
@@ -21,20 +23,27 @@
     self.view.backgroundColor = [ColorTools colorWithHexString:@"#212329"];
     [self initNavBarTitle:@"HUD" andLeftItemImageName:@"back" andRightItemImageName:@""];
     self.navigationController.navigationBar.hidden = NO;
-}
-- (void)viewDidLoad {
-    [super viewDidLoad];
+    model = [[OBDataModel sharedDataBase]findTable:@"HUDs" withID:self.indexID.section].lastObject;
     [self initWithData];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"ColorTableViewCell" bundle:nil] forCellReuseIdentifier:@"ColorTableViewCell"];
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+ 
     
 }
 
 - (void)initWithData{
     self.Colordatasource  = [[NSMutableArray alloc]initWithObjects:@"Green",@"Light blue",@"White",@"Yellow",@"Blue", nil];
     self.ColorStrdatasource = [[NSMutableArray alloc]initWithObjects:@"44FF00",@"14F1FF",@"FFFFFF",@"FFFF00",@"42B0FF", nil];
+}
+- (void)back{
+    [[OBDataModel sharedDataBase]updateTableName:@"HUDs" withdata:[model yy_modelToJSONString] withID:model.ID];
+    [self.navigationController popViewControllerAnimated:YES];
+
 }
 #pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -124,8 +133,26 @@
                         case 0:
                             {
                                 cell.SelcetColor.hidden = NO;
-                                [UserDefaultSet sharedInstance].HUDColourStr = self.ColorStrdatasource[indexPath.row];
-                                [[UserDefaultSet sharedInstance]SetStringAttribute:[UserDefaultSet sharedInstance].HUDColourStr Key:@"HUDColourStr"];
+                                switch (self.indexID.row) { //对应改变数据库的第几个数据
+                                    case 0:
+                                        {
+                                            model.PIDColor = self.ColorStrdatasource[indexPath.row];
+                                        }
+                                        break;
+                                    case 1:
+                                    {
+                                        model.NumberColor = self.ColorStrdatasource[indexPath.row];
+
+                                    }
+                                        break;
+                                    case 2:
+                                    {
+                                        model.UnitColor = self.ColorStrdatasource[indexPath.row];
+                                    }
+                                        break;
+                                    default:
+                                        break;
+                                }
                             }
                             break;
                         case 1:
